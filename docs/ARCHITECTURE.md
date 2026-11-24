@@ -11,13 +11,14 @@ scripts/
   autoload/            Global singletons (see below)
   framework/           Reusable gameplay frameworks (core, content, interaction, location, dialogue); see below
   combat/              Shared combat logic (Hitscan, Projectile, Explosion, FireZone, WeaponInventory, WeaponSlot, WeaponPickup)
-data/<type>/            Content .tres files (weapons, actions, locations, occupants, interiors, dialogues...), one per id
-  data/                Resource classes for data-driven content (weapons, businesses, crew)
+data/<type>/            Content .tres files (weapons, actions, locations, occupants, interiors, dialogues, areas, districts, safehouses, capture_rules...), one per id
+  data/                Resource classes for data-driven content (weapons, businesses, crew, territory/)
   npc/                 AI characters (GangMember)
   player/              Player controller
   ui/                  HUD and menus
   vehicles/            Vehicle controller
-  world/               Main scene, city generation, territories
+  territory/           District, Safehouse, runtime state, capture rules (rules/)
+  world/               Main scene, city generation
 assets/                Models, textures, audio (binary files; consider Git LFS once large)
 tests/                 Headless smoke tests
 docs/                  Design & architecture docs
@@ -28,9 +29,10 @@ docs/                  Design & architecture docs
 | Name | Role |
 | --- | --- |
 | `InputSetup` | Registers input actions in code so bindings are readable and diffable. |
-| `EventBus` | Global signals (`cash_changed`, `territory_captured`, `notify`...). Systems talk through it instead of referencing each other. |
-| `GameState` | Run state: cash, respect, gangs, territories, businesses, crew, flags, income timer. Future save/load serializes this. |
+| `EventBus` | Global signals (`cash_changed`, `district_captured`, `notify`...). Systems talk through it instead of referencing each other. |
+| `GameState` | Run state: cash, respect, gangs, businesses, crew, flags, income timer. Future save/load serializes this. |
 | `ContentDB` | Content registry: `.tres` defs by (type, id), scanned from `res://data/<type>/` plus override roots (mods). |
+| `Turf` | Territory authority (areas → districts → safehouses): id-based ownership queries (`owner_of`, `district_at`, `districts_in_area`, `owned_districts`, `area_owner`, `income_for`...), `set_district_owner()` as the only way ownership changes, area bonuses, `to_dict()`/`from_dict()`. Installs itself as `Locations.district_resolver`. |
 | `Locations` | Enterable buildings: placement, lookup/queries, enter/exit, status ticking, serializable state. |
 
 ## Key classes
@@ -40,8 +42,10 @@ docs/                  Design & architecture docs
 | `Player` | `CharacterBody3D` | On-foot movement, orbit camera, shooting, entering vehicles, health and respawn. |
 | `Vehicle` | `VehicleBody3D` | Driving, chase camera, drive-by shooting, running over NPCs, health/crash damage, smoke/fire/explode states. Built in code. |
 | `GangMember` | `CharacterBody3D` | Rival NPC: wander, aggro, shoot, die and drop rewards. |
-| `Territory` | `Node3D` | District bounds, owner gang, capture logic, map overlay. |
-| `CityGenerator` | `Node3D` | Deterministic greybox city: roads, buildings, districts, defenders, parked cars. |
+| `District` | `Node3D` | District bounds, safehouse, guards/patrols, map overlay; ticks its `CaptureRule`. Generated or placed by hand with a `district_id`. |
+| `Safehouse` | `Node3D` | A district's safehouse: visual from `SafehouseData.visual` (`VisualSpec`, greybox fallback), door, guard points, and an `Interactable` with "Take over" (`can_claim/claim`) and "Manage" (`can_manage/manage`, emits `safehouse_manage_requested` for #25). |
+| `CaptureRule` | `Resource` | Pluggable capture mechanic (`SafehouseCaptureRule` default, `ClearAndHoldCaptureRule`). Per-district progress lives in `DistrictState`. |
+| `CityGenerator` | `Node3D` | Deterministic greybox city: roads, buildings, districts from content (reserving a safehouse lot each), parked cars. |
 | `Hitscan` | `RefCounted` | Shared instant-hit firing (pellets, damage scale), aiming from the camera, tracers. |
 | `Projectile` | `Node3D` | Thrown/launched explosives: ray-stepped flight, bounce/stick/explode on impact, fuses and remote detonation. |
 | `Explosion` | `Node3D` | `detonate()`: radius damage with falloff and line of sight, physics impulse, visual, `EventBus.explosion`. |
@@ -51,6 +55,7 @@ docs/                  Design & architecture docs
 | `WeaponPickup` | `Area3D` | World pickup that grants a weapon or ammo. |
 | `WeaponWheel` | `Control` | Radial selector; pauses the tree while open (`PROCESS_MODE_ALWAYS`). |
 | `WeaponData`, `BusinessData`, `CrewMemberData` | `Resource` | Data-driven content definitions. |
+| `AreaData`, `DistrictData`, `SafehouseData`, `CaptureRule` | `ContentDef` | Turf content loaded through `ContentDB`: area bonuses, district owner/income/defenders/layout hints, safehouse visuals and claim settings. |
 
 ## Gameplay frameworks (`scripts/framework/`)
 
@@ -86,4 +91,4 @@ No gameplay code hardcodes `res://` content paths. See [CONTENT.md](CONTENT.md).
 godot --headless --path . res://tests/test_runner.tscn
 ```
 
-Exits non-zero on failure. Add a check to `tests/run_tests.gd` for every new gameplay rule. Framework tests live in `tests/framework_tests.gd`, `location_tests.gd` and `dialogue_tests.gd`; they run in a sandbox far below the city.
+Exits non-zero on failure. Add a check to `tests/run_tests.gd` for every new gameplay rule. Framework tests live in `tests/framework_tests.gd`, `location_tests.gd` and `dialogue_tests.gd`; they run in a sandbox far below the city. Turf checks live in `tests/turf_tests.gd`.

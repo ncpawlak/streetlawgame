@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="DistrictData" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/territory/district_data.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/data/territory/defender_config.gd" id="2"]
+
+[sub_resource type="Resource" id="defenders"]
+script = ExtResource("2")
+guard_count = 4
+patrol_count = 2
+
+[resource]
+script = ExtResource("1")
+id = &"the_bottoms"
+display_name = "The Bottoms"
+area_id = &"southside"
+starting_owner = &"player"
+income_per_cycle = 150
+capture_respect = 100
+defenders = SubResource("defenders")
+tags = Array[StringName]([&"projects", &"residential"])
+grid_origin = Vector2i(0, 0)

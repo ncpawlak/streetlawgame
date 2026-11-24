@@ -1,5 +1,5 @@
 extends Node
-## Run state: money, respect, gangs, territory ownership, owned businesses and crew.
+## Run state: money, respect, gangs, owned businesses and crew. Territory ownership lives in [Turf].
 
 const PLAYER_GANG := &"player"
 const NO_GANG := &"none"
@@ -18,11 +18,9 @@ const GANGS := {
 
 var cash := 0
 var respect := 0
-var territories: Array[Territory] = []
 var businesses: Array[BusinessData] = []
 var crew: Array[CrewMemberData] = []
 var player: Player
-var current_territory: Territory
 ## Width of the generated city in meters (set by CityGenerator).
 var city_extent := 0.0
 ## Unpaused seconds played; the clock for cooldowns and timed resets.
@@ -44,15 +42,6 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	play_time += delta
-
-
-func _physics_process(_delta: float) -> void:
-	if player == null:
-		return
-	var territory := territory_at(player.get_focus_position())
-	if territory != current_territory:
-		current_territory = territory
-		EventBus.territory_entered.emit(territory)
 
 
 func gang_name(gang_id: StringName) -> String:
@@ -99,31 +88,8 @@ func add_respect(amount: int) -> void:
 	EventBus.respect_changed.emit(respect)
 
 
-func register_territory(territory: Territory) -> void:
-	if not territories.has(territory):
-		territories.append(territory)
-		territory.tree_exiting.connect(func() -> void: territories.erase(territory))
-
-
-func territory_at(position: Vector3) -> Territory:
-	for territory in territories:
-		if territory.contains_point(position):
-			return territory
-	return null
-
-
-func owned_territories(gang_id: StringName) -> Array[Territory]:
-	var owned: Array[Territory] = []
-	for territory in territories:
-		if territory.owner_gang == gang_id:
-			owned.append(territory)
-	return owned
-
-
 func pay_income() -> void:
-	var total := 0
-	for territory in owned_territories(PLAYER_GANG):
-		total += territory.income_per_cycle
+	var total := Turf.income_for(PLAYER_GANG)
 	for business in businesses:
 		total += business.income_per_cycle
 	if total > 0:

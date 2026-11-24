@@ -20,7 +20,7 @@
 ```mermaid
 flowchart LR
     A[Earn cash & respect<br/>robberies, dealing, kills] --> B[Spend<br/>guns, crew, businesses, upgrades]
-    B --> C[Take turf<br/>clear defenders, hold zone]
+    B --> C[Take turf<br/>kill safehouse guards, hold the door]
     C --> D[Turf & businesses<br/>pay passive income]
     D --> A
     C --> E[Rivals retaliate<br/>counter-attacks, wars]
@@ -55,12 +55,12 @@ flowchart LR
 
 ### 5.1 Territories & gang warfare ✅ *(prototype)*
 - The city is split into **districts**, each owned by a gang (or unclaimed).
-- *Planned hierarchy (#24):* the city is made of **areas**, each with several **districts**. Each district has a **safehouse**: take the safehouse to take the district, and take every district to take the area. Owned safehouses are where you **manage your gang and buy upgrades** (#25).
+- The city is made of **areas** (Southside, Central, Northside), each with several **districts**. Each district has a **safehouse**: take the safehouse to take the district, and take every district to take the area. Owning a whole area pays a respect reward, boosts its districts' income and unlocks flags. Losing any district loses the area. *Planned (#25):* owned safehouses are where you **manage your gang and buy upgrades**.
 - **Enterable buildings** *(prototype, #26):* every district has buildings placed on city lots. Corner stores, bars, homes, rival fronts and an informant's flat each show a door prompt.
   - **Rob:** empty the register or break in. The building is marked robbed and refills over time.
   - **Take out:** clear the armed guards inside a rival front. This pays cash and respect, and the front stays closed.
   - **Talk:** persuade, intimidate (needs a drawn gun) or pay people. This gets you intel (marks rival fronts on the map, or safehouse leads), recruits for your crew, favours, or a quiet register squeeze. Odds depend on respect, weapon, turf and how the person feels about you. Failing can raise heat.
-- **Capture:** kill every defender in the district, then stay inside on foot until the capture bar fills.
+- **Capture:** kill the guards at the district's safehouse, then press E at its door ("Take over") and hold it on foot until the capture bar fills (stepping away drains it). Capture rules are data, so districts can use other rules, such as the old clear-and-hold.
 - Owned districts pay **income every cycle** (30 s in the prototype) and give **respect**.
 - *Next:* rival **counter-attacks** on your turf, **turf wars** (wave defense), **strongholds/bosses** per gang, district **heat**, and capturing **sub-zones** (blocks or hotspots) instead of whole districts.
 
