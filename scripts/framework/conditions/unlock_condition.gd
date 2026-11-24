@@ -3,7 +3,6 @@ extends Condition
 ## True when the player has an unlock id (granted by plugs, missions...), e.g. &"drug:coke".
 
 @export var unlock_id: StringName
-@export var failure_text := "Locked"
 
 
 func _evaluate(ctx: ActionContext) -> bool:
@@ -12,4 +11,4 @@ func _evaluate(ctx: ActionContext) -> bool:
 
 
 func _reason(_ctx: ActionContext) -> String:
-	return failure_text
+	return "Locked (%s)" % unlock_id
