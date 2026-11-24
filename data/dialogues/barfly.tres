@@ -1,0 +1,87 @@
+[gd_resource type="Resource" script_class="DialogueDef" format=3]
+
+[ext_resource type="Script" path="res://scripts/framework/dialogue/dialogue_node.gd" id="1_2tp11"]
+[ext_resource type="Script" path="res://scripts/framework/dialogue/dialogue_choice.gd" id="2_vjs6l"]
+[ext_resource type="Script" path="res://scripts/framework/dialogue/checks/persuade_check.gd" id="3_5rocv"]
+[ext_resource type="Script" path="res://scripts/framework/core/condition.gd" id="4_wcsq7"]
+[ext_resource type="Script" path="res://scripts/framework/location/conditions/location_flag_condition.gd" id="5_2tmp6"]
+[ext_resource type="Script" path="res://scripts/framework/core/cost.gd" id="6_i3ru1"]
+[ext_resource type="Script" path="res://scripts/framework/core/effect.gd" id="7_6ptvp"]
+[ext_resource type="Script" path="res://scripts/framework/location/effects/recruit_effect.gd" id="8_53qow"]
+[ext_resource type="Script" path="res://scripts/framework/location/effects/set_location_flag_effect.gd" id="9_7ces4"]
+[ext_resource type="Script" path="res://scripts/framework/core/costs/cash_cost.gd" id="10_8yn5l"]
+[ext_resource type="Script" path="res://scripts/framework/dialogue/dialogue_def.gd" id="11_2ncei"]
+
+[sub_resource type="Resource" id="Resource_kuk70"]
+script = ExtResource("3_5rocv")
+
+[sub_resource type="Resource" id="Resource_bkj74"]
+script = ExtResource("5_2tmp6")
+flag = &"recruited"
+invert = true
+hide_when_unmet = true
+
+[sub_resource type="Resource" id="Resource_nr6m7"]
+script = ExtResource("8_53qow")
+
+[sub_resource type="Resource" id="Resource_xm46x"]
+script = ExtResource("9_7ces4")
+flag = &"recruited"
+
+[sub_resource type="Resource" id="Resource_w30e6"]
+script = ExtResource("2_vjs6l")
+text = "[Persuade] Want to make some real money?"
+conditions = Array[ExtResource("4_wcsq7")]([SubResource("Resource_bkj74")])
+check = SubResource("Resource_kuk70")
+effects = Array[ExtResource("7_6ptvp")]([SubResource("Resource_nr6m7"), SubResource("Resource_xm46x")])
+next = &"joined"
+fail_next = &"scoff"
+
+[sub_resource type="Resource" id="Resource_xrvme"]
+script = ExtResource("5_2tmp6")
+flag = &"recruited"
+invert = true
+hide_when_unmet = true
+
+[sub_resource type="Resource" id="Resource_xvlrl"]
+script = ExtResource("10_8yn5l")
+amount = 200
+
+[sub_resource type="Resource" id="Resource_1ma71"]
+script = ExtResource("9_7ces4")
+flag = &"recruited"
+
+[sub_resource type="Resource" id="Resource_xxovy"]
+script = ExtResource("2_vjs6l")
+text = "Here's a signing bonus. ($200)"
+conditions = Array[ExtResource("4_wcsq7")]([SubResource("Resource_xrvme")])
+costs = Array[ExtResource("6_i3ru1")]([SubResource("Resource_xvlrl")])
+effects = Array[ExtResource("7_6ptvp")]([SubResource("Resource_nr6m7"), SubResource("Resource_1ma71")])
+next = &"joined"
+
+[sub_resource type="Resource" id="Resource_hv1yi"]
+script = ExtResource("2_vjs6l")
+text = "Enjoy your drink."
+
+[sub_resource type="Resource" id="Resource_qb10d"]
+script = ExtResource("1_2tp11")
+text = "{occupant} squints at you over a warm beer."
+choices = Array[ExtResource("2_vjs6l")]([SubResource("Resource_w30e6"), SubResource("Resource_xxovy"), SubResource("Resource_hv1yi")])
+
+[sub_resource type="Resource" id="Resource_lm4mk"]
+script = ExtResource("1_2tp11")
+id = &"joined"
+text = "\"Hell yeah. When do I start?\""
+outcome = &"recruited"
+
+[sub_resource type="Resource" id="Resource_hueou"]
+script = ExtResource("1_2tp11")
+id = &"scoff"
+text = "\"Get lost.\""
+outcome = &"refused"
+
+[resource]
+script = ExtResource("11_2ncei")
+nodes = Array[ExtResource("1_2tp11")]([SubResource("Resource_qb10d"), SubResource("Resource_lm4mk"), SubResource("Resource_hueou")])
+id = &"barfly"
+display_name = "Barfly"

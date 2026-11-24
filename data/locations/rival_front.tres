@@ -1,0 +1,37 @@
+[gd_resource type="Resource" script_class="LocationDef" format=3]
+
+[ext_resource type="Script" path="res://scripts/framework/core/effect.gd" id="1_qogtk"]
+[ext_resource type="Script" path="res://scripts/framework/core/effects/cash_effect.gd" id="2_4b7sg"]
+[ext_resource type="Script" path="res://scripts/framework/core/effects/respect_effect.gd" id="3_7nayh"]
+[ext_resource type="Script" path="res://scripts/framework/interaction/interaction_action.gd" id="4_a7qkd"]
+[ext_resource type="Resource" path="res://data/interiors/front_room.tres" id="5_ehced"]
+[ext_resource type="Script" path="res://scripts/framework/location/occupant_def.gd" id="6_ubaeb"]
+[ext_resource type="Script" path="res://scripts/framework/location/location_def.gd" id="7_y1jje"]
+
+[sub_resource type="Resource" id="Resource_xxjk5"]
+script = ExtResource("2_4b7sg")
+amount = 300
+max_amount = 600
+message = "Cleaned out the safe: ${cash_gained}"
+
+[sub_resource type="Resource" id="Resource_e6638"]
+script = ExtResource("3_7nayh")
+amount = 15
+
+[resource]
+script = ExtResource("7_y1jje")
+kind = &"front"
+color = Color(0.8, 0.25, 0.25, 1)
+interior = ExtResource("5_ehced")
+door_action_ids = Array[StringName]([&"enter_building", &"torch"])
+occupant_ids = Array[StringName]([&"front_guard", &"front_boss"])
+cleared_effects = Array[ExtResource("1_qogtk")]([SubResource("Resource_xxjk5"), SubResource("Resource_e6638")])
+default_owner = &"district_owner"
+cash_capacity = 800
+min_count = 3
+spawn_weight = 1.5
+max_per_district = 1
+id = &"rival_front"
+display_name = "Rival Front"
+description = "A gang business. Clear it out or torch it to hit their income."
+tags = Array[StringName]([&"gang", &"takeout"])

@@ -1,0 +1,43 @@
+[gd_resource type="Resource" script_class="InteractionAction" format=3]
+
+[ext_resource type="Script" path="res://scripts/framework/core/condition.gd" id="1_6ot67"]
+[ext_resource type="Script" path="res://scripts/framework/core/conditions/weapon_drawn_condition.gd" id="2_thgjd"]
+[ext_resource type="Script" path="res://scripts/framework/location/conditions/location_status_condition.gd" id="3_mco4e"]
+[ext_resource type="Script" path="res://scripts/framework/core/cost.gd" id="4_gviy1"]
+[ext_resource type="Script" path="res://scripts/framework/core/effect.gd" id="5_wgiwe"]
+[ext_resource type="Script" path="res://scripts/framework/location/effects/rob_location_effect.gd" id="6_n72fy"]
+[ext_resource type="Script" path="res://scripts/framework/location/effects/set_location_status_effect.gd" id="7_q1ca2"]
+[ext_resource type="Script" path="res://scripts/framework/location/effects/heat_effect.gd" id="8_5bxsv"]
+[ext_resource type="Script" path="res://scripts/framework/core/effects/respect_effect.gd" id="9_phc2w"]
+[ext_resource type="Script" path="res://scripts/framework/interaction/interaction_action.gd" id="10_ox0q2"]
+
+[sub_resource type="Resource" id="Resource_17v7n"]
+script = ExtResource("2_thgjd")
+failure_text = "Pull a weapon first"
+
+[sub_resource type="Resource" id="Resource_lsvgv"]
+script = ExtResource("3_mco4e")
+
+[sub_resource type="Resource" id="Resource_pf5nu"]
+script = ExtResource("6_n72fy")
+
+[sub_resource type="Resource" id="Resource_r4uah"]
+script = ExtResource("7_q1ca2")
+reset_after = 300.0
+
+[sub_resource type="Resource" id="Resource_hl0fh"]
+script = ExtResource("8_5bxsv")
+
+[sub_resource type="Resource" id="Resource_qdca4"]
+script = ExtResource("9_phc2w")
+amount = 2
+
+[resource]
+script = ExtResource("10_ox0q2")
+verb = "Rob the register"
+priority = 5
+conditions = Array[ExtResource("1_6ot67")]([SubResource("Resource_17v7n"), SubResource("Resource_lsvgv")])
+effects = Array[ExtResource("5_wgiwe")]([SubResource("Resource_pf5nu"), SubResource("Resource_r4uah"), SubResource("Resource_hl0fh"), SubResource("Resource_qdca4")])
+id = &"rob_register"
+display_name = "Rob the register"
+description = "Stick up the clerk: empties the register, store closes for a while."

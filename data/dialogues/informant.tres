@@ -1,0 +1,100 @@
+[gd_resource type="Resource" script_class="DialogueDef" format=3]
+
+[ext_resource type="Script" path="res://scripts/framework/dialogue/dialogue_node.gd" id="1_fvj67"]
+[ext_resource type="Script" path="res://scripts/framework/dialogue/dialogue_choice.gd" id="2_h3fqi"]
+[ext_resource type="Script" path="res://scripts/framework/core/condition.gd" id="3_5wsvx"]
+[ext_resource type="Script" path="res://scripts/framework/core/cost.gd" id="4_swh7b"]
+[ext_resource type="Script" path="res://scripts/framework/core/costs/cash_cost.gd" id="5_hr6f0"]
+[ext_resource type="Script" path="res://scripts/framework/core/effect.gd" id="6_ggdd4"]
+[ext_resource type="Script" path="res://scripts/framework/dialogue/checks/persuade_check.gd" id="7_cfh5q"]
+[ext_resource type="Script" path="res://scripts/framework/core/conditions/weapon_drawn_condition.gd" id="8_30m51"]
+[ext_resource type="Script" path="res://scripts/framework/dialogue/checks/intimidate_check.gd" id="9_4rtk1"]
+[ext_resource type="Script" path="res://scripts/framework/dialogue/effects/disposition_effect.gd" id="10_ent5o"]
+[ext_resource type="Script" path="res://scripts/framework/location/effects/intel_effect.gd" id="11_7icqm"]
+[ext_resource type="Script" path="res://scripts/framework/dialogue/dialogue_def.gd" id="12_o3svi"]
+
+[sub_resource type="Resource" id="Resource_wnd4q"]
+script = ExtResource("5_hr6f0")
+amount = 250
+
+[sub_resource type="Resource" id="Resource_ba27x"]
+script = ExtResource("2_h3fqi")
+text = "Where are the rival fronts? ($250)"
+costs = Array[ExtResource("4_swh7b")]([SubResource("Resource_wnd4q")])
+next = &"fronts"
+
+[sub_resource type="Resource" id="Resource_gmrgn"]
+script = ExtResource("7_cfh5q")
+
+[sub_resource type="Resource" id="Resource_0170t"]
+script = ExtResource("2_h3fqi")
+text = "[Persuade] Where can I lay low?"
+check = SubResource("Resource_gmrgn")
+next = &"safehouse"
+fail_next = &"clam_up"
+
+[sub_resource type="Resource" id="Resource_qk40f"]
+script = ExtResource("8_30m51")
+
+[sub_resource type="Resource" id="Resource_6w63y"]
+script = ExtResource("9_4rtk1")
+drawn = SubResource("Resource_qk40f")
+
+[sub_resource type="Resource" id="Resource_2vjs1"]
+script = ExtResource("10_ent5o")
+fear = -0.1
+favor = -0.4
+
+[sub_resource type="Resource" id="Resource_kw10p"]
+script = ExtResource("2_h3fqi")
+text = "[Intimidate] Talk, or else."
+check = SubResource("Resource_6w63y")
+next = &"fronts"
+fail_effects = Array[ExtResource("6_ggdd4")]([SubResource("Resource_2vjs1")])
+fail_next = &"clam_up"
+
+[sub_resource type="Resource" id="Resource_ke1i2"]
+script = ExtResource("2_h3fqi")
+text = "Wrong door."
+
+[sub_resource type="Resource" id="Resource_h3guk"]
+script = ExtResource("1_fvj67")
+text = "{occupant} cracks the door. \"Depends who's asking.\""
+choices = Array[ExtResource("2_h3fqi")]([SubResource("Resource_ba27x"), SubResource("Resource_0170t"), SubResource("Resource_kw10p"), SubResource("Resource_ke1i2")])
+
+[sub_resource type="Resource" id="Resource_ec3ej"]
+script = ExtResource("11_7icqm")
+intel_id = &"rival_fronts"
+message = "Rival fronts marked on your map"
+reveal_kind = &"front"
+
+[sub_resource type="Resource" id="Resource_evryd"]
+script = ExtResource("1_fvj67")
+id = &"fronts"
+text = "\"Fine. Here's every front I know of. You didn't hear it from me.\""
+on_enter = Array[ExtResource("6_ggdd4")]([SubResource("Resource_ec3ej")])
+outcome = &"intel"
+
+[sub_resource type="Resource" id="Resource_7enyh"]
+script = ExtResource("11_7icqm")
+intel_id = &"safehouse_lead"
+message = "Lead: a quiet place to lay low"
+
+[sub_resource type="Resource" id="Resource_23ngr"]
+script = ExtResource("1_fvj67")
+id = &"safehouse"
+text = "\"There's an empty place a few blocks over. Nobody asks questions.\""
+on_enter = Array[ExtResource("6_ggdd4")]([SubResource("Resource_7enyh")])
+outcome = &"safehouse_lead"
+
+[sub_resource type="Resource" id="Resource_vb2ds"]
+script = ExtResource("1_fvj67")
+id = &"clam_up"
+text = "The door slams shut."
+outcome = &"refused"
+
+[resource]
+script = ExtResource("12_o3svi")
+nodes = Array[ExtResource("1_fvj67")]([SubResource("Resource_h3guk"), SubResource("Resource_evryd"), SubResource("Resource_23ngr"), SubResource("Resource_vb2ds")])
+id = &"informant"
+display_name = "Informant"

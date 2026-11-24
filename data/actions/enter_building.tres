@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="InteractionAction" format=3]
+
+[ext_resource type="Script" path="res://scripts/framework/core/condition.gd" id="1_2ngeu"]
+[ext_resource type="Script" path="res://scripts/framework/core/cost.gd" id="2_cxtr8"]
+[ext_resource type="Script" path="res://scripts/framework/core/effect.gd" id="3_ls3ww"]
+[ext_resource type="Script" path="res://scripts/framework/location/effects/enter_location_effect.gd" id="4_fga8o"]
+[ext_resource type="Script" path="res://scripts/framework/interaction/interaction_action.gd" id="5_doubb"]
+
+[sub_resource type="Resource" id="Resource_4pess"]
+script = ExtResource("4_fga8o")
+
+[resource]
+script = ExtResource("5_doubb")
+verb = "Enter"
+priority = 10
+effects = Array[ExtResource("3_ls3ww")]([SubResource("Resource_4pess")])
+id = &"enter_building"
+display_name = "Enter"

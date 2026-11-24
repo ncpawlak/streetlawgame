@@ -25,6 +25,10 @@ var player: Player
 var current_territory: Territory
 ## Width of the generated city in meters (set by CityGenerator).
 var city_extent := 0.0
+## Unpaused seconds played; the clock for cooldowns and timed resets.
+var play_time := 0.0
+## Story/progress flags (see set_flag).
+var flags: Dictionary = {}
 
 var _income_timer: Timer
 
@@ -36,6 +40,10 @@ func _ready() -> void:
 	_income_timer.autostart = true
 	_income_timer.timeout.connect(pay_income)
 	add_child(_income_timer)
+
+
+func _process(delta: float) -> void:
+	play_time += delta
 
 
 func _physics_process(_delta: float) -> void:
@@ -55,13 +63,23 @@ func gang_color(gang_id: StringName) -> Color:
 	return GANGS.get(gang_id, {}).get("color", Color(0.5, 0.5, 0.5))
 
 
-## Loads res://data/weapons/<id>.tres (cached by Godot's resource loader).
+## The weapon definition for [param id] from ContentDB (data/weapons/<id>.tres, overridable by mods).
 func weapon_data(id: StringName) -> WeaponData:
-	var path := "res://data/weapons/%s.tres" % id
-	if not ResourceLoader.exists(path):
-		push_error("Unknown weapon id: %s" % id)
-		return null
-	return load(path) as WeaponData
+	return ContentDB.get_def(&"weapons", id) as WeaponData
+
+
+## Story/progress flags set by content (SetFlagEffect, dialogue...). Plain data so it can be saved.
+func get_flag(flag: StringName, default: Variant = false) -> Variant:
+	return flags.get(flag, default)
+
+
+func set_flag(flag: StringName, value: Variant = true) -> void:
+	flags[flag] = value
+	EventBus.flag_changed.emit(flag, value)
+
+
+func has_flag(flag: StringName) -> bool:
+	return flags.has(flag) and flags[flag] != false and flags[flag] != null
 
 
 func add_cash(amount: int) -> void:

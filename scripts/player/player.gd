@@ -21,6 +21,8 @@ var health := 0.0
 var current_vehicle: Vehicle
 var spawn_point := Vector3.ZERO
 var weapons: WeaponInventory
+## Finds and runs Interactables (E); vehicles are entered through it too.
+var interactor: Interactor
 
 var _gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 var _regen_wait := 0.0
@@ -38,6 +40,9 @@ func _ready() -> void:
 	weapons.name = "Weapons"
 	add_child(weapons)
 	weapons.current_index = weapons.slots.size() - 1
+	interactor = Interactor.new()
+	interactor.name = "Interactor"
+	add_child(interactor)
 	health = max_health
 	spawn_point = global_position
 	_camera_pivot.top_level = true
@@ -54,7 +59,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		_camera_pivot.rotate_y(-motion.relative.x * mouse_sensitivity)
 		_spring_arm.rotation.x = clampf(_spring_arm.rotation.x - motion.relative.y * mouse_sensitivity, deg_to_rad(-65.0), deg_to_rad(25.0))
 	elif event.is_action_pressed("interact"):
-		if is_on_foot() and _try_enter_vehicle():
+		if is_on_foot() and (interactor.try_interact() or _try_enter_vehicle()):
 			get_viewport().set_input_as_handled()
 	elif event.is_action_pressed("reload"):
 		weapons.reload()

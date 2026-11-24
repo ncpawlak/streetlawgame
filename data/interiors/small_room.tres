@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="PocketInterior" format=3]
+
+[ext_resource type="Script" path="res://scripts/framework/interaction/interaction_action.gd" id="1_j0ep0"]
+[ext_resource type="Script" path="res://scripts/framework/content/visual_spec.gd" id="2_u0r2s"]
+[ext_resource type="Script" path="res://scripts/framework/location/interiors/pocket_interior.gd" id="3_ljoyb"]
+
+[resource]
+script = ExtResource("3_ljoyb")

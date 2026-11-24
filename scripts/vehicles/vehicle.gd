@@ -69,7 +69,23 @@ func _ready() -> void:
 	_build_wheels()
 	_build_camera()
 	_build_damage_effects()
+	_build_interactable()
 
+
+## Entering is an ordinary interaction, so it shares the E prompt with everything else.
+func _build_interactable() -> void:
+	var interactable := Interactable.new()
+	interactable.name = "Interactable"
+	interactable.prompt_name = "Vehicle"
+	interactable.radius = 3.5
+	var enter_condition := MethodCondition.create(&"can_enter")
+	enter_condition.hide_when_unmet = true
+	var enter_effect := MethodEffect.create(&"enter")
+	enter_effect.pass_actor = true
+	var conditions: Array[Condition] = [enter_condition]
+	var effects: Array[Effect] = [enter_effect]
+	interactable.add_action(InteractionAction.create(&"enter_vehicle", "Steal vehicle", effects, conditions))
+	add_child(interactable)
 
 func can_enter() -> bool:
 	return driver == null and not is_wrecked()

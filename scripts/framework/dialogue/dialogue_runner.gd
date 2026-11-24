@@ -1,0 +1,103 @@
+class_name DialogueRunner
+extends RefCounted
+## UI-agnostic conversation logic: walks a DialogueDef, filters/labels choices, pays costs, rolls
+## checks and applies effects. DialogueView draws it; tests drive it directly.
+
+signal node_entered(node: DialogueNode)
+signal ended(dialogue_id: StringName, outcome: StringName)
+
+var def: DialogueDef
+var ctx: ActionContext
+## Last non-empty DialogueNode.outcome reached.
+var outcome: StringName = &""
+
+var _node: DialogueNode
+
+
+func start(dialogue: DialogueDef, context: ActionContext) -> bool:
+	def = dialogue
+	ctx = context
+	outcome = &""
+	_node = null
+	if def == null or def.find_node(def.start) == null:
+		return false
+	EventBus.dialogue_started.emit(def.id, ctx.target)
+	_enter(def.start)
+	return true
+
+
+func is_active() -> bool:
+	return _node != null
+
+
+func current() -> DialogueNode:
+	return _node
+
+
+func text() -> String:
+	return ctx.format(_node.text) if _node != null else ""
+
+
+func speaker_name() -> String:
+	if _node == null:
+		return ""
+	if _node.speaker == &"player":
+		return "You"
+	return ActionContext._label_of(ctx.occupant if ctx.occupant != null else ctx.target)
+
+
+func choices() -> Array[DialogueChoice]:
+	var result: Array[DialogueChoice] = []
+	if _node == null:
+		return result
+	for choice in _node.choices:
+		if choice != null and choice.is_visible(ctx):
+			result.append(choice)
+	return result
+
+
+## "" when the choice can be picked, else why not.
+func choice_state(choice: DialogueChoice) -> String:
+	return choice.unavailable_reason(ctx)
+
+
+## Picks visible choice [param index]. Returns true when it went through and its check (if any) passed.
+func choose(index: int) -> bool:
+	var visible := choices()
+	if index < 0 or index >= visible.size():
+		return false
+	var choice := visible[index]
+	if choice.unavailable_reason(ctx) != "" or not Cost.pay_all(choice.costs, ctx):
+		return false
+	var passed := choice.check == null or choice.check.roll(ctx)
+	if passed:
+		Effect.apply_all(choice.effects, ctx)
+		_enter(choice.next)
+	else:
+		Effect.apply_all(choice.fail_effects, ctx)
+		_enter(choice.fail_next)
+	return passed
+
+
+## Leaves the conversation (e.g. a node with no choices, or the player walks off).
+func end() -> void:
+	if def == null:
+		return
+	_node = null
+	var finished := def
+	def = null
+	EventBus.dialogue_ended.emit(finished.id, outcome)
+	ended.emit(finished.id, outcome)
+
+
+func _enter(node_id: StringName) -> void:
+	var node := def.find_node(node_id) if node_id != &"" else null
+	if node == null:
+		end()
+		return
+	_node = node
+	if node.outcome != &"":
+		outcome = node.outcome
+	Effect.apply_all(node.on_enter, ctx)
+	if def != null and _node == node:
+		node_entered.emit(node)

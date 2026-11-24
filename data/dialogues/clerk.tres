@@ -1,0 +1,142 @@
+[gd_resource type="Resource" script_class="DialogueDef" format=3]
+
+[ext_resource type="Script" path="res://scripts/framework/dialogue/dialogue_node.gd" id="1_ewb1l"]
+[ext_resource type="Script" path="res://scripts/framework/dialogue/dialogue_choice.gd" id="2_1n6x6"]
+[ext_resource type="Script" path="res://scripts/framework/dialogue/checks/persuade_check.gd" id="3_l28wi"]
+[ext_resource type="Script" path="res://scripts/framework/core/condition.gd" id="4_lotse"]
+[ext_resource type="Script" path="res://scripts/framework/core/cost.gd" id="5_4p604"]
+[ext_resource type="Script" path="res://scripts/framework/core/effect.gd" id="6_w6s64"]
+[ext_resource type="Script" path="res://scripts/framework/dialogue/effects/disposition_effect.gd" id="7_gqmn5"]
+[ext_resource type="Script" path="res://scripts/framework/core/conditions/weapon_drawn_condition.gd" id="8_6e2nq"]
+[ext_resource type="Script" path="res://scripts/framework/dialogue/checks/intimidate_check.gd" id="9_dts2t"]
+[ext_resource type="Script" path="res://scripts/framework/location/conditions/location_status_condition.gd" id="10_gp0vw"]
+[ext_resource type="Script" path="res://scripts/framework/location/effects/heat_effect.gd" id="11_pspfm"]
+[ext_resource type="Script" path="res://scripts/framework/core/costs/cash_cost.gd" id="12_wcp1n"]
+[ext_resource type="Script" path="res://scripts/framework/location/effects/intel_effect.gd" id="13_1hix3"]
+[ext_resource type="Script" path="res://scripts/framework/location/effects/rob_location_effect.gd" id="14_w4x8n"]
+[ext_resource type="Script" path="res://scripts/framework/core/effects/respect_effect.gd" id="15_o0fg8"]
+[ext_resource type="Script" path="res://scripts/framework/dialogue/dialogue_def.gd" id="16_kn2ol"]
+
+[sub_resource type="Resource" id="Resource_j6a5m"]
+script = ExtResource("3_l28wi")
+
+[sub_resource type="Resource" id="Resource_m6nj2"]
+script = ExtResource("7_gqmn5")
+favor = -0.2
+
+[sub_resource type="Resource" id="Resource_idnl0"]
+script = ExtResource("2_1n6x6")
+text = "[Persuade] Who runs this block?"
+check = SubResource("Resource_j6a5m")
+next = &"talk_turf"
+fail_effects = Array[ExtResource("6_w6s64")]([SubResource("Resource_m6nj2")])
+fail_next = &"brush_off"
+
+[sub_resource type="Resource" id="Resource_hprsm"]
+script = ExtResource("8_6e2nq")
+
+[sub_resource type="Resource" id="Resource_ce8yy"]
+script = ExtResource("9_dts2t")
+drawn = SubResource("Resource_hprsm")
+
+[sub_resource type="Resource" id="Resource_e8o88"]
+script = ExtResource("10_gp0vw")
+hide_when_unmet = true
+
+[sub_resource type="Resource" id="Resource_lvm6h"]
+script = ExtResource("11_pspfm")
+amount = 2
+
+[sub_resource type="Resource" id="Resource_si485"]
+script = ExtResource("7_gqmn5")
+fear = -0.2
+favor = -0.3
+
+[sub_resource type="Resource" id="Resource_klaom"]
+script = ExtResource("2_1n6x6")
+text = "[Intimidate] Empty the register. Quietly."
+conditions = Array[ExtResource("4_lotse")]([SubResource("Resource_e8o88")])
+check = SubResource("Resource_ce8yy")
+next = &"squeezed"
+fail_effects = Array[ExtResource("6_w6s64")]([SubResource("Resource_lvm6h"), SubResource("Resource_si485")])
+fail_next = &"alarm"
+
+[sub_resource type="Resource" id="Resource_8y66g"]
+script = ExtResource("12_wcp1n")
+amount = 100
+
+[sub_resource type="Resource" id="Resource_m5brv"]
+script = ExtResource("7_gqmn5")
+favor = 0.4
+
+[sub_resource type="Resource" id="Resource_0e7oq"]
+script = ExtResource("2_1n6x6")
+text = "Keep the change. ($100)"
+costs = Array[ExtResource("5_4p604")]([SubResource("Resource_8y66g")])
+effects = Array[ExtResource("6_w6s64")]([SubResource("Resource_m5brv")])
+next = &"grateful"
+
+[sub_resource type="Resource" id="Resource_d1dto"]
+script = ExtResource("2_1n6x6")
+text = "Never mind."
+
+[sub_resource type="Resource" id="Resource_qrsrf"]
+script = ExtResource("1_ewb1l")
+text = "{occupant} looks up from the counter. \"Help you?\""
+choices = Array[ExtResource("2_1n6x6")]([SubResource("Resource_idnl0"), SubResource("Resource_klaom"), SubResource("Resource_0e7oq"), SubResource("Resource_d1dto")])
+
+[sub_resource type="Resource" id="Resource_kqkil"]
+script = ExtResource("13_1hix3")
+intel_id = &"rival_fronts"
+message = "Rival fronts marked on your map"
+reveal_kind = &"front"
+
+[sub_resource type="Resource" id="Resource_wwuyf"]
+script = ExtResource("7_gqmn5")
+favor = 0.1
+
+[sub_resource type="Resource" id="Resource_1pk0s"]
+script = ExtResource("1_ewb1l")
+id = &"talk_turf"
+text = "\"Word is the fronts round here pay up to the same crew. I can point them out.\""
+on_enter = Array[ExtResource("6_w6s64")]([SubResource("Resource_kqkil"), SubResource("Resource_wwuyf")])
+outcome = &"intel"
+
+[sub_resource type="Resource" id="Resource_cwle2"]
+script = ExtResource("1_ewb1l")
+id = &"brush_off"
+text = "\"I just work here, man.\""
+
+[sub_resource type="Resource" id="Resource_t6wqo"]
+script = ExtResource("14_w4x8n")
+fraction = 0.6
+message = "{occupant} handed over ${cash_gained}"
+
+[sub_resource type="Resource" id="Resource_vhvmn"]
+script = ExtResource("15_o0fg8")
+amount = 3
+
+[sub_resource type="Resource" id="Resource_6t7ud"]
+script = ExtResource("1_ewb1l")
+id = &"squeezed"
+text = "Hands shaking, {occupant} empties the till."
+on_enter = Array[ExtResource("6_w6s64")]([SubResource("Resource_t6wqo"), SubResource("Resource_vhvmn")])
+outcome = &"robbed"
+
+[sub_resource type="Resource" id="Resource_bvr5a"]
+script = ExtResource("1_ewb1l")
+id = &"alarm"
+text = "{occupant} slams the panic button. \"Cops are on the way!\""
+outcome = &"alarm"
+
+[sub_resource type="Resource" id="Resource_yuoi0"]
+script = ExtResource("1_ewb1l")
+id = &"grateful"
+text = "\"Appreciate it. You need anything, you ask.\""
+outcome = &"favor"
+
+[resource]
+script = ExtResource("16_kn2ol")
+nodes = Array[ExtResource("1_ewb1l")]([SubResource("Resource_qrsrf"), SubResource("Resource_1pk0s"), SubResource("Resource_cwle2"), SubResource("Resource_6t7ud"), SubResource("Resource_bvr5a"), SubResource("Resource_yuoi0")])
+id = &"clerk"
+display_name = "Corner store clerk"

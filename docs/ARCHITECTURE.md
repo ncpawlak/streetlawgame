@@ -9,8 +9,9 @@ project.godot          Engine config (autoloads, layers)
 scenes/                .tscn scenes (main, player, ui...)
 scripts/
   autoload/            Global singletons (see below)
+  framework/           Reusable gameplay frameworks (core, content, interaction, location, dialogue); see below
   combat/              Shared combat logic (Hitscan, Projectile, Explosion, FireZone, WeaponInventory, WeaponSlot, WeaponPickup)
-data/weapons/          WeaponData .tres files, one per weapon id
+data/<type>/            Content .tres files (weapons, actions, locations, occupants, interiors, dialogues...), one per id
   data/                Resource classes for data-driven content (weapons, businesses, crew)
   npc/                 AI characters (GangMember)
   player/              Player controller
@@ -28,7 +29,9 @@ docs/                  Design & architecture docs
 | --- | --- |
 | `InputSetup` | Registers input actions in code so bindings are readable and diffable. |
 | `EventBus` | Global signals (`cash_changed`, `territory_captured`, `notify`...). Systems talk through it instead of referencing each other. |
-| `GameState` | Run state: cash, respect, gangs, territories, businesses, crew, income timer. Future save/load serializes this. |
+| `GameState` | Run state: cash, respect, gangs, territories, businesses, crew, flags, income timer. Future save/load serializes this. |
+| `ContentDB` | Content registry: `.tres` defs by (type, id), scanned from `res://data/<type>/` plus override roots (mods). |
+| `Locations` | Enterable buildings: placement, lookup/queries, enter/exit, status ticking, serializable state. |
 
 ## Key classes
 
@@ -49,6 +52,24 @@ docs/                  Design & architecture docs
 | `WeaponWheel` | `Control` | Radial selector; pauses the tree while open (`PROCESS_MODE_ALWAYS`). |
 | `WeaponData`, `BusinessData`, `CrewMemberData` | `Resource` | Data-driven content definitions. |
 
+## Gameplay frameworks (`scripts/framework/`)
+
+Layered so each one only depends on the ones above it. Other systems (districts #24, production #27)
+build on the same pieces.
+
+| Layer | Key classes | Notes |
+| --- | --- | --- |
+| `content/` | `ContentDB`, `ContentDef`, `VisualSpec` | Every def has `TYPE`, `id` (= file basename), `tags`, `validate()`. `ContentDB.add_content_root(path)` layers an override folder on top of `res://data/`: same id replaces, new ids add. `VisualSpec` points to a scene/mesh, with a greybox fallback built in code. |
+| `core/` | `ActionContext`, `Condition`, `Cost`, `Effect` (+ stock subclasses) | Strategy vocabulary shared by every framework. Template methods: subclasses override `_evaluate`/`_reason`, `_can_pay`/`_pay`, `_apply`; the public methods stay on the bases. `MethodCondition`/`MethodEffect` call into code without a new class. |
+| `interaction/` | `Interactable`, `InteractionAction`, `Interactor`, `InteractionPrompt`, `InteractionMenu` | Any node gets actions by carrying an `Interactable`. Actions are data (conditions, costs, effects, channel time). The player's `Interactor` focuses the best target and arbitrates E with entering vehicles. |
+| `location/` | `LocationDef`, `OccupantDef`, `Location`, `LocationState`, `Locations`, `LocationPlacer`, `InteriorStrategy` | Buildings placed on city lots (per-district caps, `min_count`, `unique`). Interiors are pluggable: `DoorOnlyInterior` puts everything on the door, and `PocketInterior` streams a room far above the city. State is plain data (`to_dict`/`from_dict`). |
+| `dialogue/` | `DialogueDef`, `DialogueNode`, `DialogueChoice`, `SkillCheck`, `DialogueRunner`, `DialogueView` | Conversation graphs. Choices reuse conditions, costs and effects. `SkillCheck` strategies (`PersuadeCheck`, `IntimidateCheck`, `FixedCheck`) resolve risky choices. `DialogueRunner` is UI-agnostic. `DialogueView` pauses the game. |
+
+**Swapping things:** to change content, edit or replace its `.tres` file, or add an override root. To
+change visuals, set the def's `VisualSpec`. To change behaviour, plug in a different `Condition`,
+`Cost`, `Effect`, `InteriorStrategy` or `SkillCheck` resource, or set `Locations.district_resolver`.
+No gameplay code hardcodes `res://` content paths. See [CONTENT.md](CONTENT.md).
+
 ## Conventions
 
 - **Damage:** anything with `take_damage(amount: float, source: Node)` can be shot.
@@ -56,7 +77,7 @@ docs/                  Design & architecture docs
 - **Physics layers:** 1 `world`, 2 `player`, 3 `npc`, 4 `vehicle`.
 - **Render layers:** layer 2 `map_only` holds overlays and markers that only the minimap camera renders. Gameplay cameras mask it out.
 - **Groups:** `player`, `vehicles`, `gang_members`, `projectiles`, `fires`.
-- **Content as data:** new guns, businesses and so on should be `.tres` resources, not new code paths.
+- **Content as data:** new guns, buildings, actions, dialogues and so on should be `.tres` resources looked up through `ContentDB`, not new code paths. New behaviour goes in a new `Condition`/`Cost`/`Effect`/strategy subclass.
 - Tabs for indentation, static typing everywhere (`:=`, typed params and returns).
 
 ## Testing
@@ -65,4 +86,4 @@ docs/                  Design & architecture docs
 godot --headless --path . res://tests/test_runner.tscn
 ```
 
-Exits non-zero on failure. Add a check to `tests/run_tests.gd` for every new gameplay rule.
+Exits non-zero on failure. Add a check to `tests/run_tests.gd` for every new gameplay rule. Framework tests live in `tests/framework_tests.gd`, `location_tests.gd` and `dialogue_tests.gd`; they run in a sandbox far below the city.

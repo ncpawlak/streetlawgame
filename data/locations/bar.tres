@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="LocationDef" format=3]
+
+[ext_resource type="Script" path="res://scripts/framework/core/effect.gd" id="1_aggm2"]
+[ext_resource type="Script" path="res://scripts/framework/interaction/interaction_action.gd" id="2_dvph5"]
+[ext_resource type="Resource" path="res://data/interiors/small_room.tres" id="3_qdgxr"]
+[ext_resource type="Script" path="res://scripts/framework/location/occupant_def.gd" id="4_6uwpn"]
+[ext_resource type="Script" path="res://scripts/framework/location/location_def.gd" id="5_a52ok"]
+
+[resource]
+script = ExtResource("5_a52ok")
+color = Color(0.55, 0.4, 0.7, 1)
+interior = ExtResource("3_qdgxr")
+door_action_ids = Array[StringName]([&"enter_building"])
+occupant_ids = Array[StringName]([&"bartender", &"barfly"])
+default_owner = &"district_owner"
+cash_capacity = 300
+cash_regen_per_minute = 25.0
+max_count = 3
+spawn_weight = 1.5
+id = &"bar"
+display_name = "Bar"
+description = "Recruit crew from the regulars, or rob the till."
+tags = Array[StringName]([&"robbable", &"recruit"])

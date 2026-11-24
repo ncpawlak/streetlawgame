@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="OccupantDef" format=3]
+
+[ext_resource type="Script" path="res://scripts/framework/interaction/interaction_action.gd" id="1_716w7"]
+[ext_resource type="Script" path="res://scripts/framework/location/occupant_def.gd" id="2_gamva"]
+
+[resource]
+script = ExtResource("2_gamva")
+role = &"front_guard"
+hostile = true
+weapon_id = &"pistol"
+count = 3
+health = 80.0
+id = &"front_guard"
+display_name = "Guard"

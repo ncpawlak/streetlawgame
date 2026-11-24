@@ -1,0 +1,41 @@
+[gd_resource type="Resource" script_class="InteractionAction" format=3]
+
+[ext_resource type="Script" path="res://scripts/framework/core/condition.gd" id="1_8ay0m"]
+[ext_resource type="Script" path="res://scripts/framework/location/conditions/location_owner_condition.gd" id="2_45t6d"]
+[ext_resource type="Script" path="res://scripts/framework/location/conditions/location_status_condition.gd" id="3_iw6oy"]
+[ext_resource type="Script" path="res://scripts/framework/core/conditions/respect_condition.gd" id="4_00qbw"]
+[ext_resource type="Script" path="res://scripts/framework/core/cost.gd" id="5_4he26"]
+[ext_resource type="Script" path="res://scripts/framework/core/effect.gd" id="6_m0gih"]
+[ext_resource type="Script" path="res://scripts/framework/location/effects/take_out_effect.gd" id="7_74fqw"]
+[ext_resource type="Script" path="res://scripts/framework/location/effects/heat_effect.gd" id="8_8ctqb"]
+[ext_resource type="Script" path="res://scripts/framework/interaction/interaction_action.gd" id="9_oy8x7"]
+
+[sub_resource type="Resource" id="Resource_5vp1n"]
+script = ExtResource("2_45t6d")
+hide_when_unmet = true
+
+[sub_resource type="Resource" id="Resource_2oy06"]
+script = ExtResource("3_iw6oy")
+statuses = Array[StringName]([&"open", &"robbed"])
+
+[sub_resource type="Resource" id="Resource_mih4v"]
+script = ExtResource("4_00qbw")
+amount = 10
+
+[sub_resource type="Resource" id="Resource_s8ecc"]
+script = ExtResource("7_74fqw")
+
+[sub_resource type="Resource" id="Resource_wpsua"]
+script = ExtResource("8_8ctqb")
+amount = 3
+
+[resource]
+script = ExtResource("9_oy8x7")
+verb = "Torch the place"
+conditions = Array[ExtResource("1_8ay0m")]([SubResource("Resource_5vp1n"), SubResource("Resource_2oy06"), SubResource("Resource_mih4v")])
+effects = Array[ExtResource("6_m0gih")]([SubResource("Resource_s8ecc"), SubResource("Resource_wpsua")])
+duration = 3.0
+progress_text = "Dousing it in gas..."
+id = &"torch"
+display_name = "Torch the place"
+description = "Take a rival front out without going inside."

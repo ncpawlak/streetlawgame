@@ -56,7 +56,10 @@ flowchart LR
 ### 5.1 Territories & gang warfare ✅ *(prototype)*
 - The city is split into **districts**, each owned by a gang (or unclaimed).
 - *Planned hierarchy (#24):* the city is made of **areas**, each with several **districts**. Each district has a **safehouse**: take the safehouse to take the district, and take every district to take the area. Owned safehouses are where you **manage your gang and buy upgrades** (#25).
-- *Planned (#26):* every district has **enterable buildings** (businesses, homes, fronts) that can be **robbed**, **taken out**, or **talked to** for intel, recruits and favors.
+- **Enterable buildings** *(prototype, #26):* every district has buildings placed on city lots. Corner stores, bars, homes, rival fronts and an informant's flat each show a door prompt.
+  - **Rob:** empty the register or break in. The building is marked robbed and refills over time.
+  - **Take out:** clear the armed guards inside a rival front. This pays cash and respect, and the front stays closed.
+  - **Talk:** persuade, intimidate (needs a drawn gun) or pay people. This gets you intel (marks rival fronts on the map, or safehouse leads), recruits for your crew, favours, or a quiet register squeeze. Odds depend on respect, weapon, turf and how the person feels about you. Failing can raise heat.
 - **Capture:** kill every defender in the district, then stay inside on foot until the capture bar fills.
 - Owned districts pay **income every cycle** (30 s in the prototype) and give **respect**.
 - *Next:* rival **counter-attacks** on your turf, **turf wars** (wave defense), **strongholds/bosses** per gang, district **heat**, and capturing **sub-zones** (blocks or hotspots) instead of whole districts.
