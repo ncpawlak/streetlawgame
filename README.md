@@ -25,7 +25,9 @@ godot --path .
 | Look | Mouse |
 | Shoot / aim | LMB / RMB |
 | Weapon wheel (pauses the game) | Hold Q, move the mouse, release |
-| Switch weapon | Mouse wheel / 1-5 |
+| Switch weapon | Mouse wheel / 1-9 |
+| Throw grenade / molotov / C4, fire RPG | LMB with it equipped |
+| Detonate placed C4 | G |
 | Reload | R |
 | Enter, steal or exit a vehicle | E |
 | Handbrake | Space (in vehicle) |
@@ -37,7 +39,9 @@ godot --path .
 
 You start in **The Bottoms**. Every other district belongs to a rival gang. To take a district, kill all of its defenders, then stay inside it **on foot** until the capture bar fills. Owned turf pays income every 30 seconds.
 
-You start with fists and a pistol. There's a stash of guns (SMG, shotgun, rifle) next to your car, and rivals drop their weapons when they die. Weapons use magazines and reserve ammo.
+You start with fists and a pistol. There's a stash of guns (SMG, shotgun, rifle) next to your car, with a row of explosives (grenades, molotovs, C4, RPG) beside it, and rivals drop their weapons when they die. Weapons use magazines and reserve ammo.
+
+Vehicles take damage from bullets, explosions and crashes: they smoke, then catch fire, then explode. Rivals will shoot at your car while you're driving.
 
 ## Tests
 

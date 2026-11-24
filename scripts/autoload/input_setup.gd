@@ -18,6 +18,11 @@ const KEY_BINDINGS := {
 	"weapon_3": [KEY_3],
 	"weapon_4": [KEY_4],
 	"weapon_5": [KEY_5],
+	"weapon_6": [KEY_6],
+	"weapon_7": [KEY_7],
+	"weapon_8": [KEY_8],
+	"weapon_9": [KEY_9],
+	"detonate": [KEY_G],
 }
 
 const MOUSE_BINDINGS := {
@@ -28,7 +33,7 @@ const MOUSE_BINDINGS := {
 }
 
 ## Number of direct weapon-slot hotkeys (weapon_1..weapon_N).
-const WEAPON_HOTKEYS := 5
+const WEAPON_HOTKEYS := 9
 
 
 func _enter_tree() -> void:

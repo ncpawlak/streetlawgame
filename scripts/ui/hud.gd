@@ -9,6 +9,7 @@ const NOTIFICATION_LIFETIME := 4.0
 var _cash_label: Label
 var _respect_label: Label
 var _health_bar: ProgressBar
+var _vehicle_bar: ProgressBar
 var _turf_label: Label
 var _hint_label: Label
 var _capture_bar: ProgressBar
@@ -21,6 +22,7 @@ var _map_expanded := false
 var _weapon_label: Label
 var _ammo_label: Label
 var _reload_bar: ProgressBar
+var _keys_label: Label
 var _damage_flash: ColorRect
 var _hit_marker_left := 0.0
 var _last_health := -1.0
@@ -53,6 +55,7 @@ func _process(delta: float) -> void:
 	if player == null:
 		return
 	_update_weapon(player, delta)
+	_update_vehicle(player.current_vehicle)
 	_damage_flash.color.a = move_toward(_damage_flash.color.a, 0.0, delta * 1.5)
 	var focus := player.get_focus_position()
 	if _map_expanded:
@@ -78,6 +81,21 @@ func _update_turf(territory: Territory) -> void:
 	_turf_label.modulate = GameState.gang_color(territory.owner_gang).lightened(0.3)
 	_capture_bar.visible = territory.capture_progress > 0.0 and territory.owner_gang != GameState.PLAYER_GANG
 	_capture_bar.value = territory.capture_progress * 100.0
+
+
+func _update_vehicle(vehicle: Vehicle) -> void:
+	_vehicle_bar.visible = vehicle != null
+	if vehicle == null:
+		return
+	_vehicle_bar.max_value = vehicle.max_health
+	_vehicle_bar.value = vehicle.health
+	match vehicle.damage_state:
+		Vehicle.DamageState.BURNING:
+			_vehicle_bar.modulate = Color(1.0, 0.45, 0.1) if fmod(Time.get_ticks_msec() / 250.0, 2.0) < 1.0 else Color(1.0, 0.1, 0.1)
+		Vehicle.DamageState.SMOKING:
+			_vehicle_bar.modulate = Color(0.9, 0.8, 0.3)
+		_:
+			_vehicle_bar.modulate = Color(0.5, 0.75, 1.0)
 
 
 func _update_hint(player: Player) -> void:
@@ -110,8 +128,10 @@ func _update_weapon(player: Player, delta: float) -> void:
 	if slot and slot.data.uses_ammo() and slot.magazine == 0 and not inventory.is_reloading and slot.reserve == 0:
 		_ammo_label.text = "NO AMMO"
 	_ammo_label.modulate = Color(1.0, 0.4, 0.4) if slot and slot.data.uses_ammo() and slot.magazine <= slot.data.magazine_size * 0.25 else Color.WHITE
-	_reload_bar.visible = inventory.is_reloading
+	_reload_bar.visible = inventory.is_reloading and slot != null and not slot.data.thrown
 	_reload_bar.value = inventory.reload_progress() * 100.0
+	var detonate_hint := "  [G] Detonate (%d)" % inventory.placed_charges.size() if not inventory.placed_charges.is_empty() else ""
+	_keys_label.text = "[Q] Weapon wheel  [R] Reload  [1-9] Select" + detonate_hint
 	_hit_marker_left = maxf(0.0, _hit_marker_left - delta)
 	_crosshair.text = "x" if _hit_marker_left > 0.0 else "+"
 	_crosshair.modulate = Color(1.0, 0.3, 0.3) if _hit_marker_left > 0.0 else Color.WHITE
@@ -152,6 +172,11 @@ func _build_stats() -> void:
 	_health_bar.value = 100.0
 	_health_bar.modulate = Color(1.0, 0.35, 0.35)
 	panel.add_child(_health_bar)
+	_vehicle_bar = ProgressBar.new()
+	_vehicle_bar.custom_minimum_size = Vector2(220.0, 10.0)
+	_vehicle_bar.show_percentage = false
+	_vehicle_bar.visible = false
+	panel.add_child(_vehicle_bar)
 	_turf_label = _make_label("", 18)
 	panel.add_child(_turf_label)
 
@@ -240,10 +265,10 @@ func _build_weapon_panel() -> void:
 	_reload_bar.show_percentage = false
 	_reload_bar.visible = false
 	panel.add_child(_reload_bar)
-	var keys := _make_label("[Q] Weapon wheel  [R] Reload  [1-5] Select", 14)
-	keys.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
-	keys.modulate.a = 0.7
-	panel.add_child(keys)
+	_keys_label = _make_label("", 14)
+	_keys_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+	_keys_label.modulate.a = 0.7
+	panel.add_child(_keys_label)
 
 	_damage_flash = ColorRect.new()
 	_damage_flash.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)

@@ -23,13 +23,16 @@ func _input(event: InputEvent) -> void:
 		get_viewport().set_input_as_handled()
 
 
-## A few guns near spawn so the arsenal can be tried right away (until the gun store, #12).
+## Guns and explosives near spawn so the arsenal can be tried right away (until the gun store, #12).
 func _spawn_starter_stash() -> void:
 	var ground := _city.player_spawn - Vector3(0.0, 1.0, 0.0)
-	var stash := {&"smg": Vector3(-4.0, 0.0, -3.0), &"shotgun": Vector3(-4.0, 0.0, 0.0), &"rifle": Vector3(-4.0, 0.0, 3.0)}
+	var stash := {
+		&"smg": Vector3(-4.0, 0.0, -3.0), &"shotgun": Vector3(-4.0, 0.0, 0.0), &"rifle": Vector3(-4.0, 0.0, 3.0),
+		&"grenade": Vector3(-7.0, 0.0, -4.5), &"molotov": Vector3(-7.0, 0.0, -1.5), &"c4": Vector3(-7.0, 0.0, 1.5), &"rpg": Vector3(-7.0, 0.0, 4.5),
+	}
 	for id: StringName in stash:
 		var weapon := GameState.weapon_data(id)
-		add_child(WeaponPickup.create(weapon, weapon.magazine_size * 3, ground + stash[id]))
+		add_child(WeaponPickup.create(weapon, weapon.magazine_size * (5 if weapon.thrown else 3), ground + stash[id]))
 
 
 func _build_environment() -> void:

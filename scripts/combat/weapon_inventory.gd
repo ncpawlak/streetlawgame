@@ -22,6 +22,8 @@ signal hit_confirmed
 var slots: Array[WeaponSlot] = []
 var current_index := 0
 var is_reloading := false
+## C4 charges placed and waiting for the detonate key.
+var placed_charges: Array = []
 
 var _cooldown := 0.0
 var _reload_left := 0.0
@@ -114,12 +116,29 @@ func try_fire(shooter: Node3D, muzzle: Vector3, direction: Vector3, exclude: Arr
 	_cooldown = slot.data.fire_interval
 	if slot.data.uses_ammo():
 		slot.magazine -= 1
-	if Hitscan.fire(shooter, muzzle, direction, slot.data, exclude, damage_scale, extra_spread) > 0:
+	if slot.data.is_projectile():
+		var projectile := Projectile.launch(shooter, slot.data, muzzle, direction, exclude)
+		if slot.data.remote_detonated:
+			placed_charges.append(projectile)
+	elif Hitscan.fire(shooter, muzzle, direction, slot.data, exclude, damage_scale, extra_spread) > 0:
 		hit_confirmed.emit()
 	if slot.is_empty():
 		reload()
 	changed.emit()
 	return true
+
+
+## Sets off every C4 charge this inventory has placed. Returns how many went off.
+func detonate_charges() -> int:
+	var count := 0
+	for charge in placed_charges:
+		if is_instance_valid(charge):
+			(charge as Projectile).detonate()
+			count += 1
+	placed_charges.clear()
+	if count > 0:
+		changed.emit()
+	return count
 
 
 func _finish_reload() -> void:
