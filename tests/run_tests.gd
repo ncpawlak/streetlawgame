@@ -32,7 +32,7 @@ func _run() -> void:
 	await _test_ai_combat(main, player)
 	await _test_explosives(main, player)
 	await _test_vehicle_damage(main, city, player)
-
+	await FrameworkTests.new(self).run(main, player)
 	print("\n%s (%d failure(s))" % ["FAILED" if _failures > 0 else "ALL TESTS PASSED", _failures])
 	get_tree().quit(1 if _failures > 0 else 0)
 

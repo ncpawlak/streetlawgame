@@ -28,6 +28,8 @@ var _hit_marker_left := 0.0
 var _last_health := -1.0
 var _connected_inventory: WeaponInventory
 var weapon_wheel: WeaponWheel
+var interaction_prompt: InteractionPrompt
+var interaction_menu: InteractionMenu
 
 
 func _ready() -> void:
@@ -37,6 +39,10 @@ func _ready() -> void:
 	_build_weapon_panel()
 	weapon_wheel = WeaponWheel.new()
 	add_child(weapon_wheel)
+	interaction_prompt = InteractionPrompt.new()
+	add_child(interaction_prompt)
+	interaction_menu = InteractionMenu.new()
+	add_child(interaction_menu)
 	EventBus.cash_changed.connect(func(amount: int) -> void: _cash_label.text = "$%d" % amount)
 	EventBus.respect_changed.connect(func(amount: int) -> void: _respect_label.text = "Respect %d" % amount)
 	EventBus.player_health_changed.connect(_on_health_changed)
@@ -101,6 +107,8 @@ func _update_vehicle(vehicle: Vehicle) -> void:
 func _update_hint(player: Player) -> void:
 	if not player.is_on_foot():
 		_hint_label.text = "[E] Exit vehicle    [LMB] Drive-by (needs a gun)    [Space] Handbrake"
+	elif interaction_prompt.has_prompt():
+		_hint_label.text = ""
 	elif player.nearest_free_vehicle() != null:
 		_hint_label.text = "[E] Steal vehicle"
 	else:

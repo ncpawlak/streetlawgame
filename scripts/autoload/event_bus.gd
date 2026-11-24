@@ -11,3 +11,7 @@ signal capture_progress_changed(territory: Territory, progress: float)
 signal gang_member_killed(member: GangMember, killer: Node)
 signal notify(text: String)
 signal explosion(position: Vector3, radius: float)
+
+# Framework: interaction / content (#26)
+signal interaction_performed(interactable: Interactable, action_id: StringName, actor: Node)
+signal flag_changed(flag: StringName, value: Variant)
