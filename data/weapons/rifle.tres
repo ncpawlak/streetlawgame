@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="WeaponData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/data/weapon_data.gd" id="1_weapon"]
+
+[resource]
+script = ExtResource("1_weapon")
+id = &"rifle"
+display_name = "Assault Rifle"
+damage = 30
+max_range = 120
+fire_interval = 0.13
+spread_degrees = 1.8
+pellets = 1
+automatic = true
+magazine_size = 30
+max_reserve = 180
+reload_time = 2.2
+price = 4000
+show_tracer = true
+tracer_color = Color(1, 0.9, 0.5, 1)

@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="WeaponData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/data/weapon_data.gd" id="1_weapon"]
+
+[resource]
+script = ExtResource("1_weapon")
+id = &"fists"
+display_name = "Fists"
+damage = 15
+max_range = 2.2
+fire_interval = 0.45
+spread_degrees = 0
+pellets = 1
+automatic = false
+magazine_size = 0
+max_reserve = 0
+reload_time = 0
+price = 0
+show_tracer = false
+tracer_color = Color(1, 1, 1, 1)

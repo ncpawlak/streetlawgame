@@ -55,6 +55,15 @@ func gang_color(gang_id: StringName) -> Color:
 	return GANGS.get(gang_id, {}).get("color", Color(0.5, 0.5, 0.5))
 
 
+## Loads res://data/weapons/<id>.tres (cached by Godot's resource loader).
+func weapon_data(id: StringName) -> WeaponData:
+	var path := "res://data/weapons/%s.tres" % id
+	if not ResourceLoader.exists(path):
+		push_error("Unknown weapon id: %s" % id)
+		return null
+	return load(path) as WeaponData
+
+
 func add_cash(amount: int) -> void:
 	cash = maxi(0, cash + amount)
 	EventBus.cash_changed.emit(cash)

@@ -12,14 +12,18 @@ extends CharacterBody3D
 @export var vehicle_enter_range := 3.5
 ## Fraction of cash lost when killed.
 @export_range(0.0, 1.0) var death_cash_penalty := 0.1
-@export var weapon: WeaponData
+## Seconds after taking damage before health starts regenerating.
+@export var regen_delay := 4.0
+## Range of the camera ray used to find what the crosshair is on.
+@export var aim_ray_length := 200.0
 
 var health := 0.0
 var current_vehicle: Vehicle
 var spawn_point := Vector3.ZERO
+var weapons: WeaponInventory
 
 var _gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
-var _fire_cooldown := 0.0
+var _regen_wait := 0.0
 
 @onready var _camera_pivot: Node3D = $CameraPivot
 @onready var _spring_arm: SpringArm3D = $CameraPivot/SpringArm
@@ -29,8 +33,10 @@ var _fire_cooldown := 0.0
 
 func _ready() -> void:
 	add_to_group("player")
-	if weapon == null:
-		weapon = WeaponData.new()
+	weapons = WeaponInventory.new()
+	weapons.name = "Weapons"
+	add_child(weapons)
+	weapons.current_index = weapons.slots.size() - 1
 	health = max_health
 	spawn_point = global_position
 	_camera_pivot.top_level = true
@@ -41,24 +47,33 @@ func _ready() -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+	if event is InputEventMouseMotion and is_on_foot() and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 		var motion := event as InputEventMouseMotion
 		_camera_pivot.rotate_y(-motion.relative.x * mouse_sensitivity)
 		_spring_arm.rotation.x = clampf(_spring_arm.rotation.x - motion.relative.y * mouse_sensitivity, deg_to_rad(-65.0), deg_to_rad(25.0))
 	elif event.is_action_pressed("interact"):
-		if _try_enter_vehicle():
+		if is_on_foot() and _try_enter_vehicle():
 			get_viewport().set_input_as_handled()
+	elif event.is_action_pressed("reload"):
+		weapons.reload()
+	elif event.is_action_pressed("next_weapon"):
+		weapons.cycle(1)
+	elif event.is_action_pressed("prev_weapon"):
+		weapons.cycle(-1)
+	else:
+		for i in InputSetup.WEAPON_HOTKEYS:
+			if event.is_action_pressed("weapon_%d" % (i + 1)):
+				weapons.select(i)
 
 
 func _process(delta: float) -> void:
 	_camera_pivot.global_position = global_position + Vector3(0.0, 1.6, 0.0)
-	if health < max_health and health > 0.0:
+	_regen_wait = maxf(0.0, _regen_wait - delta)
+	if health < max_health and health > 0.0 and _regen_wait <= 0.0:
 		_set_health(minf(max_health, health + health_regen * delta))
 
 
 func _physics_process(delta: float) -> void:
-	_fire_cooldown = maxf(0.0, _fire_cooldown - delta)
-
 	if not is_on_floor():
 		velocity.y -= _gravity * delta
 	elif Input.is_action_just_pressed("jump"):
@@ -77,7 +92,7 @@ func _physics_process(delta: float) -> void:
 	elif direction.length_squared() > 0.01:
 		rotation.y = lerp_angle(rotation.y, atan2(-direction.x, -direction.z), clampf(10.0 * delta, 0.0, 1.0))
 
-	if Input.is_action_pressed("shoot") and _fire_cooldown <= 0.0 and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+	if wants_to_fire():
 		shoot()
 
 	move_and_slide()
@@ -85,12 +100,25 @@ func _physics_process(delta: float) -> void:
 		respawn()
 
 
-func shoot() -> void:
-	_fire_cooldown = weapon.fire_interval
+func shoot() -> bool:
 	var exclude: Array[RID] = [get_rid()]
 	var muzzle := global_position + Vector3(0.0, 1.4, 0.0)
-	var aim_point := Hitscan.camera_aim_point(_camera, weapon.max_range, exclude)
-	Hitscan.fire(self, muzzle, aim_point - muzzle, weapon, exclude)
+	var aim_point := Hitscan.camera_aim_point(_camera, aim_ray_length, exclude)
+	return weapons.try_fire(self, muzzle, aim_point - muzzle, exclude)
+
+
+## Point under the crosshair of whichever camera is active (used for drive-bys too).
+func aim_point_from(camera: Camera3D, exclude: Array[RID]) -> Vector3:
+	return Hitscan.camera_aim_point(camera, aim_ray_length, exclude)
+
+
+## Automatic weapons fire while held; others once per click.
+func wants_to_fire() -> bool:
+	if Input.mouse_mode != Input.MOUSE_MODE_CAPTURED or weapons.current() == null:
+		return false
+	if weapons.current().data.automatic:
+		return Input.is_action_pressed("shoot")
+	return Input.is_action_just_pressed("shoot")
 
 
 func is_on_foot() -> bool:
@@ -120,7 +148,6 @@ func set_on_foot(on_foot: bool, vehicle: Vehicle = null) -> void:
 	visible = on_foot
 	_collision.set_deferred("disabled", not on_foot)
 	set_physics_process(on_foot)
-	set_process_unhandled_input(on_foot)
 	velocity = Vector3.ZERO
 	if on_foot:
 		_camera_pivot.rotation.y = rotation.y
@@ -130,6 +157,7 @@ func set_on_foot(on_foot: bool, vehicle: Vehicle = null) -> void:
 func take_damage(amount: float, _source: Node = null) -> void:
 	if health <= 0.0:
 		return
+	_regen_wait = regen_delay
 	_set_health(health - amount)
 	if health <= 0.0:
 		_die()

@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="WeaponData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/data/weapon_data.gd" id="1_weapon"]
+
+[resource]
+script = ExtResource("1_weapon")
+id = &"smg"
+display_name = "SMG"
+damage = 14
+max_range = 60
+fire_interval = 0.09
+spread_degrees = 3
+pellets = 1
+automatic = true
+magazine_size = 30
+max_reserve = 240
+reload_time = 1.8
+price = 1500
+show_tracer = true
+tracer_color = Color(1, 0.85, 0.4, 1)

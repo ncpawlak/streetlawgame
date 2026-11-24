@@ -38,19 +38,23 @@ flowchart LR
 | Move / sprint / jump | WASD / Shift / Space |
 | Camera | Mouse (over-the-shoulder orbit) |
 | Shoot / aim | LMB / RMB |
+| Weapon wheel | Hold Q (game pauses), aim with mouse, release to equip |
+| Switch weapon / reload | Mouse wheel or 1-5 / R |
 | Enter / steal / exit vehicle | E |
 | Handbrake (in vehicle) | Space |
-| Drive-by (in vehicle) | LMB (mouse looks around) |
+| Drive-by (in vehicle) | LMB with the equipped gun (mouse looks around) |
 | Map | Tab / M |
 | Release mouse | Esc |
 
-- **Health** regenerates slowly. Death means "Wasted": a hospital bill (a percentage of cash) and a respawn at your hideout.
+- **Health** regenerates slowly once you've avoided damage for a few seconds. Taking hits flashes the screen red. Death means "Wasted": a hospital bill (a percentage of cash) and a respawn at your hideout.
 - Later: cover, lock-on aim option, melee, swimming, carrying bodies or loot.
 
 ## 5. Systems
 
 ### 5.1 Territories & gang warfare ✅ *(prototype)*
 - The city is split into **districts**, each owned by a gang (or unclaimed).
+- *Planned hierarchy (#24):* the city is made of **areas**, each with several **districts**. Each district has a **safehouse**: take the safehouse to take the district, and take every district to take the area. Owned safehouses are where you **manage your gang and buy upgrades** (#25).
+- *Planned (#26):* every district has **enterable buildings** (businesses, homes, fronts) that can be **robbed**, **taken out**, or **talked to** for intel, recruits and favors.
 - **Capture:** kill every defender in the district, then stay inside on foot until the capture bar fills.
 - Owned districts pay **income every cycle** (30 s in the prototype) and give **respect**.
 - *Next:* rival **counter-attacks** on your turf, **turf wars** (wave defense), **strongholds/bosses** per gang, district **heat**, and capturing **sub-zones** (blocks or hotspots) instead of whole districts.
@@ -71,6 +75,7 @@ Each gang should have its own visual style, vehicles, weapons, AI behaviour and 
 - Members can be killed or arrested, and they level up with use.
 
 ### 5.4 Drug operations & trap houses
+- **Find a plug** (supplier) to unlock each drug. Without a plug you can't produce it (#27).
 - **Take over trap houses** (an assault mission) to unlock production in that district.
 - **Manufacture** product (it takes time and supplies) and **assign dealers** to territories. Income scales with district demand, product quality and dealer skill.
 - Risk: police raids and rival hits on your operations. Defending them is a mission type.
@@ -93,7 +98,12 @@ Buying businesses unlocks features and pays income:
 | Hideouts / cribs | Respawn point, save point, crew HQ |
 
 ### 5.7 Weapons & explosives
-Pistols, SMGs (drive-by capable), shotguns, rifles, plus grenades, molotovs, pipe bombs, C4 and RPGs. Weapons are data-driven (`WeaponData` resources) so new guns are content, not code.
+Pistols, SMGs (drive-by capable), shotguns, rifles, plus grenades, molotovs, pipe bombs, C4 and RPGs. Weapons are data-driven (`WeaponData` resources in `data/weapons/`) so new guns are content, not code. Arsenal expansion: #28.
+
+✅ *Prototype:*
+- **Inventory and weapon wheel:** fists, pistol, SMG, shotgun (pellets) and assault rifle. The wheel pauses the game while it's open.
+- **Ammo:** magazine and reserve ammo, manual and automatic reload, pickups, and weapons dropped by dead rivals.
+- **Rival arsenals:** each rival gang carries its own mix of weapons. NPCs fire in bursts with reduced damage, get alerted when shot, and flash when hit.
 
 ### 5.8 Vehicles
 Stealable cars, trucks, bikes and gang-specific rides. Garage storage, upgrades (engine, armor, nitro, bulletproof tires) and damage that ends in explosions. Drive-bys from any seat. ✅ *Prototype: drivable cars, stealing, drive-by, running over NPCs.*

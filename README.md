@@ -24,15 +24,20 @@ godot --path .
 | Move / sprint / jump | WASD / Shift / Space |
 | Look | Mouse |
 | Shoot / aim | LMB / RMB |
+| Weapon wheel (pauses the game) | Hold Q, move the mouse, release |
+| Switch weapon | Mouse wheel / 1-5 |
+| Reload | R |
 | Enter, steal or exit a vehicle | E |
 | Handbrake | Space (in vehicle) |
-| Drive-by | LMB (in vehicle) |
+| Drive-by (uses your equipped gun) | LMB (in vehicle) |
 | Map | Tab / M |
 | Release / capture mouse | Esc / click |
 
 ## Prototype gameplay
 
 You start in **The Bottoms**. Every other district belongs to a rival gang. To take a district, kill all of its defenders, then stay inside it **on foot** until the capture bar fills. Owned turf pays income every 30 seconds.
+
+You start with fists and a pistol. There's a stash of guns (SMG, shotgun, rifle) next to your car, and rivals drop their weapons when they die. Weapons use magazines and reserve ammo.
 
 ## Tests
 

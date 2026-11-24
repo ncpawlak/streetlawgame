@@ -17,7 +17,6 @@ const WHEEL_LAYOUT := [
 @export var steer_speed := 2.5
 @export var run_over_speed := 6.0
 @export var mouse_sensitivity := 0.003
-@export var drive_by_weapon: WeaponData
 
 var driver: Player
 
@@ -25,7 +24,6 @@ var _camera_pivot: Node3D
 var _spring_arm: SpringArm3D
 var _camera: Camera3D
 var _look_yaw := 0.0
-var _fire_cooldown := 0.0
 
 
 func _ready() -> void:
@@ -38,12 +36,6 @@ func _ready() -> void:
 	contact_monitor = true
 	max_contacts_reported = 4
 	body_entered.connect(_on_body_entered)
-	if drive_by_weapon == null:
-		drive_by_weapon = WeaponData.new()
-		drive_by_weapon.display_name = "Drive-by SMG"
-		drive_by_weapon.damage = 18.0
-		drive_by_weapon.fire_interval = 0.12
-		drive_by_weapon.spread_degrees = 2.5
 	_build_body()
 	_build_wheels()
 	_build_camera()
@@ -60,7 +52,6 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func _physics_process(delta: float) -> void:
-	_fire_cooldown = maxf(0.0, _fire_cooldown - delta)
 	if driver == null:
 		engine_force = 0.0
 		brake = 2.0
@@ -79,7 +70,7 @@ func _physics_process(delta: float) -> void:
 		brake = max_brake_force
 	steering = move_toward(steering, Input.get_axis("move_right", "move_left") * max_steer, steer_speed * delta)
 
-	if Input.is_action_pressed("shoot") and _fire_cooldown <= 0.0 and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+	if driver.wants_to_fire():
 		_drive_by_shoot()
 
 
@@ -112,12 +103,14 @@ func exit() -> void:
 	player.set_on_foot(true)
 
 
+## Drive-bys use the driver's equipped gun and ammo. Melee weapons can't be used from a car.
 func _drive_by_shoot() -> void:
-	_fire_cooldown = drive_by_weapon.fire_interval
-	var exclude: Array[RID] = [get_rid()]
+	var weapons := driver.weapons
+	if weapons.current() == null or not weapons.current().data.uses_ammo():
+		return
+	var exclude: Array[RID] = [get_rid(), driver.get_rid()]
 	var muzzle := global_position + Vector3(0.0, 1.6, 0.0)
-	var aim_point := Hitscan.camera_aim_point(_camera, drive_by_weapon.max_range, exclude)
-	Hitscan.fire(self, muzzle, aim_point - muzzle, drive_by_weapon, exclude)
+	weapons.try_fire(self, muzzle, driver.aim_point_from(_camera, exclude) - muzzle, exclude)
 
 
 func _on_body_entered(body: Node) -> void:
