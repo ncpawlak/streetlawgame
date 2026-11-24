@@ -48,7 +48,7 @@ docs/                  Design & architecture docs
 | `District` | `Node3D` | District bounds, safehouse, guards/patrols, map overlay; ticks its `CaptureRule`. Generated or placed by hand with a `district_id`. |
 | `Safehouse` | `Node3D` | A district's safehouse: visual from `SafehouseData.visual` (`VisualSpec`, greybox fallback), door, guard points, and an `Interactable` with "Take over" (`can_claim/claim`) and "Manage" (`can_manage/manage`, emits `safehouse_manage_requested` for #25). |
 | `CaptureRule` | `Resource` | Pluggable capture mechanic (`SafehouseCaptureRule` default, `ClearAndHoldCaptureRule`). Per-district progress lives in `DistrictState`. |
-| `CityGenerator` | `Node3D` | Deterministic greybox city: roads, buildings, districts from content (reserving a safehouse lot each), parked cars. |
+| `CityGenerator` | `Node3D` | Greybox North End built from `NorthEndLayout` (generated from the wireframe SVG by `tools/extract_north_end_layout.py`, 1 px = 1.2 m): roads, I-59, rail, lakes with shore collision, building lots, landmarks, street signs, districts from content, parked cars. `main.gd` places the roster (`NorthEndSpots`) on its lots. |
 | `Hitscan` | `RefCounted` | Shared instant-hit firing (pellets, damage scale), aiming from the camera, tracers. |
 | `Projectile` | `Node3D` | Thrown/launched explosives: ray-stepped flight, bounce/stick/explode on impact, fuses and remote detonation. |
 | `Explosion` | `Node3D` | `detonate()`: radius damage with falloff and line of sight, physics impulse, visual, `EventBus.explosion`. |

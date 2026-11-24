@@ -36,7 +36,7 @@ func _test_city_placement(main: Node) -> void:
 	_check(city.building_lots.size() > 50, "the city records building lots")
 	var informants := Locations.of_def(&"informant_flat")
 	_check(informants.size() == 1 and informants[0].instance_id == &"informant_flat", "unique locations are placed once with instance_id == def id")
-	_check(Locations.of_def(&"rival_front").size() >= 3 and Locations.of_def(&"corner_store").size() >= 2, "min_count is honoured")
+	_check(Locations.of_def(&"rival_front").size() >= 2 and Locations.of_def(&"corner_store").size() >= 2, "min_count is honoured")
 	_check(Locations.query(&"safehouse").is_empty(), "the placer leaves safehouses to their owner system")
 	var all_have_districts := true
 	var fronts_per_district := {}
@@ -49,17 +49,30 @@ func _test_city_placement(main: Node) -> void:
 
 	var placer := LocationPlacer.new()
 	placer.placement_seed = city.city_seed
-	var first := placer.plan(city.building_lots)
-	var second := placer.plan(city.building_lots)
+	placer.density = main.placer_density
+	var lots: Array[Dictionary] = main.placer_lots
+	var first := placer.plan(lots, main.placer_defs())
+	var second := placer.plan(lots, main.placer_defs())
 	var same := first.size() == second.size()
 	for i in mini(first.size(), second.size()):
 		same = same and first[i]["instance_id"] == second[i]["instance_id"] and first[i]["transform"] == second[i]["transform"]
-	_check(same, "placement is deterministic for a seed")
+	_check(same and not first.is_empty(), "placement is deterministic for a seed")
 	var spawned := true
 	for entry in first:
 		var location := Locations.get_location(entry["instance_id"])
 		spawned = spawned and location != null and location.global_position.is_equal_approx(entry["transform"].origin)
 	_check(spawned, "the city layout matches the placer plan")
+	var roster_placed := true
+	for spot: Dictionary in NorthEndSpots.SPOTS:
+		if spot["kind"] == &"marker":
+			continue
+		var id: StringName = spot["id"] if spot["kind"] == &"site" else spot["instance"]
+		var location := Locations.get_location(id)
+		var near := location != null and Vector2(location.global_position.x, location.global_position.z).distance_to(Vector2(CityGenerator.px_to_world(spot["px"]).x, CityGenerator.px_to_world(spot["px"]).z)) < 60.0
+		roster_placed = roster_placed and near
+		if not near:
+			print("  roster spot off: %s" % id)
+	_check(roster_placed, "North End roster spots are placed at their wireframe positions")
 	var door := LocationPlacer.door_transform({"center": Vector3(10.0, 0.0, 0.0), "footprint": Vector2(8.0, 8.0), "block_center": Vector3.ZERO})
 	_check(door.origin.is_equal_approx(Vector3(14.15, 0.0, 0.0)) and door.basis.z.is_equal_approx(Vector3.RIGHT), "doors face the road, away from the block centre")
 

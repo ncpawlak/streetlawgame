@@ -1,7 +1,15 @@
 # Map proposal: "Palm County" (issue #35)
 
-**Status: proposal only (rev 4: game-style map, airport made neutral).** No gameplay code or
-content data has changed.
+**Status: proposal (rev 4: game-style map, airport made neutral).** The North End (Zone 1) is now
+the playable greybox world, built from [`north_end_wireframe.svg`](north_end_wireframe.svg):
+
+- `tools/extract_north_end_layout.py` turns the SVG into `scripts/world/north_end_layout.gd`
+  (blocks, buildings, roads, street labels, in wireframe px). Re-run it after editing the SVG.
+- `CityGenerator` maps 1 px to 1.2 m (the wireframe's 2 m/px, compressed for driving) with
+  north = -Z. Districts are axis-aligned rects, I-59 is at grade, and the hatched neighbours are
+  low filler blocks inside the boundary walls.
+- `scripts/world/north_end_spots.gd` lists every roster spot. Spots with a working system spawn
+  locations or business sites; the rest are labelled "coming soon" posts with map discs.
 
 - **Game-style map:** [`west_palm_map.svg`](west_palm_map.svg) (preview:
   [`west_palm_map.png`](west_palm_map.png)). It uses the fictional highway names, shows
@@ -267,7 +275,7 @@ can be added later, and every key point stays reachable by road.
 
 - This adds 8 areas (`north_end`, `riviera`, `south_end`, `worthing`, `westlands`, `glades`,
   `downtown`, `palm_isle`) and 26 districts (25 turf districts plus `grassy_flats`), and a neutral PCI Airport zone with a Hangar property
-  to replace today's 3 areas and 9 districts in
+  to replace the prototype's 3 areas and 9 districts in
   `data/areas` and `data/districts`. Existing ids like `the_bottoms` and `riverside` would be
   retired or renamed.
 - `DistrictData.grid_origin` only describes a square grid, so authored, uneven districts need a
