@@ -1,24 +1,48 @@
 # Map proposal: "Palm County" (issue #35)
 
-**Status: proposal only.** No gameplay code or content data has changed. The wireframe is
+**Status: proposal only (rev 2).** No gameplay code or content data has changed. The wireframe is
 [`west_palm_wireframe.svg`](west_palm_wireframe.svg). Open it in a browser.
 
 The world is based on West Palm Beach and Palm Beach County, FL, compressed to game scale. Every
 name is fictional but sounds like a real place, and no business or venue is trademarked. Its
-structure follows the turf hierarchy from #24: **7 areas → 21 districts → 1 safehouse each**, plus
+structure follows the turf hierarchy from #24: **8 areas → 25 districts → 1 safehouse each**, plus
 neutral zones that can't be captured.
+
+Rev 2 follows the user's reference maps (an illustrated neighborhood map, a county road map and two
+WPB street maps) more closely:
+
+- **I-95 bends northwest above downtown.** It runs close to the coast through the south and swings
+  inland past Mangonia toward Riviera Beach. The Turnpike stays far to the west.
+- **The lake chain** (Lake Mangona to the north, Clear Lake to the south) sits between I-95 and
+  downtown. Lakes Blvd passes between the two lakes.
+- **PCI Airport** hugs the west side of I-95, south of downtown, between Belvedere Rd and Southern
+  Blvd. It's no longer out in the suburbs.
+- **Palm Isle** is a long, thin barrier island along the whole coast, from the inlet down past
+  Worthing. Palm Inlet and Peanut Key are at the north end, by the port.
+- **The lagoon-side neighborhoods run north to south** like the real ones: Riviera → Northwood →
+  Downtown/Waterfront → El Cid → Flamingo Park (with Grandview Heights inland) → South End → Lake
+  Worth Beach → Lantana. The illustrated map draws Lake Worth Beach near the inlet, but that's
+  stylized; the road maps put it south of WPB, and so does this map.
 
 ## Layout at a glance
 
 From west to east, the map is built in vertical bands, like the real county:
 
-`Lake Okee | The Glades (cane) | Loxahatchee swamp | Westlands (suburbs) | I-95 | old coastal towns | Lagoon | Palm Isle / Sandpiper Key | Atlantic`
+`Lake Okee | The Glades (cane) | Loxahatchee swamp | Westlands (suburbs) | I-95 + lake chain | old WPB neighborhoods | Lagoon | Palm Isle / Sandpiper Key | Atlantic`
 
-- **N–S spines:** the State Turnpike (west), I-95 (center), Dixie Hwy, Lagoon Dr (waterfront), Ocean Blvd (island), and Route 98 along the lake.
-- **E–W arteries:** Heron Blvd, Lakes Blvd, Okee Blvd (motor mile), Southern Blvd / Route 80 (the only road to the Glades besides the Beeline), Forest Blvd, Worthing Rd and Lantern Rd.
-- **The Beeline:** a diagonal highway from Port Palmetto, northwest across the preserve and swamp, to Pahoka Shore. It's the smuggler's back road.
-- **Bridges:** 6 drawbridges cross the lagoon (Heron, North, Palmetto, Southern, Worthing, Lantern). Palm Isle is reached directly by 3 of them, plus a back door along Ocean Blvd from Worthing Beach. Palm Inlet separates Sandpiper Key from Palm Isle, and no bridge crosses it.
-- **Water:** Lake Worth Lagoon (Intracoastal), the Atlantic, Palm Inlet, Peanut Key, Lake Mangona, Clear Lake, the Fifty-One Canal (along Southern Blvd from the lake to the lagoon), the C-17 and E-4 canals, the Wellmont grid canals, the cane-field ditches and the Levee rim along Lake Okee.
+- **N–S spines:** the State Turnpike (far west), Military Trail, I-95 (bends NW above downtown), the
+  commuter rail, Dixie Hwy, Lagoon Dr (waterfront), Ocean Blvd (island), and Route 98 along the lake.
+- **E–W arteries, north to south:** Heron Blvd, Lakes Blvd, Okee Blvd (motor mile, ends at the
+  Palmetto Bridge), Belvedere Rd (broken by the airport), Southern Blvd / Route 80 (the only road to
+  the Glades besides the Beeline), Forest Blvd, Worthing Rd and Lantern Rd.
+- **The Beeline:** a diagonal highway from Riviera, northwest across the preserve and swamp, to
+  Pahoka Shore. It's the smuggler's back road.
+- **Bridges:** 6 drawbridges cross the lagoon (Heron, North, Palmetto, Southern, Worthing, Lantern).
+  Palm Isle is reached directly by 3 of them, plus a back door along Ocean Blvd from Worthing Beach.
+  No bridge crosses Palm Inlet between Sandpiper Key and Palm Isle.
+- **Water:** Lake Worth Lagoon (Intracoastal), the Atlantic, Palm Inlet, Peanut Key, Lake Mangona,
+  Clear Lake, the Fifty-One Canal (from the lake to the lagoon, south of Southern Blvd), the C-17 and
+  E-4 canals, the Wellmont grid canals, the cane-field ditches and the Levee rim along Lake Okee.
 
 ## Areas and districts
 
@@ -26,24 +50,28 @@ The tier is the suggested progression step (1 = first).
 
 | Area (tier) | District id | Name (inspired by) | Flavor | Suggested safehouse |
 |---|---|---|---|---|
-| **North End** (1) | `tamarack_row` ★ start | Tamarack Row (Tamarind Ave corridor) | Shotgun houses along the commuter rail, corner stores, the first trap house | Boarded duplex by the tracks |
-| | `northgrove` | Northgrove (Northwood) | Faded arts strip, bungalows, hospital | Bungalow off the arts strip |
-| | `mangona` | Mangona (Mangonia Park) | Light industry, chop shops, Lake Mangona | Chop-shop yard |
+| **North End** (1) | `tamarack_row` ★ start | Tamarack Row (Tamarind Ave / Historic Northwest) | Shotgun houses between Clear Lake and the tracks, corner stores, the first trap house | Boarded duplex by the tracks |
+| | `northgrove` | Northgrove (Northwood) | Faded arts strip, historic bungalows, hospital | Bungalow off the arts strip |
+| | `mangona` | Mangona (Mangonia Park) | Light industry and chop shops around Lake Mangona, wedged against I-95 | Chop-shop yard by the lake |
 | **Riviera** (2) | `riviera_heights` | Riviera Heights (Riviera Beach) | Tough beach town, power plant stacks | Bodega back room |
-| | `port_palmetto` | Port Palmetto (Port of Palm Beach) | Container cranes, warehouses, smuggling | Container-yard office |
-| | `sandpiper_key` | Sandpiper Key (Singer Island) | Condo towers, marinas, inlet | Condo-tower unit |
-| **South End** (2) | `southern_strip` | Southern Strip (Southern Blvd) | Motels, pawn shops, check cashing | No-tell motel |
-| | `worthing` | Worthing + Worthing Beach (Lake Worth Beach) | Bars, a bohemian downtown, the pier and casino hall on the beach | Upstairs at a pawn shop |
-| | `lantern_bay` | Lantern Bay (Lantana) | Boatyards, a small airfield vibe, quiet streets | Boatyard shed |
-| **Westlands** (3) | `regal_palms` | Regal Palms (Royal Palm Beach + Okeechobee Blvd) | Car dealers on the motor mile, strip malls, fairgrounds | Car dealer's back lot |
+| | `port_palmetto` | Port Palmetto (Port of Palm Beach) | Container cranes facing the inlet, warehouses, smuggling | Container-yard office |
+| | `sandpiper_key` | Sandpiper Key (Singer Island) | Condo towers, marinas, the inlet | Condo-tower unit |
+| **South End** (2) | `grand_vista` | Grand Vista (Grandview Heights) | Historic homes between the tracks and the airport fence | Craftsman house near the runway |
+| | `del_sol` | Del Sol (El Cid) | Waterfront historic district, art museum, old money in decline | Mediterranean-revival villa |
+| | `pelican_park` | Pelican Park (Flamingo Park) | Palm-lined residential streets, Dixie Hwy shops | Garage apartment |
+| | `southshore` | Southshore (South End) | Waterfront marinas, Southern Blvd bridge | Marina bait shop |
+| **Worthing** (3) | `motel_row` | Motel Row (Dixie Hwy south / Lake Clarke) | Motels, pawn shops, check cashing | No-tell motel |
+| | `worthing` | Worthing + Worthing Beach (Lake Worth Beach) | Bars, a bohemian downtown, the pier and casino hall across the bridge | Upstairs at a pawn shop |
+| | `lantern_bay` | Lantern Bay (Lantana) | Boatyards, a small airfield, quiet streets | Boatyard shed |
+| **Westlands** (3) | `regal_palms` | Regal Palms (Royal Palm Beach + the Okeechobee Blvd corridor) | Car dealers on the motor mile, strip malls, fairgrounds | Car dealer's back lot |
 | | `wellmont` | Wellmont (Wellington) | Gated communities, polo and equestrian grounds, canals | Horse-farm barn |
-| | `greenhaven` | Greenhaven (Greenacres) | Apartments, stucco strip malls, the county lockup nearby | Check-cashing back office |
+| | `greenhaven` | Greenhaven (Greenacres / Palm Springs) | Apartments, stucco strip malls, county lockup by the airport | Check-cashing back office |
 | **The Glades** (3) | `pahoka_shore` | Pahoka Shore (Pahokee) | The Levee, fish camps, the lake | Fish camp on the levee |
 | | `cane_hollow` | Cane Hollow (Belle Glade) | Sugar-town projects, cane fires | Project block on Main |
 | | `sugarmill` | Sugarmill (South Bay mill country) | Mill smokestacks, airstrip, remote labs and plug drops | Airstrip hangar |
 | **Downtown** (4) | `clement_street` | Clement Street (Clematis St) | Nightlife strip, fountain, police HQ | Loft above a dead nightclub |
 | | `rosewood_square` | Rosewood Square (Rosemary Square) | Open-air mall, offices, banks | Parking-garage penthouse |
-| | `lagoon_front` | Lagoon Front (Flagler Dr waterfront) | Marina, amphitheater, high-rise condos | Houseboat at the marina |
+| | `lagoon_front` | Lagoon Front (WPB Waterfront / Flagler Dr) | Marina, amphitheater, high-rise condos | Houseboat at the marina |
 | **Palm Isle** (5) | `ocean_estates` | Ocean Estates (north Palm Beach estates) | Mansions to rob, the Breakwater hotel | Gated mansion |
 | | `gilded_row` | Gilded Row (Worth Ave-style) | Luxury shopping row, jewelers, galleries | Boutique penthouse |
 | | `southpoint` | Southpoint (south Palm Beach estates) | Waterfront estates with private docks | Estate with a dock |
@@ -63,7 +91,14 @@ graph LR
     riviera_heights -. Heron Bridge .- sandpiper_key[Sandpiper Key]
   end
   subgraph SE[South End - tier 2]
-    southern_strip[Southern Strip] --- worthing[Worthing]
+    grand_vista[Grand Vista] --- del_sol[Del Sol]
+    grand_vista --- pelican_park[Pelican Park]
+    del_sol --- pelican_park
+    grand_vista --- southshore[Southshore]
+    pelican_park --- southshore
+  end
+  subgraph WO[Worthing - tier 3]
+    motel_row[Motel Row] --- worthing[Worthing]
     worthing --- lantern_bay[Lantern Bay]
   end
   subgraph WL[Westlands - tier 3]
@@ -90,18 +125,22 @@ graph LR
   tamarack_row --- clement_street
   tamarack_row --- rosewood_square
   northgrove --- clement_street
-  tamarack_row --- southern_strip
-  rosewood_square --- southern_strip
-  lagoon_front --- southern_strip
+  tamarack_row --- grand_vista
+  rosewood_square --- del_sol
+  lagoon_front --- del_sol
+  southshore --- motel_row
   tamarack_row -. I-95 / Okee .- regal_palms
-  southern_strip --- greenhaven
+  mangona -. I-95 .- regal_palms
+  grand_vista -. airport fence .- greenhaven
+  southshore --- greenhaven
+  motel_row --- greenhaven
   worthing --- greenhaven
   lantern_bay --- greenhaven
   regal_palms -. Route 80 / swamp .- cane_hollow
-  port_palmetto -. The Beeline .- pahoka_shore
+  riviera_heights -. The Beeline .- pahoka_shore
   clement_street -. North Bridge .- ocean_estates
   rosewood_square -. Palmetto Bridge .- gilded_row
-  southern_strip -. Southern Bridge .- southpoint
+  southshore -. Southern Bridge .- southpoint
   worthing -. Ocean Blvd back door .- southpoint
 ```
 
@@ -115,38 +154,40 @@ Solid lines are shared land borders. Dotted lines are road, bridge or highway li
 - **The Glades and the swamp** are about **1:30** (~60 km real → ~1.6 km game). It's a "long drive
   out" feel without the empty kilometers: the swamp band is a causeway (Twenty Mile Bend) with
   nothing to do on it.
-- **District size:** ~400–1,100 m per side on the mainland (Downtown districts are deliberately
-  small and dense, ~250 × 500 m). For reference, today's generated grid is 9 × 62 m blocks ≈ 570 m
-  for the **whole city**. At the current `block_size` + `road_width` (62 m pitch), a typical district
-  is ~8–15 blocks per side.
+- **District size:** ~400–1,100 m per side in the suburbs and Glades. The old WPB neighborhoods are
+  smaller and denser: Downtown, South End and Worthing districts are ~250–600 m. For reference,
+  today's generated grid is 9 × 62 m blocks ≈ 570 m for the **whole city**. At the current
+  `block_size` + `road_width` (62 m pitch), a typical coastal district is ~4–10 blocks per side.
 
 Target drive times assume a tuned car at ~30 m/s (108 km/h) on highways and ~18 m/s on streets.
 `vehicle.gd` has no top speed cap today, so these are tuning targets.
 
 | Trip | Distance | Target |
 |---|---|---|
+| Tamarack Row → PCI Airport | ~0.5 km | ~30 s |
 | Tamarack Row → Clement St | ~0.6 km | ~30 s |
 | Downtown → Palm Isle (Palmetto Bridge) | ~0.6 km | ~30 s |
-| Tamarack Row → Port Palmetto | ~1.4 km | ~1 min |
-| Tamarack Row → Worthing (I-95) | ~1.6 km | ~1 min |
+| Tamarack Row → Port Palmetto | ~1.5 km | ~1 min |
+| Tamarack Row → Worthing (I-95) | ~1.7 km | ~1 min |
 | Downtown → Wellmont | ~2.6 km | ~1½ min |
 | Riviera Heights → Lantern Bay (I-95, end to end) | ~4.4 km | ~2½ min |
 | Downtown → Cane Hollow (Okee/Southern/Route 80) | ~4.8 km | ~3 min |
-| Port Palmetto → Pahoka Shore (the Beeline) | ~4 km | ~2½ min |
+| Riviera Heights → Pahoka Shore (the Beeline) | ~4 km | ~2½ min |
 
 That's in line with Saints Row 2's Stilwater, where a full crossing takes ~3–4 minutes.
 
 ## Progression: from the gutter to the island
 
-1. **North End** (start: Tamarack Row). You begin on one corner, and the first trap house sits by the
-   tracks. Mangona's chop shops give you early cars. The bridges to Palm Isle are raised or
-   police-gated.
+1. **North End** (start: Tamarack Row, between Clear Lake and the tracks, right next to downtown).
+   You begin on one corner, and the first trap house sits by the tracks. Mangona's chop shops give
+   you early cars. The bridges to Palm Isle are raised or police-gated.
 2. **Riviera and South End** (in either order). The port opens smuggling and boat jobs. The South
-   End has pawn and check-cashing fronts and the Worthing pier. Capturing Port Palmetto opens the
-   Beeline.
-3. **Westlands and The Glades.** The money and supply-chain tier. Car dealers on the motor mile and
-   gated-community robberies in the suburbs. Remote labs, plug meets and airstrip drops in the
-   Glades. The Glades could open earlier through the plug storyline (Smokey / El Primo, #27).
+   End's historic streets (Grand Vista, Del Sol, Pelican Park, Southshore) have fronts and the art
+   museum. Capturing Riviera opens the Beeline.
+3. **Worthing, Westlands and The Glades.** The money and supply-chain tier. Pawn shops, motels and
+   the pier in Worthing. Car dealers on the motor mile and gated-community robberies in the suburbs.
+   Remote labs, plug meets and airstrip drops in the Glades. The Glades could open earlier through
+   the plug storyline (Smokey / El Primo, #27).
 4. **Downtown.** High heat, banks, nightlife fronts and police HQ. Holding it lowers the bridge gates.
 5. **Palm Isle.** The finale: the hardest heat, mansion heists, Gilded Row jewelers and the Breakwater.
 
@@ -165,8 +206,8 @@ That's in line with Saints Row 2's Stilwater, where a full crossing takes ~3–4
 | 9 | The Breakwater (grand oceanfront hotel) | Ocean Estates | Late-game heist |
 | 10 | Gilded Row luxury shops | Gilded Row | Jewel heists |
 | 11 | Worthing pier, casino hall and boardwalk | Worthing Beach | Hangout, deals |
-| 12 | PCI Airport | Neutral | Plane theft, cargo jobs |
-| 13 | County lockup | Greenhaven edge | Respawn after a bust |
+| 12 | PCI Airport (next to I-95) | Neutral | Plane theft, cargo jobs |
+| 13 | County lockup | Greenhaven, by the airport | Respawn after a bust |
 | 14 | Northgrove hospital | Northgrove | Respawn after getting wasted |
 | 15 | Police HQ | Clement Street | Heat center |
 | 16 | Tamarack commuter-rail station | Tamarack Row | Train / fast travel later |
@@ -177,14 +218,17 @@ That's in line with Saints Row 2's Stilwater, where a full crossing takes ~3–4
 | 21 | Glades airstrip | Sugarmill | Crop dusters, product drops |
 | 22 | The Levee and fish camp | Pahoka Shore | Lake views, boat stash |
 | 23 | Grassy Flats lookout tower | Preserve | Vista, body dumps |
+| 24 | Del Sol art museum | Del Sol | Art heist |
 
 ## Fit with existing systems (for the follow-up, not done here)
 
-- This adds 7 areas (`north_end`, `riviera`, `south_end`, `westlands`, `glades`, `downtown`,
-  `palm_isle`) and 21 districts to replace today's 3 areas and 9 districts in `data/areas` and
-  `data/districts`. Existing ids like `the_bottoms` and `riverside` would be retired or renamed.
+- This adds 8 areas (`north_end`, `riviera`, `south_end`, `worthing`, `westlands`, `glades`,
+  `downtown`, `palm_isle`) and 25 districts to replace today's 3 areas and 9 districts in
+  `data/areas` and `data/districts`. Existing ids like `the_bottoms` and `riverside` would be
+  retired or renamed.
 - `DistrictData.grid_origin` only describes a square grid, so authored, uneven districts need a
-  boundary (a polygon or a list of rects) and a safehouse position.
+  boundary (a polygon or a list of rects) and a safehouse position. Several coastal districts have
+  a slanted west edge along I-95.
 - The existing `LocationDef` placements (trap house, lab, plug meets) map onto the new districts
   like this: the trap house goes to Tamarack Row, the coke lab to Sugarmill or Cane Hollow, and the
   plug meets to Pahoka Shore and Port Palmetto.
@@ -193,8 +237,8 @@ That's in line with Saints Row 2's Stilwater, where a full crossing takes ~3–4
 
 1. **Scale:** is a 6 × 4.8 km world right for the first authored pass? Or should the greybox start
    at half scale (~3 × 2.4 km) and grow later?
-2. **District count:** is 21 too many for now? One option is to collapse each area to 2 districts
-   at first (14 total) and keep the rest as sub-zones.
+2. **District count:** is 25 too many for now? One option is to collapse each area to 2 districts
+   at first (16 total) and keep the rest as sub-zones.
 3. **Road naming:** keep real public highway numbers (I-95, Route 80, Route 98, Route 7) or rename
    them all (for example "the 95")? Street and venue names are already fictional.
 4. **Gating:** should the Palm Isle bridges be physically raised until Downtown is held, or open
@@ -205,5 +249,5 @@ That's in line with Saints Row 2's Stilwater, where a full crossing takes ~3–4
    districts (for example "the airport" as a cargo-heist district)?
 7. **Water traversal:** are boats in scope? The lagoon, inlet and canals are designed as boat
    routes, but every key point is also reachable by road.
-8. **North expansion:** the county line at the top ("the Gardens") is reserved for a later
-   expansion. Is that wanted, or should the map close there?
+8. **North expansion:** the county line at the top ("the Gardens", from Palm Beach Gardens) is
+   reserved for a later expansion. Is that wanted, or should the map close there?

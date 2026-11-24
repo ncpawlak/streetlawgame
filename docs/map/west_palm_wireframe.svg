@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Street Law: top-down wireframe proposal for issue #35 (West Palm Beach / Palm Beach County).
+     Revision 2: coastal strip re-laid out from reference road maps (I-95 bend, lake chain, PBI next to I-95,
+     El Cid / Flamingo Park / Grandview Heights / South End order, Lake Worth + Lantana further south).
      Map units: 1 px = 5 m in game (1 km = 200 px). North is up. Map origin is translated to (20,70).
      The Glades and the swamp band are compressed much harder than the coast (see MAP_PROPOSAL.md). -->
-<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1100" viewBox="0 0 1600 1100" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1130" viewBox="0 0 1600 1130" font-family="Segoe UI, Helvetica, Arial, sans-serif">
   <defs>
     <pattern id="swamp" width="12" height="12" patternUnits="userSpaceOnUse">
       <rect width="12" height="12" fill="#9fb98f"/>
@@ -35,8 +37,8 @@
       .note { font-size: 9px; fill: #444; }
       .district { stroke: #ffffff; stroke-width: 1.5; stroke-dasharray: 5 3; fill-opacity: 0.6; }
       .area-edge { fill: none; stroke: #222; stroke-width: 2.5; }
-      .hwy { stroke: #c0392b; stroke-width: 7; fill: none; stroke-linecap: round; }
-      .hwy-casing { stroke: #fff; stroke-width: 10; fill: none; stroke-linecap: round; }
+      .hwy { stroke: #c0392b; stroke-width: 7; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+      .hwy-casing { stroke: #fff; stroke-width: 10; fill: none; stroke-linecap: round; stroke-linejoin: round; }
       .art { stroke: #444; stroke-width: 4; fill: none; stroke-linecap: round; }
       .local { stroke: #777; stroke-width: 2; fill: none; }
       .rail { stroke: #111; stroke-width: 2; stroke-dasharray: 8 4; fill: none; }
@@ -44,6 +46,7 @@
       .bridge-deck { stroke: #f5f5f5; stroke-width: 5; fill: none; }
       .canal { stroke: #3d8fd1; stroke-width: 3; fill: none; }
       .canal-thin { stroke: #3d8fd1; stroke-width: 1.2; fill: none; }
+      .lake { fill: #7fb6e0; stroke: #3d8fd1; }
       .lm circle { fill: #fff; stroke: #0b5394; stroke-width: 2; }
       .lm text { font-size: 9px; font-weight: 700; fill: #0b5394; text-anchor: middle; }
       .legend-title { font-size: 13px; font-weight: 800; fill: #111; }
@@ -51,38 +54,35 @@
     </style>
   </defs>
 
-  <rect width="1600" height="1100" fill="#fbfaf6"/>
-  <text x="20" y="30" font-size="22" font-weight="800" fill="#111">STREET LAW · "Palm County" wireframe (proposal for #35)</text>
+  <rect width="1600" height="1130" fill="#fbfaf6"/>
+  <text x="20" y="30" font-size="22" font-weight="800" fill="#111">STREET LAW · "Palm County" wireframe (proposal for #35, rev 2)</text>
   <text x="20" y="52" font-size="12" fill="#444">Top-down blockout based on West Palm Beach / Palm Beach County, compressed to game scale. Fictional names. North is up.</text>
 
   <g transform="translate(20,70)">
     <!-- ================= BASE ================= -->
     <rect x="0" y="0" width="1200" height="960" fill="#f1ecdf" stroke="#999"/>
-    <!-- Lake Okee (Lake Okeechobee) -->
     <path d="M0 0 H38 Q46 120 36 240 Q48 400 38 560 Q46 760 36 960 H0 Z" fill="#7fb6e0"/>
     <text class="water-label" transform="translate(22,520) rotate(-90)" text-anchor="middle">LAKE OKEE</text>
-    <!-- Lagoon + ocean -->
     <rect x="955" y="0" width="245" height="960" fill="#9cc9ec"/>
     <path d="M1098 0 Q1104 300 1100 480 Q1104 700 1106 960 H1200 V0 Z" fill="#6ea9da"/>
     <text class="water-label" transform="translate(1150,520) rotate(90)" text-anchor="middle">ATLANTIC OCEAN</text>
-    <text class="water-label" transform="translate(1000,700) rotate(90)" text-anchor="middle">LAKE WORTH LAGOON (Intracoastal)</text>
+    <text class="water-label" transform="translate(1000,760) rotate(90)" text-anchor="middle">LAKE WORTH LAGOON (Intracoastal)</text>
 
     <!-- ================= NEUTRAL / WILD ================= -->
     <rect x="330" y="0" width="625" height="40" fill="url(#neutral)"/>
-    <text class="note" x="520" y="16" text-anchor="middle">county line · "the Gardens" (off-map, future expansion)</text>
+    <text class="note" x="500" y="16" text-anchor="middle">county line · "the Gardens" (off-map, future expansion)</text>
     <rect x="40" y="0" width="220" height="40" fill="url(#neutral)"/>
-    <rect x="330" y="40" width="390" height="260" fill="url(#preserve)" stroke="#7a9a6a"/>
-    <text class="dist-label" x="570" y="200" text-anchor="middle">Grassy Flats Preserve</text>
-    <text class="note" x="570" y="213" text-anchor="middle">neutral wetland · water supply · body dumps</text>
+    <path d="M330 40 H659 L690 180 L719 300 H330 Z" fill="url(#preserve)" stroke="#7a9a6a"/>
+    <text class="dist-label" x="530" y="200" text-anchor="middle">Grassy Flats Preserve</text>
+    <text class="note" x="530" y="213" text-anchor="middle">neutral wetland · water supply · body dumps</text>
     <rect x="260" y="0" width="70" height="960" fill="url(#swamp)"/>
     <text class="dist-label" transform="translate(300,300) rotate(-90)" text-anchor="middle">LOXAHATCHEE SWAMP · not to scale</text>
-    <rect x="560" y="560" width="160" height="130" fill="url(#neutral)" stroke="#777"/>
-    <!-- runways -->
-    <path d="M575 600 L705 600 M575 650 L705 650 M600 575 L690 680" stroke="#555" stroke-width="7" stroke-linecap="round"/>
-    <text class="dist-label" x="640" y="584" text-anchor="middle">PCI Airport (neutral)</text>
+    <!-- PCI Airport: hugs the west side of I-95, between Belvedere and Southern -->
+    <path d="M650 575 H765 V660 H650 Z" fill="url(#neutral)" stroke="#777"/>
+    <path d="M662 598 L752 598 M662 640 L752 640 M672 585 L742 655" stroke="#555" stroke-width="6" stroke-linecap="round"/>
 
     <!-- ================= DISTRICTS ================= -->
-    <!-- The Glades (cane country) -->
+    <!-- The Glades -->
     <g fill="#b89a5a">
       <rect class="district" x="40" y="40" width="220" height="290"/>
       <rect class="district" x="40" y="330" width="220" height="350"/>
@@ -91,145 +91,153 @@
     <rect x="48" y="45" width="207" height="910" fill="url(#cane)" opacity="0.45"/>
     <!-- Westlands -->
     <g fill="#8cc463">
-      <path class="district" d="M330 300 H720 V560 H560 V640 H330 Z"/>
-      <rect class="district" x="330" y="640" width="170" height="320"/>
-      <path class="district" d="M500 640 H560 V690 H720 V960 H500 Z"/>
+      <path class="district" d="M330 300 H719 L725 330 L755 470 L765 560 V575 H650 V660 H330 Z"/>
+      <rect class="district" x="330" y="660" width="170" height="300"/>
+      <path class="district" d="M500 660 H765 L763 760 L761 830 L758 905 L755 960 H500 Z"/>
     </g>
     <!-- Riviera -->
     <g fill="#4fb3a0">
-      <rect class="district" x="720" y="40" width="235" height="160"/>
-      <rect class="district" x="820" y="200" width="135" height="100"/>
+      <path class="district" d="M659 40 H955 V200 H695 L690 180 Z"/>
+      <rect class="district" x="820" y="200" width="135" height="90"/>
       <path class="district" d="M1040 30 Q1070 22 1097 30 L1100 250 L1045 250 Z"/>
     </g>
     <!-- North End (start) -->
     <g fill="#e8a64a">
-      <rect class="district" x="720" y="200" width="100" height="220"/>
-      <rect class="district" x="820" y="300" width="135" height="120"/>
-      <path class="district" d="M720 420 H880 V510 H860 V610 H720 Z"/>
+      <path class="district" d="M695 200 H820 V420 H745 L725 330 Z"/>
+      <rect class="district" x="820" y="290" width="135" height="130"/>
+      <path class="district" d="M745 420 H840 V560 H765 L755 470 Z"/>
     </g>
     <!-- Downtown -->
     <g fill="#a874d6">
-      <rect class="district" x="880" y="420" width="75" height="90"/>
-      <rect class="district" x="860" y="510" width="45" height="100"/>
-      <rect class="district" x="905" y="510" width="50" height="100"/>
+      <rect class="district" x="840" y="420" width="115" height="60"/>
+      <rect class="district" x="840" y="480" width="60" height="80"/>
+      <rect class="district" x="900" y="480" width="55" height="80"/>
     </g>
-    <!-- South End -->
+    <!-- South End (historic WPB south side) -->
     <g fill="#e07272">
-      <rect class="district" x="720" y="610" width="235" height="120"/>
-      <rect class="district" x="720" y="730" width="235" height="130"/>
-      <path class="district" d="M1040 760 L1102 760 L1106 960 L1046 960 Z"/>
-      <rect class="district" x="720" y="860" width="235" height="100"/>
+      <rect class="district" x="765" y="560" width="75" height="120"/>
+      <rect class="district" x="840" y="560" width="115" height="55"/>
+      <rect class="district" x="840" y="615" width="115" height="65"/>
+      <path class="district" d="M765 680 H955 V760 H763 Z"/>
     </g>
-    <!-- Palm Isle (The Island) -->
+    <!-- Worthing (Lake Worth Beach + Lantana) -->
+    <g fill="#ee8fc0">
+      <path class="district" d="M763 760 H955 V830 H761 Z"/>
+      <path class="district" d="M761 830 H955 V905 H758 Z"/>
+      <path class="district" d="M1041 800 L1103 800 L1106 960 L1046 960 Z"/>
+      <path class="district" d="M758 905 H955 V960 H755 Z"/>
+    </g>
+    <!-- Palm Isle -->
     <g fill="#f2d24b">
       <path class="district" d="M1035 285 L1100 285 L1101 470 L1037 470 Z"/>
       <path class="district" d="M1037 470 L1101 470 L1102 600 L1038 600 Z"/>
-      <path class="district" d="M1038 600 L1102 600 L1102 760 L1040 760 Z"/>
+      <path class="district" d="M1038 600 L1102 600 L1103 800 L1041 800 Z"/>
     </g>
 
     <!-- Area outlines -->
     <rect class="area-edge" x="40" y="40" width="220" height="920"/>
-    <path class="area-edge" d="M330 300 H720 V960 H330 Z"/>
-    <path class="area-edge" d="M720 40 H955 V300 H820 V200 H720 Z"/>
+    <path class="area-edge" d="M330 300 H719 L725 330 L755 470 L765 560 V575 H650 V660 H765 L763 760 L761 830 L758 905 L755 960 H330 Z"/>
+    <path class="area-edge" d="M659 40 H955 V290 H820 V200 H695 L690 180 Z"/>
     <path class="area-edge" d="M1040 30 Q1070 22 1097 30 L1100 250 L1045 250 Z"/>
-    <path class="area-edge" d="M720 200 H820 V300 H955 V420 H880 V510 H860 V610 H720 Z"/>
-    <path class="area-edge" d="M880 420 H955 V610 H860 V510 H880 Z"/>
-    <path class="area-edge" d="M720 610 H955 V960 H720 Z"/>
-    <path class="area-edge" d="M1040 760 L1102 760 L1106 960 L1046 960 Z"/>
-    <path class="area-edge" d="M1035 285 L1100 285 L1102 760 L1040 760 Z"/>
+    <path class="area-edge" d="M695 200 H820 V290 H955 V420 H840 V560 H765 L755 470 L745 420 L725 330 Z"/>
+    <path class="area-edge" d="M840 420 H955 V560 H840 Z"/>
+    <path class="area-edge" d="M765 560 H955 V760 H763 Z"/>
+    <path class="area-edge" d="M763 760 H955 V960 H755 L758 905 L761 830 Z"/>
+    <path class="area-edge" d="M1041 800 L1103 800 L1106 960 L1046 960 Z"/>
+    <path class="area-edge" d="M1035 285 L1100 285 L1103 800 L1041 800 Z"/>
 
     <!-- ================= WATER FEATURES ON LAND ================= -->
-    <!-- Lake Mangona and Clear Lake -->
-    <path d="M740 300 Q770 290 786 315 Q795 360 776 398 Q750 410 742 380 Z" fill="#7fb6e0" stroke="#3d8fd1"/>
-    <path d="M736 445 Q770 432 782 460 Q790 500 772 540 Q745 548 738 515 Z" fill="#7fb6e0" stroke="#3d8fd1"/>
-    <text class="note" x="764" y="352" text-anchor="middle" fill="#1d4f7a">Lake</text>
-    <text class="note" x="764" y="362" text-anchor="middle" fill="#1d4f7a">Mangona</text>
-    <text class="note" x="760" y="492" text-anchor="middle" fill="#1d4f7a">Clear</text>
-    <text class="note" x="760" y="502" text-anchor="middle" fill="#1d4f7a">Lake</text>
-    <!-- Inlet + Peanut Key -->
+    <!-- Lake chain just west of downtown, east of I-95 -->
+    <path class="lake" d="M752 250 Q790 236 812 262 Q820 320 808 380 Q790 404 768 396 Q748 360 752 300 Z"/>
+    <path class="lake" d="M778 432 Q805 424 815 445 Q820 480 810 512 Q790 522 780 505 Q772 470 778 432 Z"/>
+    <text class="note" x="782" y="318" text-anchor="middle" fill="#1d4f7a">Lake</text>
+    <text class="note" x="782" y="328" text-anchor="middle" fill="#1d4f7a">Mangona</text>
+    <text class="note" x="796" y="470" text-anchor="middle" fill="#1d4f7a">Clear</text>
+    <text class="note" x="796" y="480" text-anchor="middle" fill="#1d4f7a">Lake</text>
+    <!-- Inlet + Peanut Key (north end, by the port) -->
+    <rect x="1040" y="250" width="70" height="35" fill="#9cc9ec"/>
     <ellipse cx="1005" cy="268" rx="16" ry="11" fill="#d9cfa8" stroke="#7a6a3a"/>
     <text class="note" x="1005" y="296" text-anchor="middle">Peanut Key</text>
     <text class="water-label" x="1070" y="272" text-anchor="middle" font-size="9">Palm Inlet</text>
     <!-- Canals -->
-    <path class="canal" d="M40 655 H330 M330 655 H955"/>
-    <text class="road-label" x="430" y="668" fill="#1d4f7a">Fifty-One Canal</text>
+    <path class="canal" d="M40 745 H955"/>
+    <text class="road-label" x="430" y="758" fill="#1d4f7a">Fifty-One Canal</text>
     <path class="canal" d="M600 32 H955"/>
     <text class="road-label" x="880" y="28" fill="#1d4f7a">C-17 canal</text>
-    <path class="canal" d="M645 690 V960"/>
-    <text class="road-label" transform="translate(641,860) rotate(-90)" fill="#1d4f7a">E-4 canal</text>
+    <path class="canal" d="M700 760 V960"/>
+    <text class="road-label" transform="translate(696,890) rotate(-90)" fill="#1d4f7a">E-4 canal</text>
     <path class="canal-thin" d="M48 330 H260 M48 500 H260 M48 680 H260 M48 820 H260 M150 40 V960 M50 40 V960"/>
-    <path class="canal-thin" d="M345 720 H495 M345 800 H495 M345 880 H495 M380 660 V955 M460 660 V955"/>
-    <!-- Levee -->
+    <path class="canal-thin" d="M345 790 H495 M345 860 H495 M345 920 H495 M380 670 V955 M460 670 V955"/>
     <path d="M44 40 V960" stroke="#6b4f2a" stroke-width="4" stroke-dasharray="2 3"/>
 
     <!-- ================= ROADS ================= -->
-    <!-- Local grid hints -->
-    <path class="local" d="M740 160 H950 M740 260 H815 M830 360 H950 M890 470 H950 M720 580 H860 M730 680 H950 M730 760 H950 M730 830 H950 M730 930 H950"/>
-    <path class="local" d="M780 40 V200 M900 40 V300 M770 610 V960 M820 610 V960 M910 610 V960"/>
-    <path class="local" d="M1060 300 V755 M1065 45 V245 M1070 765 V955"/>
-    <path class="local" d="M120 340 H250 M120 380 H250 M120 420 H250 M90 60 H240 M90 120 H240"/>
-    <!-- Arterials -->
+    <path class="local" d="M700 160 H950 M830 250 H950 M830 360 H950 M845 455 H950 M770 620 H835 M850 590 H950 M850 645 H950 M770 715 H950 M770 800 H950 M770 880 H950 M770 945 H950"/>
+    <path class="local" d="M780 40 V200 M900 40 V290 M800 680 V960 M910 560 V960 M880 290 V420 M925 420 V560"/>
+    <path class="local" d="M1060 300 V795 M1065 45 V245 M1070 805 V955"/>
+    <path class="local" d="M120 340 H250 M120 380 H250 M120 420 H250 M90 90 H240 M90 120 H240"/>
     <g class="art">
-      <path d="M330 120 H955"/>                    <!-- Heron Blvd -->
-      <path d="M555 400 H955"/>                    <!-- Lakes Blvd -->
-      <path d="M330 530 H955"/>                    <!-- Okee Blvd -->
-      <path d="M60 640 H955"/>                     <!-- Southern Blvd / Route 80 -->
-      <path d="M330 700 H950"/>                    <!-- Forest Blvd -->
-      <path d="M330 790 H955"/>                    <!-- Worthing Rd -->
-      <path d="M330 900 H955"/>                    <!-- Lantern Rd -->
-      <path d="M555 300 V960"/>                    <!-- Military Trail -->
-      <path d="M340 40 V960"/>                     <!-- Route 7 -->
-      <path d="M870 40 Q865 300 872 480 Q868 700 870 960"/>   <!-- Dixie Hwy -->
-      <path d="M950 300 V960"/>                    <!-- Lagoon Dr -->
-      <path d="M1085 300 Q1090 600 1092 955"/>     <!-- Ocean Blvd (island) -->
-      <path d="M1078 45 V245"/>                    <!-- Ocean Blvd (Sandpiper) -->
-      <path d="M70 40 V960"/>                      <!-- Route 98 (Glades shore) -->
-      <path d="M70 640 H260"/>
+      <path d="M330 120 H955"/>               <!-- Heron Blvd -->
+      <path d="M560 410 H955"/>               <!-- Lakes Blvd (between the lakes) -->
+      <path d="M330 520 H955"/>               <!-- Okee Blvd -->
+      <path d="M560 570 H650 M765 570 H955"/> <!-- Belvedere Rd (broken by airport) -->
+      <path d="M60 660 H955"/>                <!-- Southern Blvd / Route 80 -->
+      <path d="M330 720 H955"/>               <!-- Forest Blvd -->
+      <path d="M330 860 H955"/>               <!-- Worthing Rd -->
+      <path d="M330 930 H955"/>               <!-- Lantern Rd -->
+      <path d="M640 300 V575 M640 660 V960"/> <!-- Military Trail -->
+      <path d="M340 40 V960"/>                <!-- Route 7 -->
+      <path d="M862 40 V960"/>                <!-- Dixie Hwy -->
+      <path d="M950 290 V960"/>               <!-- Lagoon Dr -->
+      <path d="M1085 300 Q1090 600 1092 955"/>
+      <path d="M1078 45 V245"/>
+      <path d="M70 40 V960"/>
+      <path d="M70 660 H260"/>
     </g>
-    <path class="rail" d="M800 0 Q796 300 802 480 Q798 700 800 960"/>
-    <text class="road-label" transform="translate(806,820) rotate(90)">commuter rail</text>
-    <!-- Highways -->
-    <path class="hwy-casing" d="M820 190 L330 60 L70 60"/>
-    <path class="hwy" d="M820 190 L330 60 L70 60"/>
+    <path class="rail" d="M765 0 L800 200 L826 290 L832 410 L834 560 L800 680 L790 960"/>
+    <text class="road-label" transform="translate(800,850) rotate(90)">commuter rail</text>
+    <!-- Highways: I-95 bends NW above downtown; Turnpike far west; Beeline diagonal -->
+    <path class="hwy-casing" d="M800 185 L330 60 L70 60"/>
+    <path class="hwy" d="M800 185 L330 60 L70 60"/>
     <path class="hwy-casing" d="M420 0 V960"/>
     <path class="hwy" d="M420 0 V960"/>
-    <path class="hwy-casing" d="M722 0 Q716 300 722 480 Q728 700 720 960"/>
-    <path class="hwy" d="M722 0 Q716 300 722 480 Q728 700 720 960"/>
-    <!-- Bridges (over the lagoon) -->
+    <path class="hwy-casing" d="M650 0 L690 180 L725 330 L755 470 L765 560 L765 700 L755 960"/>
+    <path class="hwy" d="M650 0 L690 180 L725 330 L755 470 L765 560 L765 700 L755 960"/>
+    <!-- Bridges -->
     <g>
       <path class="bridge" d="M955 120 H1045"/><path class="bridge-deck" d="M955 120 H1045"/>
       <path class="bridge" d="M955 430 H1037"/><path class="bridge-deck" d="M955 430 H1037"/>
-      <path class="bridge" d="M955 530 H1037"/><path class="bridge-deck" d="M955 530 H1037"/>
-      <path class="bridge" d="M955 640 H1039"/><path class="bridge-deck" d="M955 640 H1039"/>
-      <path class="bridge" d="M955 790 H1042"/><path class="bridge-deck" d="M955 790 H1042"/>
-      <path class="bridge" d="M955 900 H1045"/><path class="bridge-deck" d="M955 900 H1045"/>
+      <path class="bridge" d="M955 520 H1037"/><path class="bridge-deck" d="M955 520 H1037"/>
+      <path class="bridge" d="M955 660 H1039"/><path class="bridge-deck" d="M955 660 H1039"/>
+      <path class="bridge" d="M955 860 H1044"/><path class="bridge-deck" d="M955 860 H1044"/>
+      <path class="bridge" d="M955 930 H1046"/><path class="bridge-deck" d="M955 930 H1046"/>
     </g>
     <g class="road-label" font-weight="700">
       <text x="962" y="112">Heron Bridge</text>
       <text x="962" y="422">North Bridge</text>
-      <text x="962" y="522">Palmetto Bridge</text>
-      <text x="962" y="632">Southern Bridge</text>
-      <text x="962" y="782">Worthing Bridge</text>
-      <text x="962" y="892">Lantern Bridge</text>
+      <text x="962" y="512">Palmetto Bridge</text>
+      <text x="962" y="652">Southern Bridge</text>
+      <text x="962" y="852">Worthing Bridge</text>
+      <text x="962" y="922">Lantern Bridge</text>
     </g>
-    <!-- Road labels -->
     <text class="road-label" x="430" y="114">Heron Blvd</text>
-    <text class="road-label" x="600" y="394">Lakes Blvd</text>
-    <text class="road-label" x="440" y="524">Okee Blvd (motor mile)</text>
-    <text class="road-label" x="440" y="634">Southern Blvd</text>
-    <text class="road-label" x="120" y="634">Route 80</text>
-    <text class="road-label" x="440" y="694">Forest Blvd</text>
-    <text class="road-label" x="520" y="784">Worthing Rd</text>
-    <text class="road-label" x="520" y="894">Lantern Rd</text>
+    <text class="road-label" x="570" y="404">Lakes Blvd</text>
+    <text class="road-label" x="440" y="514">Okee Blvd (motor mile)</text>
+    <text class="road-label" x="565" y="564">Belvedere Rd</text>
+    <text class="road-label" x="440" y="654">Southern Blvd</text>
+    <text class="road-label" x="120" y="654">Route 80</text>
+    <text class="road-label" x="440" y="714">Forest Blvd</text>
+    <text class="road-label" x="520" y="854">Worthing Rd</text>
+    <text class="road-label" x="520" y="924">Lantern Rd</text>
     <text class="road-label" x="500" y="96" transform="rotate(15 500 96)" fill="#c0392b" font-weight="700">The Beeline</text>
-    <text class="road-label" transform="translate(733,880) rotate(-90)" fill="#c0392b" font-weight="700">I-95</text>
+    <text class="road-label" transform="translate(704,250) rotate(-77)" fill="#c0392b" font-weight="700">I-95</text>
+    <text class="road-label" transform="translate(778,900) rotate(-90)" fill="#c0392b" font-weight="700">I-95</text>
     <text class="road-label" transform="translate(433,420) rotate(-90)" fill="#c0392b" font-weight="700">State Turnpike</text>
-    <text class="road-label" transform="translate(551,470) rotate(-90)">Military Trail</text>
+    <text class="road-label" transform="translate(636,470) rotate(-90)">Military Trail</text>
     <text class="road-label" transform="translate(353,470) rotate(-90)">Route 7</text>
-    <text class="road-label" transform="translate(883,560) rotate(90)">Dixie Hwy</text>
+    <text class="road-label" transform="translate(866,690) rotate(90)">Dixie Hwy</text>
     <text class="road-label" transform="translate(66,480) rotate(-90)">Route 98</text>
     <text class="road-label" transform="translate(1084,640) rotate(-90)">Ocean Blvd</text>
-    <text class="road-label" x="276" y="652" font-size="8">Twenty Mile Bend</text>
+    <text class="road-label" x="276" y="672" font-size="8">Twenty Mile Bend</text>
 
     <!-- ================= LABELS ================= -->
     <text class="area-label" x="150" y="25" text-anchor="middle">The Glades</text>
@@ -238,96 +246,104 @@
     <text class="dist-label" x="160" y="760" text-anchor="middle">Sugarmill</text>
 
     <text class="area-label" x="525" y="330" text-anchor="middle">Westlands</text>
-    <text class="dist-label" x="460" y="450" text-anchor="middle">Regal Palms</text>
-    <text class="dist-label" x="380" y="860" text-anchor="middle">Wellmont</text>
+    <text class="dist-label" x="480" y="460" text-anchor="middle">Regal Palms</text>
+    <text class="dist-label" x="410" y="830" text-anchor="middle">Wellmont</text>
     <text class="dist-label" x="600" y="830" text-anchor="middle">Greenhaven</text>
+    <text class="dist-label" x="707" y="590" text-anchor="middle" font-size="9">PCI Airport</text>
 
-    <text class="area-label" x="837" y="62" text-anchor="middle">Riviera</text>
-    <text class="dist-label" x="800" y="100" text-anchor="middle">Riviera Heights</text>
-    <text class="dist-label" x="900" y="255" text-anchor="middle">Port Palmetto</text>
+    <text class="area-label" x="840" y="62" text-anchor="middle">Riviera</text>
+    <text class="dist-label" x="810" y="100" text-anchor="middle">Riviera Heights</text>
+    <text class="dist-label" x="895" y="282" text-anchor="middle">Port Palmetto</text>
     <text class="dist-label" transform="translate(1062,160) rotate(-90)" text-anchor="middle">Sandpiper Key</text>
 
-    <text class="area-label" x="887" y="345" text-anchor="middle">North End</text>
-    <text class="dist-label" x="887" y="395" text-anchor="middle">Northgrove</text>
-    <text class="dist-label" transform="translate(806,300) rotate(-90)" text-anchor="middle">Mangona</text>
-    <text class="dist-label" x="830" y="545" text-anchor="middle">Tamarack</text>
-    <text class="dist-label" x="830" y="557" text-anchor="middle">Row</text>
+    <text class="area-label" x="887" y="335" text-anchor="middle">North End</text>
+    <text class="dist-label" x="887" y="375" text-anchor="middle">Northgrove</text>
+    <text class="dist-label" x="738" y="235" text-anchor="middle">Mangona</text>
+    <text class="dist-label" x="800" y="432" text-anchor="middle" font-size="9" fill="#c4002b">★ Tamarack Row</text>
 
-    <text class="area-label" x="917" y="415" text-anchor="middle" font-size="11">Downtown</text>
-    <text class="dist-label" x="917" y="492" text-anchor="middle" font-size="9">Clement St</text>
-    <text class="dist-label" transform="translate(888,560) rotate(-90)" text-anchor="middle" font-size="9">Rosewood</text>
-    <text class="dist-label" transform="translate(934,590) rotate(-90)" text-anchor="middle" font-size="9">Lagoon Front</text>
+    <text class="area-label" x="897" y="415" text-anchor="middle" font-size="11">Downtown</text>
+    <text class="dist-label" x="897" y="470" text-anchor="middle" font-size="9">Clement Street</text>
+    <text class="dist-label" transform="translate(855,540) rotate(-90)" text-anchor="middle" font-size="9">Rosewood</text>
+    <text class="dist-label" transform="translate(940,540) rotate(-90)" text-anchor="middle" font-size="9">Lagoon Front</text>
 
-    <text class="area-label" x="837" y="626" text-anchor="middle">South End</text>
-    <text class="dist-label" x="860" y="724" text-anchor="middle">Southern Strip</text>
-    <text class="dist-label" x="860" y="850" text-anchor="middle">Worthing</text>
-    <text class="dist-label" x="860" y="952" text-anchor="middle">Lantern Bay</text>
-    <text class="dist-label" transform="translate(1062,870) rotate(-90)" text-anchor="middle" font-size="9">Worthing Beach</text>
+    <text class="area-label" x="897" y="577" text-anchor="middle" font-size="10">South End</text>
+    <text class="dist-label" transform="translate(788,640) rotate(-90)" text-anchor="middle" font-size="9">Grand Vista</text>
+    <text class="dist-label" x="905" y="609" text-anchor="middle" font-size="9">Del Sol</text>
+    <text class="dist-label" x="895" y="668" text-anchor="middle" font-size="9">Pelican Park</text>
+    <text class="dist-label" x="860" y="740" text-anchor="middle">Southshore</text>
 
-    <text class="area-label" transform="translate(1124,520) rotate(-90)" text-anchor="middle" font-size="13">Palm Isle</text>
+    <text class="area-label" x="860" y="776" text-anchor="middle" font-size="11">Worthing</text>
+    <text class="dist-label" x="860" y="818" text-anchor="middle">Motel Row</text>
+    <text class="dist-label" x="860" y="893" text-anchor="middle">Worthing</text>
+    <text class="dist-label" x="860" y="953" text-anchor="middle">Lantern Bay</text>
+    <text class="dist-label" transform="translate(1062,905) rotate(-90)" text-anchor="middle" font-size="9">Worthing Beach</text>
+
+    <text class="area-label" transform="translate(1124,540) rotate(-90)" text-anchor="middle" font-size="13">Palm Isle</text>
     <text class="dist-label" transform="translate(1050,380) rotate(-90)" text-anchor="middle" font-size="9">Ocean Estates</text>
     <text class="dist-label" transform="translate(1050,520) rotate(-90)" text-anchor="middle" font-size="9">Gilded Row</text>
-    <text class="dist-label" transform="translate(1050,690) rotate(-90)" text-anchor="middle" font-size="9">Southpoint</text>
+    <text class="dist-label" transform="translate(1050,700) rotate(-90)" text-anchor="middle" font-size="9">Southpoint</text>
 
     <!-- ================= SAFEHOUSES (one per district) ================= -->
     <g>
       <use href="#safehouse" x="214" y="90" width="14" height="14"/>   <!-- pahoka_shore -->
       <use href="#safehouse" x="214" y="346" width="14" height="14"/>  <!-- cane_hollow -->
       <use href="#safehouse" x="214" y="910" width="14" height="14"/>  <!-- sugarmill -->
-      <use href="#safehouse" x="650" y="320" width="14" height="14"/>  <!-- regal_palms -->
-      <use href="#safehouse" x="350" y="930" width="14" height="14"/>  <!-- wellmont -->
-      <use href="#safehouse" x="680" y="930" width="14" height="14"/>  <!-- greenhaven -->
-      <use href="#safehouse" x="745" y="138" width="14" height="14"/>  <!-- riviera_heights -->
-      <use href="#safehouse" x="835" y="270" width="14" height="14"/>  <!-- port_palmetto -->
+      <use href="#safehouse" x="660" y="320" width="14" height="14"/>  <!-- regal_palms -->
+      <use href="#safehouse" x="350" y="935" width="14" height="14"/>  <!-- wellmont -->
+      <use href="#safehouse" x="660" y="935" width="14" height="14"/>  <!-- greenhaven -->
+      <use href="#safehouse" x="720" y="138" width="14" height="14"/>  <!-- riviera_heights -->
+      <use href="#safehouse" x="830" y="262" width="14" height="14"/>  <!-- port_palmetto -->
       <use href="#safehouse" x="1055" y="210" width="14" height="14"/> <!-- sandpiper_key -->
-      <use href="#safehouse" x="730" y="210" width="14" height="14"/>  <!-- mangona -->
-      <use href="#safehouse" x="830" y="320" width="14" height="14"/>  <!-- northgrove -->
-      <use href="#safehouse" x="840" y="585" width="14" height="14"/>  <!-- tamarack_row -->
-      <use href="#safehouse" x="895" y="455" width="14" height="14"/>  <!-- clement_street -->
-      <use href="#safehouse" x="866" y="590" width="14" height="14"/>  <!-- rosewood_square -->
-      <use href="#safehouse" x="920" y="515" width="14" height="14"/>  <!-- lagoon_front -->
-      <use href="#safehouse" x="740" y="700" width="14" height="14"/>  <!-- southern_strip -->
-      <use href="#safehouse" x="740" y="800" width="14" height="14"/>  <!-- worthing -->
-      <use href="#safehouse" x="740" y="910" width="14" height="14"/>  <!-- lantern_bay -->
+      <use href="#safehouse" x="800" y="402" width="14" height="14"/>  <!-- mangona -->
+      <use href="#safehouse" x="830" y="300" width="14" height="14"/>  <!-- northgrove -->
+      <use href="#safehouse" x="820" y="528" width="14" height="14"/>  <!-- tamarack_row -->
+      <use href="#safehouse" x="925" y="440" width="14" height="14"/>  <!-- clement_street -->
+      <use href="#safehouse" x="847" y="485" width="14" height="14"/>  <!-- rosewood_square -->
+      <use href="#safehouse" x="908" y="486" width="14" height="14"/>  <!-- lagoon_front -->
+      <use href="#safehouse" x="800" y="580" width="14" height="14"/>  <!-- grand_vista -->
+      <use href="#safehouse" x="936" y="588" width="14" height="14"/>  <!-- del_sol -->
+      <use href="#safehouse" x="848" y="622" width="14" height="14"/>  <!-- pelican_park -->
+      <use href="#safehouse" x="930" y="690" width="14" height="14"/>  <!-- southshore -->
+      <use href="#safehouse" x="772" y="772" width="14" height="14"/>  <!-- motel_row -->
+      <use href="#safehouse" x="772" y="840" width="14" height="14"/>  <!-- worthing -->
+      <use href="#safehouse" x="772" y="938" width="14" height="14"/>  <!-- lantern_bay -->
       <use href="#safehouse" x="1040" y="300" width="14" height="14"/> <!-- ocean_estates -->
-      <use href="#safehouse" x="1040" y="570" width="14" height="14"/> <!-- gilded_row -->
-      <use href="#safehouse" x="1040" y="735" width="14" height="14"/> <!-- southpoint -->
+      <use href="#safehouse" x="1040" y="575" width="14" height="14"/> <!-- gilded_row -->
+      <use href="#safehouse" x="1042" y="775" width="14" height="14"/> <!-- southpoint -->
     </g>
 
-    <!-- Start -->
-    <use href="#start" x="808" y="440" width="22" height="22"/>
-    <text class="dist-label" x="819" y="436" text-anchor="middle" fill="#ff2d55" font-weight="800">START</text>
+    <use href="#start" x="779" y="532" width="22" height="22"/>
+    
 
     <!-- ================= LANDMARKS ================= -->
     <g class="lm">
-      <g transform="translate(905,225)"><circle r="7"/><text y="3">1</text></g>   <!-- port cranes -->
-      <g transform="translate(1005,252)"><circle r="7"/><text y="3">2</text></g>  <!-- peanut key bunker -->
-      <g transform="translate(1090,262)"><circle r="7"/><text y="3">3</text></g>  <!-- inlet jetties -->
-      <g transform="translate(935,180)"><circle r="7"/><text y="3">4</text></g>   <!-- power plant -->
-      <g transform="translate(1072,90)"><circle r="7"/><text y="3">5</text></g>   <!-- condo towers -->
-      <g transform="translate(878,525)"><circle r="7"/><text y="3">6</text></g>   <!-- mall -->
-      <g transform="translate(940,470)"><circle r="7"/><text y="3">7</text></g>   <!-- fountain/waterfront -->
-      <g transform="translate(940,560)"><circle r="7"/><text y="3">8</text></g>   <!-- marina/amphitheater -->
-      <g transform="translate(1090,400)"><circle r="7"/><text y="3">9</text></g>  <!-- Breakwater hotel -->
-      <g transform="translate(1072,540)"><circle r="7"/><text y="3">10</text></g> <!-- Gilded Row shops -->
-      <g transform="translate(1100,820)"><circle r="7"/><text y="3">11</text></g> <!-- pier & casino -->
-      <g transform="translate(680,620)"><circle r="7"/><text y="3">12</text></g>  <!-- airport -->
-      <g transform="translate(600,715)"><circle r="7"/><text y="3">13</text></g>  <!-- county lockup -->
-      <g transform="translate(940,385)"><circle r="7"/><text y="3">14</text></g>  <!-- hospital -->
-      <g transform="translate(940,445)"><circle r="7"/><text y="3">15</text></g>  <!-- police HQ -->
-      <g transform="translate(800,520)"><circle r="7"/><text y="3">16</text></g>  <!-- rail station -->
-      <g transform="translate(375,620)"><circle r="7"/><text y="3">17</text></g>  <!-- fairgrounds -->
-      <g transform="translate(295,590)"><circle r="7"/><text y="3">18</text></g>  <!-- safari park -->
-      <g transform="translate(420,760)"><circle r="7"/><text y="3">19</text></g>  <!-- polo grounds -->
-      <g transform="translate(110,780)"><circle r="7"/><text y="3">20</text></g>  <!-- sugar mill -->
-      <g transform="translate(200,880)"><circle r="7"/><text y="3">21</text></g>  <!-- airstrip -->
-      <g transform="translate(55,200)"><circle r="7"/><text y="3">22</text></g>   <!-- levee / fish camp -->
-      <g transform="translate(600,250)"><circle r="7"/><text y="3">23</text></g>  <!-- preserve tower -->
+      <g transform="translate(905,225)"><circle r="7"/><text y="3">1</text></g>
+      <g transform="translate(1005,252)"><circle r="7"/><text y="3">2</text></g>
+      <g transform="translate(1090,262)"><circle r="7"/><text y="3">3</text></g>
+      <g transform="translate(935,180)"><circle r="7"/><text y="3">4</text></g>
+      <g transform="translate(1072,90)"><circle r="7"/><text y="3">5</text></g>
+      <g transform="translate(875,505)"><circle r="7"/><text y="3">6</text></g>
+      <g transform="translate(940,455)"><circle r="7"/><text y="3">7</text></g>
+      <g transform="translate(925,545)"><circle r="7"/><text y="3">8</text></g>
+      <g transform="translate(1090,400)"><circle r="7"/><text y="3">9</text></g>
+      <g transform="translate(1072,540)"><circle r="7"/><text y="3">10</text></g>
+      <g transform="translate(1100,880)"><circle r="7"/><text y="3">11</text></g>
+      <g transform="translate(707,620)"><circle r="7"/><text y="3">12</text></g>
+      <g transform="translate(720,690)"><circle r="7"/><text y="3">13</text></g>
+      <g transform="translate(940,350)"><circle r="7"/><text y="3">14</text></g>
+      <g transform="translate(875,447)"><circle r="7"/><text y="3">15</text></g>
+      <g transform="translate(822,500)"><circle r="7"/><text y="3">16</text></g>
+      <g transform="translate(375,640)"><circle r="7"/><text y="3">17</text></g>
+      <g transform="translate(295,600)"><circle r="7"/><text y="3">18</text></g>
+      <g transform="translate(420,780)"><circle r="7"/><text y="3">19</text></g>
+      <g transform="translate(110,780)"><circle r="7"/><text y="3">20</text></g>
+      <g transform="translate(200,880)"><circle r="7"/><text y="3">21</text></g>
+      <g transform="translate(55,200)"><circle r="7"/><text y="3">22</text></g>
+      <g transform="translate(600,250)"><circle r="7"/><text y="3">23</text></g>
+      <g transform="translate(862,600)"><circle r="7"/><text y="3">24</text></g>
     </g>
-    <!-- Glades airstrip -->
     <path d="M170 900 L240 870" stroke="#555" stroke-width="6" stroke-linecap="round"/>
-    <!-- Port cranes hint -->
-    <path d="M930 210 V290 M945 210 V290" stroke="#333" stroke-width="2"/>
+    <path d="M930 210 V285 M945 210 V285" stroke="#333" stroke-width="2"/>
 
     <!-- ================= SCALE ================= -->
     <g transform="translate(720,985)">
@@ -345,73 +361,77 @@
 
   <!-- ================= LEGEND ================= -->
   <g transform="translate(1240,70)">
-    <rect x="0" y="0" width="345" height="1010" fill="#fff" stroke="#999"/>
+    <rect x="0" y="0" width="345" height="1040" fill="#fff" stroke="#999"/>
     <text class="legend-title" x="14" y="24">Areas (turf hierarchy #24)</text>
     <g class="legend-text">
       <rect x="14" y="36" width="16" height="12" fill="#e8a64a"/><text x="38" y="46">North End: start, gutter turf (tier 1)</text>
       <rect x="14" y="54" width="16" height="12" fill="#4fb3a0"/><text x="38" y="64">Riviera: docks, smuggling (tier 2)</text>
-      <rect x="14" y="72" width="16" height="12" fill="#e07272"/><text x="38" y="82">South End: pawn, motels (tier 2)</text>
-      <rect x="14" y="90" width="16" height="12" fill="#8cc463"/><text x="38" y="100">Westlands: suburbs, car dealers (tier 3)</text>
-      <rect x="14" y="108" width="16" height="12" fill="#b89a5a"/><text x="38" y="118">The Glades: labs, plugs, airstrip (tier 3)</text>
-      <rect x="14" y="126" width="16" height="12" fill="#a874d6"/><text x="38" y="136">Downtown: nightlife, banks (tier 4)</text>
-      <rect x="14" y="144" width="16" height="12" fill="#f2d24b"/><text x="38" y="154">Palm Isle: estates, max heat (tier 5)</text>
-      <rect x="14" y="162" width="16" height="12" fill="url(#neutral)"/><text x="38" y="172">Neutral (airport, county line)</text>
-      <rect x="14" y="180" width="16" height="12" fill="url(#swamp)"/><text x="38" y="190">Swamp / preserve (wild, no turf)</text>
+      <rect x="14" y="72" width="16" height="12" fill="#e07272"/><text x="38" y="82">South End: historic WPB south side (tier 2)</text>
+      <rect x="14" y="90" width="16" height="12" fill="#ee8fc0"/><text x="38" y="100">Worthing: pawn, motels, the pier (tier 3)</text>
+      <rect x="14" y="108" width="16" height="12" fill="#8cc463"/><text x="38" y="118">Westlands: suburbs, car dealers (tier 3)</text>
+      <rect x="14" y="126" width="16" height="12" fill="#b89a5a"/><text x="38" y="136">The Glades: labs, plugs, airstrip (tier 3)</text>
+      <rect x="14" y="144" width="16" height="12" fill="#a874d6"/><text x="38" y="154">Downtown: nightlife, banks (tier 4)</text>
+      <rect x="14" y="162" width="16" height="12" fill="#f2d24b"/><text x="38" y="172">Palm Isle: estates, max heat (tier 5)</text>
+      <rect x="14" y="180" width="16" height="12" fill="url(#neutral)"/><text x="38" y="190">Neutral (airport, county line)</text>
+      <rect x="14" y="198" width="16" height="12" fill="url(#swamp)"/><text x="38" y="208">Swamp / preserve (wild, no turf)</text>
     </g>
 
-    <text class="legend-title" x="14" y="222">Lines &amp; symbols</text>
+    <text class="legend-title" x="14" y="240">Lines &amp; symbols</text>
     <g class="legend-text">
-      <path d="M14 238 H44" stroke="#c0392b" stroke-width="7"/><text x="54" y="242">Highway (I-95, Turnpike, Beeline)</text>
-      <path d="M14 258 H44" stroke="#444" stroke-width="4"/><text x="54" y="262">Arterial boulevard</text>
-      <path d="M14 278 H44" stroke="#777" stroke-width="2"/><text x="54" y="282">Local street (grid hint only)</text>
-      <path d="M14 298 H44" stroke="#111" stroke-width="2" stroke-dasharray="8 4"/><text x="54" y="302">Commuter rail</text>
-      <path d="M14 318 H44" stroke="#000" stroke-width="9"/><path d="M14 318 H44" stroke="#f5f5f5" stroke-width="5"/><text x="54" y="322">Bridge (drawbridge, can gate the Isle)</text>
-      <path d="M14 338 H44" stroke="#3d8fd1" stroke-width="3"/><text x="54" y="342">Canal</text>
-      <path d="M14 358 H44" stroke="#6b4f2a" stroke-width="4" stroke-dasharray="2 3"/><text x="54" y="362">The Levee (lake dike)</text>
-      <path d="M14 378 H44" stroke="#222" stroke-width="2.5"/><text x="54" y="382">Area boundary</text>
-      <path d="M14 398 H44" stroke="#999" stroke-width="1.5" stroke-dasharray="5 3"/><text x="54" y="402">District boundary</text>
-      <use href="#safehouse" x="22" y="410" width="14" height="14"/><text x="54" y="422">Suggested safehouse (1 per district)</text>
-      <use href="#start" x="18" y="430" width="20" height="20"/><text x="54" y="444">Player start (Tamarack Row)</text>
-      <circle cx="29" cy="462" r="7" fill="#fff" stroke="#0b5394" stroke-width="2"/><text x="54" y="466">Landmark (numbered below)</text>
+      <path d="M14 256 H44" stroke="#c0392b" stroke-width="7"/><text x="54" y="260">Highway (I-95, Turnpike, Beeline)</text>
+      <path d="M14 276 H44" stroke="#444" stroke-width="4"/><text x="54" y="280">Arterial boulevard</text>
+      <path d="M14 296 H44" stroke="#777" stroke-width="2"/><text x="54" y="300">Local street (grid hint only)</text>
+      <path d="M14 316 H44" stroke="#111" stroke-width="2" stroke-dasharray="8 4"/><text x="54" y="320">Commuter rail</text>
+      <path d="M14 336 H44" stroke="#000" stroke-width="9"/><path d="M14 336 H44" stroke="#f5f5f5" stroke-width="5"/><text x="54" y="340">Bridge (drawbridge, can gate the Isle)</text>
+      <path d="M14 356 H44" stroke="#3d8fd1" stroke-width="3"/><text x="54" y="360">Canal</text>
+      <path d="M14 376 H44" stroke="#6b4f2a" stroke-width="4" stroke-dasharray="2 3"/><text x="54" y="380">The Levee (lake dike)</text>
+      <path d="M14 396 H44" stroke="#222" stroke-width="2.5"/><text x="54" y="400">Area boundary</text>
+      <path d="M14 416 H44" stroke="#999" stroke-width="1.5" stroke-dasharray="5 3"/><text x="54" y="420">District boundary</text>
+      <use href="#safehouse" x="22" y="428" width="14" height="14"/><text x="54" y="440">Suggested safehouse (1 per district)</text>
+      <use href="#start" x="18" y="448" width="20" height="20"/><text x="54" y="462">Player start (Tamarack Row)</text>
+      <circle cx="29" cy="480" r="7" fill="#fff" stroke="#0b5394" stroke-width="2"/><text x="54" y="484">Landmark (numbered below)</text>
     </g>
 
-    <text class="legend-title" x="14" y="498">Landmarks</text>
+    <text class="legend-title" x="14" y="514">Landmarks</text>
     <g class="legend-text" font-size="10">
-      <text x="14" y="516">1  Port Palmetto container cranes</text>
-      <text x="14" y="531">2  Peanut Key: old Cold War bunker</text>
-      <text x="14" y="546">3  Palm Inlet jetties (boat route to sea)</text>
-      <text x="14" y="561">4  Riviera power plant stacks</text>
-      <text x="14" y="576">5  Sandpiper Key condo towers</text>
-      <text x="14" y="591">6  Rosewood Square open-air mall</text>
-      <text x="14" y="606">7  Clement St fountain &amp; waterfront</text>
-      <text x="14" y="621">8  Lagoon Front marina &amp; amphitheater</text>
-      <text x="14" y="636">9  The Breakwater (grand oceanfront hotel)</text>
-      <text x="14" y="651">10 Gilded Row luxury shops</text>
-      <text x="14" y="666">11 Worthing pier, casino hall &amp; boardwalk</text>
-      <text x="14" y="681">12 PCI Airport (Palm County Intl)</text>
-      <text x="14" y="696">13 County lockup (bust respawn)</text>
-      <text x="14" y="711">14 Northgrove hospital (wasted respawn)</text>
-      <text x="14" y="726">15 Police HQ</text>
-      <text x="14" y="741">16 Tamarack commuter-rail station</text>
+      <text x="14" y="532">1  Port Palmetto container cranes</text>
+      <text x="14" y="546">2  Peanut Key: old Cold War bunker</text>
+      <text x="14" y="560">3  Palm Inlet jetties (boat route to sea)</text>
+      <text x="14" y="574">4  Riviera power plant stacks</text>
+      <text x="14" y="588">5  Sandpiper Key condo towers</text>
+      <text x="14" y="602">6  Rosewood Square open-air mall</text>
+      <text x="14" y="616">7  Clement St fountain &amp; waterfront</text>
+      <text x="14" y="630">8  Lagoon Front marina &amp; amphitheater</text>
+      <text x="14" y="644">9  The Breakwater (grand oceanfront hotel)</text>
+      <text x="14" y="658">10 Gilded Row luxury shops</text>
+      <text x="14" y="672">11 Worthing pier, casino hall &amp; boardwalk</text>
+      <text x="14" y="686">12 PCI Airport (Palm County Intl)</text>
+      <text x="14" y="700">13 County lockup (bust respawn)</text>
+      <text x="14" y="714">14 Northgrove hospital (wasted respawn)</text>
+      <text x="14" y="728">15 Police HQ</text>
+      <text x="14" y="742">16 Tamarack commuter-rail station</text>
       <text x="14" y="756">17 County fairgrounds</text>
-      <text x="14" y="771">18 Lion Ranch drive-through safari</text>
-      <text x="14" y="786">19 Wellmont polo &amp; equestrian grounds</text>
-      <text x="14" y="801">20 Sugar mill smokestacks</text>
-      <text x="14" y="816">21 Glades airstrip (crop dusters, drops)</text>
-      <text x="14" y="831">22 The Levee &amp; fish camp</text>
-      <text x="14" y="846">23 Grassy Flats lookout tower</text>
+      <text x="14" y="770">18 Lion Ranch drive-through safari</text>
+      <text x="14" y="784">19 Wellmont polo &amp; equestrian grounds</text>
+      <text x="14" y="798">20 Sugar mill smokestacks</text>
+      <text x="14" y="812">21 Glades airstrip (crop dusters, drops)</text>
+      <text x="14" y="826">22 The Levee &amp; fish camp</text>
+      <text x="14" y="840">23 Grassy Flats lookout tower</text>
+      <text x="14" y="854">24 Del Sol art museum</text>
     </g>
 
-    <text class="legend-title" x="14" y="878">Real → game (inspiration)</text>
+    <text class="legend-title" x="14" y="884">Real → game (inspiration)</text>
     <g class="legend-text" font-size="9.5">
-      <text x="14" y="895">Lake Okeechobee → Lake Okee · Palm Beach → Palm Isle</text>
-      <text x="14" y="909">Singer Is. → Sandpiper Key · Riviera Beach → Riviera</text>
-      <text x="14" y="923">Northwood → Northgrove · Mangonia → Mangona</text>
-      <text x="14" y="937">Tamarind Ave → Tamarack Row · Clematis → Clement St</text>
-      <text x="14" y="951">Lake Worth Beach → Worthing · Lantana → Lantern Bay</text>
-      <text x="14" y="965">Greenacres → Greenhaven · Wellington → Wellmont</text>
-      <text x="14" y="979">Royal Palm Bch → Regal Palms · Belle Glade → Cane Hollow</text>
-      <text x="14" y="993">Pahokee → Pahoka Shore · Okeechobee Blvd → Okee Blvd</text>
+      <text x="14" y="901">Lake Okeechobee → Lake Okee · Palm Beach → Palm Isle</text>
+      <text x="14" y="915">Singer Is. → Sandpiper Key · Riviera Beach → Riviera</text>
+      <text x="14" y="929">Northwood → Northgrove · Mangonia → Mangona</text>
+      <text x="14" y="943">Tamarind Ave → Tamarack Row · Clematis → Clement St</text>
+      <text x="14" y="957">El Cid → Del Sol · Flamingo Park → Pelican Park</text>
+      <text x="14" y="971">Grandview Heights → Grand Vista · South End → Southshore</text>
+      <text x="14" y="985">Lake Worth Beach → Worthing · Lantana → Lantern Bay</text>
+      <text x="14" y="999">Greenacres → Greenhaven · Wellington → Wellmont</text>
+      <text x="14" y="1013">Royal Palm Bch → Regal Palms · Belle Glade → Cane Hollow</text>
+      <text x="14" y="1027">Pahokee → Pahoka Shore · Okeechobee Blvd → Okee Blvd</text>
     </g>
   </g>
 </svg>
