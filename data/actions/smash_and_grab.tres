@@ -1,0 +1,38 @@
+[gd_resource type="Resource" script_class="InteractionAction" format=3]
+
+[ext_resource type="Script" path="res://scripts/framework/core/condition.gd" id="1_erugl"]
+[ext_resource type="Script" path="res://scripts/framework/location/conditions/location_status_condition.gd" id="2_tx7mt"]
+[ext_resource type="Script" path="res://scripts/framework/core/cost.gd" id="3_dt06y"]
+[ext_resource type="Script" path="res://scripts/framework/core/effect.gd" id="4_dxs6r"]
+[ext_resource type="Script" path="res://scripts/framework/location/effects/rob_location_effect.gd" id="5_8d0ko"]
+[ext_resource type="Script" path="res://scripts/framework/location/effects/set_location_status_effect.gd" id="6_fp8vr"]
+[ext_resource type="Script" path="res://scripts/framework/location/effects/heat_effect.gd" id="7_1edhb"]
+[ext_resource type="Script" path="res://scripts/framework/interaction/interaction_action.gd" id="8_3ek52"]
+
+[sub_resource type="Resource" id="Resource_dqwr6"]
+script = ExtResource("2_tx7mt")
+failure_text = "Already cleaned out"
+
+[sub_resource type="Resource" id="Resource_ws3gq"]
+script = ExtResource("5_8d0ko")
+bonus_min = 10
+bonus_max = 60
+message = "Grabbed ${cash_gained} from {location}"
+
+[sub_resource type="Resource" id="Resource_63tmx"]
+script = ExtResource("6_fp8vr")
+reset_after = 600.0
+
+[sub_resource type="Resource" id="Resource_vbhy4"]
+script = ExtResource("7_1edhb")
+
+[resource]
+script = ExtResource("8_3ek52")
+verb = "Break in"
+conditions = Array[ExtResource("1_erugl")]([SubResource("Resource_dqwr6")])
+effects = Array[ExtResource("4_dxs6r")]([SubResource("Resource_ws3gq"), SubResource("Resource_63tmx"), SubResource("Resource_vbhy4")])
+duration = 2.5
+progress_text = "Breaking in..."
+id = &"smash_and_grab"
+display_name = "Break in"
+description = "Burgle a home from the door."

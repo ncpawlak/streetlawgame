@@ -1,0 +1,36 @@
+[gd_resource type="Resource" script_class="InteractionAction" format=3]
+
+[ext_resource type="Script" path="res://scripts/framework/core/condition.gd" id="1_v3nae"]
+[ext_resource type="Script" path="res://scripts/framework/core/conditions/cooldown_condition.gd" id="2_yxy0q"]
+[ext_resource type="Script" path="res://scripts/framework/core/conditions/respect_condition.gd" id="3_jtoea"]
+[ext_resource type="Script" path="res://scripts/framework/core/cost.gd" id="4_tpcsh"]
+[ext_resource type="Script" path="res://scripts/framework/core/costs/cash_cost.gd" id="5_hi5kd"]
+[ext_resource type="Script" path="res://scripts/framework/core/effect.gd" id="6_ric6i"]
+[ext_resource type="Script" path="res://scripts/framework/location/effects/recruit_effect.gd" id="7_xep5n"]
+[ext_resource type="Script" path="res://scripts/framework/interaction/interaction_action.gd" id="8_ng5bd"]
+
+[sub_resource type="Resource" id="Resource_lrh70"]
+script = ExtResource("2_yxy0q")
+max_uses = 1
+failure_text = "Already with you"
+
+[sub_resource type="Resource" id="Resource_5mibu"]
+script = ExtResource("3_jtoea")
+amount = 25
+
+[sub_resource type="Resource" id="Resource_ya1pf"]
+script = ExtResource("5_hi5kd")
+amount = 250
+
+[sub_resource type="Resource" id="Resource_l4u46"]
+script = ExtResource("7_xep5n")
+
+[resource]
+script = ExtResource("8_ng5bd")
+verb = "Recruit"
+conditions = Array[ExtResource("1_v3nae")]([SubResource("Resource_lrh70"), SubResource("Resource_5mibu")])
+costs = Array[ExtResource("4_tpcsh")]([SubResource("Resource_ya1pf")])
+effects = Array[ExtResource("6_ric6i")]([SubResource("Resource_l4u46")])
+id = &"recruit"
+display_name = "Recruit"
+description = "Hire this person onto your crew."

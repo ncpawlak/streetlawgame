@@ -5,6 +5,8 @@ extends ContentDef
 ## when the action completes (after [member duration] seconds for channelled actions).
 ## Reusable actions live in data/actions/<id>.tres; one-off actions can be built in code.
 
+const TYPE := &"actions"
+
 ## Prompt text, e.g. "Rob {target}". Supports {vars}; falls back to display_name.
 @export var verb := ""
 ## Higher sorts first; the first available action is the default for a single E press.

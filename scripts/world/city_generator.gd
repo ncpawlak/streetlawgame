@@ -28,9 +28,13 @@ const CAR_COLORS := [
 
 var player_spawn := Vector3.ZERO
 var territories: Array[Territory] = []
+## Every building footprint: {center: Vector3, footprint: Vector2, height: float, block: Vector2i,
+## block_center: Vector3}. Used by LocationPlacer to put enterable buildings on real lots.
+var building_lots: Array[Dictionary] = []
 
 var _rng := RandomNumberGenerator.new()
 var _materials := {}
+var _block := Vector2i.ZERO
 
 
 func _ready() -> void:
@@ -71,6 +75,7 @@ func _build_ground() -> void:
 
 
 func _build_block(ix: int, iz: int) -> void:
+	_block = Vector2i(ix, iz)
 	var center := block_center(ix, iz)
 	var sidewalk := _material("sidewalk", Color(0.45, 0.45, 0.45))
 	_add_mesh_box(Vector3(block_size, 0.1, block_size), center + Vector3(0.0, 0.05, 0.0), sidewalk)
@@ -101,6 +106,7 @@ func _add_building(center: Vector3, footprint: Vector2, max_height: float) -> vo
 	var palette := [Color(0.55, 0.5, 0.45), Color(0.4, 0.35, 0.33), Color(0.6, 0.6, 0.62), Color(0.35, 0.38, 0.45), Color(0.5, 0.3, 0.25)]
 	var material := _material("building_%d" % shade, palette[shade])
 	_add_static_box(Vector3(footprint.x, height, footprint.y), center + Vector3(0.0, height * 0.5, 0.0), material)
+	building_lots.append({"center": center, "footprint": footprint, "height": height, "block": _block, "block_center": block_center(_block.x, _block.y)})
 
 
 func _build_districts() -> void:

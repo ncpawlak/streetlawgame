@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="OccupantDef" format=3]
+
+[ext_resource type="Script" path="res://scripts/framework/interaction/interaction_action.gd" id="1_8dcaj"]
+[ext_resource type="Script" path="res://scripts/framework/location/occupant_def.gd" id="2_usjbf"]
+
+[resource]
+script = ExtResource("2_usjbf")
+role = &"informant"
+action_ids = Array[StringName]([&"buy_intel"])
+color = Color(0.4, 0.6, 0.85, 1)
+nerve = 0.2
+greed = 0.9
+id = &"informant"
+display_name = "Informant"

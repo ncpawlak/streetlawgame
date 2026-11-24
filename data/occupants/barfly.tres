@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="OccupantDef" format=3]
+
+[ext_resource type="Script" path="res://scripts/framework/interaction/interaction_action.gd" id="1_cy1j6"]
+[ext_resource type="Script" path="res://scripts/framework/location/occupant_def.gd" id="2_hlxpi"]
+
+[resource]
+script = ExtResource("2_hlxpi")
+role = &"barfly"
+action_ids = Array[StringName]([&"recruit"])
+color = Color(0.5, 0.65, 0.5, 1)
+greed = 0.7
+id = &"barfly"
+display_name = "Barfly"

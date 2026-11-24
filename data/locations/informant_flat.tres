@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="LocationDef" format=3]
+
+[ext_resource type="Script" path="res://scripts/framework/core/effect.gd" id="1_hahit"]
+[ext_resource type="Script" path="res://scripts/framework/interaction/interaction_action.gd" id="2_camsv"]
+[ext_resource type="Script" path="res://scripts/framework/location/occupant_def.gd" id="3_amsko"]
+[ext_resource type="Script" path="res://scripts/framework/location/location_def.gd" id="4_c4oxg"]
+
+[resource]
+script = ExtResource("4_c4oxg")
+kind = &"contact"
+color = Color(0.4, 0.6, 0.85, 1)
+occupant_ids = Array[StringName]([&"informant"])
+unique = true
+spawn_weight = 0.0
+id = &"informant_flat"
+display_name = "Informant's Flat"
+description = "Pays-for-intel contact. Talk at the door."
+tags = Array[StringName]([&"contact"])

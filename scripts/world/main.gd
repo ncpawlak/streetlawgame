@@ -10,6 +10,7 @@ func _ready() -> void:
 	_player.global_position = _city.player_spawn
 	_player.spawn_point = _city.player_spawn
 	_spawn_starter_stash()
+	_place_locations()
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	EventBus.notify.emit.call_deferred("Welcome to The Bottoms. Take the city back, block by block.")
 	EventBus.notify.emit.call_deferred("There's a weapon stash by your ride. Hold [Q] for the weapon wheel.")
@@ -33,6 +34,16 @@ func _spawn_starter_stash() -> void:
 	for id: StringName in stash:
 		var weapon := GameState.weapon_data(id)
 		add_child(WeaponPickup.create(weapon, weapon.magazine_size * (5 if weapon.thrown else 3), ground + stash[id]))
+
+
+## Enterable buildings, fronts and contacts on real city lots (#26). Content: data/locations/.
+func _place_locations() -> void:
+	var placer := LocationPlacer.new()
+	placer.placement_seed = _city.city_seed
+	var parent := Node3D.new()
+	parent.name = "Locations"
+	add_child(parent)
+	placer.place(_city.building_lots, parent)
 
 
 func _build_environment() -> void:

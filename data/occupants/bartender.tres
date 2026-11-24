@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="OccupantDef" format=3]
+
+[ext_resource type="Script" path="res://scripts/framework/interaction/interaction_action.gd" id="1_tb26x"]
+[ext_resource type="Script" path="res://scripts/framework/location/occupant_def.gd" id="2_xhj6l"]
+
+[resource]
+script = ExtResource("2_xhj6l")
+role = &"bartender"
+action_ids = Array[StringName]([&"rob_register"])
+color = Color(0.55, 0.4, 0.7, 1)
+nerve = 0.6
+greed = 0.6
+id = &"bartender"
+display_name = "Bartender"

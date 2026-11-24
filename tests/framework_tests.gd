@@ -23,6 +23,24 @@ func run(main: Node, player: Player) -> void:
 	await _with_sandbox(main, _test_interactable_perform)
 	await _with_sandbox(main, _test_interactor_focus_and_channel)
 	await _test_vehicle_entry_via_interactor(player)
+	await LocationTests.new(self).run(main, player)
+
+
+func check(condition: bool, description: String) -> void:
+	_check(condition, description)
+
+
+func frames(count: int) -> void:
+	await _frames(count)
+
+
+## The current sandbox node (valid inside [method with_sandbox]).
+func sandbox() -> Node3D:
+	return _sandbox
+
+
+func with_sandbox(main: Node, test: Callable) -> void:
+	await _with_sandbox(main, test)
 
 
 func _check(condition: bool, description: String) -> void:
@@ -191,7 +209,7 @@ func _test_vehicle_entry_via_interactor(player: Player) -> void:
 	var focused_vehicle := focused.target as Vehicle if focused != null else null
 	_check(focused_vehicle != null, "vehicles are focused through the interaction system")
 	_check(player.interactor.try_interact() and focused_vehicle != null and player.current_vehicle == focused_vehicle, "E on a vehicle enters it")
-	await _frames(5)
+	await _frames(ceili(player.interactor.refresh_interval * Engine.physics_ticks_per_second) + 2)
 	_check(player.interactor.focused == null, "nothing is focused while driving")
 	if player.current_vehicle != null:
 		player.current_vehicle.exit()

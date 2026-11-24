@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="OccupantDef" format=3]
+
+[ext_resource type="Script" path="res://scripts/framework/interaction/interaction_action.gd" id="1_uao88"]
+[ext_resource type="Script" path="res://scripts/framework/location/occupant_def.gd" id="2_kjq8l"]
+
+[resource]
+script = ExtResource("2_kjq8l")
+role = &"front_boss"
+hostile = true
+weapon_id = &"shotgun"
+health = 140.0
+id = &"front_boss"
+display_name = "Front boss"

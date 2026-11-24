@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="LocationDef" format=3]
+
+[ext_resource type="Script" path="res://scripts/framework/core/effect.gd" id="1_awyll"]
+[ext_resource type="Script" path="res://scripts/framework/interaction/interaction_action.gd" id="2_br5yw"]
+[ext_resource type="Resource" path="res://data/interiors/small_room.tres" id="3_w5v7t"]
+[ext_resource type="Script" path="res://scripts/framework/location/occupant_def.gd" id="4_rvv0a"]
+[ext_resource type="Script" path="res://scripts/framework/location/location_def.gd" id="5_6midu"]
+
+[resource]
+script = ExtResource("5_6midu")
+color = Color(0.9, 0.75, 0.3, 1)
+interior = ExtResource("3_w5v7t")
+door_action_ids = Array[StringName]([&"enter_building"])
+occupant_ids = Array[StringName]([&"clerk"])
+default_owner = &"district_owner"
+cash_capacity = 400
+cash_regen_per_minute = 40.0
+min_count = 2
+spawn_weight = 3.0
+max_per_district = 2
+id = &"corner_store"
+display_name = "Corner Store"
+description = "Rob the register; it refills over time."
+tags = Array[StringName]([&"robbable"])

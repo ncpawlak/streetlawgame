@@ -40,6 +40,7 @@ func format(text: String) -> String:
 		"respect": GameState.respect,
 		"target": _label_of(target),
 		"location": _label_of(location),
+		"occupant": _label_of(occupant),
 	}
 	values.merge(vars, true)
 	return text.format(values)

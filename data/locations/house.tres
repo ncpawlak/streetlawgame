@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="LocationDef" format=3]
+
+[ext_resource type="Script" path="res://scripts/framework/core/effect.gd" id="1_d7rak"]
+[ext_resource type="Script" path="res://scripts/framework/interaction/interaction_action.gd" id="2_o6hln"]
+[ext_resource type="Script" path="res://scripts/framework/location/occupant_def.gd" id="3_f4tfw"]
+[ext_resource type="Script" path="res://scripts/framework/location/location_def.gd" id="4_p1t2h"]
+
+[resource]
+script = ExtResource("4_p1t2h")
+kind = &"home"
+color = Color(0.6, 0.55, 0.5, 1)
+door_action_ids = Array[StringName]([&"smash_and_grab"])
+cash_capacity = 150
+cash_regen_per_minute = 10.0
+spawn_weight = 4.0
+id = &"house"
+display_name = "House"
+description = "Door-only: break in for a quick score."
+tags = Array[StringName]([&"robbable"])
