@@ -1,0 +1,104 @@
+extends Node
+## Run state: money, respect, gangs, territory ownership, owned businesses and crew.
+
+const PLAYER_GANG := &"player"
+const NO_GANG := &"none"
+## Render-layer bit for visuals that only the map cameras should see.
+const MAP_LAYER := 2
+
+const GANGS := {
+	&"player": {"name": "Street Law", "color": Color(0.62, 0.2, 0.9)},
+	&"vipers": {"name": "Red Vipers", "color": Color(0.85, 0.15, 0.15)},
+	&"kings": {"name": "Eastside Kings", "color": Color(0.95, 0.8, 0.1)},
+	&"syndicate": {"name": "Harbor Syndicate", "color": Color(0.15, 0.45, 0.95)},
+}
+
+@export var starting_cash := 500
+@export var income_interval := 30.0
+
+var cash := 0
+var respect := 0
+var territories: Array[Territory] = []
+var businesses: Array[BusinessData] = []
+var crew: Array[CrewMemberData] = []
+var player: Player
+var current_territory: Territory
+## Width of the generated city in meters (set by CityGenerator).
+var city_extent := 0.0
+
+var _income_timer: Timer
+
+
+func _ready() -> void:
+	cash = starting_cash
+	_income_timer = Timer.new()
+	_income_timer.wait_time = income_interval
+	_income_timer.autostart = true
+	_income_timer.timeout.connect(pay_income)
+	add_child(_income_timer)
+
+
+func _physics_process(_delta: float) -> void:
+	if player == null:
+		return
+	var territory := territory_at(player.get_focus_position())
+	if territory != current_territory:
+		current_territory = territory
+		EventBus.territory_entered.emit(territory)
+
+
+func gang_name(gang_id: StringName) -> String:
+	return GANGS.get(gang_id, {}).get("name", "Unclaimed")
+
+
+func gang_color(gang_id: StringName) -> Color:
+	return GANGS.get(gang_id, {}).get("color", Color(0.5, 0.5, 0.5))
+
+
+func add_cash(amount: int) -> void:
+	cash = maxi(0, cash + amount)
+	EventBus.cash_changed.emit(cash)
+
+
+func spend_cash(amount: int) -> bool:
+	if amount > cash:
+		return false
+	add_cash(-amount)
+	return true
+
+
+func add_respect(amount: int) -> void:
+	respect += amount
+	EventBus.respect_changed.emit(respect)
+
+
+func register_territory(territory: Territory) -> void:
+	if not territories.has(territory):
+		territories.append(territory)
+		territory.tree_exiting.connect(func() -> void: territories.erase(territory))
+
+
+func territory_at(position: Vector3) -> Territory:
+	for territory in territories:
+		if territory.contains_point(position):
+			return territory
+	return null
+
+
+func owned_territories(gang_id: StringName) -> Array[Territory]:
+	var owned: Array[Territory] = []
+	for territory in territories:
+		if territory.owner_gang == gang_id:
+			owned.append(territory)
+	return owned
+
+
+func pay_income() -> void:
+	var total := 0
+	for territory in owned_territories(PLAYER_GANG):
+		total += territory.income_per_cycle
+	for business in businesses:
+		total += business.income_per_cycle
+	if total > 0:
+		add_cash(total)
+		EventBus.notify.emit("Turf income: +$%d" % total)
