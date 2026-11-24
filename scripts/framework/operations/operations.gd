@@ -95,6 +95,7 @@ func _apply(event: Dictionary) -> void:
 		&"site_acquired":
 			EventBus.site_acquired.emit(event.site_id)
 			EventBus.notify.emit("%s is yours" % _site_name(event.site_id))
+			_sync_markers()
 		&"job_assigned":
 			EventBus.job_assigned.emit(event.assignment_id, event.crew_id, event.site_id, event.job_id)
 		&"job_unassigned":
@@ -140,15 +141,25 @@ func _report() -> void:
 	_sync_markers()
 
 
-## Shows map markers on the meeting spots of revealed plugs (Location from the Locations autoload).
+## Shows map markers on revealed plugs' meeting spots and on sites you own (which also become yours in Locations). Cheap (a few lookups), so it
+## also runs on the report timer to catch locations placed after startup.
 func _sync_markers() -> void:
-	var locations := get_node_or_null("/root/Locations")
-	if locations == null or not locations.has_method("get_location"):
-		return
 	for plug_id in model.plug_ids():
-		var location: Node = locations.call("get_location", model.plug(plug_id).location_id)
-		if location != null and location.has_method("set_marker_visible"):
-			location.call("set_marker_visible", model.is_plug_revealed(plug_id))
+		_show_marker(model.plug(plug_id).location_id, model.is_plug_revealed(plug_id))
+	for site_id in model.site_ids():
+		var acquired := model.is_site_acquired(site_id)
+		_show_marker(model.site(site_id).location_id, acquired)
+		var location := Locations.get_location(model.site(site_id).location_id) if model.site(site_id).location_id != &"" else null
+		if acquired and location != null and location.owner_gang() != &"player":
+			Locations.set_owner_gang(location, &"player")
+
+
+func _show_marker(location_id: StringName, shown: bool) -> void:
+	if location_id == &"":
+		return
+	var location := Locations.get_location(location_id)
+	if location != null:
+		location.set_marker_visible(shown)
 
 
 ## Adds the starter crew (data/crew entries with starter = true) to the player's gang once.

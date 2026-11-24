@@ -41,6 +41,7 @@ flowchart LR
 | `markets/` | `MarketProfile` | Per-district `demand` multipliers and saturation tuning. `default` is the fallback. |
 | `risks/` | `RiskData` | `chance_per_minute`, `heat_multiplier`, `guard_mitigation`, `effects: Array[Effect]`, `notify_text`. |
 | `crew/` | `CrewMemberData` | Crew definitions; `starter = true` joins the gang at the start. |
+| `locations/` | `LocationDef` (#26) | Where a site or plug sits in the world: unique, `min_count = 1`, `district_ids` set. Kinds `trap_house`, `lab` and `plug_meet`. Door actions use `OpenSitePanelEffect` / `MeetPlugEffect`. |
 
 Every class extends `ContentDef` (`id`, `display_name`, `description`, `tags`), so `ContentDB.validate()`
 checks them. Cross-references are ids, never `res://` paths. Visuals are a `VisualSpec`, which loads a
@@ -49,7 +50,7 @@ scene or mesh by path and falls back to a greybox shape.
 ### Adding content (no code)
 
 - **New drug:** add an `ItemData` (category `drug`), a `RecipeData` that outputs it with
-  `required_unlocks = [drug:<id>]`, and a `PlugData` with `grants_unlocks = [drug:<id>]` that supplies its precursor.
+  `required_unlocks = [drug:<id>]`, a `PlugData` with `grants_unlocks = [drug:<id>]` that supplies its precursor, and a `plug_meet` `LocationDef` for it.
   Then add demand for it to the `MarketProfile`s.
 - **New site:** add a `SiteData` with a `district_id`, tags that match its recipes (`grow`, `lab`...),
   `allowed_jobs`, and `DistrictOwnedCondition` as an operate condition. Point `location_id` at a unique `LocationDef`.
@@ -102,7 +103,9 @@ Most actions return `""` on success or a player-facing reason; `can_*` checks wi
 
 `MeetPlugEffect{plug_id}`, `OpenSitePanelEffect{site_id}`, `GrantUnlockEffect{unlock_id}`,
 `GiveItemEffect{item_id, amount, site_id}`, `ItemCost{item_id, amount, site_id}`. Conditions:
-`UnlockCondition`, `DistrictOwnedCondition`, `SiteAcquiredCondition`, `CrewStatusCondition`.
+`UnlockCondition`, `DistrictOwnedCondition`, `SiteAcquiredCondition`, `CrewStatusCondition`, `PlugRevealedCondition`.
+
+Map markers: `Operations` shows a plug's meeting-spot marker once the plug is revealed (`Location.set_marker_visible`). Owned sites are marked and owned by the player in `Locations`. Plug meet doors are gated by `PlugRevealedCondition` (`hide_when_unmet`), so the supplier order can't be skipped.
 
 ### EventBus signals
 

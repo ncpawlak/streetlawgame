@@ -364,6 +364,58 @@ func _test_autoload() -> void:
 	panel.close()
 	_check(not panel.is_open and tree.paused == was_paused, "closing the panel restores pause state")
 
+	_test_locations(operations, model)
+
 	operations.call("from_dict", saved)
+	_check(not _marker_shown(&"coke_plug_meet"), "restoring a save hides plugs it hadn't revealed")
 	GameState.cash = saved_cash
 	GameState.crew.assign(saved_crew)
+
+
+## Sites and plugs are placed in the world as unique Locations (#26) in their districts.
+func _test_locations(operations: Node, model: OperationsModel) -> void:
+	var wrong := PackedStringArray()
+	var expected := {}
+	for site_id in model.site_ids():
+		expected[model.site(site_id).location_id] = [model.site(site_id).kind, model.site(site_id).district_id]
+	for plug_id in model.plug_ids():
+		expected[model.plug(plug_id).location_id] = [&"plug_meet", &""]
+	for location_id: StringName in expected:
+		var def := ContentDB.find_def(LocationDef.TYPE, location_id) as LocationDef
+		var location := Locations.get_location(location_id)
+		var district: StringName = expected[location_id][1]
+		if def == null or not def.unique or def.kind != expected[location_id][0]:
+			wrong.append("%s def" % location_id)
+		elif location == null:
+			wrong.append("%s not placed" % location_id)
+		elif not def.district_ids.has(location.district_id) or (district != &"" and location.district_id != district):
+			wrong.append("%s in %s" % [location_id, location.district_id])
+	_check(wrong.is_empty(), "every site and plug has a unique Location in its district (%s)" % ", ".join(wrong))
+	var issues := ContentDB.validate()
+	_check(issues.is_empty(), "ContentDB.validate() is clean after placement (%s)" % "; ".join(issues))
+
+	operations.call("_sync_markers")
+	var trap := Locations.get_location(model.site(TRAP).location_id)
+	_check(_marker_shown(&"bottoms_trap_house") and trap != null and trap.owner_gang() == &"player", "owned sites are marked and yours")
+	_check(not _marker_shown(&"riverside_lab"), "unowned sites stay unmarked")
+	_check(_marker_shown(&"weed_plug_meet") and not _marker_shown(&"coke_plug_meet"), "only revealed plugs are marked")
+	var coke_door := Locations.get_location(&"coke_plug_meet")
+	var talk: InteractionAction = coke_door.def.door_actions[0] if coke_door != null else null
+	var ctx := ActionContext.new(GameState.player, coke_door)
+	_check(talk != null and not Condition.all_met(talk.conditions, ctx), "an unrevealed plug won't talk")
+
+	model.grant_unlock(&"drug:weed")
+	operations.call("refresh")
+	_check(_marker_shown(&"coke_plug_meet"), "revealing a plug marks its meeting spot")
+	_check(talk != null and Condition.all_met(talk.conditions, ctx), "a revealed plug talks business")
+	for effect in talk.effects if talk != null else []:
+		effect.apply(ctx)
+	_check(model.has_met_plug(&"coke_plug"), "talking at the door meets the plug")
+	var panel: OperationsPanel = operations.get("panel")
+	if panel != null:
+		panel.close()
+
+
+func _marker_shown(location_id: StringName) -> bool:
+	var location := Locations.get_location(location_id)
+	return location != null and location.is_marker_visible()
