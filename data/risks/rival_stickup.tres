@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="RiskData" format=3]
+
+[ext_resource type="Script" path="res://scripts/framework/core/effect.gd" id="1_fu8va"]
+[ext_resource type="Script" path="res://scripts/framework/risk/seize_stock_effect.gd" id="2_hmwab"]
+[ext_resource type="Script" path="res://scripts/framework/risk/steal_cash_effect.gd" id="3_5upbj"]
+[ext_resource type="Script" path="res://scripts/framework/risk/risk_data.gd" id="4_y3mtl"]
+
+[sub_resource type="Resource" id="Resource_6ixkq"]
+script = ExtResource("2_hmwab")
+fraction = 0.25
+heat_after = 1.0
+
+[sub_resource type="Resource" id="Resource_m0fu0"]
+script = ExtResource("3_5upbj")
+max_amount = 400
+
+[resource]
+script = ExtResource("4_y3mtl")
+chance_per_minute = 0.015
+heat_multiplier = 0.0002
+guard_mitigation = 0.8
+effects = Array[ExtResource("1_fu8va")]([SubResource("Resource_6ixkq"), SubResource("Resource_m0fu0")])
+notify_text = "Rivals stuck up {site_name}!"
+id = &"rival_stickup"
+display_name = "Rival stick-up"
+description = "A rival crew tries to rob the stash. Guards stop most of these."

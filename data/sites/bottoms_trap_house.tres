@@ -1,0 +1,31 @@
+[gd_resource type="Resource" script_class="SiteData" format=3]
+
+[ext_resource type="Script" path="res://scripts/framework/core/condition.gd" id="1_fuo6m"]
+[ext_resource type="Script" path="res://scripts/framework/conditions/district_owned_condition.gd" id="2_2ij4e"]
+[ext_resource type="Script" path="res://scripts/framework/risk/risk_data.gd" id="3_8b5ex"]
+[ext_resource type="Resource" path="res://data/risks/police_raid.tres" id="4_4p262"]
+[ext_resource type="Resource" path="res://data/risks/rival_stickup.tres" id="5_s14kp"]
+[ext_resource type="Script" path="res://scripts/framework/sites/site_data.gd" id="6_xi6jm"]
+
+[sub_resource type="Resource" id="Resource_h4u1u"]
+script = ExtResource("2_2ij4e")
+district_id = &""
+gang_id = &"player"
+invert = false
+failure_text = ""
+hide_when_unmet = false
+
+[resource]
+script = ExtResource("6_xi6jm")
+kind = &"trap_house"
+district_id = &"the_bottoms"
+location_id = &"bottoms_trap_house"
+allowed_jobs = Array[StringName]([&"cook", &"dealer", &"guard"])
+max_workers = 4
+starts_acquired = true
+operate_conditions = Array[ExtResource("1_fuo6m")]([SubResource("Resource_h4u1u")])
+risks = Array[ExtResource("3_8b5ex")]([ExtResource("4_4p262"), ExtResource("5_s14kp")])
+id = &"bottoms_trap_house"
+display_name = "Bottoms Trap House"
+description = "Your first spot. Grow, stash and push product from here."
+tags = Array[StringName]([&"grow", &"stash"])

@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="RecipeData" format=3]
+
+[ext_resource type="Script" path="res://scripts/framework/items/item_stack.gd" id="1_4v5kh"]
+[ext_resource type="Script" path="res://scripts/framework/items/recipe_data.gd" id="2_iqun0"]
+
+[sub_resource type="Resource" id="Resource_qtans"]
+script = ExtResource("1_4v5kh")
+item_id = &"coca_paste"
+count = 2
+
+[sub_resource type="Resource" id="Resource_8o2og"]
+script = ExtResource("1_4v5kh")
+item_id = &"coke"
+count = 3
+
+[resource]
+script = ExtResource("2_iqun0")
+inputs = Array[ExtResource("1_4v5kh")]([SubResource("Resource_qtans")])
+outputs = Array[ExtResource("1_4v5kh")]([SubResource("Resource_8o2og")])
+cycle_seconds = 45.0
+required_unlocks = Array[StringName]([&"drug:coke"])
+site_tags = Array[StringName]([&"lab"])
+id = &"cook_coke"
+display_name = "Coke"
+description = "Cook and cut coca paste into street coke."

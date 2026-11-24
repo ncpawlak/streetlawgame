@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="CrewMemberData" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/crew_member_data.gd" id="1_prdc0"]
+
+[resource]
+script = ExtResource("1_prdc0")
+id = &"lil_mike"
+display_name = "Lil Mike"
+skill = 1
+skills = {
+&"cooking": 3,
+&"dealing": 1,
+&"muscle": 1
+}
+loyalty = 60
+status = 0
+starter = true
+portrait_path = ""
+assignment = 0
+assigned_territory = &""

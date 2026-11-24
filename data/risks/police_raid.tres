@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="RiskData" format=3]
+
+[ext_resource type="Script" path="res://scripts/framework/core/effect.gd" id="1_r3ff3"]
+[ext_resource type="Script" path="res://scripts/framework/risk/seize_stock_effect.gd" id="2_7s3er"]
+[ext_resource type="Script" path="res://scripts/framework/risk/arrest_crew_effect.gd" id="3_uov4p"]
+[ext_resource type="Script" path="res://scripts/framework/risk/risk_data.gd" id="4_kk4tr"]
+
+[sub_resource type="Resource" id="Resource_6ck4s"]
+script = ExtResource("2_7s3er")
+heat_after = 0.25
+
+[sub_resource type="Resource" id="Resource_xmnup"]
+script = ExtResource("3_uov4p")
+jail_seconds = 240.0
+
+[resource]
+script = ExtResource("4_kk4tr")
+chance_per_minute = 0.01
+heat_multiplier = 0.0005
+guard_mitigation = 0.3
+effects = Array[ExtResource("1_r3ff3")]([SubResource("Resource_6ck4s"), SubResource("Resource_xmnup")])
+notify_text = "Cops raided {site_name}! {crew_name} got pinched."
+id = &"police_raid"
+display_name = "Police raid"
+description = "Cops kick the door in. Heat makes it likelier."
