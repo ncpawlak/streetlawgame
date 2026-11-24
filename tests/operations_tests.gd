@@ -350,6 +350,7 @@ func _test_autoload() -> void:
 		starters += 1 if member.starter else 0
 	_check(starters == ContentDB.all(&"crew").size(), "starter crew join the gang")
 	_check(model.is_site_acquired(TRAP) and model.is_plug_revealed(&"weed_plug"), "the game starts with a trap house and a known plug")
+	_test_world_districts(model)
 
 	model.add_income(250, TRAP)
 	operations.call("apply_events")
@@ -419,3 +420,21 @@ func _test_locations(operations: Node, model: OperationsModel) -> void:
 func _marker_shown(location_id: StringName) -> bool:
 	var location := Locations.get_location(location_id)
 	return location != null and location.is_marker_visible()
+
+
+func _test_world_districts(model: OperationsModel) -> void:
+	var turf: Node = _runner.get_node_or_null("/root/Turf")
+	_check(model.districts is WorldDistrictProvider and turf != null, "Operations reads districts from Turf")
+	if turf == null:
+		return
+	var ids := model.districts.all_districts()
+	var expected: Array[StringName] = [&"downtown", &"eastside", &"hillcrest", &"midtown", &"northgate", &"old_harbor", &"rail_yards", &"riverside", &"the_bottoms"]
+	var sorted_ids := ids.duplicate()
+	sorted_ids.sort_custom(func(a: StringName, b: StringName) -> bool: return String(a) < String(b))
+	_check(sorted_ids == expected, "WorldDistrictProvider lists Turf's 9 districts %s" % [sorted_ids])
+	_check(model.districts.display_name(&"old_harbor") == turf.call("display_name", &"old_harbor"), "district names come from Turf")
+	var previous: StringName = turf.call("owner_of", &"riverside")
+	turf.call("set_district_owner", &"riverside", &"player", &"test")
+	_check(model.districts.owner_of(&"riverside") == &"player" and model.districts.owned_districts(&"player").has(&"riverside"), "district ownership follows Turf")
+	turf.call("set_district_owner", &"riverside", previous, &"test")
+	_check(model.districts.owner_of(&"riverside") == previous, "restored district owner is seen")
