@@ -18,12 +18,23 @@ var _map_container: SubViewportContainer
 var _map_camera: Camera3D
 var _player_marker: MeshInstance3D
 var _map_expanded := false
+var _weapon_label: Label
+var _ammo_label: Label
+var _reload_bar: ProgressBar
+var _damage_flash: ColorRect
+var _hit_marker_left := 0.0
+var _last_health := -1.0
+var _connected_inventory: WeaponInventory
+var weapon_wheel: WeaponWheel
 
 
 func _ready() -> void:
 	_build_stats()
 	_build_minimap()
 	_build_center()
+	_build_weapon_panel()
+	weapon_wheel = WeaponWheel.new()
+	add_child(weapon_wheel)
 	EventBus.cash_changed.connect(func(amount: int) -> void: _cash_label.text = "$%d" % amount)
 	EventBus.respect_changed.connect(func(amount: int) -> void: _respect_label.text = "Respect %d" % amount)
 	EventBus.player_health_changed.connect(_on_health_changed)
@@ -37,17 +48,19 @@ func _unhandled_input(event: InputEvent) -> void:
 		_set_map_expanded(not _map_expanded)
 
 
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
 	var player := GameState.player
 	if player == null:
 		return
+	_update_weapon(player, delta)
+	_damage_flash.color.a = move_toward(_damage_flash.color.a, 0.0, delta * 1.5)
 	var focus := player.get_focus_position()
 	if _map_expanded:
 		_map_camera.global_position = Vector3(0.0, MAP_CAMERA_HEIGHT, 0.0)
 	else:
 		_map_camera.global_position = Vector3(focus.x, MAP_CAMERA_HEIGHT, focus.z)
 	_player_marker.global_position = Vector3(focus.x, 90.0, focus.z)
-	_crosshair.visible = Input.mouse_mode == Input.MOUSE_MODE_CAPTURED and not _map_expanded
+	_crosshair.visible = Input.mouse_mode == Input.MOUSE_MODE_CAPTURED and not _map_expanded and not weapon_wheel.is_open
 	_update_turf(GameState.current_territory)
 	_update_hint(player)
 
@@ -69,7 +82,7 @@ func _update_turf(territory: Territory) -> void:
 
 func _update_hint(player: Player) -> void:
 	if not player.is_on_foot():
-		_hint_label.text = "[E] Exit vehicle    [LMB] Drive-by    [Space] Handbrake"
+		_hint_label.text = "[E] Exit vehicle    [LMB] Drive-by (needs a gun)    [Space] Handbrake"
 	elif player.nearest_free_vehicle() != null:
 		_hint_label.text = "[E] Steal vehicle"
 	else:
@@ -79,6 +92,29 @@ func _update_hint(player: Player) -> void:
 func _on_health_changed(current: float, maximum: float) -> void:
 	_health_bar.max_value = maximum
 	_health_bar.value = current
+	if _last_health >= 0.0 and current < _last_health:
+		_damage_flash.color.a = clampf(_damage_flash.color.a + (_last_health - current) / maximum * 3.0, 0.15, 0.6)
+	_last_health = current
+
+
+func _update_weapon(player: Player, delta: float) -> void:
+	var inventory := player.weapons
+	if inventory == null:
+		return
+	if inventory != _connected_inventory:
+		_connected_inventory = inventory
+		inventory.hit_confirmed.connect(func() -> void: _hit_marker_left = 0.12)
+	var slot := inventory.current()
+	_weapon_label.text = slot.data.display_name if slot else ""
+	_ammo_label.text = slot.ammo_text() if slot and slot.data.uses_ammo() else ""
+	if slot and slot.data.uses_ammo() and slot.magazine == 0 and not inventory.is_reloading and slot.reserve == 0:
+		_ammo_label.text = "NO AMMO"
+	_ammo_label.modulate = Color(1.0, 0.4, 0.4) if slot and slot.data.uses_ammo() and slot.magazine <= slot.data.magazine_size * 0.25 else Color.WHITE
+	_reload_bar.visible = inventory.is_reloading
+	_reload_bar.value = inventory.reload_progress() * 100.0
+	_hit_marker_left = maxf(0.0, _hit_marker_left - delta)
+	_crosshair.text = "x" if _hit_marker_left > 0.0 else "+"
+	_crosshair.modulate = Color(1.0, 0.3, 0.3) if _hit_marker_left > 0.0 else Color.WHITE
 
 
 func _push_notification(text: String) -> void:
@@ -182,6 +218,39 @@ func _build_center() -> void:
 	_feed.offset_bottom = -20.0
 	_feed.alignment = BoxContainer.ALIGNMENT_END
 	add_child(_feed)
+
+
+func _build_weapon_panel() -> void:
+	var panel := VBoxContainer.new()
+	panel.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_RIGHT)
+	panel.offset_left = -260.0
+	panel.offset_top = -120.0
+	panel.offset_right = -20.0
+	panel.offset_bottom = -20.0
+	panel.alignment = BoxContainer.ALIGNMENT_END
+	add_child(panel)
+	_weapon_label = _make_label("", 24)
+	_weapon_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+	panel.add_child(_weapon_label)
+	_ammo_label = _make_label("", 30)
+	_ammo_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+	panel.add_child(_ammo_label)
+	_reload_bar = ProgressBar.new()
+	_reload_bar.custom_minimum_size = Vector2(0.0, 8.0)
+	_reload_bar.show_percentage = false
+	_reload_bar.visible = false
+	panel.add_child(_reload_bar)
+	var keys := _make_label("[Q] Weapon wheel  [R] Reload  [1-5] Select", 14)
+	keys.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+	keys.modulate.a = 0.7
+	panel.add_child(keys)
+
+	_damage_flash = ColorRect.new()
+	_damage_flash.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	_damage_flash.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_damage_flash.color = Color(0.8, 0.0, 0.0, 0.0)
+	add_child(_damage_flash)
+	move_child(_damage_flash, 0)
 
 
 func _make_label(text: String, font_size: int) -> Label:

@@ -5,19 +5,25 @@ extends RefCounted
 const TRACER_LIFETIME := 0.06
 
 
-## Fires from [param muzzle] toward [param direction], applying spread and damage.
-## Anything hit that has a take_damage(amount, source) method is damaged.
-static func fire(shooter: Node3D, muzzle: Vector3, direction: Vector3, weapon: WeaponData, exclude: Array[RID] = []) -> Dictionary:
-	var aim := _apply_spread(direction.normalized(), weapon.spread_degrees)
-	var target := muzzle + aim * weapon.max_range
-	var query := PhysicsRayQueryParameters3D.create(muzzle, target)
-	query.exclude = exclude
-	var hit := shooter.get_world_3d().direct_space_state.intersect_ray(query)
-	var collider: Object = hit.get("collider")
-	if collider != null and collider.has_method("take_damage"):
-		collider.take_damage(weapon.damage, shooter)
-	_spawn_tracer(shooter, muzzle, hit.get("position", target), weapon.tracer_color)
-	return hit
+## Fires one shot (one ray per pellet) from [param muzzle] toward [param direction], applying
+## spread and damage. Anything hit that has a take_damage(amount, source) method is damaged.
+## Returns how many pellets hit something damageable.
+static func fire(shooter: Node3D, muzzle: Vector3, direction: Vector3, weapon: WeaponData, exclude: Array[RID] = [], damage_scale := 1.0, extra_spread := 0.0) -> int:
+	var space := shooter.get_world_3d().direct_space_state
+	var hits := 0
+	for pellet in maxi(1, weapon.pellets):
+		var aim := _apply_spread(direction.normalized(), weapon.spread_degrees + extra_spread)
+		var target := muzzle + aim * weapon.max_range
+		var query := PhysicsRayQueryParameters3D.create(muzzle, target)
+		query.exclude = exclude
+		var hit := space.intersect_ray(query)
+		var collider: Object = hit.get("collider")
+		if collider != null and collider.has_method("take_damage"):
+			collider.take_damage(weapon.damage * damage_scale, shooter)
+			hits += 1
+		if weapon.show_tracer:
+			_spawn_tracer(shooter, muzzle, hit.get("position", target), weapon.tracer_color)
+	return hits
 
 
 ## Point under the center of [param camera], used to aim third-person shots.

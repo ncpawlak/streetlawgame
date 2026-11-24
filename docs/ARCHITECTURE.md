@@ -9,7 +9,8 @@ project.godot          Engine config (autoloads, layers)
 scenes/                .tscn scenes (main, player, ui...)
 scripts/
   autoload/            Global singletons (see below)
-  combat/              Shared combat logic (Hitscan)
+  combat/              Shared combat logic (Hitscan, WeaponInventory, WeaponSlot, WeaponPickup)
+data/weapons/          WeaponData .tres files, one per weapon id
   data/                Resource classes for data-driven content (weapons, businesses, crew)
   npc/                 AI characters (GangMember)
   player/              Player controller
@@ -38,7 +39,11 @@ docs/                  Design & architecture docs
 | `GangMember` | `CharacterBody3D` | Rival NPC: wander, aggro, shoot, die and drop rewards. |
 | `Territory` | `Node3D` | District bounds, owner gang, capture logic, map overlay. |
 | `CityGenerator` | `Node3D` | Deterministic greybox city: roads, buildings, districts, defenders, parked cars. |
-| `Hitscan` | `RefCounted` | Shared instant-hit firing, aiming from the camera, tracers. |
+| `Hitscan` | `RefCounted` | Shared instant-hit firing (pellets, damage scale), aiming from the camera, tracers. |
+| `WeaponInventory` | `Node` | Carried weapons, selection, fire rate, ammo and reload. Shared by `Player` and `GangMember`. |
+| `WeaponSlot` | `RefCounted` | One carried weapon: `WeaponData` + magazine/reserve ammo. |
+| `WeaponPickup` | `Area3D` | World pickup that grants a weapon or ammo. |
+| `WeaponWheel` | `Control` | Radial selector; pauses the tree while open (`PROCESS_MODE_ALWAYS`). |
 | `WeaponData`, `BusinessData`, `CrewMemberData` | `Resource` | Data-driven content definitions. |
 
 ## Conventions

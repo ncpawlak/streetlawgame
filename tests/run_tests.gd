@@ -6,6 +6,7 @@ var _failures := 0
 
 
 func _ready() -> void:
+	process_mode = Node.PROCESS_MODE_ALWAYS
 	_run.call_deferred()
 
 
@@ -26,6 +27,9 @@ func _run() -> void:
 
 	await _test_territory_capture(game_state, city, player)
 	await _test_vehicle(player)
+	await _test_weapons(player)
+	await _test_weapon_wheel(main, player)
+	await _test_ai_combat(main, player)
 
 	print("\n%s (%d failure(s))" % ["FAILED" if _failures > 0 else "ALL TESTS PASSED", _failures])
 	get_tree().quit(1 if _failures > 0 else 0)
@@ -72,6 +76,87 @@ func _test_vehicle(player: Player) -> void:
 
 	vehicle.exit()
 	_check(player.is_on_foot() and vehicle.driver == null, "player can exit a vehicle")
+
+
+func _test_weapons(player: Player) -> void:
+	var weapons := player.weapons
+	_check(weapons.find(&"fists") != null and weapons.current().data.id == &"pistol", "player starts with fists and an equipped pistol")
+
+	var pistol := weapons.current()
+	var magazine := pistol.magazine
+	var fired := weapons.try_fire(player, player.global_position + Vector3.UP * 1.4, Vector3.UP)
+	_check(fired and pistol.magazine == magazine - 1, "firing consumes a round")
+	_check(not weapons.try_fire(player, player.global_position, Vector3.UP), "fire rate limits follow-up shots")
+
+	var reserve := pistol.reserve
+	_check(weapons.reload() and weapons.is_reloading, "R starts a reload")
+	await _physics_frames(int(pistol.data.reload_time * 60.0) + 5)
+	_check(pistol.magazine == pistol.data.magazine_size and pistol.reserve == reserve - 1, "reload moves reserve ammo into the magazine")
+
+	pistol.magazine = 1
+	await _physics_frames(30)
+	weapons.try_fire(player, player.global_position, Vector3.UP)
+	_check(weapons.is_reloading, "an empty magazine reloads automatically")
+	await _physics_frames(int(pistol.data.reload_time * 60.0) + 5)
+
+	pistol.magazine = 0
+	pistol.reserve = 0
+	_check(not weapons.try_fire(player, player.global_position, Vector3.UP) and not weapons.is_reloading, "can't fire or reload with no ammo")
+
+	var smg: WeaponData = GameState.weapon_data(&"smg")
+	weapons.add_weapon(smg, 50)
+	weapons.add_weapon(smg, 10000)
+	_check(weapons.find(&"smg").reserve == smg.max_reserve, "picking up a carried weapon adds ammo up to the cap")
+	weapons.select(0)
+	weapons.cycle(-1)
+	_check(weapons.current_index == weapons.slots.size() - 1, "cycling wraps around the inventory")
+
+	var shotgun: WeaponData = GameState.weapon_data(&"shotgun")
+	_check(shotgun.pellets > 1 and not GameState.weapon_data(&"fists").uses_ammo(), "weapon data covers pellets and melee")
+
+
+func _test_weapon_wheel(main: Node, player: Player) -> void:
+	var wheel: WeaponWheel = main.get_node("HUD").weapon_wheel
+	var weapons := player.weapons
+	weapons.select(0)
+	_check(wheel.open() and get_tree().paused, "opening the weapon wheel pauses the game")
+	var count := weapons.slots.size()
+	var target := 1
+	var angle := target * TAU / count
+	wheel._move_cursor(Vector2(sin(angle), -cos(angle)) * 100.0)
+	_check(wheel.hovered == target, "mouse direction picks a wheel slice")
+	var before := player.global_position
+	player.velocity = Vector3(5.0, 0.0, 0.0)
+	await _physics_frames(10)
+	_check(player.global_position.is_equal_approx(before), "the world is frozen while the wheel is open")
+	wheel.close(true)
+	_check(not get_tree().paused and weapons.current_index == target, "closing the wheel equips the weapon and unpauses")
+
+	wheel.open()
+	wheel._move_cursor(Vector2(0.0, 150.0))
+	wheel.close(false)
+	_check(weapons.current_index == target, "cancelling the wheel keeps the current weapon")
+
+
+func _test_ai_combat(main: Node, player: Player) -> void:
+	player.respawn()
+	await _physics_frames(10)
+	var shooter := GangMember.new()
+	shooter.gang_id = &"vipers"
+	shooter.weapon_id = &"pistol"
+	shooter.position = player.global_position + Vector3(6.0, 0.0, 0.0)
+	main.add_child(shooter)
+	var health_before := player.health
+	await _physics_frames(240)
+	_check(player.health < health_before, "rival AI shoots and damages the player (%.0f -> %.0f hp)" % [health_before, player.health])
+
+	shooter.drop_chance = 1.0
+	var pickups_before := get_tree().get_nodes_in_group("pickups").size()
+	shooter.take_damage(10.0, player)
+	_check(shooter.is_alive() and shooter.health == shooter.max_health - 10.0, "player damage hurts the AI")
+	shooter.take_damage(1000.0, player)
+	await _physics_frames(2)
+	_check(not shooter.is_alive() and get_tree().get_nodes_in_group("pickups").size() == pickups_before + 1, "killed AI drops its weapon")
 
 
 func _physics_frames(count: int) -> void:

@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="WeaponData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/data/weapon_data.gd" id="1_weapon"]
+
+[resource]
+script = ExtResource("1_weapon")
+id = &"shotgun"
+display_name = "Shotgun"
+damage = 12
+max_range = 30
+fire_interval = 0.8
+spread_degrees = 6
+pellets = 8
+automatic = false
+magazine_size = 6
+max_reserve = 48
+reload_time = 2.2
+price = 2000
+show_tracer = true
+tracer_color = Color(1, 0.7, 0.3, 1)

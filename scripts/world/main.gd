@@ -9,8 +9,10 @@ func _ready() -> void:
 	_build_environment()
 	_player.global_position = _city.player_spawn
 	_player.spawn_point = _city.player_spawn
+	_spawn_starter_stash()
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	EventBus.notify.emit.call_deferred("Welcome to The Bottoms. Take the city back, block by block.")
+	EventBus.notify.emit.call_deferred("There's a weapon stash by your ride. Hold [Q] for the weapon wheel.")
 
 
 func _input(event: InputEvent) -> void:
@@ -19,6 +21,15 @@ func _input(event: InputEvent) -> void:
 	elif event is InputEventMouseButton and event.pressed and Input.mouse_mode != Input.MOUSE_MODE_CAPTURED:
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 		get_viewport().set_input_as_handled()
+
+
+## A few guns near spawn so the arsenal can be tried right away (until the gun store, #12).
+func _spawn_starter_stash() -> void:
+	var ground := _city.player_spawn - Vector3(0.0, 1.0, 0.0)
+	var stash := {&"smg": Vector3(-4.0, 0.0, -3.0), &"shotgun": Vector3(-4.0, 0.0, 0.0), &"rifle": Vector3(-4.0, 0.0, 3.0)}
+	for id: StringName in stash:
+		var weapon := GameState.weapon_data(id)
+		add_child(WeaponPickup.create(weapon, weapon.magazine_size * 3, ground + stash[id]))
 
 
 func _build_environment() -> void:
