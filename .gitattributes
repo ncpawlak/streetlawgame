@@ -6,3 +6,10 @@
 *.mp3 binary
 *.wav binary
 *.ogg binary
+*.glb binary
+*.fbx binary
+*.blend binary
+*.ttf binary
+*.otf binary
+*.webp binary
+*.exr binary

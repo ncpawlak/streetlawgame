@@ -1,3 +1,9 @@
+# Godot
+.godot/
+/android/
+export/
+*.translation
+
 # OS
 .DS_Store
 Thumbs.db
