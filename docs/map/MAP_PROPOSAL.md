@@ -1,17 +1,20 @@
 # Map proposal: "Palm County" (issue #35)
 
-**Status: proposal only (rev 3: user decisions recorded).** No gameplay code or content data has
-changed. The wireframe is [`west_palm_wireframe.svg`](west_palm_wireframe.svg). Open it in a browser.
+**Status: proposal only (rev 4: game-style map, airport made neutral).** No gameplay code or
+content data has changed.
 
-> **Note:** the SVG is still the rev 2 drawing. It uses the real highway names (I-95, Turnpike,
-> Route 80/98/7) and shows the airport and preserve as neutral zones. A restyled wire diagram is
-> coming once the user sends style references. This doc is the source of truth for the
-> [decisions](#decisions) below.
+- **Game-style map:** [`west_palm_map.svg`](west_palm_map.svg) (preview:
+  [`west_palm_map.png`](west_palm_map.png)). It uses the fictional highway names, shows
+  `grassy_flats` as a district, and draws PCI Airport as a neutral zone with a buyable Hangar.
+- **Schematic:** [`west_palm_wireframe.svg`](west_palm_wireframe.svg) is the rev 2 drawing, kept
+  as a reference. It still uses the real highway names (I-95, Turnpike, Route 80/98/7).
+
+This doc is the source of truth for the [decisions](#decisions) below.
 
 The world is based on West Palm Beach and Palm Beach County, FL, compressed to game scale. Every
 name is fictional but sounds like a real place, and no business or venue is trademarked. Its
-structure follows the turf hierarchy from #24: **8 areas → 27 districts → 1 safehouse each**. That
-is 25 turf districts plus 2 special districts, the airport and the preserve. The swamp, the
+structure follows the turf hierarchy from #24: **8 areas → 26 districts → 1 safehouse each**. That
+is 25 turf districts plus 1 special district, the preserve. PCI Airport, the swamp, the
 county-line strip and the water stay neutral.
 
 Rev 2 follows the user's reference maps (an illustrated neighborhood map, a county road map and two
@@ -83,7 +86,6 @@ The tier is the suggested progression step (1 = first).
 | **Westlands** (3) | `regal_palms` | Regal Palms (Royal Palm Beach + the Okeechobee Blvd corridor) | Car dealers on the motor mile, strip malls, fairgrounds | Car dealer's back lot |
 | | `wellmont` | Wellmont (Wellington) | Gated communities, polo and equestrian grounds, canals | Horse-farm barn |
 | | `greenhaven` | Greenhaven (Greenacres / Palm Springs) | Apartments, stucco strip malls, county lockup by the airport | Check-cashing back office |
-| | `pci_airport` (special) | PCI Airport (PBI) | Runways, cargo terminals, rental lots against I-59. Cargo heists and plane theft. Holding it unlocks air drops | Cargo-hangar office |
 | | `grassy_flats` (special) | Grassy Flats Preserve (Grassy Waters) | Wetland, water-supply works, lookout tower, body dumps. Light turf, mostly a smuggling and stash zone | Ranger cabin by the tower |
 | **The Glades** (3) | `pahoka_shore` | Pahoka Shore (Pahokee) | The Levee, fish camps, the lake | Fish camp on the levee |
 | | `cane_hollow` | Cane Hollow (Belle Glade) | Sugar-town projects, cane fires | Project block on Main |
@@ -95,10 +97,16 @@ The tier is the suggested progression step (1 = first).
 | | `gilded_row` | Gilded Row (Worth Ave-style) | Luxury shopping row, jewelers, galleries | Boutique penthouse |
 | | `southpoint` | Southpoint (south Palm Beach estates) | Waterfront estates with private docks | Estate with a dock |
 
-The airport and preserve are capturable special districts (decision 6). They sit in Westlands
-because they border it, but they don't count toward the area's tier gating. The neutral zones that
-can't be captured are the **Loxahatchee swamp**, the county-line strip ("the Gardens", reserved for
-expansion) and the water.
+The preserve is a capturable special district (decision 6). It sits in Westlands because it
+borders it, but it doesn't count toward the area's tier gating. The neutral zones that can't be
+captured and have no gang owner are **PCI Airport**, the **Loxahatchee swamp**, the county-line
+strip ("the Gardens", reserved for expansion) and the water.
+
+**PCI Airport (neutral zone, PBI).** Runways, cargo terminals and rental lots against I-59, south
+of downtown. Nobody owns it, so it can't be captured. It holds a **buyable Hangar** property that
+works like the businesses in #36: you buy it, and it becomes a vehicle-storage and unlock spot.
+Private jets and planes can be added there later; flying is out of scope for now. Cargo jobs and
+plane-theft missions can still start here.
 
 ```mermaid
 graph LR
@@ -127,8 +135,6 @@ graph LR
     regal_palms --- wellmont[Wellmont]
     wellmont --- greenhaven
     regal_palms --- grassy_flats{{Grassy Flats}}
-    regal_palms --- pci_airport{{PCI Airport}}
-    greenhaven --- pci_airport
   end
   subgraph GL[The Glades - tier 3]
     pahoka_shore[Pahoka Shore] --- cane_hollow[Cane Hollow]
@@ -156,8 +162,6 @@ graph LR
   tamarack_row -. I-59 / Okee .- regal_palms
   mangona -. I-59 .- regal_palms
   grand_vista -. airport fence .- greenhaven
-  grand_vista --- pci_airport
-  tamarack_row -. I-59 .- pci_airport
   mangona --- grassy_flats
   riviera_heights --- grassy_flats
   southshore --- greenhaven
@@ -173,7 +177,8 @@ graph LR
 ```
 
 Solid lines are shared land borders. Dotted lines are road, bridge or highway links. Hexagons are
-special districts.
+special districts. PCI Airport is neutral, so it isn't in the graph; it sits between Regal Palms,
+Greenhaven, Grand Vista and Tamarack Row.
 
 ## Scale and drive times
 
@@ -218,8 +223,9 @@ That's in line with Saints Row 2's Stilwater, where a full crossing takes ~3–4
    the pier in Worthing. Car dealers on the motor mile and gated-community robberies in the suburbs.
    Remote labs, plug meets and airstrip drops in the Glades. **The Glades are gated by the plug
    storyline** (Smokey / El Primo, #27, decision 5). Route 88 and the Beeline are drivable, but its
-   districts, labs and plug meets don't open until the plug story reaches them. The airport and
-   preserve special districts can be taken any time after the North End.
+   districts, labs and plug meets don't open until the plug story reaches them. The preserve can
+   be taken any time after the North End, and the airport Hangar can be bought once you can
+   afford it.
 4. **Downtown.** High heat, banks, nightlife fronts and police HQ. Holding it lowers the police
    presence on the Palm Isle bridges.
 5. **Palm Isle.** The finale: the hardest heat, with police posted on the bridges and the island,
@@ -243,7 +249,7 @@ can be added later, and every key point stays reachable by road.
 | 9 | The Breakwater (grand oceanfront hotel) | Ocean Estates | Late-game heist |
 | 10 | Gilded Row luxury shops | Gilded Row | Jewel heists |
 | 11 | Worthing pier, casino hall and boardwalk | Worthing Beach | Hangout, deals |
-| 12 | PCI Airport (next to I-59) | PCI Airport (special) | Plane theft, cargo jobs |
+| 12 | PCI Airport and the Hangar (next to I-59) | PCI Airport (neutral zone) | Buyable Hangar (vehicle storage, future jets), cargo jobs |
 | 13 | County lockup | Greenhaven, by the airport | Respawn after a bust |
 | 14 | Northgrove hospital | Northgrove | Respawn after getting wasted |
 | 15 | Police HQ | Clement Street | Heat center |
@@ -260,7 +266,7 @@ can be added later, and every key point stays reachable by road.
 ## Fit with existing systems (for the follow-up, not done here)
 
 - This adds 8 areas (`north_end`, `riviera`, `south_end`, `worthing`, `westlands`, `glades`,
-  `downtown`, `palm_isle`) and 27 districts (25 turf districts plus `pci_airport` and `grassy_flats`)
+  `downtown`, `palm_isle`) and 26 districts (25 turf districts plus `grassy_flats`), and a neutral PCI Airport zone with a Hangar property
   to replace today's 3 areas and 9 districts in
   `data/areas` and `data/districts`. Existing ids like `the_bottoms` and `riverside` would be
   retired or renamed.
@@ -278,14 +284,17 @@ These were the 8 open questions from rev 1 and rev 2. The user answered them on 
 1. **Scale:** the full 6 × 4.8 km world is the target for the first authored pass. It can grow
    bigger if it needs to; it shouldn't start at half scale.
 2. **District count:** keep all 25 turf districts; don't collapse them. With decision 6, the total
-   is 27.
+   is 26 (revised: see decision 6).
 3. **Road naming:** fictionalize the highway names (I-59, State Pike, Route 88/89/17). See the table
    in [Layout at a glance](#layout-at-a-glance).
 4. **Palm Isle gating:** the bridges stay open. The island has heavy heat and a strong police
    presence instead of a hard gate.
 5. **The Glades:** gated by the plug storyline (#27).
-6. **Airport and preserve:** they become capturable special districts, `pci_airport` and
-   `grassy_flats`.
+6. **Airport and preserve:** Grassy Flats Preserve becomes a capturable special district,
+   `grassy_flats`. **Revised:** PCI Airport is a **neutral zone**, not a district. It can't be
+   captured and has no gang owner. It holds a buyable **Hangar** property (like the businesses in #36)
+   for vehicle storage and unlocks, with private jets and planes coming later. Flying is out of scope
+   for now.
 7. **Boats:** later. The water layout stays boat-ready, but every route works by road.
 8. **North county ("the Gardens"):** reserved for a later expansion. The map closes at the county
    line for now.
