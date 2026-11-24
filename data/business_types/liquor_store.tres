@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="BusinessTypeDef" format=3]
+
+[ext_resource type="Script" path="res://scripts/framework/business/business_type_def.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+category = &"retail"
+base_price = 12000
+base_income = 240
+clout_value = 6
+hangout_crew_count = 2
+shop_item_ids = Array[StringName]([&"snack", &"molotov"])
+color = Color(0.6, 0.35, 0.2, 1)
+id = &"liquor_store"
+display_name = "Liquor Store"
+description = "Bottles behind bulletproof glass."

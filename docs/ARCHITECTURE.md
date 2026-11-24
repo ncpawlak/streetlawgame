@@ -12,7 +12,7 @@ scripts/
   framework/           Reusable gameplay frameworks (core, content, interaction, location, dialogue); see below
   combat/              Shared combat logic (Hitscan, Projectile, Explosion, FireZone, WeaponInventory, WeaponSlot, WeaponPickup)
 data/<type>/            Content .tres files (weapons, actions, locations, occupants, interiors, dialogues, areas, districts, safehouses, capture_rules...), one per id
-  data/                Resource classes for data-driven content (weapons, businesses, crew, territory/)
+  data/                Resource classes for data-driven content (weapons, crew, territory/)
   npc/                 AI characters (GangMember)
   player/              Player controller
   ui/                  HUD and menus
@@ -30,11 +30,13 @@ docs/                  Design & architecture docs
 | --- | --- |
 | `InputSetup` | Registers input actions in code so bindings are readable and diffable. |
 | `EventBus` | Global signals (`cash_changed`, `district_captured`, `notify`...). Systems talk through it instead of referencing each other. |
-| `GameState` | Run state: cash, respect, gangs, businesses, crew, flags, income timer. Future save/load serializes this. |
+| `GameState` | Run state: cash, respect, gangs, crew, flags, income timer. Future save/load serializes this. |
 | `ContentDB` | Content registry: `.tres` defs by (type, id), scanned from `res://data/<type>/` plus override roots (mods). |
 | `Turf` | Territory authority (areas → districts → safehouses): id-based ownership queries (`owner_of`, `district_at`, `districts_in_area`, `owned_districts`, `area_owner`, `income_for`...), `set_district_owner()` as the only way ownership changes, area bonuses, `to_dict()`/`from_dict()`. Installs itself as `Locations.district_resolver`. |
 | `Locations` | Enterable buildings: placement, lookup/queries, enter/exit, status ticking, serializable state. |
 | `Operations` | Runs the operations simulation (`OperationsModel`) on a timer: sites, crew jobs, production, sales, plugs, risk. See [OPERATIONS.md](OPERATIONS.md). |
+| `Clout` | Per-district clout, 0–100 (`clout_of`, `add`, `set_clout`). Owned businesses add to it. |
+| `Businesses` | Business sites: ownership, purchase (turf + conditions + price), income, shops (half price at your own site), hangout crew. See [BUSINESSES.md](BUSINESSES.md). |
 
 ## Key classes
 
@@ -55,7 +57,8 @@ docs/                  Design & architecture docs
 | `WeaponSlot` | `RefCounted` | One carried weapon: `WeaponData` + magazine/reserve ammo. |
 | `WeaponPickup` | `Area3D` | World pickup that grants a weapon or ammo. |
 | `WeaponWheel` | `Control` | Radial selector; pauses the tree while open (`PROCESS_MODE_ALWAYS`). |
-| `WeaponData`, `BusinessData`, `CrewMemberData` | `Resource` | Data-driven content definitions. |
+| `WeaponData`, `CrewMemberData` | `Resource` | Data-driven content definitions. |
+| `BusinessTypeDef`, `BusinessSiteDef`, `ShopItemDef` | `ContentDef` | Business types, the sites placing them, and shop stock. See [BUSINESSES.md](BUSINESSES.md). |
 | `AreaData`, `DistrictData`, `SafehouseData`, `CaptureRule` | `ContentDef` | Turf content loaded through `ContentDB`: area bonuses, district owner/income/defenders/layout hints, safehouse visuals and claim settings. |
 
 ## Gameplay frameworks (`scripts/framework/`)
@@ -86,7 +89,7 @@ No gameplay code hardcodes `res://` content paths. See [CONTENT.md](CONTENT.md).
 - **Decoupling:** emit on `EventBus` for cross-system events, and read shared state from `GameState`.
 - **Physics layers:** 1 `world`, 2 `player`, 3 `npc`, 4 `vehicle`.
 - **Render layers:** layer 2 `map_only` holds overlays and markers that only the minimap camera renders. Gameplay cameras mask it out.
-- **Groups:** `player`, `vehicles`, `gang_members`, `projectiles`, `fires`.
+- **Groups:** `player`, `vehicles`, `gang_members`, `hangout_crew`, `projectiles`, `fires`.
 - **Content as data:** new guns, buildings, actions, dialogues and so on should be `.tres` resources looked up through `ContentDB`, not new code paths. New behaviour goes in a new `Condition`/`Cost`/`Effect`/strategy subclass.
 - Tabs for indentation, static typing everywhere (`:=`, typed params and returns).
 

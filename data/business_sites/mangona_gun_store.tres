@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="BusinessSiteDef" load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/framework/business/business_site_def.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/framework/business/conditions/clout_condition.gd" id="2"]
+[ext_resource type="Script" path="res://scripts/framework/core/condition.gd" id="3"]
+
+[sub_resource type="Resource" id="clout"]
+script = ExtResource("2")
+min_clout = 10
+
+[resource]
+script = ExtResource("1")
+type_id = &"gun_store"
+district_id = &"old_harbor"
+purchase_conditions = Array[ExtResource("3")]([SubResource("clout")])
+id = &"mangona_gun_store"
+display_name = "Mangona Guns & Ammo"
+description = "Mangona's gun dealer only sells out to a crew the neighbourhood already respects."

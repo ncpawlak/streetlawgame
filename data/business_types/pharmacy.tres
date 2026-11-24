@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="BusinessTypeDef" format=3]
+
+[ext_resource type="Script" path="res://scripts/framework/business/business_type_def.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+category = &"retail"
+base_price = 14000
+base_income = 280
+clout_value = 7
+hangout_crew_count = 2
+shop_item_ids = Array[StringName]([&"painkillers", &"first_aid"])
+color = Color(0.85, 0.95, 0.95, 1)
+id = &"pharmacy"
+display_name = "Pharmacy"
+description = "Medicine, legal and otherwise."

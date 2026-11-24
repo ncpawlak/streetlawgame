@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="BusinessTypeDef" format=3]
+
+[ext_resource type="Script" path="res://scripts/framework/business/business_type_def.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+category = &"retail"
+base_price = 15000
+base_income = 300
+clout_value = 10
+hangout_crew_count = 2
+shop_item_ids = Array[StringName]([&"pistol", &"pistol_ammo", &"smg", &"smg_ammo", &"shotgun", &"shotgun_ammo"])
+color = Color(0.25, 0.35, 0.25, 1)
+id = &"gun_store"
+display_name = "Gun Store"
+description = "Guns and ammo over the counter."

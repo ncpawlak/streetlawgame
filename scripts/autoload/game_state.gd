@@ -1,5 +1,6 @@
 extends Node
-## Run state: money, respect, gangs, owned businesses and crew. Territory ownership lives in [Turf].
+## Run state: money, respect, gangs and crew. Territory ownership lives in [Turf], business
+## ownership in [Businesses].
 
 const PLAYER_GANG := &"player"
 const NO_GANG := &"none"
@@ -18,7 +19,6 @@ const GANGS := {
 
 var cash := 0
 var respect := 0
-var businesses: Array[BusinessData] = []
 var crew: Array[CrewMemberData] = []
 var player: Player
 ## Width of the generated city in meters (set by CityGenerator).
@@ -89,9 +89,7 @@ func add_respect(amount: int) -> void:
 
 
 func pay_income() -> void:
-	var total := Turf.income_for(PLAYER_GANG)
-	for business in businesses:
-		total += business.income_per_cycle
+	var total := Turf.income_for(PLAYER_GANG) + Businesses.total_income()
 	if total > 0:
 		add_cash(total)
-		EventBus.notify.emit("Turf income: +$%d" % total)
+		EventBus.notify.emit("Income: +$%d" % total)

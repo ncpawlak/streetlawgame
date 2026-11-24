@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="ShopItemDef" load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/framework/business/shop_item_def.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/framework/business/effects/give_weapon_effect.gd" id="2"]
+[ext_resource type="Script" path="res://scripts/framework/core/effect.gd" id="3"]
+
+[sub_resource type="Resource" id="effect"]
+script = ExtResource("2")
+weapon_id = &"rifle"
+ammo = 60
+
+[resource]
+script = ExtResource("1")
+base_price = 3500
+effects = Array[ExtResource("3")]([SubResource("effect")])
+id = &"rifle"
+display_name = "Rifle"
+description = "Second-hand, with 60 rounds."
