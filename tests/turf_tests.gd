@@ -43,6 +43,11 @@ func _test_startup(city: CityGenerator, player: Player) -> void:
 	_check(Turf.owned_districts(GameState.PLAYER_GANG) == [&"the_bottoms"], "player starts owning The Bottoms")
 	_check(Turf.owned_areas(GameState.PLAYER_GANG).is_empty(), "player starts with no full area")
 	_check(Turf.district_at(player.global_position) == &"the_bottoms" and Turf.current_district_id == &"the_bottoms", "district_at finds the player's district")
+	var resolved := true
+	for district in city.districts:
+		resolved = resolved and Locations.resolve_district(district.global_position) == district.district_id
+	_check(resolved and Locations.resolve_district(Vector3(1.0e5, 0.0, 1.0e5)) == &"", "Locations.resolve_district returns Turf district ids")
+	_check(Locations.district_resolver == Turf.district_at, "Turf installs itself as the Locations district resolver")
 	var expected := 0
 	var safehouses := 0
 	for id in Turf.all_districts():
