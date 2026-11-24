@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="JobData" format=3]
+
+[ext_resource type="Script" path="res://scripts/framework/jobs/guard_behavior.gd" id="1_tdfyx"]
+[ext_resource type="Script" path="res://scripts/framework/core/condition.gd" id="2_wvqxn"]
+[ext_resource type="Script" path="res://scripts/framework/risk/risk_data.gd" id="3_4d745"]
+[ext_resource type="Script" path="res://scripts/framework/jobs/job_data.gd" id="4_2cwhw"]
+
+[sub_resource type="Resource" id="Resource_xw8g8"]
+script = ExtResource("1_tdfyx")
+
+[resource]
+script = ExtResource("4_2cwhw")
+skill = &"muscle"
+behavior = SubResource("Resource_xw8g8")
+id = &"guard"
+display_name = "Guard"
+description = "Watches the place. Cuts the odds of raids and stick-ups."

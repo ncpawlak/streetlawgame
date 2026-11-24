@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="JobData" format=3]
+
+[ext_resource type="Script" path="res://scripts/framework/economy/demand_pricing_model.gd" id="1_qqche"]
+[ext_resource type="Script" path="res://scripts/framework/jobs/sales_behavior.gd" id="2_4cvt0"]
+[ext_resource type="Script" path="res://scripts/framework/core/condition.gd" id="3_rngut"]
+[ext_resource type="Script" path="res://scripts/framework/risk/risk_data.gd" id="4_afyyg"]
+[ext_resource type="Resource" path="res://data/risks/dealer_robbed.tres" id="5_h2seg"]
+[ext_resource type="Script" path="res://scripts/framework/jobs/job_data.gd" id="6_rkd7e"]
+
+[sub_resource type="Resource" id="Resource_y4ios"]
+script = ExtResource("1_qqche")
+
+[sub_resource type="Resource" id="Resource_v1f7j"]
+script = ExtResource("2_4cvt0")
+pricing = SubResource("Resource_y4ios")
+
+[resource]
+script = ExtResource("6_rkd7e")
+skill = &"dealing"
+behavior = SubResource("Resource_v1f7j")
+risks = Array[ExtResource("4_afyyg")]([ExtResource("5_h2seg")])
+heat_per_cycle = 0.5
+id = &"dealer"
+display_name = "Dealer"
+description = "Sells product from the stash on corners in a district you control."

@@ -17,6 +17,7 @@ ContentDB="*res://scripts/framework/content/content_db.gd"
 GameState="*res://scripts/autoload/game_state.gd"
 Turf="*res://scripts/autoload/turf.gd"
 Locations="*res://scripts/framework/location/location_service.gd"
+Operations="*res://scripts/framework/operations/operations.gd"
 InputSetup="*res://scripts/autoload/input_setup.gd"
 
 [display]

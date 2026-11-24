@@ -1,0 +1,41 @@
+[gd_resource type="Resource" script_class="SiteData" format=3]
+
+[ext_resource type="Script" path="res://scripts/framework/core/condition.gd" id="1_v4rok"]
+[ext_resource type="Script" path="res://scripts/framework/conditions/district_owned_condition.gd" id="2_wm52m"]
+[ext_resource type="Script" path="res://scripts/framework/risk/risk_data.gd" id="3_ypikr"]
+[ext_resource type="Resource" path="res://data/risks/police_raid.tres" id="4_3q23g"]
+[ext_resource type="Resource" path="res://data/risks/rival_stickup.tres" id="5_dqtmw"]
+[ext_resource type="Script" path="res://scripts/framework/sites/site_data.gd" id="6_yxrxp"]
+
+[sub_resource type="Resource" id="Resource_386xy"]
+script = ExtResource("2_wm52m")
+district_id = &""
+gang_id = &"player"
+invert = false
+failure_text = ""
+hide_when_unmet = false
+
+[sub_resource type="Resource" id="Resource_npj5y"]
+script = ExtResource("2_wm52m")
+district_id = &""
+gang_id = &"player"
+invert = false
+failure_text = ""
+hide_when_unmet = false
+
+[resource]
+script = ExtResource("6_yxrxp")
+kind = &"lab"
+district_id = &"riverside"
+location_id = &"riverside_lab"
+allowed_jobs = Array[StringName]([&"cook", &"dealer", &"guard"])
+stash_capacity = 300
+acquire_price = 5000
+acquire_conditions = Array[ExtResource("1_v4rok")]([SubResource("Resource_386xy")])
+operate_conditions = Array[ExtResource("1_v4rok")]([SubResource("Resource_npj5y")])
+risks = Array[ExtResource("3_ypikr")]([ExtResource("4_3q23g"), ExtResource("5_dqtmw")])
+heat_decay_per_minute = 3.0
+id = &"riverside_lab"
+display_name = "Riverside Lab"
+description = "A proper cook spot. You'll need to run Riverside first."
+tags = Array[StringName]([&"lab", &"grow", &"stash"])

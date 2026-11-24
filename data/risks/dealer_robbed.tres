@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="RiskData" format=3]
+
+[ext_resource type="Script" path="res://scripts/framework/core/effect.gd" id="1_ua538"]
+[ext_resource type="Script" path="res://scripts/framework/risk/steal_cash_effect.gd" id="2_kh3os"]
+[ext_resource type="Script" path="res://scripts/framework/risk/risk_data.gd" id="3_76dkq"]
+
+[sub_resource type="Resource" id="Resource_equek"]
+script = ExtResource("2_kh3os")
+min_amount = 50
+max_amount = 200
+
+[resource]
+script = ExtResource("3_76dkq")
+chance_per_minute = 0.01
+heat_multiplier = 0.0
+effects = Array[ExtResource("1_ua538")]([SubResource("Resource_equek")])
+notify_text = "{crew_name} got jacked on a corner in {district_name}."
+id = &"dealer_robbed"
+display_name = "Dealer robbed"
+description = "Corner work is dangerous."

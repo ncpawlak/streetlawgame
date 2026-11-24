@@ -34,6 +34,7 @@ docs/                  Design & architecture docs
 | `ContentDB` | Content registry: `.tres` defs by (type, id), scanned from `res://data/<type>/` plus override roots (mods). |
 | `Turf` | Territory authority (areas → districts → safehouses): id-based ownership queries (`owner_of`, `district_at`, `districts_in_area`, `owned_districts`, `area_owner`, `income_for`...), `set_district_owner()` as the only way ownership changes, area bonuses, `to_dict()`/`from_dict()`. Installs itself as `Locations.district_resolver`. |
 | `Locations` | Enterable buildings: placement, lookup/queries, enter/exit, status ticking, serializable state. |
+| `Operations` | Runs the operations simulation (`OperationsModel`) on a timer: sites, crew jobs, production, sales, plugs, risk. See [OPERATIONS.md](OPERATIONS.md). |
 
 ## Key classes
 
@@ -74,6 +75,10 @@ build on the same pieces.
 change visuals, set the def's `VisualSpec`. To change behaviour, plug in a different `Condition`,
 `Cost`, `Effect`, `InteriorStrategy` or `SkillCheck` resource, or set `Locations.district_resolver`.
 No gameplay code hardcodes `res://` content paths. See [CONTENT.md](CONTENT.md).
+
+## Operations framework
+
+`scripts/framework/{items,jobs,sites,economy,risk,conditions,operations}/` holds the reusable operations framework (stash, crew jobs, production, sales, suppliers, risk). It is driven by content in `data/{items,recipes,jobs,sites,plugs,markets,risks,crew}/`. New kinds of work plug in as `JobBehavior` resources. Details, API and extension points: [OPERATIONS.md](OPERATIONS.md).
 
 ## Conventions
 

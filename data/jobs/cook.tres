@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="JobData" format=3]
+
+[ext_resource type="Script" path="res://scripts/framework/jobs/production_behavior.gd" id="1_77l0e"]
+[ext_resource type="Script" path="res://scripts/framework/core/condition.gd" id="2_a65u8"]
+[ext_resource type="Script" path="res://scripts/framework/risk/risk_data.gd" id="3_bobb5"]
+[ext_resource type="Script" path="res://scripts/framework/jobs/job_data.gd" id="4_eg1dx"]
+
+[sub_resource type="Resource" id="Resource_d14ur"]
+script = ExtResource("1_77l0e")
+
+[resource]
+script = ExtResource("4_eg1dx")
+skill = &"cooking"
+behavior = SubResource("Resource_d14ur")
+heat_per_cycle = 1.0
+id = &"cook"
+display_name = "Cook"
+description = "Turns supplies into product."

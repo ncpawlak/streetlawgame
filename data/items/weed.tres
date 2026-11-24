@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="ItemData" format=3]
+
+[ext_resource type="Script" path="res://scripts/framework/items/item_data.gd" id="1_r8kdy"]
+
+[resource]
+script = ExtResource("1_r8kdy")
+category = &"drug"
+base_value = 25
+heat_per_unit = 0.2
+id = &"weed"
+display_name = "Weed"
+description = "An eighth of street-grade bud."

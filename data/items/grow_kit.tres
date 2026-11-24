@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ItemData" format=3]
+
+[ext_resource type="Script" path="res://scripts/framework/items/item_data.gd" id="1_1h7y0"]
+
+[resource]
+script = ExtResource("1_1h7y0")
+category = &"supply"
+base_value = 10
+id = &"grow_kit"
+display_name = "Grow Kit"
+description = "Seeds, soil and lights for a few plants."

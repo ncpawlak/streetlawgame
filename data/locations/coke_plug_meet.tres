@@ -1,0 +1,42 @@
+[gd_resource type="Resource" script_class="LocationDef" format=3]
+
+[ext_resource type="Script" path="res://scripts/framework/core/condition.gd" id="1_cond"]
+[ext_resource type="Script" path="res://scripts/framework/conditions/plug_revealed_condition.gd" id="2_rev"]
+[ext_resource type="Script" path="res://scripts/framework/core/effect.gd" id="3_eff"]
+[ext_resource type="Script" path="res://scripts/framework/operations/actions/meet_plug_effect.gd" id="4_meet"]
+[ext_resource type="Script" path="res://scripts/framework/interaction/interaction_action.gd" id="5_act"]
+[ext_resource type="Script" path="res://scripts/framework/location/location_def.gd" id="6_loc"]
+
+[sub_resource type="Resource" id="Resource_revealed"]
+script = ExtResource("2_rev")
+plug_id = &"coke_plug"
+hide_when_unmet = true
+
+[sub_resource type="Resource" id="Resource_meet"]
+script = ExtResource("4_meet")
+plug_id = &"coke_plug"
+
+[sub_resource type="Resource" id="Resource_talk"]
+script = ExtResource("5_act")
+verb = "Talk business"
+priority = 10
+conditions = Array[ExtResource("1_cond")]([SubResource("Resource_revealed")])
+effects = Array[ExtResource("3_eff")]([SubResource("Resource_meet")])
+hide_when_unavailable = true
+id = &"talk_coke_plug"
+display_name = "Talk business"
+
+[resource]
+script = ExtResource("6_loc")
+kind = &"plug_meet"
+color = Color(0.95, 0.95, 0.95, 1)
+door_actions = Array[ExtResource("5_act")]([SubResource("Resource_talk")])
+unique = true
+min_count = 1
+spawn_weight = 0.0
+district_ids = Array[StringName]([&"old_harbor"])
+extra = {"plug_id": &"coke_plug"}
+id = &"coke_plug_meet"
+display_name = "El Primo's Warehouse"
+description = "El Primo moves coca paste through the harbor."
+tags = Array[StringName]([&"plug"])

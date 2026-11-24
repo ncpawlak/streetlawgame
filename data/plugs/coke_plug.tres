@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="PlugData" format=3]
+
+[ext_resource type="Script" path="res://scripts/framework/core/condition.gd" id="1_ermip"]
+[ext_resource type="Script" path="res://scripts/framework/conditions/unlock_condition.gd" id="2_i5t0v"]
+[ext_resource type="Script" path="res://scripts/framework/economy/plug_data.gd" id="3_8rr3w"]
+[ext_resource type="Script" path="res://scripts/framework/items/item_stack.gd" id="4_jby6d"]
+
+[sub_resource type="Resource" id="Resource_5p28y"]
+script = ExtResource("2_i5t0v")
+unlock_id = &"drug:weed"
+failure_text = "Move some weed first"
+
+[sub_resource type="Resource" id="Resource_t12wl"]
+script = ExtResource("4_jby6d")
+item_id = &"coca_paste"
+count = 4
+
+[resource]
+script = ExtResource("3_8rr3w")
+location_id = &"coke_plug_meet"
+reveal_conditions = Array[ExtResource("1_ermip")]([SubResource("Resource_5p28y")])
+buy_in_price = 5000
+grants_unlocks = Array[StringName]([&"drug:coke"])
+supplies = Array[ExtResource("4_jby6d")]([SubResource("Resource_t12wl")])
+starting_relationship = 40.0
+cutoff_relationship = 20.0
+relationship_per_order = 2.0
+id = &"coke_plug"
+display_name = "El Primo"
+description = "Cartel connect. Only deals with crews that already move weight."

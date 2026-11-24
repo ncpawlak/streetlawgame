@@ -84,6 +84,7 @@ Each gang should have its own visual style, vehicles, weapons, AI behaviour and 
 - **Take over trap houses** (an assault mission) to unlock production in that district.
 - **Manufacture** product (it takes time and supplies) and **assign dealers** to territories. Income scales with district demand, product quality and dealer skill.
 - Risk: police raids and rival hits on your operations. Defending them is a mission type.
+- *Prototype (#27):* meet Smokey (weed plug) and pay the buy-in to unlock weed. That reveals El Primo (coke, cooked at the Riverside lab). Assign cooks, dealers and guards to sites in districts you control. Prices follow district demand and saturation. Heat drives raids, stick-ups and robbed dealers. Built on the reusable operations framework ([OPERATIONS.md](OPERATIONS.md)).
 
 ### 5.5 Robberies & heists
 - **Houses:** stealth/smash-and-grab with loot carried back to a vehicle and fenced.

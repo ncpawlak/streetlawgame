@@ -8,10 +8,8 @@ extends Effect
 
 
 func _apply(ctx: ActionContext) -> void:
-	var member := CrewMemberData.new()
-	member.display_name = crew_name if crew_name != "" else ActionContext._label_of(ctx.occupant)
-	if member.display_name == "":
-		member.display_name = "Recruit"
+	var member_name := crew_name if crew_name != "" else ActionContext._label_of(ctx.occupant)
+	var member := CrewMemberData.create(member_name if member_name != "" else "Recruit")
 	member.skill = skill
 	GameState.crew.append(member)
 	EventBus.crew_recruited.emit(member)

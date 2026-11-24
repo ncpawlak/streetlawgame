@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="PlugData" format=3]
+
+[ext_resource type="Script" path="res://scripts/framework/core/condition.gd" id="1_gpedd"]
+[ext_resource type="Script" path="res://scripts/framework/economy/plug_data.gd" id="2_neykf"]
+[ext_resource type="Script" path="res://scripts/framework/items/item_stack.gd" id="3_rnmt6"]
+
+[sub_resource type="Resource" id="Resource_fiyt3"]
+script = ExtResource("3_rnmt6")
+item_id = &"grow_kit"
+count = 5
+
+[resource]
+script = ExtResource("2_neykf")
+location_id = &"weed_plug_meet"
+buy_in_price = 500
+grants_unlocks = Array[StringName]([&"drug:weed"])
+supplies = Array[ExtResource("3_rnmt6")]([SubResource("Resource_fiyt3")])
+id = &"weed_plug"
+display_name = "Smokey"
+description = "Old head with a basement full of lights. Sells grow kits to people he trusts."

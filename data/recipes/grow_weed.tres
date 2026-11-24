@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="RecipeData" format=3]
+
+[ext_resource type="Script" path="res://scripts/framework/items/item_stack.gd" id="1_623ba"]
+[ext_resource type="Script" path="res://scripts/framework/items/recipe_data.gd" id="2_ecer1"]
+
+[sub_resource type="Resource" id="Resource_lrkap"]
+script = ExtResource("1_623ba")
+item_id = &"grow_kit"
+
+[sub_resource type="Resource" id="Resource_n51d0"]
+script = ExtResource("1_623ba")
+item_id = &"weed"
+count = 4
+
+[resource]
+script = ExtResource("2_ecer1")
+inputs = Array[ExtResource("1_623ba")]([SubResource("Resource_lrkap")])
+outputs = Array[ExtResource("1_623ba")]([SubResource("Resource_n51d0")])
+required_unlocks = Array[StringName]([&"drug:weed"])
+site_tags = Array[StringName]([&"grow"])
+id = &"grow_weed"
+display_name = "Weed"
+description = "Grow and bag weed from grow kits."
