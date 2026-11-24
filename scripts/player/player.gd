@@ -24,6 +24,7 @@ var weapons: WeaponInventory
 
 var _gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 var _regen_wait := 0.0
+var _shake := 0.0
 
 @onready var _camera_pivot: Node3D = $CameraPivot
 @onready var _spring_arm: SpringArm3D = $CameraPivot/SpringArm
@@ -44,6 +45,7 @@ func _ready() -> void:
 	_camera.cull_mask &= ~GameState.MAP_LAYER
 	_camera.make_current()
 	GameState.player = self
+	EventBus.explosion.connect(_on_explosion)
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -56,6 +58,9 @@ func _unhandled_input(event: InputEvent) -> void:
 			get_viewport().set_input_as_handled()
 	elif event.is_action_pressed("reload"):
 		weapons.reload()
+	elif event.is_action_pressed("detonate"):
+		if weapons.detonate_charges() == 0 and weapons.find(&"c4") != null:
+			EventBus.notify.emit("No C4 placed")
 	elif event.is_action_pressed("next_weapon"):
 		weapons.cycle(1)
 	elif event.is_action_pressed("prev_weapon"):
@@ -71,6 +76,22 @@ func _process(delta: float) -> void:
 	_regen_wait = maxf(0.0, _regen_wait - delta)
 	if health < max_health and health > 0.0 and _regen_wait <= 0.0:
 		_set_health(minf(max_health, health + health_regen * delta))
+	_update_shake(delta)
+
+
+## Shakes whichever camera is active (on foot or driving) after a nearby explosion.
+func _update_shake(delta: float) -> void:
+	var camera := get_viewport().get_camera_3d()
+	if camera == null:
+		return
+	_shake = move_toward(_shake, 0.0, delta * 1.5)
+	camera.h_offset = randf_range(-_shake, _shake) * 0.3
+	camera.v_offset = randf_range(-_shake, _shake) * 0.3
+
+
+func _on_explosion(at: Vector3, radius: float) -> void:
+	var distance := get_focus_position().distance_to(at)
+	_shake = maxf(_shake, clampf(1.0 - distance / (radius * 5.0), 0.0, 1.0))
 
 
 func _physics_process(delta: float) -> void:
@@ -136,7 +157,7 @@ func nearest_free_vehicle() -> Vehicle:
 	for node in get_tree().get_nodes_in_group("vehicles"):
 		var vehicle := node as Vehicle
 		var distance := global_position.distance_to(vehicle.global_position)
-		if vehicle.driver == null and distance < best_distance:
+		if vehicle.can_enter() and distance < best_distance:
 			best = vehicle
 			best_distance = distance
 	return best

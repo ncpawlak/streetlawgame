@@ -9,7 +9,7 @@ project.godot          Engine config (autoloads, layers)
 scenes/                .tscn scenes (main, player, ui...)
 scripts/
   autoload/            Global singletons (see below)
-  combat/              Shared combat logic (Hitscan, WeaponInventory, WeaponSlot, WeaponPickup)
+  combat/              Shared combat logic (Hitscan, Projectile, Explosion, FireZone, WeaponInventory, WeaponSlot, WeaponPickup)
 data/weapons/          WeaponData .tres files, one per weapon id
   data/                Resource classes for data-driven content (weapons, businesses, crew)
   npc/                 AI characters (GangMember)
@@ -35,11 +35,14 @@ docs/                  Design & architecture docs
 | Class | Extends | Responsibility |
 | --- | --- | --- |
 | `Player` | `CharacterBody3D` | On-foot movement, orbit camera, shooting, entering vehicles, health and respawn. |
-| `Vehicle` | `VehicleBody3D` | Driving, chase camera, drive-by shooting, running over NPCs. Built in code. |
+| `Vehicle` | `VehicleBody3D` | Driving, chase camera, drive-by shooting, running over NPCs, health/crash damage, smoke/fire/explode states. Built in code. |
 | `GangMember` | `CharacterBody3D` | Rival NPC: wander, aggro, shoot, die and drop rewards. |
 | `Territory` | `Node3D` | District bounds, owner gang, capture logic, map overlay. |
 | `CityGenerator` | `Node3D` | Deterministic greybox city: roads, buildings, districts, defenders, parked cars. |
 | `Hitscan` | `RefCounted` | Shared instant-hit firing (pellets, damage scale), aiming from the camera, tracers. |
+| `Projectile` | `Node3D` | Thrown/launched explosives: ray-stepped flight, bounce/stick/explode on impact, fuses and remote detonation. |
+| `Explosion` | `Node3D` | `detonate()`: radius damage with falloff and line of sight, physics impulse, visual, `EventBus.explosion`. |
+| `FireZone` | `Area3D` | Burning area left by molotovs; damages bodies inside over time. |
 | `WeaponInventory` | `Node` | Carried weapons, selection, fire rate, ammo and reload. Shared by `Player` and `GangMember`. |
 | `WeaponSlot` | `RefCounted` | One carried weapon: `WeaponData` + magazine/reserve ammo. |
 | `WeaponPickup` | `Area3D` | World pickup that grants a weapon or ammo. |
@@ -52,7 +55,7 @@ docs/                  Design & architecture docs
 - **Decoupling:** emit on `EventBus` for cross-system events, and read shared state from `GameState`.
 - **Physics layers:** 1 `world`, 2 `player`, 3 `npc`, 4 `vehicle`.
 - **Render layers:** layer 2 `map_only` holds overlays and markers that only the minimap camera renders. Gameplay cameras mask it out.
-- **Groups:** `player`, `vehicles`, `gang_members`.
+- **Groups:** `player`, `vehicles`, `gang_members`, `projectiles`, `fires`.
 - **Content as data:** new guns, businesses and so on should be `.tres` resources, not new code paths.
 - Tabs for indentation, static typing everywhere (`:=`, typed params and returns).
 

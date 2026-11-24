@@ -39,7 +39,9 @@ flowchart LR
 | Camera | Mouse (over-the-shoulder orbit) |
 | Shoot / aim | LMB / RMB |
 | Weapon wheel | Hold Q (game pauses), aim with mouse, release to equip |
-| Switch weapon / reload | Mouse wheel or 1-5 / R |
+| Switch weapon / reload | Mouse wheel or 1-9 / R |
+| Throw / launch explosive | LMB with grenade, molotov, C4 or RPG equipped |
+| Detonate placed C4 | G |
 | Enter / steal / exit vehicle | E |
 | Handbrake (in vehicle) | Space |
 | Drive-by (in vehicle) | LMB with the equipped gun (mouse looks around) |
@@ -103,10 +105,11 @@ Pistols, SMGs (drive-by capable), shotguns, rifles, plus grenades, molotovs, pip
 ✅ *Prototype:*
 - **Inventory and weapon wheel:** fists, pistol, SMG, shotgun (pellets) and assault rifle. The wheel pauses the game while it's open.
 - **Ammo:** magazine and reserve ammo, manual and automatic reload, pickups, and weapons dropped by dead rivals.
+- **Explosives:** grenades (bounce, 2.5 s fuse), molotovs (fire area that burns for a few seconds), sticky remote C4 (G to detonate) and RPGs (explode on impact). Blasts fall off with distance, need line of sight, push vehicles and shake the camera.
 - **Rival arsenals:** each rival gang carries its own mix of weapons. NPCs fire in bursts with reduced damage, get alerted when shot, and flash when hit.
 
 ### 5.8 Vehicles
-Stealable cars, trucks, bikes and gang-specific rides. Garage storage, upgrades (engine, armor, nitro, bulletproof tires) and damage that ends in explosions. Drive-bys from any seat. ✅ *Prototype: drivable cars, stealing, drive-by, running over NPCs.*
+Stealable cars, trucks, bikes and gang-specific rides. Garage storage, upgrades (engine, armor, nitro, bulletproof tires) and damage that ends in explosions. Drive-bys from any seat. ✅ *Prototype: drivable cars, stealing, drive-by, running over NPCs, and vehicle health: bullets, blasts and hard crashes damage cars, which smoke, then burn, then explode (ejecting the driver and damaging anything nearby). Rivals shoot at your car while you drive.*
 
 ### 5.9 Police & heat
 A wanted level from 1 to 5 stars that escalates from cops to SWAT to the military. It's driven by crimes witnessed. Lose it by hiding, respraying or paying off.

@@ -26,4 +26,6 @@ func has_any_ammo() -> bool:
 
 
 func ammo_text() -> String:
+	if data.thrown:
+		return "x%d" % (magazine + reserve)
 	return "%d / %d" % [magazine, reserve] if data.uses_ammo() else "-"

@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="WeaponData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/data/weapon_data.gd" id="1_weapon"]
+
+[resource]
+script = ExtResource("1_weapon")
+id = &"c4"
+display_name = "C4"
+kind = 1
+damage = 200
+max_range = 30
+fire_interval = 0.6
+spread_degrees = 0
+magazine_size = 1
+max_reserve = 4
+reload_time = 0.3
+price = 1500
+show_tracer = false
+tracer_color = Color(1, 0.2, 0.2, 1)
+thrown = true
+impact = 2
+projectile_speed = 9
+remote_detonated = true
+blast_radius = 7
+blast_impulse = 9000

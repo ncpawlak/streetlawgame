@@ -1,6 +1,12 @@
 class_name Vehicle
 extends VehicleBody3D
-## Drivable car built in code. Supports entering/exiting, a chase camera, drive-by shooting and running over NPCs.
+## Drivable car built in code. Supports entering/exiting, a chase camera, drive-by shooting, running
+## over NPCs, and damage: it smokes when hurt, catches fire when critical and then explodes.
+
+signal health_changed(current: float, maximum: float)
+signal exploded
+
+enum DamageState { OK, SMOKING, BURNING, WRECKED }
 
 const WHEEL_LAYOUT := [
 	# [position, is_front]
@@ -17,13 +23,35 @@ const WHEEL_LAYOUT := [
 @export var steer_speed := 2.5
 @export var run_over_speed := 6.0
 @export var mouse_sensitivity := 0.003
+@export_group("Damage")
+@export var max_health := 300.0
+## Fraction of health where the engine starts smoking.
+@export var smoke_threshold := 0.5
+## Fraction of health where it catches fire and burns down to an explosion.
+@export var fire_threshold := 0.25
+@export var burn_damage_per_second := 10.0
+## Sudden speed changes above this (m/s) count as a crash.
+@export var crash_speed_threshold := 7.0
+@export var crash_damage_per_speed := 4.0
+@export var explosion_radius := 8.0
+@export var explosion_damage := 120.0
+@export var explosion_impulse := 8000.0
+## Seconds a wreck stays in the world.
+@export var wreck_lifetime := 60.0
 
 var driver: Player
+var health := 0.0
+var damage_state := DamageState.OK
 
 var _camera_pivot: Node3D
 var _spring_arm: SpringArm3D
 var _camera: Camera3D
 var _look_yaw := 0.0
+var _last_velocity := Vector3.ZERO
+var _last_attacker: Node
+var _body_materials: Array[StandardMaterial3D] = []
+var _smoke: CPUParticles3D
+var _flames: CPUParticles3D
 
 
 func _ready() -> void:
@@ -36,9 +64,29 @@ func _ready() -> void:
 	contact_monitor = true
 	max_contacts_reported = 4
 	body_entered.connect(_on_body_entered)
+	health = max_health
 	_build_body()
 	_build_wheels()
 	_build_camera()
+	_build_damage_effects()
+
+
+func can_enter() -> bool:
+	return driver == null and not is_wrecked()
+
+
+func is_wrecked() -> bool:
+	return damage_state == DamageState.WRECKED
+
+
+func take_damage(amount: float, source: Node = null) -> void:
+	if is_wrecked() or amount <= 0.0:
+		return
+	if source != null and source != self:
+		_last_attacker = source
+	health = maxf(0.0, health - amount)
+	health_changed.emit(health, max_health)
+	_update_damage_state()
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -52,7 +100,10 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func _physics_process(delta: float) -> void:
-	if driver == null:
+	_check_crash()
+	if damage_state == DamageState.BURNING:
+		take_damage(burn_damage_per_second * delta, _last_attacker)
+	if driver == null or is_wrecked():
 		engine_force = 0.0
 		brake = 2.0
 		steering = move_toward(steering, 0.0, steer_speed * delta)
@@ -103,10 +154,10 @@ func exit() -> void:
 	player.set_on_foot(true)
 
 
-## Drive-bys use the driver's equipped gun and ammo. Melee weapons can't be used from a car.
+## Drive-bys use the driver's equipped gun and ammo. Melee and explosives can't be used from a car.
 func _drive_by_shoot() -> void:
 	var weapons := driver.weapons
-	if weapons.current() == null or not weapons.current().data.uses_ammo():
+	if weapons.current() == null or not weapons.current().data.uses_ammo() or weapons.current().data.is_projectile():
 		return
 	var exclude: Array[RID] = [get_rid(), driver.get_rid()]
 	var muzzle := global_position + Vector3(0.0, 1.6, 0.0)
@@ -116,6 +167,48 @@ func _drive_by_shoot() -> void:
 func _on_body_entered(body: Node) -> void:
 	if body is GangMember and linear_velocity.length() > run_over_speed:
 		(body as GangMember).take_damage(1000.0, self)
+
+
+## Sudden changes in velocity (hitting walls or other cars, hard landings) damage the car.
+func _check_crash() -> void:
+	var speed_change := (_last_velocity - linear_velocity).length()
+	_last_velocity = linear_velocity
+	if speed_change > crash_speed_threshold:
+		take_damage((speed_change - crash_speed_threshold) * crash_damage_per_speed, driver)
+
+
+func _update_damage_state() -> void:
+	var fraction := health / max_health
+	var next := DamageState.OK
+	if health <= 0.0:
+		next = DamageState.WRECKED
+	elif fraction <= fire_threshold:
+		next = DamageState.BURNING
+	elif fraction <= smoke_threshold:
+		next = DamageState.SMOKING
+	if next == damage_state:
+		return
+	damage_state = next
+	_smoke.emitting = next != DamageState.OK
+	_flames.emitting = next == DamageState.BURNING or next == DamageState.WRECKED
+	if next == DamageState.BURNING and driver != null:
+		EventBus.notify.emit("Your ride is on fire - get out!")
+	elif next == DamageState.WRECKED:
+		_explode.call_deferred()
+
+
+func _explode() -> void:
+	if driver != null:
+		exit()
+	engine_force = 0.0
+	for material in _body_materials:
+		material.albedo_color = material.albedo_color.darkened(0.75)
+	apply_central_impulse(Vector3.UP * mass * 6.0)
+	apply_torque_impulse(Vector3(randf_range(-1.0, 1.0), 0.0, randf_range(-1.0, 1.0)) * mass * 2.0)
+	Explosion.detonate(self, global_position + Vector3.UP, explosion_radius, explosion_damage, explosion_impulse, _last_attacker)
+	exploded.emit()
+	get_tree().create_timer(6.0, false).timeout.connect(func() -> void: _flames.emitting = false)
+	get_tree().create_timer(wreck_lifetime, false).timeout.connect(queue_free)
 
 
 func _build_body() -> void:
@@ -179,7 +272,37 @@ func _add_box_mesh(size: Vector3, offset: Vector3, color: Color) -> void:
 	var material := StandardMaterial3D.new()
 	material.albedo_color = color
 	mesh.material = material
+	_body_materials.append(material)
 	var instance := MeshInstance3D.new()
 	instance.mesh = mesh
 	instance.position = offset
 	add_child(instance)
+
+
+func _build_damage_effects() -> void:
+	_smoke = _make_particles(Color(0.25, 0.25, 0.25, 0.7), 24, 1.6, 2.5)
+	_flames = _make_particles(Color(1.0, 0.45, 0.1), 32, 0.6, 1.5)
+	_flames.scale_amount_min = 1.0
+	_flames.scale_amount_max = 2.0
+
+
+func _make_particles(color: Color, amount: int, particle_lifetime: float, rise_speed: float) -> CPUParticles3D:
+	var particles := CPUParticles3D.new()
+	particles.amount = amount
+	particles.lifetime = particle_lifetime
+	particles.emitting = false
+	particles.local_coords = false
+	particles.position = Vector3(0.0, 1.4, 1.5)
+	particles.emission_shape = CPUParticles3D.EMISSION_SHAPE_BOX
+	particles.emission_box_extents = Vector3(0.6, 0.1, 0.4)
+	particles.direction = Vector3.UP
+	particles.spread = 20.0
+	particles.gravity = Vector3(0.0, rise_speed, 0.0)
+	particles.initial_velocity_min = 0.5
+	particles.initial_velocity_max = 1.5
+	particles.scale_amount_min = 0.8
+	particles.scale_amount_max = 1.6
+	particles.color = color
+	particles.mesh = FireZone.flame_mesh()
+	add_child(particles)
+	return particles

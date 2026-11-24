@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="WeaponData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/data/weapon_data.gd" id="1_weapon"]
+
+[resource]
+script = ExtResource("1_weapon")
+id = &"grenade"
+display_name = "Grenade"
+kind = 1
+damage = 140
+max_range = 40
+fire_interval = 0.8
+spread_degrees = 0
+magazine_size = 1
+max_reserve = 7
+reload_time = 0.3
+price = 300
+show_tracer = false
+tracer_color = Color(0.45, 0.8, 0.3, 1)
+thrown = true
+impact = 1
+projectile_speed = 16
+fuse_time = 2.5
+blast_radius = 6
+blast_impulse = 6000

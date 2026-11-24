@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="WeaponData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/data/weapon_data.gd" id="1_weapon"]
+
+[resource]
+script = ExtResource("1_weapon")
+id = &"molotov"
+display_name = "Molotov"
+kind = 1
+damage = 25
+max_range = 40
+fire_interval = 0.8
+spread_degrees = 0
+magazine_size = 1
+max_reserve = 7
+reload_time = 0.3
+price = 200
+show_tracer = false
+tracer_color = Color(1, 0.55, 0.15, 1)
+thrown = true
+impact = 0
+projectile_speed = 15
+blast_radius = 2.5
+fire_duration = 7
+fire_radius = 3.5
+fire_dps = 20

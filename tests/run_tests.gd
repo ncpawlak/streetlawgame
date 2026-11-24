@@ -30,6 +30,8 @@ func _run() -> void:
 	await _test_weapons(player)
 	await _test_weapon_wheel(main, player)
 	await _test_ai_combat(main, player)
+	await _test_explosives(main, player)
+	await _test_vehicle_damage(main, city, player)
 
 	print("\n%s (%d failure(s))" % ["FAILED" if _failures > 0 else "ALL TESTS PASSED", _failures])
 	get_tree().quit(1 if _failures > 0 else 0)
@@ -157,6 +159,118 @@ func _test_ai_combat(main: Node, player: Player) -> void:
 	shooter.take_damage(1000.0, player)
 	await _physics_frames(2)
 	_check(not shooter.is_alive() and get_tree().get_nodes_in_group("pickups").size() == pickups_before + 1, "killed AI drops its weapon")
+
+
+## A rival that stands still and never shoots back, for blast tests.
+func _dummy(main: Node, at: Vector3) -> GangMember:
+	var dummy := GangMember.new()
+	dummy.gang_id = &"kings"
+	dummy.weapon_id = &"pistol"
+	dummy.aggro_range = 0.0
+	dummy.alerted_range = 0.0
+	dummy.max_health = 1000.0
+	dummy.move_speed = 0.0
+	dummy.position = at
+	main.add_child(dummy)
+	return dummy
+
+
+func _spawn_vehicle(main: Node, at: Vector3) -> Vehicle:
+	var vehicle := Vehicle.new()
+	vehicle.position = at
+	main.add_child(vehicle)
+	return vehicle
+
+
+func _test_explosives(main: Node, player: Player) -> void:
+	player.respawn()
+	await _physics_frames(5)
+	var origin := player.global_position + Vector3(15.0, 0.0, 0.0)
+	var near := _dummy(main, origin + Vector3(2.0, 0.0, 0.0))
+	var far := _dummy(main, origin + Vector3(14.0, 0.0, 0.0))
+	await _physics_frames(20)
+	Explosion.detonate(player, origin, 6.0, 100.0, 0.0, player)
+	_check(near.health < near.max_health and far.health == far.max_health, "explosions damage what's in the blast radius only")
+
+	var grenade: WeaponData = GameState.weapon_data(&"grenade")
+	near.health = near.max_health
+	var thrown := Projectile.launch(player, grenade, origin + Vector3(1.0, 1.0, 0.0), Vector3.DOWN)
+	await _physics_frames(30)
+	_check(is_instance_valid(thrown) and near.health == near.max_health, "grenades wait for their fuse")
+	await _physics_frames(int(grenade.fuse_time * 60.0))
+	_check(not is_instance_valid(thrown) and near.health < near.max_health, "grenades explode when the fuse runs out")
+
+	var car := _spawn_vehicle(main, origin + Vector3(8.0, 0.5, 0.0))
+	await _physics_frames(30)
+	var car_start := car.global_position
+	Projectile.launch(player, GameState.weapon_data(&"rpg"), car.global_position + Vector3(-4.0, 0.9, 0.0), Vector3(1.0, 0.0, 0.0))
+	await _physics_frames(30)
+	_check(car.health < car.max_health and car.global_position.distance_to(car_start) > 0.3, "rockets explode on impact and throw vehicles (%.0f hp)" % car.health)
+	car.queue_free()
+
+	near.health = near.max_health
+	Projectile.launch(player, GameState.weapon_data(&"molotov"), origin + Vector3(0.5, 1.0, 0.0), Vector3.DOWN)
+	await _physics_frames(20)
+	var after_splash := near.health
+	await _physics_frames(60)
+	_check(not get_tree().get_nodes_in_group("fires").is_empty() and near.health < after_splash, "molotovs leave fire that keeps burning (%d fires, %.0f -> %.0f hp)" % [get_tree().get_nodes_in_group("fires").size(), after_splash, near.health])
+	await _physics_frames(int(GameState.weapon_data(&"molotov").fire_duration * 60.0))
+	_check(get_tree().get_nodes_in_group("fires").is_empty(), "fire burns out")
+
+	var weapons := player.weapons
+	weapons.add_weapon(GameState.weapon_data(&"c4"), 2)
+	weapons.select(weapons.slots.find(weapons.find(&"c4")))
+	await _physics_frames(30)
+	near.health = near.max_health
+	var c4_ammo := weapons.current().magazine + weapons.current().reserve
+	_check(weapons.try_fire(player, origin + Vector3(0.5, 1.0, 0.0), Vector3.DOWN), "C4 can be placed")
+	await _physics_frames(40)
+	var charge: Projectile = weapons.placed_charges[0]
+	_check(charge.is_stuck and near.health == near.max_health, "C4 sticks and waits for the detonator")
+	await _physics_frames(30)
+	_check(weapons.current().magazine + weapons.current().reserve == c4_ammo - 1 and weapons.current().ammo_text() == "x%d" % (c4_ammo - 1), "throwables are counted, not reloaded from reserve")
+	_check(weapons.detonate_charges() == 1 and near.health < near.max_health and weapons.placed_charges.is_empty(), "the detonator sets off placed C4")
+	near.queue_free()
+	far.queue_free()
+	await _physics_frames(2)
+
+
+func _test_vehicle_damage(main: Node, city: CityGenerator, player: Player) -> void:
+	player.respawn()
+	await _physics_frames(5)
+	var origin := player.global_position + Vector3(15.0, 0.0, 0.0)
+	var car := _spawn_vehicle(main, origin + Vector3(0.0, 0.5, 0.0))
+	await _physics_frames(30)
+	var weapons := player.weapons
+	weapons.add_weapon(GameState.weapon_data(&"rifle"), 90)
+	weapons.select(weapons.slots.find(weapons.find(&"rifle")))
+	await _physics_frames(30)
+	var muzzle := car.global_position + Vector3(-6.0, 1.0, 0.0)
+	var exclude: Array[RID] = [player.get_rid()]
+	weapons.try_fire(player, muzzle, car.global_position + Vector3(0.0, 0.8, 0.0) - muzzle, exclude)
+	_check(car.health < car.max_health, "bullets damage vehicles")
+
+	car.take_damage(car.max_health * 0.4)
+	_check(car.damage_state == Vehicle.DamageState.SMOKING, "a damaged vehicle smokes")
+	var bystander := _dummy(main, car.global_position + Vector3(0.0, 0.0, 4.0))
+	await _physics_frames(10)
+	player.global_position = car.global_position + Vector3(2.0, 0.0, 0.0)
+	car.enter(player)
+	car.burn_damage_per_second = 200.0
+	car.take_damage(car.max_health * 0.3, player)
+	_check(car.damage_state == Vehicle.DamageState.BURNING, "a badly damaged vehicle catches fire")
+	await _physics_frames(60)
+	_check(car.is_wrecked() and player.is_on_foot() and not car.can_enter(), "a burning vehicle explodes, throws the driver out and can't be driven")
+	_check(bystander.health < bystander.max_health, "a vehicle explosion hurts people nearby")
+	bystander.queue_free()
+
+	var wall_x := city.city_size() * 0.5 + 20.0
+	var crasher := _spawn_vehicle(main, Vector3(wall_x - 12.0, 1.0, player.spawn_point.z))
+	crasher.rotation.y = PI / 2.0
+	await _physics_frames(20)
+	crasher.linear_velocity = Vector3(30.0, 0.0, 0.0)
+	await _physics_frames(60)
+	_check(crasher.health < crasher.max_health, "crashing into a wall damages the vehicle (%.0f hp)" % crasher.health)
 
 
 func _physics_frames(count: int) -> void:

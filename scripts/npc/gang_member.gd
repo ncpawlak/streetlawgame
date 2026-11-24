@@ -1,6 +1,6 @@
 class_name GangMember
 extends CharacterBody3D
-## Rival gang NPC. Loiters on its turf, attacks the player on sight and drops cash when killed.
+## Rival gang NPC. Loiters on its turf, attacks the player (or the player's car) on sight and drops cash when killed.
 
 ## Weapons each rival gang can roll for its members.
 const GANG_ARSENAL := {
@@ -75,17 +75,20 @@ func _physics_process(delta: float) -> void:
 		velocity.y -= _gravity * delta
 
 	var player := GameState.player
+	var target: Node3D = null
+	if player != null:
+		target = player if player.is_on_foot() else player.current_vehicle
 	var move_direction := Vector3.ZERO
 	var speed := move_speed
 	var range_now := alerted_range if _alert_left > 0.0 else aggro_range
-	if player != null and player.is_on_foot() and global_position.distance_to(player.global_position) < range_now:
-		var to_player := player.global_position - global_position
-		to_player.y = 0.0
-		_face(to_player)
-		if to_player.length() > attack_range * 0.6:
-			move_direction = to_player.normalized()
-		if to_player.length() <= _engage_range():
-			_update_attack(player, delta)
+	if target != null and global_position.distance_to(target.global_position) < range_now:
+		var to_target := target.global_position - global_position
+		to_target.y = 0.0
+		_face(to_target)
+		if to_target.length() > attack_range * 0.6:
+			move_direction = to_target.normalized()
+		if to_target.length() <= _engage_range():
+			_update_attack(target, delta)
 	else:
 		move_direction = _wander_direction(delta)
 		speed *= 0.4

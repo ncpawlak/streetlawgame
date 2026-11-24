@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="WeaponData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/data/weapon_data.gd" id="1_weapon"]
+
+[resource]
+script = ExtResource("1_weapon")
+id = &"rpg"
+display_name = "RPG"
+kind = 1
+damage = 180
+max_range = 120
+fire_interval = 1.0
+spread_degrees = 0
+magazine_size = 1
+max_reserve = 6
+reload_time = 2.5
+price = 8000
+show_tracer = false
+tracer_color = Color(1, 0.8, 0.5, 1)
+impact = 0
+projectile_speed = 45
+projectile_gravity = 0.05
+blast_radius = 6
+blast_impulse = 10000
