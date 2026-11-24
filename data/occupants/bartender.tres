@@ -6,6 +6,7 @@
 [resource]
 script = ExtResource("2_xhj6l")
 role = &"bartender"
+dialogue_id = &"bartender"
 action_ids = Array[StringName]([&"rob_register"])
 color = Color(0.55, 0.4, 0.7, 1)
 nerve = 0.6

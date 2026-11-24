@@ -1,0 +1,78 @@
+[gd_resource type="Resource" script_class="DialogueDef" format=3]
+
+[ext_resource type="Script" path="res://scripts/framework/dialogue/dialogue_node.gd" id="1_hiwrk"]
+[ext_resource type="Script" path="res://scripts/framework/dialogue/dialogue_choice.gd" id="2_i1jca"]
+[ext_resource type="Script" path="res://scripts/framework/core/condition.gd" id="3_mbj2w"]
+[ext_resource type="Script" path="res://scripts/framework/core/cost.gd" id="4_jwmbe"]
+[ext_resource type="Script" path="res://scripts/framework/core/costs/cash_cost.gd" id="5_kqkmr"]
+[ext_resource type="Script" path="res://scripts/framework/core/effect.gd" id="6_m6hkq"]
+[ext_resource type="Script" path="res://scripts/framework/core/effects/respect_effect.gd" id="7_oyf82"]
+[ext_resource type="Script" path="res://scripts/framework/dialogue/effects/disposition_effect.gd" id="8_m53xt"]
+[ext_resource type="Script" path="res://scripts/framework/dialogue/checks/persuade_check.gd" id="9_pmrm6"]
+[ext_resource type="Script" path="res://scripts/framework/dialogue/dialogue_def.gd" id="10_krj77"]
+
+[sub_resource type="Resource" id="Resource_6mi7g"]
+script = ExtResource("5_kqkmr")
+amount = 150
+
+[sub_resource type="Resource" id="Resource_6b10l"]
+script = ExtResource("7_oyf82")
+amount = 5
+
+[sub_resource type="Resource" id="Resource_rcglg"]
+script = ExtResource("8_m53xt")
+favor = 0.3
+
+[sub_resource type="Resource" id="Resource_jf8jb"]
+script = ExtResource("2_i1jca")
+text = "A round for the bar. ($150)"
+costs = Array[ExtResource("4_jwmbe")]([SubResource("Resource_6mi7g")])
+effects = Array[ExtResource("6_m6hkq")]([SubResource("Resource_6b10l"), SubResource("Resource_rcglg")])
+next = &"round"
+
+[sub_resource type="Resource" id="Resource_etwqs"]
+script = ExtResource("9_pmrm6")
+
+[sub_resource type="Resource" id="Resource_d7usd"]
+script = ExtResource("2_i1jca")
+text = "[Persuade] Anyone here looking for work?"
+check = SubResource("Resource_etwqs")
+next = &"tip"
+fail_next = &"no_tip"
+
+[sub_resource type="Resource" id="Resource_4b42d"]
+script = ExtResource("2_i1jca")
+text = "Nothing."
+
+[sub_resource type="Resource" id="Resource_hd84c"]
+script = ExtResource("1_hiwrk")
+text = "\"What'll it be?\""
+choices = Array[ExtResource("2_i1jca")]([SubResource("Resource_jf8jb"), SubResource("Resource_d7usd"), SubResource("Resource_4b42d")])
+
+[sub_resource type="Resource" id="Resource_xnx6d"]
+script = ExtResource("1_hiwrk")
+id = &"round"
+text = "The bar cheers your name."
+outcome = &"favor"
+
+[sub_resource type="Resource" id="Resource_whj40"]
+script = ExtResource("8_m53xt")
+favor = 0.1
+
+[sub_resource type="Resource" id="Resource_j7b0p"]
+script = ExtResource("1_hiwrk")
+id = &"tip"
+text = "\"Guy at the end of the bar. Lost his job, got a mean right hook.\""
+on_enter = Array[ExtResource("6_m6hkq")]([SubResource("Resource_whj40")])
+outcome = &"tip"
+
+[sub_resource type="Resource" id="Resource_o6oq6"]
+script = ExtResource("1_hiwrk")
+id = &"no_tip"
+text = "\"I don't know nothing about nothing.\""
+
+[resource]
+script = ExtResource("10_krj77")
+nodes = Array[ExtResource("1_hiwrk")]([SubResource("Resource_hd84c"), SubResource("Resource_xnx6d"), SubResource("Resource_j7b0p"), SubResource("Resource_o6oq6")])
+id = &"bartender"
+display_name = "Bartender"

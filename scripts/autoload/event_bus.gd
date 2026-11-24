@@ -25,3 +25,8 @@ signal location_taken_out(location: Location, previous_owner: StringName)
 signal intel_gained(intel_id: StringName, text: String)
 signal crew_recruited(member: CrewMemberData)
 signal heat_raised(amount: int, location: Node3D)
+
+# Framework: dialogue (#26)
+signal dialogue_requested(dialogue: DialogueDef, ctx: ActionContext)
+signal dialogue_started(dialogue_id: StringName, target: Node)
+signal dialogue_ended(dialogue_id: StringName, outcome: StringName)

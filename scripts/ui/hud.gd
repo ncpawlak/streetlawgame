@@ -30,6 +30,7 @@ var _connected_inventory: WeaponInventory
 var weapon_wheel: WeaponWheel
 var interaction_prompt: InteractionPrompt
 var interaction_menu: InteractionMenu
+var dialogue_view: DialogueView
 
 
 func _ready() -> void:
@@ -43,6 +44,8 @@ func _ready() -> void:
 	add_child(interaction_prompt)
 	interaction_menu = InteractionMenu.new()
 	add_child(interaction_menu)
+	dialogue_view = DialogueView.new()
+	add_child(dialogue_view)
 	EventBus.cash_changed.connect(func(amount: int) -> void: _cash_label.text = "$%d" % amount)
 	EventBus.respect_changed.connect(func(amount: int) -> void: _respect_label.text = "Respect %d" % amount)
 	EventBus.player_health_changed.connect(_on_health_changed)

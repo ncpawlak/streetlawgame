@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="InteractionAction" format=3]
+
+[ext_resource type="Script" path="res://scripts/framework/core/condition.gd" id="1_tw03e"]
+[ext_resource type="Script" path="res://scripts/framework/core/cost.gd" id="2_r53yi"]
+[ext_resource type="Script" path="res://scripts/framework/core/effect.gd" id="3_w0gc3"]
+[ext_resource type="Script" path="res://scripts/framework/dialogue/effects/start_dialogue_effect.gd" id="4_w6i7v"]
+[ext_resource type="Script" path="res://scripts/framework/interaction/interaction_action.gd" id="5_pcbwf"]
+
+[sub_resource type="Resource" id="Resource_brd1j"]
+script = ExtResource("4_w6i7v")
+
+[resource]
+script = ExtResource("5_pcbwf")
+verb = "Talk to {occupant}"
+priority = 5
+effects = Array[ExtResource("3_w0gc3")]([SubResource("Resource_brd1j")])
+id = &"talk"
+display_name = "Talk"
+description = "Start a conversation (persuade, intimidate, pay)."
