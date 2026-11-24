@@ -22,7 +22,7 @@ flowchart LR
   or autoload dependencies beyond an injected content lookup, district provider, cash callables and
   crew list. `step(seconds)` advances the simulation and returns event dictionaries. A single long step
   gives the same result as many short ones, so off-screen or offline time costs one call.
-- **`Operations`** (autoload) builds the model from `ContentDB`, `GameState` and the live territories. It
+- **`Operations`** (autoload) builds the model from `ContentDB`, `GameState` and the `Turf` autoload (via `WorldDistrictProvider`). It
   calls `step(tick_seconds)` on a timer (2 s by default; there is no per-frame work), applies cash and income
   to `GameState`, and re-emits each event on `EventBus`.
 - **Behaviour is pluggable.** What a job *does* is a `JobBehavior` resource, sale prices come from a

@@ -24,4 +24,10 @@ jobs:
         run: ./godot --headless --path . --import
 
       - name: Run smoke tests
-        run: ./godot --headless --path . res://tests/test_runner.tscn
+        run: |
+          set -o pipefail
+          ./godot --headless --path . res://tests/test_runner.tscn 2>&1 | tee test.log
+          if grep -nE "SCRIPT ERROR|Parse Error" test.log; then
+            echo "::error::Script errors were logged during the test run"
+            exit 1
+          fi

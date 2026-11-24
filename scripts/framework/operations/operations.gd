@@ -31,10 +31,7 @@ func _ready() -> void:
 	_tick_timer = _make_timer(tick_seconds, func() -> void: simulate(tick_seconds))
 	_report_timer = _make_timer(report_seconds, _report)
 	_register_input()
-	if EventBus.has_signal("district_owner_changed"):
-		EventBus.connect("district_owner_changed", func(_district_id: StringName, _gang_id: StringName, _previous: StringName, _reason: StringName) -> void: refresh())
-	if EventBus.has_signal("territory_captured"):
-		EventBus.connect("territory_captured", func(_territory: Node, _gang_id: StringName) -> void: refresh())
+	EventBus.district_owner_changed.connect(func(_district_id: StringName, _gang_id: StringName, _previous: StringName, _reason: StringName) -> void: refresh())
 	_sync_markers.call_deferred()
 
 
