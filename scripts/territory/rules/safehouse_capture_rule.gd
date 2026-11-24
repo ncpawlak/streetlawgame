@@ -1,6 +1,7 @@
 class_name SafehouseCaptureRule
 extends CaptureRule
-## Default rule: kill the safehouse guards, start the takeover at the door, then hold the door until the
+## Default rule: kill the safehouse guards, start the takeover at the door ([E] "Take over", which calls
+## [method begin]), then hold the door until the
 ## claim completes. Leaving the claim radius makes progress drain; at zero the attempt is abandoned.
 
 ## Scales [member SafehouseData.claim_time].
@@ -38,9 +39,6 @@ func tick(district: District, delta: float) -> void:
 	if safehouse == null:
 		return
 	if not is_claiming(district):
-		# Without an interaction prompt, reaching the door is what starts the takeover.
-		if not safehouse.has_interaction() and _player_at_door(district):
-			begin(district, GameState.PLAYER_GANG, GameState.player)
 		return
 	var gang := claimant(district)
 	var claim_time := maxf(0.05, safehouse.data.claim_time * claim_time_scale)
@@ -66,9 +64,7 @@ func status_text(district: District) -> String:
 		return "Safehouse guarded by %d - take them out" % guards
 	if is_claiming(district):
 		return "Taking over the safehouse - hold the door!"
-	if district.safehouse.has_interaction():
-		return "Safehouse is open - [E] at the door to take over"
-	return "Safehouse is open - get to the door to take over"
+	return "Safehouse is open - [E] at the door to take over"
 
 
 ## Rival (AI) claimants are driven by whoever started them (counter-attacks), so only the player is checked.

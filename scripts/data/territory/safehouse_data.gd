@@ -1,17 +1,16 @@
 class_name SafehouseData
-extends Resource
+extends ContentDef
 ## A safehouse type (data/safehouses/<id>.tres): visual, footprint and claim tuning.
 ##
-## Scene contract for [member scene_path] (every part optional):
+## Scene contract for [member visual] (every part optional):
 ## - [code]Door[/code] (Marker3D): interaction point.
 ## - [code]GuardPoints/*[/code] (Marker3D): guard spawn points.
 ## - Nodes in group [code]owner_tinted[/code] (GeometryInstance3D): tinted with the owner gang's color.
 
-@export var id: StringName
-@export var display_name := "Safehouse"
-## Optional visual scene. Empty or missing builds the greybox.
-@export_file("*.tscn", "*.scn") var scene_path := ""
-## Greybox size on the XZ plane, in meters.
+## Optional visual (scene or mesh, swappable through ContentDB asset overrides). Null, or a spec with no
+## scene/mesh, builds the code greybox from the fields below.
+@export var visual: VisualSpec
+## Greybox size on the XZ plane, in meters (also places the default door and guard points).
 @export var footprint := Vector2(16.0, 16.0)
 @export var height := 8.0
 @export var greybox_color := Color(0.42, 0.36, 0.3)

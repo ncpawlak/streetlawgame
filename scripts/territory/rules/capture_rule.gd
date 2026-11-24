@@ -1,10 +1,8 @@
 class_name CaptureRule
-extends Resource
+extends ContentDef
 ## How a district changes hands. Stateless and shared between districts: per-district progress lives in
 ## [member DistrictState.capture_progress] and [member DistrictState.capture]. Subclass for new mechanics
 ## and point [member DistrictData.capture_rule_id] at the new resource.
-
-@export var id: StringName
 
 
 ## Called once when a district using this rule is ready.

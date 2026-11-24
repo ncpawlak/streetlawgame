@@ -43,7 +43,7 @@ docs/                  Design & architecture docs
 | `Vehicle` | `VehicleBody3D` | Driving, chase camera, drive-by shooting, running over NPCs, health/crash damage, smoke/fire/explode states. Built in code. |
 | `GangMember` | `CharacterBody3D` | Rival NPC: wander, aggro, shoot, die and drop rewards. |
 | `District` | `Node3D` | District bounds, safehouse, guards/patrols, map overlay; ticks its `CaptureRule`. Generated or placed by hand with a `district_id`. |
-| `Safehouse` | `Node3D` | A district's safehouse: visual from `SafehouseData` (scene or greybox), door, guard points, `can_claim/claim`, `can_manage/manage`. |
+| `Safehouse` | `Node3D` | A district's safehouse: visual from `SafehouseData.visual` (`VisualSpec`, greybox fallback), door, guard points, and an `Interactable` with "Take over" (`can_claim/claim`) and "Manage" (`can_manage/manage`, emits `safehouse_manage_requested` for #25). |
 | `CaptureRule` | `Resource` | Pluggable capture mechanic (`SafehouseCaptureRule` default, `ClearAndHoldCaptureRule`). Per-district progress lives in `DistrictState`. |
 | `CityGenerator` | `Node3D` | Deterministic greybox city: roads, buildings, districts from content (reserving a safehouse lot each), parked cars. |
 | `Hitscan` | `RefCounted` | Shared instant-hit firing (pellets, damage scale), aiming from the camera, tracers. |
@@ -55,7 +55,7 @@ docs/                  Design & architecture docs
 | `WeaponPickup` | `Area3D` | World pickup that grants a weapon or ammo. |
 | `WeaponWheel` | `Control` | Radial selector; pauses the tree while open (`PROCESS_MODE_ALWAYS`). |
 | `WeaponData`, `BusinessData`, `CrewMemberData` | `Resource` | Data-driven content definitions. |
-| `AreaData`, `DistrictData`, `SafehouseData` | `Resource` | Turf content: area bonuses, district owner/income/defenders/layout hints, safehouse visuals and claim settings. |
+| `AreaData`, `DistrictData`, `SafehouseData`, `CaptureRule` | `ContentDef` | Turf content loaded through `ContentDB`: area bonuses, district owner/income/defenders/layout hints, safehouse visuals and claim settings. |
 
 ## Gameplay frameworks (`scripts/framework/`)
 

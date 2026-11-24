@@ -25,6 +25,7 @@ var _area_order: Array[StringName] = []
 
 func _ready() -> void:
 	reload()
+	_hook_locations.call_deferred()
 
 
 func _physics_process(_delta: float) -> void:
@@ -369,6 +370,13 @@ func _recompute_area(area_id: StringName, reason: StringName = &"init") -> void:
 			if respect > 0:
 				GameState.add_respect(respect)
 			EventBus.notify.emit("You run all of %s!" % area_display_name(area_id))
+
+
+## Lets the location framework (#26) ask Turf which district a position is in, when it's installed.
+func _hook_locations() -> void:
+	var locations := get_node_or_null(^"/root/Locations")
+	if locations != null and &"district_resolver" in locations:
+		locations.set(&"district_resolver", district_at)
 
 
 func _on_district_exiting(district: District) -> void:

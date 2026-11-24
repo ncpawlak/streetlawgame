@@ -39,6 +39,7 @@ func _test_startup(city: CityGenerator, player: Player) -> void:
 	_check(Turf.all_districts().size() == 9 and city.districts.size() == 9, "city generates 9 districts from content")
 	_check(Turf.all_areas().size() == 3, "districts are grouped into 3 areas")
 	_check(Turf.validate().is_empty(), "territory content validates %s" % Turf.validate())
+	_check(ContentDB.validate().is_empty(), "ContentDB content validates %s" % ContentDB.validate())
 	_check(Turf.owned_districts(GameState.PLAYER_GANG) == [&"the_bottoms"], "player starts owning The Bottoms")
 	_check(Turf.owned_areas(GameState.PLAYER_GANG).is_empty(), "player starts with no full area")
 	_check(Turf.district_at(player.global_position) == &"the_bottoms" and Turf.current_district_id == &"the_bottoms", "district_at finds the player's district")
@@ -61,7 +62,9 @@ func _test_safehouse_capture(player: Player) -> void:
 	var rule := district.capture_rule().duplicate() as SafehouseCaptureRule
 	rule.claim_time_scale = 0.1
 	district.set_capture_rule(rule)
-	_check(district.guards_remaining() == 4 and not safehouse.can_claim(player), "guards block the safehouse claim")
+	_check(district.guards_remaining() == 4 and not safehouse.interactable.perform(Safehouse.CLAIM_ACTION, player), "guards block the safehouse claim")
+	var claim := safehouse.interactable.find_action(Safehouse.CLAIM_ACTION)
+	_check(claim.unavailable_reason(safehouse.interactable.make_context(player, claim)) == "4 guards left", "the claim prompt says why it's blocked")
 	var cash_before := GameState.cash
 	var respect_before := GameState.respect
 	_kill(&"rail_yards", &"guard", player)
@@ -72,9 +75,12 @@ func _test_safehouse_capture(player: Player) -> void:
 
 	_events.clear()
 	player.global_position = safehouse.door_position() + Vector3(0.0, 1.0, 0.0)
+	await _frames(10)
+	_check(district.state.capture_progress == 0.0, "standing at the door alone doesn't start a takeover")
+	_check(safehouse.interactable.perform(Safehouse.CLAIM_ACTION, player) and _events.has("safehouse_claim_started"), "[E] Take over starts the takeover")
 	await _frames(20)
 	var progress := district.state.capture_progress
-	_check(_events.has("safehouse_claim_started") and progress > 0.0 and progress < 1.0, "reaching the door starts the takeover (%.2f)" % progress)
+	_check(progress > 0.0 and progress < 1.0, "holding the door fills the takeover bar (%.2f)" % progress)
 	player.global_position = player.spawn_point
 	await _frames(15)
 	_check(district.state.capture_progress < progress and district.owner_gang != GameState.PLAYER_GANG, "leaving the door drains progress")
@@ -84,6 +90,16 @@ func _test_safehouse_capture(player: Player) -> void:
 	_check(district.owner_gang == GameState.PLAYER_GANG and _events.has("district_captured"), "holding the door takes the district")
 	_check(GameState.respect == respect_before + Turf.district_data(&"rail_yards").capture_respect, "capturing pays district respect")
 	_check(Turf.owned_districts(GameState.PLAYER_GANG).size() == 2 and district.state.capture.is_empty(), "captured district counts as player turf")
+	var labels: Array[StringName] = []
+	for action in safehouse.interactable.visible_actions(player):
+		labels.append(action.id)
+	_check(labels == [Safehouse.MANAGE_ACTION], "an owned safehouse offers Manage instead of Take over")
+	var managed := [false]
+	var on_manage := func(id: StringName) -> void: managed[0] = id == &"rail_yards"
+	EventBus.safehouse_manage_requested.connect(on_manage)
+	safehouse.interactable.perform(Safehouse.MANAGE_ACTION, player)
+	EventBus.safehouse_manage_requested.disconnect(on_manage)
+	_check(managed[0], "Manage requests the safehouse menu")
 	player.global_position = player.spawn_point
 	await _frames(5)
 

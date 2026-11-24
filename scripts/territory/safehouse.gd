@@ -1,13 +1,17 @@
 class_name Safehouse
 extends Node3D
 ## A district's safehouse: the thing you take to take the district, and later its gang HQ.
-## The visual comes from [member SafehouseData.scene_path] (see its scene contract) or a code-built greybox.
-## [method can_claim]/[method claim] and [method can_manage]/[method manage] are the interaction hooks.
+## The visual comes from [member SafehouseData.visual] (see its scene contract) or a code-built greybox.
+## An [Interactable] at the door offers "Take over" ([method can_claim]/[method claim]) and "Manage"
+## ([method can_manage]/[method manage]); both are plain methods so AI, missions and tests can call them too.
 
 const DOOR_OFFSET := 1.5
+const CLAIM_ACTION := &"claim"
+const MANAGE_ACTION := &"manage"
 
 var district: District
 var data: SafehouseData
+var interactable: Interactable
 
 var _visual: Node3D
 var _door: Vector3
@@ -24,13 +28,13 @@ func _ready() -> void:
 	add_to_group(&"safehouses")
 	_build_visual()
 	_build_marker()
+	_build_interactable()
 	_update_tint()
 	EventBus.district_owner_changed.connect(_on_owner_changed)
 
 
-## True when an interaction prompt is wired up (otherwise reaching the door starts a takeover).
-func has_interaction() -> bool:
-	return false
+func label() -> String:
+	return "%s %s" % [district.display_name, data.label()] if district != null else data.label()
 
 
 func door_position() -> Vector3:
@@ -56,6 +60,20 @@ func can_claim(_actor: Node = null) -> bool:
 	return district != null and district.capture_rule().can_capture(district, GameState.PLAYER_GANG)
 
 
+## Why the player can't take over right now ("" when they can).
+func claim_block_reason(_actor: Node = null) -> String:
+	if district == null:
+		return "Not available"
+	var guards := district.guards_remaining()
+	if guards > 0:
+		return "%d guard%s left" % [guards, "" if guards == 1 else "s"]
+	return "Not available"
+
+
+func is_claimable_by_player(_actor: Node = null) -> bool:
+	return district != null and district.owner_gang != GameState.PLAYER_GANG
+
+
 func claim(actor: Node = null) -> bool:
 	return district != null and district.capture_rule().begin(district, GameState.PLAYER_GANG, actor)
 
@@ -74,9 +92,8 @@ func has_feature(feature: StringName) -> bool:
 
 
 func _build_visual() -> void:
-	var scene := TurfContent.load_asset(data.scene_path) as PackedScene
-	if scene != null:
-		_visual = scene.instantiate() as Node3D
+	if data.visual != null and not data.visual.uses_greybox():
+		_visual = data.visual.instantiate()
 	if _visual == null:
 		_visual = _build_greybox()
 	_visual.name = "Visual"
@@ -93,6 +110,30 @@ func _build_visual() -> void:
 	for node in _visual.find_children("*", "GeometryInstance3D", true, false):
 		if node.is_in_group(&"owner_tinted"):
 			_tinted.append(node as GeometryInstance3D)
+
+
+func _build_interactable() -> void:
+	interactable = Interactable.new()
+	interactable.name = "Interactable"
+	interactable.radius = 2.5
+	interactable.focus_priority = 10
+	interactable.position = _door + Vector3(0.0, 1.0, 0.0)
+	var claim_condition := MethodCondition.create(&"can_claim")
+	claim_condition.pass_actor = true
+	claim_condition.reason_method = &"claim_block_reason"
+	var claimable := MethodCondition.create(&"is_claimable_by_player")
+	claimable.hide_when_unmet = true
+	var claim_effect := MethodEffect.create(&"claim")
+	claim_effect.pass_actor = true
+	var claim_action := InteractionAction.create(CLAIM_ACTION, "Take over {target}", [claim_effect], [claimable, claim_condition])
+	claim_action.priority = 10
+	var managed := MethodCondition.create(&"can_manage")
+	managed.hide_when_unmet = true
+	var manage_effect := MethodEffect.create(&"manage")
+	manage_effect.pass_actor = true
+	interactable.add_action(claim_action)
+	interactable.add_action(InteractionAction.create(MANAGE_ACTION, "Manage {target}", [manage_effect], [managed]))
+	add_child(interactable)
 
 
 func _build_greybox() -> Node3D:
