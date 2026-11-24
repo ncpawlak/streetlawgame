@@ -5,7 +5,7 @@ extends Effect
 @export var site_id: StringName
 
 
-func describe(_ctx: ActionContext) -> String:
+func _describe(_ctx: ActionContext) -> String:
 	return "Manage"
 
 

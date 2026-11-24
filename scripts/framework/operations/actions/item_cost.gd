@@ -7,7 +7,7 @@ extends Cost
 @export var site_id: StringName
 
 
-func describe(ctx: ActionContext) -> String:
+func _describe(ctx: ActionContext) -> String:
 	var model := OperationsModel.from_context(ctx)
 	var item := model.item(item_id) if model != null else null
 	return "%d× %s" % [amount, item.display_name if item != null else String(item_id)]
