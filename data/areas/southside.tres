@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="AreaData" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/territory/area_data.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/data/territory/area_bonus_data.gd" id="2"]
+
+[sub_resource type="Resource" id="bonus"]
+script = ExtResource("2")
+income_multiplier = 1.25
+flat_income_per_cycle = 100
+respect_reward = 250
+unlocks = Array[StringName]([&"southside_control"])
+
+[resource]
+script = ExtResource("1")
+id = &"southside"
+display_name = "Southside"
+bonuses = Array[ExtResource("2")]([SubResource("bonus")])
+story_beat = &"area_southside_taken"
+sort_order = 0

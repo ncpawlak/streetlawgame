@@ -1,18 +1,9 @@
 class_name CityGenerator
 extends Node3D
 ## Builds the prototype city at runtime: road grid, blocks, buildings, districts, rival crews and parked cars.
-## Deterministic for a given [member city_seed]. Replace with hand-built/streamed map chunks later.
+## Districts come from content (data/districts, see [DistrictData] layout hints); each reserves one block for
+## its safehouse. Deterministic for a given [member city_seed]. Replace with hand-built/streamed map chunks later.
 
-const DISTRICT_NAMES := [
-	"The Bottoms", "Rail Yards", "Old Harbor",
-	"Eastside", "Midtown", "Downtown",
-	"Northgate", "Hillcrest", "Riverside",
-]
-const DISTRICT_OWNERS := [
-	&"player", &"vipers", &"syndicate",
-	&"vipers", &"kings", &"syndicate",
-	&"kings", &"kings", &"syndicate",
-]
 const CAR_COLORS := [
 	Color(0.7, 0.1, 0.1), Color(0.1, 0.2, 0.6), Color(0.85, 0.85, 0.85),
 	Color(0.1, 0.1, 0.1), Color(0.2, 0.5, 0.25), Color(0.8, 0.6, 0.1),
@@ -22,15 +13,18 @@ const CAR_COLORS := [
 @export var blocks_per_side := 9
 @export var block_size := 48.0
 @export var road_width := 14.0
+## Blocks per side of one district-grid cell.
 @export var district_blocks := 3
-@export var defenders_per_district := 6
 @export var parked_vehicles := 16
 
 var player_spawn := Vector3.ZERO
-var territories: Array[Territory] = []
+var districts: Array[District] = []
 ## Every building footprint: {center: Vector3, footprint: Vector2, height: float, block: Vector2i,
 ## block_center: Vector3}. Used by LocationPlacer to put enterable buildings on real lots.
 var building_lots: Array[Dictionary] = []
+
+var _layout: Array[DistrictData] = []
+var _safehouse_blocks := {}  # Vector2i block -> district id
 
 var _rng := RandomNumberGenerator.new()
 var _materials := {}
@@ -44,10 +38,14 @@ func _ready() -> void:
 func generate() -> void:
 	_rng.seed = city_seed
 	GameState.city_extent = city_size()
+	_plan_districts()
 	_build_ground()
 	for ix in blocks_per_side:
 		for iz in blocks_per_side:
-			_build_block(ix, iz)
+			if _safehouse_blocks.has(Vector2i(ix, iz)):
+				_build_lot(ix, iz)
+			else:
+				_build_block(ix, iz)
 	_build_districts()
 	_spawn_vehicles()
 
@@ -109,39 +107,66 @@ func _add_building(center: Vector3, footprint: Vector2, max_height: float) -> vo
 	building_lots.append({"center": center, "footprint": footprint, "height": height, "block": _block, "block_center": block_center(_block.x, _block.y)})
 
 
+## Picks the districts that fit the grid and reserves each one's safehouse block.
+func _plan_districts() -> void:
+	_layout.clear()
+	_safehouse_blocks.clear()
+	var cells := blocks_per_side / float(district_blocks)
+	for resource in TurfContent.all(Turf.DISTRICTS):
+		var data := resource as DistrictData
+		if data == null:
+			continue
+		var far := data.grid_origin + data.grid_size
+		if data.grid_origin.x < 0 or data.grid_origin.y < 0 or far.x > cells or far.y > cells:
+			push_warning("CityGenerator: district '%s' is outside the grid, skipped" % TurfContent.id_of(data))
+			continue
+		_layout.append(data)
+		_safehouse_blocks[_safehouse_block(data)] = TurfContent.id_of(data)
+
+
+## The block (city coordinates) holding the district's safehouse: the data hint, else stable per seed and id.
+func _safehouse_block(data: DistrictData) -> Vector2i:
+	var first := data.grid_origin * district_blocks
+	var span := data.grid_size * district_blocks
+	if data.safehouse_block.x >= 0 and data.safehouse_block.y >= 0:
+		return first + data.safehouse_block.clamp(Vector2i.ZERO, span - Vector2i.ONE)
+	var rng := RandomNumberGenerator.new()
+	rng.seed = hash([city_seed, String(TurfContent.id_of(data))])
+	return first + Vector2i(rng.randi_range(0, span.x - 1), rng.randi_range(0, span.y - 1))
+
+
+## An empty lot with sidewalk only; the district builds its safehouse here.
+func _build_lot(ix: int, iz: int) -> void:
+	var center := block_center(ix, iz)
+	_add_mesh_box(Vector3(block_size, 0.1, block_size), center + Vector3(0.0, 0.05, 0.0), _material("sidewalk", Color(0.45, 0.45, 0.45)))
+	_add_mesh_box(Vector3(block_size - 4.0, 0.11, block_size - 4.0), center + Vector3(0.0, 0.06, 0.0), _material("lot", Color(0.3, 0.29, 0.27)))
+
+
 func _build_districts() -> void:
-	var per_side := blocks_per_side / district_blocks
-	var extent := district_blocks * pitch()
-	for dz in per_side:
-		for dx in per_side:
-			var index := dz * per_side + dx
-			var first := block_center(dx * district_blocks, dz * district_blocks)
-			var last := block_center((dx + 1) * district_blocks - 1, (dz + 1) * district_blocks - 1)
-			var territory := Territory.new()
-			territory.name = "Territory_%d" % index
-			territory.display_name = DISTRICT_NAMES[index % DISTRICT_NAMES.size()]
-			territory.owner_gang = DISTRICT_OWNERS[index % DISTRICT_OWNERS.size()]
-			territory.extents = Vector2(extent, extent)
-			territory.income_per_cycle = 150 + 50 * (2 - absi(dx - 1) - absi(dz - 1))
-			territory.position = (first + last) * 0.5
-			add_child(territory)
-			territories.append(territory)
-			if territory.owner_gang == GameState.PLAYER_GANG:
-				# Spawn at the road intersection just past the district's first block.
-				player_spawn = first + Vector3(block_size * 0.5 + road_width * 0.5, 1.0, block_size * 0.5 + road_width * 0.5)
-			else:
-				_spawn_defenders(territory, dx, dz)
-
-
-func _spawn_defenders(territory: Territory, dx: int, dz: int) -> void:
-	for i in defenders_per_district:
-		var bx := dx * district_blocks + _rng.randi_range(0, district_blocks - 1)
-		var bz := dz * district_blocks + _rng.randi_range(0, district_blocks - 1)
-		var member := GangMember.new()
-		member.gang_id = territory.owner_gang
-		member.home_territory = territory
-		member.position = _sidewalk_point(bx, bz) + Vector3(0.0, 0.2, 0.0)
-		add_child(member)
+	for data in _layout:
+		var id := TurfContent.id_of(data)
+		var first_block := data.grid_origin * district_blocks
+		var last_block := first_block + data.grid_size * district_blocks - Vector2i.ONE
+		var first := block_center(first_block.x, first_block.y)
+		var last := block_center(last_block.x, last_block.y)
+		var district := District.new()
+		district.name = "District_%s" % id
+		district.district_id = id
+		district.extents = Vector2(data.grid_size.x * district_blocks * pitch(), data.grid_size.y * district_blocks * pitch())
+		district.position = (first + last) * 0.5
+		var lot: Vector2i = _safehouse_blocks.find_key(id)
+		district.safehouse_position = block_center(lot.x, lot.y) - district.position
+		district.auto_spawn_defenders = false
+		for bx in range(first_block.x, last_block.x + 1):
+			for bz in range(first_block.y, last_block.y + 1):
+				if Vector2i(bx, bz) != lot:
+					district.patrol_points.append(to_global(_sidewalk_point(bx, bz)))
+		add_child(district)
+		districts.append(district)
+		district.spawn_defenders(hash([city_seed, String(id)]) & 0x7fffffff)
+		if data.starting_owner == GameState.PLAYER_GANG and player_spawn == Vector3.ZERO:
+			# Spawn at the road intersection just past the district's first block.
+			player_spawn = first + Vector3(block_size * 0.5 + road_width * 0.5, 1.0, block_size * 0.5 + road_width * 0.5)
 
 
 ## A random point on the outer sidewalk ring of a block (outside any building footprint).

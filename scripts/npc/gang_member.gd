@@ -28,7 +28,9 @@ const GANG_ARSENAL := {
 @export_range(0.0, 1.0) var drop_chance := 0.6
 
 var health := 0.0
-var home_territory: Territory
+## District this member defends (&"" for none) and its job there: &"guard" (safehouse) or &"patrol".
+var home_district: StringName
+var role: StringName
 
 var _home := Vector3.ZERO
 var _wander_target := Vector3.ZERO

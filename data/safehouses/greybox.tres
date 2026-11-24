@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="SafehouseData" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/territory/safehouse_data.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = &"greybox"
+display_name = "Safehouse"
+features = Array[StringName]([&"gang_management", &"upgrades", &"respawn", &"save"])

@@ -6,8 +6,7 @@ const POCKET_BASE_HEIGHT := 1000.0
 const POCKET_SPACING := 40.0
 const TICK_INTERVAL := 1.0
 
-## func(position: Vector3) -> StringName district id. Defaults to Turf.district_at when the Turf
-## autoload exists, else the snake_case name of the GameState territory at that point.
+## func(position: Vector3) -> StringName district id. Defaults to Turf.district_at.
 var district_resolver: Callable
 ## The location whose interior the player is in (null outside).
 var current: Location
@@ -140,11 +139,7 @@ func resolve_district(position: Vector3) -> StringName:
 
 
 func default_district_at(position: Vector3) -> StringName:
-	var turf := get_node_or_null(^"/root/Turf")
-	if turf != null and turf.has_method("district_at"):
-		return StringName(turf.call("district_at", position))
-	var territory := GameState.territory_at(position)
-	return to_district_id(territory.display_name) if territory != null else &""
+	return Turf.district_at(position)
 
 
 ## "The Bottoms" -> &"the_bottoms" (same rule as data/districts file names).
@@ -237,11 +232,7 @@ func _state_for(def: LocationDef, id: StringName, position: Vector3) -> Location
 
 
 func _district_owner(position: Vector3) -> StringName:
-	var turf := get_node_or_null(^"/root/Turf")
-	if turf != null and turf.has_method("owner_of"):
-		return StringName(turf.call("owner_of", resolve_district(position)))
-	var territory := GameState.territory_at(position)
-	return territory.owner_gang if territory != null else GameState.NO_GANG
+	return Turf.owner_of(resolve_district(position))
 
 
 func _next_id(def_id: StringName) -> StringName:

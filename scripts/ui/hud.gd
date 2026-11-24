@@ -73,23 +73,27 @@ func _process(delta: float) -> void:
 		_map_camera.global_position = Vector3(focus.x, MAP_CAMERA_HEIGHT, focus.z)
 	_player_marker.global_position = Vector3(focus.x, 90.0, focus.z)
 	_crosshair.visible = Input.mouse_mode == Input.MOUSE_MODE_CAPTURED and not _map_expanded and not weapon_wheel.is_open
-	_update_turf(GameState.current_territory)
+	_update_turf(Turf.current_district_id)
 	_update_hint(player)
 
 
-func _update_turf(territory: Territory) -> void:
-	if territory == null:
+func _update_turf(district_id: StringName) -> void:
+	if district_id == &"":
 		_turf_label.text = "No man's land"
 		_capture_bar.visible = false
 		return
-	var text := "%s  -  %s" % [territory.display_name, GameState.gang_name(territory.owner_gang)]
-	if territory.owner_gang != GameState.PLAYER_GANG:
-		var defenders := territory.defenders_remaining()
-		text += "\n%d defenders left" % defenders if defenders > 0 else "\nTurf is open - hold it on foot to take over!"
+	var holder := Turf.owner_of(district_id)
+	var text := "%s  -  %s  -  %s" % [Turf.display_name(district_id), Turf.area_display_name(Turf.area_of(district_id)), GameState.gang_name(holder)]
+	var district := Turf.district_node(district_id)
+	if district != null and holder != GameState.PLAYER_GANG:
+		var status := district.capture_rule().status_text(district)
+		if status != "":
+			text += "\n" + status
 	_turf_label.text = text
-	_turf_label.modulate = GameState.gang_color(territory.owner_gang).lightened(0.3)
-	_capture_bar.visible = territory.capture_progress > 0.0 and territory.owner_gang != GameState.PLAYER_GANG
-	_capture_bar.value = territory.capture_progress * 100.0
+	_turf_label.modulate = GameState.gang_color(holder).lightened(0.3)
+	var progress := Turf.district_state(district_id).capture_progress
+	_capture_bar.visible = progress > 0.0 and holder != GameState.PLAYER_GANG
+	_capture_bar.value = progress * 100.0
 
 
 func _update_vehicle(vehicle: Vehicle) -> void:
