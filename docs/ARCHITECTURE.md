@@ -32,6 +32,7 @@ docs/                  Design & architecture docs
 | `GameState` | Run state: cash, respect, gangs, territories, businesses, crew, flags, income timer. Future save/load serializes this. |
 | `ContentDB` | Content registry: `.tres` defs by (type, id), scanned from `res://data/<type>/` plus override roots (mods). |
 | `Locations` | Enterable buildings: placement, lookup/queries, enter/exit, status ticking, serializable state. |
+| `Operations` | Runs the operations simulation (`OperationsModel`) on a timer: sites, crew jobs, production, sales, plugs, risk. See [OPERATIONS.md](OPERATIONS.md). |
 
 ## Key classes
 
@@ -69,6 +70,10 @@ build on the same pieces.
 change visuals, set the def's `VisualSpec`. To change behaviour, plug in a different `Condition`,
 `Cost`, `Effect`, `InteriorStrategy` or `SkillCheck` resource, or set `Locations.district_resolver`.
 No gameplay code hardcodes `res://` content paths. See [CONTENT.md](CONTENT.md).
+
+## Operations framework
+
+`scripts/framework/{items,jobs,sites,economy,risk,conditions,operations}/` holds the reusable operations framework (stash, crew jobs, production, sales, suppliers, risk). It is driven by content in `data/{items,recipes,jobs,sites,plugs,markets,risks,crew}/`. New kinds of work plug in as `JobBehavior` resources. Details, API and extension points: [OPERATIONS.md](OPERATIONS.md).
 
 ## Conventions
 
