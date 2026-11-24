@@ -52,3 +52,11 @@ signal plug_revealed(plug_id: StringName, location_id: StringName)
 signal plug_established(plug_id: StringName)
 signal plug_relationship_changed(plug_id: StringName, relationship: float)
 signal operation_risk(risk_id: StringName, site_id: StringName, crew_id: StringName, text: String)
+
+# Businesses (#36). Site ids are BusinessSiteDef ids; see docs/CONTENT.md.
+## [param reason]: &"purchase", &"script"...
+signal business_acquired(site_id: StringName, reason: StringName)
+## [param reason]: &"raid" (#8), &"script"...
+signal business_lost(site_id: StringName, reason: StringName)
+signal shop_purchase(site_id: StringName, item_id: StringName, price: int)
+signal clout_changed(district_id: StringName, clout: int, previous: int)

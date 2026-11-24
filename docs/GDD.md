@@ -91,7 +91,16 @@ Each gang should have its own visual style, vehicles, weapons, AI behaviour and 
 - **Businesses:** hold-ups (intimidate the clerk, the register cash grows with time, wanted level).
 - **Banks:** multi-stage heists: plan, gear up, crew, vault, getaway.
 
-### 5.6 Businesses
+### 5.6 Businesses 🚧 *(prototype: 9 North End sites, see [BUSINESSES.md](BUSINESSES.md))*
+Businesses are types placed as many sites around the city, and you own each site on its own.
+- You can only buy a site in a district your gang controls. Some sites also need clout there.
+- Every owned site pays income, adds clout (0–100) to its district and has a hangout crew out front.
+- A site's shop sells at half price, but only at the site you own.
+- Rivals will be able to raid sites and take them (#8).
+
+Later, clout will level up your gang's influence per area, multiply income and drug prices, and make
+raids rarer.
+
 Buying businesses unlocks features and pays income:
 
 | Business | Unlocks |

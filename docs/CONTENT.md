@@ -19,8 +19,12 @@ without touching scripts.
 | `occupants/` | `OccupantDef` | People inside buildings: friendly (actions, dialogue, nerve/greed) or hostile (gang, weapon, count). |
 | `interiors/` | `InteriorStrategy` subclasses | How a building is entered (`DoorOnlyInterior`, `PocketInterior`). |
 | `dialogues/` | `DialogueDef` | Conversation graphs. |
+| `business_types/` | `BusinessTypeDef` | Business kinds: base price/income, clout, hangout crew, shop stock. |
+| `business_sites/` | `BusinessSiteDef` | One buyable business: type, district, name, overrides, purchase conditions. |
+| `shop_items/` | `ShopItemDef` | Things a business shop sells: base price and effects. |
 
-Other systems add their own folders (districts, items, production...) the same way.
+Other systems add their own folders (districts, items, production...) the same way. See
+[BUSINESSES.md](BUSINESSES.md) for businesses.
 
 ## Lookup
 
@@ -83,6 +87,10 @@ anything an effect puts in `ctx.vars` (e.g. `{cash_gained}`).
 - `door_action_ids = [&"enter_building"]`
 
 The placer puts it on city lots automatically. Set `auto_place = false` if another system places it.
+
+**A new buyable business:** add a `data/business_sites/<id>.tres` with a `type_id` and `district_id`.
+`Businesses` places it on a free lot in that district, using the shared `data/locations/business.tres`
+door. See [BUSINESSES.md](BUSINESSES.md).
 
 **A new conversation:**
 

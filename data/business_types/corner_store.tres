@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="BusinessTypeDef" format=3]
+
+[ext_resource type="Script" path="res://scripts/framework/business/business_type_def.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+category = &"retail"
+base_price = 8000
+base_income = 160
+clout_value = 5
+hangout_crew_count = 2
+shop_item_ids = Array[StringName]([&"snack", &"painkillers", &"first_aid"])
+color = Color(0.3, 0.7, 0.4, 1)
+id = &"corner_store"
+display_name = "Corner Store"
+description = "Snacks, smokes and a register that never sleeps."

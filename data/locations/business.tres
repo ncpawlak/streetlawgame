@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="LocationDef" format=3]
+
+[ext_resource type="Script" path="res://scripts/framework/location/location_def.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+kind = &"business"
+auto_place = false
+id = &"business"
+display_name = "Business"
+description = "Shared door for business sites (#36). Businesses.location_def_for names, colours and fills it per site."

@@ -7,3 +7,5 @@ extends ContentDef
 ## Passed along with [signal EventBus.area_captured] for story/mission hooks.
 @export var story_beat: StringName
 @export var sort_order := 0
+## Economy tier 1-5 (business prices and income scale with it, see Businesses.TIER_MULTIPLIERS).
+@export_range(1, 5) var tier := 1

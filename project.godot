@@ -18,6 +18,8 @@ GameState="*res://scripts/autoload/game_state.gd"
 Turf="*res://scripts/autoload/turf.gd"
 Locations="*res://scripts/framework/location/location_service.gd"
 Operations="*res://scripts/framework/operations/operations.gd"
+Clout="*res://scripts/framework/business/clout.gd"
+Businesses="*res://scripts/framework/business/businesses.gd"
 InputSetup="*res://scripts/autoload/input_setup.gd"
 
 [display]

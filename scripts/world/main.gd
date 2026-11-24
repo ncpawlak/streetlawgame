@@ -44,6 +44,7 @@ func _place_locations() -> void:
 	parent.name = "Locations"
 	add_child(parent)
 	placer.place(_city.building_lots, parent)
+	Businesses.place_sites(_city.building_lots, parent)
 
 
 func _build_environment() -> void:

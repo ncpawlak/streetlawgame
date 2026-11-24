@@ -197,6 +197,11 @@ func respawn() -> void:
 	_set_health(max_health)
 
 
+func heal(amount: float) -> void:
+	if health > 0.0:
+		_set_health(health + amount)
+
+
 func _try_enter_vehicle() -> bool:
 	var vehicle := nearest_free_vehicle()
 	if vehicle == null:

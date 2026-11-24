@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="BusinessTypeDef" format=3]
+
+[ext_resource type="Script" path="res://scripts/framework/business/business_type_def.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+category = &"service"
+base_price = 10000
+base_income = 200
+clout_value = 8
+hangout_crew_count = 3
+shop_item_ids = Array[StringName]([])
+color = Color(0.35, 0.2, 0.55, 1)
+id = &"tattoo_parlor"
+display_name = "Tattoo Parlor"
+description = "Ink that tells the street who you run with."

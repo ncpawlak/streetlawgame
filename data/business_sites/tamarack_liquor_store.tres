@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="BusinessSiteDef" format=3]
+
+[ext_resource type="Script" path="res://scripts/framework/business/business_site_def.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+type_id = &"liquor_store"
+district_id = &"the_bottoms"
+id = &"tamarack_liquor_store"
+display_name = "Tamarack Liquor"
