@@ -13,6 +13,10 @@ signal district_captured(district_id: StringName, gang_id: StringName)
 signal capture_progress_changed(district_id: StringName, progress: float)
 signal area_captured(area_id: StringName, gang_id: StringName)
 signal area_lost(area_id: StringName, gang_id: StringName)
+## Street-block turf (finer than districts; see drivers/turf_capture/turf_block_ledger.gd). [param reason]:
+## &"capture", &"counter_attack" or &"script".
+signal turf_block_owner_changed(block_id: StringName, gang_id: StringName, previous_gang: StringName, reason: StringName)
+signal turf_block_income(block_id: StringName, amount: int)
 signal safehouse_claim_started(district_id: StringName, gang_id: StringName)
 signal safehouse_manage_requested(district_id: StringName)
 signal gang_member_killed(member: GangMember, killer: Node)

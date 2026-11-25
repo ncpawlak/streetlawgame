@@ -2,13 +2,27 @@ class_name TurfCaptureDriver
 extends Node3D
 ## Standalone turf-capture driver: one Red Vipers intersection with a highlighted capture zone. Clear the
 ## guards, step into the zone, then hold it while escalating waves come at you on foot and by car from every
-## street. The block is yours when the bar is full and the last wave is dead.
+## street. The block is yours when the bar is full and the last wave is dead. Then it pays income every
+## [member TurfBlockLedger.income_interval] seconds, and if you leave it undefended for too long the Vipers
+## counter-attack: get back into the zone and kill them before they hold it long enough to take it back.
+## The Vipers' strength on the block grows while you leave them alone and scales the whole fight.
 ##
-## Debug (also in the F1 panel):
+## Debug (also in the F1 panel; [F2] pays income now, [F3] triggers a counter-attack now):
 ##   godot --path . res://drivers/turf_capture/turf_capture_driver.tscn -- --waves=6 --difficulty=hard --guards=0
+##       --strength=4 --income-interval=10 --counter-delay=20
 ## Everything is placed relative to this node, so it can be instanced anywhere (the tests offset it).
 
+enum Role { GUARD, WAVE, ATTACKER }
+
 const ENEMY_GANG := &"vipers"
+const BLOCK_ID := &"fifth_and_pine"
+const BLOCK_NAME := "5th & Pine"
+## You're defending a held block while you're alive within this distance of its zone.
+const DEFEND_RADIUS := 40.0
+const REPEL_RESPECT := 40
+## Counter-attackers dig into the zone and fight whoever comes for it.
+const ATTACKER_AGGRO_RANGE := 40.0
+const ATTACKER_CAR_STOP := 14.0
 const ROAD_WIDTH := 14.0
 const BLOCK_SIZE := 48.0
 const SIDEWALK_WIDTH := 4.0
@@ -30,8 +44,12 @@ const RETRY_DELAY := 4.0
 @export var difficulty: StringName = &"normal"
 @export var guard_count := 4
 @export var zone_radius := 10.0
+@export_range(1.0, 5.0, 0.5) var strength := TurfBlockLedger.DEFAULT_STRENGTH
+@export var income_interval := 20.0
+@export var counter_attack_delay := 60.0
 
 var model := TurfCaptureModel.new()
+var ledger := TurfBlockLedger.new()
 var zone: CaptureZone
 ## Live hostiles this run: GangMember -> true if it's a guard.
 var enemies: Dictionary = {}
@@ -55,11 +73,19 @@ func _ready() -> void:
 	_spawn_stash()
 	model.wave_started.connect(_on_wave_started)
 	model.state_changed.connect(_on_state_changed)
+	model.counter_attack_started.connect(_on_counter_attack_started)
+	ledger.income_interval = income_interval
+	ledger.counter_attack_delay = counter_attack_delay
+	ledger.add_block(BLOCK_ID, BLOCK_NAME, ENEMY_GANG, strength)
+	ledger.income_paid.connect(_on_income_paid)
+	ledger.counter_attack_due.connect(_on_counter_attack_due)
+	ledger.owner_changed.connect(func(id: StringName, gang: StringName, previous: StringName, reason: StringName) -> void:
+		EventBus.turf_block_owner_changed.emit(id, gang, previous, reason))
 	EventBus.gang_member_killed.connect(_on_member_killed)
 	EventBus.player_died.connect(_on_player_died)
 	hud.restart_requested.connect(restart)
 	player.spawn_point = to_global(PLAYER_START)
-	restart(wave_count, difficulty, guard_count)
+	restart(wave_count, difficulty, guard_count, strength)
 	if not Engine.is_editor_hint() and DisplayServer.get_name() != "headless":
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	EventBus.notify.emit.call_deferred("Red Vipers run this corner. Take out their guards, then hold the zone.")
@@ -73,6 +99,12 @@ func _unhandled_input(event: InputEvent) -> void:
 			and not hud.is_debug_visible():
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 		get_viewport().set_input_as_handled()
+	elif event is InputEventKey and event.pressed and not event.echo:
+		match (event as InputEventKey).keycode:
+			KEY_F2:
+				debug_pay_income()
+			KEY_F3:
+				debug_counter_attack()
 
 
 func _physics_process(delta: float) -> void:
@@ -80,33 +112,73 @@ func _physics_process(delta: float) -> void:
 		_retry_left -= delta
 		if _retry_left <= 0.0:
 			restart(model.wave_count, model.difficulty, model.guard_count)
+	var contested := model.state == TurfCaptureModel.State.CAPTURING
+	ledger.set_contested(BLOCK_ID, contested)
+	if not contested and not model.is_held():
+		# Until you start the takeover, the Vipers keep reinforcing the block.
+		model.strength = ledger.strength_of(BLOCK_ID)
 	model.tick(delta, is_player_holding())
-	hud.refresh(model)
+	ledger.tick(delta, is_defending)
+	hud.refresh(model, block_status_text())
 
 
-## Starts a fresh capture with these debug options (also used by the F1 panel).
-func restart(waves: int, difficulty_id: StringName, guards: int) -> void:
+## Starts a fresh capture with these debug options (also used by the F1 panel). The block goes back to the
+## Vipers; [param strength_value] < 0 keeps their current strength.
+func restart(waves: int, difficulty_id: StringName, guards: int, strength_value := -1.0) -> void:
 	_retry_left = -1.0
 	_clear_hostiles()
 	wave_count = waves
 	difficulty = difficulty_id
 	guard_count = guards
-	model.configure(waves, difficulty_id, guards)
-	hud.set_options(model.wave_count, model.difficulty, model.guard_count)
+	strength = strength_value if strength_value >= 0.0 else ledger.strength_of(BLOCK_ID)
+	ledger.reset_block(BLOCK_ID, strength)
+	model.configure(waves, difficulty_id, guards, ledger.strength_of(BLOCK_ID))
+	hud.set_options(model.wave_count, model.difficulty, model.guard_count, model.strength)
 	for i in model.guard_count:
 		var angle := TAU * i / model.guard_count + _rng.randf_range(-0.3, 0.3)
-		var guard := _make_member(false)
+		var guard := _make_member(Role.GUARD)
 		guard.position = Vector3(cos(angle), 0.0, sin(angle)) * zone_radius * 0.6 + Vector3.UP * 0.2
 		_track(guard, true)
 		add_child(guard)
 	player.respawn()
 	player.rotation.y = 0.0
-	hud.refresh(model)
+	hud.refresh(model, block_status_text())
 
 
 ## Capture only counts while you're standing in the zone on foot.
 func is_player_holding() -> bool:
 	return player.is_on_foot() and player.health > 0.0 and zone.contains(player.global_position)
+
+
+## A held block is defended while you're alive and close to its zone (on foot or driving).
+func is_defending(_block_id: StringName = BLOCK_ID) -> bool:
+	var offset := player.global_position - zone.global_position
+	return player.health > 0.0 and Vector2(offset.x, offset.z).length() <= DEFEND_RADIUS
+
+
+## The block line under the objective: rival strength before capture, income and counter-attack after.
+func block_status_text() -> String:
+	if model.state == TurfCaptureModel.State.UNDER_ATTACK:
+		return "%s income is on hold while the Vipers are on your block" % BLOCK_NAME
+	if ledger.is_held(BLOCK_ID):
+		var guard_text := "Defended" if is_defending() \
+			else "Undefended - counter-attack in %ds" % ceili(ledger.counter_attack_left(BLOCK_ID))
+		return "%s pays $%d every %ds (next in %ds)   |   %s" % [BLOCK_NAME, ledger.income_of(BLOCK_ID),
+			roundi(ledger.income_interval), ceili(ledger.income_left(BLOCK_ID)), guard_text]
+	return "Vipers strength %.1f / %d   |   hold time %ds" % [model.strength, roundi(TurfBlockLedger.MAX_STRENGTH),
+		roundi(model.hold_time())]
+
+
+## Debug [F2]: collect the held block's next payout now.
+func debug_pay_income() -> void:
+	if not ledger.fast_forward_income(BLOCK_ID):
+		EventBus.notify.emit("Nothing to collect - %s isn't paying you right now" % BLOCK_NAME)
+
+
+## Debug [F3]: the Vipers hit the held block now.
+func debug_counter_attack() -> void:
+	if not ledger.fast_forward_counter_attack(BLOCK_ID):
+		EventBus.notify.emit("No counter-attack - hold %s first" % BLOCK_NAME)
 
 
 ## Local point where wave member [param index] from [param direction] starts walking in. Pairs fill both
@@ -126,7 +198,7 @@ func _on_wave_started(index: int, plan: Dictionary) -> void:
 		foot_groups[i % approaches.size()] += 1
 	for a in approaches.size():
 		for i in foot_groups[a]:
-			var member := _make_member(true)
+			var member := _make_member(Role.WAVE)
 			member.position = foot_spawn_point(approaches[a], i)
 			_track(member, false)
 			add_child(member)
@@ -141,16 +213,43 @@ func _on_wave_started(index: int, plan: Dictionary) -> void:
 	EventBus.notify.emit("Wave %d: %d Vipers inbound from %d direction(s)" % [index + 1, plan.total, plan.approaches])
 
 
-func _spawn_raid_car(direction: Vector3, crew: int, row: int) -> void:
+func _on_counter_attack_due(block_id: StringName, _strength: float) -> void:
+	if not model.start_counter_attack():
+		ledger.repel(block_id)
+
+
+func _on_counter_attack_started(plan: Dictionary) -> void:
+	var on_foot: int = plan.on_foot
+	for i in on_foot:
+		var angle := TAU * i / on_foot + _rng.randf_range(-0.3, 0.3)
+		var member := _make_member(Role.ATTACKER)
+		member.position = Vector3(cos(angle), 0.0, sin(angle)) * zone_radius * _rng.randf_range(0.3, 0.85) + Vector3.UP * 0.2
+		_track(member, false)
+		add_child(member)
+	model.add_enemies(on_foot)
+	for c in plan.cars:
+		_spawn_raid_car(APPROACHES[c % APPROACHES.size()], plan.crew_per_car, 0, Role.ATTACKER, ATTACKER_CAR_STOP)
+	model.add_enemies(plan.cars * plan.crew_per_car)
+	hud.banner("COUNTER-ATTACK  -  %d Vipers" % plan.total, Color(1.0, 0.45, 0.4), 4.0)
+	EventBus.notify.emit("The Vipers are taking %s back with %d guys - get in the zone and drop them!" % [BLOCK_NAME, plan.total])
+
+
+func _on_income_paid(block_id: StringName, amount: int) -> void:
+	GameState.add_cash(amount)
+	EventBus.turf_block_income.emit(block_id, amount)
+	EventBus.notify.emit("%s paid out: +$%d" % [ledger.display_name(block_id), amount])
+
+
+func _spawn_raid_car(direction: Vector3, crew: int, row: int, role := Role.WAVE, stop_distance := CAR_STOP_DISTANCE) -> void:
 	var car := RaidCar.new()
 	var lateral := Vector3(-direction.z, 0.0, direction.x)
 	var lane := lateral * -ROAD_WIDTH * 0.25
 	car.position = direction * (CAR_SPAWN_DISTANCE + row * 12.0) + lane + Vector3.UP * 0.6
 	car.rotation.y = atan2(-direction.x, -direction.z)
-	car.destination = to_global(direction * (CAR_STOP_DISTANCE + row * 8.0) + lane)
+	car.destination = to_global(direction * (stop_distance + row * 8.0) + lane)
 	car.crew = crew
 	car.body_color = GameState.gang_color(ENEMY_GANG).darkened(0.45)
-	car.crew_setup = func(member: GangMember) -> void: _configure_member(member, true)
+	car.crew_setup = func(member: GangMember) -> void: _configure_member(member, role)
 	car.unloaded.connect(func(members: Array[GangMember]) -> void:
 		for member in members:
 			_track(member, false))
@@ -161,22 +260,28 @@ func _spawn_raid_car(direction: Vector3, crew: int, row: int) -> void:
 	add_child(car)
 
 
-func _make_member(wave: bool) -> GangMember:
+func _make_member(role: Role) -> GangMember:
 	var member := GangMember.new()
-	_configure_member(member, wave)
+	_configure_member(member, role)
 	return member
 
 
-func _configure_member(member: GangMember, wave: bool) -> void:
+func _configure_member(member: GangMember, role: Role) -> void:
 	member.gang_id = ENEMY_GANG
 	member.max_health *= float(model.tuning("health"))
 	member.damage_scale *= float(model.tuning("damage"))
-	if wave:
-		member.aggro_range = WAVE_AGGRO_RANGE
-		member.alerted_range = WAVE_AGGRO_RANGE
-		member.drop_chance = 0.35
-	else:
-		member.wander_radius = zone_radius * 0.5
+	match role:
+		Role.WAVE:
+			member.aggro_range = WAVE_AGGRO_RANGE
+			member.alerted_range = WAVE_AGGRO_RANGE
+			member.drop_chance = 0.35
+		Role.ATTACKER:
+			member.aggro_range = ATTACKER_AGGRO_RANGE
+			member.alerted_range = ATTACKER_AGGRO_RANGE * 2.0
+			member.wander_radius = zone_radius * 0.5
+			member.drop_chance = 0.35
+		Role.GUARD:
+			member.wander_radius = zone_radius * 0.5
 
 
 func _track(member: GangMember, guard: bool) -> void:
@@ -191,7 +296,7 @@ func _on_member_killed(member: GangMember, _killer: Node) -> void:
 	model.remove_enemies(1, guard)
 
 
-func _on_state_changed(state: TurfCaptureModel.State) -> void:
+func _on_state_changed(state: TurfCaptureModel.State, previous: TurfCaptureModel.State) -> void:
 	match state:
 		TurfCaptureModel.State.GUARDED:
 			zone.set_color(GameState.gang_color(ENEMY_GANG))
@@ -204,10 +309,27 @@ func _on_state_changed(state: TurfCaptureModel.State) -> void:
 			hud.banner("HOLD THE ZONE", GameState.gang_color(GameState.PLAYER_GANG).lightened(0.4))
 		TurfCaptureModel.State.CAPTURED:
 			zone.set_color(GameState.gang_color(GameState.PLAYER_GANG))
+			if previous == TurfCaptureModel.State.UNDER_ATTACK:
+				ledger.repel(BLOCK_ID)
+				hud.banner("COUNTER-ATTACK REPELLED", Color(0.7, 1.0, 0.7), 4.0)
+				GameState.add_respect(REPEL_RESPECT)
+				EventBus.notify.emit("%s is still yours: +%d respect" % [BLOCK_NAME, REPEL_RESPECT])
+				return
+			ledger.capture(BLOCK_ID)
 			hud.banner("BLOCK CAPTURED", Color(0.7, 1.0, 0.7), 6.0)
 			GameState.add_cash(CAPTURE_REWARD)
 			GameState.add_respect(CAPTURE_RESPECT)
-			EventBus.notify.emit("The corner is yours: +$%d, +%d respect. [F1] to run it again." % [CAPTURE_REWARD, CAPTURE_RESPECT])
+			EventBus.notify.emit("%s is yours: +$%d, +%d respect. It pays $%d every %ds." % [BLOCK_NAME, CAPTURE_REWARD,
+				CAPTURE_RESPECT, ledger.income_of(BLOCK_ID), roundi(ledger.income_interval)])
+			EventBus.notify.emit("Leave it undefended and the Vipers will hit back. [F2] pay now  [F3] counter-attack now")
+		TurfCaptureModel.State.UNDER_ATTACK:
+			zone.set_color(GameState.gang_color(ENEMY_GANG), true)
+		TurfCaptureModel.State.LOST:
+			ledger.lose(BLOCK_ID)
+			zone.set_color(GameState.gang_color(ENEMY_GANG))
+			hud.banner("BLOCK LOST", Color(1.0, 0.4, 0.4), RETRY_DELAY)
+			EventBus.notify.emit("The Vipers took %s back - the income stops. Take it again." % BLOCK_NAME)
+			_retry_left = RETRY_DELAY
 		TurfCaptureModel.State.FAILED:
 			zone.set_color(GameState.gang_color(ENEMY_GANG))
 			hud.banner("CAPTURE FAILED", Color(1.0, 0.4, 0.4), RETRY_DELAY)
@@ -241,6 +363,12 @@ func _apply_cmdline_args() -> void:
 				difficulty = StringName(parts[1].to_lower())
 			"guards":
 				guard_count = clampi(parts[1].to_int(), 0, 10)
+			"strength":
+				strength = clampf(parts[1].to_float(), TurfBlockLedger.MIN_STRENGTH, TurfBlockLedger.MAX_STRENGTH)
+			"income-interval":
+				income_interval = maxf(1.0, parts[1].to_float())
+			"counter-delay":
+				counter_attack_delay = maxf(1.0, parts[1].to_float())
 
 
 func _spawn_stash() -> void:

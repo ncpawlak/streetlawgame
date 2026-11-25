@@ -1,12 +1,15 @@
 class_name TurfCaptureHud
 extends CanvasLayer
 ## Capture HUD: objective, capture bar, wave counter, Vipers remaining, wave banners, and an F1 debug panel
-## (wave count, difficulty, guards, restart).
+## (wave count, difficulty, guards, rival strength, restart). Once the block is yours it shows the income and
+## counter-attack timers, and the bar turns into the Vipers' takeover meter during a counter-attack.
 
-signal restart_requested(waves: int, difficulty: StringName, guards: int)
+signal restart_requested(waves: int, difficulty: StringName, guards: int, strength: float)
 
 const BANNER_TIME := 3.0
 
+var _title_label: Label
+var _block_label: Label
 var _status_label: Label
 var _progress_bar: ProgressBar
 var _progress_label: Label
@@ -18,13 +21,14 @@ var _debug_panel: PanelContainer
 var _waves_spin: SpinBox
 var _difficulty_option: OptionButton
 var _guards_spin: SpinBox
+var _strength_spin: SpinBox
 
 
 func _ready() -> void:
 	_build_objective()
 	_build_banner()
 	_build_debug_panel()
-	var hint := _make_label("[F1] Debug options    [Esc] Free mouse", 14)
+	var hint := _make_label("[F1] Debug options    [F2] Pay income now    [F3] Trigger counter-attack    [Esc] Free mouse", 14)
 	hint.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_LEFT)
 	hint.offset_left = 20.0
 	hint.offset_top = -244.0
@@ -49,27 +53,50 @@ func is_debug_visible() -> bool:
 
 
 ## Shows the debug values the run was started with.
-func set_options(waves: int, difficulty: StringName, guards: int) -> void:
+func set_options(waves: int, difficulty: StringName, guards: int, strength := TurfBlockLedger.DEFAULT_STRENGTH) -> void:
 	_waves_spin.value = waves
 	_difficulty_option.select(maxi(0, TurfCaptureModel.DIFFICULTIES.find(difficulty)))
 	_guards_spin.value = guards
+	_strength_spin.value = strength
 
 
-func refresh(model: TurfCaptureModel) -> void:
+func refresh(model: TurfCaptureModel, block_text := "") -> void:
 	_status_label.text = model.status_text()
+	_block_label.text = block_text
+	_block_label.visible = not block_text.is_empty()
+	var held := model.is_held()
+	_title_label.text = "5TH & PINE  -  your turf" if held else "TAKE THE CORNER  -  Red Vipers turf"
+	_title_label.modulate = GameState.gang_color(GameState.PLAYER_GANG if held else &"vipers").lightened(0.35)
 	var capturing := model.state == TurfCaptureModel.State.CAPTURING
-	_progress_bar.value = model.progress * 100.0
-	_progress_label.text = "Capture %d%%" % roundi(model.progress * 100.0)
+	var attacked := model.state == TurfCaptureModel.State.UNDER_ATTACK or model.state == TurfCaptureModel.State.LOST
+	if attacked:
+		_progress_bar.value = model.takeover * 100.0
+		_progress_label.text = "Vipers takeover %d%%" % roundi(model.takeover * 100.0)
+		_progress_bar.modulate = GameState.gang_color(&"vipers").lightened(0.2)
+	else:
+		_progress_bar.value = model.progress * 100.0
+		_progress_label.text = "Capture %d%%" % roundi(model.progress * 100.0)
+		_progress_bar.modulate = GameState.gang_color(GameState.PLAYER_GANG).lightened(0.3)
 	_progress_bar.visible = model.state != TurfCaptureModel.State.GUARDED
 	_progress_label.visible = _progress_bar.visible
-	if model.wave_index < 0:
+	if attacked:
+		_wave_label.text = "Counter-attack"
+	elif model.wave_index < 0:
 		_wave_label.text = "Waves: %d incoming" % model.wave_count
 	else:
 		_wave_label.text = "Wave %d / %d" % [model.wave_index + 1, model.wave_count]
 	_enemies_label.text = "Vipers left: %d" % model.enemies_remaining
 	_enemies_label.modulate = Color(1.0, 0.5, 0.5) if model.enemies_remaining > 0 else Color(0.6, 1.0, 0.6)
 	_status_label.modulate = Color(0.75, 1.0, 0.75) if model.state == TurfCaptureModel.State.CAPTURED \
-		else (Color(1.0, 0.85, 0.4) if capturing else Color.WHITE)
+		else (Color(1.0, 0.85, 0.4) if capturing else (Color(1.0, 0.55, 0.5) if attacked else Color.WHITE))
+
+
+func block_text() -> String:
+	return _block_label.text if _block_label.visible else ""
+
+
+func title_text() -> String:
+	return _title_label.text
 
 
 func banner(text: String, color := Color.WHITE, duration := BANNER_TIME) -> void:
@@ -89,7 +116,7 @@ func _process(delta: float) -> void:
 
 func _on_restart_pressed() -> void:
 	var difficulty := TurfCaptureModel.DIFFICULTIES[maxi(0, _difficulty_option.selected)]
-	restart_requested.emit(int(_waves_spin.value), difficulty, int(_guards_spin.value))
+	restart_requested.emit(int(_waves_spin.value), difficulty, int(_guards_spin.value), _strength_spin.value)
 	set_debug_visible(false)
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
@@ -102,10 +129,14 @@ func _build_objective() -> void:
 	panel.offset_top = 14.0
 	panel.add_theme_constant_override("separation", 4)
 	add_child(panel)
-	var title := _make_label("TAKE THE CORNER  -  Red Vipers turf", 22)
-	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	title.modulate = GameState.gang_color(&"vipers").lightened(0.35)
-	panel.add_child(title)
+	_title_label = _make_label("TAKE THE CORNER  -  Red Vipers turf", 22)
+	_title_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	_title_label.modulate = GameState.gang_color(&"vipers").lightened(0.35)
+	panel.add_child(_title_label)
+	_block_label = _make_label("", 15)
+	_block_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	_block_label.modulate = Color(0.85, 0.9, 1.0)
+	panel.add_child(_block_label)
 	_status_label = _make_label("", 18)
 	_status_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	_status_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
@@ -180,6 +211,12 @@ func _build_debug_panel() -> void:
 	_guards_spin.min_value = 0
 	_guards_spin.max_value = 10
 	grid.add_child(_guards_spin)
+	grid.add_child(_make_label("Vipers strength", 16))
+	_strength_spin = SpinBox.new()
+	_strength_spin.min_value = TurfBlockLedger.MIN_STRENGTH
+	_strength_spin.max_value = TurfBlockLedger.MAX_STRENGTH
+	_strength_spin.step = 0.5
+	grid.add_child(_strength_spin)
 	var restart := Button.new()
 	restart.text = "Restart capture"
 	restart.pressed.connect(_on_restart_pressed)

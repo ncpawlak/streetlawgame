@@ -56,10 +56,17 @@ Take a Red Vipers intersection. Kill the guards, then stand in the highlighted z
 ```sh
 godot --path . res://drivers/turf_capture/turf_capture_driver.tscn
 # Debug options (all optional):
-godot --path . res://drivers/turf_capture/turf_capture_driver.tscn -- --waves=6 --difficulty=hard --guards=0
+godot --path . res://drivers/turf_capture/turf_capture_driver.tscn -- --waves=6 --difficulty=hard --guards=0 --strength=4 --income-interval=10 --counter-delay=20
 ```
 
-`--difficulty` is `easy`, `normal` or `hard`. In game, press **F1** to change waves, difficulty and guards, then restart.
+`--difficulty` is `easy`, `normal` or `hard`. In game, press **F1** to change waves, difficulty, guards and Vipers strength, then restart.
+
+Once the block is captured:
+
+- **Rival strength** (1 to 5): Vipers strength grows while you leave their block alone. A stronger rival means a longer hold, bigger waves and harder counter-attacks. It also means the block pays more once you own it.
+- **Passive income**: the block (`fifth_and_pine`) pays cash every 20 s (`--income-interval`) and emits `EventBus.turf_block_income`.
+- **Counter-attacks**: stay more than 40 m away from your block for 60 s (`--counter-delay`) and the Vipers move into the zone. Get back in and kill them. If they hold the zone for 45 s without you, the block is lost: the income stops and the Vipers come back stronger. Ownership changes are emitted on `EventBus.turf_block_owner_changed`.
+- **Debug keys**: **F2** pays the next income now and **F3** starts a counter-attack now.
 
 ## Tests
 
