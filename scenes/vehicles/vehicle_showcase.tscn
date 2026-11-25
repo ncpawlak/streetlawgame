@@ -1,0 +1,2195 @@
+[gd_scene load_steps=95 format=3]
+
+[ext_resource type="Script" path="res://scripts/vehicles/vehicle_showcase.gd" id="1_r"]
+[ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="2_r"]
+[ext_resource type="Script" path="res://scripts/ui/hud.gd" id="3_r"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1"]
+albedo_color = Color(0.3, 0.45, 0.22, 1)
+roughness = 1.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2"]
+albedo_color = Color(0.16, 0.16, 0.17, 1)
+roughness = 0.92
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3"]
+albedo_color = Color(0.55, 0.55, 0.53, 1)
+roughness = 0.9
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4"]
+albedo_color = Color(0.95, 0.85, 0.3, 1)
+roughness = 0.7
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5"]
+albedo_color = Color(0.92, 0.92, 0.9, 1)
+roughness = 0.7
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6"]
+albedo_color = Color(0.8, 0.15, 0.12, 1)
+roughness = 0.7
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7"]
+albedo_color = Color(0.2, 0.2, 0.22, 1)
+metallic = 0.6
+roughness = 0.4
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8"]
+albedo_color = Color(0.08, 0.09, 0.11, 1)
+roughness = 0.8
+
+[sub_resource type="BoxMesh" id="BoxMesh_9"]
+material = SubResource("StandardMaterial3D_1")
+size = Vector3(420, 1, 300)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_10"]
+size = Vector3(420, 1, 300)
+
+[sub_resource type="BoxMesh" id="BoxMesh_11"]
+material = SubResource("StandardMaterial3D_2")
+size = Vector3(115.47, 0.02, 44)
+
+[sub_resource type="BoxMesh" id="BoxMesh_12"]
+material = SubResource("StandardMaterial3D_2")
+size = Vector3(150, 0.02, 14)
+
+[sub_resource type="BoxMesh" id="BoxMesh_13"]
+material = SubResource("StandardMaterial3D_4")
+size = Vector3(3, 0.01, 0.15)
+
+[sub_resource type="BoxMesh" id="BoxMesh_14"]
+material = SubResource("StandardMaterial3D_2")
+size = Vector3(164, 0.02, 14)
+
+[sub_resource type="BoxMesh" id="BoxMesh_15"]
+material = SubResource("StandardMaterial3D_5")
+size = Vector3(136, 0.01, 0.15)
+
+[sub_resource type="BoxMesh" id="BoxMesh_16"]
+material = SubResource("StandardMaterial3D_2")
+size = Vector3(14, 0.02, 98)
+
+[sub_resource type="BoxMesh" id="BoxMesh_17"]
+material = SubResource("StandardMaterial3D_5")
+size = Vector3(0.15, 0.01, 70)
+
+[sub_resource type="BoxMesh" id="BoxMesh_18"]
+material = SubResource("StandardMaterial3D_6")
+size = Vector3(14, 0.06, 0.4)
+
+[sub_resource type="BoxMesh" id="BoxMesh_19"]
+material = SubResource("StandardMaterial3D_5")
+size = Vector3(1, 0.01, 14)
+
+[sub_resource type="BoxMesh" id="BoxMesh_20"]
+material = SubResource("StandardMaterial3D_3")
+size = Vector3(9, 0.6, 6)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_21"]
+size = Vector3(9, 0.6, 6)
+
+[sub_resource type="BoxMesh" id="BoxMesh_22"]
+material = SubResource("StandardMaterial3D_3")
+size = Vector3(4.4, 0.04, 12.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_23"]
+albedo_color = Color(0.5412, 0.4902, 0.4196, 1)
+roughness = 0.6
+
+[sub_resource type="BoxMesh" id="BoxMesh_24"]
+material = SubResource("StandardMaterial3D_23")
+size = Vector3(4.4, 0.01, 0.35)
+
+[sub_resource type="BoxMesh" id="BoxMesh_25"]
+material = SubResource("StandardMaterial3D_7")
+size = Vector3(0.1, 1.2, 0.1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_26"]
+material = SubResource("StandardMaterial3D_8")
+size = Vector3(1.95, 1.25, 0.06)
+
+[sub_resource type="BoxMesh" id="BoxMesh_27"]
+material = SubResource("StandardMaterial3D_23")
+size = Vector3(1.95, 0.3, 0.07)
+
+[sub_resource type="BoxMesh" id="BoxMesh_28"]
+material = SubResource("StandardMaterial3D_3")
+size = Vector3(4.45, 0.04, 12.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_29"]
+albedo_color = Color(0.2392, 0.4353, 0.6902, 1)
+roughness = 0.6
+
+[sub_resource type="BoxMesh" id="BoxMesh_30"]
+material = SubResource("StandardMaterial3D_29")
+size = Vector3(4.45, 0.01, 0.35)
+
+[sub_resource type="BoxMesh" id="BoxMesh_31"]
+material = SubResource("StandardMaterial3D_29")
+size = Vector3(1.95, 0.3, 0.07)
+
+[sub_resource type="BoxMesh" id="BoxMesh_32"]
+material = SubResource("StandardMaterial3D_3")
+size = Vector3(4.55, 0.04, 12.5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_33"]
+material = SubResource("StandardMaterial3D_29")
+size = Vector3(4.55, 0.01, 0.35)
+
+[sub_resource type="BoxMesh" id="BoxMesh_34"]
+material = SubResource("StandardMaterial3D_3")
+size = Vector3(4.5, 0.04, 12.5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_35"]
+material = SubResource("StandardMaterial3D_29")
+size = Vector3(4.5, 0.01, 0.35)
+
+[sub_resource type="BoxMesh" id="BoxMesh_36"]
+material = SubResource("StandardMaterial3D_3")
+size = Vector3(4.58, 0.04, 12.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_37"]
+albedo_color = Color(0.6902, 0.2392, 0.6824, 1)
+roughness = 0.6
+
+[sub_resource type="BoxMesh" id="BoxMesh_38"]
+material = SubResource("StandardMaterial3D_37")
+size = Vector3(4.58, 0.01, 0.35)
+
+[sub_resource type="BoxMesh" id="BoxMesh_39"]
+material = SubResource("StandardMaterial3D_37")
+size = Vector3(1.95, 0.3, 0.07)
+
+[sub_resource type="BoxMesh" id="BoxMesh_40"]
+material = SubResource("StandardMaterial3D_3")
+size = Vector3(4.6, 0.04, 12.5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_41"]
+material = SubResource("StandardMaterial3D_37")
+size = Vector3(4.6, 0.01, 0.35)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_42"]
+albedo_color = Color(0.7686, 0.2549, 0.1686, 1)
+roughness = 0.6
+
+[sub_resource type="BoxMesh" id="BoxMesh_43"]
+material = SubResource("StandardMaterial3D_42")
+size = Vector3(4.5, 0.01, 0.35)
+
+[sub_resource type="BoxMesh" id="BoxMesh_44"]
+material = SubResource("StandardMaterial3D_42")
+size = Vector3(1.95, 0.3, 0.07)
+
+[sub_resource type="BoxMesh" id="BoxMesh_45"]
+material = SubResource("StandardMaterial3D_42")
+size = Vector3(4.55, 0.01, 0.35)
+
+[sub_resource type="BoxMesh" id="BoxMesh_46"]
+material = SubResource("StandardMaterial3D_3")
+size = Vector3(4.52, 0.04, 12.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_47"]
+albedo_color = Color(0.9098, 0.6431, 0.0706, 1)
+roughness = 0.6
+
+[sub_resource type="BoxMesh" id="BoxMesh_48"]
+material = SubResource("StandardMaterial3D_47")
+size = Vector3(4.52, 0.01, 0.35)
+
+[sub_resource type="BoxMesh" id="BoxMesh_49"]
+material = SubResource("StandardMaterial3D_47")
+size = Vector3(1.95, 0.3, 0.07)
+
+[sub_resource type="BoxMesh" id="BoxMesh_50"]
+material = SubResource("StandardMaterial3D_3")
+size = Vector3(4.62, 0.04, 12.5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_51"]
+material = SubResource("StandardMaterial3D_47")
+size = Vector3(4.62, 0.01, 0.35)
+
+[sub_resource type="BoxMesh" id="BoxMesh_52"]
+material = SubResource("StandardMaterial3D_47")
+size = Vector3(4.4, 0.01, 0.35)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_53"]
+albedo_color = Color(0.3098, 0.5412, 0.2314, 1)
+roughness = 0.6
+
+[sub_resource type="BoxMesh" id="BoxMesh_54"]
+material = SubResource("StandardMaterial3D_53")
+size = Vector3(4.6, 0.01, 0.35)
+
+[sub_resource type="BoxMesh" id="BoxMesh_55"]
+material = SubResource("StandardMaterial3D_53")
+size = Vector3(1.95, 0.3, 0.07)
+
+[sub_resource type="BoxMesh" id="BoxMesh_56"]
+material = SubResource("StandardMaterial3D_53")
+size = Vector3(4.4, 0.01, 0.35)
+
+[sub_resource type="BoxMesh" id="BoxMesh_57"]
+material = SubResource("StandardMaterial3D_3")
+size = Vector3(4.65, 0.04, 12.5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_58"]
+material = SubResource("StandardMaterial3D_53")
+size = Vector3(4.65, 0.01, 0.35)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_59"]
+albedo_color = Color(0.4353, 0.4353, 0.4706, 1)
+roughness = 0.6
+
+[sub_resource type="BoxMesh" id="BoxMesh_60"]
+material = SubResource("StandardMaterial3D_59")
+size = Vector3(4.6, 0.01, 0.35)
+
+[sub_resource type="BoxMesh" id="BoxMesh_61"]
+material = SubResource("StandardMaterial3D_59")
+size = Vector3(1.95, 0.3, 0.07)
+
+[sub_resource type="BoxMesh" id="BoxMesh_62"]
+material = SubResource("StandardMaterial3D_3")
+size = Vector3(4.9, 0.04, 12.5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_63"]
+material = SubResource("StandardMaterial3D_59")
+size = Vector3(4.9, 0.01, 0.35)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_64"]
+albedo_color = Color(0.1216, 0.2471, 0.6588, 1)
+roughness = 0.6
+
+[sub_resource type="BoxMesh" id="BoxMesh_65"]
+material = SubResource("StandardMaterial3D_64")
+size = Vector3(4.5, 0.01, 0.35)
+
+[sub_resource type="BoxMesh" id="BoxMesh_66"]
+material = SubResource("StandardMaterial3D_64")
+size = Vector3(1.95, 0.3, 0.07)
+
+[sub_resource type="BoxMesh" id="BoxMesh_67"]
+material = SubResource("StandardMaterial3D_64")
+size = Vector3(4.6, 0.01, 0.35)
+
+[sub_resource type="BoxMesh" id="BoxMesh_68"]
+material = SubResource("StandardMaterial3D_3")
+size = Vector3(5.1, 0.04, 12.5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_69"]
+material = SubResource("StandardMaterial3D_64")
+size = Vector3(5.1, 0.01, 0.35)
+
+[sub_resource type="BoxMesh" id="BoxMesh_70"]
+material = SubResource("StandardMaterial3D_3")
+size = Vector3(4.75, 0.04, 12.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_71"]
+albedo_color = Color(0.8157, 0.1412, 0.1412, 1)
+roughness = 0.6
+
+[sub_resource type="BoxMesh" id="BoxMesh_72"]
+material = SubResource("StandardMaterial3D_71")
+size = Vector3(4.75, 0.01, 0.35)
+
+[sub_resource type="BoxMesh" id="BoxMesh_73"]
+material = SubResource("StandardMaterial3D_71")
+size = Vector3(1.95, 0.3, 0.07)
+
+[sub_resource type="BoxMesh" id="BoxMesh_74"]
+material = SubResource("StandardMaterial3D_71")
+size = Vector3(5.1, 0.01, 0.35)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_75"]
+albedo_color = Color(0.102, 0.5608, 0.5412, 1)
+roughness = 0.6
+
+[sub_resource type="BoxMesh" id="BoxMesh_76"]
+material = SubResource("StandardMaterial3D_75")
+size = Vector3(4.45, 0.01, 0.35)
+
+[sub_resource type="BoxMesh" id="BoxMesh_77"]
+material = SubResource("StandardMaterial3D_75")
+size = Vector3(1.95, 0.3, 0.07)
+
+[sub_resource type="BoxMesh" id="BoxMesh_78"]
+material = SubResource("StandardMaterial3D_3")
+size = Vector3(5.15, 0.04, 12.5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_79"]
+material = SubResource("StandardMaterial3D_75")
+size = Vector3(5.15, 0.01, 0.35)
+
+[sub_resource type="BoxMesh" id="BoxMesh_80"]
+material = SubResource("StandardMaterial3D_75")
+size = Vector3(4.9, 0.01, 0.35)
+
+[sub_resource type="BoxMesh" id="BoxMesh_81"]
+material = SubResource("StandardMaterial3D_3")
+size = Vector3(4.85, 0.04, 12.5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_82"]
+material = SubResource("StandardMaterial3D_75")
+size = Vector3(4.85, 0.01, 0.35)
+
+[sub_resource type="BoxMesh" id="BoxMesh_83"]
+material = SubResource("StandardMaterial3D_3")
+size = Vector3(5.05, 0.04, 12.5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_84"]
+material = SubResource("StandardMaterial3D_75")
+size = Vector3(5.05, 0.01, 0.35)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_85"]
+albedo_color = Color(0.1333, 0.1333, 0.1333, 1)
+roughness = 0.6
+
+[sub_resource type="BoxMesh" id="BoxMesh_86"]
+material = SubResource("StandardMaterial3D_85")
+size = Vector3(4.4, 0.01, 0.35)
+
+[sub_resource type="BoxMesh" id="BoxMesh_87"]
+material = SubResource("StandardMaterial3D_85")
+size = Vector3(1.95, 0.3, 0.07)
+
+[sub_resource type="BoxMesh" id="BoxMesh_88"]
+material = SubResource("StandardMaterial3D_3")
+size = Vector3(5, 0.04, 12.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_89"]
+albedo_color = Color(0.1647, 0.498, 0.7216, 1)
+roughness = 0.6
+
+[sub_resource type="BoxMesh" id="BoxMesh_90"]
+material = SubResource("StandardMaterial3D_89")
+size = Vector3(5, 0.01, 0.35)
+
+[sub_resource type="BoxMesh" id="BoxMesh_91"]
+material = SubResource("StandardMaterial3D_89")
+size = Vector3(1.95, 0.3, 0.07)
+
+[node name="VehicleShowcase" type="Node3D"]
+script = ExtResource("1_r")
+
+[node name="Ground" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+
+[node name="Mesh" type="MeshInstance3D" parent="Ground"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("BoxMesh_9")
+
+[node name="Shape" type="CollisionShape3D" parent="Ground"]
+shape = SubResource("BoxShape3D_10")
+
+[node name="Surfaces" type="Node3D" parent="."]
+
+[node name="Lot" type="MeshInstance3D" parent="Surfaces"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, 0)
+mesh = SubResource("BoxMesh_11")
+
+[node name="Aisle" type="MeshInstance3D" parent="Surfaces"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.012, 0)
+mesh = SubResource("BoxMesh_12")
+
+[node name="AisleDash" type="MeshInstance3D" parent="Surfaces"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -72, 0.025, 0)
+mesh = SubResource("BoxMesh_13")
+
+[node name="AisleDash2" type="MeshInstance3D" parent="Surfaces"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -66, 0.025, 0)
+mesh = SubResource("BoxMesh_13")
+
+[node name="AisleDash3" type="MeshInstance3D" parent="Surfaces"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -60, 0.025, 0)
+mesh = SubResource("BoxMesh_13")
+
+[node name="AisleDash4" type="MeshInstance3D" parent="Surfaces"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -54, 0.025, 0)
+mesh = SubResource("BoxMesh_13")
+
+[node name="AisleDash5" type="MeshInstance3D" parent="Surfaces"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -48, 0.025, 0)
+mesh = SubResource("BoxMesh_13")
+
+[node name="AisleDash6" type="MeshInstance3D" parent="Surfaces"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -42, 0.025, 0)
+mesh = SubResource("BoxMesh_13")
+
+[node name="AisleDash7" type="MeshInstance3D" parent="Surfaces"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -36, 0.025, 0)
+mesh = SubResource("BoxMesh_13")
+
+[node name="AisleDash8" type="MeshInstance3D" parent="Surfaces"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30, 0.025, 0)
+mesh = SubResource("BoxMesh_13")
+
+[node name="AisleDash9" type="MeshInstance3D" parent="Surfaces"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24, 0.025, 0)
+mesh = SubResource("BoxMesh_13")
+
+[node name="AisleDash10" type="MeshInstance3D" parent="Surfaces"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 0.025, 0)
+mesh = SubResource("BoxMesh_13")
+
+[node name="AisleDash11" type="MeshInstance3D" parent="Surfaces"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0.025, 0)
+mesh = SubResource("BoxMesh_13")
+
+[node name="AisleDash12" type="MeshInstance3D" parent="Surfaces"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0.025, 0)
+mesh = SubResource("BoxMesh_13")
+
+[node name="AisleDash13" type="MeshInstance3D" parent="Surfaces"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.025, 0)
+mesh = SubResource("BoxMesh_13")
+
+[node name="AisleDash14" type="MeshInstance3D" parent="Surfaces"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0.025, 0)
+mesh = SubResource("BoxMesh_13")
+
+[node name="AisleDash15" type="MeshInstance3D" parent="Surfaces"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0.025, 0)
+mesh = SubResource("BoxMesh_13")
+
+[node name="AisleDash16" type="MeshInstance3D" parent="Surfaces"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 0.025, 0)
+mesh = SubResource("BoxMesh_13")
+
+[node name="AisleDash17" type="MeshInstance3D" parent="Surfaces"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 0.025, 0)
+mesh = SubResource("BoxMesh_13")
+
+[node name="AisleDash18" type="MeshInstance3D" parent="Surfaces"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30, 0.025, 0)
+mesh = SubResource("BoxMesh_13")
+
+[node name="AisleDash19" type="MeshInstance3D" parent="Surfaces"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36, 0.025, 0)
+mesh = SubResource("BoxMesh_13")
+
+[node name="AisleDash20" type="MeshInstance3D" parent="Surfaces"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, 0.025, 0)
+mesh = SubResource("BoxMesh_13")
+
+[node name="AisleDash21" type="MeshInstance3D" parent="Surfaces"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 48, 0.025, 0)
+mesh = SubResource("BoxMesh_13")
+
+[node name="AisleDash22" type="MeshInstance3D" parent="Surfaces"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 54, 0.025, 0)
+mesh = SubResource("BoxMesh_13")
+
+[node name="AisleDash23" type="MeshInstance3D" parent="Surfaces"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60, 0.025, 0)
+mesh = SubResource("BoxMesh_13")
+
+[node name="AisleDash24" type="MeshInstance3D" parent="Surfaces"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 66, 0.025, 0)
+mesh = SubResource("BoxMesh_13")
+
+[node name="AisleDash25" type="MeshInstance3D" parent="Surfaces"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 72, 0.025, 0)
+mesh = SubResource("BoxMesh_13")
+
+[node name="LoopStraight" type="MeshInstance3D" parent="Surfaces"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.011, 42)
+mesh = SubResource("BoxMesh_14")
+
+[node name="LoopLine" type="MeshInstance3D" parent="Surfaces"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.025, 42)
+mesh = SubResource("BoxMesh_15")
+
+[node name="LoopStraight2" type="MeshInstance3D" parent="Surfaces"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.011, -42)
+mesh = SubResource("BoxMesh_14")
+
+[node name="LoopLine2" type="MeshInstance3D" parent="Surfaces"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.025, -42)
+mesh = SubResource("BoxMesh_15")
+
+[node name="LoopSide" type="MeshInstance3D" parent="Surfaces"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 75, 0.011, 0)
+mesh = SubResource("BoxMesh_16")
+
+[node name="LoopLine3" type="MeshInstance3D" parent="Surfaces"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 75, 0.025, 0)
+mesh = SubResource("BoxMesh_17")
+
+[node name="Curb" type="MeshInstance3D" parent="Surfaces"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 75, 0.03, 49)
+mesh = SubResource("BoxMesh_18")
+
+[node name="Curb2" type="MeshInstance3D" parent="Surfaces"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 75, 0.03, -49)
+mesh = SubResource("BoxMesh_18")
+
+[node name="LoopSide2" type="MeshInstance3D" parent="Surfaces"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -75, 0.011, 0)
+mesh = SubResource("BoxMesh_16")
+
+[node name="LoopLine4" type="MeshInstance3D" parent="Surfaces"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -75, 0.025, 0)
+mesh = SubResource("BoxMesh_17")
+
+[node name="Curb3" type="MeshInstance3D" parent="Surfaces"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -75, 0.03, 49)
+mesh = SubResource("BoxMesh_18")
+
+[node name="Curb4" type="MeshInstance3D" parent="Surfaces"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -75, 0.03, -49)
+mesh = SubResource("BoxMesh_18")
+
+[node name="StartLine" type="MeshInstance3D" parent="Surfaces"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.026, -42)
+mesh = SubResource("BoxMesh_19")
+
+[node name="Ramp" type="StaticBody3D" parent="."]
+transform = Transform3D(0.9877, 0.1564, 0, -0.1564, 0.9877, 0, 0, 0, 1, 30, 0.45, -45.5)
+
+[node name="Mesh" type="MeshInstance3D" parent="Ramp"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("BoxMesh_20")
+
+[node name="Shape" type="CollisionShape3D" parent="Ramp"]
+shape = SubResource("BoxShape3D_21")
+
+[node name="Pads" type="Node3D" parent="."]
+
+[node name="Rustbucket" type="Node3D" parent="Pads"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -51.535, 0, 13.5)
+
+[node name="Slab" type="MeshInstance3D" parent="Pads/Rustbucket"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.02, 0)
+mesh = SubResource("BoxMesh_22")
+
+[node name="ClassLine" type="MeshInstance3D" parent="Pads/Rustbucket"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.045, -6.25)
+mesh = SubResource("BoxMesh_24")
+
+[node name="Spawn" type="Marker3D" parent="Pads/Rustbucket"]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0, 0.05, 0)
+metadata/vehicle_id = "rustbucket"
+
+[node name="Kiosk" type="Node3D" parent="Pads/Rustbucket"]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 1.75, 0, -6.35)
+
+[node name="Post" type="MeshInstance3D" parent="Pads/Rustbucket/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+mesh = SubResource("BoxMesh_25")
+
+[node name="Board" type="MeshInstance3D" parent="Pads/Rustbucket/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.75, -0.04)
+mesh = SubResource("BoxMesh_26")
+
+[node name="Header" type="MeshInstance3D" parent="Pads/Rustbucket/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, -0.04)
+mesh = SubResource("BoxMesh_27")
+
+[node name="Name" type="Label3D" parent="Pads/Rustbucket/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
+pixel_size = 0.0026
+font_size = 64
+outline_size = 8
+text = "RUSTBUCKET"
+double_sided = false
+
+[node name="Stats" type="Label3D" parent="Pads/Rustbucket/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9, 1.75, 0)
+pixel_size = 0.0027
+font_size = 36
+outline_size = 0
+horizontal_alignment = 0
+double_sided = false
+modulate = Color(0.92, 0.94, 0.96, 1)
+text = "Beater & Compact\nTop speed  135 km/h\nAccel      ###-------\nHandling   ###-------\nHealth 220   Seats 4\nMass 1150 kg   Poor\nStealable"
+
+[node name="Pipsqueak" type="Node3D" parent="Pads"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45.935, 0, 13.5)
+
+[node name="Slab" type="MeshInstance3D" parent="Pads/Pipsqueak"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.02, 0)
+mesh = SubResource("BoxMesh_22")
+
+[node name="ClassLine" type="MeshInstance3D" parent="Pads/Pipsqueak"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.045, -6.25)
+mesh = SubResource("BoxMesh_24")
+
+[node name="Spawn" type="Marker3D" parent="Pads/Pipsqueak"]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0, 0.05, 0)
+metadata/vehicle_id = "pipsqueak"
+
+[node name="Kiosk" type="Node3D" parent="Pads/Pipsqueak"]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 1.75, 0, -6.35)
+
+[node name="Post" type="MeshInstance3D" parent="Pads/Pipsqueak/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+mesh = SubResource("BoxMesh_25")
+
+[node name="Board" type="MeshInstance3D" parent="Pads/Pipsqueak/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.75, -0.04)
+mesh = SubResource("BoxMesh_26")
+
+[node name="Header" type="MeshInstance3D" parent="Pads/Pipsqueak/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, -0.04)
+mesh = SubResource("BoxMesh_27")
+
+[node name="Name" type="Label3D" parent="Pads/Pipsqueak/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
+pixel_size = 0.0026
+font_size = 64
+outline_size = 8
+text = "PIPSQUEAK"
+double_sided = false
+
+[node name="Stats" type="Label3D" parent="Pads/Pipsqueak/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9, 1.75, 0)
+pixel_size = 0.0027
+font_size = 36
+outline_size = 0
+horizontal_alignment = 0
+double_sided = false
+modulate = Color(0.92, 0.94, 0.96, 1)
+text = "Beater & Compact\nTop speed  125 km/h\nAccel      ###-------\nHandling   ######----\nHealth 180   Seats 2\nMass 850 kg   Working\nStealable"
+
+[node name="Hopper" type="Node3D" parent="Pads"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40.335, 0, 13.5)
+
+[node name="Slab" type="MeshInstance3D" parent="Pads/Hopper"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.02, 0)
+mesh = SubResource("BoxMesh_22")
+
+[node name="ClassLine" type="MeshInstance3D" parent="Pads/Hopper"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.045, -6.25)
+mesh = SubResource("BoxMesh_24")
+
+[node name="Spawn" type="Marker3D" parent="Pads/Hopper"]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0, 0.05, 0)
+metadata/vehicle_id = "hopper"
+
+[node name="Kiosk" type="Node3D" parent="Pads/Hopper"]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 1.75, 0, -6.35)
+
+[node name="Post" type="MeshInstance3D" parent="Pads/Hopper/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+mesh = SubResource("BoxMesh_25")
+
+[node name="Board" type="MeshInstance3D" parent="Pads/Hopper/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.75, -0.04)
+mesh = SubResource("BoxMesh_26")
+
+[node name="Header" type="MeshInstance3D" parent="Pads/Hopper/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, -0.04)
+mesh = SubResource("BoxMesh_27")
+
+[node name="Name" type="Label3D" parent="Pads/Hopper/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
+pixel_size = 0.0026
+font_size = 64
+outline_size = 8
+text = "HOPPER"
+double_sided = false
+
+[node name="Stats" type="Label3D" parent="Pads/Hopper/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9, 1.75, 0)
+pixel_size = 0.0027
+font_size = 36
+outline_size = 0
+horizontal_alignment = 0
+double_sided = false
+modulate = Color(0.92, 0.94, 0.96, 1)
+text = "Beater & Compact\nTop speed  150 km/h\nAccel      ###-------\nHandling   ######----\nHealth 230   Seats 4\nMass 1100 kg   Working\nStealable"
+
+[node name="Meridian" type="Node3D" parent="Pads"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -34.71, 0, 13.5)
+
+[node name="Slab" type="MeshInstance3D" parent="Pads/Meridian"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.02, 0)
+mesh = SubResource("BoxMesh_28")
+
+[node name="ClassLine" type="MeshInstance3D" parent="Pads/Meridian"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.045, -6.25)
+mesh = SubResource("BoxMesh_30")
+
+[node name="Spawn" type="Marker3D" parent="Pads/Meridian"]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0, 0.05, 0)
+metadata/vehicle_id = "meridian"
+
+[node name="Kiosk" type="Node3D" parent="Pads/Meridian"]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 1.775, 0, -6.35)
+
+[node name="Post" type="MeshInstance3D" parent="Pads/Meridian/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+mesh = SubResource("BoxMesh_25")
+
+[node name="Board" type="MeshInstance3D" parent="Pads/Meridian/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.75, -0.04)
+mesh = SubResource("BoxMesh_26")
+
+[node name="Header" type="MeshInstance3D" parent="Pads/Meridian/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, -0.04)
+mesh = SubResource("BoxMesh_31")
+
+[node name="Name" type="Label3D" parent="Pads/Meridian/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
+pixel_size = 0.0026
+font_size = 64
+outline_size = 8
+text = "MERIDIAN"
+double_sided = false
+
+[node name="Stats" type="Label3D" parent="Pads/Meridian/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9, 1.75, 0)
+pixel_size = 0.0027
+font_size = 36
+outline_size = 0
+horizontal_alignment = 0
+double_sided = false
+modulate = Color(0.92, 0.94, 0.96, 1)
+text = "Sedan\nTop speed  170 km/h\nAccel      ####------\nHandling   ######----\nHealth 300   Seats 4\nMass 1400 kg   Middle\nStealable"
+
+[node name="Regent" type="Node3D" parent="Pads"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -29.01, 0, 13.5)
+
+[node name="Slab" type="MeshInstance3D" parent="Pads/Regent"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.02, 0)
+mesh = SubResource("BoxMesh_32")
+
+[node name="ClassLine" type="MeshInstance3D" parent="Pads/Regent"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.045, -6.25)
+mesh = SubResource("BoxMesh_33")
+
+[node name="Spawn" type="Marker3D" parent="Pads/Regent"]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0, 0.05, 0)
+metadata/vehicle_id = "regent"
+
+[node name="Kiosk" type="Node3D" parent="Pads/Regent"]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 1.825, 0, -6.35)
+
+[node name="Post" type="MeshInstance3D" parent="Pads/Regent/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+mesh = SubResource("BoxMesh_25")
+
+[node name="Board" type="MeshInstance3D" parent="Pads/Regent/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.75, -0.04)
+mesh = SubResource("BoxMesh_26")
+
+[node name="Header" type="MeshInstance3D" parent="Pads/Regent/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, -0.04)
+mesh = SubResource("BoxMesh_31")
+
+[node name="Name" type="Label3D" parent="Pads/Regent/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
+pixel_size = 0.0026
+font_size = 64
+outline_size = 8
+text = "REGENT"
+double_sided = false
+
+[node name="Stats" type="Label3D" parent="Pads/Regent/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9, 1.75, 0)
+pixel_size = 0.0027
+font_size = 36
+outline_size = 0
+horizontal_alignment = 0
+double_sided = false
+modulate = Color(0.92, 0.94, 0.96, 1)
+text = "Sedan\nTop speed  195 km/h\nAccel      #####-----\nHandling   #####-----\nHealth 360   Seats 4\nMass 1900 kg   Rich\nStealable"
+
+[node name="Tradewind" type="Node3D" parent="Pads"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.285, 0, 13.5)
+
+[node name="Slab" type="MeshInstance3D" parent="Pads/Tradewind"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.02, 0)
+mesh = SubResource("BoxMesh_34")
+
+[node name="ClassLine" type="MeshInstance3D" parent="Pads/Tradewind"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.045, -6.25)
+mesh = SubResource("BoxMesh_35")
+
+[node name="Spawn" type="Marker3D" parent="Pads/Tradewind"]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0, 0.05, 0)
+metadata/vehicle_id = "tradewind"
+
+[node name="Kiosk" type="Node3D" parent="Pads/Tradewind"]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 1.8, 0, -6.35)
+
+[node name="Post" type="MeshInstance3D" parent="Pads/Tradewind/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+mesh = SubResource("BoxMesh_25")
+
+[node name="Board" type="MeshInstance3D" parent="Pads/Tradewind/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.75, -0.04)
+mesh = SubResource("BoxMesh_26")
+
+[node name="Header" type="MeshInstance3D" parent="Pads/Tradewind/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, -0.04)
+mesh = SubResource("BoxMesh_31")
+
+[node name="Name" type="Label3D" parent="Pads/Tradewind/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
+pixel_size = 0.0026
+font_size = 64
+outline_size = 8
+text = "TRADEWIND"
+double_sided = false
+
+[node name="Stats" type="Label3D" parent="Pads/Tradewind/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9, 1.75, 0)
+pixel_size = 0.0027
+font_size = 36
+outline_size = 0
+horizontal_alignment = 0
+double_sided = false
+modulate = Color(0.92, 0.94, 0.96, 1)
+text = "Sedan\nTop speed  160 km/h\nAccel      ###-------\nHandling   ####------\nHealth 320   Seats 5\nMass 1600 kg   Middle\nStealable"
+
+[node name="Boulevard" type="Node3D" parent="Pads"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.545, 0, 13.5)
+
+[node name="Slab" type="MeshInstance3D" parent="Pads/Boulevard"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.02, 0)
+mesh = SubResource("BoxMesh_36")
+
+[node name="ClassLine" type="MeshInstance3D" parent="Pads/Boulevard"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.045, -6.25)
+mesh = SubResource("BoxMesh_38")
+
+[node name="Spawn" type="Marker3D" parent="Pads/Boulevard"]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0, 0.05, 0)
+metadata/vehicle_id = "boulevard"
+
+[node name="Kiosk" type="Node3D" parent="Pads/Boulevard"]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 1.84, 0, -6.35)
+
+[node name="Post" type="MeshInstance3D" parent="Pads/Boulevard/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+mesh = SubResource("BoxMesh_25")
+
+[node name="Board" type="MeshInstance3D" parent="Pads/Boulevard/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.75, -0.04)
+mesh = SubResource("BoxMesh_26")
+
+[node name="Header" type="MeshInstance3D" parent="Pads/Boulevard/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, -0.04)
+mesh = SubResource("BoxMesh_39")
+
+[node name="Name" type="Label3D" parent="Pads/Boulevard/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
+pixel_size = 0.0026
+font_size = 64
+outline_size = 8
+text = "BOULEVARD"
+double_sided = false
+
+[node name="Stats" type="Label3D" parent="Pads/Boulevard/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9, 1.75, 0)
+pixel_size = 0.0027
+font_size = 36
+outline_size = 0
+horizontal_alignment = 0
+double_sided = false
+modulate = Color(0.92, 0.94, 0.96, 1)
+text = "Lowrider & Donk\nTop speed  150 km/h\nAccel      ###-------\nHandling   ###-------\nHealth 320   Seats 4\nMass 1800 kg   Working\nStealable"
+
+[node name="SwampKing" type="Node3D" parent="Pads"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.755, 0, 13.5)
+
+[node name="Slab" type="MeshInstance3D" parent="Pads/SwampKing"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.02, 0)
+mesh = SubResource("BoxMesh_40")
+
+[node name="ClassLine" type="MeshInstance3D" parent="Pads/SwampKing"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.045, -6.25)
+mesh = SubResource("BoxMesh_41")
+
+[node name="Spawn" type="Marker3D" parent="Pads/SwampKing"]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0, 0.05, 0)
+metadata/vehicle_id = "swamp_king"
+
+[node name="Kiosk" type="Node3D" parent="Pads/SwampKing"]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 1.85, 0, -6.35)
+
+[node name="Post" type="MeshInstance3D" parent="Pads/SwampKing/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+mesh = SubResource("BoxMesh_25")
+
+[node name="Board" type="MeshInstance3D" parent="Pads/SwampKing/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.75, -0.04)
+mesh = SubResource("BoxMesh_26")
+
+[node name="Header" type="MeshInstance3D" parent="Pads/SwampKing/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, -0.04)
+mesh = SubResource("BoxMesh_39")
+
+[node name="Name" type="Label3D" parent="Pads/SwampKing/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
+pixel_size = 0.0026
+font_size = 64
+outline_size = 8
+text = "SWAMP KING"
+double_sided = false
+
+[node name="Stats" type="Label3D" parent="Pads/SwampKing/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9, 1.75, 0)
+pixel_size = 0.0027
+font_size = 36
+outline_size = 0
+horizontal_alignment = 0
+double_sided = false
+modulate = Color(0.92, 0.94, 0.96, 1)
+text = "Lowrider & Donk\nTop speed  160 km/h\nAccel      ###-------\nHandling   ##--------\nHealth 380   Seats 4\nMass 2000 kg   Working\nStealable"
+
+[node name="Bubble" type="Node3D" parent="Pads"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.955, 0, 13.5)
+
+[node name="Slab" type="MeshInstance3D" parent="Pads/Bubble"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.02, 0)
+mesh = SubResource("BoxMesh_40")
+
+[node name="ClassLine" type="MeshInstance3D" parent="Pads/Bubble"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.045, -6.25)
+mesh = SubResource("BoxMesh_41")
+
+[node name="Spawn" type="Marker3D" parent="Pads/Bubble"]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0, 0.05, 0)
+metadata/vehicle_id = "bubble"
+
+[node name="Kiosk" type="Node3D" parent="Pads/Bubble"]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 1.85, 0, -6.35)
+
+[node name="Post" type="MeshInstance3D" parent="Pads/Bubble/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+mesh = SubResource("BoxMesh_25")
+
+[node name="Board" type="MeshInstance3D" parent="Pads/Bubble/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.75, -0.04)
+mesh = SubResource("BoxMesh_26")
+
+[node name="Header" type="MeshInstance3D" parent="Pads/Bubble/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, -0.04)
+mesh = SubResource("BoxMesh_39")
+
+[node name="Name" type="Label3D" parent="Pads/Bubble/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
+pixel_size = 0.0026
+font_size = 64
+outline_size = 8
+text = "BUBBLE"
+double_sided = false
+
+[node name="Stats" type="Label3D" parent="Pads/Bubble/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9, 1.75, 0)
+pixel_size = 0.0027
+font_size = 36
+outline_size = 0
+horizontal_alignment = 0
+double_sided = false
+modulate = Color(0.92, 0.94, 0.96, 1)
+text = "Lowrider & Donk\nTop speed  170 km/h\nAccel      ####------\nHandling   ###-------\nHealth 360   Seats 4\nMass 1950 kg   Working\nStealable"
+
+[node name="Thunderhorse" type="Node3D" parent="Pads"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.205, 0, 13.5)
+
+[node name="Slab" type="MeshInstance3D" parent="Pads/Thunderhorse"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.02, 0)
+mesh = SubResource("BoxMesh_34")
+
+[node name="ClassLine" type="MeshInstance3D" parent="Pads/Thunderhorse"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.045, -6.25)
+mesh = SubResource("BoxMesh_43")
+
+[node name="Spawn" type="Marker3D" parent="Pads/Thunderhorse"]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0, 0.05, 0)
+metadata/vehicle_id = "thunderhorse"
+
+[node name="Kiosk" type="Node3D" parent="Pads/Thunderhorse"]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 1.8, 0, -6.35)
+
+[node name="Post" type="MeshInstance3D" parent="Pads/Thunderhorse/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+mesh = SubResource("BoxMesh_25")
+
+[node name="Board" type="MeshInstance3D" parent="Pads/Thunderhorse/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.75, -0.04)
+mesh = SubResource("BoxMesh_26")
+
+[node name="Header" type="MeshInstance3D" parent="Pads/Thunderhorse/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, -0.04)
+mesh = SubResource("BoxMesh_44")
+
+[node name="Name" type="Label3D" parent="Pads/Thunderhorse/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
+pixel_size = 0.0026
+font_size = 64
+outline_size = 8
+text = "THUNDERHORSE"
+double_sided = false
+
+[node name="Stats" type="Label3D" parent="Pads/Thunderhorse/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9, 1.75, 0)
+pixel_size = 0.0027
+font_size = 36
+outline_size = 0
+horizontal_alignment = 0
+double_sided = false
+modulate = Color(0.92, 0.94, 0.96, 1)
+text = "Muscle\nTop speed  205 km/h\nAccel      ######----\nHandling   ####------\nHealth 320   Seats 2\nMass 1550 kg   Middle\nStealable"
+
+[node name="Vandal" type="Node3D" parent="Pads"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.52, 0, 13.5)
+
+[node name="Slab" type="MeshInstance3D" parent="Pads/Vandal"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.02, 0)
+mesh = SubResource("BoxMesh_32")
+
+[node name="ClassLine" type="MeshInstance3D" parent="Pads/Vandal"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.045, -6.25)
+mesh = SubResource("BoxMesh_45")
+
+[node name="Spawn" type="Marker3D" parent="Pads/Vandal"]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0, 0.05, 0)
+metadata/vehicle_id = "vandal"
+
+[node name="Kiosk" type="Node3D" parent="Pads/Vandal"]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 1.825, 0, -6.35)
+
+[node name="Post" type="MeshInstance3D" parent="Pads/Vandal/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+mesh = SubResource("BoxMesh_25")
+
+[node name="Board" type="MeshInstance3D" parent="Pads/Vandal/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.75, -0.04)
+mesh = SubResource("BoxMesh_26")
+
+[node name="Header" type="MeshInstance3D" parent="Pads/Vandal/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, -0.04)
+mesh = SubResource("BoxMesh_44")
+
+[node name="Name" type="Label3D" parent="Pads/Vandal/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
+pixel_size = 0.0026
+font_size = 64
+outline_size = 8
+text = "VANDAL"
+double_sided = false
+
+[node name="Stats" type="Label3D" parent="Pads/Vandal/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9, 1.75, 0)
+pixel_size = 0.0027
+font_size = 36
+outline_size = 0
+horizontal_alignment = 0
+double_sided = false
+modulate = Color(0.92, 0.94, 0.96, 1)
+text = "Muscle\nTop speed  215 km/h\nAccel      #######---\nHandling   ###-------\nHealth 330   Seats 2\nMass 1600 kg   Working\nStealable"
+
+[node name="Marauder" type="Node3D" parent="Pads"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.27, 0, 13.5)
+
+[node name="Slab" type="MeshInstance3D" parent="Pads/Marauder"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.02, 0)
+mesh = SubResource("BoxMesh_32")
+
+[node name="ClassLine" type="MeshInstance3D" parent="Pads/Marauder"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.045, -6.25)
+mesh = SubResource("BoxMesh_45")
+
+[node name="Spawn" type="Marker3D" parent="Pads/Marauder"]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0, 0.05, 0)
+metadata/vehicle_id = "marauder"
+
+[node name="Kiosk" type="Node3D" parent="Pads/Marauder"]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 1.825, 0, -6.35)
+
+[node name="Post" type="MeshInstance3D" parent="Pads/Marauder/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+mesh = SubResource("BoxMesh_25")
+
+[node name="Board" type="MeshInstance3D" parent="Pads/Marauder/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.75, -0.04)
+mesh = SubResource("BoxMesh_26")
+
+[node name="Header" type="MeshInstance3D" parent="Pads/Marauder/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, -0.04)
+mesh = SubResource("BoxMesh_44")
+
+[node name="Name" type="Label3D" parent="Pads/Marauder/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
+pixel_size = 0.0026
+font_size = 64
+outline_size = 8
+text = "MARAUDER"
+double_sided = false
+
+[node name="Stats" type="Label3D" parent="Pads/Marauder/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9, 1.75, 0)
+pixel_size = 0.0027
+font_size = 36
+outline_size = 0
+horizontal_alignment = 0
+double_sided = false
+modulate = Color(0.92, 0.94, 0.96, 1)
+text = "Muscle\nTop speed  230 km/h\nAccel      ######----\nHandling   #####-----\nHealth 340   Seats 4\nMass 1800 kg   Middle\nStealable"
+
+[node name="KestrelGt" type="Node3D" parent="Pads"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.005, 0, 13.5)
+
+[node name="Slab" type="MeshInstance3D" parent="Pads/KestrelGt"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.02, 0)
+mesh = SubResource("BoxMesh_46")
+
+[node name="ClassLine" type="MeshInstance3D" parent="Pads/KestrelGt"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.045, -6.25)
+mesh = SubResource("BoxMesh_48")
+
+[node name="Spawn" type="Marker3D" parent="Pads/KestrelGt"]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0, 0.05, 0)
+metadata/vehicle_id = "kestrel"
+
+[node name="Kiosk" type="Node3D" parent="Pads/KestrelGt"]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 1.81, 0, -6.35)
+
+[node name="Post" type="MeshInstance3D" parent="Pads/KestrelGt/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+mesh = SubResource("BoxMesh_25")
+
+[node name="Board" type="MeshInstance3D" parent="Pads/KestrelGt/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.75, -0.04)
+mesh = SubResource("BoxMesh_26")
+
+[node name="Header" type="MeshInstance3D" parent="Pads/KestrelGt/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, -0.04)
+mesh = SubResource("BoxMesh_49")
+
+[node name="Name" type="Label3D" parent="Pads/KestrelGt/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
+pixel_size = 0.0026
+font_size = 64
+outline_size = 8
+text = "KESTREL GT"
+double_sided = false
+
+[node name="Stats" type="Label3D" parent="Pads/KestrelGt/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9, 1.75, 0)
+pixel_size = 0.0027
+font_size = 36
+outline_size = 0
+horizontal_alignment = 0
+double_sided = false
+modulate = Color(0.92, 0.94, 0.96, 1)
+text = "Sports & Exotic\nTop speed  250 km/h\nAccel      ########--\nHandling   ########--\nHealth 260   Seats 2\nMass 1350 kg   Upper\nStealable"
+
+[node name="Vortex" type="Node3D" parent="Pads"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.775, 0, 13.5)
+
+[node name="Slab" type="MeshInstance3D" parent="Pads/Vortex"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.02, 0)
+mesh = SubResource("BoxMesh_50")
+
+[node name="ClassLine" type="MeshInstance3D" parent="Pads/Vortex"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.045, -6.25)
+mesh = SubResource("BoxMesh_51")
+
+[node name="Spawn" type="Marker3D" parent="Pads/Vortex"]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0, 0.05, 0)
+metadata/vehicle_id = "vortex"
+
+[node name="Kiosk" type="Node3D" parent="Pads/Vortex"]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 1.86, 0, -6.35)
+
+[node name="Post" type="MeshInstance3D" parent="Pads/Vortex/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+mesh = SubResource("BoxMesh_25")
+
+[node name="Board" type="MeshInstance3D" parent="Pads/Vortex/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.75, -0.04)
+mesh = SubResource("BoxMesh_26")
+
+[node name="Header" type="MeshInstance3D" parent="Pads/Vortex/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, -0.04)
+mesh = SubResource("BoxMesh_49")
+
+[node name="Name" type="Label3D" parent="Pads/Vortex/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
+pixel_size = 0.0026
+font_size = 64
+outline_size = 8
+text = "VORTEX"
+double_sided = false
+
+[node name="Stats" type="Label3D" parent="Pads/Vortex/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9, 1.75, 0)
+pixel_size = 0.0027
+font_size = 36
+outline_size = 0
+horizontal_alignment = 0
+double_sided = false
+modulate = Color(0.92, 0.94, 0.96, 1)
+text = "Sports & Exotic\nTop speed  290 km/h\nAccel      #########-\nHandling   #########-\nHealth 240   Seats 2\nMass 1400 kg   Rich\nStealable"
+
+[node name="Cabana" type="Node3D" parent="Pads"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28.485, 0, 13.5)
+
+[node name="Slab" type="MeshInstance3D" parent="Pads/Cabana"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.02, 0)
+mesh = SubResource("BoxMesh_22")
+
+[node name="ClassLine" type="MeshInstance3D" parent="Pads/Cabana"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.045, -6.25)
+mesh = SubResource("BoxMesh_52")
+
+[node name="Spawn" type="Marker3D" parent="Pads/Cabana"]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0, 0.05, 0)
+metadata/vehicle_id = "cabana"
+
+[node name="Kiosk" type="Node3D" parent="Pads/Cabana"]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 1.75, 0, -6.35)
+
+[node name="Post" type="MeshInstance3D" parent="Pads/Cabana/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+mesh = SubResource("BoxMesh_25")
+
+[node name="Board" type="MeshInstance3D" parent="Pads/Cabana/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.75, -0.04)
+mesh = SubResource("BoxMesh_26")
+
+[node name="Header" type="MeshInstance3D" parent="Pads/Cabana/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, -0.04)
+mesh = SubResource("BoxMesh_49")
+
+[node name="Name" type="Label3D" parent="Pads/Cabana/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
+pixel_size = 0.0026
+font_size = 64
+outline_size = 8
+text = "CABANA"
+double_sided = false
+
+[node name="Stats" type="Label3D" parent="Pads/Cabana/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9, 1.75, 0)
+pixel_size = 0.0027
+font_size = 36
+outline_size = 0
+horizontal_alignment = 0
+double_sided = false
+modulate = Color(0.92, 0.94, 0.96, 1)
+text = "Sports & Exotic\nTop speed  225 km/h\nAccel      ######----\nHandling   ########--\nHealth 230   Seats 2\nMass 1200 kg   Upper\nStealable"
+
+[node name="Everglade" type="Node3D" parent="Pads"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34.185, 0, 13.5)
+
+[node name="Slab" type="MeshInstance3D" parent="Pads/Everglade"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.02, 0)
+mesh = SubResource("BoxMesh_40")
+
+[node name="ClassLine" type="MeshInstance3D" parent="Pads/Everglade"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.045, -6.25)
+mesh = SubResource("BoxMesh_54")
+
+[node name="Spawn" type="Marker3D" parent="Pads/Everglade"]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0, 0.05, 0)
+metadata/vehicle_id = "everglade"
+
+[node name="Kiosk" type="Node3D" parent="Pads/Everglade"]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 1.85, 0, -6.35)
+
+[node name="Post" type="MeshInstance3D" parent="Pads/Everglade/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+mesh = SubResource("BoxMesh_25")
+
+[node name="Board" type="MeshInstance3D" parent="Pads/Everglade/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.75, -0.04)
+mesh = SubResource("BoxMesh_26")
+
+[node name="Header" type="MeshInstance3D" parent="Pads/Everglade/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, -0.04)
+mesh = SubResource("BoxMesh_55")
+
+[node name="Name" type="Label3D" parent="Pads/Everglade/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
+pixel_size = 0.0026
+font_size = 64
+outline_size = 8
+text = "EVERGLADE"
+double_sided = false
+
+[node name="Stats" type="Label3D" parent="Pads/Everglade/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9, 1.75, 0)
+pixel_size = 0.0027
+font_size = 36
+outline_size = 0
+horizontal_alignment = 0
+double_sided = false
+modulate = Color(0.92, 0.94, 0.96, 1)
+text = "SUV & Pickup\nTop speed  175 km/h\nAccel      ####------\nHandling   ####------\nHealth 420   Seats 7\nMass 2600 kg   Upper\nStealable"
+
+[node name="Palmetto" type="Node3D" parent="Pads"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 39.885, 0, 13.5)
+
+[node name="Slab" type="MeshInstance3D" parent="Pads/Palmetto"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.02, 0)
+mesh = SubResource("BoxMesh_22")
+
+[node name="ClassLine" type="MeshInstance3D" parent="Pads/Palmetto"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.045, -6.25)
+mesh = SubResource("BoxMesh_56")
+
+[node name="Spawn" type="Marker3D" parent="Pads/Palmetto"]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0, 0.05, 0)
+metadata/vehicle_id = "palmetto"
+
+[node name="Kiosk" type="Node3D" parent="Pads/Palmetto"]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 1.75, 0, -6.35)
+
+[node name="Post" type="MeshInstance3D" parent="Pads/Palmetto/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+mesh = SubResource("BoxMesh_25")
+
+[node name="Board" type="MeshInstance3D" parent="Pads/Palmetto/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.75, -0.04)
+mesh = SubResource("BoxMesh_26")
+
+[node name="Header" type="MeshInstance3D" parent="Pads/Palmetto/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, -0.04)
+mesh = SubResource("BoxMesh_55")
+
+[node name="Name" type="Label3D" parent="Pads/Palmetto/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
+pixel_size = 0.0026
+font_size = 64
+outline_size = 8
+text = "PALMETTO"
+double_sided = false
+
+[node name="Stats" type="Label3D" parent="Pads/Palmetto/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9, 1.75, 0)
+pixel_size = 0.0027
+font_size = 36
+outline_size = 0
+horizontal_alignment = 0
+double_sided = false
+modulate = Color(0.92, 0.94, 0.96, 1)
+text = "SUV & Pickup\nTop speed  150 km/h\nAccel      ####------\nHandling   #####-----\nHealth 360   Seats 4\nMass 1700 kg   Middle\nStealable"
+
+[node name="Workhorse" type="Node3D" parent="Pads"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45.585, 0, 13.5)
+
+[node name="Slab" type="MeshInstance3D" parent="Pads/Workhorse"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.02, 0)
+mesh = SubResource("BoxMesh_40")
+
+[node name="ClassLine" type="MeshInstance3D" parent="Pads/Workhorse"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.045, -6.25)
+mesh = SubResource("BoxMesh_54")
+
+[node name="Spawn" type="Marker3D" parent="Pads/Workhorse"]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0, 0.05, 0)
+metadata/vehicle_id = "workhorse"
+
+[node name="Kiosk" type="Node3D" parent="Pads/Workhorse"]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 1.85, 0, -6.35)
+
+[node name="Post" type="MeshInstance3D" parent="Pads/Workhorse/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+mesh = SubResource("BoxMesh_25")
+
+[node name="Board" type="MeshInstance3D" parent="Pads/Workhorse/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.75, -0.04)
+mesh = SubResource("BoxMesh_26")
+
+[node name="Header" type="MeshInstance3D" parent="Pads/Workhorse/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, -0.04)
+mesh = SubResource("BoxMesh_55")
+
+[node name="Name" type="Label3D" parent="Pads/Workhorse/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
+pixel_size = 0.0026
+font_size = 64
+outline_size = 8
+text = "WORKHORSE"
+double_sided = false
+
+[node name="Stats" type="Label3D" parent="Pads/Workhorse/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9, 1.75, 0)
+pixel_size = 0.0027
+font_size = 36
+outline_size = 0
+horizontal_alignment = 0
+double_sided = false
+modulate = Color(0.92, 0.94, 0.96, 1)
+text = "SUV & Pickup\nTop speed  165 km/h\nAccel      ###-------\nHandling   ####------\nHealth 400   Seats 3\nMass 2200 kg   Working\nStealable"
+
+[node name="Mudcat" type="Node3D" parent="Pads"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 51.41, 0, 13.5)
+
+[node name="Slab" type="MeshInstance3D" parent="Pads/Mudcat"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.02, 0)
+mesh = SubResource("BoxMesh_57")
+
+[node name="ClassLine" type="MeshInstance3D" parent="Pads/Mudcat"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.045, -6.25)
+mesh = SubResource("BoxMesh_58")
+
+[node name="Spawn" type="Marker3D" parent="Pads/Mudcat"]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0, 0.05, 0)
+metadata/vehicle_id = "mudcat"
+
+[node name="Kiosk" type="Node3D" parent="Pads/Mudcat"]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 1.875, 0, -6.35)
+
+[node name="Post" type="MeshInstance3D" parent="Pads/Mudcat/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+mesh = SubResource("BoxMesh_25")
+
+[node name="Board" type="MeshInstance3D" parent="Pads/Mudcat/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.75, -0.04)
+mesh = SubResource("BoxMesh_26")
+
+[node name="Header" type="MeshInstance3D" parent="Pads/Mudcat/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, -0.04)
+mesh = SubResource("BoxMesh_55")
+
+[node name="Name" type="Label3D" parent="Pads/Mudcat/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
+pixel_size = 0.0026
+font_size = 64
+outline_size = 8
+text = "MUDCAT"
+double_sided = false
+
+[node name="Stats" type="Label3D" parent="Pads/Mudcat/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9, 1.75, 0)
+pixel_size = 0.0027
+font_size = 36
+outline_size = 0
+horizontal_alignment = 0
+double_sided = false
+modulate = Color(0.92, 0.94, 0.96, 1)
+text = "SUV & Pickup\nTop speed  160 km/h\nAccel      ####------\nHandling   ###-------\nHealth 450   Seats 2\nMass 2500 kg   Working\nStealable"
+
+[node name="Tradesman" type="Node3D" parent="Pads"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -41.975, 0, -13.5)
+
+[node name="Slab" type="MeshInstance3D" parent="Pads/Tradesman"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.02, 0)
+mesh = SubResource("BoxMesh_40")
+
+[node name="ClassLine" type="MeshInstance3D" parent="Pads/Tradesman"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.045, 6.25)
+mesh = SubResource("BoxMesh_60")
+
+[node name="Spawn" type="Marker3D" parent="Pads/Tradesman"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+metadata/vehicle_id = "tradesman"
+
+[node name="Kiosk" type="Node3D" parent="Pads/Tradesman"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.85, 0, 6.35)
+
+[node name="Post" type="MeshInstance3D" parent="Pads/Tradesman/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+mesh = SubResource("BoxMesh_25")
+
+[node name="Board" type="MeshInstance3D" parent="Pads/Tradesman/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.75, -0.04)
+mesh = SubResource("BoxMesh_26")
+
+[node name="Header" type="MeshInstance3D" parent="Pads/Tradesman/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, -0.04)
+mesh = SubResource("BoxMesh_61")
+
+[node name="Name" type="Label3D" parent="Pads/Tradesman/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
+pixel_size = 0.0026
+font_size = 64
+outline_size = 8
+text = "TRADESMAN"
+double_sided = false
+
+[node name="Stats" type="Label3D" parent="Pads/Tradesman/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9, 1.75, 0)
+pixel_size = 0.0027
+font_size = 36
+outline_size = 0
+horizontal_alignment = 0
+double_sided = false
+modulate = Color(0.92, 0.94, 0.96, 1)
+text = "Van\nTop speed  140 km/h\nAccel      ###-------\nHandling   ###-------\nHealth 380   Seats 2\nMass 2300 kg   Working\nStealable"
+
+[node name="Strongbox" type="Node3D" parent="Pads"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -36.025, 0, -13.5)
+
+[node name="Slab" type="MeshInstance3D" parent="Pads/Strongbox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.02, 0)
+mesh = SubResource("BoxMesh_62")
+
+[node name="ClassLine" type="MeshInstance3D" parent="Pads/Strongbox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.045, 6.25)
+mesh = SubResource("BoxMesh_63")
+
+[node name="Spawn" type="Marker3D" parent="Pads/Strongbox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+metadata/vehicle_id = "strongbox"
+
+[node name="Kiosk" type="Node3D" parent="Pads/Strongbox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 6.35)
+
+[node name="Post" type="MeshInstance3D" parent="Pads/Strongbox/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+mesh = SubResource("BoxMesh_25")
+
+[node name="Board" type="MeshInstance3D" parent="Pads/Strongbox/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.75, -0.04)
+mesh = SubResource("BoxMesh_26")
+
+[node name="Header" type="MeshInstance3D" parent="Pads/Strongbox/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, -0.04)
+mesh = SubResource("BoxMesh_61")
+
+[node name="Name" type="Label3D" parent="Pads/Strongbox/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
+pixel_size = 0.0026
+font_size = 64
+outline_size = 8
+text = "STRONGBOX"
+double_sided = false
+
+[node name="Stats" type="Label3D" parent="Pads/Strongbox/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9, 1.75, 0)
+pixel_size = 0.0027
+font_size = 36
+outline_size = 0
+horizontal_alignment = 0
+double_sided = false
+modulate = Color(0.92, 0.94, 0.96, 1)
+text = "Van\nTop speed  125 km/h\nAccel      ##--------\nHandling   ##--------\nHealth 900   Seats 2\nMass 5200 kg   Service\nNot stealable"
+
+[node name="PalmCountyCruiser" type="Node3D" parent="Pads"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30.125, 0, -13.5)
+
+[node name="Slab" type="MeshInstance3D" parent="Pads/PalmCountyCruiser"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.02, 0)
+mesh = SubResource("BoxMesh_34")
+
+[node name="ClassLine" type="MeshInstance3D" parent="Pads/PalmCountyCruiser"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.045, 6.25)
+mesh = SubResource("BoxMesh_65")
+
+[node name="Spawn" type="Marker3D" parent="Pads/PalmCountyCruiser"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+metadata/vehicle_id = "cruiser"
+
+[node name="Kiosk" type="Node3D" parent="Pads/PalmCountyCruiser"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8, 0, 6.35)
+
+[node name="Post" type="MeshInstance3D" parent="Pads/PalmCountyCruiser/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+mesh = SubResource("BoxMesh_25")
+
+[node name="Board" type="MeshInstance3D" parent="Pads/PalmCountyCruiser/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.75, -0.04)
+mesh = SubResource("BoxMesh_26")
+
+[node name="Header" type="MeshInstance3D" parent="Pads/PalmCountyCruiser/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, -0.04)
+mesh = SubResource("BoxMesh_66")
+
+[node name="Name" type="Label3D" parent="Pads/PalmCountyCruiser/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
+pixel_size = 0.0026
+font_size = 64
+outline_size = 8
+text = "PALM COUNTY CRUISER"
+double_sided = false
+
+[node name="Stats" type="Label3D" parent="Pads/PalmCountyCruiser/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9, 1.75, 0)
+pixel_size = 0.0027
+font_size = 36
+outline_size = 0
+horizontal_alignment = 0
+double_sided = false
+modulate = Color(0.92, 0.94, 0.96, 1)
+text = "Police\nTop speed  200 km/h\nAccel      #####-----\nHandling   ######----\nHealth 400   Seats 4\nMass 1750 kg   Service\nStealable"
+
+[node name="Interceptor" type="Node3D" parent="Pads"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.375, 0, -13.5)
+
+[node name="Slab" type="MeshInstance3D" parent="Pads/Interceptor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.02, 0)
+mesh = SubResource("BoxMesh_40")
+
+[node name="ClassLine" type="MeshInstance3D" parent="Pads/Interceptor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.045, 6.25)
+mesh = SubResource("BoxMesh_67")
+
+[node name="Spawn" type="Marker3D" parent="Pads/Interceptor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+metadata/vehicle_id = "interceptor"
+
+[node name="Kiosk" type="Node3D" parent="Pads/Interceptor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.85, 0, 6.35)
+
+[node name="Post" type="MeshInstance3D" parent="Pads/Interceptor/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+mesh = SubResource("BoxMesh_25")
+
+[node name="Board" type="MeshInstance3D" parent="Pads/Interceptor/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.75, -0.04)
+mesh = SubResource("BoxMesh_26")
+
+[node name="Header" type="MeshInstance3D" parent="Pads/Interceptor/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, -0.04)
+mesh = SubResource("BoxMesh_66")
+
+[node name="Name" type="Label3D" parent="Pads/Interceptor/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
+pixel_size = 0.0026
+font_size = 64
+outline_size = 8
+text = "INTERCEPTOR"
+double_sided = false
+
+[node name="Stats" type="Label3D" parent="Pads/Interceptor/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9, 1.75, 0)
+pixel_size = 0.0027
+font_size = 36
+outline_size = 0
+horizontal_alignment = 0
+double_sided = false
+modulate = Color(0.92, 0.94, 0.96, 1)
+text = "Police\nTop speed  235 km/h\nAccel      #######---\nHandling   ######----\nHealth 420   Seats 4\nMass 1850 kg   Service\nStealable"
+
+[node name="BulwarkSwat" type="Node3D" parent="Pads"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.325, 0, -13.5)
+
+[node name="Slab" type="MeshInstance3D" parent="Pads/BulwarkSwat"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.02, 0)
+mesh = SubResource("BoxMesh_68")
+
+[node name="ClassLine" type="MeshInstance3D" parent="Pads/BulwarkSwat"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.045, 6.25)
+mesh = SubResource("BoxMesh_69")
+
+[node name="Spawn" type="Marker3D" parent="Pads/BulwarkSwat"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+metadata/vehicle_id = "bulwark"
+
+[node name="Kiosk" type="Node3D" parent="Pads/BulwarkSwat"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.1, 0, 6.35)
+
+[node name="Post" type="MeshInstance3D" parent="Pads/BulwarkSwat/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+mesh = SubResource("BoxMesh_25")
+
+[node name="Board" type="MeshInstance3D" parent="Pads/BulwarkSwat/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.75, -0.04)
+mesh = SubResource("BoxMesh_26")
+
+[node name="Header" type="MeshInstance3D" parent="Pads/BulwarkSwat/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, -0.04)
+mesh = SubResource("BoxMesh_66")
+
+[node name="Name" type="Label3D" parent="Pads/BulwarkSwat/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
+pixel_size = 0.0026
+font_size = 64
+outline_size = 8
+text = "BULWARK SWAT"
+double_sided = false
+
+[node name="Stats" type="Label3D" parent="Pads/BulwarkSwat/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9, 1.75, 0)
+pixel_size = 0.0027
+font_size = 36
+outline_size = 0
+horizontal_alignment = 0
+double_sided = false
+modulate = Color(0.92, 0.94, 0.96, 1)
+text = "Police\nTop speed  130 km/h\nAccel      ##--------\nHandling   ##--------\nHealth 1200   Seats 10\nMass 7500 kg   Service\nNot stealable"
+
+[node name="MedicUnit" type="Node3D" parent="Pads"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.2, 0, -13.5)
+
+[node name="Slab" type="MeshInstance3D" parent="Pads/MedicUnit"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.02, 0)
+mesh = SubResource("BoxMesh_70")
+
+[node name="ClassLine" type="MeshInstance3D" parent="Pads/MedicUnit"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.045, 6.25)
+mesh = SubResource("BoxMesh_72")
+
+[node name="Spawn" type="Marker3D" parent="Pads/MedicUnit"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+metadata/vehicle_id = "medic"
+
+[node name="Kiosk" type="Node3D" parent="Pads/MedicUnit"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.925, 0, 6.35)
+
+[node name="Post" type="MeshInstance3D" parent="Pads/MedicUnit/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+mesh = SubResource("BoxMesh_25")
+
+[node name="Board" type="MeshInstance3D" parent="Pads/MedicUnit/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.75, -0.04)
+mesh = SubResource("BoxMesh_26")
+
+[node name="Header" type="MeshInstance3D" parent="Pads/MedicUnit/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, -0.04)
+mesh = SubResource("BoxMesh_73")
+
+[node name="Name" type="Label3D" parent="Pads/MedicUnit/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
+pixel_size = 0.0026
+font_size = 64
+outline_size = 8
+text = "MEDIC UNIT"
+double_sided = false
+
+[node name="Stats" type="Label3D" parent="Pads/MedicUnit/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9, 1.75, 0)
+pixel_size = 0.0027
+font_size = 36
+outline_size = 0
+horizontal_alignment = 0
+double_sided = false
+modulate = Color(0.92, 0.94, 0.96, 1)
+text = "Emergency\nTop speed  150 km/h\nAccel      ###-------\nHandling   ###-------\nHealth 500   Seats 4\nMass 4200 kg   Service\nStealable"
+
+[node name="Engine9" type="Node3D" parent="Pads"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.075, 0, -13.5)
+
+[node name="Slab" type="MeshInstance3D" parent="Pads/Engine9"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.02, 0)
+mesh = SubResource("BoxMesh_68")
+
+[node name="ClassLine" type="MeshInstance3D" parent="Pads/Engine9"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.045, 6.25)
+mesh = SubResource("BoxMesh_74")
+
+[node name="Spawn" type="Marker3D" parent="Pads/Engine9"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+metadata/vehicle_id = "engine9"
+
+[node name="Kiosk" type="Node3D" parent="Pads/Engine9"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.1, 0, 6.35)
+
+[node name="Post" type="MeshInstance3D" parent="Pads/Engine9/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+mesh = SubResource("BoxMesh_25")
+
+[node name="Board" type="MeshInstance3D" parent="Pads/Engine9/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.75, -0.04)
+mesh = SubResource("BoxMesh_26")
+
+[node name="Header" type="MeshInstance3D" parent="Pads/Engine9/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, -0.04)
+mesh = SubResource("BoxMesh_73")
+
+[node name="Name" type="Label3D" parent="Pads/Engine9/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
+pixel_size = 0.0026
+font_size = 64
+outline_size = 8
+text = "ENGINE 9"
+double_sided = false
+
+[node name="Stats" type="Label3D" parent="Pads/Engine9/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9, 1.75, 0)
+pixel_size = 0.0027
+font_size = 36
+outline_size = 0
+horizontal_alignment = 0
+double_sided = false
+modulate = Color(0.92, 0.94, 0.96, 1)
+text = "Emergency\nTop speed  120 km/h\nAccel      #---------\nHandling   ##--------\nHealth 900   Seats 6\nMass 12000 kg   Service\nStealable"
+
+[node name="SunshineCab" type="Node3D" parent="Pads"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1, 0, -13.5)
+
+[node name="Slab" type="MeshInstance3D" parent="Pads/SunshineCab"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.02, 0)
+mesh = SubResource("BoxMesh_28")
+
+[node name="ClassLine" type="MeshInstance3D" parent="Pads/SunshineCab"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.045, 6.25)
+mesh = SubResource("BoxMesh_76")
+
+[node name="Spawn" type="Marker3D" parent="Pads/SunshineCab"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+metadata/vehicle_id = "sunshine_cab"
+
+[node name="Kiosk" type="Node3D" parent="Pads/SunshineCab"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.775, 0, 6.35)
+
+[node name="Post" type="MeshInstance3D" parent="Pads/SunshineCab/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+mesh = SubResource("BoxMesh_25")
+
+[node name="Board" type="MeshInstance3D" parent="Pads/SunshineCab/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.75, -0.04)
+mesh = SubResource("BoxMesh_26")
+
+[node name="Header" type="MeshInstance3D" parent="Pads/SunshineCab/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, -0.04)
+mesh = SubResource("BoxMesh_77")
+
+[node name="Name" type="Label3D" parent="Pads/SunshineCab/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
+pixel_size = 0.0026
+font_size = 64
+outline_size = 8
+text = "SUNSHINE CAB"
+double_sided = false
+
+[node name="Stats" type="Label3D" parent="Pads/SunshineCab/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9, 1.75, 0)
+pixel_size = 0.0027
+font_size = 36
+outline_size = 0
+horizontal_alignment = 0
+double_sided = false
+modulate = Color(0.92, 0.94, 0.96, 1)
+text = "Service & Commercial\nTop speed  170 km/h\nAccel      ####------\nHandling   ######----\nHealth 300   Seats 4\nMass 1450 kg   Service\nStealable"
+
+[node name="MetroTransit" type="Node3D" parent="Pads"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.9, 0, -13.5)
+
+[node name="Slab" type="MeshInstance3D" parent="Pads/MetroTransit"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.02, 0)
+mesh = SubResource("BoxMesh_78")
+
+[node name="ClassLine" type="MeshInstance3D" parent="Pads/MetroTransit"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.045, 6.25)
+mesh = SubResource("BoxMesh_79")
+
+[node name="Spawn" type="Marker3D" parent="Pads/MetroTransit"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+metadata/vehicle_id = "transit"
+
+[node name="Kiosk" type="Node3D" parent="Pads/MetroTransit"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.125, 0, 6.35)
+
+[node name="Post" type="MeshInstance3D" parent="Pads/MetroTransit/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+mesh = SubResource("BoxMesh_25")
+
+[node name="Board" type="MeshInstance3D" parent="Pads/MetroTransit/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.75, -0.04)
+mesh = SubResource("BoxMesh_26")
+
+[node name="Header" type="MeshInstance3D" parent="Pads/MetroTransit/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, -0.04)
+mesh = SubResource("BoxMesh_77")
+
+[node name="Name" type="Label3D" parent="Pads/MetroTransit/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
+pixel_size = 0.0026
+font_size = 64
+outline_size = 8
+text = "METRO TRANSIT"
+double_sided = false
+
+[node name="Stats" type="Label3D" parent="Pads/MetroTransit/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9, 1.75, 0)
+pixel_size = 0.0027
+font_size = 36
+outline_size = 0
+horizontal_alignment = 0
+double_sided = false
+modulate = Color(0.92, 0.94, 0.96, 1)
+text = "Service & Commercial\nTop speed  95 km/h\nAccel      #---------\nHandling   #---------\nHealth 800   Seats 24\nMass 11000 kg   Service\nStealable"
+
+[node name="Haulmaster" type="Node3D" parent="Pads"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.125, 0, -13.5)
+
+[node name="Slab" type="MeshInstance3D" parent="Pads/Haulmaster"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.02, 0)
+mesh = SubResource("BoxMesh_62")
+
+[node name="ClassLine" type="MeshInstance3D" parent="Pads/Haulmaster"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.045, 6.25)
+mesh = SubResource("BoxMesh_80")
+
+[node name="Spawn" type="Marker3D" parent="Pads/Haulmaster"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+metadata/vehicle_id = "haulmaster"
+
+[node name="Kiosk" type="Node3D" parent="Pads/Haulmaster"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 6.35)
+
+[node name="Post" type="MeshInstance3D" parent="Pads/Haulmaster/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+mesh = SubResource("BoxMesh_25")
+
+[node name="Board" type="MeshInstance3D" parent="Pads/Haulmaster/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.75, -0.04)
+mesh = SubResource("BoxMesh_26")
+
+[node name="Header" type="MeshInstance3D" parent="Pads/Haulmaster/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, -0.04)
+mesh = SubResource("BoxMesh_77")
+
+[node name="Name" type="Label3D" parent="Pads/Haulmaster/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
+pixel_size = 0.0026
+font_size = 64
+outline_size = 8
+text = "HAULMASTER"
+double_sided = false
+
+[node name="Stats" type="Label3D" parent="Pads/Haulmaster/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9, 1.75, 0)
+pixel_size = 0.0027
+font_size = 36
+outline_size = 0
+horizontal_alignment = 0
+double_sided = false
+modulate = Color(0.92, 0.94, 0.96, 1)
+text = "Service & Commercial\nTop speed  115 km/h\nAccel      #---------\nHandling   ##--------\nHealth 600   Seats 2\nMass 7000 kg   Service\nStealable"
+
+[node name="HookHaul" type="Node3D" parent="Pads"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.2, 0, -13.5)
+
+[node name="Slab" type="MeshInstance3D" parent="Pads/HookHaul"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.02, 0)
+mesh = SubResource("BoxMesh_81")
+
+[node name="ClassLine" type="MeshInstance3D" parent="Pads/HookHaul"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.045, 6.25)
+mesh = SubResource("BoxMesh_82")
+
+[node name="Spawn" type="Marker3D" parent="Pads/HookHaul"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+metadata/vehicle_id = "hook_haul"
+
+[node name="Kiosk" type="Node3D" parent="Pads/HookHaul"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.975, 0, 6.35)
+
+[node name="Post" type="MeshInstance3D" parent="Pads/HookHaul/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+mesh = SubResource("BoxMesh_25")
+
+[node name="Board" type="MeshInstance3D" parent="Pads/HookHaul/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.75, -0.04)
+mesh = SubResource("BoxMesh_26")
+
+[node name="Header" type="MeshInstance3D" parent="Pads/HookHaul/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, -0.04)
+mesh = SubResource("BoxMesh_77")
+
+[node name="Name" type="Label3D" parent="Pads/HookHaul/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
+pixel_size = 0.0026
+font_size = 64
+outline_size = 8
+text = "HOOK & HAUL"
+double_sided = false
+
+[node name="Stats" type="Label3D" parent="Pads/HookHaul/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9, 1.75, 0)
+pixel_size = 0.0027
+font_size = 36
+outline_size = 0
+horizontal_alignment = 0
+double_sided = false
+modulate = Color(0.92, 0.94, 0.96, 1)
+text = "Service & Commercial\nTop speed  130 km/h\nAccel      ##--------\nHandling   ###-------\nHealth 550   Seats 2\nMass 4500 kg   Service\nStealable"
+
+[node name="Compactor" type="Node3D" parent="Pads"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.35, 0, -13.5)
+
+[node name="Slab" type="MeshInstance3D" parent="Pads/Compactor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.02, 0)
+mesh = SubResource("BoxMesh_83")
+
+[node name="ClassLine" type="MeshInstance3D" parent="Pads/Compactor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.045, 6.25)
+mesh = SubResource("BoxMesh_84")
+
+[node name="Spawn" type="Marker3D" parent="Pads/Compactor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+metadata/vehicle_id = "compactor"
+
+[node name="Kiosk" type="Node3D" parent="Pads/Compactor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.075, 0, 6.35)
+
+[node name="Post" type="MeshInstance3D" parent="Pads/Compactor/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+mesh = SubResource("BoxMesh_25")
+
+[node name="Board" type="MeshInstance3D" parent="Pads/Compactor/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.75, -0.04)
+mesh = SubResource("BoxMesh_26")
+
+[node name="Header" type="MeshInstance3D" parent="Pads/Compactor/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, -0.04)
+mesh = SubResource("BoxMesh_77")
+
+[node name="Name" type="Label3D" parent="Pads/Compactor/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
+pixel_size = 0.0026
+font_size = 64
+outline_size = 8
+text = "COMPACTOR"
+double_sided = false
+
+[node name="Stats" type="Label3D" parent="Pads/Compactor/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9, 1.75, 0)
+pixel_size = 0.0027
+font_size = 36
+outline_size = 0
+horizontal_alignment = 0
+double_sided = false
+modulate = Color(0.92, 0.94, 0.96, 1)
+text = "Service & Commercial\nTop speed  95 km/h\nAccel      #---------\nHandling   #---------\nHealth 850   Seats 3\nMass 13000 kg   Service\nStealable"
+
+[node name="Razorback" type="Node3D" parent="Pads"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.275, 0, -13.5)
+
+[node name="Slab" type="MeshInstance3D" parent="Pads/Razorback"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.02, 0)
+mesh = SubResource("BoxMesh_22")
+
+[node name="ClassLine" type="MeshInstance3D" parent="Pads/Razorback"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.045, 6.25)
+mesh = SubResource("BoxMesh_86")
+
+[node name="Spawn" type="Marker3D" parent="Pads/Razorback"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+metadata/vehicle_id = "razorback"
+
+[node name="Kiosk" type="Node3D" parent="Pads/Razorback"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.75, 0, 6.35)
+
+[node name="Post" type="MeshInstance3D" parent="Pads/Razorback/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+mesh = SubResource("BoxMesh_25")
+
+[node name="Board" type="MeshInstance3D" parent="Pads/Razorback/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.75, -0.04)
+mesh = SubResource("BoxMesh_26")
+
+[node name="Header" type="MeshInstance3D" parent="Pads/Razorback/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, -0.04)
+mesh = SubResource("BoxMesh_87")
+
+[node name="Name" type="Label3D" parent="Pads/Razorback/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
+pixel_size = 0.0026
+font_size = 64
+outline_size = 8
+text = "RAZORBACK"
+double_sided = false
+
+[node name="Stats" type="Label3D" parent="Pads/Razorback/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9, 1.75, 0)
+pixel_size = 0.0027
+font_size = 36
+outline_size = 0
+horizontal_alignment = 0
+double_sided = false
+modulate = Color(0.92, 0.94, 0.96, 1)
+text = "Motorcycle & Scooter\nTop speed  260 km/h\nAccel      ##########\nHandling   #########-\nHealth 120   Seats 2\nMass 220 kg   Middle\nStealable"
+
+[node name="Zippy" type="Node3D" parent="Pads"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35.875, 0, -13.5)
+
+[node name="Slab" type="MeshInstance3D" parent="Pads/Zippy"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.02, 0)
+mesh = SubResource("BoxMesh_22")
+
+[node name="ClassLine" type="MeshInstance3D" parent="Pads/Zippy"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.045, 6.25)
+mesh = SubResource("BoxMesh_86")
+
+[node name="Spawn" type="Marker3D" parent="Pads/Zippy"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+metadata/vehicle_id = "zippy"
+
+[node name="Kiosk" type="Node3D" parent="Pads/Zippy"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.75, 0, 6.35)
+
+[node name="Post" type="MeshInstance3D" parent="Pads/Zippy/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+mesh = SubResource("BoxMesh_25")
+
+[node name="Board" type="MeshInstance3D" parent="Pads/Zippy/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.75, -0.04)
+mesh = SubResource("BoxMesh_26")
+
+[node name="Header" type="MeshInstance3D" parent="Pads/Zippy/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, -0.04)
+mesh = SubResource("BoxMesh_87")
+
+[node name="Name" type="Label3D" parent="Pads/Zippy/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
+pixel_size = 0.0026
+font_size = 64
+outline_size = 8
+text = "ZIPPY"
+double_sided = false
+
+[node name="Stats" type="Label3D" parent="Pads/Zippy/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9, 1.75, 0)
+pixel_size = 0.0027
+font_size = 36
+outline_size = 0
+horizontal_alignment = 0
+double_sided = false
+modulate = Color(0.92, 0.94, 0.96, 1)
+text = "Motorcycle & Scooter\nTop speed  75 km/h\nAccel      ####------\nHandling   ########--\nHealth 90   Seats 2\nMass 110 kg   Poor\nStealable"
+
+[node name="Gladesrunner" type="Node3D" parent="Pads"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 41.775, 0, -13.5)
+
+[node name="Slab" type="MeshInstance3D" parent="Pads/Gladesrunner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.02, 0)
+mesh = SubResource("BoxMesh_88")
+
+[node name="ClassLine" type="MeshInstance3D" parent="Pads/Gladesrunner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.045, 6.25)
+mesh = SubResource("BoxMesh_90")
+
+[node name="Spawn" type="Marker3D" parent="Pads/Gladesrunner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+metadata/vehicle_id = "gladesrunner"
+
+[node name="Kiosk" type="Node3D" parent="Pads/Gladesrunner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.05, 0, 6.35)
+
+[node name="Post" type="MeshInstance3D" parent="Pads/Gladesrunner/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+mesh = SubResource("BoxMesh_25")
+
+[node name="Board" type="MeshInstance3D" parent="Pads/Gladesrunner/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.75, -0.04)
+mesh = SubResource("BoxMesh_26")
+
+[node name="Header" type="MeshInstance3D" parent="Pads/Gladesrunner/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, -0.04)
+mesh = SubResource("BoxMesh_91")
+
+[node name="Name" type="Label3D" parent="Pads/Gladesrunner/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
+pixel_size = 0.0026
+font_size = 64
+outline_size = 8
+text = "GLADESRUNNER"
+double_sided = false
+
+[node name="Stats" type="Label3D" parent="Pads/Gladesrunner/Kiosk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9, 1.75, 0)
+pixel_size = 0.0027
+font_size = 36
+outline_size = 0
+horizontal_alignment = 0
+double_sided = false
+modulate = Color(0.92, 0.94, 0.96, 1)
+text = "Boat (display)\n\nDisplay only\nSeats 2   Mass 900 kg\nZones: glades"
+
+[node name="Vehicles" type="Node3D" parent="."]
+
+[node name="Player" parent="." instance=ExtResource("2_r")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -63, 1.2, 0)
+
+[node name="HUD" type="CanvasLayer" parent="."]
+script = ExtResource("3_r")

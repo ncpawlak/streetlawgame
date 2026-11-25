@@ -1,7 +1,11 @@
 class_name Vehicle
 extends VehicleBody3D
-## Drivable car built in code. Supports entering/exiting, a chase camera, drive-by shooting, running
-## over NPCs, and damage: it smokes when hurt, catches fire when critical and then explodes.
+## Drivable vehicle. Supports entering/exiting, a chase camera, drive-by shooting, running over NPCs,
+## and damage: it smokes when hurt, catches fire when critical and then explodes.
+## Built in code by default (a generic car in [member body_color]). Authored scenes from the vehicle kit
+## (scenes/vehicles/, see tools/vehicles/) bring their own "Body", wheels, collision, "Seats" and
+## "Exit"/"EngineSmoke" markers; their physics values are set on the root and listed in
+## data/vehicles/vehicles.json ([VehicleCatalog]).
 
 signal health_changed(current: float, maximum: float)
 signal exploded
@@ -23,6 +27,19 @@ const WHEEL_LAYOUT := [
 @export var steer_speed := 2.5
 @export var run_over_speed := 6.0
 @export var mouse_sensitivity := 0.003
+## Registry id (data/vehicles/vehicles.json); empty for code-built cars.
+@export var model_id: StringName
+## Seed for the registry paint variation; -1 keeps the authored colours.
+@export var paint_seed := -1
+## Forward speed cap in m/s (0 = none). Reverse is capped at a third of it.
+@export var max_speed := 0.0
+## Steering lock shrinks with speed: max_steer / (1 + steer_falloff * speed). 0 = constant lock.
+@export var steer_falloff := 0.0
+## Arcade anti-roll: torque (per kg) that rights the body around its forward axis, so tall trucks
+## and the two-wheel bikes don't topple in hard turns. 0 = off. Pitch is left alone for ramps.
+@export var upright_assist := 0.0
+@export var camera_distance := 7.0
+@export var camera_height := 1.8
 @export_group("Damage")
 @export var max_health := 300.0
 ## Fraction of health where the engine starts smoking.
@@ -56,17 +73,24 @@ var _flames: CPUParticles3D
 
 func _ready() -> void:
 	add_to_group("vehicles")
-	mass = 1000.0
+	var authored := has_node("Body")
+	if not authored:
+		mass = 1000.0
+		center_of_mass_mode = RigidBody3D.CENTER_OF_MASS_MODE_CUSTOM
+		center_of_mass = Vector3(0.0, 0.3, 0.0)
 	collision_layer = 8
 	collision_mask = 15
-	center_of_mass_mode = RigidBody3D.CENTER_OF_MASS_MODE_CUSTOM
-	center_of_mass = Vector3(0.0, 0.3, 0.0)
 	contact_monitor = true
 	max_contacts_reported = 4
 	body_entered.connect(_on_body_entered)
 	health = max_health
-	_build_body()
-	_build_wheels()
+	if authored:
+		_adopt_body_materials()
+		if paint_seed >= 0:
+			apply_paint(paint_seed)
+	else:
+		_build_body()
+		_build_wheels()
 	_build_camera()
 	_build_damage_effects()
 	_build_interactable()
@@ -76,8 +100,9 @@ func _ready() -> void:
 func _build_interactable() -> void:
 	var interactable := Interactable.new()
 	interactable.name = "Interactable"
-	interactable.prompt_name = "Vehicle"
-	interactable.radius = 3.5
+	var entry := VehicleCatalog.find(model_id) if model_id != &"" else {}
+	interactable.prompt_name = entry.get("name", "Vehicle")
+	interactable.radius = maxf(3.5, _half_length() + 1.0)
 	var enter_condition := MethodCondition.create(&"can_enter")
 	enter_condition.hide_when_unmet = true
 	var enter_effect := MethodEffect.create(&"enter")
@@ -86,6 +111,31 @@ func _build_interactable() -> void:
 	var effects: Array[Effect] = [enter_effect]
 	interactable.add_action(InteractionAction.create(&"enter_vehicle", "Steal vehicle", effects, conditions))
 	add_child(interactable)
+
+## Seats including the driver (from the "Seats" markers; 4 for code-built cars).
+func seat_count() -> int:
+	var seats := get_node_or_null("Seats")
+	return seats.get_child_count() if seats != null else 4
+
+
+## Recolours the "paint" metadata meshes from the registry palette. Same seed, same colours.
+func apply_paint(seed_value: int) -> void:
+	paint_seed = seed_value
+	var colors := VehicleCatalog.paint_colors(model_id, seed_value)
+	if colors.is_empty():
+		return
+	for instance: MeshInstance3D in _painted_meshes():
+		var material := instance.material_override as StandardMaterial3D
+		if material != null:
+			material.albedo_color = colors[0] if instance.get_meta("paint") == "primary" else colors[1]
+
+
+func paint_color() -> Color:
+	for instance: MeshInstance3D in _painted_meshes():
+		if instance.get_meta("paint") == "primary" and instance.material_override is StandardMaterial3D:
+			return (instance.material_override as StandardMaterial3D).albedo_color
+	return body_color
+
 
 func can_enter() -> bool:
 	return driver == null and not is_wrecked()
@@ -117,6 +167,8 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _physics_process(delta: float) -> void:
 	_check_crash()
+	if upright_assist > 0.0:
+		_apply_upright_assist()
 	if damage_state == DamageState.BURNING:
 		take_damage(burn_damage_per_second * delta, _last_attacker)
 	if driver == null or is_wrecked():
@@ -131,11 +183,12 @@ func _physics_process(delta: float) -> void:
 		engine_force = 0.0
 		brake = max_brake_force
 	else:
-		engine_force = throttle * max_engine_force
+		engine_force = throttle * max_engine_force * _speed_limit_factor(throttle, forward_speed)
 		brake = 0.0
 	if Input.is_action_pressed("handbrake"):
 		brake = max_brake_force
-	steering = move_toward(steering, Input.get_axis("move_right", "move_left") * max_steer, steer_speed * delta)
+	var lock := max_steer / (1.0 + steer_falloff * absf(forward_speed))
+	steering = move_toward(steering, Input.get_axis("move_right", "move_left") * lock, steer_speed * delta)
 
 	if driver.wants_to_fire():
 		_drive_by_shoot()
@@ -146,7 +199,7 @@ func _process(delta: float) -> void:
 		return
 	if not Input.is_action_pressed("aim") and not Input.is_action_pressed("shoot"):
 		_look_yaw = lerp_angle(_look_yaw, 0.0, clampf(1.5 * delta, 0.0, 1.0))
-	_camera_pivot.global_position = global_position + Vector3(0.0, 1.8, 0.0)
+	_camera_pivot.global_position = global_position + Vector3(0.0, camera_height, 0.0)
 	var target_yaw := global_rotation.y + PI + _look_yaw
 	_camera_pivot.rotation.y = lerp_angle(_camera_pivot.rotation.y, target_yaw, clampf(6.0 * delta, 0.0, 1.0))
 
@@ -155,7 +208,7 @@ func enter(player: Player) -> void:
 	driver = player
 	player.set_on_foot(false, self)
 	_look_yaw = 0.0
-	_camera_pivot.global_position = global_position + Vector3(0.0, 1.8, 0.0)
+	_camera_pivot.global_position = global_position + Vector3(0.0, camera_height, 0.0)
 	_camera_pivot.rotation.y = global_rotation.y + PI
 	_camera.make_current()
 
@@ -165,7 +218,9 @@ func exit() -> void:
 		return
 	var player := driver
 	driver = null
-	player.global_position = global_position + global_basis.x * 1.8 + Vector3.UP * 0.5
+	var exit_marker := get_node_or_null("Exit") as Node3D
+	var exit_point := exit_marker.global_position if exit_marker != null else global_position + global_basis.x * 1.8
+	player.global_position = exit_point + Vector3.UP * 0.5
 	player.rotation.y = global_rotation.y + PI
 	player.set_on_foot(true)
 
@@ -270,7 +325,7 @@ func _build_camera() -> void:
 	_camera_pivot.top_level = true
 	add_child(_camera_pivot)
 	_spring_arm = SpringArm3D.new()
-	_spring_arm.spring_length = 7.0
+	_spring_arm.spring_length = camera_distance
 	_spring_arm.margin = 0.3
 	_spring_arm.collision_mask = 1
 	_spring_arm.rotation.x = deg_to_rad(-15.0)
@@ -308,7 +363,8 @@ func _make_particles(color: Color, amount: int, particle_lifetime: float, rise_s
 	particles.lifetime = particle_lifetime
 	particles.emitting = false
 	particles.local_coords = false
-	particles.position = Vector3(0.0, 1.4, 1.5)
+	var smoke_marker := get_node_or_null("EngineSmoke") as Node3D
+	particles.position = smoke_marker.position if smoke_marker != null else Vector3(0.0, 1.4, 1.5)
 	particles.emission_shape = CPUParticles3D.EMISSION_SHAPE_BOX
 	particles.emission_box_extents = Vector3(0.6, 0.1, 0.4)
 	particles.direction = Vector3.UP
@@ -322,3 +378,63 @@ func _make_particles(color: Color, amount: int, particle_lifetime: float, rise_s
 	particles.mesh = FireZone.flame_mesh()
 	add_child(particles)
 	return particles
+
+
+## Fades the engine out near the top speed (forward) or a third of it (reverse).
+func _speed_limit_factor(throttle: float, forward_speed: float) -> float:
+	if max_speed <= 0.0:
+		return 1.0
+	var limit := max_speed if throttle > 0.0 else max_speed / 3.0
+	var speed := forward_speed if throttle > 0.0 else -forward_speed
+	return clampf((limit - speed) / maxf(1.0, limit * 0.1), 0.0, 1.0)
+
+
+## Authored scenes share mesh resources between instances, so each vehicle takes its own copy of
+## every body material (one copy per shared material) to paint and to scorch when it explodes.
+func _adopt_body_materials() -> void:
+	var copies := {}
+	var stack: Array[Node] = [get_node("Body")]
+	while not stack.is_empty():
+		var node: Node = stack.pop_back()
+		stack.append_array(node.get_children())
+		var instance := node as MeshInstance3D
+		if instance == null or instance.mesh == null:
+			continue
+		var source := instance.mesh.surface_get_material(0) as StandardMaterial3D
+		if source == null:
+			continue
+		if not copies.has(source):
+			var copy := source.duplicate() as StandardMaterial3D
+			copies[source] = copy
+			_body_materials.append(copy)
+		instance.material_override = copies[source]
+
+
+func _painted_meshes() -> Array[MeshInstance3D]:
+	var result: Array[MeshInstance3D] = []
+	var body := get_node_or_null("Body")
+	if body == null:
+		return result
+	var stack: Array[Node] = [body]
+	while not stack.is_empty():
+		var node: Node = stack.pop_back()
+		stack.append_array(node.get_children())
+		if node is MeshInstance3D and node.has_meta("paint"):
+			result.append(node)
+	return result
+
+
+## Half the vehicle's length from its collision boxes (2.1 m for the code-built car).
+func _half_length() -> float:
+	var half := 2.1
+	for child in get_children():
+		var shape := child as CollisionShape3D
+		if shape != null and shape.shape is BoxShape3D:
+			half = maxf(half, absf(shape.position.z) + (shape.shape as BoxShape3D).size.z / 2.0)
+	return half
+
+func _apply_upright_assist() -> void:
+	var forward := global_basis.z
+	var roll := global_basis.y.cross(Vector3.UP).dot(forward)
+	var roll_rate := angular_velocity.dot(forward)
+	apply_torque(forward * (roll * upright_assist - roll_rate * upright_assist * 0.15) * mass)

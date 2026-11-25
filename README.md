@@ -47,6 +47,42 @@ You start with fists and a pistol. There's a stash of guns (SMG, shotgun, rifle)
 
 Vehicles take damage from bullets, explosions and crashes: they smoke, then catch fire, then explode. Rivals will shoot at your car while you're driving.
 
+## Vehicle showcase
+
+```sh
+godot --path . res://scenes/vehicles/vehicle_showcase.tscn
+```
+
+A lot with 34 vehicles across 12 classes, all fictional. Each vehicle sits on a labelled pad whose kiosk shows its name, class, top speed, handling, seats, mass and spawn zones. Walk up and press E to enter a vehicle. Drive it with WASD and use Space for the handbrake. There's a test loop with a ramp around the lot. F5 respawns every vehicle with fresh paint, and Esc releases the mouse.
+
+| Class | Vehicles |
+|---|---|
+| Beater & Compact | Rustbucket, Pipsqueak, Hopper |
+| Sedan | Meridian, Regent, Tradewind |
+| Lowrider & Donk | Boulevard, Swamp King, Bubble |
+| Muscle | Thunderhorse, Vandal, Marauder |
+| Sports & Exotic | Kestrel GT, Vortex, Cabana |
+| SUV & Pickup | Everglade, Palmetto, Workhorse, Mudcat |
+| Van | Tradesman, Strongbox (armoured cash van) |
+| Police | Palm County Cruiser, Interceptor, Bulwark SWAT |
+| Emergency | Medic Unit, Engine 9 |
+| Service & Commercial | Sunshine Cab, Metro Transit, Haulmaster, Hook & Haul, Compactor |
+| Motorcycle & Scooter | Razorback, Zippy |
+| Boat | Gladesrunner (airboat on a trailer, display only) |
+
+- **Generated scenes.** The scenes in `scenes/vehicles/<class>/`, the showcase scene and the registry are built from `tools/vehicles/specs.py`. To regenerate them, run `python tools/vehicles/build_vehicles.py`, then rerun `godot --headless --path . --import`. Don't hand-edit the generated files.
+- **Registry.** `data/vehicles/vehicles.json` holds an entry per vehicle with:
+  - mass, top speed, acceleration, handling and health
+  - seats and class
+  - spawn zones and income tier
+  - whether the vehicle is stealable (Strongbox and Bulwark aren't)
+- **`VehicleCatalog`** (`scripts/vehicles/vehicle_catalog.gd`) reads the registry for traffic, carjacking and population. It provides `entries()`, `find(id)`, `query(class, zone, tier, stealable_only)`, `paint_colors(id, seed)` and `instantiate(id, seed)`. Exports must include `*.json` in the export filter, because the registry is read with `FileAccess`.
+- **Paint.** The `paint_seed` value gives each vehicle a repeatable paint and trim colour.
+- **`vehicle.gd`.** The controller drives both these authored scenes and the code-built city cars, which work as before.
+  - The authored scenes set a speed cap, steering that tightens at speed, and an upright assist to stop arcade rollovers.
+  - The motorcycles run on hidden training wheels for now, with no lean controller yet.
+- **Screenshots.** To capture them, run `godot --path . --resolution 1600x900 res://tools/capture_vehicles.tscn -- <out_dir> [ids]`.
+
 ## Tests
 
 ```sh

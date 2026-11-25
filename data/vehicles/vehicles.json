@@ -1,0 +1,1688 @@
+{
+ "version": 1,
+ "classes": {
+  "beater": {
+   "name": "Beater & Compact",
+   "color": "#8a7d6b"
+  },
+  "sedan": {
+   "name": "Sedan",
+   "color": "#3d6fb0"
+  },
+  "lowrider": {
+   "name": "Lowrider & Donk",
+   "color": "#b03dae"
+  },
+  "muscle": {
+   "name": "Muscle",
+   "color": "#c4412b"
+  },
+  "sports": {
+   "name": "Sports & Exotic",
+   "color": "#e8a412"
+  },
+  "suv": {
+   "name": "SUV & Pickup",
+   "color": "#4f8a3b"
+  },
+  "van": {
+   "name": "Van",
+   "color": "#6f6f78"
+  },
+  "police": {
+   "name": "Police",
+   "color": "#1f3fa8"
+  },
+  "emergency": {
+   "name": "Emergency",
+   "color": "#d02424"
+  },
+  "service": {
+   "name": "Service & Commercial",
+   "color": "#1a8f8a"
+  },
+  "bike": {
+   "name": "Motorcycle & Scooter",
+   "color": "#222222"
+  },
+  "boat": {
+   "name": "Boat (display)",
+   "color": "#2a7fb8"
+  }
+ },
+ "vehicles": [
+  {
+   "id": "rustbucket",
+   "name": "Rustbucket",
+   "class": "beater",
+   "class_name": "Beater & Compact",
+   "scene": "res://scenes/vehicles/beater/rustbucket.tscn",
+   "drivable": true,
+   "mass": 1150,
+   "top_speed_kph": 135,
+   "max_speed": 37.5,
+   "engine_force": 1380.0,
+   "brake_force": 69.0,
+   "acceleration": 2.4,
+   "acceleration_rating": 3,
+   "handling_rating": 3,
+   "handling": {
+    "grip": 3.86,
+    "max_steer": 0.46,
+    "steer_speed": 1.96,
+    "stiffness": 45.0,
+    "roll": 0.15
+   },
+   "health": 220,
+   "seats": 4,
+   "spawn_zones": [
+    "projects",
+    "residential",
+    "glades"
+   ],
+   "income_tier": "poor",
+   "stealable": true,
+   "palette": [
+    "#7a6a55",
+    "#5d6b73",
+    "#8b3a2e",
+    "#6f7a4a",
+    "#8c8577"
+   ],
+   "trim_palette": [
+    "#8f8f8a"
+   ],
+   "size_m": [
+    1.78,
+    1.42,
+    4.5
+   ],
+   "wheels": 4,
+   "description": "Twenty-year-old sedan held together by primer and prayer. Cheap to lose."
+  },
+  {
+   "id": "pipsqueak",
+   "name": "Pipsqueak",
+   "class": "beater",
+   "class_name": "Beater & Compact",
+   "scene": "res://scenes/vehicles/beater/pipsqueak.tscn",
+   "drivable": true,
+   "mass": 850,
+   "top_speed_kph": 125,
+   "max_speed": 34.72,
+   "engine_force": 1190.0,
+   "brake_force": 51.0,
+   "acceleration": 2.8,
+   "acceleration_rating": 3,
+   "handling_rating": 6,
+   "handling": {
+    "grip": 5.12,
+    "max_steer": 0.52,
+    "steer_speed": 2.62,
+    "stiffness": 45.0,
+    "roll": 0.15
+   },
+   "health": 180,
+   "seats": 2,
+   "spawn_zones": [
+    "downtown",
+    "residential",
+    "waterfront"
+   ],
+   "income_tier": "working",
+   "stealable": true,
+   "palette": [
+    "#e94f37",
+    "#3fb8af",
+    "#f6d55c",
+    "#8fd14f",
+    "#f2f2f2"
+   ],
+   "trim_palette": [
+    "#f2f2f2"
+   ],
+   "size_m": [
+    1.55,
+    1.55,
+    2.7
+   ],
+   "wheels": 4,
+   "description": "Two-seat city bubble. Parks anywhere, loses every fight."
+  },
+  {
+   "id": "hopper",
+   "name": "Hopper",
+   "class": "beater",
+   "class_name": "Beater & Compact",
+   "scene": "res://scenes/vehicles/beater/hopper.tscn",
+   "drivable": true,
+   "mass": 1100,
+   "top_speed_kph": 150,
+   "max_speed": 41.67,
+   "engine_force": 1650.0,
+   "brake_force": 66.0,
+   "acceleration": 3.0,
+   "acceleration_rating": 3,
+   "handling_rating": 6,
+   "handling": {
+    "grip": 5.12,
+    "max_steer": 0.52,
+    "steer_speed": 2.62,
+    "stiffness": 45.0,
+    "roll": 0.15
+   },
+   "health": 230,
+   "seats": 4,
+   "spawn_zones": [
+    "residential",
+    "suburbs",
+    "downtown"
+   ],
+   "income_tier": "working",
+   "stealable": true,
+   "palette": [
+    "#c9d1d3",
+    "#2e5266",
+    "#b2393a",
+    "#e2c044",
+    "#3a3a3a"
+   ],
+   "trim_palette": [
+    "#1a1a1c"
+   ],
+   "size_m": [
+    1.72,
+    1.45,
+    3.9
+   ],
+   "wheels": 4,
+   "description": "Hot-hatch on a budget. Zippy, light and easy to throw around."
+  },
+  {
+   "id": "meridian",
+   "name": "Meridian",
+   "class": "sedan",
+   "class_name": "Sedan",
+   "scene": "res://scenes/vehicles/sedan/meridian.tscn",
+   "drivable": true,
+   "mass": 1400,
+   "top_speed_kph": 170,
+   "max_speed": 47.22,
+   "engine_force": 2380.0,
+   "brake_force": 84.0,
+   "acceleration": 3.4,
+   "acceleration_rating": 4,
+   "handling_rating": 6,
+   "handling": {
+    "grip": 5.12,
+    "max_steer": 0.52,
+    "steer_speed": 2.62,
+    "stiffness": 60.0,
+    "roll": 0.1
+   },
+   "health": 300,
+   "seats": 4,
+   "spawn_zones": [
+    "residential",
+    "suburbs",
+    "downtown",
+    "highway"
+   ],
+   "income_tier": "middle",
+   "stealable": true,
+   "palette": [
+    "#9aa3ab",
+    "#1d2a3a",
+    "#6b0f1a",
+    "#f0f0ec",
+    "#2f4f3e",
+    "#3b3b3e"
+   ],
+   "trim_palette": [
+    "#1a1a1c"
+   ],
+   "size_m": [
+    1.85,
+    1.42,
+    4.7
+   ],
+   "wheels": 4,
+   "description": "The commuter car every city is full of. Does everything okay."
+  },
+  {
+   "id": "regent",
+   "name": "Regent",
+   "class": "sedan",
+   "class_name": "Sedan",
+   "scene": "res://scenes/vehicles/sedan/regent.tscn",
+   "drivable": true,
+   "mass": 1900,
+   "top_speed_kph": 195,
+   "max_speed": 54.17,
+   "engine_force": 3610.0,
+   "brake_force": 114.0,
+   "acceleration": 3.8,
+   "acceleration_rating": 5,
+   "handling_rating": 5,
+   "handling": {
+    "grip": 4.7,
+    "max_steer": 0.5,
+    "steer_speed": 2.4,
+    "stiffness": 60.0,
+    "roll": 0.1
+   },
+   "health": 360,
+   "seats": 4,
+   "spawn_zones": [
+    "waterfront",
+    "suburbs",
+    "downtown"
+   ],
+   "income_tier": "rich",
+   "stealable": true,
+   "palette": [
+    "#0d0d0f",
+    "#c7c9cc",
+    "#f3f1ea",
+    "#2a1a14",
+    "#13233f"
+   ],
+   "trim_palette": [
+    "#c7c9cc"
+   ],
+   "size_m": [
+    1.95,
+    1.48,
+    5.2
+   ],
+   "wheels": 4,
+   "description": "Executive saloon. Soft, heavy and quietly fast."
+  },
+  {
+   "id": "tradewind",
+   "name": "Tradewind",
+   "class": "sedan",
+   "class_name": "Sedan",
+   "scene": "res://scenes/vehicles/sedan/tradewind.tscn",
+   "drivable": true,
+   "mass": 1600,
+   "top_speed_kph": 160,
+   "max_speed": 44.44,
+   "engine_force": 2240.0,
+   "brake_force": 96.0,
+   "acceleration": 2.8,
+   "acceleration_rating": 3,
+   "handling_rating": 4,
+   "handling": {
+    "grip": 4.28,
+    "max_steer": 0.48,
+    "steer_speed": 2.18,
+    "stiffness": 60.0,
+    "roll": 0.1
+   },
+   "health": 320,
+   "seats": 5,
+   "spawn_zones": [
+    "suburbs",
+    "residential"
+   ],
+   "income_tier": "middle",
+   "stealable": true,
+   "palette": [
+    "#7d5a3c",
+    "#d8cfb8",
+    "#3c5a40",
+    "#8c1c13"
+   ],
+   "trim_palette": [
+    "#1a1a1c"
+   ],
+   "size_m": [
+    1.9,
+    1.45,
+    5.0
+   ],
+   "wheels": 4,
+   "description": "Wood-panelled family wagon. Five seats and a roof rack."
+  },
+  {
+   "id": "boulevard",
+   "name": "Boulevard",
+   "class": "lowrider",
+   "class_name": "Lowrider & Donk",
+   "scene": "res://scenes/vehicles/lowrider/boulevard.tscn",
+   "drivable": true,
+   "mass": 1800,
+   "top_speed_kph": 150,
+   "max_speed": 41.67,
+   "engine_force": 2340.0,
+   "brake_force": 108.0,
+   "acceleration": 2.6,
+   "acceleration_rating": 3,
+   "handling_rating": 3,
+   "handling": {
+    "grip": 3.86,
+    "max_steer": 0.46,
+    "steer_speed": 1.96,
+    "stiffness": 30.0,
+    "roll": 0.2
+   },
+   "health": 320,
+   "seats": 4,
+   "spawn_zones": [
+    "projects",
+    "residential"
+   ],
+   "income_tier": "working",
+   "stealable": true,
+   "palette": [
+    "#7a1fa2",
+    "#b0122b",
+    "#0f6b8a",
+    "#c79a12",
+    "#1d6b2f"
+   ],
+   "trim_palette": [
+    "#f2efe6"
+   ],
+   "size_m": [
+    1.98,
+    1.25,
+    5.4
+   ],
+   "wheels": 4,
+   "description": "Candy paint, wire wheels and whitewalls. Wallows like a waterbed."
+  },
+  {
+   "id": "swamp_king",
+   "name": "Swamp King",
+   "class": "lowrider",
+   "class_name": "Lowrider & Donk",
+   "scene": "res://scenes/vehicles/lowrider/swamp_king.tscn",
+   "drivable": true,
+   "mass": 2000,
+   "top_speed_kph": 160,
+   "max_speed": 44.44,
+   "engine_force": 3000.0,
+   "brake_force": 120.0,
+   "acceleration": 3.0,
+   "acceleration_rating": 3,
+   "handling_rating": 2,
+   "handling": {
+    "grip": 3.44,
+    "max_steer": 0.44,
+    "steer_speed": 1.74,
+    "stiffness": 35.0,
+    "roll": 0.25
+   },
+   "health": 380,
+   "seats": 4,
+   "spawn_zones": [
+    "projects",
+    "residential",
+    "glades"
+   ],
+   "income_tier": "working",
+   "stealable": true,
+   "palette": [
+    "#5fd02a",
+    "#ff7a12",
+    "#e8d21a",
+    "#1e8fff",
+    "#d62b9b"
+   ],
+   "trim_palette": [
+    "#f2f2f2"
+   ],
+   "size_m": [
+    2.0,
+    1.95,
+    5.4
+   ],
+   "wheels": 4,
+   "description": "Box-body donk on 26-inch gold rims. Turns like a parade float."
+  },
+  {
+   "id": "bubble",
+   "name": "Bubble",
+   "class": "lowrider",
+   "class_name": "Lowrider & Donk",
+   "scene": "res://scenes/vehicles/lowrider/bubble.tscn",
+   "drivable": true,
+   "mass": 1950,
+   "top_speed_kph": 170,
+   "max_speed": 47.22,
+   "engine_force": 3120.0,
+   "brake_force": 117.0,
+   "acceleration": 3.2,
+   "acceleration_rating": 4,
+   "handling_rating": 3,
+   "handling": {
+    "grip": 3.86,
+    "max_steer": 0.46,
+    "steer_speed": 1.96,
+    "stiffness": 35.0,
+    "roll": 0.25
+   },
+   "health": 360,
+   "seats": 4,
+   "spawn_zones": [
+    "projects",
+    "residential"
+   ],
+   "income_tier": "working",
+   "stealable": true,
+   "palette": [
+    "#00a6a6",
+    "#9b1d64",
+    "#f15bb5",
+    "#fee440",
+    "#202020"
+   ],
+   "trim_palette": [
+    "#ffffff"
+   ],
+   "size_m": [
+    2.0,
+    1.95,
+    5.4
+   ],
+   "wheels": 4,
+   "description": "Rounded 90s land yacht on chrome 24s. Candy paint mandatory."
+  },
+  {
+   "id": "thunderhorse",
+   "name": "Thunderhorse",
+   "class": "muscle",
+   "class_name": "Muscle",
+   "scene": "res://scenes/vehicles/muscle/thunderhorse.tscn",
+   "drivable": true,
+   "mass": 1550,
+   "top_speed_kph": 205,
+   "max_speed": 56.94,
+   "engine_force": 3565.0,
+   "brake_force": 93.0,
+   "acceleration": 4.6,
+   "acceleration_rating": 6,
+   "handling_rating": 4,
+   "handling": {
+    "grip": 4.28,
+    "rear_grip": 0.85,
+    "max_steer": 0.48,
+    "steer_speed": 2.18,
+    "stiffness": 65.0,
+    "roll": 0.1
+   },
+   "health": 320,
+   "seats": 2,
+   "spawn_zones": [
+    "residential",
+    "suburbs",
+    "highway"
+   ],
+   "income_tier": "middle",
+   "stealable": true,
+   "palette": [
+    "#1a3c8f",
+    "#b31b1b",
+    "#f2a900",
+    "#101010",
+    "#e5e5e5"
+   ],
+   "trim_palette": [
+    "#f5f5f5",
+    "#101010"
+   ],
+   "size_m": [
+    1.9,
+    1.32,
+    4.7
+   ],
+   "wheels": 4,
+   "description": "Classic fastback with twin stripes. Loud, light and tail-happy."
+  },
+  {
+   "id": "vandal",
+   "name": "Vandal",
+   "class": "muscle",
+   "class_name": "Muscle",
+   "scene": "res://scenes/vehicles/muscle/vandal.tscn",
+   "drivable": true,
+   "mass": 1600,
+   "top_speed_kph": 215,
+   "max_speed": 59.72,
+   "engine_force": 4160.0,
+   "brake_force": 96.0,
+   "acceleration": 5.2,
+   "acceleration_rating": 7,
+   "handling_rating": 3,
+   "handling": {
+    "grip": 3.86,
+    "rear_grip": 0.8,
+    "max_steer": 0.46,
+    "steer_speed": 1.96,
+    "stiffness": 65.0,
+    "roll": 0.1
+   },
+   "health": 330,
+   "seats": 2,
+   "spawn_zones": [
+    "projects",
+    "residential",
+    "industrial"
+   ],
+   "income_tier": "working",
+   "stealable": true,
+   "palette": [
+    "#121212",
+    "#e0601a",
+    "#5a5d61",
+    "#7a0f1b"
+   ],
+   "trim_palette": [
+    "#e0601a",
+    "#121212"
+   ],
+   "size_m": [
+    1.95,
+    1.35,
+    5.0
+   ],
+   "wheels": 4,
+   "description": "Supercharged street brawler. Blower through the hood, grip optional."
+  },
+  {
+   "id": "marauder",
+   "name": "Marauder",
+   "class": "muscle",
+   "class_name": "Muscle",
+   "scene": "res://scenes/vehicles/muscle/marauder.tscn",
+   "drivable": true,
+   "mass": 1800,
+   "top_speed_kph": 230,
+   "max_speed": 63.89,
+   "engine_force": 4500.0,
+   "brake_force": 108.0,
+   "acceleration": 5.0,
+   "acceleration_rating": 6,
+   "handling_rating": 5,
+   "handling": {
+    "grip": 4.7,
+    "rear_grip": 0.85,
+    "max_steer": 0.5,
+    "steer_speed": 2.4,
+    "stiffness": 65.0,
+    "roll": 0.1
+   },
+   "health": 340,
+   "seats": 4,
+   "spawn_zones": [
+    "downtown",
+    "suburbs",
+    "highway"
+   ],
+   "income_tier": "middle",
+   "stealable": true,
+   "palette": [
+    "#2b2b2e",
+    "#8a8d91",
+    "#0b3d91",
+    "#a4161a",
+    "#f4f4f4"
+   ],
+   "trim_palette": [
+    "#1a1a1c"
+   ],
+   "size_m": [
+    1.95,
+    1.45,
+    5.05
+   ],
+   "wheels": 4,
+   "description": "Four-door muscle sedan. Seats the crew and still smokes the tyres."
+  },
+  {
+   "id": "kestrel",
+   "name": "Kestrel GT",
+   "class": "sports",
+   "class_name": "Sports & Exotic",
+   "scene": "res://scenes/vehicles/sports/kestrel.tscn",
+   "drivable": true,
+   "mass": 1350,
+   "top_speed_kph": 250,
+   "max_speed": 69.44,
+   "engine_force": 3915.0,
+   "brake_force": 81.0,
+   "acceleration": 5.8,
+   "acceleration_rating": 8,
+   "handling_rating": 8,
+   "handling": {
+    "grip": 5.96,
+    "max_steer": 0.56,
+    "steer_speed": 3.06,
+    "stiffness": 110.0,
+    "roll": 0.05
+   },
+   "health": 260,
+   "seats": 2,
+   "spawn_zones": [
+    "waterfront",
+    "downtown",
+    "highway"
+   ],
+   "income_tier": "upper",
+   "stealable": true,
+   "palette": [
+    "#c0c0c0",
+    "#d1001f",
+    "#0a0a0a",
+    "#f2b705",
+    "#1c5d99"
+   ],
+   "trim_palette": [
+    "#1a1a1c"
+   ],
+   "size_m": [
+    1.92,
+    1.22,
+    4.5
+   ],
+   "wheels": 4,
+   "description": "Rear-engined GT with a ducktail. Precise and planted."
+  },
+  {
+   "id": "vortex",
+   "name": "Vortex",
+   "class": "sports",
+   "class_name": "Sports & Exotic",
+   "scene": "res://scenes/vehicles/sports/vortex.tscn",
+   "drivable": true,
+   "mass": 1400,
+   "top_speed_kph": 290,
+   "max_speed": 80.56,
+   "engine_force": 2380.0,
+   "brake_force": 84.0,
+   "acceleration": 6.8,
+   "acceleration_rating": 9,
+   "handling_rating": 9,
+   "handling": {
+    "grip": 6.38,
+    "max_steer": 0.58,
+    "steer_speed": 3.28,
+    "stiffness": 110.0,
+    "roll": 0.05
+   },
+   "health": 240,
+   "seats": 2,
+   "spawn_zones": [
+    "waterfront",
+    "highway"
+   ],
+   "income_tier": "rich",
+   "stealable": true,
+   "palette": [
+    "#a6e22e",
+    "#ffb000",
+    "#f25c05",
+    "#f4f4f4",
+    "#7b2cbf"
+   ],
+   "trim_palette": [
+    "#1a1a1c"
+   ],
+   "size_m": [
+    2.02,
+    1.12,
+    4.6
+   ],
+   "wheels": 4,
+   "description": "Mid-engined wedge. The fastest thing in Palm County with plates."
+  },
+  {
+   "id": "cabana",
+   "name": "Cabana",
+   "class": "sports",
+   "class_name": "Sports & Exotic",
+   "scene": "res://scenes/vehicles/sports/cabana.tscn",
+   "drivable": true,
+   "mass": 1200,
+   "top_speed_kph": 225,
+   "max_speed": 62.5,
+   "engine_force": 3000.0,
+   "brake_force": 72.0,
+   "acceleration": 5.0,
+   "acceleration_rating": 6,
+   "handling_rating": 8,
+   "handling": {
+    "grip": 5.96,
+    "max_steer": 0.56,
+    "steer_speed": 3.06,
+    "stiffness": 110.0,
+    "roll": 0.05
+   },
+   "health": 230,
+   "seats": 2,
+   "spawn_zones": [
+    "waterfront",
+    "downtown"
+   ],
+   "income_tier": "upper",
+   "stealable": true,
+   "palette": [
+    "#ff6b6b",
+    "#4ecdc4",
+    "#f7fff7",
+    "#ffe66d",
+    "#1a535c"
+   ],
+   "trim_palette": [
+    "#e8dcc4",
+    "#2a2a2a"
+   ],
+   "size_m": [
+    1.8,
+    0.82,
+    4.2
+   ],
+   "wheels": 4,
+   "description": "Two-seat drop-top roadster for A1A cruising."
+  },
+  {
+   "id": "everglade",
+   "name": "Everglade",
+   "class": "suv",
+   "class_name": "SUV & Pickup",
+   "scene": "res://scenes/vehicles/suv/everglade.tscn",
+   "drivable": true,
+   "mass": 2600,
+   "top_speed_kph": 175,
+   "max_speed": 48.61,
+   "engine_force": 2080.0,
+   "brake_force": 156.0,
+   "acceleration": 3.2,
+   "acceleration_rating": 4,
+   "handling_rating": 4,
+   "handling": {
+    "grip": 4.28,
+    "max_steer": 0.48,
+    "steer_speed": 2.18,
+    "stiffness": 55.0,
+    "roll": 0.2
+   },
+   "health": 420,
+   "seats": 7,
+   "spawn_zones": [
+    "suburbs",
+    "waterfront",
+    "highway"
+   ],
+   "income_tier": "upper",
+   "stealable": true,
+   "palette": [
+    "#0f0f10",
+    "#f2f2f2",
+    "#5a6b5d",
+    "#7b1e1e",
+    "#2c3e50"
+   ],
+   "trim_palette": [
+    "#1a1a1c"
+   ],
+   "size_m": [
+    2.0,
+    1.9,
+    5.1
+   ],
+   "wheels": 4,
+   "description": "Three-row luxury SUV. Big, safe and thirsty."
+  },
+  {
+   "id": "palmetto",
+   "name": "Palmetto",
+   "class": "suv",
+   "class_name": "SUV & Pickup",
+   "scene": "res://scenes/vehicles/suv/palmetto.tscn",
+   "drivable": true,
+   "mass": 1700,
+   "top_speed_kph": 150,
+   "max_speed": 41.67,
+   "engine_force": 1445.0,
+   "brake_force": 102.0,
+   "acceleration": 3.4,
+   "acceleration_rating": 4,
+   "handling_rating": 5,
+   "handling": {
+    "grip": 4.7,
+    "max_steer": 0.5,
+    "steer_speed": 2.4,
+    "stiffness": 55.0,
+    "roll": 0.2
+   },
+   "health": 360,
+   "seats": 4,
+   "spawn_zones": [
+    "glades",
+    "waterfront",
+    "residential"
+   ],
+   "income_tier": "middle",
+   "stealable": true,
+   "palette": [
+    "#d9c27a",
+    "#2e6b45",
+    "#c1121f",
+    "#f8f9fa",
+    "#3a86ff"
+   ],
+   "trim_palette": [
+    "#1a1a1c"
+   ],
+   "size_m": [
+    1.8,
+    1.15,
+    4.0
+   ],
+   "wheels": 4,
+   "description": "Doorless open-top 4x4 with a roll cage. Built for the Glades."
+  },
+  {
+   "id": "workhorse",
+   "name": "Workhorse",
+   "class": "suv",
+   "class_name": "SUV & Pickup",
+   "scene": "res://scenes/vehicles/suv/workhorse.tscn",
+   "drivable": true,
+   "mass": 2200,
+   "top_speed_kph": 165,
+   "max_speed": 45.83,
+   "engine_force": 3300.0,
+   "brake_force": 132.0,
+   "acceleration": 3.0,
+   "acceleration_rating": 3,
+   "handling_rating": 4,
+   "handling": {
+    "grip": 4.28,
+    "max_steer": 0.48,
+    "steer_speed": 2.18,
+    "stiffness": 55.0,
+    "roll": 0.2
+   },
+   "health": 400,
+   "seats": 3,
+   "spawn_zones": [
+    "industrial",
+    "suburbs",
+    "glades",
+    "residential"
+   ],
+   "income_tier": "working",
+   "stealable": true,
+   "palette": [
+    "#f5f5f5",
+    "#1f3a5f",
+    "#8c1c13",
+    "#4a4a4a",
+    "#c6a15b"
+   ],
+   "trim_palette": [
+    "#1a1a1c"
+   ],
+   "size_m": [
+    2.0,
+    1.95,
+    5.6
+   ],
+   "wheels": 4,
+   "description": "Full-size work pickup with a bench seat for three."
+  },
+  {
+   "id": "mudcat",
+   "name": "Mudcat",
+   "class": "suv",
+   "class_name": "SUV & Pickup",
+   "scene": "res://scenes/vehicles/suv/mudcat.tscn",
+   "drivable": true,
+   "mass": 2500,
+   "top_speed_kph": 160,
+   "max_speed": 44.44,
+   "engine_force": 2125.0,
+   "brake_force": 150.0,
+   "acceleration": 3.4,
+   "acceleration_rating": 4,
+   "handling_rating": 3,
+   "handling": {
+    "grip": 3.86,
+    "max_steer": 0.46,
+    "steer_speed": 1.96,
+    "stiffness": 55.0,
+    "roll": 0.2
+   },
+   "health": 450,
+   "seats": 2,
+   "spawn_zones": [
+    "glades",
+    "industrial"
+   ],
+   "income_tier": "working",
+   "stealable": true,
+   "palette": [
+    "#3b5323",
+    "#6b4226",
+    "#ff6f00",
+    "#202020",
+    "#8d99ae"
+   ],
+   "trim_palette": [
+    "#1a1a1c"
+   ],
+   "size_m": [
+    2.05,
+    2.25,
+    5.3
+   ],
+   "wheels": 4,
+   "description": "Lifted swamp truck on mud tyres. Climbs anything, corners like a fridge."
+  },
+  {
+   "id": "tradesman",
+   "name": "Tradesman",
+   "class": "van",
+   "class_name": "Van",
+   "scene": "res://scenes/vehicles/van/tradesman.tscn",
+   "drivable": true,
+   "mass": 2300,
+   "top_speed_kph": 140,
+   "max_speed": 38.89,
+   "engine_force": 2760.0,
+   "brake_force": 138.0,
+   "acceleration": 2.4,
+   "acceleration_rating": 3,
+   "handling_rating": 3,
+   "handling": {
+    "grip": 3.86,
+    "max_steer": 0.46,
+    "steer_speed": 1.96,
+    "stiffness": 55.0,
+    "roll": 0.2
+   },
+   "health": 380,
+   "seats": 2,
+   "spawn_zones": [
+    "industrial",
+    "residential",
+    "suburbs",
+    "downtown"
+   ],
+   "income_tier": "working",
+   "stealable": true,
+   "palette": [
+    "#f4f4f4",
+    "#e8e8e8",
+    "#c9d6df"
+   ],
+   "trim_palette": [
+    "#1d3557"
+   ],
+   "size_m": [
+    2.0,
+    2.35,
+    5.4
+   ],
+   "wheels": 4,
+   "description": "Panel van with a ladder rack. Every contractor in the county drives one."
+  },
+  {
+   "id": "strongbox",
+   "name": "Strongbox",
+   "class": "van",
+   "class_name": "Van",
+   "scene": "res://scenes/vehicles/van/strongbox.tscn",
+   "drivable": true,
+   "mass": 5200,
+   "top_speed_kph": 125,
+   "max_speed": 34.72,
+   "engine_force": 4940.0,
+   "brake_force": 312.0,
+   "acceleration": 1.9,
+   "acceleration_rating": 2,
+   "handling_rating": 2,
+   "handling": {
+    "grip": 3.44,
+    "max_steer": 0.44,
+    "steer_speed": 1.74,
+    "stiffness": 70.0,
+    "roll": 0.15
+   },
+   "health": 900,
+   "seats": 2,
+   "spawn_zones": [
+    "downtown",
+    "waterfront",
+    "depot"
+   ],
+   "income_tier": "service",
+   "stealable": false,
+   "palette": [
+    "#4b5320",
+    "#5c5f63",
+    "#2f3e46"
+   ],
+   "trim_palette": [
+    "#1a1a1a"
+   ],
+   "size_m": [
+    2.3,
+    2.55,
+    6.2
+   ],
+   "wheels": 4,
+   "description": "Armoured cash-in-transit truck. Only obtainable through the heist."
+  },
+  {
+   "id": "cruiser",
+   "name": "Palm County Cruiser",
+   "class": "police",
+   "class_name": "Police",
+   "scene": "res://scenes/vehicles/police/cruiser.tscn",
+   "drivable": true,
+   "mass": 1750,
+   "top_speed_kph": 200,
+   "max_speed": 55.56,
+   "engine_force": 3675.0,
+   "brake_force": 105.0,
+   "acceleration": 4.2,
+   "acceleration_rating": 5,
+   "handling_rating": 6,
+   "handling": {
+    "grip": 5.12,
+    "max_steer": 0.52,
+    "steer_speed": 2.62,
+    "stiffness": 60.0,
+    "roll": 0.1
+   },
+   "health": 400,
+   "seats": 4,
+   "spawn_zones": [
+    "downtown",
+    "residential",
+    "highway",
+    "projects"
+   ],
+   "income_tier": "service",
+   "stealable": true,
+   "palette": [
+    "#101216"
+   ],
+   "trim_palette": [
+    "#f2f2f0"
+   ],
+   "size_m": [
+    1.9,
+    1.48,
+    5.0
+   ],
+   "wheels": 4,
+   "description": "Standard sheriff's patrol car. Stealing one gets noticed."
+  },
+  {
+   "id": "interceptor",
+   "name": "Interceptor",
+   "class": "police",
+   "class_name": "Police",
+   "scene": "res://scenes/vehicles/police/interceptor.tscn",
+   "drivable": true,
+   "mass": 1850,
+   "top_speed_kph": 235,
+   "max_speed": 65.28,
+   "engine_force": 2405.0,
+   "brake_force": 111.0,
+   "acceleration": 5.2,
+   "acceleration_rating": 7,
+   "handling_rating": 6,
+   "handling": {
+    "grip": 5.12,
+    "max_steer": 0.52,
+    "steer_speed": 2.62,
+    "stiffness": 75.0,
+    "roll": 0.12
+   },
+   "health": 420,
+   "seats": 4,
+   "spawn_zones": [
+    "highway",
+    "downtown",
+    "suburbs"
+   ],
+   "income_tier": "service",
+   "stealable": true,
+   "palette": [
+    "#14213d"
+   ],
+   "trim_palette": [
+    "#f2f2f0"
+   ],
+   "size_m": [
+    2.0,
+    1.8,
+    5.1
+   ],
+   "wheels": 4,
+   "description": "Pursuit-spec police SUV. Fast, heavy and hard to shake."
+  },
+  {
+   "id": "bulwark",
+   "name": "Bulwark SWAT",
+   "class": "police",
+   "class_name": "Police",
+   "scene": "res://scenes/vehicles/police/bulwark.tscn",
+   "drivable": true,
+   "mass": 7500,
+   "top_speed_kph": 130,
+   "max_speed": 36.11,
+   "engine_force": 3375.0,
+   "brake_force": 450.0,
+   "acceleration": 1.8,
+   "acceleration_rating": 2,
+   "handling_rating": 2,
+   "handling": {
+    "grip": 3.44,
+    "max_steer": 0.44,
+    "steer_speed": 1.74,
+    "stiffness": 70.0,
+    "roll": 0.15
+   },
+   "health": 1200,
+   "seats": 10,
+   "spawn_zones": [
+    "depot",
+    "projects",
+    "downtown"
+   ],
+   "income_tier": "service",
+   "stealable": false,
+   "palette": [
+    "#1b1f24",
+    "#14213d"
+   ],
+   "trim_palette": [
+    "#c0c0c0"
+   ],
+   "size_m": [
+    2.5,
+    2.85,
+    6.4
+   ],
+   "wheels": 4,
+   "description": "Armoured SWAT truck. Rams through roadblocks; seats a full team."
+  },
+  {
+   "id": "medic",
+   "name": "Medic Unit",
+   "class": "emergency",
+   "class_name": "Emergency",
+   "scene": "res://scenes/vehicles/emergency/medic.tscn",
+   "drivable": true,
+   "mass": 4200,
+   "top_speed_kph": 150,
+   "max_speed": 41.67,
+   "engine_force": 5040.0,
+   "brake_force": 252.0,
+   "acceleration": 2.4,
+   "acceleration_rating": 3,
+   "handling_rating": 3,
+   "handling": {
+    "grip": 3.86,
+    "max_steer": 0.46,
+    "steer_speed": 1.96,
+    "stiffness": 70.0,
+    "roll": 0.15
+   },
+   "health": 500,
+   "seats": 4,
+   "spawn_zones": [
+    "downtown",
+    "residential",
+    "highway"
+   ],
+   "income_tier": "service",
+   "stealable": true,
+   "palette": [
+    "#f4f4f2"
+   ],
+   "trim_palette": [
+    "#c1121f"
+   ],
+   "size_m": [
+    2.15,
+    2.2,
+    6.6
+   ],
+   "wheels": 4,
+   "description": "Box ambulance. Carries a full med kit and a defibrillator."
+  },
+  {
+   "id": "engine9",
+   "name": "Engine 9",
+   "class": "emergency",
+   "class_name": "Emergency",
+   "scene": "res://scenes/vehicles/emergency/engine9.tscn",
+   "drivable": true,
+   "mass": 12000,
+   "top_speed_kph": 120,
+   "max_speed": 33.33,
+   "engine_force": 4800.0,
+   "brake_force": 720.0,
+   "acceleration": 1.6,
+   "acceleration_rating": 1,
+   "handling_rating": 2,
+   "handling": {
+    "grip": 3.44,
+    "max_steer": 0.44,
+    "steer_speed": 1.74,
+    "stiffness": 70.0,
+    "roll": 0.15
+   },
+   "health": 900,
+   "seats": 6,
+   "spawn_zones": [
+    "downtown",
+    "depot"
+   ],
+   "income_tier": "service",
+   "stealable": true,
+   "palette": [
+    "#b80c09"
+   ],
+   "trim_palette": [
+    "#f2f2f2"
+   ],
+   "size_m": [
+    2.5,
+    2.85,
+    9.5
+   ],
+   "wheels": 6,
+   "description": "Ladder engine with tandem rear axle. Six crew, one very long turning circle."
+  },
+  {
+   "id": "sunshine_cab",
+   "name": "Sunshine Cab",
+   "class": "service",
+   "class_name": "Service & Commercial",
+   "scene": "res://scenes/vehicles/service/sunshine_cab.tscn",
+   "drivable": true,
+   "mass": 1450,
+   "top_speed_kph": 170,
+   "max_speed": 47.22,
+   "engine_force": 2465.0,
+   "brake_force": 87.0,
+   "acceleration": 3.4,
+   "acceleration_rating": 4,
+   "handling_rating": 6,
+   "handling": {
+    "grip": 5.12,
+    "max_steer": 0.52,
+    "steer_speed": 2.62,
+    "stiffness": 60.0,
+    "roll": 0.1
+   },
+   "health": 300,
+   "seats": 4,
+   "spawn_zones": [
+    "downtown",
+    "waterfront",
+    "residential",
+    "highway"
+   ],
+   "income_tier": "service",
+   "stealable": true,
+   "palette": [
+    "#f2c200"
+   ],
+   "trim_palette": [
+    "#101010"
+   ],
+   "size_m": [
+    1.85,
+    1.42,
+    4.7
+   ],
+   "wheels": 4,
+   "description": "The city's yellow taxi. Drive a fare, earn a fare."
+  },
+  {
+   "id": "transit",
+   "name": "Metro Transit",
+   "class": "service",
+   "class_name": "Service & Commercial",
+   "scene": "res://scenes/vehicles/service/transit.tscn",
+   "drivable": true,
+   "mass": 11000,
+   "top_speed_kph": 95,
+   "max_speed": 26.39,
+   "engine_force": 7700.0,
+   "brake_force": 660.0,
+   "acceleration": 1.4,
+   "acceleration_rating": 1,
+   "handling_rating": 1,
+   "handling": {
+    "grip": 3.02,
+    "max_steer": 0.42,
+    "steer_speed": 1.52,
+    "stiffness": 70.0,
+    "roll": 0.15
+   },
+   "health": 800,
+   "seats": 24,
+   "spawn_zones": [
+    "downtown",
+    "projects",
+    "residential",
+    "depot"
+   ],
+   "income_tier": "service",
+   "stealable": true,
+   "palette": [
+    "#ececea"
+   ],
+   "trim_palette": [
+    "#1a8f8a"
+   ],
+   "size_m": [
+    2.55,
+    3.1,
+    11.5
+   ],
+   "wheels": 4,
+   "description": "Low-floor city bus. Twenty-four seats, zero acceleration."
+  },
+  {
+   "id": "haulmaster",
+   "name": "Haulmaster",
+   "class": "service",
+   "class_name": "Service & Commercial",
+   "scene": "res://scenes/vehicles/service/haulmaster.tscn",
+   "drivable": true,
+   "mass": 7000,
+   "top_speed_kph": 115,
+   "max_speed": 31.94,
+   "engine_force": 5600.0,
+   "brake_force": 420.0,
+   "acceleration": 1.6,
+   "acceleration_rating": 1,
+   "handling_rating": 2,
+   "handling": {
+    "grip": 3.44,
+    "max_steer": 0.44,
+    "steer_speed": 1.74,
+    "stiffness": 70.0,
+    "roll": 0.15
+   },
+   "health": 600,
+   "seats": 2,
+   "spawn_zones": [
+    "industrial",
+    "highway",
+    "suburbs",
+    "depot"
+   ],
+   "income_tier": "service",
+   "stealable": true,
+   "palette": [
+    "#f4f4f4",
+    "#d9d9d9",
+    "#1d3557"
+   ],
+   "trim_palette": [
+    "#c1121f"
+   ],
+   "size_m": [
+    2.3,
+    2.55,
+    7.8
+   ],
+   "wheels": 4,
+   "description": "Box truck. Slow and wide, with a lot of room in the back."
+  },
+  {
+   "id": "hook_haul",
+   "name": "Hook & Haul",
+   "class": "service",
+   "class_name": "Service & Commercial",
+   "scene": "res://scenes/vehicles/service/hook_haul.tscn",
+   "drivable": true,
+   "mass": 4500,
+   "top_speed_kph": 130,
+   "max_speed": 36.11,
+   "engine_force": 4950.0,
+   "brake_force": 270.0,
+   "acceleration": 2.2,
+   "acceleration_rating": 2,
+   "handling_rating": 3,
+   "handling": {
+    "grip": 3.86,
+    "max_steer": 0.46,
+    "steer_speed": 1.96,
+    "stiffness": 70.0,
+    "roll": 0.15
+   },
+   "health": 550,
+   "seats": 2,
+   "spawn_zones": [
+    "industrial",
+    "highway",
+    "residential"
+   ],
+   "income_tier": "service",
+   "stealable": true,
+   "palette": [
+    "#f4f4f4",
+    "#1d3557",
+    "#e63946"
+   ],
+   "trim_palette": [
+    "#ffb703"
+   ],
+   "size_m": [
+    2.25,
+    2.45,
+    6.6
+   ],
+   "wheels": 4,
+   "description": "Wrecker with a boom and wheel-lift. Hooks up whatever you park badly."
+  },
+  {
+   "id": "compactor",
+   "name": "Compactor",
+   "class": "service",
+   "class_name": "Service & Commercial",
+   "scene": "res://scenes/vehicles/service/compactor.tscn",
+   "drivable": true,
+   "mass": 13000,
+   "top_speed_kph": 95,
+   "max_speed": 26.39,
+   "engine_force": 4225.0,
+   "brake_force": 780.0,
+   "acceleration": 1.3,
+   "acceleration_rating": 1,
+   "handling_rating": 1,
+   "handling": {
+    "grip": 3.02,
+    "max_steer": 0.42,
+    "steer_speed": 1.52,
+    "stiffness": 70.0,
+    "roll": 0.15
+   },
+   "health": 850,
+   "seats": 3,
+   "spawn_zones": [
+    "residential",
+    "projects",
+    "industrial",
+    "depot"
+   ],
+   "income_tier": "service",
+   "stealable": true,
+   "palette": [
+    "#2d6a4f",
+    "#f4f4f4"
+   ],
+   "trim_palette": [
+    "#f4f4f4"
+   ],
+   "size_m": [
+    2.45,
+    2.75,
+    9.0
+   ],
+   "wheels": 6,
+   "description": "Rear-loader garbage truck. The heaviest thing on the lot."
+  },
+  {
+   "id": "razorback",
+   "name": "Razorback",
+   "class": "bike",
+   "class_name": "Motorcycle & Scooter",
+   "scene": "res://scenes/vehicles/bike/razorback.tscn",
+   "drivable": true,
+   "mass": 220,
+   "top_speed_kph": 260,
+   "max_speed": 72.22,
+   "engine_force": 825.0,
+   "brake_force": 13.2,
+   "acceleration": 7.5,
+   "acceleration_rating": 10,
+   "handling_rating": 9,
+   "handling": {
+    "grip": 6.38,
+    "max_steer": 0.58,
+    "steer_speed": 3.28,
+    "stiffness": 80.0,
+    "roll": 0.0
+   },
+   "health": 120,
+   "seats": 2,
+   "spawn_zones": [
+    "downtown",
+    "highway",
+    "waterfront"
+   ],
+   "income_tier": "middle",
+   "stealable": true,
+   "palette": [
+    "#d00000",
+    "#0a0a0a",
+    "#ffba08",
+    "#3a86ff",
+    "#f2f2f2"
+   ],
+   "trim_palette": [
+    "#111111",
+    "#f2f2f2"
+   ],
+   "size_m": [
+    0.7,
+    1.1,
+    2.1
+   ],
+   "wheels": 4,
+   "description": "Superbike. Fastest launch in the game; one bump and you're off."
+  },
+  {
+   "id": "zippy",
+   "name": "Zippy",
+   "class": "bike",
+   "class_name": "Motorcycle & Scooter",
+   "scene": "res://scenes/vehicles/bike/zippy.tscn",
+   "drivable": true,
+   "mass": 110,
+   "top_speed_kph": 75,
+   "max_speed": 20.83,
+   "engine_force": 192.5,
+   "brake_force": 6.6,
+   "acceleration": 3.5,
+   "acceleration_rating": 4,
+   "handling_rating": 8,
+   "handling": {
+    "grip": 5.96,
+    "max_steer": 0.56,
+    "steer_speed": 3.06,
+    "stiffness": 80.0,
+    "roll": 0.0
+   },
+   "health": 90,
+   "seats": 2,
+   "spawn_zones": [
+    "downtown",
+    "waterfront",
+    "residential"
+   ],
+   "income_tier": "poor",
+   "stealable": true,
+   "palette": [
+    "#90e0ef",
+    "#ffafcc",
+    "#ffd166",
+    "#06d6a0",
+    "#ef476f"
+   ],
+   "trim_palette": [
+    "#f2f2f2"
+   ],
+   "size_m": [
+    0.7,
+    1.1,
+    1.8
+   ],
+   "wheels": 4,
+   "description": "49cc scooter with a basket. Slow, cheap and weaves through traffic."
+  },
+  {
+   "id": "gladesrunner",
+   "name": "Gladesrunner",
+   "class": "boat",
+   "class_name": "Boat (display)",
+   "scene": "res://scenes/vehicles/boat/gladesrunner.tscn",
+   "drivable": false,
+   "mass": 900,
+   "top_speed_kph": 70,
+   "max_speed": 19.44,
+   "engine_force": 0.0,
+   "brake_force": 54.0,
+   "acceleration": 0.0,
+   "acceleration_rating": 0,
+   "handling_rating": 5,
+   "handling": {
+    "grip": 4.7,
+    "max_steer": 0.5,
+    "steer_speed": 2.4,
+    "stiffness": 55.0,
+    "roll": 0.2
+   },
+   "health": 250,
+   "seats": 2,
+   "spawn_zones": [
+    "glades"
+   ],
+   "income_tier": "working",
+   "stealable": true,
+   "palette": [
+    "#2a7fb8",
+    "#2d6a4f",
+    "#e9c46a",
+    "#e76f51"
+   ],
+   "trim_palette": [
+    "#e63946",
+    "#f4f4f4"
+   ],
+   "size_m": [
+    2.4,
+    3.0,
+    5.0
+   ],
+   "wheels": 0,
+   "description": "Everglades airboat on its trailer. Display only until the game has water."
+  }
+ ]
+}
