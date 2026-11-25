@@ -32,6 +32,24 @@
 | Hospital | 24 m (~7 storeys) |
 | Sidewalk kerb | 0.1 m |
 
+## Burglable houses (`house_layouts.gd`, `house.gd`, `house_entry.gd`)
+
+Plans are authored on a compact grid and stretched by `HouseLayouts.PLAN_SCALE` (1.4). Furniture keeps
+its real size and stays against whichever wall it was against.
+
+| Thing | Size |
+|---|---|
+| Walls / ceiling | 3.0 m tall, 0.2 m thick |
+| Doors | ≥ 1.2 m clear (`MIN_DOOR_WIDTH`), 2.4 m tall; patio 2.0 m |
+| Archways | 1.6–2.25 m wide, 2.5 m tall |
+| Windows | sill 0.9 m, top 2.3 m, 0.9–2.0 m wide |
+| Footprint | low 14 × 11.2 m, medium 19.6 × 14 m, high 28 × 19.6 m |
+| Rooms | ≥ 4.2 m across (bathrooms) up to 11.2 × 8.4 m (high living room) |
+| Security cameras | 2.8–2.9 m up |
+
+Every door and arch must let the 0.8 m player capsule walk from 1 m out on one side to 1 m out on
+the other (`HouseRobberyTests._test_walkthrough`).
+
 ## Roads (`city_generator.gd`)
 
 | Class | Width |

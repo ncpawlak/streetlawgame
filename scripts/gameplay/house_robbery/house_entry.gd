@@ -9,9 +9,9 @@ extends Node3D
 
 enum Kind { DOOR, WINDOW, ARCH }
 
-const DOOR_HEIGHT := 2.2
+const DOOR_HEIGHT := 2.4
 const SILL := 0.9
-const WINDOW_TOP := 2.1
+const WINDOW_TOP := 2.3
 
 var entry_id := ""
 var kind := Kind.DOOR

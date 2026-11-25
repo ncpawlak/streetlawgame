@@ -28,6 +28,7 @@ var getaway: Vehicle
 ## A clean car parked down the street: leave the hit in it with the mask off to lose the heat fast.
 var swap_car: Vehicle
 var _help: Label
+var _walkway: Node3D
 var _result := ""
 
 @onready var _player: Player = $Player
@@ -199,7 +200,8 @@ func _rebuild() -> void:
 	house.build(tier, owners_home)
 	house.position = Vector3(0.0, 0.0, HOUSE_FRONT_Z - house.size().y * 0.5)
 	house.set_police_call(session.police_call)
-
+	if _walkway != null:
+		_walkway.position.x = house.front_door().global_position.x
 
 func _reset_player() -> void:
 	if _player.current_vehicle != null:
@@ -307,7 +309,7 @@ func _build_street() -> void:
 		_box(Vector3(3.0, 0.03, 0.2), Vector3(x, 0.02, STREET_Z), Color(0.9, 0.85, 0.4), false)
 	for z: float in [STREET_Z - 5.0, STREET_Z + 5.0]:
 		_box(Vector3(360.0, 0.15, 2.0), Vector3(0.0, 0.075, z), Color(0.62, 0.62, 0.6))
-	_box(Vector3(2.0, 0.04, 6.0), Vector3(-2.0, 0.02, 1.0), Color(0.55, 0.55, 0.52), false)
+	_walkway = _box(Vector3(2.0, 0.04, 6.0), Vector3(-2.0, 0.02, 1.0), Color(0.55, 0.55, 0.52), false)
 	var sign_label := Label3D.new()
 	sign_label.text = "Maple Street"
 	sign_label.font_size = 64
@@ -422,6 +424,32 @@ func _take_screenshots(dir: String) -> void:
 	await _wait(20)
 	await _capture(dir, "stakeout.png")
 	stakeout.end()
+
+	# Walking in the front door of the medium house, camera over the shoulder.
+	tier = HouseLayouts.Tier.MEDIUM
+	owners_home = false
+	reset()
+	var door := house.front_door()
+	door.locked = false
+	door._set_open(true)
+	var inward := -(house.global_basis * door.outward).normalized()
+	_player.global_position = door.global_position - inward * 0.3 + Vector3(0.0, 0.1, 0.0)
+	_player.rotation.y = atan2(-inward.x, -inward.z)
+	var walk_pivot: Node3D = _player.get_node("CameraPivot")
+	walk_pivot.rotation.y = _player.rotation.y
+	_player.get_node("CameraPivot/SpringArm").rotation.x = deg_to_rad(-10.0)
+	await _wait(40)
+	await _capture(dir, "doorway.png")
+	# Standing in the high-income living room looking across to the foyer and kitchen.
+	tier = HouseLayouts.Tier.HIGH
+	owners_home = true
+	reset()
+	_player.global_position = house.to_global(Vector3(-11.5, 0.1, 6.5))
+	walk_pivot.rotation.y = atan2(-1.0, 0.45)
+	_player.rotation.y = walk_pivot.rotation.y
+	_player.get_node("CameraPivot/SpringArm").rotation.x = deg_to_rad(-12.0)
+	await _wait(40)
+	await _capture(dir, "interior.png")
 
 	# Looting: low-income house, owners out, broken in through the front door, a few things bagged.
 	tier = HouseLayouts.Tier.LOW
