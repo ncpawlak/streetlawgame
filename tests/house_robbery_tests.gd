@@ -118,6 +118,44 @@ func _test_layouts() -> void:
 		_check(_house.loot_value() > 0, "%s has loot to steal" % _house.tier_name())
 	_check(counts[0] == 0 and counts[1] == 1 and counts[2] >= 5, "cameras scale with income: %s" % str(counts))
 	_check(_house.entry("master_side_window") != null and not _house.entry("master_side_window").alarmed, "the rich house has an unalarmed blind spot")
+	await _test_walkthrough()
+
+
+## Every door and archway, on every tier, lets the player's 0.8 m x 1.8 m capsule walk straight
+## through from a metre out on one side to a metre out on the other, past the open door leaf and any
+## furniture. Doors are at least [constant HouseLayouts.MIN_DOOR_WIDTH] wide and 2.4 m tall.
+func _test_walkthrough() -> void:
+	var capsule := CapsuleShape3D.new()
+	capsule.radius = 0.4
+	capsule.height = 1.8
+	for tier in [HouseLayouts.Tier.LOW, HouseLayouts.Tier.MEDIUM, HouseLayouts.Tier.HIGH]:
+		await _fresh(tier, false)
+		for e: HouseEntry in _house.entries.values():
+			if not e.is_window():
+				e._set_open(true)
+		await _frames(2)
+		var space := _house.get_world_3d().direct_space_state
+		var blocked: Array[String] = []
+		var narrow: Array[String] = []
+		for e: HouseEntry in _house.entries.values():
+			if e.is_window():
+				continue
+			if e.width < HouseLayouts.MIN_DOOR_WIDTH - 0.001:
+				narrow.append(e.entry_id)
+			var through := e.global_basis.z.normalized()
+			var centre := e.global_position + Vector3.UP * 1.0
+			for side: float in [1.0, -1.0]:
+				var query := PhysicsShapeQueryParameters3D.new()
+				query.shape = capsule
+				query.collision_mask = 1
+				query.transform = Transform3D(Basis.IDENTITY, centre + through * side)
+				query.motion = -through * side * 2.0
+				var hit := space.cast_motion(query)
+				if hit[0] < 1.0:
+					blocked.append("%s(%s)" % [e.entry_id, "out" if side > 0 else "in"])
+		_check(narrow.is_empty(), "%s doors are >= %.1f m wide %s" % [_house.tier_name(), HouseLayouts.MIN_DOOR_WIDTH, str(narrow)])
+		_check(blocked.is_empty(), "%s: the player fits through every door and arch %s" % [_house.tier_name(), str(blocked)])
+	_check(HouseEntry.DOOR_HEIGHT >= 2.4 and House.WALL_HEIGHT >= 3.0, "doors clear the 1.8 m model with room to spare")
 
 
 func _test_empty_break_in_starts_timer() -> void:

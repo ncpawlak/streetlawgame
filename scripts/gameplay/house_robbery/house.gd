@@ -15,7 +15,7 @@ signal broken_into(entry: HouseEntry, actor: Node)
 signal alarm_tripped(reason: StringName)
 signal rebuilt
 
-const WALL_HEIGHT := 2.8
+const WALL_HEIGHT := 3.0
 const WALL_THICKNESS := 0.2
 ## How far around the footprint counts as "on the property" for cameras.
 const YARD_MARGIN := 6.0

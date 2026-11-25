@@ -17,13 +17,103 @@ const TIER_NAMES := ["Low income", "Medium income", "High income"]
 const NEIGHBOUR_SECONDS := [60.0, 45.0, 35.0]
 
 
+## The plans below are authored on a compact grid; [method get_layout] stretches them by this much so
+## rooms read right around the 1.8 m character and third-person camera (see docs/design/SCALE.md).
+const PLAN_SCALE := 1.4
+## Clear width for every door (the player capsule is 0.8 m across).
+const MIN_DOOR_WIDTH := 1.2
+## How much windows and archways widen along with the plan.
+const OPENING_SCALE := 1.25
+## Furniture and fixtures closer than this to a wall keep their gap to it instead of drifting out.
+const HUG_DISTANCE := 0.6
+## Camera mounts move up with the taller walls.
+const CAMERA_LIFT := 0.2
+
+
 static func get_layout(tier: int) -> Dictionary:
 	match tier:
 		Tier.MEDIUM:
-			return _medium()
+			return scaled(_medium())
 		Tier.HIGH:
-			return _high()
-	return _low()
+			return scaled(_high())
+	return scaled(_low())
+
+
+## Applies [constant PLAN_SCALE] to an authored plan: rooms, walls and openings stretch; furniture keeps
+## its real-world size and stays against whichever wall it was against; doors widen to at least
+## [constant MIN_DOOR_WIDTH].
+static func scaled(plan: Dictionary, factor := PLAN_SCALE) -> Dictionary:
+	var out := plan.duplicate(true)
+	var bounds := Rect2(-plan["size"] * 0.5, plan["size"])
+	out["size"] = plan["size"] * factor
+	var rooms: Array = []
+	for room: Dictionary in plan["rooms"]:
+		var rect: Rect2 = room["rect"]
+		rooms.append({"name": room["name"], "rect": Rect2(rect.position * factor, rect.size * factor)})
+	out["rooms"] = rooms
+	var walls: Array = []
+	for wall: Dictionary in plan["walls"]:
+		var openings: Array = []
+		for opening: Dictionary in wall["openings"]:
+			var width := float(opening["w"])
+			match String(opening["kind"]):
+				"door":
+					width = maxf(width * OPENING_SCALE, MIN_DOOR_WIDTH)
+				_:
+					width *= OPENING_SCALE
+			openings.append(_open(opening["id"], opening["kind"], float(opening["at"]) * factor, width))
+		walls.append(_wall(wall["a"] * factor, wall["b"] * factor, wall["ext"], openings))
+	out["walls"] = walls
+	var furniture: Array = []
+	for item: Dictionary in plan["furniture"]:
+		var copy: Dictionary = item.duplicate()
+		var half := Vector2(item["size"].x, item["size"].z) * 0.5
+		copy["pos"] = _hug(item["pos"], half, _room_rect(plan, item["pos"], bounds), factor)
+		furniture.append(copy)
+	out["furniture"] = furniture
+	var cameras: Array = []
+	for camera: Dictionary in plan["cameras"]:
+		var pos: Vector3 = camera["pos"]
+		var flat := _hug(Vector2(pos.x, pos.z), Vector2.ZERO, bounds, factor)
+		cameras.append(_cam(Vector3(flat.x, pos.y + CAMERA_LIFT, flat.y), camera["yaw"], camera["pitch"]))
+	out["cameras"] = cameras
+	if plan.has("dog"):
+		var dog: Vector3 = plan["dog"]
+		out["dog"] = Vector3(dog.x * factor, dog.y, dog.z * factor)
+	for key in ["breaker", "dvr"]:
+		if plan.has(key):
+			var spec: Dictionary = (plan[key] as Dictionary).duplicate()
+			var pos: Vector3 = spec["pos"]
+			var flat := Vector2(pos.x, pos.z)
+			var rect := bounds if key == "breaker" else _room_rect(plan, flat, bounds)
+			flat = _hug(flat, Vector2.ZERO, rect, factor)
+			spec["pos"] = Vector3(flat.x, pos.y, flat.y)
+			out[key] = spec
+	return out
+
+
+static func _room_rect(plan: Dictionary, point: Vector2, fallback: Rect2) -> Rect2:
+	for room: Dictionary in plan["rooms"]:
+		var rect: Rect2 = room["rect"]
+		if rect.grow(0.05).has_point(point):
+			return rect
+	return fallback
+
+
+## Scales [param point] by [param factor], except that on each axis a point within
+## [constant HUG_DISTANCE] of an edge of [param rect] keeps its gap to that (scaled) edge.
+static func _hug(point: Vector2, half: Vector2, rect: Rect2, factor: float) -> Vector2:
+	var out := point * factor
+	for axis in 2:
+		var low := rect.position[axis]
+		var high := rect.end[axis]
+		var to_low := point[axis] - half[axis] - low
+		var to_high := high - point[axis] - half[axis]
+		if to_low < HUG_DISTANCE and to_low <= to_high:
+			out[axis] = low * factor + (point[axis] - low)
+		elif to_high < HUG_DISTANCE:
+			out[axis] = high * factor - (high - point[axis])
+	return out
 
 
 static func _wall(a: Vector2, b: Vector2, exterior: bool, openings: Array = []) -> Dictionary:
@@ -65,10 +155,10 @@ static func _low() -> Dictionary:
 			_wall(Vector2(1, -4), Vector2(1, -1), false),
 		],
 		"furniture": [
-			_furn("Couch", Vector2(-3.0, 0.0), Vector3(2.2, 0.8, 0.9)),
-			_furn("Coffee table", Vector2(-3.0, 1.5), Vector3(1.2, 0.45, 0.6)),
+			_furn("Couch", Vector2(-3.6, 0.3), Vector3(2.2, 0.8, 0.9)),
+			_furn("Coffee table", Vector2(-3.6, 1.6), Vector3(1.2, 0.45, 0.6)),
 			_furn("TV stand", Vector2(-4.5, 2.8), Vector3(0.5, 0.6, 1.4)),
-			_furn("Kitchen counter", Vector2(4.5, 1.5), Vector3(0.7, 0.9, 2.5)),
+			_furn("Kitchen counter", Vector2(4.5, 2.6), Vector3(0.7, 0.9, 2.5)),
 			_furn("Kitchen drawers", Vector2(2.2, -0.6), Vector3(1.4, 0.9, 0.6), true),
 			_furn("Bed", Vector2(-2.0, -2.9), Vector3(2.0, 0.5, 1.6)),
 			_furn("Dresser", Vector2(-4.5, -2.5), Vector3(0.6, 1.0, 1.2), true),
@@ -106,9 +196,9 @@ static func _medium() -> Dictionary:
 			_wall(Vector2(1, -5), Vector2(1, 0), false),
 		],
 		"furniture": [
-			_furn("Sofa", Vector2(-4.0, 1.0), Vector3(2.6, 0.8, 0.9)),
-			_furn("Coffee table", Vector2(-4.0, 2.6), Vector3(1.4, 0.45, 0.7)),
-			_furn("TV cabinet", Vector2(-6.5, 3.0), Vector3(0.6, 0.6, 1.8), true),
+			_furn("Sofa", Vector2(-2.6, 1.5), Vector3(2.6, 0.8, 0.9)),
+			_furn("Coffee table", Vector2(-2.6, 2.6), Vector3(1.4, 0.45, 0.7)),
+			_furn("TV cabinet", Vector2(-6.5, 4.0), Vector3(0.6, 0.6, 1.8), true),
 			_furn("Bookshelf", Vector2(-1.0, 4.6), Vector3(1.6, 1.4, 0.4)),
 			_furn("Kitchen island", Vector2(4.0, 2.5), Vector3(2.0, 0.9, 1.0)),
 			_furn("Kitchen counter", Vector2(6.5, 2.5), Vector3(0.6, 0.9, 3.0), true),
@@ -161,8 +251,8 @@ static func _high() -> Dictionary:
 			_wall(Vector2(3, -2), Vector2(10, -2), false),
 		],
 		"furniture": [
-			_furn("Sectional sofa", Vector2(-6.0, 2.2), Vector3(3.4, 0.8, 1.0)),
-			_furn("Glass table", Vector2(-6.0, 4.0), Vector3(1.6, 0.45, 0.9)),
+			_furn("Sectional sofa", Vector2(-4.0, 2.6), Vector3(3.4, 0.8, 1.0)),
+			_furn("Glass table", Vector2(-4.0, 4.0), Vector3(1.6, 0.45, 0.9)),
 			_furn("Media wall", Vector2(-9.6, 4.0), Vector3(0.5, 0.7, 2.6), true),
 			_furn("Sideboard", Vector2(-1.0, 6.6), Vector3(1.4, 0.9, 0.5), true),
 			_furn("Kitchen island", Vector2(6.0, 4.0), Vector3(3.0, 0.9, 1.2)),
