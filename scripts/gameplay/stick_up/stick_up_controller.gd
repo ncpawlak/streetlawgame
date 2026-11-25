@@ -168,9 +168,9 @@ func _update_clerk(delta: float) -> void:
 	uncovered_time += delta
 	if clerk.state == StickUpNpc.State.HELD_UP:
 		clerk.set_state(StickUpNpc.State.WARY)
-	if _was_held_up and has_panic_button and not panic_tripped and uncovered_time >= shop.panic_delay:
+	if _was_held_up and has_panic_button and not panic_tripped and not clerk.is_held() and uncovered_time >= shop.panic_delay:
 		press_panic_button()
-	if clerk.weapons != null and uncovered_time > shop.clerk_nerve and clerk.state != StickUpNpc.State.HOSTILE:
+	if clerk.weapons != null and uncovered_time > shop.clerk_nerve and clerk.state != StickUpNpc.State.HOSTILE and not clerk.is_held():
 		clerk.set_state(StickUpNpc.State.HOSTILE)
 		EventBus.notify.emit("The clerk's going for the shotgun!")
 

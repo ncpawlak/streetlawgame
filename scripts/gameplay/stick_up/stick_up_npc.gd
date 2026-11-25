@@ -58,10 +58,16 @@ var _arms: Node3D
 var _icon: Label3D
 var _phone: MeshInstance3D
 var _fire_pause := 0.0
+var _held_left := 0.0
+
+## Seconds a [method hold] lasts without being renewed.
+const HOLD_TIME := 0.5
 
 
 func _ready() -> void:
 	add_to_group("stick_up_npcs")
+	if role in [Role.CLERK, Role.CUSTOMER]:
+		add_to_group("hostages")
 	collision_layer = 4
 	collision_mask = 15
 	health = max_health
@@ -84,13 +90,32 @@ func is_alive() -> bool:
 	return state != State.DEAD
 
 
+## Crew muscle keeps this NPC covered (hit_common's CrewMember calls this every tick on nodes in the
+## "hostages" group): they put their hands up and stay put, and a call in progress is dropped.
+func hold(by: Node3D) -> void:
+	if state == State.DEAD:
+		return
+	_held_left = HOLD_TIME
+	if threat == null:
+		threat = by
+	if state in [State.CALM, State.WARY, State.FLEEING, State.CALLING]:
+		state = State.CALM if state == State.CALLING else state
+		set_state(State.COWERING)
+
+
+func is_held() -> bool:
+	return _held_left > 0.0
+
+
 func label() -> String:
 	return ["Clerk", "Customer", "Bystander", "Shopkeeper"][role]
 
 
-## Changes behaviour. Ignored once dead.
+## Changes behaviour. Ignored once dead. While held by crew muscle, an NPC won't run, phone or fight.
 func set_state(next: State) -> void:
 	if state == State.DEAD or next == state:
+		return
+	if is_held() and next in [State.FLEEING, State.CALLING, State.HOSTILE]:
 		return
 	state = next
 	if state == State.CALLING:
@@ -102,6 +127,7 @@ func set_state(next: State) -> void:
 func _physics_process(delta: float) -> void:
 	if state == State.DEAD:
 		return
+	_held_left = maxf(0.0, _held_left - delta)
 	if not is_on_floor():
 		velocity.y -= _gravity * delta
 	var move := Vector3.ZERO

@@ -16,6 +16,8 @@ const WALL_HEIGHT := 4.0
 const DOOR_WIDTH := 2.4
 const PLAYER_START := Vector3(-7.0, 0.1, -7.5)
 const CAR_POSITION := Vector3(9.0, 0.6, -3.0)
+## A second, clean car out of sight of the shop: ditch the getaway car here and leave unmasked.
+const SWAP_CAR_POSITION := Vector3(-38.0, 0.6, 20.0)
 const STASH_POSITION := Vector3(42.0, 0.0, 24.0)
 const COP_SPAWNS: Array[Vector3] = [Vector3(-60.0, 0.6, 2.5), Vector3(60.0, 0.6, -2.5)]
 
@@ -27,6 +29,7 @@ var controller: StickUpController
 var session: HitSession
 var stash: StashDropoff
 var getaway_car: Vehicle
+var swap_car: Vehicle
 var clerk: StickUpNpc
 var customers: Array[StickUpNpc] = []
 var witnesses: Array[StickUpNpc] = []
@@ -55,6 +58,12 @@ func _ready() -> void:
 	getaway_car.position = CAR_POSITION
 	getaway_car.rotation.y = PI / 2.0
 	add_child(getaway_car)
+	swap_car = Vehicle.new()
+	swap_car.name = "SwapCar"
+	swap_car.body_color = Color(0.85, 0.85, 0.8)
+	swap_car.position = SWAP_CAR_POSITION
+	add_child(swap_car)
+	_label("CLEAN CAR (swap here, mask off)", SWAP_CAR_POSITION + Vector3(0.0, 2.6, 0.0), Color(0.8, 0.9, 1.0), 56)
 
 	session = HitSession.new()
 	session.name = "HitSession"

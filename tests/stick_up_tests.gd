@@ -182,6 +182,16 @@ func _test_panic_button() -> void:
 	_check(call.is_called() and call.reason == PoliceCall.REASON_SILENT_ALARM, "the silent alarm brings the police early")
 	Input.action_release("aim")
 
+	var customer: StickUpNpc = (driver.get("customers") as Array[StickUpNpc])[0]
+	_check(clerk.is_in_group("hostages") and customer.is_in_group("hostages"), "the clerk and customers can be held by crew muscle")
+	customer.hold(player)
+	customer.set_state(StickUpNpc.State.CALLING)
+	customer.set_state(StickUpNpc.State.FLEEING)
+	_check(customer.is_held() and customer.state == StickUpNpc.State.COWERING, "a held customer stays put and can't phone the cops")
+	await _frames(int(StickUpNpc.HOLD_TIME * 60.0) + 10)
+	customer.set_state(StickUpNpc.State.FLEEING)
+	_check(not customer.is_held() and customer.state == StickUpNpc.State.FLEEING, "once the muscle stops covering them they can run")
+
 
 func _test_shelves() -> void:
 	var driver := await _load_driver(&"corner_store")
