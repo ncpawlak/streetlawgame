@@ -198,9 +198,15 @@ func _build_body() -> void:
 	shape.position.y = 0.9
 	add_child(shape)
 
-	var color := GameState.gang_color(gang_id)
-	visual = CharacterVisual.create(&"gang", randi())
-	visual.set_tint(color.darkened(0.3))
-	visual.set_bandana(color)
-	visual.set_weapon(current_weapon())
+	visual = _make_visual()
 	add_child(visual)
+
+
+## Builds the animated body; subclasses (cops, owners, crew) override for their own look.
+func _make_visual() -> CharacterVisual:
+	var color := GameState.gang_color(gang_id)
+	var body := CharacterVisual.create(&"gang", randi())
+	body.set_tint(color.darkened(0.3))
+	body.set_bandana(color)
+	body.set_weapon(current_weapon())
+	return body

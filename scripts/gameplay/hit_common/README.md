@@ -44,6 +44,7 @@ These are the reusable pieces for every hit: bag the loot, beat the police call,
   - `erase_evidence(heat, source)` takes back one source's heat (the house's DVR wipes `&"camera"`).
 - **Crew:** each member takes `CrewSlot.CUT` (10%). Lookout: countdowns x1.35, reveals hidden (silent-alarm) countdowns, warns on call and arrival. Driver: waits hidden in `crew.getaway`; escape x1.5 while the player is in that car. Muscle: follows the player and calls `hold(self)` every frame on anything in groups `"homeowners"` / `"hostages"` within 7 m.
 - **Timing minigame:** a pin sweeps left to right. Press E / Space / click (`interact`, `jump`, `shoot`) in the green sweet spot `hits_needed` times in a row. A miss or the pin hitting the far wall resets the streak (the spot moves). Esc cancels.
+- **Bodies:** every person is an animated `CharacterVisual`. Cops wear the navy SWAT model, homeowners a civilian model (a gun only if `armed`), crew the crew model in the player's gang tint and bandana. They play shoot, hit and death clips through `GangMember`. Override `GangMember._make_visual()` to give a subclass its own look. The `HitIdentity` balaclava follows the head bone.
 
 ## API
 ```gdscript
