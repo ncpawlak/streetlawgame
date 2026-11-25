@@ -32,10 +32,12 @@ var seen_vehicle: Node3D
 var last_vehicle: Node3D
 ## Personal heat added this hit, per evidence source (so erasing footage can take it back).
 var evidence: Dictionary = {}
-## Where the greybox mask sits on the actor (actor-local; the player's face is at about this spot).
-var mask_offset := Vector3(0.0, 1.55, -0.3)
+## Where the mask sits on actors without a [CharacterVisual] (actor-local). Animated actors wear it on
+## the head bone instead, like the gang bandana.
+var mask_offset := Vector3(0.0, 1.55, -0.15)
 
 var _mask_mesh: MeshInstance3D
+var _mask_visual: CharacterVisual
 
 
 static func of(actor: Node, create := true) -> HitIdentity:
@@ -168,17 +170,33 @@ func _update_mask_visual() -> void:
 	if actor == null:
 		return
 	if _mask_mesh == null:
+		_mask_visual = actor.get("visual") as CharacterVisual if "visual" in actor else null
 		var mesh := BoxMesh.new()
-		mesh.size = Vector3(0.62, 0.42, 0.14)
+		# A balaclava wrapping the head (slightly bigger than the bandana so it covers it).
+		mesh.size = Vector3(0.26, 0.27, 0.29) if _mask_visual != null else Vector3(0.62, 0.42, 0.14)
 		var material := StandardMaterial3D.new()
 		material.albedo_color = Color(0.05, 0.05, 0.06)
 		mesh.material = material
 		_mask_mesh = MeshInstance3D.new()
 		_mask_mesh.name = "Mask"
 		_mask_mesh.mesh = mesh
-		_mask_mesh.position = mask_offset
+		if _mask_visual != null:
+			_mask_mesh.top_level = true
+			_mask_visual.skeleton.skeleton_updated.connect(_place_mask)
+		else:
+			_mask_mesh.position = mask_offset
 		actor.add_child.call_deferred(_mask_mesh)
 	_mask_mesh.visible = masked
+
+
+## Keeps the balaclava on the animated head (runs once the pose is final, like the bandana).
+func _place_mask() -> void:
+	if _mask_mesh == null or not _mask_mesh.visible or not is_instance_valid(_mask_visual) or not _mask_visual.is_inside_tree():
+		return
+	var skeleton := _mask_visual.skeleton
+	var head := skeleton.global_transform * skeleton.get_bone_global_pose(skeleton.find_bone("Head"))
+	var basis := head.basis.orthonormalized()
+	_mask_mesh.global_transform = Transform3D(basis, head.origin + basis.y * 0.12 * CharacterVisual._shared_scale())
 
 
 func _current_vehicle() -> Node3D:

@@ -33,13 +33,6 @@ func _ready() -> void:
 	super._ready()
 	add_to_group("van_guards")
 	add_to_group("hostages")
-	# Armoured-transport uniform on the SWAT model (helmet + vest) instead of the gang look.
-	remove_child(visual)
-	visual.free()
-	visual = CharacterVisual.create(&"cop", randi())
-	visual.set_tint(UNIFORM)
-	visual.set_weapon(current_weapon())
-	add_child(visual)
 
 
 func _physics_process(delta: float) -> void:
@@ -65,3 +58,11 @@ func hold(by: Node3D) -> void:
 
 func is_held() -> bool:
 	return _held_left > 0.0 and held_by != null and is_instance_valid(held_by)
+
+
+## Armoured-transport uniform on the SWAT model (helmet + vest) instead of the gang look.
+func _make_visual() -> CharacterVisual:
+	var body := CharacterVisual.create(&"cop", randi())
+	body.set_tint(UNIFORM)
+	body.set_weapon(current_weapon())
+	return body

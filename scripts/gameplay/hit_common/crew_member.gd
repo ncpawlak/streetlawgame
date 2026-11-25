@@ -26,14 +26,6 @@ func _ready() -> void:
 	add_to_group("crew")
 	collision_layer = 0
 	collision_mask = 1
-	# Crew model in the player's colours instead of the gang look GangMember builds.
-	remove_child(visual)
-	visual.free()
-	visual = CharacterVisual.create(&"crew", randi())
-	visual.set_tint(GameState.gang_color(gang_id).darkened(0.3))
-	visual.set_bandana(GameState.gang_color(gang_id))
-	visual.set_weapon(current_weapon())
-	add_child(visual)
 	_tag = Label3D.new()
 	_tag.text = CrewSlot.ROLE_NAMES.get(crew_role, "Crew").to_upper()
 	_tag.billboard = BaseMaterial3D.BILLBOARD_ENABLED
@@ -49,6 +41,16 @@ func _ready() -> void:
 
 func take_damage(_amount: float, _source: Node = null) -> void:
 	pass
+
+
+## Crew model in the player's gang colours and bandana.
+func _make_visual() -> CharacterVisual:
+	var color := GameState.gang_color(gang_id)
+	var body := CharacterVisual.create(&"crew", randi())
+	body.set_tint(color.darkened(0.3))
+	body.set_bandana(color)
+	body.set_weapon(current_weapon())
+	return body
 
 
 func is_in_car() -> bool:
@@ -112,7 +114,6 @@ func _physics_process(delta: float) -> void:
 	if move != Vector3.ZERO:
 		_face(move)
 	move_and_slide()
-	visual.set_aiming(false)
 	visual.update_motion(velocity, delta)
 
 
@@ -152,6 +153,7 @@ func _set_in_car(value: bool) -> void:
 	if _in_car == value:
 		return
 	_in_car = value
-	visual.visible = not value
+	if visual != null:
+		visual.visible = not value
 	if _tag != null:
 		_tag.text = CrewSlot.ROLE_NAMES.get(crew_role, "Crew").to_upper() + (" (in car, engine running)" if value and crew_role == CrewSlot.Role.DRIVER else "")
