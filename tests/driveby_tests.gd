@@ -27,6 +27,7 @@ func run(main: Node) -> void:
 	await _test_crew_gunner()
 	await _test_gunner_skill()
 	await _test_retaliation_and_chase()
+	await _test_riders()
 	await _test_backup_and_toggles()
 	await _test_escape()
 	await _test_fail()
@@ -171,6 +172,27 @@ func _test_retaliation_and_chase() -> void:
 		await _frames(1)
 	_check(chaser != null and closest < start - 30.0, "chase car drives the streets after the player (%.0f m -> %.0f m)" % [start, closest])
 	_check(player_car.health < player_car.max_health, "chase car occupants shoot the player's car (%.0f hp)" % player_car.health)
+	await _free(driver)
+
+
+func _test_riders() -> void:
+	var driver := await _boot(3, true, true)
+	var gunner_rider := driver.gunner.rider
+	_check(gunner_rider != null and gunner_rider.visual is CharacterVisual and gunner_rider.get_parent() == driver.gunner and not gunner_rider.visual.is_dead(), "the crew gunner is an animated character leaning out the window")
+	var mission := driver.mission
+	mission.pile_in_delay = 0.2
+	driver.crew[0].take_damage(5.0, driver.player)
+	await _frames(30)
+	var chasing := mission.chasing_cars()
+	var matched := not chasing.is_empty()
+	for car in chasing:
+		matched = matched and car._riders.size() == car.occupants.size() and car._riders.all(func(r: CarRider) -> bool: return r.visual is CharacterVisual and not r.visual.is_dead())
+	_check(matched, "every chase car occupant is an animated character")
+	if not chasing.is_empty():
+		var car := chasing[0]
+		car.take_damage(car.max_health * 10.0)
+		await _frames(2)
+		_check(car.is_wrecked() and car._riders.all(func(r: CarRider) -> bool: return r.visual.is_dead()), "wrecking a chase car plays the riders' death")
 	await _free(driver)
 
 

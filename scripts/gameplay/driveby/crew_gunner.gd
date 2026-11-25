@@ -23,6 +23,8 @@ const XP_PER_KILL := 2
 var crew: CrewMemberData
 var weapons: WeaponInventory
 var kills := 0
+## Animated body leaning out of the passenger window.
+var rider: CarRider
 
 ## Stats derived from the skill level (refreshed every frame, so skill changes apply live).
 var gun_range := 30.0
@@ -39,6 +41,7 @@ var _burst_left := 0
 var _pause := 0.0
 var _target: Node3D
 var _reaction_left := 0.0
+var _last_health := 0.0
 
 
 func _ready() -> void:
@@ -52,6 +55,10 @@ func _ready() -> void:
 	add_child(weapons)
 	apply_skill()
 	_build_body()
+	if _car != null:
+		_last_health = _car.health
+		_car.health_changed.connect(_on_car_health_changed)
+		_car.exploded.connect(rider.die)
 
 
 func skill_level() -> int:
@@ -75,6 +82,7 @@ func apply_skill() -> void:
 func _physics_process(delta: float) -> void:
 	apply_skill()
 	if _car == null or _car.driver == null or _car.is_wrecked():
+		rider.idle()
 		return
 	if _pause > 0.0:
 		_pause -= delta
@@ -84,7 +92,9 @@ func _physics_process(delta: float) -> void:
 		_target = target
 		_reaction_left = reaction_time
 	if target == null:
+		rider.idle()
 		return
+	rider.aim_at(target.global_position + Vector3.UP)
 	if _reaction_left > 0.0:
 		_reaction_left -= delta
 		return
@@ -94,6 +104,7 @@ func _physics_process(delta: float) -> void:
 	var member := target as GangMember
 	if not weapons.try_fire(_car, muzzle, aim - muzzle, exclude):
 		return
+	rider.fire()
 	if member != null and not member.is_alive():
 		_on_kill()
 	_burst_left -= 1
@@ -130,14 +141,14 @@ func find_target() -> Node3D:
 	return best
 
 
+func _on_car_health_changed(current: float, _maximum: float) -> void:
+	if current < _last_health:
+		rider.hit()
+	_last_health = current
+
+
+## The gunner rides on the passenger side (-X, where the muzzle is), in the front seat.
 func _build_body() -> void:
-	var mesh := CapsuleMesh.new()
-	mesh.radius = 0.25
-	mesh.height = 0.7
-	var material := StandardMaterial3D.new()
-	material.albedo_color = GameState.gang_color(GameState.PLAYER_GANG)
-	mesh.material = material
-	var head := MeshInstance3D.new()
-	head.mesh = mesh
-	head.position = Vector3(-0.45, 2.05, 0.2)
-	add_child(head)
+	var seed_value := hash(crew.id) & 0xFFFF if crew != null else 7
+	rider = CarRider.create(&"crew", seed_value, GameState.gang_color(GameState.PLAYER_GANG), -1.0, 0.2, weapon_id, 0.2)
+	add_child(rider)

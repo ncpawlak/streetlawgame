@@ -30,13 +30,19 @@ var _waypoint_age := 0.0
 var _stuck_time := 0.0
 var _reverse_left := 0.0
 var _bursts: Array[Dictionary] = []
-var _occupant_meshes: Array[MeshInstance3D] = []
+var _riders: Array[CarRider] = []
+var _last_health := 0.0
 
 
 func _ready() -> void:
 	if body_color == Color(0.2, 0.2, 0.25):
 		body_color = GameState.gang_color(gang_id).darkened(0.55)
 	super()
+	_last_health = health
+	health_changed.connect(_on_health_changed)
+	exploded.connect(func() -> void:
+		for rider in _riders:
+			rider.die())
 
 
 ## Starts the chase with [param count] armed occupants.
@@ -141,10 +147,12 @@ func _pick_waypoint(goal: Vector3, delta: float) -> Vector3:
 func _shoot(chase: Node3D, delta: float) -> void:
 	var aim := chase.global_position + Vector3.UP
 	var muzzle := global_position + Vector3.UP * 1.7
-	if muzzle.distance_to(aim) > gun_range:
+	if muzzle.distance_to(aim) > gun_range or not DriveByMission.line_of_sight(self, muzzle, aim):
+		for rider in _riders:
+			rider.idle()
 		return
-	if not DriveByMission.line_of_sight(self, muzzle, aim):
-		return
+	for rider in _riders:
+		rider.aim_at(aim)
 	var exclude: Array[RID] = [get_rid()]
 	for i in occupants.size():
 		var burst := _bursts[i]
@@ -154,6 +162,7 @@ func _shoot(chase: Node3D, delta: float) -> void:
 		var side := global_basis.x * (0.8 if i % 2 == 0 else -0.8)
 		if not occupants[i].try_fire(self, muzzle + side, aim - (muzzle + side), exclude):
 			continue
+		_riders[i].fire()
 		burst.left -= 1
 		if burst.left <= 0:
 			burst.left = randi_range(3, 6)
@@ -173,18 +182,18 @@ func _add_occupant() -> void:
 	occupants.append(weapons)
 	_bursts.append({"left": randi_range(3, 6), "pause": randf_range(0.2, 1.0)})
 
-	var head_mesh := CapsuleMesh.new()
-	head_mesh.radius = 0.25
-	head_mesh.height = 0.7
-	var material := StandardMaterial3D.new()
-	material.albedo_color = GameState.gang_color(gang_id)
-	head_mesh.material = material
-	var head := MeshInstance3D.new()
-	head.mesh = head_mesh
 	var seat := occupants.size() - 1
-	head.position = Vector3(0.45 if seat % 2 == 0 else -0.45, 2.05, 0.2 - floorf(seat / 2.0))
-	add_child(head)
-	_occupant_meshes.append(head)
+	var rider := CarRider.create(&"gang", randi(), GameState.gang_color(gang_id), 1.0 if seat % 2 == 0 else -1.0, 0.2 - floorf(seat / 2.0), weapons.starting_weapon_ids[0])
+	rider.name = "Rider%d" % seat
+	add_child(rider)
+	_riders.append(rider)
+
+
+func _on_health_changed(current: float, _maximum: float) -> void:
+	if current < _last_health:
+		for rider in _riders:
+			rider.hit()
+	_last_health = current
 
 
 ## Running over its own gang doesn't hurt them.
