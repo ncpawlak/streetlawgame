@@ -179,13 +179,18 @@ func _die(killer: Node) -> void:
 	collision_layer = 0
 	collision_mask = 0
 	set_physics_process(false)
-	visual.die()
+	_play_death()
 	if killer == GameState.player or (killer is Vehicle and (killer as Vehicle).driver != null):
 		GameState.add_cash(randi_range(20, 80))
 		GameState.add_respect(10)
 	_drop_weapon()
 	EventBus.gang_member_killed.emit(self, killer)
 	get_tree().create_timer(corpse_lifetime).timeout.connect(queue_free)
+
+
+## Death animation; subclasses can stage it (e.g. a hit reaction first).
+func _play_death() -> void:
+	visual.die()
 
 
 func _build_body() -> void:

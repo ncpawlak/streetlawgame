@@ -20,7 +20,7 @@ func run() -> void:
 	_test_line_of_sight(driver)
 	await _test_claim_flow(driver)
 	_test_loud_entry(driver)
-	_test_quiet_entry(driver)
+	await _test_quiet_entry(driver)
 	await _test_alarm_timer(driver)
 	await _test_keep(driver)
 	await _test_destroy(driver)
@@ -28,6 +28,7 @@ func run() -> void:
 	driver = await _make_driver(0)
 	await _test_stairs_navigation(driver)
 	await _free(driver)
+	_test_scale()
 
 
 func _make_driver(enemies: int) -> TrapTakeoverDriver:
@@ -135,6 +136,9 @@ func _test_quiet_entry(driver: TrapTakeoverDriver) -> void:
 	var target: IndoorGangMember = driver.enemies[0]
 	var others := driver.alive_enemies().filter(func(member: IndoorGangMember) -> bool: return member != target)
 	_check(driver.silent_takedown(target) and not target.is_alive() and driver.takedowns == 1, "a silent takedown kills an unaware rival")
+	_check(target.visual is CharacterVisual and not target.visual.is_dead(), "a takedown plays the hit reaction before the body drops")
+	await _runner._physics_frames(int(IndoorGangMember.TAKEDOWN_COLLAPSE_DELAY * 60.0) + 10)
+	_check(target.visual.is_dead(), "the taken-down rival then plays the death animation")
 	var still_unaware := others.all(func(member: IndoorGangMember) -> bool: return member.is_unaware())
 	_check(not driver.alarm_raised and still_unaware, "a silent takedown doesn't alert anyone")
 	var aware: IndoorGangMember = others[0]
@@ -247,14 +251,23 @@ func _test_stairs_navigation(driver: TrapTakeoverDriver) -> void:
 	await _runner._physics_frames(5)
 	rusher.alert(player.global_position)
 	var highest := rusher.global_position.y
+	var animated_speed := 0.0
 	for i in 60:
 		await _runner._physics_frames(15)
 		player.global_position = to + Vector3(0.0, 0.1, 0.0)
 		highest = maxf(highest, rusher.global_position.y)
+		animated_speed = maxf(animated_speed, rusher.visual._local_velocity.length())
 		if rusher.global_position.y > 2.5:
 			break
 	_check(rusher.global_position.y > 2.5, "a rival climbs from the basement to the upper floor to reach the player (got to y=%.1f)" % highest)
+	_check(animated_speed > 1.0, "the rival's character model plays its locomotion while it navigates (%.1f m/s)" % animated_speed)
 	rusher.queue_free()
+
+
+func _test_scale() -> void:
+	var head_room := TrapHouseBuilder.DOOR_HEIGHT - CharacterVisual.HEIGHT
+	_check(head_room >= 0.4 and TrapHouseBuilder.DOOR_HEIGHT < TrapHouseBuilder.WALL_HEIGHT, "doorways clear the 1.8 m model by >= 0.4 m and fit under the ceiling (SCALE.md)")
+	_check(TrapHouseBuilder.FLOOR_HEIGHT >= 3.0 and TrapHouseBuilder.FLOOR_HEIGHT <= 3.5, "storeys are 3.0-3.5 m (SCALE.md)")
 
 
 func _check(condition: bool, description: String) -> void:

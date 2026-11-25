@@ -16,6 +16,9 @@ enum State { IDLE, COMBAT, SEARCH }
 
 signal alerted(member: IndoorGangMember)
 
+## Seconds between the takedown hit reaction and the collapse.
+const TAKEDOWN_COLLAPSE_DELAY := 0.35
+
 @export var post: Post = Post.GUARD
 ## Facing (radians, like rotation.y) while idle at the post.
 @export var post_yaw := 0.0
@@ -43,6 +46,7 @@ var _has_sight := false
 var _react_left := 0.0
 var _search_left := 0.0
 var _repath_timer := 0.0
+var _taken_down := false
 
 
 func _ready() -> void:
@@ -83,6 +87,24 @@ func alert(at: Vector3) -> void:
 		_react_left = reaction_time
 		_alert_left = alert_duration
 		alerted.emit(self)
+
+
+## Silent kill: he's dead straight away, but the body plays a hit reaction before it drops.
+func take_down(killer: Node = null) -> void:
+	if _dead:
+		return
+	_taken_down = true
+	_die(killer)
+
+
+func _play_death() -> void:
+	if not _taken_down or not is_inside_tree():
+		super._play_death()
+		return
+	visual.hit()
+	get_tree().create_timer(TAKEDOWN_COLLAPSE_DELAY, false).timeout.connect(func() -> void:
+		if is_instance_valid(visual):
+			visual.die())
 
 
 ## Drops back to idle and walks home (e.g. after the player died).
@@ -158,6 +180,9 @@ func _physics_process(delta: float) -> void:
 	velocity.x = direction.x * speed
 	velocity.z = direction.z * speed
 	move_and_slide()
+	if visual != null:
+		visual.set_aiming(state == State.COMBAT and _has_sight)
+		visual.update_motion(velocity, delta)
 
 
 func _combat(target: Node3D, delta: float) -> Vector3:

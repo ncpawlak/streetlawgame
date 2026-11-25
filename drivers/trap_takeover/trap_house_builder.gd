@@ -14,7 +14,8 @@ const SLAB := 0.2
 const WALL := 0.2
 const WALL_HEIGHT := FLOOR_HEIGHT - SLAB
 const DOOR_WIDTH := 1.4
-const DOOR_HEIGHT := 2.2
+## SCALE.md: interior doors are 2.4 m (clears the 1.8 m character by 0.6 m); ceilings are 2.8 m.
+const DOOR_HEIGHT := 2.4
 const WINDOW_BOTTOM := 1.0
 const WINDOW_TOP := 2.1
 

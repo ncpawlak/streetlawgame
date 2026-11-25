@@ -326,7 +326,7 @@ func climb_window(inward := true) -> void:
 func silent_takedown(member: IndoorGangMember) -> bool:
 	if not is_instance_valid(member) or not member.is_unaware():
 		return false
-	member.take_damage(member.health + 1000.0, null)
+	member.take_down(null)
 	takedowns += 1
 	if spotter == member:
 		spotter = null

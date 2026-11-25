@@ -6,7 +6,7 @@ extends Node3D
 ## Added after the navmesh bake so pathing treats the doorway as open.
 
 @export var width := 1.4
-@export var height := 2.2
+@export var height := 2.4
 ## +1 / -1: which side of the wall the door swings to.
 @export var swing := 1.0
 ## Hinge yaw while closed (PI/2 for doors in walls that run along z).
