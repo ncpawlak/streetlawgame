@@ -62,6 +62,9 @@ func _ready() -> void:
 		var target := o + b * Vector3(0, 3.0, -lot.y * 0.45)
 		var dist := clampf(lot.x * 0.55, 11.0, 22.0)
 		var height := 4.5 + dist * 0.15 + maxf(0.0, lot.x - 40.0) * 0.4
+		if dist > 13.0:
+			# Past the 13 m street the camera sits over the opposite lot; rise above its roofs.
+			height = maxf(height, 15.0)
 		cam.look_at_from_position(o + b * Vector3(minf(lot.x * 0.35, 12.0), height, dist), target)
 		await _shot(out_dir.path_join("%s_%s.png" % ["house" if house.get("bedrooms") != null else "business", id]))
 		var entrance := house.get_node_or_null("Entrance") as Node3D

@@ -289,13 +289,13 @@
    "category": "specialized_location",
    "count": 1,
    "footprint_m": [
-    16.0,
-    12.0
+    21.0,
+    32.0
    ],
    "label": "Gas-N-Go: kiosk + canopy + pumps",
    "lot_m": [
-    40.0,
-    34.0
+    24.0,
+    36.0
    ],
    "storeys": 1,
    "scenes": [
@@ -1817,29 +1817,29 @@
    "category": "specialized_location",
    "count": 1,
    "footprint_m": [
-    14.0,
-    11.2
-   ],
-   "label": "The Spot: fortified shotgun trap house",
-   "lot_m": [
     18.0,
-    30.0
+    14.0
    ],
-   "storeys": 1,
+   "label": "The Spot: fortified 2-storey trap house",
+   "lot_m": [
+    44.0,
+    35.0
+   ],
+   "storeys": 2,
    "scenes": [
     {
      "id": "L-01",
      "name": "The Spot",
      "scene": "res://scenes/buildings/locations/building_l_01.tscn",
      "baked": "res://scenes/baked/buildings/locations/building_l_01.scn",
-     "floors": 1,
+     "floors": 2,
      "lot_m": [
-      18,
-      30
+      44,
+      35
      ],
      "footprint_m": [
-      14,
-      11.2
+      18,
+      14
      ],
      "enterable": false,
      "shop_type": ""

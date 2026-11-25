@@ -283,22 +283,28 @@ SAFEHOUSES = [
 
 # --- locations: hit / trap / stick-up targets -------------------------------------------
 LOCATIONS = [
-    # Trap takeover T1 driver (trap_house_builder.gd): flat roof, fortified, porch, fenced lot.
-    dict(id="L-01", name="The Spot", archetype="trap_house_the_spot", folder="locations", floors=1, beds=3, baths=1,
-         lot=(18, 30), lot_type="Viper trap house: flat roof, boarded + barred, fenced lot (trap T1)",
+    # Trap takeover T1 driver (trap_house_builder.gd): 18 x 14 m, 2 storeys + basement, flat roof,
+    # 44 x 35 fenced lot. Driver coords are footprint-centred with +z to the street: kit z = driver z - 15.
+    dict(id="L-01", name="The Spot", archetype="trap_house_the_spot", folder="locations", floors=2, beds=4, baths=2,
+         lot=(44, 35), lot_type="Viper trap house: 2 storeys + basement, flat roof, boarded + barred, "
+                                "fenced lot (trap T1, matches trap_house_builder)",
          wall="stucco_grey", roof="charcoal", door="door_black", trim="trim_dark", muntins=False,
-         wings=[W(-7, 14, 9, 11.2, roof={"t": "flat", "parapet": 0.6},
-                  win={"front": [-4.8, 3.6], "back": [-4, 0, 4], "left": [-12, -17], "right": [-12, -17]})],
-         doors=[dict(at=-0.5, stoop=False, mat="door_black")],
-         porches=[dict(rect=(-3.5, 2.5, -9, -6.6), roof="shed", hi=3.2, lo=2.9, rail=False, deck="concrete")],
-         blocks=boards("front", -9, [-4.8]) + bars("front", -9, [3.6]) + boards("left", -7, [-12, -17])
-                + bars("right", 7, [-12, -17]) + boards("back", -20.2, [-4, 4])
-                + [(-6.8, -6.2, 3.4, 3.8, -9.25, -9.0, "metal_dark", "Floodlight"),
-                   (6.2, 6.8, 3.4, 3.8, -9.25, -9.0, "metal_dark", "Floodlight"),
-                   (-4.6, -3.8, 0.4, 2.6, -6.8, -6.4, "plywood", "PorchScreen")],
-         paving=[(-8.6, -4.6, -6, 0, "gravel"), (-1.1, 0.1, -6.6, 0, "concrete")],
-         fences=lot_fence("chain", 9, 30, gaps=[(-1.6, 0.6)]),
-         trees=[(6, -25, 1.0)], ac=(7.6, -17)),
+         wings=[W(-9, 18, 8, 14, roof={"t": "flat", "parapet": 0.6},
+                  win={"front": [-5.5, 0.5, 6.0], "back": [-5.5, 0.5, 6.0],
+                       "left": [-11.5, -18.5], "right": [-11.5, -18.5]})],
+         doors=[dict(at=0.5, w=1.6, stoop=False, mat="door_black"),
+                dict(at=-11.5, side="right", stoop=False, mat="door_black"),
+                dict(at=0.5, side="back", stoop=False, mat="door_black")],
+         porches=[dict(rect=(-3.5, 4.5, -8, -6.4), roof="shed", hi=3.2, lo=2.9, rail=False, deck="concrete")],
+         blocks=boards("front", -8, [-5.5]) + bars("front", -8, [6.0]) + boards("front", -8, [-5.5, 0.5, 6.0], floor=1)
+                + boards("left", -9, [-11.5, -18.5]) + bars("left", -9, [-11.5, -18.5], floor=1)
+                + bars("right", 9, [-18.5]) + boards("back", -22, [-5.5, 6.0]) + boards("back", -22, [0.5], floor=1)
+                + [(-8.2, -7.6, 5.2, 5.6, -7.75, -7.5, "metal_dark", "Floodlight"),
+                   (7.6, 8.2, 5.2, 5.6, -7.75, -7.5, "metal_dark", "Floodlight"),
+                   (-3.4, -2.6, 0.4, 2.6, -6.6, -6.2, "plywood", "PorchScreen")],
+         paving=[(10.5, 13.5, -8, 0, "gravel"), (0.1, 1.3, -6.4, 0, "concrete")],
+         fences=lot_fence("chain", 22, 35, gaps=[(-0.5, 2.5), (10.5, 13.5)]),
+         trees=[(-16, -30, 1.1), (17, -29, 1.0)], ac=(-9.6, -15)),
 
     dict(id="L-02", name="Viper Stash House", archetype="stash_house_viper", folder="locations", floors=2,
          beds=4, baths=2, lot=(26, 30), lot_type="Viper stash: privacy-fenced 2-storey, barred ground floor (raid)",

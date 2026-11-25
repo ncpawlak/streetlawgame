@@ -254,7 +254,7 @@ class HouseBuilder:
                         self._edge_box(house, name + "Rail", side, value, s0, s1, 1.28, 1.36, 0.08, trim, -0.1)
                         self._edge_box(house, name + "Rail", side, value, s0, s1, 0.5, 0.56, 0.06, trim, -0.1)
                         self._edge_box(house, name + "Balusters", side, value, s0, s1, 0.56, 1.28, 0.03, "fence_picket", -0.1)
-            for side, value, at in cols:
+            for side, value, at in sorted(cols):
                 if side in ("front", "back"):
                     zc = value - SIDES[side][0][1] * 0.15
                     box(self.sc, house, name + "Post", at - 0.1, at + 0.1, FLOOR_Y, lo, zc - 0.1, zc + 0.1, trim)

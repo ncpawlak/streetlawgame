@@ -268,17 +268,17 @@ size = Vector3(0.03, 0.72, 2.3)
 material = ExtResource("14_r")
 
 [node name="Porch1Post" type="CSGBox3D" parent="House"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, -3.15)
-size = Vector3(0.2, 2.6, 0.2)
-material = ExtResource("6_r")
-
-[node name="Porch1Post2" type="CSGBox3D" parent="House"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.5, 1.7, -3.15)
 size = Vector3(0.2, 2.6, 0.2)
 material = ExtResource("6_r")
 
-[node name="Porch1Post3" type="CSGBox3D" parent="House"]
+[node name="Porch1Post2" type="CSGBox3D" parent="House"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.75, 1.7, -3.15)
+size = Vector3(0.2, 2.6, 0.2)
+material = ExtResource("6_r")
+
+[node name="Porch1Post3" type="CSGBox3D" parent="House"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, -3.15)
 size = Vector3(0.2, 2.6, 0.2)
 material = ExtResource("6_r")
 
