@@ -45,7 +45,7 @@ flowchart LR
 | Enter / steal / exit vehicle | E |
 | Handbrake (in vehicle) | Space |
 | Drive-by (in vehicle) | LMB with the equipped gun (mouse looks around) |
-| Map | Tab / M |
+| Pause map | M (pauses; drag/WASD pan, wheel/Q E zoom, click a marker for info, right-click for a waypoint with a minimap GPS line, Space recentres; M / Esc closes) |
 | Release mouse | Esc |
 
 - **Health** regenerates slowly once you've avoided damage for a few seconds. Taking hits flashes the screen red. Death means "Wasted": a hospital bill (a percentage of cash) and a respawn at your hideout.

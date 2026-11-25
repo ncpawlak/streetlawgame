@@ -5,6 +5,6 @@
 [resource]
 script = ExtResource("1")
 type_id = &"tattoo_parlor"
-district_id = &"rail_yards"
+district_id = &"northgrove"
 id = &"northgrove_tattoo_parlor"
 display_name = "Northgrove Ink"

@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="SafehouseData" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/territory/safehouse_data.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = &"duplex"
+display_name = "Boarded Duplex"
+footprint = Vector2(14, 12)
+height = 7.0
+greybox_color = Color(0.46, 0.4, 0.33, 1)
+claim_time = 5.0
+features = Array[StringName]([&"gang_management", &"upgrades", &"respawn", &"save"])
