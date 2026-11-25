@@ -39,7 +39,8 @@ var weapons: WeaponInventory
 var _burst_left := 0
 var _burst_pause := 0.0
 var _alert_left := 0.0
-var _body_material: StandardMaterial3D
+## Animated body tinted in the gang's colours (see CharacterVisual).
+var visual: CharacterVisual
 var _dead := false
 var _gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 
@@ -99,6 +100,8 @@ func _physics_process(delta: float) -> void:
 	velocity.x = move_direction.x * speed
 	velocity.z = move_direction.z * speed
 	move_and_slide()
+	visual.set_aiming(target != null and global_position.distance_to(target.global_position) < range_now)
+	visual.update_motion(velocity, delta)
 
 
 func take_damage(amount: float, source: Node = null) -> void:
@@ -125,8 +128,11 @@ func _update_attack(target: Node3D, delta: float) -> void:
 		return
 	var muzzle := global_position + Vector3(0.0, 1.4, 0.0)
 	var exclude: Array[RID] = [get_rid()]
-	if not weapons.try_fire(self, muzzle, target.global_position + Vector3(0.0, 1.0, 0.0) - muzzle, exclude):
+	var aim := target.global_position + Vector3(0.0, 1.0, 0.0) - muzzle
+	visual.set_aim_pitch(atan2(aim.y, Vector2(aim.x, aim.z).length()))
+	if not weapons.try_fire(self, muzzle, aim, exclude):
 		return
+	visual.fire()
 	_burst_left -= 1
 	if _burst_left <= 0:
 		var automatic := current_weapon().automatic
@@ -140,10 +146,8 @@ func _engage_range() -> float:
 
 
 func _flash() -> void:
-	if _body_material == null:
-		return
-	_body_material.emission_enabled = true
-	get_tree().create_timer(0.08, false).timeout.connect(func() -> void: _body_material.emission_enabled = false)
+	if visual != null:
+		visual.hit()
 
 
 func _drop_weapon() -> void:
@@ -175,8 +179,7 @@ func _die(killer: Node) -> void:
 	collision_layer = 0
 	collision_mask = 0
 	set_physics_process(false)
-	rotation.x = -PI / 2.0
-	position.y += 0.4
+	visual.die()
 	if killer == GameState.player or (killer is Vehicle and (killer as Vehicle).driver != null):
 		GameState.add_cash(randi_range(20, 80))
 		GameState.add_respect(10)
@@ -195,28 +198,8 @@ func _build_body() -> void:
 	add_child(shape)
 
 	var color := GameState.gang_color(gang_id)
-	var body_mesh := CapsuleMesh.new()
-	body_mesh.radius = 0.4
-	body_mesh.height = 1.8
-	_body_material = _material(color.darkened(0.3))
-	_body_material.emission = Color(1.0, 0.9, 0.9)
-	_body_material.emission_energy_multiplier = 2.0
-	body_mesh.material = _body_material
-	var body := MeshInstance3D.new()
-	body.mesh = body_mesh
-	body.position.y = 0.9
-	add_child(body)
-
-	var bandana_mesh := BoxMesh.new()
-	bandana_mesh.size = Vector3(0.84, 0.15, 0.84)
-	bandana_mesh.material = _material(color)
-	var bandana := MeshInstance3D.new()
-	bandana.mesh = bandana_mesh
-	bandana.position.y = 1.55
-	add_child(bandana)
-
-
-func _material(color: Color) -> StandardMaterial3D:
-	var material := StandardMaterial3D.new()
-	material.albedo_color = color
-	return material
+	visual = CharacterVisual.create(&"gang", randi())
+	visual.set_tint(color.darkened(0.3))
+	visual.set_bandana(color)
+	visual.set_weapon(current_weapon())
+	add_child(visual)

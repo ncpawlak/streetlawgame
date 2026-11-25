@@ -4,9 +4,9 @@ extends RefCounted
 ## per-site shop discount, income, clout grant/removal, hangout crew, tier pricing, shops and
 ## save/load. Hooked from run_tests.gd; restores everything it touches.
 
-const BOTTOMS := &"the_bottoms"
-const RAIL_YARDS := &"rail_yards"
-const OLD_HARBOR := &"old_harbor"
+const BOTTOMS := &"tamarack_row"
+const RAIL_YARDS := &"northgrove"
+const OLD_HARBOR := &"mangona"
 const CORNER := &"tamarack_corner_store"
 const LIQUOR := &"tamarack_liquor_store"
 const PAWN := &"northgrove_pawn_shop"

@@ -5,6 +5,6 @@
 [resource]
 script = ExtResource("1")
 type_id = &"chop_shop"
-district_id = &"old_harbor"
+district_id = &"mangona"
 id = &"mangona_chop_shop"
 display_name = "Mangona Auto Parts"
