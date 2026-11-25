@@ -15,6 +15,7 @@ func _ready() -> void:
 	_player.spawn_point = _city.player_spawn
 	_spawn_starter_stash()
 	_place_locations()
+	_tag_hot_cars()
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	EventBus.notify.emit.call_deferred("Welcome to Tamarack Row. The Red Vipers run the North End. Take the boarded duplex [E] and start taking it back.")
 	EventBus.notify.emit.call_deferred("There's a weapon stash by your ride. Hold [Q] for the weapon wheel.")
@@ -107,12 +108,23 @@ func _spot_transform(spot: Dictionary, lot: Dictionary) -> Transform3D:
 	return LocationPlacer.door_transform(faced)
 
 
+## The orange hot cars (CityGenerator.HOT_CARS_PX) go in the &"hot_cars" group for the pause map.
+func _tag_hot_cars() -> void:
+	for hot: Array in CityGenerator.HOT_CARS_PX:
+		var at := CityGenerator.px_to_world(hot[0])
+		for node in _city.get_children():
+			if node is Vehicle and Vector2(node.position.x - at.x, node.position.z - at.z).length() < 3.0:
+				node.add_to_group(&"hot_cars")
+
+
 ## A tall labelled post plus a map disc for roster items that have no working system yet.
 func _add_roster_marker(spot: Dictionary, at: Vector3, parent: Node3D) -> void:
 	var color: Color = NorthEndSpots.MARKER_COLORS.get(spot.get("style", &"event"), Color.WHITE)
 	var title := "#%s %s" % [spot["roster"], spot["name"]] if spot["roster"] != "" else String(spot["name"])
 	var marker := Node3D.new()
 	marker.name = "Roster_%s" % String(spot["roster"]).validate_node_name()
+	marker.set_meta(&"spot", spot)
+	marker.add_to_group(&"roster_markers")
 	parent.add_child(marker)
 	marker.position = Vector3(at.x, 0.0, at.z)
 	var pole := VisualSpec.greybox(&"box", Vector3(0.3, 6.0, 0.3), color)
