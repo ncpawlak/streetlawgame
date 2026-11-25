@@ -45,6 +45,28 @@ You start with fists and a pistol. There's a stash of guns (SMG, shotgun, rifle)
 
 Vehicles take damage from bullets, explosions and crashes: they smoke, then catch fire, then explode. Rivals will shoot at your car while you're driving.
 
+## Gameplay drivers
+
+Drivers are standalone scenes that boot straight into one gameplay loop, outside the city map.
+
+### Drive-by
+
+```sh
+godot --path . res://drivers/driveby/driveby_driver.tscn
+godot --path . res://drivers/driveby/driveby_driver.tscn -- --crew=6 --no-cars --no-gunner
+```
+
+You start in a car a few blocks from a Red Vipers corner crew, with an SMG and a crew member riding shotgun who shoots at nearby rivals on his own. Roll up and shoot from the car (LMB). Once the crew gets hit, the survivors pile into their parked cars and chase you, shooting from the windows. If nobody makes it to a car, backup rolls out instead. Stay out of their sight for 5 seconds (break line of sight behind buildings, or get more than 60 m away) to finish. You need at least one kill, and dying fails the run.
+
+| Debug key | Effect |
+| --- | --- |
+| F1 / F2 | Crew size -/+ (1-8, default 4) |
+| F3 | Rivals have cars on/off |
+| F4 | Passenger gunner on/off |
+| F5 | Restart |
+
+Code lives in `drivers/driveby/` and `scripts/gameplay/driveby/`. Tests are in `tests/driveby_tests.gd`.
+
 ## Tests
 
 ```sh
