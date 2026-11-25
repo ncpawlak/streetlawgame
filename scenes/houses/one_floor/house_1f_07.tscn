@@ -32,6 +32,7 @@ bathrooms = 2
 footprint = Vector2(18, 13)
 lot_size = Vector2(19, 29)
 lot_type = "L-shaped house, porch in the L, double garage"
+archetype = "house_1f_big_yard"
 
 [node name="Lot" type="CSGCombiner3D" parent="."]
 use_collision = true

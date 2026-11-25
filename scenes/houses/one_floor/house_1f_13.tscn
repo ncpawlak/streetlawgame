@@ -27,6 +27,7 @@ bathrooms = 2
 footprint = Vector2(6, 17)
 lot_size = Vector2(12, 28)
 lot_type = "Long narrow house, side door off the drive, rear carport"
+archetype = "house_1f_deep_lot"
 
 [node name="Lot" type="CSGCombiner3D" parent="."]
 use_collision = true

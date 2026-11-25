@@ -41,10 +41,17 @@ func _ready() -> void:
 	await _shot(out_dir.path_join("street_businesses.png"))
 	cam.look_at_from_position(Vector3(bx + 70, 40, -55), Vector3(bx + 10, 0, 0))
 	await _shot(out_dir.path_join("street_businesses_back.png"))
+	var buildings := street.get_node_or_null("Buildings")
+	if buildings:
+		await _row_shots(cam, buildings.get_children(), 5, out_dir, "street2")
+	var variants := street.get_node_or_null("Variants")
+	if variants:
+		await _row_shots(cam, variants.get_children(), 4, out_dir, "variants")
 	for id in ids:
-		var house := houses.get_node_or_null(NodePath(id)) as Node3D
-		if house == null:
-			house = businesses.get_node_or_null(NodePath(id)) as Node3D
+		var house: Node3D = null
+		for group: Node in [houses, businesses, buildings]:
+			if group and not house:
+				house = group.get_node_or_null(NodePath(id)) as Node3D
 		if house == null:
 			continue
 		var lot: Vector2 = house.get("lot_size")
@@ -53,8 +60,9 @@ func _ready() -> void:
 		player.global_position = o + b * Vector3(-1.5, 0.06, 1.2)
 		player.global_rotation = Vector3(0, house.global_rotation.y + PI, 0)
 		var target := o + b * Vector3(0, 3.0, -lot.y * 0.45)
-		var dist := maxf(11.0, lot.x * 0.55)
-		cam.look_at_from_position(o + b * Vector3(lot.x * 0.35, 4.5 + dist * 0.15, dist), target)
+		var dist := clampf(lot.x * 0.55, 11.0, 22.0)
+		var height := 4.5 + dist * 0.15 + maxf(0.0, lot.x - 40.0) * 0.4
+		cam.look_at_from_position(o + b * Vector3(minf(lot.x * 0.35, 12.0), height, dist), target)
 		await _shot(out_dir.path_join("%s_%s.png" % ["house" if house.get("bedrooms") != null else "business", id]))
 		var entrance := house.get_node_or_null("Entrance") as Node3D
 		var counter := house.get_node_or_null("ShopCounter") as Node3D
@@ -64,6 +72,31 @@ func _ready() -> void:
 			cam.look_at_from_position(eye, counter.global_position + Vector3(0, 0.2, 0))
 			await _shot(out_dir.path_join("inside_%s.png" % id))
 	get_tree().quit()
+
+
+## Shoots a row of placed buildings in chunks of `per_shot`, from the street side of each chunk.
+func _row_shots(cam: Camera3D, nodes: Array[Node], per_shot: int, out_dir: String, prefix: String) -> void:
+	var sides := {}
+	for n: Node3D in nodes:
+		var key := "n" if n.global_transform.basis.z.z < 0.0 else "s"
+		if not sides.has(key):
+			sides[key] = []
+		sides[key].append(n)
+	for key: String in sides:
+		var row: Array = sides[key]
+		row.sort_custom(func(a: Node3D, b: Node3D) -> bool: return a.global_position.x < b.global_position.x)
+		var shot := 0
+		for i in range(0, row.size(), per_shot):
+			var chunk := row.slice(i, i + per_shot)
+			var lo: Vector3 = chunk[0].global_position
+			var hi: Vector3 = chunk[-1].global_position
+			var front: Vector3 = chunk[0].global_transform.basis.z
+			var center := (lo + hi) * 0.5 - front * 12.0
+			var span := maxf(40.0, absf(hi.x - lo.x) + 30.0)
+			# Stay over the street: the far side of the road can hold tall, deep buildings.
+			cam.look_at_from_position(center + front * 26.0 + Vector3(-span * 0.1, span * 0.5, 0), center)
+			shot += 1
+			await _shot(out_dir.path_join("%s_%s%d.png" % [prefix, key, shot]))
 
 
 func _shot(path: String) -> void:

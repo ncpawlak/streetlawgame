@@ -6,7 +6,7 @@ extends RefCounted
 const DIRS := {1: "res://scenes/houses/one_floor", 2: "res://scenes/houses/two_floor"}
 const COUNTS := {1: 15, 2: 10}
 const BIZ_DIRS := {false: "res://scenes/businesses/closed", true: "res://scenes/businesses/shops"}
-const BIZ_COUNTS := {false: 5, true: 8}
+const BIZ_COUNTS := {false: 5, true: 9}
 
 var _runner: Node
 

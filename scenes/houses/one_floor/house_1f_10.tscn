@@ -29,6 +29,7 @@ bathrooms = 2
 footprint = Vector2(17, 15)
 lot_size = Vector2(19, 29)
 lot_type = "U-shaped around a front courtyard; front parking pad"
+archetype = "house_1f_big_yard"
 
 [node name="Lot" type="CSGCombiner3D" parent="."]
 use_collision = true

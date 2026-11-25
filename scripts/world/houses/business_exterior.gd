@@ -18,7 +18,7 @@ extends Node3D
 @export var shop_type := ""
 ## True for shops the player walks into to buy things.
 @export var enterable := false
-@export_range(1, 3) var floors := 1
+@export_range(1, 8) var floors := 1
 @export var footprint := Vector2(12, 12)
 @export var lot_size := Vector2(16, 24)
 @export var lot_type := ""
@@ -27,6 +27,11 @@ extends Node3D
 		show_label = value
 		_update_label()
 
+## Extra label line set at runtime (e.g. the variant seed by KitPlacement).
+var label_note := "":
+	set(value):
+		label_note = value
+		_update_label()
 var _label: Label3D
 
 
@@ -73,5 +78,5 @@ func _update_label() -> void:
 		_label.pixel_size = 0.008
 		_label.modulate = Color(0.75, 0.95, 1.0) if enterable else Color(1, 0.8, 0.7)
 		add_child(_label, false, Node.INTERNAL_MODE_BACK)
-	_label.text = info_text()
+	_label.text = info_text() if label_note.is_empty() else info_text() + "\n" + label_note
 	_label.position = Vector3(0, 3.2, 1.0)

@@ -31,6 +31,7 @@ bathrooms = 1
 footprint = Vector2(5.5, 13)
 lot_size = Vector2(12, 23)
 lot_type = "Narrow lot, porch to the street, gravel side track"
+archetype = "house_1f_small_yard"
 
 [node name="Lot" type="CSGCombiner3D" parent="."]
 use_collision = true

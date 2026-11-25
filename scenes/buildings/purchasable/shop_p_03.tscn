@@ -1,0 +1,268 @@
+[gd_scene load_steps=19 format=3]
+
+[ext_resource type="Script" path="res://scripts/world/houses/business_exterior.gd" id="1_r"]
+[ext_resource type="Material" path="res://assets/materials/houses/grass.tres" id="2_r"]
+[ext_resource type="Material" path="res://assets/materials/houses/concrete.tres" id="3_r"]
+[ext_resource type="Material" path="res://assets/materials/houses/gravel.tres" id="4_r"]
+[ext_resource type="Material" path="res://assets/materials/houses/cmu_white.tres" id="5_r"]
+[ext_resource type="Material" path="res://assets/materials/houses/cmu_grey.tres" id="6_r"]
+[ext_resource type="Material" path="res://assets/materials/houses/awning_red.tres" id="7_r"]
+[ext_resource type="Material" path="res://assets/materials/houses/awning_white.tres" id="8_r"]
+[ext_resource type="Material" path="res://assets/materials/houses/awning_blue.tres" id="9_r"]
+[ext_resource type="Material" path="res://assets/materials/houses/roof_flat.tres" id="10_r"]
+[ext_resource type="Material" path="res://assets/materials/houses/metal_dark.tres" id="11_r"]
+[ext_resource type="Material" path="res://assets/materials/houses/interior_wall.tres" id="12_r"]
+[ext_resource type="Material" path="res://assets/materials/houses/interior_floor.tres" id="13_r"]
+[ext_resource type="Material" path="res://assets/materials/houses/glass_lit.tres" id="14_r"]
+[ext_resource type="Material" path="res://assets/materials/houses/sign_black.tres" id="15_r"]
+[ext_resource type="Material" path="res://assets/materials/houses/metal_grey.tres" id="16_r"]
+[ext_resource type="Material" path="res://assets/materials/houses/trim_dark.tres" id="17_r"]
+[ext_resource type="Script" path="res://scripts/framework/interaction/interactable.gd" id="18_r"]
+
+[node name="BusinessP03" type="Node3D"]
+script = ExtResource("1_r")
+business_id = "P-03"
+display_name = "Tamarack Cutz"
+archetype = "barbershop"
+shop_type = "barbershop"
+enterable = true
+floors = 1
+footprint = Vector2(12, 10)
+lot_size = Vector2(16, 22)
+lot_type = "Small barbershop with a pole, side gravel parking"
+
+[node name="Lot" type="CSGCombiner3D" parent="."]
+use_collision = true
+
+[node name="Grass" type="CSGBox3D" parent="Lot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.09, -11)
+size = Vector3(16, 0.22, 22)
+material = ExtResource("2_r")
+
+[node name="Paving" type="CSGBox3D" parent="Lot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, -0.025, -2)
+size = Vector3(13, 0.15, 4)
+material = ExtResource("3_r")
+
+[node name="Gravel" type="CSGBox3D" parent="Lot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, -0.03, -11)
+size = Vector3(3, 0.14, 22)
+material = ExtResource("4_r")
+
+[node name="Gravel2" type="CSGBox3D" parent="Lot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, -0.03, -18)
+size = Vector3(13, 0.14, 8)
+material = ExtResource("4_r")
+
+[node name="Building" type="CSGCombiner3D" parent="."]
+use_collision = true
+
+[node name="Body" type="CSGBox3D" parent="Building"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 2.5, -9)
+size = Vector3(12, 5, 10)
+material = ExtResource("5_r")
+
+[node name="Base" type="CSGBox3D" parent="Building"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0.25, -9)
+size = Vector3(12.08, 0.5, 10.08)
+material = ExtResource("6_r")
+
+[node name="Band" type="CSGBox3D" parent="Building"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 3.4, -9)
+size = Vector3(12.06, 0.2, 10.06)
+material = ExtResource("7_r")
+
+[node name="Band2" type="CSGBox3D" parent="Building"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 3.6, -9)
+size = Vector3(12.06, 0.2, 10.06)
+material = ExtResource("8_r")
+
+[node name="Band3" type="CSGBox3D" parent="Building"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 3.8, -9)
+size = Vector3(12.06, 0.2, 10.06)
+material = ExtResource("9_r")
+
+[node name="RoofWell" type="CSGBox3D" parent="Building"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 5.1, -9)
+size = Vector3(11.4, 1.8, 9.4)
+operation = 2
+material = ExtResource("10_r")
+
+[node name="CopingF" type="CSGBox3D" parent="Building"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 5.06, -4.12)
+size = Vector3(12.12, 0.12, 0.36)
+material = ExtResource("11_r")
+
+[node name="CopingB" type="CSGBox3D" parent="Building"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 5.06, -13.88)
+size = Vector3(12.12, 0.12, 0.36)
+material = ExtResource("11_r")
+
+[node name="CopingL" type="CSGBox3D" parent="Building"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.88, 5.06, -9)
+size = Vector3(0.36, 0.12, 10)
+material = ExtResource("11_r")
+
+[node name="CopingR" type="CSGBox3D" parent="Building"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.88, 5.06, -9)
+size = Vector3(0.36, 0.12, 10)
+material = ExtResource("11_r")
+
+[node name="Interior" type="CSGBox3D" parent="Building"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1.85, -9)
+size = Vector3(11.4, 3.5, 9.4)
+operation = 2
+material = ExtResource("12_r")
+
+[node name="Floor" type="CSGBox3D" parent="Building"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0.06, -9)
+size = Vector3(11.4, 0.12, 9.4)
+material = ExtResource("13_r")
+
+[node name="Storefront" type="CSGBox3D" parent="Building"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.25, 1.75, -4.055)
+size = Vector3(4.5, 2.3, 0.21)
+operation = 2
+material = ExtResource("14_r")
+
+[node name="Sill" type="CSGBox3D" parent="Building"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.25, 0.57, -4.05)
+size = Vector3(4.6, 0.06, 0.22)
+material = ExtResource("11_r")
+
+[node name="Head" type="CSGBox3D" parent="Building"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.25, 2.94, -4.05)
+size = Vector3(4.6, 0.08, 0.22)
+material = ExtResource("11_r")
+
+[node name="Mullion" type="CSGBox3D" parent="Building"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 1.75, -4.11)
+size = Vector3(0.08, 2.3, 0.1)
+material = ExtResource("11_r")
+
+[node name="Mullion2" type="CSGBox3D" parent="Building"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5, 1.75, -4.11)
+size = Vector3(0.08, 2.3, 0.1)
+material = ExtResource("11_r")
+
+[node name="Storefront2" type="CSGBox3D" parent="Building"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.75, 1.75, -4.055)
+size = Vector3(3.5, 2.3, 0.21)
+operation = 2
+material = ExtResource("14_r")
+
+[node name="Sill2" type="CSGBox3D" parent="Building"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.75, 0.57, -4.05)
+size = Vector3(3.6, 0.06, 0.22)
+material = ExtResource("11_r")
+
+[node name="Head2" type="CSGBox3D" parent="Building"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.75, 2.94, -4.05)
+size = Vector3(3.6, 0.08, 0.22)
+material = ExtResource("11_r")
+
+[node name="Mullion3" type="CSGBox3D" parent="Building"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.75, 1.75, -4.11)
+size = Vector3(0.08, 2.3, 0.1)
+material = ExtResource("11_r")
+
+[node name="Doorway" type="CSGBox3D" parent="Building"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 1.36, -4.15)
+size = Vector3(1.8, 2.48, 0.5)
+operation = 2
+material = ExtResource("12_r")
+
+[node name="JambL" type="CSGBox3D" parent="Building"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.45, 1.31, -3.98)
+size = Vector3(0.1, 2.58, 0.08)
+material = ExtResource("11_r")
+
+[node name="JambR" type="CSGBox3D" parent="Building"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.45, 1.31, -3.98)
+size = Vector3(0.1, 2.58, 0.08)
+material = ExtResource("11_r")
+
+[node name="DoorHead" type="CSGBox3D" parent="Building"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 2.65, -3.98)
+size = Vector3(2, 0.1, 0.08)
+material = ExtResource("11_r")
+
+[node name="Entrance" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0.1, -2.8)
+
+[node name="SignBand" type="CSGBox3D" parent="Building"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 4.325, -3.925)
+size = Vector3(10, 0.85, 0.15)
+material = ExtResource("15_r")
+
+[node name="SignText" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 4.325, -3.83)
+pixel_size = 0.00549
+text = "TAMARACK CUTZ"
+font_size = 96
+outline_size = 6
+modulate = Color(1, 1, 0.97, 1)
+outline_modulate = Color(0, 0, 0, 0.6)
+shaded = false
+
+[node name="PoleBracket" type="CSGBox3D" parent="Building"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.8, 1.9, -3.75)
+size = Vector3(0.1, 1.3, 0.1)
+material = ExtResource("16_r")
+
+[node name="PoleStripe" type="CSGCylinder3D" parent="Building"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.8, 1.5, -3.75)
+radius = 0.11
+height = 0.2
+sides = 12
+material = ExtResource("7_r")
+
+[node name="PoleStripe2" type="CSGCylinder3D" parent="Building"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.8, 1.7, -3.75)
+radius = 0.11
+height = 0.2
+sides = 12
+material = ExtResource("8_r")
+
+[node name="PoleStripe3" type="CSGCylinder3D" parent="Building"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.8, 1.9, -3.75)
+radius = 0.11
+height = 0.2
+sides = 12
+material = ExtResource("9_r")
+
+[node name="PoleStripe4" type="CSGCylinder3D" parent="Building"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.8, 2.1, -3.75)
+radius = 0.11
+height = 0.2
+sides = 12
+material = ExtResource("8_r")
+
+[node name="PoleStripe5" type="CSGCylinder3D" parent="Building"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.8, 2.3, -3.75)
+radius = 0.11
+height = 0.2
+sides = 12
+material = ExtResource("7_r")
+
+[node name="Counter" type="CSGBox3D" parent="Building"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0.5, -11.5)
+size = Vector3(4, 1, 0.7)
+material = ExtResource("17_r")
+
+[node name="CounterTop" type="CSGBox3D" parent="Building"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1.03, -11.5)
+size = Vector3(4.1, 0.06, 0.8)
+material = ExtResource("16_r")
+
+[node name="ShopCounter" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1, -10.3)
+script = ExtResource("18_r")
+prompt_name = "Tamarack Cutz"
+radius = 2.5
+
+[node name="InteriorLight" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 2.8, -9)
+light_color = Color(1, 0.95, 0.85, 1)
+light_energy = 1.2
+omni_range = 9.6

@@ -333,6 +333,12 @@ class HouseBuilder:
             box(self.sc, house, "CarportRoof", x0, x1, h, h + 0.2, z0, z1, c.get("roof_mat", "roof_metal"))
             box(self.sc, house, "CarportFascia", x0 - 0.03, x1 + 0.03, h - 0.1, h + 0.08, z0 - 0.03, z1 + 0.03, mat)
 
+    def blocks(self, house):
+        """Free-form boxes (x0, x1, y0, y1, z0, z1, material[, name]) added last to the shell:
+        boarded windows, bars, skirting, exterior stairs, rooftop clutter."""
+        for b in self.s.get("blocks", []):
+            box(self.sc, house, b[7] if len(b) > 7 else "Block", *b[:7])
+
     # --- lot, fences, landscape ---------------------------------------------------------
     def lot(self, root):
         lot = combiner(self.sc, root, "Lot", collision=True)
@@ -440,7 +446,7 @@ class HouseBuilder:
             "house_id": '"%s"' % s["id"], "display_name": '"%s"' % s["name"],
             "floors": str(s["floors"]), "bedrooms": str(s["beds"]), "bathrooms": f(s["baths"]),
             "footprint": v2(fw, fd), "lot_size": v2(self.lot_w, self.lot_d),
-            "lot_type": '"%s"' % s["lot_type"]})
+            "lot_type": '"%s"' % s["lot_type"], "archetype": '"%s"' % s.get("archetype", "")})
         self.lot(root)
         house = combiner(sc, root, "House", collision=True)
         self.walls(house)
@@ -450,6 +456,7 @@ class HouseBuilder:
         self.porches(house)
         self.stoops(house)
         self.carports(house)
+        self.blocks(house)
         self.fences(root)
         self.landscape(root)
         return sc

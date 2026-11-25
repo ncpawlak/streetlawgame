@@ -28,6 +28,7 @@ bathrooms = 2
 footprint = Vector2(10, 11)
 lot_size = Vector2(17, 26)
 lot_type = "Two front doors, shared drive to rear parking"
+archetype = "house_2f_small_yard"
 
 [node name="Lot" type="CSGCombiner3D" parent="."]
 use_collision = true
@@ -263,27 +264,27 @@ size = Vector3(0.03, 0.72, 2)
 material = ExtResource("13_r")
 
 [node name="Porch1Post" type="CSGBox3D" parent="House"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 1.7, -3.95)
-size = Vector3(0.2, 2.6, 0.2)
-material = ExtResource("6_r")
-
-[node name="Porch1Post2" type="CSGBox3D" parent="House"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1.7, -3.95)
-size = Vector3(0.2, 2.6, 0.2)
-material = ExtResource("6_r")
-
-[node name="Porch1Post3" type="CSGBox3D" parent="House"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.5, 1.7, -3.95)
-size = Vector3(0.2, 2.6, 0.2)
-material = ExtResource("6_r")
-
-[node name="Porch1Post4" type="CSGBox3D" parent="House"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 1.7, -3.95)
 size = Vector3(0.2, 2.6, 0.2)
 material = ExtResource("6_r")
 
-[node name="Porch1Post5" type="CSGBox3D" parent="House"]
+[node name="Porch1Post2" type="CSGBox3D" parent="House"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 1.7, -3.95)
+size = Vector3(0.2, 2.6, 0.2)
+material = ExtResource("6_r")
+
+[node name="Porch1Post3" type="CSGBox3D" parent="House"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 1.7, -3.95)
+size = Vector3(0.2, 2.6, 0.2)
+material = ExtResource("6_r")
+
+[node name="Porch1Post4" type="CSGBox3D" parent="House"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1.7, -3.95)
+size = Vector3(0.2, 2.6, 0.2)
+material = ExtResource("6_r")
+
+[node name="Porch1Post5" type="CSGBox3D" parent="House"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.5, 1.7, -3.95)
 size = Vector3(0.2, 2.6, 0.2)
 material = ExtResource("6_r")
 

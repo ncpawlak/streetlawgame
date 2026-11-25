@@ -26,6 +26,7 @@ bathrooms = 1
 footprint = Vector2(6, 6)
 lot_size = Vector2(12, 17)
 lot_type = "Small shed-roof house, full chain-link yard"
+archetype = "house_1f_small_yard"
 
 [node name="Lot" type="CSGCombiner3D" parent="."]
 use_collision = true

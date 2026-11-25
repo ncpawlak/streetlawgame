@@ -19,12 +19,20 @@ extends Node3D
 @export var lot_size := Vector2(12, 20)
 ## How the house sits on its lot, e.g. "small house, big yard".
 @export var lot_type := ""
+## Census design archetype this house fills (house_1f_small_yard, trailer_1f, trap_house_the_spot, ...).
+## Empty for the generic houses; data/buildings/building_kit.json maps archetypes to scenes.
+@export var archetype := ""
 ## Shows a floating info sign (used by the showcase street).
 @export var show_label := false:
 	set(value):
 		show_label = value
 		_update_label()
 
+## Extra label line set at runtime (e.g. the variant seed by KitPlacement).
+var label_note := "":
+	set(value):
+		label_note = value
+		_update_label()
 var _label: Label3D
 
 
@@ -38,9 +46,10 @@ func lot_rect() -> Rect2:
 
 func info_text() -> String:
 	var baths := str(int(bathrooms)) if is_equal_approx(bathrooms, floorf(bathrooms)) else str(bathrooms)
-	return "%s  %s\n%d floor%s - %d bed / %s bath\nHouse %.1f x %.1f m - Lot %.0f x %.0f m\n%s" % [
+	var text := "%s  %s\n%d floor%s - %d bed / %s bath\nHouse %.1f x %.1f m - Lot %.0f x %.0f m\n%s" % [
 		house_id, display_name, floors, "" if floors == 1 else "s", bedrooms, baths,
 		footprint.x, footprint.y, lot_size.x, lot_size.y, lot_type]
+	return text if archetype.is_empty() else text + "\n[%s]" % archetype
 
 
 func _update_label() -> void:
@@ -59,5 +68,5 @@ func _update_label() -> void:
 		_label.pixel_size = 0.008
 		_label.modulate = Color(1, 0.95, 0.7)
 		add_child(_label, false, Node.INTERNAL_MODE_BACK)
-	_label.text = info_text()
+	_label.text = info_text() if label_note.is_empty() else info_text() + "\n" + label_note
 	_label.position = Vector3(0, 3.2, 1.0)

@@ -28,6 +28,7 @@ bathrooms = 2
 footprint = Vector2(10, 9)
 lot_size = Vector2(17, 26)
 lot_type = "Asymmetric saltbox roof, detached rear garage"
+archetype = "house_2f_small_yard"
 
 [node name="Lot" type="CSGCombiner3D" parent="."]
 use_collision = true

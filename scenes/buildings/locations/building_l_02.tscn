@@ -1,0 +1,997 @@
+[gd_scene load_steps=19 format=3]
+
+[ext_resource type="Script" path="res://scripts/world/houses/house_exterior.gd" id="1_r"]
+[ext_resource type="Material" path="res://assets/materials/houses/grass.tres" id="2_r"]
+[ext_resource type="Material" path="res://assets/materials/houses/concrete.tres" id="3_r"]
+[ext_resource type="Material" path="res://assets/materials/houses/siding_grey.tres" id="4_r"]
+[ext_resource type="Material" path="res://assets/materials/houses/foundation.tres" id="5_r"]
+[ext_resource type="Material" path="res://assets/materials/houses/trim_dark.tres" id="6_r"]
+[ext_resource type="Material" path="res://assets/materials/houses/door_green.tres" id="7_r"]
+[ext_resource type="PackedScene" path="res://scenes/houses/parts/house_door.tscn" id="8_r"]
+[ext_resource type="Material" path="res://assets/materials/houses/shutter_dark.tres" id="9_r"]
+[ext_resource type="PackedScene" path="res://scenes/houses/parts/house_window.tscn" id="10_r"]
+[ext_resource type="Material" path="res://assets/materials/houses/roof_charcoal_x.tres" id="11_r"]
+[ext_resource type="Material" path="res://assets/materials/houses/roof_charcoal_z.tres" id="12_r"]
+[ext_resource type="Material" path="res://assets/materials/houses/metal_dark.tres" id="13_r"]
+[ext_resource type="Material" path="res://assets/materials/houses/fence_wood.tres" id="14_r"]
+[ext_resource type="Material" path="res://assets/materials/houses/bark.tres" id="15_r"]
+[ext_resource type="Material" path="res://assets/materials/houses/foliage.tres" id="16_r"]
+[ext_resource type="Material" path="res://assets/materials/houses/foliage_dark.tres" id="17_r"]
+[ext_resource type="Material" path="res://assets/materials/houses/ac_unit.tres" id="18_r"]
+
+[node name="HouseL02" type="Node3D"]
+script = ExtResource("1_r")
+house_id = "L-02"
+display_name = "Viper Stash House"
+floors = 2
+bedrooms = 4
+bathrooms = 2
+footprint = Vector2(19.6, 14)
+lot_size = Vector2(26, 30)
+lot_type = "Viper stash: privacy-fenced 2-storey, barred ground floor (raid)"
+archetype = "stash_house_viper"
+
+[node name="Lot" type="CSGCombiner3D" parent="."]
+use_collision = true
+
+[node name="Grass" type="CSGBox3D" parent="Lot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.09, -15)
+size = Vector3(26, 0.22, 30)
+material = ExtResource("2_r")
+
+[node name="Paving" type="CSGBox3D" parent="Lot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.5, -0.025, -10)
+size = Vector3(2.6, 0.15, 20)
+material = ExtResource("3_r")
+
+[node name="Paving2" type="CSGBox3D" parent="Lot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.025, -3.35)
+size = Vector3(1.2, 0.15, 6.7)
+material = ExtResource("3_r")
+
+[node name="House" type="CSGCombiner3D" parent="."]
+use_collision = true
+
+[node name="Wing1" type="CSGBox3D" parent="House"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.2, -15)
+size = Vector3(19.6, 6.4, 14)
+material = ExtResource("4_r")
+
+[node name="Foundation" type="CSGBox3D" parent="House"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.225, -15)
+size = Vector3(19.7, 0.45, 14.1)
+material = ExtResource("5_r")
+
+[node name="Frieze" type="CSGBox3D" parent="House"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.25, -15)
+size = Vector3(19.66, 0.3, 14.06)
+material = ExtResource("6_r")
+
+[node name="Belt" type="CSGBox3D" parent="House"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.4, -15)
+size = Vector3(19.68, 0.16, 14.08)
+material = ExtResource("6_r")
+
+[node name="Corner" type="CSGBox3D" parent="House"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.8, 3.425, -22)
+size = Vector3(0.14, 5.95, 0.14)
+material = ExtResource("6_r")
+
+[node name="Corner2" type="CSGBox3D" parent="House"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.8, 3.425, -8)
+size = Vector3(0.14, 5.95, 0.14)
+material = ExtResource("6_r")
+
+[node name="Corner3" type="CSGBox3D" parent="House"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.8, 3.425, -22)
+size = Vector3(0.14, 5.95, 0.14)
+material = ExtResource("6_r")
+
+[node name="Corner4" type="CSGBox3D" parent="House"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.8, 3.425, -8)
+size = Vector3(0.14, 5.95, 0.14)
+material = ExtResource("6_r")
+
+[node name="HouseDoor" parent="House" instance=ExtResource("8_r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, -8)
+opening = Vector2(1.2, 2.4)
+style = 0
+door_material = ExtResource("7_r")
+frame_material = ExtResource("6_r")
+
+[node name="HouseWindow" parent="House" instance=ExtResource("10_r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.3, 2.05, -8)
+opening = Vector2(1.1, 1.5)
+shutters = true
+shutter_material = ExtResource("9_r")
+frame_material = ExtResource("6_r")
+
+[node name="HouseWindow2" parent="House" instance=ExtResource("10_r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.6, 2.05, -8)
+opening = Vector2(1.1, 1.5)
+shutters = true
+shutter_material = ExtResource("9_r")
+frame_material = ExtResource("6_r")
+
+[node name="HouseWindow3" parent="House" instance=ExtResource("10_r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.6, 2.05, -8)
+opening = Vector2(1.1, 1.5)
+shutters = true
+shutter_material = ExtResource("9_r")
+frame_material = ExtResource("6_r")
+
+[node name="HouseWindow4" parent="House" instance=ExtResource("10_r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.3, 2.05, -8)
+opening = Vector2(1.1, 1.5)
+shutters = true
+shutter_material = ExtResource("9_r")
+frame_material = ExtResource("6_r")
+
+[node name="HouseWindow5" parent="House" instance=ExtResource("10_r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.3, 5.05, -8)
+opening = Vector2(1.1, 1.5)
+shutters = true
+shutter_material = ExtResource("9_r")
+frame_material = ExtResource("6_r")
+
+[node name="HouseWindow6" parent="House" instance=ExtResource("10_r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.6, 5.05, -8)
+opening = Vector2(1.1, 1.5)
+shutters = true
+shutter_material = ExtResource("9_r")
+frame_material = ExtResource("6_r")
+
+[node name="HouseWindow7" parent="House" instance=ExtResource("10_r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.6, 5.05, -8)
+opening = Vector2(1.1, 1.5)
+shutters = true
+shutter_material = ExtResource("9_r")
+frame_material = ExtResource("6_r")
+
+[node name="HouseWindow8" parent="House" instance=ExtResource("10_r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.3, 5.05, -8)
+opening = Vector2(1.1, 1.5)
+shutters = true
+shutter_material = ExtResource("9_r")
+frame_material = ExtResource("6_r")
+
+[node name="HouseWindow9" parent="House" instance=ExtResource("10_r")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -8.167, 2.05, -22)
+opening = Vector2(1.1, 1.5)
+frame_material = ExtResource("6_r")
+
+[node name="HouseWindow10" parent="House" instance=ExtResource("10_r")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -4.9, 2.05, -22)
+opening = Vector2(1.1, 1.5)
+frame_material = ExtResource("6_r")
+
+[node name="HouseWindow11" parent="House" instance=ExtResource("10_r")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -1.633, 2.05, -22)
+opening = Vector2(1.1, 1.5)
+frame_material = ExtResource("6_r")
+
+[node name="HouseWindow12" parent="House" instance=ExtResource("10_r")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 1.633, 2.05, -22)
+opening = Vector2(1.1, 1.5)
+frame_material = ExtResource("6_r")
+
+[node name="HouseWindow13" parent="House" instance=ExtResource("10_r")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 4.9, 2.05, -22)
+opening = Vector2(1.1, 1.5)
+frame_material = ExtResource("6_r")
+
+[node name="HouseWindow14" parent="House" instance=ExtResource("10_r")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 8.167, 2.05, -22)
+opening = Vector2(1.1, 1.5)
+frame_material = ExtResource("6_r")
+
+[node name="HouseWindow15" parent="House" instance=ExtResource("10_r")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -8.167, 5.05, -22)
+opening = Vector2(1.1, 1.5)
+frame_material = ExtResource("6_r")
+
+[node name="HouseWindow16" parent="House" instance=ExtResource("10_r")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -4.9, 5.4, -22)
+opening = Vector2(0.7, 0.7)
+muntins = false
+frame_material = ExtResource("6_r")
+
+[node name="HouseWindow17" parent="House" instance=ExtResource("10_r")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -1.633, 5.05, -22)
+opening = Vector2(1.1, 1.5)
+frame_material = ExtResource("6_r")
+
+[node name="HouseWindow18" parent="House" instance=ExtResource("10_r")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 1.633, 5.4, -22)
+opening = Vector2(0.7, 0.7)
+muntins = false
+frame_material = ExtResource("6_r")
+
+[node name="HouseWindow19" parent="House" instance=ExtResource("10_r")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 4.9, 5.05, -22)
+opening = Vector2(1.1, 1.5)
+frame_material = ExtResource("6_r")
+
+[node name="HouseWindow20" parent="House" instance=ExtResource("10_r")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 8.167, 5.05, -22)
+opening = Vector2(1.1, 1.5)
+frame_material = ExtResource("6_r")
+
+[node name="HouseWindow21" parent="House" instance=ExtResource("10_r")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 9.8, 2.05, -11)
+opening = Vector2(1.1, 1.5)
+frame_material = ExtResource("6_r")
+
+[node name="HouseWindow22" parent="House" instance=ExtResource("10_r")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 9.8, 2.05, -16)
+opening = Vector2(1.1, 1.5)
+frame_material = ExtResource("6_r")
+
+[node name="HouseWindow23" parent="House" instance=ExtResource("10_r")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 9.8, 5.05, -11)
+opening = Vector2(1.1, 1.5)
+frame_material = ExtResource("6_r")
+
+[node name="HouseWindow24" parent="House" instance=ExtResource("10_r")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 9.8, 5.05, -16)
+opening = Vector2(1.1, 1.5)
+frame_material = ExtResource("6_r")
+
+[node name="HouseWindow25" parent="House" instance=ExtResource("10_r")]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -9.8, 2.05, -11)
+opening = Vector2(1.1, 1.5)
+frame_material = ExtResource("6_r")
+
+[node name="HouseWindow26" parent="House" instance=ExtResource("10_r")]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -9.8, 2.05, -16)
+opening = Vector2(1.1, 1.5)
+frame_material = ExtResource("6_r")
+
+[node name="HouseWindow27" parent="House" instance=ExtResource("10_r")]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -9.8, 5.05, -11)
+opening = Vector2(1.1, 1.5)
+frame_material = ExtResource("6_r")
+
+[node name="HouseWindow28" parent="House" instance=ExtResource("10_r")]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -9.8, 5.05, -16)
+opening = Vector2(1.1, 1.5)
+frame_material = ExtResource("6_r")
+
+[node name="Roof1" type="CSGCombiner3D" parent="House"]
+
+[node name="HipX" type="CSGPolygon3D" parent="House/Roof1"]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 10.25, 0, -15)
+polygon = PackedVector2Array(7.45, 6.243, 0, 8.85, -7.45, 6.243, -7.45, 6.043, 7.45, 6.043)
+depth = 20.5
+material = ExtResource("11_r")
+
+[node name="HipZ" type="CSGPolygon3D" parent="House/Roof1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -7.55)
+polygon = PackedVector2Array(-10.25, 6.043, 10.25, 6.043, 10.25, 6.243, 0, 9.83, -10.25, 6.243)
+depth = 14.9
+operation = 1
+material = ExtResource("12_r")
+
+[node name="Stoop" type="CSGBox3D" parent="House"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, -7.35)
+size = Vector3(2, 0.4, 1.3)
+material = ExtResource("3_r")
+
+[node name="Step" type="CSGBox3D" parent="House"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, -6.55)
+size = Vector3(1.6, 0.2, 0.3)
+material = ExtResource("3_r")
+
+[node name="Canopy" type="CSGBox3D" parent="House"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.24, -7.4)
+size = Vector3(2, 0.18, 1.2)
+material = ExtResource("6_r")
+
+[node name="Bracket" type="CSGBox3D" parent="House"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.85, 2.9, -7.4)
+size = Vector3(0.1, 0.5, 1.2)
+material = ExtResource("6_r")
+
+[node name="Bracket2" type="CSGBox3D" parent="House"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.85, 2.9, -7.4)
+size = Vector3(0.1, 0.5, 1.2)
+material = ExtResource("6_r")
+
+[node name="BarRail" type="CSGBox3D" parent="House"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.3, 1.23, -7.8)
+size = Vector3(1.4, 0.06, 0.06)
+material = ExtResource("13_r")
+
+[node name="BarRail2" type="CSGBox3D" parent="House"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.3, 2.89, -7.8)
+size = Vector3(1.4, 0.06, 0.06)
+material = ExtResource("13_r")
+
+[node name="Bar" type="CSGBox3D" parent="House"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.9, 2.06, -7.8)
+size = Vector3(0.04, 1.72, 0.04)
+material = ExtResource("13_r")
+
+[node name="Bar2" type="CSGBox3D" parent="House"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.729, 2.06, -7.8)
+size = Vector3(0.04, 1.72, 0.04)
+material = ExtResource("13_r")
+
+[node name="Bar3" type="CSGBox3D" parent="House"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.557, 2.06, -7.8)
+size = Vector3(0.04, 1.72, 0.04)
+material = ExtResource("13_r")
+
+[node name="Bar4" type="CSGBox3D" parent="House"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.386, 2.06, -7.8)
+size = Vector3(0.04, 1.72, 0.04)
+material = ExtResource("13_r")
+
+[node name="Bar5" type="CSGBox3D" parent="House"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.214, 2.06, -7.8)
+size = Vector3(0.04, 1.72, 0.04)
+material = ExtResource("13_r")
+
+[node name="Bar6" type="CSGBox3D" parent="House"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.043, 2.06, -7.8)
+size = Vector3(0.04, 1.72, 0.04)
+material = ExtResource("13_r")
+
+[node name="Bar7" type="CSGBox3D" parent="House"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.871, 2.06, -7.8)
+size = Vector3(0.04, 1.72, 0.04)
+material = ExtResource("13_r")
+
+[node name="Bar8" type="CSGBox3D" parent="House"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.7, 2.06, -7.8)
+size = Vector3(0.04, 1.72, 0.04)
+material = ExtResource("13_r")
+
+[node name="BarRail3" type="CSGBox3D" parent="House"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.6, 1.23, -7.8)
+size = Vector3(1.4, 0.06, 0.06)
+material = ExtResource("13_r")
+
+[node name="BarRail4" type="CSGBox3D" parent="House"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.6, 2.89, -7.8)
+size = Vector3(1.4, 0.06, 0.06)
+material = ExtResource("13_r")
+
+[node name="Bar9" type="CSGBox3D" parent="House"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.2, 2.06, -7.8)
+size = Vector3(0.04, 1.72, 0.04)
+material = ExtResource("13_r")
+
+[node name="Bar10" type="CSGBox3D" parent="House"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.029, 2.06, -7.8)
+size = Vector3(0.04, 1.72, 0.04)
+material = ExtResource("13_r")
+
+[node name="Bar11" type="CSGBox3D" parent="House"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.857, 2.06, -7.8)
+size = Vector3(0.04, 1.72, 0.04)
+material = ExtResource("13_r")
+
+[node name="Bar12" type="CSGBox3D" parent="House"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.686, 2.06, -7.8)
+size = Vector3(0.04, 1.72, 0.04)
+material = ExtResource("13_r")
+
+[node name="Bar13" type="CSGBox3D" parent="House"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.514, 2.06, -7.8)
+size = Vector3(0.04, 1.72, 0.04)
+material = ExtResource("13_r")
+
+[node name="Bar14" type="CSGBox3D" parent="House"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.343, 2.06, -7.8)
+size = Vector3(0.04, 1.72, 0.04)
+material = ExtResource("13_r")
+
+[node name="Bar15" type="CSGBox3D" parent="House"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.171, 2.06, -7.8)
+size = Vector3(0.04, 1.72, 0.04)
+material = ExtResource("13_r")
+
+[node name="Bar16" type="CSGBox3D" parent="House"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 2.06, -7.8)
+size = Vector3(0.04, 1.72, 0.04)
+material = ExtResource("13_r")
+
+[node name="BarRail5" type="CSGBox3D" parent="House"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.6, 1.23, -7.8)
+size = Vector3(1.4, 0.06, 0.06)
+material = ExtResource("13_r")
+
+[node name="BarRail6" type="CSGBox3D" parent="House"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.6, 2.89, -7.8)
+size = Vector3(1.4, 0.06, 0.06)
+material = ExtResource("13_r")
+
+[node name="Bar17" type="CSGBox3D" parent="House"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 2.06, -7.8)
+size = Vector3(0.04, 1.72, 0.04)
+material = ExtResource("13_r")
+
+[node name="Bar18" type="CSGBox3D" parent="House"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.171, 2.06, -7.8)
+size = Vector3(0.04, 1.72, 0.04)
+material = ExtResource("13_r")
+
+[node name="Bar19" type="CSGBox3D" parent="House"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.343, 2.06, -7.8)
+size = Vector3(0.04, 1.72, 0.04)
+material = ExtResource("13_r")
+
+[node name="Bar20" type="CSGBox3D" parent="House"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.514, 2.06, -7.8)
+size = Vector3(0.04, 1.72, 0.04)
+material = ExtResource("13_r")
+
+[node name="Bar21" type="CSGBox3D" parent="House"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.686, 2.06, -7.8)
+size = Vector3(0.04, 1.72, 0.04)
+material = ExtResource("13_r")
+
+[node name="Bar22" type="CSGBox3D" parent="House"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.857, 2.06, -7.8)
+size = Vector3(0.04, 1.72, 0.04)
+material = ExtResource("13_r")
+
+[node name="Bar23" type="CSGBox3D" parent="House"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.029, 2.06, -7.8)
+size = Vector3(0.04, 1.72, 0.04)
+material = ExtResource("13_r")
+
+[node name="Bar24" type="CSGBox3D" parent="House"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.2, 2.06, -7.8)
+size = Vector3(0.04, 1.72, 0.04)
+material = ExtResource("13_r")
+
+[node name="BarRail7" type="CSGBox3D" parent="House"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.3, 1.23, -7.8)
+size = Vector3(1.4, 0.06, 0.06)
+material = ExtResource("13_r")
+
+[node name="BarRail8" type="CSGBox3D" parent="House"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.3, 2.89, -7.8)
+size = Vector3(1.4, 0.06, 0.06)
+material = ExtResource("13_r")
+
+[node name="Bar25" type="CSGBox3D" parent="House"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.7, 2.06, -7.8)
+size = Vector3(0.04, 1.72, 0.04)
+material = ExtResource("13_r")
+
+[node name="Bar26" type="CSGBox3D" parent="House"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.871, 2.06, -7.8)
+size = Vector3(0.04, 1.72, 0.04)
+material = ExtResource("13_r")
+
+[node name="Bar27" type="CSGBox3D" parent="House"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.043, 2.06, -7.8)
+size = Vector3(0.04, 1.72, 0.04)
+material = ExtResource("13_r")
+
+[node name="Bar28" type="CSGBox3D" parent="House"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.214, 2.06, -7.8)
+size = Vector3(0.04, 1.72, 0.04)
+material = ExtResource("13_r")
+
+[node name="Bar29" type="CSGBox3D" parent="House"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.386, 2.06, -7.8)
+size = Vector3(0.04, 1.72, 0.04)
+material = ExtResource("13_r")
+
+[node name="Bar30" type="CSGBox3D" parent="House"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.557, 2.06, -7.8)
+size = Vector3(0.04, 1.72, 0.04)
+material = ExtResource("13_r")
+
+[node name="Bar31" type="CSGBox3D" parent="House"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.729, 2.06, -7.8)
+size = Vector3(0.04, 1.72, 0.04)
+material = ExtResource("13_r")
+
+[node name="Bar32" type="CSGBox3D" parent="House"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.9, 2.06, -7.8)
+size = Vector3(0.04, 1.72, 0.04)
+material = ExtResource("13_r")
+
+[node name="BarRail9" type="CSGBox3D" parent="House"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 1.23, -11)
+size = Vector3(0.06, 0.06, 1.4)
+material = ExtResource("13_r")
+
+[node name="BarRail10" type="CSGBox3D" parent="House"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 2.89, -11)
+size = Vector3(0.06, 0.06, 1.4)
+material = ExtResource("13_r")
+
+[node name="Bar33" type="CSGBox3D" parent="House"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 2.06, -11.6)
+size = Vector3(0.04, 1.72, 0.04)
+material = ExtResource("13_r")
+
+[node name="Bar34" type="CSGBox3D" parent="House"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 2.06, -11.429)
+size = Vector3(0.04, 1.72, 0.04)
+material = ExtResource("13_r")
+
+[node name="Bar35" type="CSGBox3D" parent="House"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 2.06, -11.257)
+size = Vector3(0.04, 1.72, 0.04)
+material = ExtResource("13_r")
+
+[node name="Bar36" type="CSGBox3D" parent="House"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 2.06, -11.086)
+size = Vector3(0.04, 1.72, 0.04)
+material = ExtResource("13_r")
+
+[node name="Bar37" type="CSGBox3D" parent="House"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 2.06, -10.914)
+size = Vector3(0.04, 1.72, 0.04)
+material = ExtResource("13_r")
+
+[node name="Bar38" type="CSGBox3D" parent="House"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 2.06, -10.743)
+size = Vector3(0.04, 1.72, 0.04)
+material = ExtResource("13_r")
+
+[node name="Bar39" type="CSGBox3D" parent="House"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 2.06, -10.571)
+size = Vector3(0.04, 1.72, 0.04)
+material = ExtResource("13_r")
+
+[node name="Bar40" type="CSGBox3D" parent="House"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 2.06, -10.4)
+size = Vector3(0.04, 1.72, 0.04)
+material = ExtResource("13_r")
+
+[node name="BarRail11" type="CSGBox3D" parent="House"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 1.23, -16)
+size = Vector3(0.06, 0.06, 1.4)
+material = ExtResource("13_r")
+
+[node name="BarRail12" type="CSGBox3D" parent="House"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 2.89, -16)
+size = Vector3(0.06, 0.06, 1.4)
+material = ExtResource("13_r")
+
+[node name="Bar41" type="CSGBox3D" parent="House"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 2.06, -16.6)
+size = Vector3(0.04, 1.72, 0.04)
+material = ExtResource("13_r")
+
+[node name="Bar42" type="CSGBox3D" parent="House"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 2.06, -16.429)
+size = Vector3(0.04, 1.72, 0.04)
+material = ExtResource("13_r")
+
+[node name="Bar43" type="CSGBox3D" parent="House"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 2.06, -16.257)
+size = Vector3(0.04, 1.72, 0.04)
+material = ExtResource("13_r")
+
+[node name="Bar44" type="CSGBox3D" parent="House"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 2.06, -16.086)
+size = Vector3(0.04, 1.72, 0.04)
+material = ExtResource("13_r")
+
+[node name="Bar45" type="CSGBox3D" parent="House"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 2.06, -15.914)
+size = Vector3(0.04, 1.72, 0.04)
+material = ExtResource("13_r")
+
+[node name="Bar46" type="CSGBox3D" parent="House"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 2.06, -15.743)
+size = Vector3(0.04, 1.72, 0.04)
+material = ExtResource("13_r")
+
+[node name="Bar47" type="CSGBox3D" parent="House"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 2.06, -15.571)
+size = Vector3(0.04, 1.72, 0.04)
+material = ExtResource("13_r")
+
+[node name="Bar48" type="CSGBox3D" parent="House"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 2.06, -15.4)
+size = Vector3(0.04, 1.72, 0.04)
+material = ExtResource("13_r")
+
+[node name="BarRail13" type="CSGBox3D" parent="House"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 1.23, -11)
+size = Vector3(0.06, 0.06, 1.4)
+material = ExtResource("13_r")
+
+[node name="BarRail14" type="CSGBox3D" parent="House"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 2.89, -11)
+size = Vector3(0.06, 0.06, 1.4)
+material = ExtResource("13_r")
+
+[node name="Bar49" type="CSGBox3D" parent="House"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 2.06, -11.6)
+size = Vector3(0.04, 1.72, 0.04)
+material = ExtResource("13_r")
+
+[node name="Bar50" type="CSGBox3D" parent="House"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 2.06, -11.429)
+size = Vector3(0.04, 1.72, 0.04)
+material = ExtResource("13_r")
+
+[node name="Bar51" type="CSGBox3D" parent="House"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 2.06, -11.257)
+size = Vector3(0.04, 1.72, 0.04)
+material = ExtResource("13_r")
+
+[node name="Bar52" type="CSGBox3D" parent="House"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 2.06, -11.086)
+size = Vector3(0.04, 1.72, 0.04)
+material = ExtResource("13_r")
+
+[node name="Bar53" type="CSGBox3D" parent="House"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 2.06, -10.914)
+size = Vector3(0.04, 1.72, 0.04)
+material = ExtResource("13_r")
+
+[node name="Bar54" type="CSGBox3D" parent="House"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 2.06, -10.743)
+size = Vector3(0.04, 1.72, 0.04)
+material = ExtResource("13_r")
+
+[node name="Bar55" type="CSGBox3D" parent="House"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 2.06, -10.571)
+size = Vector3(0.04, 1.72, 0.04)
+material = ExtResource("13_r")
+
+[node name="Bar56" type="CSGBox3D" parent="House"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 2.06, -10.4)
+size = Vector3(0.04, 1.72, 0.04)
+material = ExtResource("13_r")
+
+[node name="BarRail15" type="CSGBox3D" parent="House"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 1.23, -16)
+size = Vector3(0.06, 0.06, 1.4)
+material = ExtResource("13_r")
+
+[node name="BarRail16" type="CSGBox3D" parent="House"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 2.89, -16)
+size = Vector3(0.06, 0.06, 1.4)
+material = ExtResource("13_r")
+
+[node name="Bar57" type="CSGBox3D" parent="House"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 2.06, -16.6)
+size = Vector3(0.04, 1.72, 0.04)
+material = ExtResource("13_r")
+
+[node name="Bar58" type="CSGBox3D" parent="House"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 2.06, -16.429)
+size = Vector3(0.04, 1.72, 0.04)
+material = ExtResource("13_r")
+
+[node name="Bar59" type="CSGBox3D" parent="House"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 2.06, -16.257)
+size = Vector3(0.04, 1.72, 0.04)
+material = ExtResource("13_r")
+
+[node name="Bar60" type="CSGBox3D" parent="House"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 2.06, -16.086)
+size = Vector3(0.04, 1.72, 0.04)
+material = ExtResource("13_r")
+
+[node name="Bar61" type="CSGBox3D" parent="House"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 2.06, -15.914)
+size = Vector3(0.04, 1.72, 0.04)
+material = ExtResource("13_r")
+
+[node name="Bar62" type="CSGBox3D" parent="House"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 2.06, -15.743)
+size = Vector3(0.04, 1.72, 0.04)
+material = ExtResource("13_r")
+
+[node name="Bar63" type="CSGBox3D" parent="House"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 2.06, -15.571)
+size = Vector3(0.04, 1.72, 0.04)
+material = ExtResource("13_r")
+
+[node name="Bar64" type="CSGBox3D" parent="House"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 2.06, -15.4)
+size = Vector3(0.04, 1.72, 0.04)
+material = ExtResource("13_r")
+
+[node name="Camera" type="CSGBox3D" parent="House"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 5.75, -8.2)
+size = Vector3(0.3, 0.3, 0.4)
+material = ExtResource("13_r")
+
+[node name="Camera2" type="CSGBox3D" parent="House"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 5.75, -8.2)
+size = Vector3(0.3, 0.3, 0.4)
+material = ExtResource("13_r")
+
+[node name="Fence" type="CSGCombiner3D" parent="."]
+use_collision = true
+
+[node name="Privacy" type="CSGBox3D" parent="Fence"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.95, 0.9, -0.3)
+size = Vector3(11.9, 1.8, 0.05)
+material = ExtResource("14_r")
+
+[node name="Post" type="CSGBox3D" parent="Fence"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.9, 0.925, -0.3)
+size = Vector3(0.2, 1.85, 0.2)
+material = ExtResource("14_r")
+
+[node name="Post2" type="CSGBox3D" parent="Fence"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.52, 0.925, -0.3)
+size = Vector3(0.2, 1.85, 0.2)
+material = ExtResource("14_r")
+
+[node name="Post3" type="CSGBox3D" parent="Fence"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.14, 0.925, -0.3)
+size = Vector3(0.2, 1.85, 0.2)
+material = ExtResource("14_r")
+
+[node name="Post4" type="CSGBox3D" parent="Fence"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.76, 0.925, -0.3)
+size = Vector3(0.2, 1.85, 0.2)
+material = ExtResource("14_r")
+
+[node name="Post5" type="CSGBox3D" parent="Fence"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.38, 0.925, -0.3)
+size = Vector3(0.2, 1.85, 0.2)
+material = ExtResource("14_r")
+
+[node name="Post6" type="CSGBox3D" parent="Fence"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0.925, -0.3)
+size = Vector3(0.2, 1.85, 0.2)
+material = ExtResource("14_r")
+
+[node name="Privacy2" type="CSGBox3D" parent="Fence"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, 0.9, -0.3)
+size = Vector3(9, 1.8, 0.05)
+material = ExtResource("14_r")
+
+[node name="Post7" type="CSGBox3D" parent="Fence"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0.925, -0.3)
+size = Vector3(0.2, 1.85, 0.2)
+material = ExtResource("14_r")
+
+[node name="Post8" type="CSGBox3D" parent="Fence"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.25, 0.925, -0.3)
+size = Vector3(0.2, 1.85, 0.2)
+material = ExtResource("14_r")
+
+[node name="Post9" type="CSGBox3D" parent="Fence"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, 0.925, -0.3)
+size = Vector3(0.2, 1.85, 0.2)
+material = ExtResource("14_r")
+
+[node name="Post10" type="CSGBox3D" parent="Fence"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.75, 0.925, -0.3)
+size = Vector3(0.2, 1.85, 0.2)
+material = ExtResource("14_r")
+
+[node name="Post11" type="CSGBox3D" parent="Fence"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0.925, -0.3)
+size = Vector3(0.2, 1.85, 0.2)
+material = ExtResource("14_r")
+
+[node name="Privacy3" type="CSGBox3D" parent="Fence"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.9, 0.9, -15.1)
+size = Vector3(0.05, 1.8, 29.6)
+material = ExtResource("14_r")
+
+[node name="Post12" type="CSGBox3D" parent="Fence"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.9, 0.925, -0.3)
+size = Vector3(0.2, 1.85, 0.2)
+material = ExtResource("14_r")
+
+[node name="Post13" type="CSGBox3D" parent="Fence"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.9, 0.925, -2.577)
+size = Vector3(0.2, 1.85, 0.2)
+material = ExtResource("14_r")
+
+[node name="Post14" type="CSGBox3D" parent="Fence"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.9, 0.925, -4.854)
+size = Vector3(0.2, 1.85, 0.2)
+material = ExtResource("14_r")
+
+[node name="Post15" type="CSGBox3D" parent="Fence"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.9, 0.925, -7.131)
+size = Vector3(0.2, 1.85, 0.2)
+material = ExtResource("14_r")
+
+[node name="Post16" type="CSGBox3D" parent="Fence"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.9, 0.925, -9.408)
+size = Vector3(0.2, 1.85, 0.2)
+material = ExtResource("14_r")
+
+[node name="Post17" type="CSGBox3D" parent="Fence"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.9, 0.925, -11.685)
+size = Vector3(0.2, 1.85, 0.2)
+material = ExtResource("14_r")
+
+[node name="Post18" type="CSGBox3D" parent="Fence"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.9, 0.925, -13.962)
+size = Vector3(0.2, 1.85, 0.2)
+material = ExtResource("14_r")
+
+[node name="Post19" type="CSGBox3D" parent="Fence"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.9, 0.925, -16.238)
+size = Vector3(0.2, 1.85, 0.2)
+material = ExtResource("14_r")
+
+[node name="Post20" type="CSGBox3D" parent="Fence"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.9, 0.925, -18.515)
+size = Vector3(0.2, 1.85, 0.2)
+material = ExtResource("14_r")
+
+[node name="Post21" type="CSGBox3D" parent="Fence"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.9, 0.925, -20.792)
+size = Vector3(0.2, 1.85, 0.2)
+material = ExtResource("14_r")
+
+[node name="Post22" type="CSGBox3D" parent="Fence"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.9, 0.925, -23.069)
+size = Vector3(0.2, 1.85, 0.2)
+material = ExtResource("14_r")
+
+[node name="Post23" type="CSGBox3D" parent="Fence"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.9, 0.925, -25.346)
+size = Vector3(0.2, 1.85, 0.2)
+material = ExtResource("14_r")
+
+[node name="Post24" type="CSGBox3D" parent="Fence"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.9, 0.925, -27.623)
+size = Vector3(0.2, 1.85, 0.2)
+material = ExtResource("14_r")
+
+[node name="Post25" type="CSGBox3D" parent="Fence"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.9, 0.925, -29.9)
+size = Vector3(0.2, 1.85, 0.2)
+material = ExtResource("14_r")
+
+[node name="Privacy4" type="CSGBox3D" parent="Fence"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, -29.9)
+size = Vector3(25.8, 1.8, 0.05)
+material = ExtResource("14_r")
+
+[node name="Post26" type="CSGBox3D" parent="Fence"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.9, 0.925, -29.9)
+size = Vector3(0.2, 1.85, 0.2)
+material = ExtResource("14_r")
+
+[node name="Post27" type="CSGBox3D" parent="Fence"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.555, 0.925, -29.9)
+size = Vector3(0.2, 1.85, 0.2)
+material = ExtResource("14_r")
+
+[node name="Post28" type="CSGBox3D" parent="Fence"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.209, 0.925, -29.9)
+size = Vector3(0.2, 1.85, 0.2)
+material = ExtResource("14_r")
+
+[node name="Post29" type="CSGBox3D" parent="Fence"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.864, 0.925, -29.9)
+size = Vector3(0.2, 1.85, 0.2)
+material = ExtResource("14_r")
+
+[node name="Post30" type="CSGBox3D" parent="Fence"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.518, 0.925, -29.9)
+size = Vector3(0.2, 1.85, 0.2)
+material = ExtResource("14_r")
+
+[node name="Post31" type="CSGBox3D" parent="Fence"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.173, 0.925, -29.9)
+size = Vector3(0.2, 1.85, 0.2)
+material = ExtResource("14_r")
+
+[node name="Post32" type="CSGBox3D" parent="Fence"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.173, 0.925, -29.9)
+size = Vector3(0.2, 1.85, 0.2)
+material = ExtResource("14_r")
+
+[node name="Post33" type="CSGBox3D" parent="Fence"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.518, 0.925, -29.9)
+size = Vector3(0.2, 1.85, 0.2)
+material = ExtResource("14_r")
+
+[node name="Post34" type="CSGBox3D" parent="Fence"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.864, 0.925, -29.9)
+size = Vector3(0.2, 1.85, 0.2)
+material = ExtResource("14_r")
+
+[node name="Post35" type="CSGBox3D" parent="Fence"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.209, 0.925, -29.9)
+size = Vector3(0.2, 1.85, 0.2)
+material = ExtResource("14_r")
+
+[node name="Post36" type="CSGBox3D" parent="Fence"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.555, 0.925, -29.9)
+size = Vector3(0.2, 1.85, 0.2)
+material = ExtResource("14_r")
+
+[node name="Post37" type="CSGBox3D" parent="Fence"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.9, 0.925, -29.9)
+size = Vector3(0.2, 1.85, 0.2)
+material = ExtResource("14_r")
+
+[node name="Privacy5" type="CSGBox3D" parent="Fence"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.9, 0.9, -25.45)
+size = Vector3(0.05, 1.8, 8.9)
+material = ExtResource("14_r")
+
+[node name="Post38" type="CSGBox3D" parent="Fence"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.9, 0.925, -29.9)
+size = Vector3(0.2, 1.85, 0.2)
+material = ExtResource("14_r")
+
+[node name="Post39" type="CSGBox3D" parent="Fence"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.9, 0.925, -27.675)
+size = Vector3(0.2, 1.85, 0.2)
+material = ExtResource("14_r")
+
+[node name="Post40" type="CSGBox3D" parent="Fence"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.9, 0.925, -25.45)
+size = Vector3(0.2, 1.85, 0.2)
+material = ExtResource("14_r")
+
+[node name="Post41" type="CSGBox3D" parent="Fence"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.9, 0.925, -23.225)
+size = Vector3(0.2, 1.85, 0.2)
+material = ExtResource("14_r")
+
+[node name="Post42" type="CSGBox3D" parent="Fence"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.9, 0.925, -21)
+size = Vector3(0.2, 1.85, 0.2)
+material = ExtResource("14_r")
+
+[node name="Landscape" type="CSGCombiner3D" parent="."]
+use_collision = true
+
+[node name="Trunk" type="CSGCylinder3D" parent="Landscape"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 1.54, -26)
+radius = 0.22
+height = 3.08
+sides = 8
+material = ExtResource("15_r")
+
+[node name="Canopy" type="CSGSphere3D" parent="Landscape"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 3.96, -26)
+radius = 2.2
+radial_segments = 10
+rings = 6
+material = ExtResource("16_r")
+
+[node name="Canopy2" type="CSGSphere3D" parent="Landscape"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.12, 3.3, -25.45)
+radius = 1.54
+radial_segments = 10
+rings = 6
+material = ExtResource("17_r")
+
+[node name="Canopy3" type="CSGSphere3D" parent="Landscape"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.77, 3.52, -26.66)
+radius = 1.65
+radial_segments = 10
+rings = 6
+material = ExtResource("17_r")
+
+[node name="MailboxPost" type="CSGBox3D" parent="Landscape"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.6, 0.5, -0.6)
+size = Vector3(0.1, 1, 0.1)
+material = ExtResource("14_r")
+
+[node name="Mailbox" type="CSGBox3D" parent="Landscape"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.6, 1.125, -0.6)
+size = Vector3(0.24, 0.25, 0.5)
+material = ExtResource("13_r")
+
+[node name="AcPad" type="CSGBox3D" parent="Landscape"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.6, 0.04, -18)
+size = Vector3(1.1, 0.08, 1.1)
+material = ExtResource("3_r")
+
+[node name="AcUnit" type="CSGBox3D" parent="Landscape"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.6, 0.465, -18)
+size = Vector3(0.8, 0.77, 0.8)
+material = ExtResource("18_r")

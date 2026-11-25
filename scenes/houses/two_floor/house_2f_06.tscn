@@ -33,6 +33,7 @@ bathrooms = 2
 footprint = Vector2(17.5, 11)
 lot_size = Vector2(19, 29)
 lot_type = "Two-storey front gable + one-storey wing + single garage"
+archetype = "house_2f_big_yard"
 
 [node name="Lot" type="CSGCombiner3D" parent="."]
 use_collision = true
