@@ -21,6 +21,8 @@ signal alerted(member: IndoorGangMember)
 @export var post_yaw := 0.0
 @export var patrol_points: Array[Vector3] = []
 @export var sight_range := 24.0
+## Sight range while idle (not yet alerted); -1 = [member sight_range]. Lets players sneak up.
+@export var unaware_sight_range := -1.0
 ## Field of view while idle; alerted members see all around.
 @export var fov_degrees := 130.0
 ## Delay between spotting the player and opening fire.
@@ -63,6 +65,11 @@ func _ready() -> void:
 
 func is_holding() -> bool:
 	return post == Post.HOLD or post == Post.OVERWATCH
+
+
+## Alive and still idle at its post: hasn't seen or heard the player.
+func is_unaware() -> bool:
+	return not _dead and state == State.IDLE
 
 
 ## Puts this member in combat with the player last seen/heard at [param at].
@@ -225,7 +232,9 @@ func _current_target() -> Node3D:
 
 
 func _sight_range_now() -> float:
-	return maxf(sight_range, alerted_range * 0.5) if state != State.IDLE else sight_range
+	if state != State.IDLE:
+		return maxf(sight_range, alerted_range * 0.5)
+	return unaware_sight_range if unaware_sight_range >= 0.0 else sight_range
 
 
 static func _flat_distance(a: Vector3, b: Vector3) -> float:

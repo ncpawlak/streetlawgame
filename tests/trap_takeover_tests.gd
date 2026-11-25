@@ -19,6 +19,11 @@ func run() -> void:
 	_test_reroll(driver)
 	_test_line_of_sight(driver)
 	await _test_claim_flow(driver)
+	_test_loud_entry(driver)
+	_test_quiet_entry(driver)
+	await _test_alarm_timer(driver)
+	await _test_keep(driver)
+	await _test_destroy(driver)
 	await _free(driver)
 	driver = await _make_driver(0)
 	await _test_stairs_navigation(driver)
@@ -106,7 +111,121 @@ func _test_claim_flow(driver: TrapTakeoverDriver) -> void:
 	player.global_position = TrapHouseBuilder.CLAIM_POINT + Vector3(0.0, 0.1, 0.0)
 	await _runner._physics_frames(60)
 	_check(driver.phase == TrapTakeoverDriver.Phase.COMPLETE and completed[0], "holding the stash room completes the takeover")
-	_check(GameState.cash == cash + TrapTakeoverDriver.REWARD_CASH and GameState.has_flag(TrapTakeoverDriver.CLAIM_FLAG), "the takeover pays out and sets the claimed flag")
+	_check(GameState.cash == cash + driver.last_reward_cash and driver.last_reward_cash >= TrapTakeoverDriver.REWARD_CASH and GameState.has_flag(TrapTakeoverDriver.CLAIM_FLAG), "the takeover pays out and sets the claimed flag")
+	_check(driver.outcome == TrapTakeoverDriver.Outcome.PENDING, "after the claim the player chooses to keep or destroy the trap")
+
+
+func _test_loud_entry(driver: TrapTakeoverDriver) -> void:
+	driver.start(1234)
+	var front: SwingDoor = driver.builder.doors[0]
+	_check(front.locked and not front.is_open and driver.can_breach(), "the front door starts locked to the player and can be breached")
+	driver.breach_front_door()
+	var all_alert := driver.alive_enemies().all(func(member: IndoorGangMember) -> bool: return not member.is_unaware())
+	_check(front.is_open and front.jammed and not front.locked, "kicking in the front door leaves it open")
+	_check(driver.entry == TrapTakeoverDriver.Entry.LOUD and driver.alarm_raised and all_alert, "a loud entry alerts the whole house")
+	driver.start(1234)
+	_check(front.locked and not front.jammed and not driver.alarm_raised and driver.entry == TrapTakeoverDriver.Entry.NONE, "restarting re-locks the front door and resets the alarm")
+
+
+func _test_quiet_entry(driver: TrapTakeoverDriver) -> void:
+	driver.start(1234)
+	driver.climb_window(true)
+	_check(TrapHouseBuilder.is_inside(driver.player.global_position) and driver.entry == TrapTakeoverDriver.Entry.QUIET and driver.entry_route == "back window",
+		"climbing through the back window is a quiet entry")
+	var target: IndoorGangMember = driver.enemies[0]
+	var others := driver.alive_enemies().filter(func(member: IndoorGangMember) -> bool: return member != target)
+	_check(driver.silent_takedown(target) and not target.is_alive() and driver.takedowns == 1, "a silent takedown kills an unaware rival")
+	var still_unaware := others.all(func(member: IndoorGangMember) -> bool: return member.is_unaware())
+	_check(not driver.alarm_raised and still_unaware, "a silent takedown doesn't alert anyone")
+	var aware: IndoorGangMember = others[0]
+	aware.alert(driver.player.global_position)
+	_check(not driver.silent_takedown(aware) and aware.is_alive(), "a rival who's onto you can't be taken out quietly")
+	var takedown := aware.get_node("Takedown") as Interactable
+	var unaware_member: IndoorGangMember = driver.alive_enemies().filter(func(member: IndoorGangMember) -> bool: return member.is_unaware())[0]
+	var prompt := unaware_member.get_node("Takedown") as Interactable
+	_check(takedown.visible_actions(driver.player).is_empty() and prompt.visible_actions(driver.player).size() == 1, "the takedown prompt only shows on unaware rivals")
+
+
+func _test_alarm_timer(driver: TrapTakeoverDriver) -> void:
+	driver.start(1234)
+	var spotter: IndoorGangMember = driver.enemies[0]
+	spotter.alert(driver.player.global_position)
+	await _runner._physics_frames(int(TrapTakeoverDriver.ALARM_DELAY * 60.0 * 0.5))
+	_check(not driver.alarm_raised and driver.spotter != null, "a rival who spots you doesn't raise the alarm right away")
+	await _runner._physics_frames(int(TrapTakeoverDriver.ALARM_DELAY * 60.0) + 10)
+	_check(driver.alarm_raised and driver.alive_enemies().all(func(member: IndoorGangMember) -> bool: return not member.is_unaware()),
+		"the alarm goes up after %.0fs and the whole house is alerted" % TrapTakeoverDriver.ALARM_DELAY)
+	driver.start(1234)
+	driver.enemies[0].alert(driver.player.global_position)
+	await _runner._physics_frames(20)
+	for member in driver.alive_enemies():
+		if not member.is_unaware():
+			member.take_damage(member.health + 1000.0, driver.player)
+	await _runner._physics_frames(int(TrapTakeoverDriver.ALARM_DELAY * 60.0) + 30)
+	_check(not driver.alarm_raised, "dropping whoever spotted you before the timer runs out keeps the alarm quiet")
+
+
+## Kills everyone and holds the stash room until the takeover completes.
+func _clear_and_claim(driver: TrapTakeoverDriver) -> void:
+	driver.start(1234)
+	driver.claim_time = 0.3
+	driver.reinforcement_count = 0
+	driver.kill_all()
+	await _runner._physics_frames(2)
+	driver.player.global_position = TrapHouseBuilder.CLAIM_POINT + Vector3(0.0, 0.1, 0.0)
+	await _runner._physics_frames(40)
+
+
+func _test_keep(driver: TrapTakeoverDriver) -> void:
+	await _clear_and_claim(driver)
+	_check(driver.phase == TrapTakeoverDriver.Phase.COMPLETE and driver.outcome == TrapTakeoverDriver.Outcome.PENDING, "clearing and claiming completes the takeover")
+	var model: OperationsModel = Operations.model
+	_check(driver.keep_trap() == "" and driver.outcome == TrapTakeoverDriver.Outcome.KEPT, "keeping the trap after the takeover")
+	_check(model.site(TrapTakeoverDriver.SITE_ID) != null and model.is_site_acquired(TrapTakeoverDriver.SITE_ID), "a kept trap becomes an owned Operations site")
+	var custom := driver.customization
+	_check(custom.level == 1 and custom.rooms.size() == 1 and custom.rooms.has(&"grow_room") and custom.product_recipe() == &"grow_weed", "a taken trap starts as a House with the grow room on weed")
+	_check(driver.keep_trap() != "" and driver.destroy_trap() != "" and driver.builder.levels.size() == 4, "once kept, the choice is made")
+	GameState.add_cash(30000)
+	_check(driver.buy_room(&"pill_press") == "" and custom.rooms.size() == 2, "buying a room fills a slot")
+	_check(driver.buy_room(&"security") != "" and not custom.rooms.has(&"security"), "rooms need a free slot")
+	_check(driver.upgrade_trap() == "" and custom.level == 2 and driver.buy_room(&"security") == "", "upgrading to a Compound opens another room slot")
+	var site := model.site(TrapTakeoverDriver.SITE_ID)
+	_check(site.max_workers == 6 and site.stash_capacity == 400 and site.tags.has(&"security"), "upgrades and rooms are pushed into the site")
+	_check(driver.set_product(&"cut_and_bag") != "" and custom.product == &"grow_room", "the product needs its production room")
+	driver.set_product(&"pill_press")
+	_check(custom.product == &"pill_press", "switching product to another owned production room")
+	var crew := driver.crew_members()
+	_check(not crew.is_empty(), "there is crew to staff the trap")
+	if not crew.is_empty():
+		var reason := driver.assign_crew(crew[0].id, &"guard")
+		_check(reason == "" and driver.site_workers() == 1 and driver.crew_job_text(crew[0].id).begins_with("Guard"), "assigning crew to guard the trap (%s)" % reason)
+	var saved: Dictionary = GameState.get_flag(TrapTakeoverDriver.TRAP_FLAG, {})
+	_check(TrapCustomization.from_dict(saved).to_dict() == custom.to_dict() and saved["level"] == 2, "the trap's build-out is saved")
+	driver.open_manage_panel(false)
+	_check(driver.manage_panel.is_open, "the manage panel opens for a kept trap")
+	driver.manage_panel.close()
+	driver.start(1234)
+	_check(not model.is_site_acquired(TrapTakeoverDriver.SITE_ID) and driver.site_workers() == 0 and driver.outcome == TrapTakeoverDriver.Outcome.NONE, "restarting releases the kept trap and its crew")
+
+
+func _test_destroy(driver: TrapTakeoverDriver) -> void:
+	await _clear_and_claim(driver)
+	var cash: int = GameState.cash
+	_check(driver.destroy_trap() == "" and GameState.cash == cash + TrapTakeoverDriver.DESTROY_PAYOUT, "destroying the trap pays out $%d" % TrapTakeoverDriver.DESTROY_PAYOUT)
+	_check(driver.builder.levels.is_empty() and driver.builder.doors.is_empty() and driver.outcome == TrapTakeoverDriver.Outcome.DESTROYED, "destroying knocks the house down")
+	var saved: Dictionary = GameState.get_flag(TrapTakeoverDriver.LOT_FLAG, {})
+	_check(driver.lot.state == LotState.State.EMPTY and saved.get("state") == "EMPTY" and driver.lot_is_empty(), "the lot is left empty")
+	_check(driver.keep_trap() != "", "a destroyed trap can't be kept")
+	await _runner._physics_frames(30)
+	_check(driver.player.global_position.y > -0.5, "the player stands on the empty lot")
+	GameState.add_cash(5000)
+	_check(driver.start_lot_build(&"stash_house") == "" and driver.lot.state == LotState.State.CONSTRUCTION and driver.lot.project == &"stash_house", "starting a build on the empty lot")
+	_check(driver.start_lot_build(&"trap_house") != "", "only one build at a time")
+	driver.start(1234)
+	await _runner._physics_frames(2)
+	var navmesh := driver.builder.region.navigation_mesh
+	_check(driver.builder.levels.size() == 4 and driver.builder.doors[0].locked and navmesh.get_polygon_count() > 100 and driver.enemies.size() == 12,
+		"restarting rebuilds the house, navmesh and rivals")
 
 
 func _test_stairs_navigation(driver: TrapTakeoverDriver) -> void:

@@ -143,6 +143,35 @@ func bake() -> void:
 		_add_swing_door(spec)
 
 
+## Knocks the house down: frees every level (floors, walls, doors, labels) and leaves a dirt pad
+## with the old foundation and rubble. Returns the new "EmptyLot" body.
+func demolish() -> StaticBody3D:
+	for level: int in levels:
+		var body: Node = levels[level]
+		body.get_parent().remove_child(body)
+		body.queue_free()
+	levels.clear()
+	doors.clear()
+	room_labels.clear()
+	var lot := StaticBody3D.new()
+	lot.name = "EmptyLot"
+	lot.collision_mask = 0
+	region.add_child(lot)
+	_slab(lot, FOOTPRINT, 0.0, _material(&"dirt", Color(0.36, 0.28, 0.2)), 0.5)
+	var foundation := _material(&"foundation", Color(0.55, 0.55, 0.52))
+	for edge: Array in [[Vector3(0.0, 0.12, 7.0), Vector3(18.2, 0.24, 0.3)], [Vector3(0.0, 0.12, -7.0), Vector3(18.2, 0.24, 0.3)],
+			[Vector3(-9.0, 0.12, 0.0), Vector3(0.3, 0.24, 14.0)], [Vector3(9.0, 0.12, 0.0), Vector3(0.3, 0.24, 14.0)]]:
+		_visual(lot, edge[0], edge[1], foundation)
+	var rubble := [_material(&"siding", Color(0.82, 0.76, 0.58)), _material(&"plaster", Color(0.74, 0.7, 0.64)), _material(&"crate", Color(0.55, 0.42, 0.25))]
+	var rng := RandomNumberGenerator.new()
+	rng.seed = 77
+	for i in 24:
+		var at := Vector3(rng.randf_range(-8.0, 8.0), 0.1, rng.randf_range(-6.0, 6.0))
+		var size := Vector3(rng.randf_range(0.4, 1.6), rng.randf_range(0.1, 0.4), rng.randf_range(0.3, 1.2))
+		_visual(lot, at, size, rubble[i % rubble.size()], Basis(Vector3.UP, rng.randf_range(0.0, PI)))
+	return lot
+
+
 static func level_y(level: int) -> float:
 	return level * FLOOR_HEIGHT
 

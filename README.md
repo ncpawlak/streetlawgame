@@ -65,20 +65,39 @@ You spawn on the street in front of **The Spot**, a Red Vipers trap house on a f
 
 Swing doors open as people walk through them. Rivals are placed on posts that suit them: yard guards, window overwatch, room holders and hall patrols. They alert each other, react to gunfire, and chase you between floors on the stairs.
 
-Kill every rival, then go to the **CLAIM** ring in the basement stash room and stand in it until the bar fills. Stepping into the ring calls in reinforcements. The bar pauses while any rival is still alive inside the house, and drains slowly if you leave the ring. When the bar fills you get +$1000 and +100 respect.
+**Loud or quiet entry.**
 
-| Debug key | Action |
+- **Loud:** the front door is locked. Press **E** at it to kick it in. The whole house is alerted at once. A loud entry is worth +50 respect.
+- **Quiet:** come in through the back door, the kitchen side door, or the back laundry window (**E** to climb in or out). Unaware Vipers don't see as far, so you can sneak up behind one and press **E** to take him out silently.
+- **Alarm:** a Viper who spots you, or hears gunfire, raises the alarm after 3 s unless you drop him first. The alarm alerts everyone. If you clear the house without ever raising it, you get a +$500 ghost bonus.
+
+Kill every rival, then go to the **CLAIM** ring in the basement stash room and stand in it until the bar fills. Stepping into the ring calls in reinforcements. The bar pauses while any rival is still alive inside the house, and drains slowly if you leave the ring. When the bar fills you get +$1000 and +100 respect, plus any bonuses.
+
+**Keep it or destroy it.** After the claim, press **K** or **X**, or press **E** in the claim ring for a menu.
+
+- **Keep (K):** The Spot becomes your trap. It's registered as an owned Operations site and starts as a Lv 2 House with the Vipers' grow room making weed. Press **T** to open the manage panel, where you can:
+  - upgrade the level (House $3k, Compound $10k), which adds room slots, worker slots and stash space;
+  - build rooms from the costs in `docs/design/TRAP_HOUSES_OPERATIONS.md`;
+  - pick the product;
+  - put crew on Guard, Cook or Dealer.
+  The build-out is saved in the `trap_the_spot` GameState flag.
+- **Destroy (X):** strip the trap for a one-time $2500. The house is knocked down to an empty lot, and the Vipers lose their spot. A sign out front lets you reserve the lot for a new trap house, stash house or front business. That's a stub until construction exists. The lot state is saved in the `lot_the_spot` flag.
+
+| Key | Action |
 | --- | --- |
+| E | Kick in the front door / climb the laundry window / silent takedown / keep-destroy menu |
+| K / X | Keep / destroy the trap after the claim |
+| T | Manage a kept trap |
 | F1 | Toggle debug panel |
 | F2 | Cycle difficulty (Easy 8 / Normal 12 / Hard 18 rivals) and restart |
 | F3 / F4 | Fewer / more rivals and restart |
 | F5 | Re-roll enemy placement |
-| F6 | Restart with the same placement |
+| F6 | Restart with the same placement (also rebuilds a destroyed house) |
 | F7 | Kill all rivals |
 | F8 | Cycle top-down floor views (basement / ground / upper / roof / normal camera) |
 | F9 | God mode |
 
-`-- --screenshots=DIR` saves a cutaway of each floor plus exterior shots to `DIR`, then quits. It needs a rendering (non-headless) Godot.
+`-- --screenshots=DIR` saves a cutaway of each floor, exterior shots, the manage panel for a kept trap and the destroyed lot to `DIR`, then quits. It needs a rendering (non-headless) Godot.
 
 ## Tests
 
