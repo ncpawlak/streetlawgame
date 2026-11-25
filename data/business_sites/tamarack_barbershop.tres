@@ -5,6 +5,6 @@
 [resource]
 script = ExtResource("1")
 type_id = &"barbershop"
-district_id = &"the_bottoms"
+district_id = &"tamarack_row"
 id = &"tamarack_barbershop"
 display_name = "Tamarack Cutz"
