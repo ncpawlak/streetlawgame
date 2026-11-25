@@ -77,7 +77,7 @@ func refresh() -> void:
 		var best_score := INF
 		for area in get_overlapping_areas():
 			var candidate := area as Interactable
-			if candidate == null or not candidate.enabled or candidate.visible_actions(actor).is_empty():
+			if candidate == null or not candidate.is_inside_tree() or not candidate.enabled or candidate.visible_actions(actor).is_empty():
 				continue
 			var score := _score(candidate)
 			if score < best_score:

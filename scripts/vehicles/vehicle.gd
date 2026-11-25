@@ -8,6 +8,7 @@ signal exploded
 
 enum DamageState { OK, SMOKING, BURNING, WRECKED }
 
+const DEFAULT_BODY_COLOR := Color(0.2, 0.2, 0.25)
 const WHEEL_LAYOUT := [
 	# [position, is_front]
 	[Vector3(0.9, 0.6, 1.4), true],
@@ -16,7 +17,10 @@ const WHEEL_LAYOUT := [
 	[Vector3(-0.9, 0.6, -1.4), false],
 ]
 
-@export var body_color := Color(0.2, 0.2, 0.25)
+@export var body_color := DEFAULT_BODY_COLOR
+## A [constant VehicleClass.TABLE] row (e.g. &"sports"): sets health, handling and, unless body_color
+## was changed, the paint. Empty keeps the stock build.
+@export var vehicle_class_id: StringName = &""
 @export var max_engine_force := 3000.0
 @export var max_brake_force := 60.0
 @export var max_steer := 0.55
@@ -42,11 +46,16 @@ const WHEEL_LAYOUT := [
 var driver: Player
 var health := 0.0
 var damage_state := DamageState.OK
+## Resolved from vehicle_class_id in _ready (null for a stock car).
+var vehicle_class: VehicleClass
 
 var _camera_pivot: Node3D
 var _spring_arm: SpringArm3D
 var _camera: Camera3D
+## Free-look chase camera: world-space yaw / pitch driven only by the mouse, so turning the car never
+## drags the view back to straight ahead (look around and shoot while driving).
 var _look_yaw := 0.0
+var _look_pitch := deg_to_rad(-15.0)
 var _last_velocity := Vector3.ZERO
 var _last_attacker: Node
 var _body_materials: Array[StandardMaterial3D] = []
@@ -56,17 +65,24 @@ var _flames: CPUParticles3D
 
 func _ready() -> void:
 	add_to_group("vehicles")
-	mass = 1000.0
+	mass = 1300.0
 	collision_layer = 8
 	collision_mask = 15
 	center_of_mass_mode = RigidBody3D.CENTER_OF_MASS_MODE_CUSTOM
-	center_of_mass = Vector3(0.0, 0.3, 0.0)
+	center_of_mass = Vector3(0.0, 0.2, 0.0)
 	contact_monitor = true
 	max_contacts_reported = 4
 	body_entered.connect(_on_body_entered)
+	if vehicle_class_id != &"":
+		vehicle_class = VehicleClass.find(vehicle_class_id)
+		assert(vehicle_class != null, "Unknown vehicle class %s" % vehicle_class_id)
+		if vehicle_class != null and body_color == DEFAULT_BODY_COLOR:
+			body_color = vehicle_class.color
 	health = max_health
 	_build_body()
 	_build_wheels()
+	if vehicle_class != null:
+		vehicle_class.apply_to(self)
 	_build_camera()
 	_build_damage_effects()
 	_build_interactable()
@@ -109,7 +125,9 @@ func _unhandled_input(event: InputEvent) -> void:
 	if driver == null:
 		return
 	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
-		_look_yaw -= (event as InputEventMouseMotion).relative.x * mouse_sensitivity
+		var motion := event as InputEventMouseMotion
+		_look_yaw = wrapf(_look_yaw - motion.relative.x * mouse_sensitivity, -PI, PI)
+		_look_pitch = clampf(_look_pitch - motion.relative.y * mouse_sensitivity, deg_to_rad(-60.0), deg_to_rad(20.0))
 	elif event.is_action_pressed("interact"):
 		get_viewport().set_input_as_handled()
 		exit()
@@ -141,22 +159,22 @@ func _physics_process(delta: float) -> void:
 		_drive_by_shoot()
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if driver == null:
 		return
-	if not Input.is_action_pressed("aim") and not Input.is_action_pressed("shoot"):
-		_look_yaw = lerp_angle(_look_yaw, 0.0, clampf(1.5 * delta, 0.0, 1.0))
 	_camera_pivot.global_position = global_position + Vector3(0.0, 1.8, 0.0)
-	var target_yaw := global_rotation.y + PI + _look_yaw
-	_camera_pivot.rotation.y = lerp_angle(_camera_pivot.rotation.y, target_yaw, clampf(6.0 * delta, 0.0, 1.0))
+	_camera_pivot.rotation.y = _look_yaw
+	_spring_arm.rotation.x = _look_pitch
 
 
 func enter(player: Player) -> void:
 	driver = player
 	player.set_on_foot(false, self)
-	_look_yaw = 0.0
+	_look_yaw = wrapf(global_rotation.y + PI, -PI, PI)
+	_look_pitch = deg_to_rad(-15.0)
 	_camera_pivot.global_position = global_position + Vector3(0.0, 1.8, 0.0)
-	_camera_pivot.rotation.y = global_rotation.y + PI
+	_camera_pivot.rotation.y = _look_yaw
+	_spring_arm.rotation.x = _look_pitch
 	_camera.make_current()
 
 
@@ -166,7 +184,7 @@ func exit() -> void:
 	var player := driver
 	driver = null
 	player.global_position = global_position + global_basis.x * 1.8 + Vector3.UP * 0.5
-	player.rotation.y = global_rotation.y + PI
+	player.rotation.y = _look_yaw
 	player.set_on_foot(true)
 
 
@@ -256,8 +274,10 @@ func _build_wheels() -> void:
 		wheel.wheel_radius = 0.4
 		wheel.wheel_rest_length = 0.3
 		wheel.suspension_travel = 0.3
-		wheel.suspension_stiffness = 40.0
-		wheel.wheel_friction_slip = 3.0
+		wheel.suspension_stiffness = 73.0
+		wheel.damping_compression = 1.55
+		wheel.damping_relaxation = 2.15
+		wheel.wheel_friction_slip = 4.9
 		var tire_mesh := MeshInstance3D.new()
 		tire_mesh.mesh = tire
 		tire_mesh.rotation.z = PI / 2.0

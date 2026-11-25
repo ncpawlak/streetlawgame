@@ -18,6 +18,8 @@ signal safehouse_manage_requested(district_id: StringName)
 signal gang_member_killed(member: GangMember, killer: Node)
 signal notify(text: String)
 signal explosion(position: Vector3, radius: float)
+## A firearm went off (not melee or thrown). Hit components listen for it (neighbours hear gunshots).
+signal gunshot(position: Vector3, shooter: Node)
 
 # Framework: interaction / content (#26)
 signal interaction_performed(interactable: Interactable, action_id: StringName, actor: Node)

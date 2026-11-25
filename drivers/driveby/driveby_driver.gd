@@ -4,9 +4,9 @@ extends Node3D
 ## parked nearby, and the player already behind the wheel (optionally with a crew gunner riding
 ## shotgun). Not part of the city map - boots straight into the drive-by loop.
 ##
-## Run: godot --path . res://drivers/driveby/driveby_driver.tscn [-- --crew=6 --no-cars --no-gunner --gunner-skill=8]
+## Run: godot --path . res://drivers/driveby/driveby_driver.tscn [-- --crew=6 --no-cars --no-gunner --gunner-skill=8 --car=sports]
 ## Debug keys: F1/F2 crew size -/+, F3 rivals have cars, F4 crew gunner, F5 restart,
-## F6/F7 gunner shooting skill -/+ (applies live).
+## F6/F7 gunner shooting skill -/+ (applies live), F8 cycle the player's car class.
 
 const MIN_CREW := 1
 const MAX_CREW := 8
@@ -14,6 +14,8 @@ const PLAYER_START := Vector3(0.0, 0.6, 70.0)
 ## Curb the corner crew hangs out on (north-east corner block of the target intersection).
 const CORNER_START := Vector3(8.0, 0.0, -36.0)
 const PARKED_CARS := [Vector3(17.0, 0.6, -48.0), Vector3(28.0, 0.6, -40.0)]
+## [constant VehicleClass.TABLE] rows the Vipers' parked cars use, one per parking spot.
+const RIVAL_CAR_CLASSES: Array[StringName] = [&"sedan", &"suv"]
 
 ## Debug settings. Static so they survive the scene reload that applies them.
 static var crew_size := 4
@@ -21,6 +23,8 @@ static var rivals_have_cars := true
 static var passenger_gunner := true
 ## Shooting skill (1-10) of the crew member riding shotgun.
 static var gunner_skill := 5
+## [constant VehicleClass.TABLE] row for the player's car (handling, health).
+static var player_car_class: StringName = &"muscle"
 static var _args_read := false
 
 var grid: StreetGrid
@@ -63,9 +67,10 @@ func _process(_delta: float) -> void:
 	_objective_label.text = mission.objective_text()
 	_escape_bar.visible = mission.phase == DriveByMission.Phase.RETALIATION and mission.can_escape()
 	_escape_bar.value = mission.unseen_time / mission.escape_time * 100.0
-	_debug_label.text = "Vipers left %d   Cars chasing %d   Kills %d\n%s\n[F1/F2] Crew size %d   [F3] Rival cars %s   [F4] Gunner %s   [F5] Restart   [F6/F7] Gunner skill" % [
+	_debug_label.text = "Vipers left %d   Cars chasing %d   Kills %d\n%s\n[F1/F2] Crew size %d   [F3] Rival cars %s   [F4] Gunner %s   [F5] Restart   [F6/F7] Gunner skill   [F8] Car: %s" % [
 		mission.living_crew().size(), mission.chasing_cars().size(), mission.kills, _gunner_text(),
-		crew_size, "ON" if rivals_have_cars else "OFF", "ON" if passenger_gunner else "OFF"]
+		crew_size, "ON" if rivals_have_cars else "OFF", "ON" if passenger_gunner else "OFF",
+		player_car.vehicle_class.display_name if player_car.vehicle_class != null else "Stock"]
 
 
 func _gunner_text() -> String:
@@ -109,6 +114,14 @@ func _input(event: InputEvent) -> void:
 			KEY_F7:
 				set_gunner_skill(gunner_skill + 1)
 				get_viewport().set_input_as_handled()
+			KEY_F8:
+				_restart_with(func() -> void: player_car_class = next_car_class(player_car_class))
+
+
+## The class after [param class_id] in [constant VehicleClass.TABLE], wrapping round.
+static func next_car_class(class_id: StringName) -> StringName:
+	var ids := VehicleClass.ids()
+	return ids[(ids.find(class_id) + 1) % ids.size()]
 
 
 func _restart_with(change: Callable) -> void:
@@ -118,7 +131,7 @@ func _restart_with(change: Callable) -> void:
 
 
 ## Command-line overrides (after "--"): --crew=N, --cars / --no-cars, --gunner / --no-gunner,
-## --gunner-skill=N.
+## --gunner-skill=N, --car=<class> (junker, sedan, muscle, suv, sports, luxury).
 static func _read_args() -> void:
 	if _args_read:
 		return
@@ -136,6 +149,12 @@ static func _read_args() -> void:
 			passenger_gunner = true
 		elif arg.begins_with("--gunner-skill="):
 			gunner_skill = clampi(arg.trim_prefix("--gunner-skill=").to_int(), 1, CrewMemberData.MAX_SKILL)
+		elif arg.begins_with("--car="):
+			var class_id := StringName(arg.trim_prefix("--car="))
+			if VehicleClass.find(class_id) != null:
+				player_car_class = class_id
+			else:
+				push_warning("Unknown car class %s; options: %s" % [class_id, VehicleClass.ids()])
 
 
 func _spawn_player() -> void:
@@ -145,6 +164,7 @@ func _spawn_player() -> void:
 	player.weapons.select(player.weapons.slots.find(smg))
 	player_car = Vehicle.new()
 	player_car.name = "PlayerCar"
+	player_car.vehicle_class_id = player_car_class
 	player_car.body_color = GameState.gang_color(GameState.PLAYER_GANG).darkened(0.4)
 	player_car.position = PLAYER_START
 	player_car.rotation.y = PI
@@ -173,6 +193,7 @@ func _spawn_rival_cars() -> void:
 		var car := ChaseCar.new()
 		car.name = "ViperCar%d" % i
 		car.gang_id = &"vipers"
+		car.vehicle_class_id = RIVAL_CAR_CLASSES[i % RIVAL_CAR_CLASSES.size()]
 		car.grid = grid
 		car.position = PARKED_CARS[i]
 		car.rotation.y = -PI / 2.0

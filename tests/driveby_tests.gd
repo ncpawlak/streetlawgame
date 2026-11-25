@@ -20,7 +20,8 @@ func _check(condition: bool, description: String) -> void:
 func run(main: Node) -> void:
 	main.queue_free()
 	await _frames(2)
-	var saved := [DriveByDriver.crew_size, DriveByDriver.rivals_have_cars, DriveByDriver.passenger_gunner, GameState.cash, GameState.respect, DriveByDriver.gunner_skill]
+	var saved := [DriveByDriver.crew_size, DriveByDriver.rivals_have_cars, DriveByDriver.passenger_gunner, GameState.cash, GameState.respect, DriveByDriver.gunner_skill, DriveByDriver.player_car_class]
+	DriveByDriver.player_car_class = &"muscle"
 	DriveByDriver._args_read = true
 	await _test_boot()
 	await _test_shooting_from_car()
@@ -37,6 +38,7 @@ func run(main: Node) -> void:
 	GameState.cash = saved[3]
 	GameState.respect = saved[4]
 	DriveByDriver.gunner_skill = saved[5]
+	DriveByDriver.player_car_class = saved[6]
 
 
 func _boot(crew_size: int, cars: bool, gunner: bool) -> DriveByDriver:
@@ -64,6 +66,14 @@ func _test_boot() -> void:
 	_check(driver.rival_cars.size() == 2 and driver.mission.chasing_cars().is_empty(), "rival cars start parked")
 	_check(driver.gunner != null and driver.gunner.get_parent() == driver.player_car, "a crew gunner rides shotgun")
 	_check(driver.mission.phase == DriveByMission.Phase.APPROACH, "mission starts at the approach")
+	var muscle := VehicleClass.find(&"muscle")
+	_check(driver.player_car.vehicle_class == muscle and is_equal_approx(driver.player_car.mass, muscle.handling.mass) and driver.player_car.max_health == muscle.max_health, "the player drives a muscle car with its class handling and health")
+	var rival := driver.rival_cars[1]
+	_check(rival.vehicle_class.id == DriveByDriver.RIVAL_CAR_CLASSES[1] and rival.body_color != rival.vehicle_class.color, "rival cars use their class and keep gang paint")
+	var player_pull := driver.player_car.max_engine_force / driver.player_car.mass
+	var rival_pull := rival.chase_force(driver.player_car) / rival.mass
+	_check(rival_pull < player_pull and rival_pull >= player_pull * rival.chase_throttle - 0.001 and rival.chase_force(driver.player_car) >= rival.max_engine_force, "chase cars pull a bit under the player's power-to-weight, never less than their own engine (%.2f vs %.2f N/kg)" % [rival_pull, player_pull])
+	_check(DriveByDriver.next_car_class(&"muscle") != &"muscle" and DriveByDriver.next_car_class(VehicleClass.ids()[-1]) == VehicleClass.ids()[0], "F8 cycles the player's car through every class")
 	var grid := driver.grid
 	_check(grid.nearest_node(grid.node_position(Vector2i(1, 3)) + Vector3(4.0, 0.0, -3.0)) == Vector2i(1, 3) and grid.step_toward(Vector2i(0, 0), Vector2i(3, 1)) == Vector2i(1, 0), "road grid finds intersections and routes between them")
 	await _free(driver)

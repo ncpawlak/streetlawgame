@@ -7,8 +7,11 @@ signal rolled_out
 
 ## Gang riding in it (colors the occupants, picks their guns).
 @export var gang_id: StringName = &"vipers"
-## Engine force while chasing; a bit below the player's car so escaping is possible.
-@export var chase_engine_force := 2600.0
+## Chasing a car, it pulls at least this share of that car's power-to-weight (or its own class's
+## full engine, if that's stronger): close, but a bit short, so escaping is possible in any class.
+@export var chase_throttle := 0.87
+## Fixed engine force while chasing. Left negative, it's worked out by [method chase_force].
+@export var chase_engine_force := -1.0
 ## Occupants shoot when the target is this close and in sight.
 @export var gun_range := 32.0
 ## Drives straight at the target (instead of following roads) inside this range with a clear view.
@@ -35,7 +38,7 @@ var _last_health := 0.0
 
 
 func _ready() -> void:
-	if body_color == Color(0.2, 0.2, 0.25):
+	if body_color == DEFAULT_BODY_COLOR:
 		body_color = GameState.gang_color(gang_id).darkened(0.55)
 	super()
 	_last_health = health
@@ -77,6 +80,16 @@ func _physics_process(delta: float) -> void:
 	_shoot(chase, delta)
 
 
+## Engine force used to chase [param chase] (the player on foot or the car they're in).
+func chase_force(chase: Node3D) -> float:
+	if chase_engine_force >= 0.0:
+		return chase_engine_force
+	if chase is Vehicle:
+		var car := chase as Vehicle
+		return maxf(max_engine_force, mass * car.max_engine_force / car.mass * chase_throttle)
+	return max_engine_force
+
+
 func _current_target() -> Node3D:
 	if target != null and is_instance_valid(target):
 		if target is Player:
@@ -98,7 +111,7 @@ func _drive(goal: Vector3, delta: float) -> void:
 
 	if _reverse_left > 0.0:
 		_reverse_left -= delta
-		engine_force = -chase_engine_force * 0.7
+		engine_force = -chase_force(_current_target()) * 0.7
 		brake = 0.0
 		steering = move_toward(steering, -signf(angle) * max_steer, steer_speed * delta)
 		return
@@ -108,7 +121,7 @@ func _drive(goal: Vector3, delta: float) -> void:
 		throttle = 0.0
 	elif distance < 10.0:
 		throttle = 0.5
-	engine_force = throttle * chase_engine_force
+	engine_force = throttle * chase_force(_current_target())
 	brake = max_brake_force * 0.5 if throttle == 0.0 else 0.0
 	steering = move_toward(steering, clampf(angle, -max_steer, max_steer), steer_speed * delta)
 

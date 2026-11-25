@@ -120,8 +120,11 @@ func try_fire(shooter: Node3D, muzzle: Vector3, direction: Vector3, exclude: Arr
 		var projectile := Projectile.launch(shooter, slot.data, muzzle, direction, exclude)
 		if slot.data.remote_detonated:
 			placed_charges.append(projectile)
-	elif Hitscan.fire(shooter, muzzle, direction, slot.data, exclude, damage_scale, extra_spread) > 0:
-		hit_confirmed.emit()
+	else:
+		if slot.data.uses_ammo():
+			EventBus.gunshot.emit(muzzle, shooter)
+		if Hitscan.fire(shooter, muzzle, direction, slot.data, exclude, damage_scale, extra_spread) > 0:
+			hit_confirmed.emit()
 	if slot.is_empty():
 		reload()
 	changed.emit()
