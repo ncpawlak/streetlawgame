@@ -24,6 +24,9 @@ var police_call: PoliceCall
 var house: Node3D
 
 var _calm_down := 0.0
+## Seconds left of being held by crew muscle ([method hold] refreshes it every frame).
+var _held_left := 0.0
+var held_by: Node3D
 var _marker: Label3D
 var _phone: MeshInstance3D
 
@@ -84,6 +87,9 @@ func _physics_process(delta: float) -> void:
 		velocity.y -= _gravity * delta
 	var player := GameState.player as Player
 	var move_direction := Vector3.ZERO
+	_held_left = maxf(0.0, _held_left - delta)
+	if is_held() and mood != Mood.COWERING and mood != Mood.CALLED:
+		_set_mood(Mood.COWERING)
 	match mood:
 		Mood.CALM:
 			move_direction = _wander_direction(delta)
@@ -99,7 +105,9 @@ func _physics_process(delta: float) -> void:
 				if call_left <= 0.0:
 					_finish_call()
 		Mood.COWERING:
-			if _threatened(player):
+			if is_held():
+				_face(held_by.global_position - global_position)
+			elif _threatened(player):
 				_calm_down = 2.0
 			else:
 				_calm_down -= delta
@@ -122,7 +130,7 @@ func _physics_process(delta: float) -> void:
 
 ## Something gave the burglar away (seen, heard a kick or a shot, got hit).
 func alert(_from: Vector3 = Vector3.ZERO) -> void:
-	if _dead or mood != Mood.CALM:
+	if _dead or mood != Mood.CALM or is_held():
 		return
 	spotted_intruder.emit(self)
 	if armed:
@@ -132,6 +140,19 @@ func alert(_from: Vector3 = Vector3.ZERO) -> void:
 	call_left = call_time
 	_set_mood(Mood.PHONING)
 	EventBus.notify.emit("The owner is calling the police! Stop them (%d s)" % ceili(call_time))
+
+
+## Crew muscle keeps them on the floor: no phoning, no fighting while held. Call every frame.
+func hold(by: Node3D) -> void:
+	if _dead:
+		return
+	held_by = by
+	_held_left = 0.5
+	_calm_down = 2.0
+
+
+func is_held() -> bool:
+	return _held_left > 0.0 and held_by != null and is_instance_valid(held_by)
 
 
 func is_phoning() -> bool:

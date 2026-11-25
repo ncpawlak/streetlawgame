@@ -12,6 +12,7 @@ var _root: Node3D
 var _session: HitSession
 var _house: House
 var _player: Player
+var _heat: HeatMap
 
 
 func _init(runner: Node) -> void:
@@ -36,6 +37,9 @@ func run(player: Player) -> void:
 	_house = House.new()
 	_house.layout = {"pending": true}
 	_session.setup(player, [SANDBOX + Vector3(200.0, 1.0, 0.0)], _house, 45.0, false)
+	_heat = HeatMap.new()
+	_session.set_heat_map(_heat)
+	_house.heat_map = _heat
 	_root.add_child(_house)
 
 	await _test_layouts()
@@ -47,8 +51,14 @@ func run(player: Player) -> void:
 	await _test_gunshot_starts_countdown()
 	await _test_looting()
 	await _test_stash()
+	await _test_safe()
+	await _test_dog()
+	await _test_cameras_disabled()
+	await _test_crew()
 
 	_session.reset()
+	_session.crew.clear()
+	_heat.free()
 	CarryBag.of(player).empty()
 	_root.queue_free()
 	player.global_position = saved_position
@@ -77,6 +87,7 @@ func _ground() -> void:
 ## across the street.
 func _fresh(tier: int, home: bool) -> void:
 	_session.reset()
+	_heat.clear()
 	CarryBag.of(_player).empty()
 	_house.build(tier, home, 1234)
 	_house.set_police_call(_session.police_call)
@@ -222,3 +233,97 @@ func _test_stash() -> void:
 	var paid := stash.cash_in(_player)
 	_check(paid == value and GameState.cash == cash + value, "the stash converts the bag to cash")
 	_check(bag.is_empty() and _session.state == HitSession.State.DONE, "the bag is empty and the hit is done")
+
+
+func _test_safe() -> void:
+	await _fresh(HouseLayouts.Tier.MEDIUM, false)
+	_house.set_safes_locked(true)
+	var safe: LootContainer = _house.safes()[0]
+	_check(safe.locked and not safe.can_search(), "a locked safe can't just be searched")
+	var bag := CarryBag.of(_player)
+	var value := bag.total_value()
+	var game := safe.crack(_player)
+	_check(game != null and game.active and game.hits_needed == 3, "cracking the safe opens the timing minigame")
+	game.auto_step = false
+	game.show_ui = false
+	for i in game.hits_needed:
+		game.pin = (game.sweet_start + game.sweet_end) * 0.5
+		game.press()
+	_check(not safe.locked and safe.is_searched, "a cracked safe opens and gets emptied")
+	_check(bag.total_value() > value, "the safe's contents go in the bag")
+
+
+func _test_dog() -> void:
+	await _fresh(HouseLayouts.Tier.LOW, false)
+	_check(_house.dog == null, "the low-income house has no dog")
+	await _fresh(HouseLayouts.Tier.MEDIUM, false)
+	var dog := _house.dog
+	_check(dog != null and dog.is_alive(), "the medium house has a dog")
+	dog.bark()
+	_check(_session.police_call.is_counting() and _session.police_call.reason == PoliceCall.REASON_DOG, "a barking dog starts the neighbour timer before any break-in")
+
+	await _fresh(HouseLayouts.Tier.MEDIUM, false)
+	dog = _house.dog
+	var tools := HitTools.of(_player)
+	tools.give(HitTools.DOG_TREAT)
+	var treats := tools.count(HitTools.DOG_TREAT)
+	dog.interactable.perform(&"feed", _player)
+	_check(dog.is_friendly() and tools.count(HitTools.DOG_TREAT) == treats - 1, "a treat makes the dog a friend")
+	dog.bark()
+	_check(not _session.police_call.is_active(), "a fed dog doesn't bark")
+
+	await _fresh(HouseLayouts.Tier.HIGH, false)
+	dog = _house.dog
+	dog.take_damage(999.0, _player)
+	EventBus.gunshot.emit(dog.global_position, _player)
+	_check(not dog.is_alive() and _session.police_call.is_counting() and _session.police_call.reason == PoliceCall.REASON_GUNSHOT, "shooting the dog is loud: the countdown starts")
+
+
+func _test_cameras_disabled() -> void:
+	await _fresh(HouseLayouts.Tier.HIGH, false)
+	var camera: SecurityCamera = _house.cameras[0]
+	_check(camera.is_working() and _house.devices.has(HouseDevice.BREAKER) and _house.devices.has(HouseDevice.DVR), "the rich house has a breaker box and a recorder")
+	(_house.devices[HouseDevice.BREAKER] as HouseDevice).interactable.perform(&"use", _player)
+	_check(not _house.is_power_on() and not camera.is_working(), "cutting the power blinds the cameras")
+	_check(_house.front_door().alarmed, "door alarms stay armed on battery")
+	_house.cut_power(0.05)
+	await _frames(10)
+	_check(_house.is_power_on() and camera.is_working(), "the cameras come back when the power does")
+
+	var tools := HitTools.of(_player)
+	tools.give(HitTools.SPRAY_PAINT)
+	var cans := tools.count(HitTools.SPRAY_PAINT)
+	camera.spray(_player)
+	_check(not camera.is_working() and tools.count(HitTools.SPRAY_PAINT) == cans - 1, "spray paint blinds a camera")
+	_check(_house.cameras[1].is_working(), "the other cameras still work")
+
+	var identity := HitIdentity.of(_player)
+	identity.set_masked(false)
+	identity.begin_hit()
+	identity.witness(_heat, &"camera")
+	_heat.add_area_heat(_session.heat_area, 30.0)
+	_check(_heat.personal_heat > 0.0, "being caught on camera unmasked adds heat")
+	(_house.devices[HouseDevice.DVR] as HouseDevice).interactable.perform(&"use", _player)
+	_check(_house.dvr_unplugged and _heat.personal_heat == 0.0 and _heat.area_heat(_session.heat_area) < 30.0, "unplugging the recorder wipes the footage and its heat")
+	var all_off := true
+	for each in _house.cameras:
+		all_off = all_off and not each.is_working()
+	_check(all_off, "with the recorder unplugged no camera records")
+	identity.end_hit()
+
+
+func _test_crew() -> void:
+	_session.crew.assign(CrewSlot.Role.LOOKOUT)
+	await _fresh(HouseLayouts.Tier.LOW, false)
+	_house.front_door().pick_lock(_player)
+	_check(is_equal_approx(_session.police_call.time_left, HouseLayouts.NEIGHBOUR_SECONDS[HouseLayouts.Tier.LOW] * CrewSlot.LOOKOUT_TIME), "a lookout stretches the neighbour timer")
+	_session.crew.dismiss(CrewSlot.Role.LOOKOUT)
+
+	await _fresh(HouseLayouts.Tier.LOW, true)
+	var muscle := _session.crew.assign(CrewSlot.Role.MUSCLE)
+	var owner_node: Homeowner = _house.alive_owners()[0]
+	muscle.global_position = owner_node.global_position + Vector3(1.0, 0.0, 0.0)
+	_check(muscle._hold_nearby() >= 1 and owner_node.is_held(), "muscle holds the owners")
+	owner_node.alert(_player.global_position)
+	_check(not owner_node.is_phoning(), "a held owner can't phone the police")
+	_session.crew.dismiss(CrewSlot.Role.MUSCLE)

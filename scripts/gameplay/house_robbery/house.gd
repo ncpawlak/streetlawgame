@@ -19,6 +19,10 @@ const WALL_HEIGHT := 2.8
 const WALL_THICKNESS := 0.2
 ## How far around the footprint counts as "on the property" for cameras.
 const YARD_MARGIN := 6.0
+## How long cutting the power at the breaker keeps the cameras (and lights) dark.
+const POWER_CUT_SECONDS := 60.0
+## Area heat taken off by wiping the CCTV recorder.
+const DVR_AREA_HEAT := 10.0
 
 @export_enum("Low income", "Medium income", "High income") var tier := 0
 @export var owners_home := false
@@ -31,6 +35,17 @@ var cameras: Array[SecurityCamera] = []
 var owners: Array[Homeowner] = []
 var containers: Array[LootContainer] = []
 var loot_seed := 0
+## Debug toggles (take effect on the next [method build]; safes also via [method set_safes_locked]).
+var dogs_enabled := true
+var safes_locked := true
+var dog: HouseDog
+## [constant HouseDevice.BREAKER] / [constant HouseDevice.DVR] -> [HouseDevice].
+var devices: Dictionary = {}
+var power_off_left := 0.0
+var dvr_unplugged := false
+## Where camera footage counts as evidence / gets wiped ([HitSession] sets these).
+var heat_map: HeatMap
+var heat_area: StringName = &""
 ## Show owner / camera / alarm markers through walls (stakeout).
 var reveal := false
 
@@ -41,6 +56,7 @@ var _lights: Node3D
 var _surfaces: Array[Dictionary] = []
 var _rng := RandomNumberGenerator.new()
 var _roof_forced_hidden := false
+var _footage_tick := 0.0
 
 
 func _ready() -> void:
@@ -49,8 +65,16 @@ func _ready() -> void:
 		build(tier, owners_home)
 
 
-func _physics_process(_delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	var player := GameState.player as Node3D
+	if power_off_left > 0.0:
+		power_off_left = maxf(0.0, power_off_left - delta)
+		if power_off_left <= 0.0:
+			_set_power(true)
+	_footage_tick -= delta
+	if _footage_tick <= 0.0 and player != null and on_property(player.global_position):
+		_footage_tick = 0.25
+		record_footage(player)
 	if _roof != null:
 		_roof.visible = not _roof_forced_hidden and not (player != null and contains_point(player.global_position))
 	if is_broken_into and player != null and police_call != null and not police_call.is_called() and on_property(player.global_position):
@@ -156,6 +180,12 @@ func stakeout_report() -> String:
 		for e in alarmed:
 			names.append(e.label().to_lower())
 		lines.append("Alarm on: %s" % ", ".join(names))
+	if dog != null and dog.is_alive():
+		lines.append("A dog in the back yard%s" % (" (friendly)" if dog.is_friendly() else ""))
+	if devices.has(HouseDevice.BREAKER):
+		lines.append("Breaker box on the west wall%s" % (" - POWER OFF %d s" % ceili(power_off_left) if power_off_left > 0.0 else ""))
+	if dvr_unplugged:
+		lines.append("CCTV recorder unplugged")
 	lines.append("Neighbours call it in %d s after a break-in" % int(neighbour_seconds()))
 	return "\n".join(lines)
 
@@ -215,6 +245,10 @@ func build(new_tier: int, home: bool, loot_seed_value := -1) -> void:
 	tier = clampi(new_tier, 0, 2)
 	owners_home = home
 	is_broken_into = false
+	power_off_left = 0.0
+	dvr_unplugged = false
+	dog = null
+	devices.clear()
 	entries.clear()
 	cameras.clear()
 	owners.clear()
@@ -232,6 +266,8 @@ func build(new_tier: int, home: bool, loot_seed_value := -1) -> void:
 	_build_furniture()
 	_build_roof()
 	_build_cameras()
+	_build_security_extras()
+	set_safes_locked(safes_locked)
 	_lights = Node3D.new()
 	_lights.name = "Lights"
 	_building.add_child(_lights)
@@ -437,6 +473,34 @@ func _build_cameras() -> void:
 		cameras.append(camera)
 
 
+func _build_security_extras() -> void:
+	if dogs_enabled and layout.has("dog"):
+		dog = HouseDog.new()
+		dog.name = "Dog"
+		dog.position = layout["dog"]
+		dog.house = self
+		dog.police_call = police_call
+		_building.add_child(dog)
+	if layout.has("breaker"):
+		var spec: Dictionary = layout["breaker"]
+		_add_device(HouseDevice.BREAKER, spec["pos"], float(spec.get("yaw", 0.0)), Vector3(0.5, 0.7, 0.2))
+	if layout.has("dvr"):
+		var spec: Dictionary = layout["dvr"]
+		_add_device(HouseDevice.DVR, spec["pos"], 0.0, spec["size"])
+
+
+func _add_device(kind: StringName, at: Vector3, yaw_degrees: float, box: Vector3) -> void:
+	var device := HouseDevice.new()
+	device.name = String(kind).capitalize()
+	device.kind = kind
+	device.house = self
+	device.box_size = box
+	device.position = at
+	device.rotation.y = deg_to_rad(yaw_degrees)
+	_building.add_child(device)
+	devices[kind] = device
+
+
 func _build_owners() -> void:
 	var rooms: Array = layout.get("owners", [])
 	var count := 1 + int(tier >= HouseLayouts.Tier.MEDIUM) + int(tier == HouseLayouts.Tier.HIGH and randf() < 0.5)
@@ -475,5 +539,98 @@ func _room(room_name: String) -> Dictionary:
 ## Points the house's homeowners (and future ones) at [param call].
 func set_police_call(call: PoliceCall) -> void:
 	police_call = call
+	if dog != null:
+		dog.police_call = call
 	for owner_node in owners:
 		owner_node.police_call = call
+
+
+# --- disabling the cameras ---------------------------------------------------------------------
+
+## Safes (containers with "safe" in the name) need the [TimingMinigame] first.
+func set_safes_locked(value: bool) -> void:
+	safes_locked = value
+	var lock: Dictionary = layout.get("safe_lock", {"hits": 3, "speed": 0.5})
+	for container in containers:
+		if container.container_name.to_lower().contains("safe") and not container.is_searched:
+			container.set_locked(value, int(lock["hits"]), float(lock["speed"]))
+
+
+func safes() -> Array[LootContainer]:
+	var result: Array[LootContainer] = []
+	for container in containers:
+		if container.container_name.to_lower().contains("safe"):
+			result.append(container)
+	return result
+
+
+func device_available(kind: StringName) -> bool:
+	match kind:
+		HouseDevice.BREAKER:
+			return power_off_left <= 0.0
+		HouseDevice.DVR:
+			return not dvr_unplugged
+	return false
+
+
+func use_device(kind: StringName, actor: Node) -> void:
+	match kind:
+		HouseDevice.BREAKER:
+			cut_power()
+		HouseDevice.DVR:
+			unplug_dvr(actor)
+
+
+## Kills the power: cameras and lights dark for [param seconds]. Door alarms run on battery.
+func cut_power(seconds := POWER_CUT_SECONDS) -> void:
+	power_off_left = seconds
+	_set_power(false)
+	EventBus.notify.emit("Power cut - cameras dark for %d s (door alarms are on battery)" % ceili(seconds))
+
+
+func is_power_on() -> bool:
+	return power_off_left <= 0.0
+
+
+## Unplugs the CCTV recorder: cameras stop recording for the rest of the hit and the footage of
+## the actor is gone (their camera heat comes off, and some of the area's).
+func unplug_dvr(actor: Node) -> void:
+	if dvr_unplugged:
+		return
+	dvr_unplugged = true
+	for camera in cameras:
+		camera.set_feed_cut(true)
+	var identity := HitIdentity.of(actor, false)
+	var wiped := identity.erase_evidence(heat_map, &"camera") if identity != null else 0.0
+	if heat_map != null:
+		heat_map.add_area_heat(heat_area, -DVR_AREA_HEAT)
+	EventBus.notify.emit("Recorder unplugged - cameras offline%s" % (", footage of you wiped" if wiped > 0.0 else ""))
+	_refresh_devices()
+
+
+## Working cameras that see the actor on the property (during a hit) put their face on tape.
+func record_footage(target: Node3D) -> bool:
+	var identity := HitIdentity.of(target, false)
+	if identity == null or not identity.on_hit:
+		return false
+	for camera in cameras:
+		if camera.can_see(target):
+			identity.witness(heat_map, &"camera")
+			return true
+	return false
+
+
+func _set_power(on: bool) -> void:
+	for camera in cameras:
+		camera.set_powered(on)
+	if _lights != null:
+		_lights.visible = on
+	if on:
+		power_off_left = 0.0
+		EventBus.notify.emit("The power's back on - cameras live")
+	_refresh_devices()
+
+
+func _refresh_devices() -> void:
+	for device: HouseDevice in devices.values():
+		device.refresh()

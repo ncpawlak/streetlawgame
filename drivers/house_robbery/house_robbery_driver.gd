@@ -2,7 +2,9 @@ extends Node3D
 ## House robbery driver: a standalone street with a burglable house (three income tiers), neighbours,
 ## a stakeout bench, a getaway car and a stash. Not part of the city.
 ##
-## Debug keys: F1/F2/F3 tier, F4 owners home, F5 re-roll loot, F6 reset, F7 toggle roof.
+## Debug keys: F1/F2/F3 tier, F4 owners home, F5 re-roll loot (Shift: refill tools), F6 reset,
+## F7 toggle roof (Shift: cut the power), F8 dog (Shift: safes locked), F9/F10/F11 lookout / driver /
+## muscle, F12 +25 area heat (Shift: clear heat), X mask.
 ## Launch: godot --path . res://drivers/house_robbery/house_robbery_driver.tscn
 ## Screenshots: godot --path . res://drivers/house_robbery/house_robbery_driver.tscn -- --screenshots=<dir>
 
@@ -10,6 +12,9 @@ const STREET_Z := 10.0
 const HOUSE_FRONT_Z := -2.0
 const PLAYER_START := Vector3(-4.0, 1.0, 18.0)
 const STASH_POS := Vector3(-95.0, 0.0, 19.0)
+const SWAP_CAR_POS := Vector3(-80.0, 0.6, STREET_Z + 2.0)
+const LOOKOUT_POST := Vector3(6.0, 0.2, STREET_Z + 6.5)
+const HEAT_AREA := &"maple_street"
 const COP_SPAWNS: Array[Vector3] = [Vector3(150.0, 1.0, 8.0), Vector3(-160.0, 1.0, 12.0), Vector3(150.0, 1.0, 12.0)]
 
 var tier := HouseLayouts.Tier.MEDIUM
@@ -20,6 +25,8 @@ var session: HitSession
 var stakeout: StakeoutSpot
 var stash: StashDropoff
 var getaway: Vehicle
+## A clean car parked down the street: leave the hit in it with the mask off to lose the heat fast.
+var swap_car: Vehicle
 var _help: Label
 var _result := ""
 
@@ -36,8 +43,12 @@ func _ready() -> void:
 	add_child(session)
 	house = House.new()
 	house.name = "House"
+	session.heat_area = HEAT_AREA
 	session.setup(_player, COP_SPAWNS, house, HouseLayouts.NEIGHBOUR_SECONDS[tier])
+	session.crew.lookout_post = LOOKOUT_POST
 	house.police_call = session.police_call
+	house.heat_map = session.heat_map
+	house.heat_area = session.heat_area
 	house.layout = {"pending": true}
 	add_child(house)
 
@@ -57,10 +68,11 @@ func _ready() -> void:
 	session.failed.connect(func(_why: StringName) -> void: _result = "Busted! The bag's gone - F6 to reset")
 
 	_build_help()
+	_refill_tools()
 	_rebuild()
 	_reset_player()
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-	EventBus.notify.emit.call_deferred("House robbery driver - F1-F3 tier, F4 owners home, F5 re-roll loot, F6 reset")
+	EventBus.notify.emit.call_deferred("House robbery driver - F1-F3 tier, F4 owners home, F5 re-roll loot, F6 reset, X mask")
 
 	var shots := _screenshot_dir()
 	if shots != "":
@@ -74,7 +86,11 @@ func _input(event: InputEvent) -> void:
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 		get_viewport().set_input_as_handled()
 	elif event is InputEventKey and event.pressed and not event.echo:
-		match (event as InputEventKey).keycode:
+		var key := event as InputEventKey
+		if key.shift_pressed and _shift_key(key.keycode):
+			get_viewport().set_input_as_handled()
+			return
+		match key.keycode:
 			KEY_F1:
 				set_tier(HouseLayouts.Tier.LOW)
 			KEY_F2:
@@ -87,21 +103,75 @@ func _input(event: InputEvent) -> void:
 				EventBus.notify.emit("Owners %s" % ("home" if owners_home else "out"))
 			KEY_F5:
 				house.reroll_loot()
+				house.set_safes_locked(house.safes_locked)
 				EventBus.notify.emit("Loot re-rolled (seed %d)" % house.loot_seed)
 			KEY_F6:
 				reset()
 				EventBus.notify.emit("Reset")
 			KEY_F7:
 				house.set_roof_hidden(not house._roof_forced_hidden)
+			KEY_F8:
+				house.dogs_enabled = not house.dogs_enabled
+				reset()
+				EventBus.notify.emit("Dogs %s (medium / high houses)" % ("on" if house.dogs_enabled else "off"))
+			KEY_F9:
+				_toggle_crew(CrewSlot.Role.LOOKOUT)
+			KEY_F10:
+				_toggle_crew(CrewSlot.Role.DRIVER)
+			KEY_F11:
+				_toggle_crew(CrewSlot.Role.MUSCLE)
+			KEY_F12:
+				session.heat_map.add_area_heat(session.heat_area, 25.0)
+				EventBus.notify.emit(session.heat_map.describe(session.heat_area))
+			KEY_X:
+				HitIdentity.of(_player).toggle_mask()
 			_:
 				return
 		get_viewport().set_input_as_handled()
 
 
+## Shift + F-key debug toggles. Returns true if handled.
+func _shift_key(code: Key) -> bool:
+	match code:
+		KEY_F5:
+			_refill_tools()
+			EventBus.notify.emit("Tools refilled: %s" % HitTools.of(_player).summary())
+		KEY_F7:
+			house.cut_power()
+		KEY_F8:
+			house.set_safes_locked(not house.safes_locked)
+			EventBus.notify.emit("Safes %s" % ("locked (crack them)" if house.safes_locked else "unlocked"))
+		KEY_F12:
+			session.heat_map.clear()
+			EventBus.notify.emit("Heat cleared")
+		_:
+			return false
+	return true
+
+
+func _toggle_crew(role: CrewSlot.Role) -> void:
+	var on := session.crew.toggle(role)
+	EventBus.notify.emit("%s %s" % [CrewSlot.ROLE_NAMES[role], "joined the crew" if on else "went home"])
+
+
+func _refill_tools() -> void:
+	var tools := HitTools.of(_player)
+	tools.counts[HitTools.DOG_TREAT] = 2
+	tools.counts[HitTools.SPRAY_PAINT] = 2
+	tools.changed.emit()
+
+
 func _process(_delta: float) -> void:
+	if not session.in_progress and session.state == HitSession.State.ACTIVE and _result == "" and house.on_property(_player.global_position):
+		session.begin_hit()
 	_update_objective()
-	_help.text = "HOUSE ROBBERY DRIVER\n%s  |  owners %s  |  loot $%d (seed %d)\nF1/F2/F3 tier   F4 owners home   F5 re-roll loot\nF6 reset   F7 roof   Esc free mouse" % [
-		house.tier_name(), "HOME" if house.owners_home else "out", house.loot_value(), house.loot_seed]
+	var identity := HitIdentity.of(_player)
+	_help.text = "HOUSE ROBBERY DRIVER\n%s  |  owners %s  |  loot $%d (seed %d)\n%s  |  dogs %s  |  safes %s%s\n%s  |  tools: %s\n%s  |  payout x%.2f, +%d cops\nF1/F2/F3 tier   F4 owners home   F5 re-roll loot (Shift: refill tools)\nF6 reset   F7 roof (Shift: cut power)   F8 dog (Shift: lock safes)\nF9 lookout   F10 driver   F11 muscle   F12 +heat (Shift: clear)\nX mask   Esc free mouse" % [
+		house.tier_name(), "HOME" if house.owners_home else "out", house.loot_value(), house.loot_seed,
+		session.crew.summary(), "on" if house.dogs_enabled else "off", "locked" if house.safes_locked else "open",
+		"  |  POWER OFF %d s" % ceili(house.power_off_left) if not house.is_power_on() else "",
+		identity.status_text(), HitTools.of(_player).summary() if HitTools.of(_player).summary() != "" else "none",
+		session.heat_map.describe(session.heat_area), session.heat_map.payout_multiplier(session.heat_area), session.heat_map.extra_cops(session.heat_area)]
 
 
 func set_tier(new_tier: int) -> void:
@@ -119,8 +189,10 @@ func reset() -> void:
 	if session.bag != null:
 		session.bag.empty()
 	_result = ""
+	_refill_tools()
 	_rebuild()
 	_reset_player()
+	session.crew.place()
 
 
 func _rebuild() -> void:
@@ -144,6 +216,16 @@ func _reset_player() -> void:
 	getaway.position = Vector3(8.0, 0.6, STREET_Z + 2.0)
 	getaway.rotation.y = PI * 0.5
 	add_child(getaway)
+	session.crew.getaway = getaway
+	session.crew.getaway_spot = getaway.transform
+	if swap_car != null and is_instance_valid(swap_car):
+		swap_car.queue_free()
+	swap_car = Vehicle.new()
+	swap_car.name = "SwapCar"
+	swap_car.body_color = Color(0.2, 0.35, 0.6)
+	swap_car.position = SWAP_CAR_POS
+	swap_car.rotation.y = PI * 0.5
+	add_child(swap_car)
 
 
 func _update_objective() -> void:
@@ -162,7 +244,7 @@ func _update_objective() -> void:
 	elif house.contains_point(_player.global_position):
 		text = "Search the house - steal what you can carry, then get out"
 	elif bag != null and not bag.is_empty():
-		text = "Take the bag to the lock-up garage (west end of the street)"
+		text = "Take the bag to the lock-up garage (west end) - mask off + the blue swap car sheds heat fastest"
 	else:
 		text = "Nothing in the bag yet"
 	session.hud.set_objective(text)
@@ -358,4 +440,56 @@ func _take_screenshots(dir: String) -> void:
 	_player.get_node("CameraPivot/SpringArm").rotation.x = deg_to_rad(-30.0)
 	await _wait(40)
 	await _capture(dir, "looting_hud.png")
+
+	# Safe cracking: medium house, safes locked, the minigame mid-streak.
+	tier = HouseLayouts.Tier.MEDIUM
+	reset()
+	house.set_safes_locked(true)
+	var safe: LootContainer = house.safes()[0]
+	_player.global_position = safe.global_position + (house.global_basis.x * -1.3) + Vector3(0.0, 0.1, 0.0)
+	await _wait(5)
+	var game := safe.crack(_player)
+	game.auto_step = false
+	game.pin = (game.sweet_start + game.sweet_end) * 0.5
+	game.press()
+	game.pin = game.sweet_start * 0.6
+	game.step(0.0)
+	await _wait(20)
+	await _capture(dir, "safe_minigame.png")
+	game.cancel()
+
+	# Security extras from above: high house, roof off, dog, breaker box and recorder, crew in place.
+	tier = HouseLayouts.Tier.HIGH
+	reset()
+	HitIdentity.of(_player).set_masked(true)
+	session.crew.assign(CrewSlot.Role.LOOKOUT)
+	session.crew.assign(CrewSlot.Role.DRIVER)
+	session.crew.assign(CrewSlot.Role.MUSCLE)
+	_player.global_position = house.to_global(Vector3(-house.size().x * 0.5 - 1.5, 0.1, 0.0))
+	session.crew.place()
+	house.cut_power()
+	house.set_roof_hidden(true)
+	house.set_reveal(true)
+	var top := Camera3D.new()
+	top.fov = 50.0
+	add_child(top)
+	var span := maxf(house.size().x, house.size().y * 1.6) + 6.0
+	top.look_at_from_position(house.global_position + Vector3(0.0, span * 1.05, span * 0.45), house.global_position + Vector3(0.0, 0.0, 3.0), Vector3.UP)
+	top.make_current()
+	await _wait(30)
+	await _capture(dir, "security_extras.png")
+	top.queue_free()
+	_player.get_node("CameraPivot/SpringArm/Camera").make_current()
+	house.set_reveal(false)
+	house.set_roof_hidden(false)
+
+	# The crew from the street: masked player, muscle at their side, lookout on the corner.
+	_player.global_position = Vector3(0.0, 0.5, STREET_Z + 3.0)
+	session.crew.place()
+	pivot.rotation.y = PI * 0.85
+	_player.get_node("CameraPivot/SpringArm").rotation.x = deg_to_rad(-12.0)
+	await _wait(40)
+	await _capture(dir, "crew_mask.png")
+	session.crew.clear()
+	HitIdentity.of(_player).set_masked(false)
 	get_tree().quit()

@@ -7,6 +7,8 @@ extends RefCounted
 ## furniture: {name, pos: Vector2 (centre), size: Vector3, container: bool, search: seconds}
 ## cameras: {pos: Vector3, yaw: degrees (0 = looking +Z, 90 = +X), pitch: degrees}
 ## alarmed: opening ids wired to the alarm. owners: rooms the owners hang out in.
+## dog: yard spawn. breaker: {pos, yaw} on an outside wall. dvr: {pos, size} the CCTV recorder.
+## safe_lock: {hits, speed} for the [TimingMinigame] on any container with "safe" in its name.
 
 enum Tier { LOW, MEDIUM, HIGH }
 
@@ -116,11 +118,16 @@ static func _medium() -> Dictionary:
 			_furn("Double bed", Vector2(4.5, -3.2), Vector3(2.0, 0.55, 2.2)),
 			_furn("Nightstand", Vector2(2.9, -4.2), Vector3(0.6, 0.6, 0.5), true),
 			_furn("Desk", Vector2(6.3, -1.0), Vector3(0.8, 0.75, 1.6), true),
+			_furn("Closet safe", Vector2(6.5, -4.5), Vector3(0.6, 0.7, 0.5), true, 4.0),
 		],
 		"cameras": [_cam(Vector3(-2.2, 2.6, 5.3), 15.0, -40.0)],
 		"alarmed": ["front_door"],
 		"owners": ["Living room", "Kitchen", "Master bedroom"],
 		"armed_owner": false,
+		"dog": Vector3(2.0, 0.1, -8.5),
+		"breaker": {"pos": Vector3(-7.22, 1.3, -4.0), "yaw": 90.0},
+		"dvr": {"pos": Vector3(6.3, 0.81, -0.6), "size": Vector3(0.45, 0.12, 0.32)},
+		"safe_lock": {"hits": 3, "speed": 0.45},
 	}
 
 
@@ -184,4 +191,8 @@ static func _high() -> Dictionary:
 		"alarmed": ["front_door", "patio_door", "living_window", "living_window_2", "kitchen_window", "kitchen_window_2", "kitchen_side_window", "bathroom_window", "guest_window", "guest_back_window", "master_window", "living_side_window"],
 		"owners": ["Living room", "Kitchen", "Study", "Master bedroom"],
 		"armed_owner": true,
+		"dog": Vector3(5.0, 0.1, -10.5),
+		"breaker": {"pos": Vector3(-10.22, 1.3, -5.5), "yaw": 90.0},
+		"dvr": {"pos": Vector3(2.4, 0.4, -6.5), "size": Vector3(0.5, 0.8, 0.4)},
+		"safe_lock": {"hits": 4, "speed": 0.6},
 	}
