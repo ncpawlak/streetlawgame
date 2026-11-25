@@ -1,8 +1,10 @@
 class_name LockPickMinigame
 extends CarjackMinigame
-## Prototype (a): timing bar for parked cars. A needle sweeps back and forth; press E/Space while it
-## is inside the green zone to set a pin. Every pin makes the zone smaller and the needle faster.
-## Too many misses snaps the pick and sets the car alarm off.
+## Prototype (a): "bang bang bang" lock pick for parked cars. A needle bounces wall to wall; press
+## E/Space while it is inside the green zone to set a pin. Pins must be set back to back: if the needle
+## reaches the next wall without a pin set on that pass, or you press outside the zone, the streak
+## resets to zero. Each pin speeds the needle up and shrinks the zone. Too many mis-presses snap the
+## pick and set the car alarm off.
 
 @export var pins_needed := 3
 @export var max_misses := 3
@@ -19,8 +21,13 @@ var zone_center := 0.5
 var zone_width := 0.24
 var pins_set := 0
 var misses := 0
+## Pins dropped because the needle reached a wall (or a mis-press) before the next pin.
+var resets := 0
+## True once a pin has been set since the needle last touched a wall.
+var hit_this_pass := false
 
 var _rng := RandomNumberGenerator.new()
+var _status_hold := 0.0
 var _zone_rect: ColorRect
 var _needle_rect: ColorRect
 var _pins: Array[ColorRect] = []
@@ -36,6 +43,8 @@ func _setup() -> void:
 	direction = 1.0
 	pins_set = 0
 	misses = 0
+	resets = 0
+	hit_this_pass = false
 	_new_zone()
 
 
@@ -49,18 +58,26 @@ func in_zone() -> bool:
 
 func _tick(delta: float) -> void:
 	needle += direction * speed() * delta
+	var bounced := false
 	if needle >= 1.0:
 		needle = 2.0 - needle
 		direction = -1.0
+		bounced = true
 	elif needle <= 0.0:
 		needle = -needle
 		direction = 1.0
+		bounced = true
 	needle = clampf(needle, 0.0, 1.0)
+	if bounced:
+		if pins_set > 0 and not hit_this_pass:
+			_reset_streak("Hit the wall - the pins dropped. Start again.")
+		hit_this_pass = false
 
 
 func _primary() -> void:
 	if in_zone():
 		pins_set += 1
+		hit_this_pass = true
 		if pins_set >= pins_needed:
 			_succeed("Click. The door's open.")
 			return
@@ -69,6 +86,17 @@ func _primary() -> void:
 		misses += 1
 		if misses >= max_misses:
 			_fail("The pick snapped - CAR ALARM!")
+			return
+		if pins_set > 0:
+			_reset_streak("Slipped - the pins dropped. Start again.")
+
+
+func _reset_streak(message: String) -> void:
+	pins_set = 0
+	resets += 1
+	_new_zone()
+	_set_status(message, Color(1.0, 0.55, 0.3))
+	_status_hold = 0.8
 
 
 func _new_zone() -> void:
@@ -101,6 +129,7 @@ func _refresh() -> void:
 	_needle_rect.position.x = 10.0 + needle * BAR_WIDTH - 2.5
 	for i in _pins.size():
 		_pins[i].color = Color(0.95, 0.8, 0.2) if i < pins_set else Color(0.3, 0.3, 0.32)
-	if not done:
-		_set_status("Pins %d/%d   -   Misses %d/%d" % [pins_set, pins_needed, misses, max_misses])
-	_set_hint("[E] / [Space] set the pin when the needle is in the green   [Esc] walk away")
+	_status_hold = maxf(0.0, _status_hold - get_process_delta_time())
+	if not done and _status_hold <= 0.0:
+		_set_status("Streak %d/%d   -   Misses %d/%d" % [pins_set, pins_needed, misses, max_misses])
+	_set_hint("[E]/[Space] in the green - set a pin every pass, back to back, or they drop   [Esc] walk away")

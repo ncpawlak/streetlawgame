@@ -46,7 +46,10 @@ var damage_state := DamageState.OK
 var _camera_pivot: Node3D
 var _spring_arm: SpringArm3D
 var _camera: Camera3D
+## Free-look chase camera: world-space yaw / pitch driven only by the mouse, so turning the car never
+## drags the view back to straight ahead (look around and shoot while driving).
 var _look_yaw := 0.0
+var _look_pitch := deg_to_rad(-15.0)
 var _last_velocity := Vector3.ZERO
 var _last_attacker: Node
 var _body_materials: Array[StandardMaterial3D] = []
@@ -109,7 +112,9 @@ func _unhandled_input(event: InputEvent) -> void:
 	if driver == null:
 		return
 	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
-		_look_yaw -= (event as InputEventMouseMotion).relative.x * mouse_sensitivity
+		var motion := event as InputEventMouseMotion
+		_look_yaw = wrapf(_look_yaw - motion.relative.x * mouse_sensitivity, -PI, PI)
+		_look_pitch = clampf(_look_pitch - motion.relative.y * mouse_sensitivity, deg_to_rad(-60.0), deg_to_rad(20.0))
 	elif event.is_action_pressed("interact"):
 		get_viewport().set_input_as_handled()
 		exit()
@@ -141,22 +146,22 @@ func _physics_process(delta: float) -> void:
 		_drive_by_shoot()
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if driver == null:
 		return
-	if not Input.is_action_pressed("aim") and not Input.is_action_pressed("shoot"):
-		_look_yaw = lerp_angle(_look_yaw, 0.0, clampf(1.5 * delta, 0.0, 1.0))
 	_camera_pivot.global_position = global_position + Vector3(0.0, 1.8, 0.0)
-	var target_yaw := global_rotation.y + PI + _look_yaw
-	_camera_pivot.rotation.y = lerp_angle(_camera_pivot.rotation.y, target_yaw, clampf(6.0 * delta, 0.0, 1.0))
+	_camera_pivot.rotation.y = _look_yaw
+	_spring_arm.rotation.x = _look_pitch
 
 
 func enter(player: Player) -> void:
 	driver = player
 	player.set_on_foot(false, self)
-	_look_yaw = 0.0
+	_look_yaw = wrapf(global_rotation.y + PI, -PI, PI)
+	_look_pitch = deg_to_rad(-15.0)
 	_camera_pivot.global_position = global_position + Vector3(0.0, 1.8, 0.0)
-	_camera_pivot.rotation.y = global_rotation.y + PI
+	_camera_pivot.rotation.y = _look_yaw
+	_spring_arm.rotation.x = _look_pitch
 	_camera.make_current()
 
 
@@ -166,7 +171,7 @@ func exit() -> void:
 	var player := driver
 	driver = null
 	player.global_position = global_position + global_basis.x * 1.8 + Vector3.UP * 0.5
-	player.rotation.y = global_rotation.y + PI
+	player.rotation.y = _look_yaw
 	player.set_on_foot(true)
 
 

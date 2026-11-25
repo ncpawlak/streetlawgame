@@ -69,6 +69,33 @@ func _test_lock_pick() -> void:
 	game = LockPickMinigame.new()
 	results = _results(game)
 	game.begin()
+	game.needle = game.zone_center
+	game.press_primary()
+	_check(game.pins_set == 1 and game.hit_this_pass, "lock pick: a pin starts the streak")
+	game.needle = 0.999
+	game.direction = 1.0
+	game.tick(0.01)
+	_check(game.pins_set == 1 and not game.hit_this_pass, "lock pick: bouncing after a pin on that pass keeps the streak")
+	game.needle = game.zone_center
+	game.press_primary()
+	_check(game.pins_set == 2, "lock pick: back-to-back pins build the streak (bang, bang)")
+	game.needle = 0.001
+	game.direction = -1.0
+	game.tick(0.01)
+	game.needle = 0.999
+	game.direction = 1.0
+	game.tick(0.01)
+	_check(game.pins_set == 0 and game.resets == 1 and not game.done, "lock pick: reaching the next wall without a pin resets the streak")
+	game.needle = game.zone_center
+	game.press_primary()
+	game.needle = 0.0 if game.zone_center > 0.5 else 1.0
+	game.press_primary()
+	_check(game.pins_set == 0 and game.resets == 2 and game.misses == 1, "lock pick: a mis-press drops the pins too")
+	game.free()
+
+	game = LockPickMinigame.new()
+	results = _results(game)
+	game.begin()
 	var start := game.needle
 	game.tick(0.2)
 	_check(game.needle != start, "lock pick: the needle sweeps")
@@ -205,6 +232,23 @@ func _test_driver(driver: CarjackDriver) -> void:
 	await _frames(2)
 	_check(sedan.stolen and player.current_vehicle == sedan and driver.hot_car == sedan and not driver.is_minigame_open(), "a successful jack puts the player in the car")
 	_check(sedan.tracker == null and not driver.police_call.is_active(), "a clean parked-car jack with trackers off stays quiet")
+
+	# Free-look driving camera: turning the car doesn't swing the view back to straight ahead.
+	sedan._look_yaw = wrapf(sedan.global_rotation.y + PI + 1.5, -PI, PI)
+	var look := sedan._look_yaw
+	sedan.global_rotation.y += 1.0
+	await _frames(10)
+	_check(is_equal_approx(sedan._camera_pivot.rotation.y, look) and is_equal_approx(sedan._look_yaw, look), "the driving camera stays where you look while the car turns")
+
+	# Live handling tuning (F7): sliders push values onto every target car; reset restores them.
+	_check(driver.default_tuning.mass == 1000.0 and driver.default_tuning.suspension_stiffness == 40.0, "tuning defaults are captured from the stock Vehicle")
+	driver.set_tuning(&"mass", 2400.0)
+	driver.set_tuning(&"damping_relaxation", 2.5)
+	var wheels := VehicleTuning.wheels_of(suv)
+	_check(sedan.mass == 2400.0 and suv.mass == 2400.0 and wheels.size() == 4 and wheels[0].damping_relaxation == 2.5, "tuning sliders apply live to every target car")
+	_check(driver.report_tuning().contains("mass=2400"), "tuning values can be copied out")
+	driver.reset_tuning()
+	_check(sedan.mass == 1000.0 and is_equal_approx(VehicleTuning.wheels_of(sedan)[0].damping_relaxation, driver.default_tuning.damping_relaxation), "reset restores the stock handling")
 
 	# Chop shop: park on the pad and get paid.
 	var payouts: Array[int] = []

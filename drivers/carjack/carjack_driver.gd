@@ -61,6 +61,10 @@ var minigame_car: HotCar
 var hot_car: HotCar
 var cruisers: Array[PursuitCruiser] = []
 var alarms: Array[StringName] = []
+## Live handling values for every target car (F7 tuning panel). default_tuning is what the Vehicle
+## code builds, captured from the first car so the defaults are untouched.
+var tuning: VehicleTuning
+var default_tuning: VehicleTuning
 
 var _minigame_layer: CanvasLayer
 var _targets: Array[HotCar] = []
@@ -117,6 +121,8 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel"):
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	elif event is InputEventMouseButton and event.pressed and Input.mouse_mode != Input.MOUSE_MODE_CAPTURED:
+		if hud != null and hud.is_over_panel((event as InputEventMouseButton).position):
+			return
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 		get_viewport().set_input_as_handled()
 
@@ -138,6 +144,8 @@ func _unhandled_key_input(event: InputEvent) -> void:
 			get_tree().reload_current_scene()
 		KEY_F6:
 			teleport_to_next_target()
+		KEY_F7:
+			hud.toggle_tuning()
 		_:
 			return
 	get_viewport().set_input_as_handled()
@@ -179,6 +187,28 @@ func minigame_kind_for(car: HotCar) -> StringName:
 	if minigame_mode != MINIGAME_AUTO and CarjackMinigame.KINDS.has(minigame_mode):
 		return minigame_mode
 	return CarjackMinigame.KIND_STRUGGLE if car != null and car.has_occupant() else CarjackMinigame.KIND_LOCK_PICK
+
+
+## Sets one [constant VehicleTuning.PARAMS] value and applies it live to every target car.
+func set_tuning(property: StringName, value: float) -> void:
+	tuning.set(property, value)
+	for car in targets():
+		tuning.apply(car)
+
+
+func reset_tuning() -> void:
+	tuning = default_tuning.duplicate_tuning()
+	for car in targets():
+		tuning.apply(car)
+
+
+## Prints the current handling values and copies them to the clipboard.
+func report_tuning() -> String:
+	var text := "Car tuning: " + tuning.to_text()
+	print(text)
+	DisplayServer.clipboard_set(text)
+	EventBus.notify.emit("Tuning copied to clipboard (also printed to the console)")
+	return text
 
 
 func targets() -> Array[HotCar]:
@@ -401,6 +431,11 @@ func _spawn_target(index: int) -> HotCar:
 	car.exploded.connect(_schedule_respawn.bind(car))
 	get_node("Targets").add_child(car)
 	_targets.append(car)
+	if tuning == null:
+		default_tuning = VehicleTuning.from_vehicle(car)
+		tuning = default_tuning.duplicate_tuning()
+	else:
+		tuning.apply(car)
 	return car
 
 
