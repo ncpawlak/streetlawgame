@@ -60,7 +60,7 @@ Run the renderer after every layout or census change, so the wireframe never sho
 6. Boot `res://scenes/main.tscn` headless with `--quit-after 600` and check for runtime errors.
 7. Capture top-down screenshots (full map, plus close-ups of anything changed), plus an angled view for elevation. **Show them to the user and wait for approval before committing.**
 
-Keep the current scale (1.2 m per wireframe px) unless the user decides otherwise.
+Keep the current scale (2.0 m per wireframe px, raised from 1.2 by the user so kit lots fit) unless the user decides otherwise. Road corridors in the extractor stay at the 1.2 m/px authoring widths.
 
 ## Building census
 

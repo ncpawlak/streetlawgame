@@ -5,7 +5,7 @@ the playable greybox world, built from [`north_end_wireframe.svg`](north_end_wir
 
 - `tools/extract_north_end_layout.py` turns the SVG into `scripts/world/north_end_layout.gd`
   (blocks, buildings, roads, street labels, in wireframe px). Re-run it after editing the SVG.
-- `CityGenerator` maps 1 px to 1.2 m (the wireframe's 2 m/px, compressed for driving) with
+- `CityGenerator` maps 1 px to 2.0 m (the wireframe's native 2 m/px, so kit lots fit at full size) with
   north = -Z. Districts are axis-aligned rects, I-59 is at grade, and the hatched neighbours are
   low filler blocks inside the boundary walls.
 - `scripts/world/north_end_spots.gd` lists every roster spot. Spots with a working system spawn

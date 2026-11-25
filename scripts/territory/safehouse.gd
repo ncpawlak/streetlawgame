@@ -146,18 +146,41 @@ func _build_greybox() -> Node3D:
 	var shape := CollisionShape3D.new()
 	shape.shape = box
 	body.add_child(shape)
+	body.name = "Body"
 	body.add_child(_box_mesh(size, Vector3.ZERO, data.greybox_color))
 	root.add_child(body)
 	# Door, owner-colored banner over it and a flag on the roof.
-	root.add_child(_box_mesh(Vector3(2.4, 3.2, 0.2), Vector3(0.0, 1.6, size.z * 0.5 + 0.1), Color(0.15, 0.1, 0.08)))
+	var door := _box_mesh(Vector3(2.4, 3.2, 0.2), Vector3(0.0, 1.6, size.z * 0.5 + 0.1), Color(0.15, 0.1, 0.08))
+	door.name = "DoorBox"
+	root.add_child(door)
 	var banner := _box_mesh(Vector3(size.x * 0.6, 1.0, 0.25), Vector3(0.0, 4.0, size.z * 0.5 + 0.15), Color.WHITE)
 	banner.add_to_group(&"owner_tinted")
 	root.add_child(banner)
 	var flag := _box_mesh(Vector3(2.5, 1.5, 0.1), Vector3(0.0, size.y + 3.0, 0.0), Color.WHITE)
+	flag.name = "Flag"
 	flag.add_to_group(&"owner_tinted")
 	root.add_child(flag)
-	root.add_child(_box_mesh(Vector3(0.15, 4.0, 0.15), Vector3(-1.3, size.y + 2.0, 0.0), Color(0.3, 0.3, 0.3)))
+	var pole := _box_mesh(Vector3(0.15, 4.0, 0.15), Vector3(-1.3, size.y + 2.0, 0.0), Color(0.3, 0.3, 0.3))
+	pole.name = "FlagPole"
+	root.add_child(pole)
 	return root
+
+
+## A building-kit shell ([NorthEndPopulator]) replaces the greybox box: drops the box and its door
+## and puts the flag on the shell's roof ([param roof] m). The banner and door interaction stay.
+func use_kit_shell(roof: float) -> void:
+	if _visual == null:
+		return
+	for part: StringName in [&"Body", &"DoorBox"]:
+		var node := _visual.get_node_or_null(NodePath(part))
+		if node != null:
+			node.free()
+	var flag := _visual.get_node_or_null(^"Flag") as Node3D
+	var pole := _visual.get_node_or_null(^"FlagPole") as Node3D
+	if flag != null:
+		flag.position.y = roof + 3.0
+	if pole != null:
+		pole.position.y = roof + 2.0
 
 
 func _default_guard_points() -> PackedVector3Array:

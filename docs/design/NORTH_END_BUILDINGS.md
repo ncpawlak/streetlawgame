@@ -182,7 +182,7 @@ Each one needs a lot when the map is repopulated.
 
 ## Rescale notes
 
-Current scale is 1.2 m per wireframe px. Lots (`lot_frontage_depth_m`, frontage × depth) are compared with the archetype lots above.
+Current scale is 2.0 m per wireframe px (raised from 1.2 when the kit was placed; the table below was measured at 1.2 m/px). Lots (`lot_frontage_depth_m`, frontage × depth) are compared with the archetype lots above.
 
 | Area | Current lot (median) | Current box | Design lot | Gap |
 |---|---|---|---|---|

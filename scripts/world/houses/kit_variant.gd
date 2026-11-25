@@ -19,6 +19,7 @@ static var _dir := ""
 static var _materials := {}
 static var _mirrored_meshes := {}
 static var _mirrored_shapes := {}
+static var _exists := {}
 
 
 ## Applies variant [param variant_seed] to the building root's subtree. Returns true when the
@@ -51,9 +52,15 @@ static func material_map(rng: RandomNumberGenerator) -> Dictionary:
 			for suffix in SUFFIXES:
 				var src: String = _dir + members[i] + suffix + ".tres"
 				var dst: String = _dir + to + suffix + ".tres"
-				if ResourceLoader.exists(src) and ResourceLoader.exists(dst):
+				if _has(src) and _has(dst):
 					map[src] = dst
 	return map
+
+
+static func _has(path: String) -> bool:
+	if not _exists.has(path):
+		_exists[path] = ResourceLoader.exists(path)
+	return _exists[path]
 
 
 static func mirror_transform(t: Transform3D) -> Transform3D:
@@ -103,25 +110,25 @@ static func _mirror_mesh(mesh: ArrayMesh) -> ArrayMesh:
 		return _mirrored_meshes[mesh]
 	var out := ArrayMesh.new()
 	for s in mesh.get_surface_count():
-		var arrays := mesh.surface_get_arrays(s)
-		var verts: PackedVector3Array = arrays[Mesh.ARRAY_VERTEX]
+		var arrays := MeshMerge.arrays(mesh, s).duplicate()
+		var verts := (arrays[Mesh.ARRAY_VERTEX] as PackedVector3Array).duplicate()
 		for i in verts.size():
 			verts[i].x = -verts[i].x
 		arrays[Mesh.ARRAY_VERTEX] = verts
 		if arrays[Mesh.ARRAY_NORMAL] != null:
-			var normals: PackedVector3Array = arrays[Mesh.ARRAY_NORMAL]
+			var normals := (arrays[Mesh.ARRAY_NORMAL] as PackedVector3Array).duplicate()
 			for i in normals.size():
 				normals[i].x = -normals[i].x
 			arrays[Mesh.ARRAY_NORMAL] = normals
 		if arrays[Mesh.ARRAY_TANGENT] != null:
-			var tangents: PackedFloat32Array = arrays[Mesh.ARRAY_TANGENT]
+			var tangents := (arrays[Mesh.ARRAY_TANGENT] as PackedFloat32Array).duplicate()
 			for i in range(0, tangents.size(), 4):
 				tangents[i] = -tangents[i]
 				tangents[i + 3] = -tangents[i + 3]
 			arrays[Mesh.ARRAY_TANGENT] = tangents
 		var indices := PackedInt32Array()
 		if arrays[Mesh.ARRAY_INDEX] != null:
-			indices = arrays[Mesh.ARRAY_INDEX]
+			indices = (arrays[Mesh.ARRAY_INDEX] as PackedInt32Array).duplicate()
 		else:
 			indices.resize(verts.size())
 			for i in verts.size():
@@ -133,6 +140,7 @@ static func _mirror_mesh(mesh: ArrayMesh) -> ArrayMesh:
 		arrays[Mesh.ARRAY_INDEX] = indices
 		out.add_surface_from_arrays(mesh.surface_get_primitive_type(s), arrays)
 		out.surface_set_material(s, mesh.surface_get_material(s))
+		MeshMerge.remember(out, s, arrays)
 	_mirrored_meshes[mesh] = out
 	return out
 

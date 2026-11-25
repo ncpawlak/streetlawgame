@@ -111,7 +111,9 @@ def simplify(pts, min_step=4.0):
 
 # --- Road network -------------------------------------------------------------------------------
 
-# Keep in sync with CityGenerator (PLAY_RECT_PX, ROAD_WIDTHS in m, METERS_PER_PX).
+# Keep in sync with CityGenerator (PLAY_RECT_PX, ROAD_HALF_WIDTHS_PX).
+# Road corridors stay in px at the legacy 1.2 m/px they were authored at: the map was rescaled to 2.0 m/px to fit
+# the building kit lots, and keeping the corridors in px keeps every street, lot and junction where it was.
 PLAY_RECT = (150.0, 150.0, 932.0, 1170.0)  # x0, y0, x1, y1
 HALF_WIDTH = {k: w / 1.2 / 2.0 for k, w in {"loc": 9.0, "ave": 12.0, "art": 16.0, "highway": 26.0, "ramp": 8.0}.items()}
 # Only these may leave the map (they continue into the next zone); every other end must meet a road.

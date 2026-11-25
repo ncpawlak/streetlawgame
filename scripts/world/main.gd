@@ -16,6 +16,7 @@ func _ready() -> void:
 	_spawn_starter_stash()
 	_place_locations()
 	_tag_hot_cars()
+	add_child(PerfOverlay.new())
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	EventBus.notify.emit.call_deferred("Welcome to Tamarack Row. The Red Vipers run the North End. Take the boarded duplex [E] and start taking it back.")
 	EventBus.notify.emit.call_deferred("There's a weapon stash by your ride. Hold [Q] for the weapon wheel.")
@@ -182,5 +183,7 @@ func _build_environment() -> void:
 	sun.rotation_degrees = Vector3(-50.0, -30.0, 0.0)
 	sun.light_energy = 1.1
 	sun.shadow_enabled = true
-	sun.directional_shadow_max_distance = 150.0
+	# Two cascades over 120 m: the kit's near detail keeps crisp shadows, far HLOD cells cast none.
+	sun.directional_shadow_mode = DirectionalLight3D.SHADOW_PARALLEL_2_SPLITS
+	sun.directional_shadow_max_distance = 120.0
 	add_child(sun)

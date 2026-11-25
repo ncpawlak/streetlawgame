@@ -56,8 +56,10 @@ func plan(lots: Array[Dictionary], defs: Array = []) -> Array[Dictionary]:
 	return result
 
 ## Door transform for a lot: on the face pointing away from the block centre (toward the road),
-## +Z facing the street.
+## +Z facing the street. A lot populated with a kit building ([NorthEndPopulator]) uses its real front door.
 static func door_transform(lot: Dictionary) -> Transform3D:
+	if lot.has("door"):
+		return lot["door"]
 	var center: Vector3 = lot["center"]
 	var footprint: Vector2 = lot["footprint"]
 	var block_center: Vector3 = lot.get("block_center", center)

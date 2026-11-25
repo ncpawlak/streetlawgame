@@ -42,7 +42,7 @@
 | Highway | 26 m (deck at 6.5 m) |
 | Ramp | 8 m |
 
-Map extraction uses 1.2 m per wireframe pixel (`METERS_PER_PX`).
+Map extraction uses 2.0 m per wireframe pixel (`METERS_PER_PX`), raised from 1.2 so every census lot fits the building kit at full size. Road corridors keep their 1.2 m/px authoring widths in px; drawn roads stay 9/12/16 m, leaving a grass swale to the block pads.
 
 Rules of thumb: a doorway should clear the 1.8 m model's head by ≥ 0.4 m; a
 storey is about two characters tall; a car is about 2.3 character-heights long.

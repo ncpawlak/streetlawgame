@@ -23,6 +23,7 @@ func _run() -> void:
 	_check(player != null and player.is_on_floor(), "player spawns and lands on the ground")
 
 	preload("res://tests/census_tests.gd").new(self).run(main)
+	await preload("res://tests/perf_budget_tests.gd").new(self).run(main, city)
 	await preload("res://tests/turf_tests.gd").new(self).run(city, player)
 	await _test_vehicle(player)
 	await _test_weapons(player)

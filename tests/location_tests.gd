@@ -69,7 +69,7 @@ func _test_city_placement(main: Node) -> void:
 			continue
 		var id: StringName = spot["id"] if spot["kind"] == &"site" else spot["instance"]
 		var location := Locations.get_location(id)
-		var near := location != null and Vector2(location.global_position.x, location.global_position.z).distance_to(Vector2(CityGenerator.px_to_world(spot["px"]).x, CityGenerator.px_to_world(spot["px"]).z)) < 60.0
+		var near := location != null and Vector2(location.global_position.x, location.global_position.z).distance_to(Vector2(CityGenerator.px_to_world(spot["px"]).x, CityGenerator.px_to_world(spot["px"]).z)) < 50.0 * CityGenerator.METERS_PER_PX
 		roster_placed = roster_placed and near
 		if not near:
 			print("  roster spot off: %s" % id)

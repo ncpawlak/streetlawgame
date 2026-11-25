@@ -10,7 +10,8 @@ const CAR_COLORS := [
 	Color(0.7, 0.1, 0.1), Color(0.1, 0.2, 0.6), Color(0.85, 0.85, 0.85),
 	Color(0.1, 0.1, 0.1), Color(0.2, 0.5, 0.25), Color(0.8, 0.6, 0.1),
 ]
-const METERS_PER_PX := 1.2
+## 2.0 m/px since the North End populate pass (was 1.2): lots fit the building kit at full size.
+const METERS_PER_PX := 2.0
 const CENTER_PX := Vector2(541.0, 660.0)
 ## Playable area in wireframe px; invisible boundary walls sit 20 m outside it.
 const PLAY_RECT_PX := Rect2(150.0, 150.0, 782.0, 1020.0)
@@ -34,14 +35,25 @@ const LAGOON_X_PX := NorthEndLayout.LAGOON_X
 const BOAT_RAMP_PX := Vector2(318.0, 488.0)
 ## Hand-placed buildings that aren't split into lots. lot = recorded in [member building_lots].
 const LANDMARKS := [
-	{"name": "Viper Garage", "rect": Rect2(522.0, 306.0, 30.0, 40.0), "height": 7.0, "style": &"viper", "lot": true},
-	{"name": "Lakeside Chop Shop", "rect": Rect2(522.0, 360.0, 30.0, 40.0), "height": 8.0, "style": &"mangona", "lot": true},
-	{"name": "Grove General Hospital", "rect": Rect2(574.0, 342.0, 90.0, 88.0), "height": 24.0, "style": &"hospital", "lot": false},
-	{"name": "Lakeside trailer", "rect": Rect2(305.0, 688.0, 12.0, 6.0), "height": 3.2, "style": &"trailer", "lot": true},
-	{"name": "Lakeside trailer", "rect": Rect2(339.0, 688.0, 12.0, 6.0), "height": 3.2, "style": &"trailer", "lot": true},
-	{"name": "Lakeside trailer", "rect": Rect2(373.0, 688.0, 12.0, 6.0), "height": 3.2, "style": &"trailer", "lot": true},
-	{"name": "Lakeside trailer", "rect": Rect2(407.0, 688.0, 12.0, 6.0), "height": 3.2, "style": &"trailer", "lot": true},
-	{"name": "Lakeside trailer", "rect": Rect2(441.0, 688.0, 12.0, 6.0), "height": 3.2, "style": &"trailer", "lot": true},
+	{"name": "Viper Garage", "rect": Rect2(522.0, 306.0, 30.0, 40.0), "height": 7.0, "style": &"viper", "lot": true, "archetype": "viper_garage"},
+	{"name": "Lakeside Chop Shop", "rect": Rect2(522.0, 360.0, 30.0, 40.0), "height": 8.0, "style": &"mangona", "lot": true, "archetype": "chop_shop"},
+	{"name": "Grove General Hospital", "rect": Rect2(574.0, 342.0, 90.0, 88.0), "height": 24.0, "style": &"hospital", "lot": false, "archetype": "grove_general_hospital"},
+	{"name": "Lakeside trailer", "rect": Rect2(307.0, 682.0, 8.0, 12.0), "height": 3.2, "style": &"trailer", "lot": true, "archetype": "trailer_1f"},
+	{"name": "Lakeside trailer", "rect": Rect2(341.0, 682.0, 8.0, 12.0), "height": 3.2, "style": &"trailer", "lot": true, "archetype": "trailer_1f"},
+	{"name": "Lakeside trailer", "rect": Rect2(375.0, 682.0, 8.0, 12.0), "height": 3.2, "style": &"trailer", "lot": true, "archetype": "trailer_1f"},
+	{"name": "Lakeside trailer", "rect": Rect2(409.0, 682.0, 8.0, 12.0), "height": 3.2, "style": &"trailer", "lot": true, "archetype": "trailer_1f"},
+	{"name": "Lakeside trailer", "rect": Rect2(443.0, 682.0, 8.0, 12.0), "height": 3.2, "style": &"trailer", "lot": true, "archetype": "trap_trailer_lakeside"},
+]
+## Wireframe lots merged into one bigger lot (px) for a building that needs it: the lots it
+## encloses become one lot with the given archetype. The Spot (L-01) takes two block 19 lots.
+const LOT_MERGES := [
+	{"rect": Rect2(534.6, 1025.2, 23.7, 19.2), "archetype": "trap_house_the_spot"},
+]
+## Lots the wireframe doesn't have, for roster buildings that had none in reach (px, door side).
+const EXTRA_LOTS := [
+	{"name": "Mangona Hardware", "rect": Rect2(462.0, 231.0, 15.0, 17.0), "outward": Vector3.FORWARD, "height": 6.0, "archetype": "hardware_store"},
+	{"name": "Mangona Guns", "rect": Rect2(372.0, 230.0, 12.0, 15.0), "outward": Vector3.FORWARD, "height": 6.0, "archetype": "gun_store"},
+	{"name": "Northgrove Savings", "rect": Rect2(692.0, 474.0, 18.0, 16.0), "outward": Vector3.LEFT, "height": 8.0, "archetype": "bank_branch"},
 ]
 ## Lake Mangona junkyard (#21): fenced scrap yard, no building.
 const JUNKYARD_PX := Rect2(522.0, 546.0, 32.0, 40.0)
@@ -50,7 +62,8 @@ const HOT_CARS_PX := [[Vector2(360.0, 1034.0), 0.0], [Vector2(900.0, 460.0), 0.0
 ## Drawn road widths (m), wider than the wireframe strokes so driving is comfortable.
 const ROAD_WIDTHS := {&"loc": 9.0, &"ave": 12.0, &"art": 16.0, &"highway": 26.0, &"ramp": 8.0}
 const ROAD_HEIGHTS := {&"loc": 0.02, &"ave": 0.025, &"art": 0.03, &"highway": 0.035, &"ramp": 0.03}
-## Half widths in wireframe px (ROAD_WIDTHS / METERS_PER_PX / 2), as the extractor uses them.
+## Road corridor half widths in wireframe px, as the extractor uses them (ROAD_WIDTHS / 1.2 / 2: the corridors
+## stay at the scale they were authored at, so the rescale to 2.0 m/px moved no street, lot or junction).
 const ROAD_HALF_WIDTHS_PX := {&"loc": 3.75, &"ave": 5.0, &"art": 6.67, &"highway": 10.83, &"ramp": 3.33}
 ## I-59 deck top (m); arterials pass underneath.
 const DECK_HEIGHT := 6.5
@@ -59,6 +72,11 @@ const PILLAR_SPACING := 24.0
 
 @export var city_seed := 1337
 @export var parked_vehicles := 18
+## Puts the baked building kit on every lot ([NorthEndPopulator]) instead of greybox boxes.
+@export var populate_kit := true
+## Batches the kit and the greybox into merged, distance-tiered meshes ([KitBatcher]). Off = every
+## kit scene as-is (the unbatched baseline for tools/benchmark_north_end.tscn).
+@export var batch_kit := true
 
 var player_spawn := Vector3.ZERO
 var districts: Array[District] = []
@@ -87,9 +105,16 @@ func generate() -> void:
 	_build_rail_crossings()
 	_build_blocks()
 	_build_landmarks()
-	_build_labels()
+	_build_extra_lots()
 	_build_districts()
+	if populate_kit:
+		NorthEndPopulator.populate(self, batch_kit)
+	_build_labels()
 	_spawn_vehicles()
+	if batch_kit:
+		var skip: Array[Node] = []
+		skip.assign(get_children().filter(func(n: Node) -> bool: return n is District or n is Vehicle))
+		KitBatcher.merge_static(self, skip)
 
 
 ## Width (X) of the playable area in meters.
@@ -428,6 +453,15 @@ func _build_blocks() -> void:
 			if reserved.any(func(r: Rect2) -> bool: return r.intersects(lot_rect)) or _in_water(lot_rect.get_center()):
 				continue
 			var district := district_for_px(lot_rect.get_center())
+			var merge := _merge_for(lot_rect)
+			if not merge.is_empty():
+				var merged: Rect2 = merge["rect"]
+				if building_lots.any(func(l: Dictionary) -> bool: return l["rect_px"] == merged):
+					_building_rng(district)  # the swallowed lot still draws, so later lots keep their looks
+					continue
+				_add_building(merged, merged.size * METERS_PER_PX - Vector2(3.0, 3.0), district, Vector2i(b, 0), center)
+				building_lots[-1]["archetype"] = merge["archetype"]
+				continue
 			var margin := footprint_margin
 			if district == &"tamarack_row":
 				margin = Vector2(4.0, 3.0) if lot_rect.size.x > lot_rect.size.y else Vector2(3.0, 4.0)
@@ -444,25 +478,61 @@ func _reserved_rects() -> Array[Rect2]:
 	return rects
 
 
-func _add_building(rect_px: Rect2, footprint: Vector2, district: StringName, block: Vector2i, block_center: Vector3, style: StringName = &"", height: float = -1.0) -> void:
+func _add_building(rect_px: Rect2, footprint: Vector2, district: StringName, block: Vector2i, block_center: Vector3, style: StringName = &"", height: float = -1.0, draw_style := true) -> void:
 	var key := style if style != &"" else (district if district != &"" else &"filler")
 	if height < 0.0:
-		match key:
-			&"tamarack_row":
-				height = _rng.randf_range(4.0, 6.5)
-			&"northgrove":
-				height = _rng.randf_range(5.0, 14.0)
-			&"mangona":
-				height = _rng.randf_range(6.0, 12.0)
-			_:
-				height = _rng.randf_range(4.0, 9.0)
+		height = _building_height(key)
 	var center := px_to_world(rect_px.get_center())
-	var body := _add_static_box(Vector3(footprint.x, height, footprint.y), center + Vector3(0.0, height * 0.5, 0.0), _style_material(key))
-	_tag_building(body, rect_px, &"lot")
+	var material := _style_material(key) if draw_style else null
+	var node: Node3D
+	if populate_kit:
+		node = Node3D.new()
+		node.name = "Lot_%d" % building_lots.size()
+		node.position = center
+		add_child(node)
+	else:
+		node = _add_static_box(Vector3(footprint.x, height, footprint.y), center + Vector3(0.0, height * 0.5, 0.0), material if material else _material("extra_lot", Color(0.6, 0.58, 0.55)))
+	_tag_building(node, rect_px, &"lot")
 	building_lots.append({
 		"center": center, "footprint": footprint, "height": height, "block": block, "block_center": block_center,
-		"rect_px": rect_px, "district": district, "index": building_lots.size(),
+		"rect_px": rect_px, "district": district, "index": building_lots.size(), "census_node": node,
+		"classify_footprint": rect_px.size * NorthEndCensus.CLASSIFY_METERS_PER_PX - (rect_px.size * METERS_PER_PX - footprint),
 	})
+
+
+func _building_height(key: StringName) -> float:
+	match key:
+		&"tamarack_row":
+			return _rng.randf_range(4.0, 6.5)
+		&"northgrove":
+			return _rng.randf_range(5.0, 14.0)
+		&"mangona":
+			return _rng.randf_range(6.0, 12.0)
+	return _rng.randf_range(4.0, 9.0)
+
+
+## Draws what [method _add_building] would for a lot that is not built (merged away).
+func _building_rng(district: StringName) -> void:
+	var key := district if district != &"" else &"filler"
+	_building_height(key)
+	_style_material(key)
+
+
+func _merge_for(lot_rect: Rect2) -> Dictionary:
+	for merge: Dictionary in LOT_MERGES:
+		if (merge["rect"] as Rect2).grow(0.05).encloses(lot_rect):
+			return merge
+	return {}
+
+
+## Extra roster lots ([constant EXTRA_LOTS]); they draw nothing from the city rng.
+func _build_extra_lots() -> void:
+	for extra: Dictionary in EXTRA_LOTS:
+		var rect: Rect2 = extra["rect"]
+		var center := px_to_world(rect.get_center())
+		var district := district_for_px(rect.get_center())
+		_add_building(rect, rect.size * METERS_PER_PX - Vector2(3.0, 3.0), district, Vector2i(-2, 0), center - (extra["outward"] as Vector3), district, extra["height"], false)
+		building_lots[-1]["archetype"] = extra["archetype"]
 
 
 func _style_material(key: StringName) -> StandardMaterial3D:
@@ -493,7 +563,7 @@ func _add_filler(rect: Rect2) -> void:
 
 
 ## Marks a building box for the North End census ([NorthEndCensus]): kind is lot, filler or landmark.
-func _tag_building(body: StaticBody3D, rect_px: Rect2, kind: StringName) -> void:
+func _tag_building(body: Node3D, rect_px: Rect2, kind: StringName) -> void:
 	body.add_to_group(NorthEndCensus.GROUP)
 	body.set_meta(&"rect_px", rect_px)
 	body.set_meta(&"census_kind", kind)
@@ -507,16 +577,27 @@ func _build_landmarks() -> void:
 		var district := district_for_px(rect.get_center())
 		if landmark["lot"]:
 			_add_building(rect, footprint, district, Vector2i(-1, 0), center + Vector3(0.0, 0.0, -1.0), landmark["style"], landmark["height"])
+			building_lots[-1]["archetype"] = landmark["archetype"]
 		else:
 			var height: float = landmark["height"]
-			var body := _add_static_box(Vector3(footprint.x, height, footprint.y), center + Vector3(0.0, height * 0.5, 0.0), _style_material(landmark["style"]))
+			var material := _style_material(landmark["style"])
+			var body: Node3D
+			if populate_kit:
+				body = Node3D.new()
+				body.name = "Landmark_%s" % String(landmark["name"]).validate_node_name()
+				body.position = center
+				add_child(body)
+			else:
+				body = _add_static_box(Vector3(footprint.x, height, footprint.y), center + Vector3(0.0, height * 0.5, 0.0), material)
 			_tag_building(body, rect, &"landmark")
 			body.set_meta(&"landmark", landmark["name"])
-	# Hospital red cross on the roof.
-	var hospital := px_to_world((LANDMARKS[2]["rect"] as Rect2).get_center()) + Vector3(0.0, 24.1, 0.0)
-	var red := _material("cross", Color(0.8, 0.12, 0.12))
-	_add_mesh_box(Vector3(30.0, 0.2, 9.0), hospital, red)
-	_add_mesh_box(Vector3(9.0, 0.2, 30.0), hospital, red)
+			body.set_meta(&"archetype", landmark["archetype"])
+	if not populate_kit:
+		# Hospital red cross on the roof.
+		var hospital := px_to_world((LANDMARKS[2]["rect"] as Rect2).get_center()) + Vector3(0.0, 24.1, 0.0)
+		var red := _material("cross", Color(0.8, 0.12, 0.12))
+		_add_mesh_box(Vector3(30.0, 0.2, 9.0), hospital, red)
+		_add_mesh_box(Vector3(9.0, 0.2, 30.0), hospital, red)
 	# Junkyard: chain-link fence (open toward Industrial Way) and scrap piles.
 	var fence := _material("fence", Color(0.5, 0.5, 0.48))
 	var corners := [JUNKYARD_PX.position, Vector2(JUNKYARD_PX.end.x, JUNKYARD_PX.position.y), JUNKYARD_PX.end, Vector2(JUNKYARD_PX.position.x, JUNKYARD_PX.end.y)]

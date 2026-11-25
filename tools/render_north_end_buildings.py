@@ -272,11 +272,11 @@ def replace_block(lines: list[str], markers: tuple[str, str], new: list[str], in
 
 # As-built wireframe: the source drawing's annotation layers (district fills, names, icons, legend)
 # over the network the game actually builds. Source network elements are dropped and redrawn
-# from the layout at true width (1.2 m/px), so the picture can never drift from the game again.
+# from the layout at true width (2.0 m/px), so the picture can never drift from the game again.
 NET_CLASSES = {"blk", "blk-off", "bldg", "lot", "road-loc", "road-loc-in", "road-ave", "road-ave-in", "road-art", "road-art-in"}
 NET_STROKES = {"#7a4c05", "#f3a712", "#f6c35a"}
 WATER_FILL = 'fill="#bfe0f2"'
-TRUE_WIDTH = {k: w / 1.2 for k, w in {"loc": 9.0, "ave": 12.0, "art": 16.0, "highway": 26.0, "ramp": 8.0}.items()}
+TRUE_WIDTH = {k: w / 2.0 for k, w in {"loc": 9.0, "ave": 12.0, "art": 16.0, "highway": 26.0, "ramp": 8.0}.items()}
 ASBUILT_ROAD = {  # kind: (casing colour, inner colour); widths are TRUE_WIDTH
     "loc": ("#c9c4bb", "#fbfaf8"), "ave": ("#a9a399", "#ffffff"), "art": ("#8f897f", "#fff6dc"),
     "highway": ("#7a4c05", "#f3a712"), "ramp": ("#7a4c05", "#f6c35a"),

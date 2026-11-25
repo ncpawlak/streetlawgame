@@ -9,6 +9,10 @@ extends RefCounted
 const GROUP := &"census_buildings"
 const PATH := "res://data/areas/north_end_buildings.json"
 const VERSION := 1
+## Archetypes are classified on the lot sizes at the authoring scale (1.2 m/px), so the 2.0 m/px
+## rescale kept every lot's class; footprints and heights come from the placed kit buildings.
+const CLASSIFY_METERS_PER_PX := 1.2
+const DOOR_SLACK := 2.0
 const CATEGORIES := [&"house_1f", &"house_2f", &"large_building", &"special_building", &"specialized_location", &"purchasable_business", &"standin_business"]
 const DISTRICT_CODES := {&"tamarack_row": "tr", &"northgrove": "ng", &"mangona": "mg", &"": "xx"}
 ## Target (designed) sizes in meters: footprint [w, d], lot [frontage, depth]. Houses follow the
@@ -157,7 +161,7 @@ static func build(main: Node) -> Dictionary:
 	var lots_by_key := {}
 	for lot: Dictionary in city.building_lots:
 		lots_by_key[rect_key(lot["rect_px"])] = lot
-	var spots_by_lot := _spots_by_lot(city)
+	var spots_by_lot := spots_by_lot(city)
 	var locations_by_lot := _locations_by_lot(city)
 	var streets := _street_names()
 	var buildings: Array[Dictionary] = []
@@ -212,10 +216,10 @@ static func _unbuilt(spots_by_lot: Dictionary, locations_by_lot: Dictionary, str
 			on_lot[location] = true
 	var mapped := {}
 	for spot: Dictionary in spots_by_lot.values():
-		mapped[_spot_key(spot)] = true
+		mapped[spot_key(spot)] = true
 	var out: Array[Dictionary] = []
 	for spot: Dictionary in NorthEndSpots.SPOTS:
-		var key := _spot_key(spot)
+		var key := spot_key(spot)
 		if mapped.has(key) or spot.get("free", false):
 			continue
 		if spot["kind"] == &"marker" and not ROSTER.has(key):
@@ -245,7 +249,7 @@ static func _unbuilt(spots_by_lot: Dictionary, locations_by_lot: Dictionary, str
 
 
 ## Lot index -> NorthEndSpots spot, mirroring main.gd's placement order.
-static func _spots_by_lot(city: CityGenerator) -> Dictionary:
+static func spots_by_lot(city: CityGenerator) -> Dictionary:
 	var used := {}
 	var out := {}
 	for spot: Dictionary in NorthEndSpots.SPOTS:
@@ -260,21 +264,29 @@ static func _spots_by_lot(city: CityGenerator) -> Dictionary:
 	return out
 
 
-## Lot index -> Locations whose door sits on that lot's footprint edge.
+## Lot index -> Locations whose door sits on that lot (its wireframe rect) or within
+## [constant DOOR_SLACK] m of it (kit doors sit on the property line, nudged toward the street).
 static func _locations_by_lot(city: CityGenerator) -> Dictionary:
 	var out := {}
 	for location: Location in Locations.all():
-		var at := location.global_position
+		var at := Vector2(location.global_position.x, location.global_position.z)
+		var best := -1
+		var best_gap := DOOR_SLACK
 		for lot: Dictionary in city.building_lots:
-			var center: Vector3 = lot["center"]
-			var half: Vector2 = (lot["footprint"] as Vector2) * 0.5 + Vector2(1.0, 1.0)
-			if absf(at.x - center.x) <= half.x and absf(at.z - center.z) <= half.y:
-				if not out.has(lot["index"]):
-					out[lot["index"]] = []
-				(out[lot["index"]] as Array).append(location)
-				break
+			var rect: Rect2 = lot["rect_px"]
+			var corner := CityGenerator.px_to_world(rect.position)
+			var area := Rect2(corner.x, corner.z, rect.size.x * CityGenerator.METERS_PER_PX, rect.size.y * CityGenerator.METERS_PER_PX)
+			var gap := Vector2(maxf(0.0, maxf(area.position.x - at.x, at.x - area.end.x)), maxf(0.0, maxf(area.position.y - at.y, at.y - area.end.y))).length()
+			if gap < best_gap:
+				best_gap = gap
+				best = lot["index"]
+				if gap == 0.0:
+					break
+		if best >= 0:
+			if not out.has(best):
+				out[best] = []
+			(out[best] as Array).append(location)
 	return out
-
 
 ## One name per drivable road (index into NorthEndLayout.ROADS), from the nearest street label.
 static func _street_names() -> Array:
@@ -382,7 +394,10 @@ static func _base(key: String, source: String, district: StringName, rect_px: Re
 
 
 static func _lot_entry(key: String, lot: Dictionary, spot: Dictionary, locations: Array, streets: Array) -> Dictionary:
-	var door := LocationPlacer.door_transform(lot)
+	# Street, side and order come from the wireframe lot's door, not the placed kit building's.
+	var wireframe_lot := lot.duplicate()
+	wireframe_lot.erase("door")
+	var door := LocationPlacer.door_transform(wireframe_lot)
 	var named: Location = null
 	for location: Location in locations:
 		named = location
@@ -391,10 +406,10 @@ static func _lot_entry(key: String, lot: Dictionary, spot: Dictionary, locations
 	var district: StringName = lot["district"]
 	var rect: Rect2 = lot["rect_px"]
 	var block: Vector2i = lot["block"]
-	var entry := _base(key, "landmark" if block.x < 0 else "lot", district, rect, lot["center"], door, lot["footprint"], lot["height"], block.x, streets)
-	var spot_key := _spot_key(spot)
-	if ROSTER.has(spot_key):
-		var rule: Dictionary = ROSTER[spot_key]
+	var entry := _base(key, "landmark" if block.x < 0 else "lot", district, rect, lot["center"], door, lot.get("kit_footprint", lot["footprint"]), lot.get("kit_height", lot["height"]), block.x, streets)
+	var roster_key := spot_key(spot)
+	if ROSTER.has(roster_key):
+		var rule: Dictionary = ROSTER[roster_key]
 		entry["category"] = rule["category"]
 		entry["design_archetype"] = rule["archetype"]
 		entry["tags"] = (rule["tags"] as Array).duplicate()
@@ -416,13 +431,13 @@ static func _lot_entry(key: String, lot: Dictionary, spot: Dictionary, locations
 		entry["roster"].append({"roster": spot["roster"], "name": spot["name"], "kind": String(spot["kind"]), "style": String(spot.get("style", ""))})
 		if entry["name"] == "":
 			entry["name"] = spot["name"]
-		if spot["kind"] == &"marker" and not ROSTER.has(spot_key):
+		if spot["kind"] == &"marker" and not ROSTER.has(roster_key):
 			entry["roles"].append({"role": "street_marker", "roster": spot["roster"], "style": String(spot.get("style", ""))})
 	entry["tags"].append(String(district) if district != &"" else "unzoned")
 	return entry
 
 
-static func _spot_key(spot: Dictionary) -> String:
+static func spot_key(spot: Dictionary) -> String:
 	if spot.is_empty():
 		return ""
 	match spot["kind"]:
@@ -449,8 +464,13 @@ static func _business(entry: Dictionary, site_id: StringName) -> void:
 static func _generic(entry: Dictionary, lot: Dictionary, rect: Rect2, door: Transform3D) -> void:
 	var district: StringName = lot["district"]
 	var height: float = lot["height"]
-	var footprint: Vector2 = lot["footprint"]
+	var footprint: Vector2 = lot.get("classify_footprint", lot["footprint"])
 	var area := footprint.x * footprint.y
+	if lot.has("archetype") and ARCHETYPES.has(lot["archetype"]):
+		entry["category"] = ARCHETYPES[lot["archetype"]]["category"]
+		entry["design_archetype"] = lot["archetype"]
+		entry["tags"] = ["residential"] if String(entry["category"]).begins_with("house") else ["commercial"]
+		return
 	if (lot["block"] as Vector2i).x < 0:
 		entry["category"] = "house_1f"
 		entry["design_archetype"] = "trailer_1f"
@@ -479,7 +499,7 @@ static func _generic(entry: Dictionary, lot: Dictionary, rect: Rect2, door: Tran
 
 ## small_yard / big_yard / deep_lot from the lot's frontage (along the street) and depth.
 static func _lot_type(rect: Rect2, door: Transform3D) -> String:
-	var size := rect.size * CityGenerator.METERS_PER_PX
+	var size := rect.size * CLASSIFY_METERS_PER_PX
 	var faces_x := absf(door.basis.z.x) > absf(door.basis.z.z)
 	var frontage := size.y if faces_x else size.x
 	var depth := size.x if faces_x else size.y
@@ -512,11 +532,11 @@ static func _safehouse_entry(key: String, node: Safehouse, streets: Array) -> Di
 static func _hospital_entry(key: String, info: Dictionary, streets: Array) -> Dictionary:
 	var rect: Rect2 = info["rect_px"]
 	var node: Node3D = info["node"]
-	var shape := (node.get_child(0) as CollisionShape3D).shape as BoxShape3D
+	var size := _box_size(node)
 	var center := CityGenerator.px_to_world(rect.get_center())
-	var door := Transform3D(Basis.looking_at(Vector3.FORWARD), center + Vector3(0.0, 0.0, shape.size.z * 0.5))
+	var door := Transform3D(Basis.looking_at(Vector3.FORWARD), center + Vector3(0.0, 0.0, size.z * 0.5))
 	var district := CityGenerator.district_for_px(rect.get_center())
-	var entry := _base(key, "landmark", district, rect, center, door, Vector2(shape.size.x, shape.size.z), shape.size.y, -1, streets)
+	var entry := _base(key, "landmark", district, rect, center, door, Vector2(size.x, size.z), size.y, -1, streets)
 	entry["name"] = node.get_meta(&"landmark", "Landmark")
 	entry["category"] = "special_building"
 	entry["design_archetype"] = "grove_general_hospital"
@@ -528,12 +548,12 @@ static func _hospital_entry(key: String, info: Dictionary, streets: Array) -> Di
 static func _filler_entry(key: String, info: Dictionary) -> Dictionary:
 	var rect: Rect2 = info["rect_px"]
 	var node: Node3D = info["node"]
-	var shape := (node.get_child(0) as CollisionShape3D).shape as BoxShape3D
+	var size := _box_size(node)
 	var center := CityGenerator.px_to_world(rect.get_center())
 	return {
 		"id": "", "key": key, "source": "filler", "district": "", "rect_px": _rect(rect),
-		"position_m": _v2(Vector2(center.x, center.z)), "footprint_m": _v2(Vector2(shape.size.x, shape.size.z)),
-		"height_m": snappedf(shape.size.y, 0.01), "category": "out_of_area", "design_archetype": "neighbour_filler",
+		"position_m": _v2(Vector2(center.x, center.z)), "footprint_m": _v2(Vector2(size.x, size.z)),
+		"height_m": snappedf(size.y, 0.01), "category": "out_of_area", "design_archetype": "neighbour_filler",
 		"neighbourhood": "riviera" if rect.position.y < 400.0 else "clement",
 	}
 
@@ -710,3 +730,13 @@ static func _make_standin(entry: Dictionary, subtype: String, shop_type: String)
 	else:
 		entry["roles"] = [{"role": "storefront", "enterable": false}]
 		entry["name"] = "Closed storefront"
+
+
+## Footprint x height x depth of a census node: its kit building (meta footprint_m / height_m) or
+## its greybox box.
+static func _box_size(node: Node3D) -> Vector3:
+	if node.has_meta(&"footprint_m"):
+		var footprint: Vector2 = node.get_meta(&"footprint_m")
+		return Vector3(footprint.x, node.get_meta(&"height_m"), footprint.y)
+	var shape := (node.get_child(0) as CollisionShape3D).shape as BoxShape3D
+	return shape.size

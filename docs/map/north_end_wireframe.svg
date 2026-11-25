@@ -608,111 +608,111 @@
 <rect x="535" y="404" width="6" height="11" fill="#9aa3ad"/>
 <rect x="544" y="404" width="6" height="11" fill="#9aa3ad"/>
 <rect x="520" y="512" width="37" height="100" fill="url(#junk)" stroke="#8a8174" stroke-width="1.2"/>
-<path d="M420.0 720.0 L420.0 1150.0" stroke="#c9c4bb" stroke-width="7.50" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M462.0 720.0 L462.0 1150.0" stroke="#c9c4bb" stroke-width="7.50" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M360.0 975.0 L360.0 1150.0" stroke="#c9c4bb" stroke-width="7.50" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M377.2 770.0 L918.0 770.0" stroke="#c9c4bb" stroke-width="7.50" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M399.6 830.0 L918.0 830.0" stroke="#c9c4bb" stroke-width="7.50" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M400.2 890.0 L918.0 890.0" stroke="#c9c4bb" stroke-width="7.50" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M386.4 940.0 L918.0 940.0" stroke="#c9c4bb" stroke-width="7.50" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M312.0 1000.0 L918.0 1000.0" stroke="#c9c4bb" stroke-width="7.50" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M311.5 1110.0 L918.0 1110.0" stroke="#c9c4bb" stroke-width="7.50" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M262.0 225.0 L918.0 225.0" stroke="#c9c4bb" stroke-width="7.50" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M261.9 670.0 L546.0 670.0 L568.0 650.0 L916.1 650.0" stroke="#c9c4bb" stroke-width="7.50" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M262.0 500.0 L305.1 500.0" stroke="#c9c4bb" stroke-width="7.50" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M262.0 590.0 L262.0 590.0" stroke="#c9c4bb" stroke-width="7.50" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M515.0 300.0 L575.0 300.0" stroke="#c9c4bb" stroke-width="7.50" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M482.0 440.0 L550.0 440.0 L566.0 450.0 L921.2 450.0" stroke="#c9c4bb" stroke-width="7.50" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M620.0 450.0 L620.0 1150.0" stroke="#c9c4bb" stroke-width="7.50" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M740.0 330.0 L740.0 1150.0" stroke="#c9c4bb" stroke-width="7.50" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M795.0 330.0 L795.0 1150.0" stroke="#c9c4bb" stroke-width="7.50" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M900.0 330.0 L900.0 720.0" stroke="#c9c4bb" stroke-width="7.50" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M575.0 330.0 L918.0 330.0" stroke="#c9c4bb" stroke-width="7.50" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M680.0 390.1 L920.0 390.0" stroke="#c9c4bb" stroke-width="7.50" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M515.0 590.0 L916.4 589.9" stroke="#c9c4bb" stroke-width="7.50" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M918.0 170.0 L918.0 330.0 L917.9 344.6 L917.8 362.2 L917.7 382.4 L917.5 405.0 L917.3 429.6 L917.2 456.0 L917.0 483.8 L916.8 512.7 L916.6 542.4 L916.5 572.6 L916.3 602.9 L916.2 633.2 L916.1 663.0 L916.0 692.0 L916.0 720.0 L916.0 745.0 L916.1 771.4 L916.1 799.0 L916.2 827.5 L916.4 856.7 L916.5 886.1 L916.6 915.7 L916.8 944.9 L917.0 973.7 L917.1 1001.6 L917.3 1028.4 L917.5 1053.8 L917.6 1077.6 L917.7 1099.3 L917.8 1118.9 L917.9 1135.8 L918.0 1150.0" stroke="#c9c4bb" stroke-width="7.50" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M481.8 445.0 L481.1 458.3 L479.9 475.2 L478.3 489.9 L476.2 504.4 L473.7 518.5 L470.7 532.2 L467.3 545.4 L463.3 557.9 L458.8 569.7 L453.9 580.5 L448.5 590.4 L442.8 599.3 L436.8 607.0 L430.6 613.9 L424.2 620.0 L417.6 625.1 L410.9 629.5 L404.1 633.2 L397.1 636.1 L390.0 638.1 L382.8 639.1 L375.5 638.8 L368.3 637.1 L361.1 633.8 L354.1 628.9 L347.4 622.3 L341.1 614.2 L335.3 604.7 L330.0 594.0 L325.3 582.3 L321.0 570.0 L317.2 557.2 L313.8 544.0 L310.8 530.6 L308.1 517.0 L305.6 503.1 L303.5 489.0 L301.8 474.6 L300.6 459.9 L299.8 445.0 L299.7 429.9 L300.2 414.8 L301.3 399.8 L303.1 385.1 L305.5 370.8 L308.6 357.0 L312.1 343.8 L316.1 331.1 L320.4 319.0 L325.2 307.6 L330.4 296.9 L335.9 287.0 L341.8 278.0 L348.0 270.0 L354.5 263.3 L361.3 258.0 L368.4 254.2 L375.6 251.9 L382.8 251.3 L390.0 252.1 L397.0 254.2 L404.0 257.5 L410.8 261.7 L417.3 266.7 L423.8 272.2 L430.0 278.4 L436.2 285.1 L442.3 292.4 L448.3 300.4 L454.0 309.4 L459.4 319.3 L464.5 330.3 L469.0 342.3 L472.9 355.4 L476.2 369.3 L478.7 383.9 L480.5 398.9 L481.6 414.2 L482.0 429.6 L481.8 445.0" stroke="#c9c4bb" stroke-width="7.50" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M391.0 225.0 L391.0 252.4" stroke="#c9c4bb" stroke-width="7.50" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M391.0 637.8 L391.0 670.0" stroke="#c9c4bb" stroke-width="7.50" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M404.0 862.0 L403.6 874.8 L402.5 887.4 L400.6 899.7 L398.1 911.5 L394.8 922.7 L390.9 933.1 L386.4 942.6 L381.4 951.1 L375.9 958.5 L370.0 964.7 L363.8 969.6 L357.4 973.1 L350.7 975.3 L344.0 976.0 L337.3 975.3 L330.6 973.1 L324.2 969.6 L318.0 964.7 L312.1 958.5 L306.6 951.1 L301.6 942.6 L297.1 933.1 L293.2 922.7 L289.9 911.5 L287.4 899.7 L285.5 887.4 L284.4 874.8 L284.0 862.0 L284.4 849.2 L285.5 836.6 L287.4 824.3 L289.9 812.5 L293.2 801.3 L297.1 790.9 L301.6 781.4 L306.6 772.9 L312.1 765.5 L318.0 759.3 L324.2 754.4 L330.6 750.9 L337.3 748.7 L344.0 748.0 L350.7 748.7 L357.4 750.9 L363.8 754.4 L370.0 759.3 L375.9 765.5 L381.4 772.9 L386.4 781.4 L390.9 790.9 L394.8 801.3 L398.1 812.5 L400.6 824.3 L402.5 836.6 L403.6 849.2 L404.0 862.0" stroke="#c9c4bb" stroke-width="7.50" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M312.0 958.4 L312.0 1000.0" stroke="#c9c4bb" stroke-width="7.50" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M311.5 1110.0 L311.5 1150.0" stroke="#c9c4bb" stroke-width="7.50" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M262.0 170.0 L918.0 170.0" stroke="#c9c4bb" stroke-width="7.50" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M575.0 280.0 L918.0 280.0" stroke="#c9c4bb" stroke-width="7.50" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M575.0 170.0 L575.0 330.0" stroke="#c9c4bb" stroke-width="7.50" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M765.0 170.0 L765.0 330.0" stroke="#c9c4bb" stroke-width="7.50" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M311.5 1150.0 L918.0 1150.0" stroke="#c9c4bb" stroke-width="7.50" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M420.0 720.0 L420.0 1150.0" stroke="#fbfaf8" stroke-width="5.90" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M462.0 720.0 L462.0 1150.0" stroke="#fbfaf8" stroke-width="5.90" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M360.0 975.0 L360.0 1150.0" stroke="#fbfaf8" stroke-width="5.90" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M377.2 770.0 L918.0 770.0" stroke="#fbfaf8" stroke-width="5.90" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M399.6 830.0 L918.0 830.0" stroke="#fbfaf8" stroke-width="5.90" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M400.2 890.0 L918.0 890.0" stroke="#fbfaf8" stroke-width="5.90" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M386.4 940.0 L918.0 940.0" stroke="#fbfaf8" stroke-width="5.90" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M312.0 1000.0 L918.0 1000.0" stroke="#fbfaf8" stroke-width="5.90" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M311.5 1110.0 L918.0 1110.0" stroke="#fbfaf8" stroke-width="5.90" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M262.0 225.0 L918.0 225.0" stroke="#fbfaf8" stroke-width="5.90" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M261.9 670.0 L546.0 670.0 L568.0 650.0 L916.1 650.0" stroke="#fbfaf8" stroke-width="5.90" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M262.0 500.0 L305.1 500.0" stroke="#fbfaf8" stroke-width="5.90" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M262.0 590.0 L262.0 590.0" stroke="#fbfaf8" stroke-width="5.90" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M515.0 300.0 L575.0 300.0" stroke="#fbfaf8" stroke-width="5.90" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M482.0 440.0 L550.0 440.0 L566.0 450.0 L921.2 450.0" stroke="#fbfaf8" stroke-width="5.90" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M620.0 450.0 L620.0 1150.0" stroke="#fbfaf8" stroke-width="5.90" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M740.0 330.0 L740.0 1150.0" stroke="#fbfaf8" stroke-width="5.90" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M795.0 330.0 L795.0 1150.0" stroke="#fbfaf8" stroke-width="5.90" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M900.0 330.0 L900.0 720.0" stroke="#fbfaf8" stroke-width="5.90" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M575.0 330.0 L918.0 330.0" stroke="#fbfaf8" stroke-width="5.90" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M680.0 390.1 L920.0 390.0" stroke="#fbfaf8" stroke-width="5.90" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M515.0 590.0 L916.4 589.9" stroke="#fbfaf8" stroke-width="5.90" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M918.0 170.0 L918.0 330.0 L917.9 344.6 L917.8 362.2 L917.7 382.4 L917.5 405.0 L917.3 429.6 L917.2 456.0 L917.0 483.8 L916.8 512.7 L916.6 542.4 L916.5 572.6 L916.3 602.9 L916.2 633.2 L916.1 663.0 L916.0 692.0 L916.0 720.0 L916.0 745.0 L916.1 771.4 L916.1 799.0 L916.2 827.5 L916.4 856.7 L916.5 886.1 L916.6 915.7 L916.8 944.9 L917.0 973.7 L917.1 1001.6 L917.3 1028.4 L917.5 1053.8 L917.6 1077.6 L917.7 1099.3 L917.8 1118.9 L917.9 1135.8 L918.0 1150.0" stroke="#fbfaf8" stroke-width="5.90" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M481.8 445.0 L481.1 458.3 L479.9 475.2 L478.3 489.9 L476.2 504.4 L473.7 518.5 L470.7 532.2 L467.3 545.4 L463.3 557.9 L458.8 569.7 L453.9 580.5 L448.5 590.4 L442.8 599.3 L436.8 607.0 L430.6 613.9 L424.2 620.0 L417.6 625.1 L410.9 629.5 L404.1 633.2 L397.1 636.1 L390.0 638.1 L382.8 639.1 L375.5 638.8 L368.3 637.1 L361.1 633.8 L354.1 628.9 L347.4 622.3 L341.1 614.2 L335.3 604.7 L330.0 594.0 L325.3 582.3 L321.0 570.0 L317.2 557.2 L313.8 544.0 L310.8 530.6 L308.1 517.0 L305.6 503.1 L303.5 489.0 L301.8 474.6 L300.6 459.9 L299.8 445.0 L299.7 429.9 L300.2 414.8 L301.3 399.8 L303.1 385.1 L305.5 370.8 L308.6 357.0 L312.1 343.8 L316.1 331.1 L320.4 319.0 L325.2 307.6 L330.4 296.9 L335.9 287.0 L341.8 278.0 L348.0 270.0 L354.5 263.3 L361.3 258.0 L368.4 254.2 L375.6 251.9 L382.8 251.3 L390.0 252.1 L397.0 254.2 L404.0 257.5 L410.8 261.7 L417.3 266.7 L423.8 272.2 L430.0 278.4 L436.2 285.1 L442.3 292.4 L448.3 300.4 L454.0 309.4 L459.4 319.3 L464.5 330.3 L469.0 342.3 L472.9 355.4 L476.2 369.3 L478.7 383.9 L480.5 398.9 L481.6 414.2 L482.0 429.6 L481.8 445.0" stroke="#fbfaf8" stroke-width="5.90" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M391.0 225.0 L391.0 252.4" stroke="#fbfaf8" stroke-width="5.90" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M391.0 637.8 L391.0 670.0" stroke="#fbfaf8" stroke-width="5.90" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M404.0 862.0 L403.6 874.8 L402.5 887.4 L400.6 899.7 L398.1 911.5 L394.8 922.7 L390.9 933.1 L386.4 942.6 L381.4 951.1 L375.9 958.5 L370.0 964.7 L363.8 969.6 L357.4 973.1 L350.7 975.3 L344.0 976.0 L337.3 975.3 L330.6 973.1 L324.2 969.6 L318.0 964.7 L312.1 958.5 L306.6 951.1 L301.6 942.6 L297.1 933.1 L293.2 922.7 L289.9 911.5 L287.4 899.7 L285.5 887.4 L284.4 874.8 L284.0 862.0 L284.4 849.2 L285.5 836.6 L287.4 824.3 L289.9 812.5 L293.2 801.3 L297.1 790.9 L301.6 781.4 L306.6 772.9 L312.1 765.5 L318.0 759.3 L324.2 754.4 L330.6 750.9 L337.3 748.7 L344.0 748.0 L350.7 748.7 L357.4 750.9 L363.8 754.4 L370.0 759.3 L375.9 765.5 L381.4 772.9 L386.4 781.4 L390.9 790.9 L394.8 801.3 L398.1 812.5 L400.6 824.3 L402.5 836.6 L403.6 849.2 L404.0 862.0" stroke="#fbfaf8" stroke-width="5.90" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M312.0 958.4 L312.0 1000.0" stroke="#fbfaf8" stroke-width="5.90" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M311.5 1110.0 L311.5 1150.0" stroke="#fbfaf8" stroke-width="5.90" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M262.0 170.0 L918.0 170.0" stroke="#fbfaf8" stroke-width="5.90" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M575.0 280.0 L918.0 280.0" stroke="#fbfaf8" stroke-width="5.90" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M575.0 170.0 L575.0 330.0" stroke="#fbfaf8" stroke-width="5.90" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M765.0 170.0 L765.0 330.0" stroke="#fbfaf8" stroke-width="5.90" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M311.5 1150.0 L918.0 1150.0" stroke="#fbfaf8" stroke-width="5.90" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M515.0 720.0 L515.0 1150.0" stroke="#a9a399" stroke-width="10.00" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M262.0 170.0 L262.0 668.0" stroke="#a9a399" stroke-width="10.00" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M262.0 720.0 L262.0 720.0" stroke="#a9a399" stroke-width="10.00" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M515.0 170.0 L515.0 720.0" stroke="#a9a399" stroke-width="10.00" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M515.0 520.0 L916.8 519.9" stroke="#a9a399" stroke-width="10.00" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M515.0 720.0 L515.0 1150.0" stroke="#ffffff" stroke-width="8.40" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M262.0 170.0 L262.0 668.0" stroke="#ffffff" stroke-width="8.40" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M262.0 720.0 L262.0 720.0" stroke="#ffffff" stroke-width="8.40" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M515.0 170.0 L515.0 720.0" stroke="#ffffff" stroke-width="8.40" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M515.0 520.0 L916.8 519.9" stroke="#ffffff" stroke-width="8.40" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M20.0 720.0 L947.0 720.0" stroke="#8f897f" stroke-width="13.33" fill="none" stroke-linecap="butt" stroke-linejoin="round"/>
-<path d="M20.0 1060.0 L947.0 1060.0" stroke="#8f897f" stroke-width="13.33" fill="none" stroke-linecap="butt" stroke-linejoin="round"/>
-<path d="M682.0 76.0 L681.9 91.7 L681.8 111.3 L681.6 134.3 L681.4 160.2 L681.2 188.2 L681.0 218.0 L680.8 248.9 L680.6 280.3 L680.4 311.7 L680.2 342.5 L680.1 372.1 L680.0 400.0 L679.9 426.1 L679.8 451.1 L679.8 475.3 L679.7 499.2 L679.7 523.0 L679.6 547.1 L679.6 572.0 L679.6 597.9 L679.7 625.3 L679.7 654.5 L679.8 686.0 L680.0 720.0 L680.1 741.3 L680.2 764.5 L680.4 789.3 L680.6 815.6 L680.8 843.1 L681.0 871.6 L681.2 900.8 L681.4 930.4 L681.6 960.3 L681.9 990.2 L682.1 1019.8 L682.4 1048.9 L682.6 1077.4 L682.8 1104.8 L683.0 1131.1 L683.2 1155.9 L683.4 1179.1 L683.6 1200.3 L683.8 1219.3 L683.9 1236.0 L684.0 1250.0" stroke="#8f897f" stroke-width="13.33" fill="none" stroke-linecap="butt" stroke-linejoin="round"/>
-<path d="M852.0 76.0 L852.0 90.0 L851.9 106.0 L851.9 124.1 L851.8 143.9 L851.7 165.4 L851.7 188.4 L851.6 212.8 L851.5 238.4 L851.5 265.1 L851.4 292.7 L851.3 321.1 L851.2 350.1 L851.1 379.7 L851.0 409.6 L850.9 439.7 L850.8 469.8 L850.7 499.9 L850.6 529.8 L850.5 559.2 L850.4 588.2 L850.4 616.5 L850.3 643.9 L850.2 670.4 L850.1 695.8 L850.0 720.0 L849.9 748.3 L849.8 777.1 L849.7 806.3 L849.6 835.9 L849.5 865.5 L849.3 895.2 L849.2 924.8 L849.1 954.1 L849.0 983.0 L848.9 1011.3 L848.8 1039.0 L848.7 1065.9 L848.6 1091.9 L848.5 1116.8 L848.4 1140.5 L848.3 1162.9 L848.2 1183.8 L848.2 1203.1 L848.1 1220.7 L848.0 1236.3 L848.0 1250.0" stroke="#8f897f" stroke-width="13.33" fill="none" stroke-linecap="butt" stroke-linejoin="round"/>
-<path d="M20.0 720.0 L947.0 720.0" stroke="#fff6dc" stroke-width="11.73" fill="none" stroke-linecap="butt" stroke-linejoin="round"/>
-<path d="M20.0 1060.0 L947.0 1060.0" stroke="#fff6dc" stroke-width="11.73" fill="none" stroke-linecap="butt" stroke-linejoin="round"/>
-<path d="M682.0 76.0 L681.9 91.7 L681.8 111.3 L681.6 134.3 L681.4 160.2 L681.2 188.2 L681.0 218.0 L680.8 248.9 L680.6 280.3 L680.4 311.7 L680.2 342.5 L680.1 372.1 L680.0 400.0 L679.9 426.1 L679.8 451.1 L679.8 475.3 L679.7 499.2 L679.7 523.0 L679.6 547.1 L679.6 572.0 L679.6 597.9 L679.7 625.3 L679.7 654.5 L679.8 686.0 L680.0 720.0 L680.1 741.3 L680.2 764.5 L680.4 789.3 L680.6 815.6 L680.8 843.1 L681.0 871.6 L681.2 900.8 L681.4 930.4 L681.6 960.3 L681.9 990.2 L682.1 1019.8 L682.4 1048.9 L682.6 1077.4 L682.8 1104.8 L683.0 1131.1 L683.2 1155.9 L683.4 1179.1 L683.6 1200.3 L683.8 1219.3 L683.9 1236.0 L684.0 1250.0" stroke="#fff6dc" stroke-width="11.73" fill="none" stroke-linecap="butt" stroke-linejoin="round"/>
-<path d="M852.0 76.0 L852.0 90.0 L851.9 106.0 L851.9 124.1 L851.8 143.9 L851.7 165.4 L851.7 188.4 L851.6 212.8 L851.5 238.4 L851.5 265.1 L851.4 292.7 L851.3 321.1 L851.2 350.1 L851.1 379.7 L851.0 409.6 L850.9 439.7 L850.8 469.8 L850.7 499.9 L850.6 529.8 L850.5 559.2 L850.4 588.2 L850.4 616.5 L850.3 643.9 L850.2 670.4 L850.1 695.8 L850.0 720.0 L849.9 748.3 L849.8 777.1 L849.7 806.3 L849.6 835.9 L849.5 865.5 L849.3 895.2 L849.2 924.8 L849.1 954.1 L849.0 983.0 L848.9 1011.3 L848.8 1039.0 L848.7 1065.9 L848.6 1091.9 L848.5 1116.8 L848.4 1140.5 L848.3 1162.9 L848.2 1183.8 L848.2 1203.1 L848.1 1220.7 L848.0 1236.3 L848.0 1250.0" stroke="#fff6dc" stroke-width="11.73" fill="none" stroke-linecap="butt" stroke-linejoin="round"/>
-<path d="M160.0 60.0 L161.7 76.2 L163.8 97.6 L166.3 123.0 L169.1 151.3 L172.2 181.5 L175.4 212.6 L178.6 243.4 L181.9 272.9 L185.0 300.0 L188.5 328.3 L192.0 355.9 L195.7 383.1 L199.4 410.0 L203.2 436.9 L207.1 464.1 L211.0 491.7 L215.0 520.0 L218.7 545.8 L222.5 572.0 L226.5 598.5 L230.5 625.3 L234.5 652.2 L238.5 679.3 L242.5 706.3 L246.3 733.2 L250.0 760.0 L253.6 786.6 L257.3 813.0 L260.9 839.3 L264.4 865.6 L267.9 892.0 L271.2 918.5 L274.4 945.3 L277.3 972.5 L280.0 1000.0 L282.2 1026.4 L284.4 1054.9 L286.3 1084.7 L288.2 1115.0 L289.9 1145.0 L291.4 1173.8 L292.8 1200.5 L294.0 1224.3 L295.1 1244.4 L296.0 1260.0" stroke="#7a4c05" stroke-width="21.67" fill="none" stroke-linecap="butt" stroke-linejoin="round"/>
-<path d="M160.0 60.0 L161.7 76.2 L163.8 97.6 L166.3 123.0 L169.1 151.3 L172.2 181.5 L175.4 212.6 L178.6 243.4 L181.9 272.9 L185.0 300.0 L188.5 328.3 L192.0 355.9 L195.7 383.1 L199.4 410.0 L203.2 436.9 L207.1 464.1 L211.0 491.7 L215.0 520.0 L218.7 545.8 L222.5 572.0 L226.5 598.5 L230.5 625.3 L234.5 652.2 L238.5 679.3 L242.5 706.3 L246.3 733.2 L250.0 760.0 L253.6 786.6 L257.3 813.0 L260.9 839.3 L264.4 865.6 L267.9 892.0 L271.2 918.5 L274.4 945.3 L277.3 972.5 L280.0 1000.0 L282.2 1026.4 L284.4 1054.9 L286.3 1084.7 L288.2 1115.0 L289.9 1145.0 L291.4 1173.8 L292.8 1200.5 L294.0 1224.3 L295.1 1244.4 L296.0 1260.0" stroke="#f3a712" stroke-width="18.67" fill="none" stroke-linecap="butt" stroke-linejoin="round"/>
+<path d="M420.0 720.0 L420.0 1150.0" stroke="#c9c4bb" stroke-width="4.50" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M462.0 720.0 L462.0 1150.0" stroke="#c9c4bb" stroke-width="4.50" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M360.0 975.0 L360.0 1150.0" stroke="#c9c4bb" stroke-width="4.50" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M377.2 770.0 L918.0 770.0" stroke="#c9c4bb" stroke-width="4.50" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M399.6 830.0 L918.0 830.0" stroke="#c9c4bb" stroke-width="4.50" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M400.2 890.0 L918.0 890.0" stroke="#c9c4bb" stroke-width="4.50" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M386.4 940.0 L918.0 940.0" stroke="#c9c4bb" stroke-width="4.50" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M312.0 1000.0 L918.0 1000.0" stroke="#c9c4bb" stroke-width="4.50" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M311.5 1110.0 L918.0 1110.0" stroke="#c9c4bb" stroke-width="4.50" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M262.0 225.0 L918.0 225.0" stroke="#c9c4bb" stroke-width="4.50" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M261.9 670.0 L546.0 670.0 L568.0 650.0 L916.1 650.0" stroke="#c9c4bb" stroke-width="4.50" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M262.0 500.0 L305.1 500.0" stroke="#c9c4bb" stroke-width="4.50" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M262.0 590.0 L262.0 590.0" stroke="#c9c4bb" stroke-width="4.50" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M515.0 300.0 L575.0 300.0" stroke="#c9c4bb" stroke-width="4.50" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M482.0 440.0 L550.0 440.0 L566.0 450.0 L921.2 450.0" stroke="#c9c4bb" stroke-width="4.50" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M620.0 450.0 L620.0 1150.0" stroke="#c9c4bb" stroke-width="4.50" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M740.0 330.0 L740.0 1150.0" stroke="#c9c4bb" stroke-width="4.50" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M795.0 330.0 L795.0 1150.0" stroke="#c9c4bb" stroke-width="4.50" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M900.0 330.0 L900.0 720.0" stroke="#c9c4bb" stroke-width="4.50" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M575.0 330.0 L918.0 330.0" stroke="#c9c4bb" stroke-width="4.50" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M680.0 390.1 L920.0 390.0" stroke="#c9c4bb" stroke-width="4.50" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M515.0 590.0 L916.4 589.9" stroke="#c9c4bb" stroke-width="4.50" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M918.0 170.0 L918.0 330.0 L917.9 344.6 L917.8 362.2 L917.7 382.4 L917.5 405.0 L917.3 429.6 L917.2 456.0 L917.0 483.8 L916.8 512.7 L916.6 542.4 L916.5 572.6 L916.3 602.9 L916.2 633.2 L916.1 663.0 L916.0 692.0 L916.0 720.0 L916.0 745.0 L916.1 771.4 L916.1 799.0 L916.2 827.5 L916.4 856.7 L916.5 886.1 L916.6 915.7 L916.8 944.9 L917.0 973.7 L917.1 1001.6 L917.3 1028.4 L917.5 1053.8 L917.6 1077.6 L917.7 1099.3 L917.8 1118.9 L917.9 1135.8 L918.0 1150.0" stroke="#c9c4bb" stroke-width="4.50" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M481.8 445.0 L481.1 458.3 L479.9 475.2 L478.3 489.9 L476.2 504.4 L473.7 518.5 L470.7 532.2 L467.3 545.4 L463.3 557.9 L458.8 569.7 L453.9 580.5 L448.5 590.4 L442.8 599.3 L436.8 607.0 L430.6 613.9 L424.2 620.0 L417.6 625.1 L410.9 629.5 L404.1 633.2 L397.1 636.1 L390.0 638.1 L382.8 639.1 L375.5 638.8 L368.3 637.1 L361.1 633.8 L354.1 628.9 L347.4 622.3 L341.1 614.2 L335.3 604.7 L330.0 594.0 L325.3 582.3 L321.0 570.0 L317.2 557.2 L313.8 544.0 L310.8 530.6 L308.1 517.0 L305.6 503.1 L303.5 489.0 L301.8 474.6 L300.6 459.9 L299.8 445.0 L299.7 429.9 L300.2 414.8 L301.3 399.8 L303.1 385.1 L305.5 370.8 L308.6 357.0 L312.1 343.8 L316.1 331.1 L320.4 319.0 L325.2 307.6 L330.4 296.9 L335.9 287.0 L341.8 278.0 L348.0 270.0 L354.5 263.3 L361.3 258.0 L368.4 254.2 L375.6 251.9 L382.8 251.3 L390.0 252.1 L397.0 254.2 L404.0 257.5 L410.8 261.7 L417.3 266.7 L423.8 272.2 L430.0 278.4 L436.2 285.1 L442.3 292.4 L448.3 300.4 L454.0 309.4 L459.4 319.3 L464.5 330.3 L469.0 342.3 L472.9 355.4 L476.2 369.3 L478.7 383.9 L480.5 398.9 L481.6 414.2 L482.0 429.6 L481.8 445.0" stroke="#c9c4bb" stroke-width="4.50" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M391.0 225.0 L391.0 252.4" stroke="#c9c4bb" stroke-width="4.50" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M391.0 637.8 L391.0 670.0" stroke="#c9c4bb" stroke-width="4.50" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M404.0 862.0 L403.6 874.8 L402.5 887.4 L400.6 899.7 L398.1 911.5 L394.8 922.7 L390.9 933.1 L386.4 942.6 L381.4 951.1 L375.9 958.5 L370.0 964.7 L363.8 969.6 L357.4 973.1 L350.7 975.3 L344.0 976.0 L337.3 975.3 L330.6 973.1 L324.2 969.6 L318.0 964.7 L312.1 958.5 L306.6 951.1 L301.6 942.6 L297.1 933.1 L293.2 922.7 L289.9 911.5 L287.4 899.7 L285.5 887.4 L284.4 874.8 L284.0 862.0 L284.4 849.2 L285.5 836.6 L287.4 824.3 L289.9 812.5 L293.2 801.3 L297.1 790.9 L301.6 781.4 L306.6 772.9 L312.1 765.5 L318.0 759.3 L324.2 754.4 L330.6 750.9 L337.3 748.7 L344.0 748.0 L350.7 748.7 L357.4 750.9 L363.8 754.4 L370.0 759.3 L375.9 765.5 L381.4 772.9 L386.4 781.4 L390.9 790.9 L394.8 801.3 L398.1 812.5 L400.6 824.3 L402.5 836.6 L403.6 849.2 L404.0 862.0" stroke="#c9c4bb" stroke-width="4.50" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M312.0 958.4 L312.0 1000.0" stroke="#c9c4bb" stroke-width="4.50" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M311.5 1110.0 L311.5 1150.0" stroke="#c9c4bb" stroke-width="4.50" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M262.0 170.0 L918.0 170.0" stroke="#c9c4bb" stroke-width="4.50" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M575.0 280.0 L918.0 280.0" stroke="#c9c4bb" stroke-width="4.50" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M575.0 170.0 L575.0 330.0" stroke="#c9c4bb" stroke-width="4.50" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M765.0 170.0 L765.0 330.0" stroke="#c9c4bb" stroke-width="4.50" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M311.5 1150.0 L918.0 1150.0" stroke="#c9c4bb" stroke-width="4.50" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M420.0 720.0 L420.0 1150.0" stroke="#fbfaf8" stroke-width="2.90" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M462.0 720.0 L462.0 1150.0" stroke="#fbfaf8" stroke-width="2.90" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M360.0 975.0 L360.0 1150.0" stroke="#fbfaf8" stroke-width="2.90" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M377.2 770.0 L918.0 770.0" stroke="#fbfaf8" stroke-width="2.90" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M399.6 830.0 L918.0 830.0" stroke="#fbfaf8" stroke-width="2.90" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M400.2 890.0 L918.0 890.0" stroke="#fbfaf8" stroke-width="2.90" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M386.4 940.0 L918.0 940.0" stroke="#fbfaf8" stroke-width="2.90" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M312.0 1000.0 L918.0 1000.0" stroke="#fbfaf8" stroke-width="2.90" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M311.5 1110.0 L918.0 1110.0" stroke="#fbfaf8" stroke-width="2.90" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M262.0 225.0 L918.0 225.0" stroke="#fbfaf8" stroke-width="2.90" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M261.9 670.0 L546.0 670.0 L568.0 650.0 L916.1 650.0" stroke="#fbfaf8" stroke-width="2.90" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M262.0 500.0 L305.1 500.0" stroke="#fbfaf8" stroke-width="2.90" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M262.0 590.0 L262.0 590.0" stroke="#fbfaf8" stroke-width="2.90" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M515.0 300.0 L575.0 300.0" stroke="#fbfaf8" stroke-width="2.90" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M482.0 440.0 L550.0 440.0 L566.0 450.0 L921.2 450.0" stroke="#fbfaf8" stroke-width="2.90" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M620.0 450.0 L620.0 1150.0" stroke="#fbfaf8" stroke-width="2.90" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M740.0 330.0 L740.0 1150.0" stroke="#fbfaf8" stroke-width="2.90" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M795.0 330.0 L795.0 1150.0" stroke="#fbfaf8" stroke-width="2.90" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M900.0 330.0 L900.0 720.0" stroke="#fbfaf8" stroke-width="2.90" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M575.0 330.0 L918.0 330.0" stroke="#fbfaf8" stroke-width="2.90" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M680.0 390.1 L920.0 390.0" stroke="#fbfaf8" stroke-width="2.90" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M515.0 590.0 L916.4 589.9" stroke="#fbfaf8" stroke-width="2.90" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M918.0 170.0 L918.0 330.0 L917.9 344.6 L917.8 362.2 L917.7 382.4 L917.5 405.0 L917.3 429.6 L917.2 456.0 L917.0 483.8 L916.8 512.7 L916.6 542.4 L916.5 572.6 L916.3 602.9 L916.2 633.2 L916.1 663.0 L916.0 692.0 L916.0 720.0 L916.0 745.0 L916.1 771.4 L916.1 799.0 L916.2 827.5 L916.4 856.7 L916.5 886.1 L916.6 915.7 L916.8 944.9 L917.0 973.7 L917.1 1001.6 L917.3 1028.4 L917.5 1053.8 L917.6 1077.6 L917.7 1099.3 L917.8 1118.9 L917.9 1135.8 L918.0 1150.0" stroke="#fbfaf8" stroke-width="2.90" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M481.8 445.0 L481.1 458.3 L479.9 475.2 L478.3 489.9 L476.2 504.4 L473.7 518.5 L470.7 532.2 L467.3 545.4 L463.3 557.9 L458.8 569.7 L453.9 580.5 L448.5 590.4 L442.8 599.3 L436.8 607.0 L430.6 613.9 L424.2 620.0 L417.6 625.1 L410.9 629.5 L404.1 633.2 L397.1 636.1 L390.0 638.1 L382.8 639.1 L375.5 638.8 L368.3 637.1 L361.1 633.8 L354.1 628.9 L347.4 622.3 L341.1 614.2 L335.3 604.7 L330.0 594.0 L325.3 582.3 L321.0 570.0 L317.2 557.2 L313.8 544.0 L310.8 530.6 L308.1 517.0 L305.6 503.1 L303.5 489.0 L301.8 474.6 L300.6 459.9 L299.8 445.0 L299.7 429.9 L300.2 414.8 L301.3 399.8 L303.1 385.1 L305.5 370.8 L308.6 357.0 L312.1 343.8 L316.1 331.1 L320.4 319.0 L325.2 307.6 L330.4 296.9 L335.9 287.0 L341.8 278.0 L348.0 270.0 L354.5 263.3 L361.3 258.0 L368.4 254.2 L375.6 251.9 L382.8 251.3 L390.0 252.1 L397.0 254.2 L404.0 257.5 L410.8 261.7 L417.3 266.7 L423.8 272.2 L430.0 278.4 L436.2 285.1 L442.3 292.4 L448.3 300.4 L454.0 309.4 L459.4 319.3 L464.5 330.3 L469.0 342.3 L472.9 355.4 L476.2 369.3 L478.7 383.9 L480.5 398.9 L481.6 414.2 L482.0 429.6 L481.8 445.0" stroke="#fbfaf8" stroke-width="2.90" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M391.0 225.0 L391.0 252.4" stroke="#fbfaf8" stroke-width="2.90" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M391.0 637.8 L391.0 670.0" stroke="#fbfaf8" stroke-width="2.90" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M404.0 862.0 L403.6 874.8 L402.5 887.4 L400.6 899.7 L398.1 911.5 L394.8 922.7 L390.9 933.1 L386.4 942.6 L381.4 951.1 L375.9 958.5 L370.0 964.7 L363.8 969.6 L357.4 973.1 L350.7 975.3 L344.0 976.0 L337.3 975.3 L330.6 973.1 L324.2 969.6 L318.0 964.7 L312.1 958.5 L306.6 951.1 L301.6 942.6 L297.1 933.1 L293.2 922.7 L289.9 911.5 L287.4 899.7 L285.5 887.4 L284.4 874.8 L284.0 862.0 L284.4 849.2 L285.5 836.6 L287.4 824.3 L289.9 812.5 L293.2 801.3 L297.1 790.9 L301.6 781.4 L306.6 772.9 L312.1 765.5 L318.0 759.3 L324.2 754.4 L330.6 750.9 L337.3 748.7 L344.0 748.0 L350.7 748.7 L357.4 750.9 L363.8 754.4 L370.0 759.3 L375.9 765.5 L381.4 772.9 L386.4 781.4 L390.9 790.9 L394.8 801.3 L398.1 812.5 L400.6 824.3 L402.5 836.6 L403.6 849.2 L404.0 862.0" stroke="#fbfaf8" stroke-width="2.90" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M312.0 958.4 L312.0 1000.0" stroke="#fbfaf8" stroke-width="2.90" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M311.5 1110.0 L311.5 1150.0" stroke="#fbfaf8" stroke-width="2.90" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M262.0 170.0 L918.0 170.0" stroke="#fbfaf8" stroke-width="2.90" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M575.0 280.0 L918.0 280.0" stroke="#fbfaf8" stroke-width="2.90" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M575.0 170.0 L575.0 330.0" stroke="#fbfaf8" stroke-width="2.90" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M765.0 170.0 L765.0 330.0" stroke="#fbfaf8" stroke-width="2.90" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M311.5 1150.0 L918.0 1150.0" stroke="#fbfaf8" stroke-width="2.90" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M515.0 720.0 L515.0 1150.0" stroke="#a9a399" stroke-width="6.00" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M262.0 170.0 L262.0 668.0" stroke="#a9a399" stroke-width="6.00" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M262.0 720.0 L262.0 720.0" stroke="#a9a399" stroke-width="6.00" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M515.0 170.0 L515.0 720.0" stroke="#a9a399" stroke-width="6.00" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M515.0 520.0 L916.8 519.9" stroke="#a9a399" stroke-width="6.00" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M515.0 720.0 L515.0 1150.0" stroke="#ffffff" stroke-width="4.40" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M262.0 170.0 L262.0 668.0" stroke="#ffffff" stroke-width="4.40" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M262.0 720.0 L262.0 720.0" stroke="#ffffff" stroke-width="4.40" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M515.0 170.0 L515.0 720.0" stroke="#ffffff" stroke-width="4.40" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M515.0 520.0 L916.8 519.9" stroke="#ffffff" stroke-width="4.40" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M20.0 720.0 L947.0 720.0" stroke="#8f897f" stroke-width="8.00" fill="none" stroke-linecap="butt" stroke-linejoin="round"/>
+<path d="M20.0 1060.0 L947.0 1060.0" stroke="#8f897f" stroke-width="8.00" fill="none" stroke-linecap="butt" stroke-linejoin="round"/>
+<path d="M682.0 76.0 L681.9 91.7 L681.8 111.3 L681.6 134.3 L681.4 160.2 L681.2 188.2 L681.0 218.0 L680.8 248.9 L680.6 280.3 L680.4 311.7 L680.2 342.5 L680.1 372.1 L680.0 400.0 L679.9 426.1 L679.8 451.1 L679.8 475.3 L679.7 499.2 L679.7 523.0 L679.6 547.1 L679.6 572.0 L679.6 597.9 L679.7 625.3 L679.7 654.5 L679.8 686.0 L680.0 720.0 L680.1 741.3 L680.2 764.5 L680.4 789.3 L680.6 815.6 L680.8 843.1 L681.0 871.6 L681.2 900.8 L681.4 930.4 L681.6 960.3 L681.9 990.2 L682.1 1019.8 L682.4 1048.9 L682.6 1077.4 L682.8 1104.8 L683.0 1131.1 L683.2 1155.9 L683.4 1179.1 L683.6 1200.3 L683.8 1219.3 L683.9 1236.0 L684.0 1250.0" stroke="#8f897f" stroke-width="8.00" fill="none" stroke-linecap="butt" stroke-linejoin="round"/>
+<path d="M852.0 76.0 L852.0 90.0 L851.9 106.0 L851.9 124.1 L851.8 143.9 L851.7 165.4 L851.7 188.4 L851.6 212.8 L851.5 238.4 L851.5 265.1 L851.4 292.7 L851.3 321.1 L851.2 350.1 L851.1 379.7 L851.0 409.6 L850.9 439.7 L850.8 469.8 L850.7 499.9 L850.6 529.8 L850.5 559.2 L850.4 588.2 L850.4 616.5 L850.3 643.9 L850.2 670.4 L850.1 695.8 L850.0 720.0 L849.9 748.3 L849.8 777.1 L849.7 806.3 L849.6 835.9 L849.5 865.5 L849.3 895.2 L849.2 924.8 L849.1 954.1 L849.0 983.0 L848.9 1011.3 L848.8 1039.0 L848.7 1065.9 L848.6 1091.9 L848.5 1116.8 L848.4 1140.5 L848.3 1162.9 L848.2 1183.8 L848.2 1203.1 L848.1 1220.7 L848.0 1236.3 L848.0 1250.0" stroke="#8f897f" stroke-width="8.00" fill="none" stroke-linecap="butt" stroke-linejoin="round"/>
+<path d="M20.0 720.0 L947.0 720.0" stroke="#fff6dc" stroke-width="6.40" fill="none" stroke-linecap="butt" stroke-linejoin="round"/>
+<path d="M20.0 1060.0 L947.0 1060.0" stroke="#fff6dc" stroke-width="6.40" fill="none" stroke-linecap="butt" stroke-linejoin="round"/>
+<path d="M682.0 76.0 L681.9 91.7 L681.8 111.3 L681.6 134.3 L681.4 160.2 L681.2 188.2 L681.0 218.0 L680.8 248.9 L680.6 280.3 L680.4 311.7 L680.2 342.5 L680.1 372.1 L680.0 400.0 L679.9 426.1 L679.8 451.1 L679.8 475.3 L679.7 499.2 L679.7 523.0 L679.6 547.1 L679.6 572.0 L679.6 597.9 L679.7 625.3 L679.7 654.5 L679.8 686.0 L680.0 720.0 L680.1 741.3 L680.2 764.5 L680.4 789.3 L680.6 815.6 L680.8 843.1 L681.0 871.6 L681.2 900.8 L681.4 930.4 L681.6 960.3 L681.9 990.2 L682.1 1019.8 L682.4 1048.9 L682.6 1077.4 L682.8 1104.8 L683.0 1131.1 L683.2 1155.9 L683.4 1179.1 L683.6 1200.3 L683.8 1219.3 L683.9 1236.0 L684.0 1250.0" stroke="#fff6dc" stroke-width="6.40" fill="none" stroke-linecap="butt" stroke-linejoin="round"/>
+<path d="M852.0 76.0 L852.0 90.0 L851.9 106.0 L851.9 124.1 L851.8 143.9 L851.7 165.4 L851.7 188.4 L851.6 212.8 L851.5 238.4 L851.5 265.1 L851.4 292.7 L851.3 321.1 L851.2 350.1 L851.1 379.7 L851.0 409.6 L850.9 439.7 L850.8 469.8 L850.7 499.9 L850.6 529.8 L850.5 559.2 L850.4 588.2 L850.4 616.5 L850.3 643.9 L850.2 670.4 L850.1 695.8 L850.0 720.0 L849.9 748.3 L849.8 777.1 L849.7 806.3 L849.6 835.9 L849.5 865.5 L849.3 895.2 L849.2 924.8 L849.1 954.1 L849.0 983.0 L848.9 1011.3 L848.8 1039.0 L848.7 1065.9 L848.6 1091.9 L848.5 1116.8 L848.4 1140.5 L848.3 1162.9 L848.2 1183.8 L848.2 1203.1 L848.1 1220.7 L848.0 1236.3 L848.0 1250.0" stroke="#fff6dc" stroke-width="6.40" fill="none" stroke-linecap="butt" stroke-linejoin="round"/>
+<path d="M160.0 60.0 L161.7 76.2 L163.8 97.6 L166.3 123.0 L169.1 151.3 L172.2 181.5 L175.4 212.6 L178.6 243.4 L181.9 272.9 L185.0 300.0 L188.5 328.3 L192.0 355.9 L195.7 383.1 L199.4 410.0 L203.2 436.9 L207.1 464.1 L211.0 491.7 L215.0 520.0 L218.7 545.8 L222.5 572.0 L226.5 598.5 L230.5 625.3 L234.5 652.2 L238.5 679.3 L242.5 706.3 L246.3 733.2 L250.0 760.0 L253.6 786.6 L257.3 813.0 L260.9 839.3 L264.4 865.6 L267.9 892.0 L271.2 918.5 L274.4 945.3 L277.3 972.5 L280.0 1000.0 L282.2 1026.4 L284.4 1054.9 L286.3 1084.7 L288.2 1115.0 L289.9 1145.0 L291.4 1173.8 L292.8 1200.5 L294.0 1224.3 L295.1 1244.4 L296.0 1260.0" stroke="#7a4c05" stroke-width="13.00" fill="none" stroke-linecap="butt" stroke-linejoin="round"/>
+<path d="M160.0 60.0 L161.7 76.2 L163.8 97.6 L166.3 123.0 L169.1 151.3 L172.2 181.5 L175.4 212.6 L178.6 243.4 L181.9 272.9 L185.0 300.0 L188.5 328.3 L192.0 355.9 L195.7 383.1 L199.4 410.0 L203.2 436.9 L207.1 464.1 L211.0 491.7 L215.0 520.0 L218.7 545.8 L222.5 572.0 L226.5 598.5 L230.5 625.3 L234.5 652.2 L238.5 679.3 L242.5 706.3 L246.3 733.2 L250.0 760.0 L253.6 786.6 L257.3 813.0 L260.9 839.3 L264.4 865.6 L267.9 892.0 L271.2 918.5 L274.4 945.3 L277.3 972.5 L280.0 1000.0 L282.2 1026.4 L284.4 1054.9 L286.3 1084.7 L288.2 1115.0 L289.9 1145.0 L291.4 1173.8 L292.8 1200.5 L294.0 1224.3 L295.1 1244.4 L296.0 1260.0" stroke="#f3a712" stroke-width="10.00" fill="none" stroke-linecap="butt" stroke-linejoin="round"/>
 <path d="M160.0 60.0 L161.7 76.2 L163.8 97.6 L166.3 123.0 L169.1 151.3 L172.2 181.5 L175.4 212.6 L178.6 243.4 L181.9 272.9 L185.0 300.0 L188.5 328.3 L192.0 355.9 L195.7 383.1 L199.4 410.0 L203.2 436.9 L207.1 464.1 L211.0 491.7 L215.0 520.0 L218.7 545.8 L222.5 572.0 L226.5 598.5 L230.5 625.3 L234.5 652.2 L238.5 679.3 L242.5 706.3 L246.3 733.2 L250.0 760.0 L253.6 786.6 L257.3 813.0 L260.9 839.3 L264.4 865.6 L267.9 892.0 L271.2 918.5 L274.4 945.3 L277.3 972.5 L280.0 1000.0 L282.2 1026.4 L284.4 1054.9 L286.3 1084.7 L288.2 1115.0 L289.9 1145.0 L291.4 1173.8 L292.8 1200.5 L294.0 1224.3 L295.1 1244.4 L296.0 1260.0" stroke="#7a4c05" stroke-width="1.2" stroke-dasharray="8 6" fill="none"/>
-<path d="M241.7 647.0 L250.4 665.0 L255.5 679.4 L259.5 685.4 L264.1 690.7 L268.9 695.6 L273.6 700.2 L277.8 704.8 L281.3 709.5 L283.6 714.5 L284.4 720.0" stroke="#7a4c05" stroke-width="6.67" fill="none" stroke-linecap="butt" stroke-linejoin="round"/>
-<path d="M262.5 793.0 L266.0 775.0 L266.5 760.6 L268.4 754.6 L270.9 749.3 L273.8 744.4 L276.9 739.8 L279.7 735.2 L282.2 730.5 L283.8 725.5 L284.4 720.0" stroke="#7a4c05" stroke-width="6.67" fill="none" stroke-linecap="butt" stroke-linejoin="round"/>
-<path d="M225.7 647.0 L222.4 665.0 L222.1 679.4 L220.3 685.4 L217.8 690.7 L214.9 695.6 L211.9 700.2 L209.1 704.8 L206.7 709.5 L205.0 714.5 L204.4 720.0" stroke="#7a4c05" stroke-width="6.67" fill="none" stroke-linecap="butt" stroke-linejoin="round"/>
-<path d="M246.5 793.0 L238.0 775.0 L233.1 760.6 L229.1 754.6 L224.6 749.3 L219.8 744.4 L215.2 739.8 L211.0 735.2 L207.6 730.5 L205.3 725.5 L204.4 720.0" stroke="#7a4c05" stroke-width="6.67" fill="none" stroke-linecap="butt" stroke-linejoin="round"/>
-<path d="M286.7 987.0 L294.4 1005.0 L298.4 1019.4 L302.0 1025.4 L306.1 1030.7 L310.4 1035.6 L314.7 1040.2 L318.6 1044.8 L321.8 1049.5 L323.9 1054.5 L324.7 1060.0" stroke="#7a4c05" stroke-width="6.67" fill="none" stroke-linecap="butt" stroke-linejoin="round"/>
-<path d="M297.2 1133.0 L302.2 1115.0 L303.9 1100.6 L306.3 1094.6 L309.4 1089.3 L312.8 1084.4 L316.3 1079.8 L319.5 1075.2 L322.2 1070.5 L324.0 1065.5 L324.7 1060.0" stroke="#7a4c05" stroke-width="6.67" fill="none" stroke-linecap="butt" stroke-linejoin="round"/>
-<path d="M270.7 987.0 L266.4 1005.0 L265.0 1019.4 L262.7 1025.4 L259.8 1030.7 L256.4 1035.6 L253.0 1040.2 L249.8 1044.8 L247.2 1049.5 L245.4 1054.5 L244.7 1060.0" stroke="#7a4c05" stroke-width="6.67" fill="none" stroke-linecap="butt" stroke-linejoin="round"/>
-<path d="M281.2 1133.0 L274.2 1115.0 L270.5 1100.6 L267.1 1094.6 L263.1 1089.3 L258.8 1084.4 L254.6 1079.8 L250.8 1075.2 L247.6 1070.5 L245.5 1065.5 L244.7 1060.0" stroke="#7a4c05" stroke-width="6.67" fill="none" stroke-linecap="butt" stroke-linejoin="round"/>
-<path d="M241.7 647.0 L250.4 665.0 L255.5 679.4 L259.5 685.4 L264.1 690.7 L268.9 695.6 L273.6 700.2 L277.8 704.8 L281.3 709.5 L283.6 714.5 L284.4 720.0" stroke="#f6c35a" stroke-width="3.67" fill="none" stroke-linecap="butt" stroke-linejoin="round"/>
-<path d="M262.5 793.0 L266.0 775.0 L266.5 760.6 L268.4 754.6 L270.9 749.3 L273.8 744.4 L276.9 739.8 L279.7 735.2 L282.2 730.5 L283.8 725.5 L284.4 720.0" stroke="#f6c35a" stroke-width="3.67" fill="none" stroke-linecap="butt" stroke-linejoin="round"/>
-<path d="M225.7 647.0 L222.4 665.0 L222.1 679.4 L220.3 685.4 L217.8 690.7 L214.9 695.6 L211.9 700.2 L209.1 704.8 L206.7 709.5 L205.0 714.5 L204.4 720.0" stroke="#f6c35a" stroke-width="3.67" fill="none" stroke-linecap="butt" stroke-linejoin="round"/>
-<path d="M246.5 793.0 L238.0 775.0 L233.1 760.6 L229.1 754.6 L224.6 749.3 L219.8 744.4 L215.2 739.8 L211.0 735.2 L207.6 730.5 L205.3 725.5 L204.4 720.0" stroke="#f6c35a" stroke-width="3.67" fill="none" stroke-linecap="butt" stroke-linejoin="round"/>
-<path d="M286.7 987.0 L294.4 1005.0 L298.4 1019.4 L302.0 1025.4 L306.1 1030.7 L310.4 1035.6 L314.7 1040.2 L318.6 1044.8 L321.8 1049.5 L323.9 1054.5 L324.7 1060.0" stroke="#f6c35a" stroke-width="3.67" fill="none" stroke-linecap="butt" stroke-linejoin="round"/>
-<path d="M297.2 1133.0 L302.2 1115.0 L303.9 1100.6 L306.3 1094.6 L309.4 1089.3 L312.8 1084.4 L316.3 1079.8 L319.5 1075.2 L322.2 1070.5 L324.0 1065.5 L324.7 1060.0" stroke="#f6c35a" stroke-width="3.67" fill="none" stroke-linecap="butt" stroke-linejoin="round"/>
-<path d="M270.7 987.0 L266.4 1005.0 L265.0 1019.4 L262.7 1025.4 L259.8 1030.7 L256.4 1035.6 L253.0 1040.2 L249.8 1044.8 L247.2 1049.5 L245.4 1054.5 L244.7 1060.0" stroke="#f6c35a" stroke-width="3.67" fill="none" stroke-linecap="butt" stroke-linejoin="round"/>
-<path d="M281.2 1133.0 L274.2 1115.0 L270.5 1100.6 L267.1 1094.6 L263.1 1089.3 L258.8 1084.4 L254.6 1079.8 L250.8 1075.2 L247.6 1070.5 L245.5 1065.5 L244.7 1060.0" stroke="#f6c35a" stroke-width="3.67" fill="none" stroke-linecap="butt" stroke-linejoin="round"/>
+<path d="M241.7 647.0 L250.4 665.0 L255.5 679.4 L259.5 685.4 L264.1 690.7 L268.9 695.6 L273.6 700.2 L277.8 704.8 L281.3 709.5 L283.6 714.5 L284.4 720.0" stroke="#7a4c05" stroke-width="4.00" fill="none" stroke-linecap="butt" stroke-linejoin="round"/>
+<path d="M262.5 793.0 L266.0 775.0 L266.5 760.6 L268.4 754.6 L270.9 749.3 L273.8 744.4 L276.9 739.8 L279.7 735.2 L282.2 730.5 L283.8 725.5 L284.4 720.0" stroke="#7a4c05" stroke-width="4.00" fill="none" stroke-linecap="butt" stroke-linejoin="round"/>
+<path d="M225.7 647.0 L222.4 665.0 L222.1 679.4 L220.3 685.4 L217.8 690.7 L214.9 695.6 L211.9 700.2 L209.1 704.8 L206.7 709.5 L205.0 714.5 L204.4 720.0" stroke="#7a4c05" stroke-width="4.00" fill="none" stroke-linecap="butt" stroke-linejoin="round"/>
+<path d="M246.5 793.0 L238.0 775.0 L233.1 760.6 L229.1 754.6 L224.6 749.3 L219.8 744.4 L215.2 739.8 L211.0 735.2 L207.6 730.5 L205.3 725.5 L204.4 720.0" stroke="#7a4c05" stroke-width="4.00" fill="none" stroke-linecap="butt" stroke-linejoin="round"/>
+<path d="M286.7 987.0 L294.4 1005.0 L298.4 1019.4 L302.0 1025.4 L306.1 1030.7 L310.4 1035.6 L314.7 1040.2 L318.6 1044.8 L321.8 1049.5 L323.9 1054.5 L324.7 1060.0" stroke="#7a4c05" stroke-width="4.00" fill="none" stroke-linecap="butt" stroke-linejoin="round"/>
+<path d="M297.2 1133.0 L302.2 1115.0 L303.9 1100.6 L306.3 1094.6 L309.4 1089.3 L312.8 1084.4 L316.3 1079.8 L319.5 1075.2 L322.2 1070.5 L324.0 1065.5 L324.7 1060.0" stroke="#7a4c05" stroke-width="4.00" fill="none" stroke-linecap="butt" stroke-linejoin="round"/>
+<path d="M270.7 987.0 L266.4 1005.0 L265.0 1019.4 L262.7 1025.4 L259.8 1030.7 L256.4 1035.6 L253.0 1040.2 L249.8 1044.8 L247.2 1049.5 L245.4 1054.5 L244.7 1060.0" stroke="#7a4c05" stroke-width="4.00" fill="none" stroke-linecap="butt" stroke-linejoin="round"/>
+<path d="M281.2 1133.0 L274.2 1115.0 L270.5 1100.6 L267.1 1094.6 L263.1 1089.3 L258.8 1084.4 L254.6 1079.8 L250.8 1075.2 L247.6 1070.5 L245.5 1065.5 L244.7 1060.0" stroke="#7a4c05" stroke-width="4.00" fill="none" stroke-linecap="butt" stroke-linejoin="round"/>
+<path d="M241.7 647.0 L250.4 665.0 L255.5 679.4 L259.5 685.4 L264.1 690.7 L268.9 695.6 L273.6 700.2 L277.8 704.8 L281.3 709.5 L283.6 714.5 L284.4 720.0" stroke="#f6c35a" stroke-width="1.00" fill="none" stroke-linecap="butt" stroke-linejoin="round"/>
+<path d="M262.5 793.0 L266.0 775.0 L266.5 760.6 L268.4 754.6 L270.9 749.3 L273.8 744.4 L276.9 739.8 L279.7 735.2 L282.2 730.5 L283.8 725.5 L284.4 720.0" stroke="#f6c35a" stroke-width="1.00" fill="none" stroke-linecap="butt" stroke-linejoin="round"/>
+<path d="M225.7 647.0 L222.4 665.0 L222.1 679.4 L220.3 685.4 L217.8 690.7 L214.9 695.6 L211.9 700.2 L209.1 704.8 L206.7 709.5 L205.0 714.5 L204.4 720.0" stroke="#f6c35a" stroke-width="1.00" fill="none" stroke-linecap="butt" stroke-linejoin="round"/>
+<path d="M246.5 793.0 L238.0 775.0 L233.1 760.6 L229.1 754.6 L224.6 749.3 L219.8 744.4 L215.2 739.8 L211.0 735.2 L207.6 730.5 L205.3 725.5 L204.4 720.0" stroke="#f6c35a" stroke-width="1.00" fill="none" stroke-linecap="butt" stroke-linejoin="round"/>
+<path d="M286.7 987.0 L294.4 1005.0 L298.4 1019.4 L302.0 1025.4 L306.1 1030.7 L310.4 1035.6 L314.7 1040.2 L318.6 1044.8 L321.8 1049.5 L323.9 1054.5 L324.7 1060.0" stroke="#f6c35a" stroke-width="1.00" fill="none" stroke-linecap="butt" stroke-linejoin="round"/>
+<path d="M297.2 1133.0 L302.2 1115.0 L303.9 1100.6 L306.3 1094.6 L309.4 1089.3 L312.8 1084.4 L316.3 1079.8 L319.5 1075.2 L322.2 1070.5 L324.0 1065.5 L324.7 1060.0" stroke="#f6c35a" stroke-width="1.00" fill="none" stroke-linecap="butt" stroke-linejoin="round"/>
+<path d="M270.7 987.0 L266.4 1005.0 L265.0 1019.4 L262.7 1025.4 L259.8 1030.7 L256.4 1035.6 L253.0 1040.2 L249.8 1044.8 L247.2 1049.5 L245.4 1054.5 L244.7 1060.0" stroke="#f6c35a" stroke-width="1.00" fill="none" stroke-linecap="butt" stroke-linejoin="round"/>
+<path d="M281.2 1133.0 L274.2 1115.0 L270.5 1100.6 L267.1 1094.6 L263.1 1089.3 L258.8 1084.4 L254.6 1079.8 L250.8 1075.2 L247.6 1070.5 L245.5 1065.5 L244.7 1060.0" stroke="#f6c35a" stroke-width="1.00" fill="none" stroke-linecap="butt" stroke-linejoin="round"/>
 <!-- /as-built network -->
 <text x="978.0" y="740.0" class="rlab" text-anchor="middle">North Br. →</text>
 <text x="620.0" y="438.0" class="rlab" text-anchor="middle">Grove General Hospital</text>
@@ -885,29 +885,31 @@
 <rect class="cz" x="481.3" y="195.3" width="24.1" height="20.6" fill="#7d8fa8" stroke="#222" stroke-width="0.5"><title>ne_mg_industrial_way_01 · large_building · industrial_shed</title></rect>
 <rect class="cz" x="522.0" y="306.0" width="30.0" height="40.0" fill="#e0453a" stroke="#222" stroke-width="0.5"><title>ne_mg_industrial_way_02 · specialized_location · viper_garage</title></rect>
 <rect class="cz" x="522.0" y="360.0" width="30.0" height="40.0" fill="#f0b323" stroke="#222" stroke-width="0.5"><title>ne_mg_industrial_way_03 · purchasable_business · chop_shop</title></rect>
-<rect class="cz" x="530.2" y="460.8" width="11.7" height="18.3" fill="#b05fc4" stroke="#222" stroke-width="0.5"><title>ne_mg_industrial_way_04 · special_building · safehouse_warehouse</title></rect>
-<rect class="cz" x="524.0" y="679.0" width="19.0" height="19.0" fill="#e0453a" stroke="#222" stroke-width="0.5"><title>ne_mg_mangona_rd_01 · specialized_location · coke_plug_house</title></rect>
-<rect class="cz" x="305.0" y="688.0" width="12.0" height="6.0" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_mg_mangona_rd_02 · house_1f · trailer_1f</title></rect>
-<rect class="cz" x="339.0" y="688.0" width="12.0" height="6.0" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_mg_mangona_rd_03 · house_1f · trailer_1f</title></rect>
-<rect class="cz" x="373.0" y="688.0" width="12.0" height="6.0" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_mg_mangona_rd_04 · house_1f · trailer_1f</title></rect>
-<rect class="cz" x="407.0" y="688.0" width="12.0" height="6.0" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_mg_mangona_rd_05 · house_1f · trailer_1f</title></rect>
-<rect class="cz" x="441.0" y="688.0" width="12.0" height="6.0" fill="#e0453a" stroke="#222" stroke-width="0.5"><title>ne_mg_mangona_rd_06 · specialized_location · trap_trailer_lakeside</title></rect>
+<rect class="cz" x="532.5" y="464.5" width="7.0" height="11.0" fill="#b05fc4" stroke="#222" stroke-width="0.5"><title>ne_mg_industrial_way_04 · special_building · safehouse_warehouse</title></rect>
+<rect class="cz" x="524.0" y="679.0" width="19.0" height="19.0" fill="#e0453a" stroke="#222" stroke-width="0.5"><title>ne_mg_industrial_way_05 · specialized_location · coke_plug_house</title></rect>
+<rect class="cz" x="372.0" y="230.0" width="12.0" height="15.0" fill="#f0b323" stroke="#222" stroke-width="0.5"><title>ne_mg_lakeshore_dr_01 · purchasable_business · gun_store</title></rect>
+<rect class="cz" x="307.0" y="682.0" width="8.0" height="12.0" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_mg_mangona_rd_01 · house_1f · trailer_1f</title></rect>
+<rect class="cz" x="341.0" y="682.0" width="8.0" height="12.0" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_mg_mangona_rd_02 · house_1f · trailer_1f</title></rect>
+<rect class="cz" x="375.0" y="682.0" width="8.0" height="12.0" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_mg_mangona_rd_03 · house_1f · trailer_1f</title></rect>
+<rect class="cz" x="409.0" y="682.0" width="8.0" height="12.0" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_mg_mangona_rd_04 · house_1f · trailer_1f</title></rect>
+<rect class="cz" x="443.0" y="682.0" width="8.0" height="12.0" fill="#e0453a" stroke="#222" stroke-width="0.5"><title>ne_mg_mangona_rd_05 · specialized_location · trap_trailer_lakeside</title></rect>
 <rect class="cz" x="349.0" y="179.0" width="42.9" height="21.5" fill="#7d8fa8" stroke="#222" stroke-width="0.5"><title>ne_mg_park_ave_01 · large_building · warehouse</title></rect>
 <rect class="cz" x="439.0" y="179.0" width="40.2" height="21.5" fill="#7d8fa8" stroke="#222" stroke-width="0.5"><title>ne_mg_park_ave_02 · large_building · warehouse</title></rect>
 <rect class="cz" x="524.0" y="179.0" width="12.0" height="21.5" fill="#7d8fa8" stroke="#222" stroke-width="0.5"><title>ne_mg_park_ave_03 · large_building · industrial_shed</title></rect>
 <rect class="cz" x="308.9" y="195.3" width="21.8" height="20.6" fill="#7d8fa8" stroke="#222" stroke-width="0.5"><title>ne_mg_park_ave_04 · large_building · industrial_shed</title></rect>
 <rect class="cz" x="394.4" y="195.3" width="25.7" height="20.6" fill="#7d8fa8" stroke="#222" stroke-width="0.5"><title>ne_mg_park_ave_05 · large_building · industrial_shed</title></rect>
+<rect class="cz" x="462.0" y="231.0" width="15.0" height="17.0" fill="#f0b323" stroke="#222" stroke-width="0.5"><title>ne_mg_park_ave_06 · purchasable_business · hardware_store</title></rect>
 <rect class="cz" x="571.9" y="555.0" width="21.1" height="14.5" fill="#3f8f4f" stroke="#222" stroke-width="0.5"><title>ne_ng_30th_st_01 · house_2f · house_2f_big_yard</title></rect>
 <rect class="cz" x="875.0" y="555.0" width="19.0" height="14.5" fill="#3f8f4f" stroke="#222" stroke-width="0.5"><title>ne_ng_30th_st_02 · house_2f · house_2f_small_yard</title></rect>
-<rect class="cz" x="760.8" y="568.3" width="13.3" height="13.3" fill="#b05fc4" stroke="#222" stroke-width="0.5"><title>ne_ng_30th_st_03 · special_building · safehouse_greybox</title></rect>
-<rect class="cz" x="571.9" y="569.5" width="21.1" height="14.5" fill="#3f8f4f" stroke="#222" stroke-width="0.5"><title>ne_ng_30th_st_04 · house_2f · house_2f_big_yard</title></rect>
-<rect class="cz" x="593.0" y="569.5" width="21.0" height="14.5" fill="#3f8f4f" stroke="#222" stroke-width="0.5"><title>ne_ng_30th_st_05 · house_2f · house_2f_big_yard</title></rect>
-<rect class="cz" x="626.0" y="569.5" width="24.0" height="14.5" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_ng_30th_st_06 · house_1f · house_1f_big_yard</title></rect>
-<rect class="cz" x="686.3" y="569.5" width="23.7" height="14.5" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_ng_30th_st_07 · house_1f · house_1f_big_yard</title></rect>
-<rect class="cz" x="710.0" y="569.5" width="24.0" height="14.5" fill="#3f8f4f" stroke="#222" stroke-width="0.5"><title>ne_ng_30th_st_08 · house_2f · house_2f_big_yard</title></rect>
-<rect class="cz" x="801.0" y="569.5" width="21.5" height="14.5" fill="#3f8f4f" stroke="#222" stroke-width="0.5"><title>ne_ng_30th_st_09 · house_2f · house_2f_big_yard</title></rect>
-<rect class="cz" x="822.5" y="569.5" width="21.2" height="14.5" fill="#3f8f4f" stroke="#222" stroke-width="0.5"><title>ne_ng_30th_st_10 · house_2f · house_2f_big_yard</title></rect>
-<rect class="cz" x="875.0" y="569.5" width="19.0" height="14.5" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_ng_30th_st_11 · house_1f · house_1f_small_yard</title></rect>
+<rect class="cz" x="571.9" y="569.5" width="21.1" height="14.5" fill="#3f8f4f" stroke="#222" stroke-width="0.5"><title>ne_ng_30th_st_03 · house_2f · house_2f_big_yard</title></rect>
+<rect class="cz" x="593.0" y="569.5" width="21.0" height="14.5" fill="#3f8f4f" stroke="#222" stroke-width="0.5"><title>ne_ng_30th_st_04 · house_2f · house_2f_big_yard</title></rect>
+<rect class="cz" x="626.0" y="569.5" width="24.0" height="14.5" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_ng_30th_st_05 · house_1f · house_1f_big_yard</title></rect>
+<rect class="cz" x="686.3" y="569.5" width="23.7" height="14.5" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_ng_30th_st_06 · house_1f · house_1f_big_yard</title></rect>
+<rect class="cz" x="710.0" y="569.5" width="24.0" height="14.5" fill="#3f8f4f" stroke="#222" stroke-width="0.5"><title>ne_ng_30th_st_07 · house_2f · house_2f_big_yard</title></rect>
+<rect class="cz" x="801.0" y="569.5" width="21.5" height="14.5" fill="#3f8f4f" stroke="#222" stroke-width="0.5"><title>ne_ng_30th_st_08 · house_2f · house_2f_big_yard</title></rect>
+<rect class="cz" x="822.5" y="569.5" width="21.2" height="14.5" fill="#3f8f4f" stroke="#222" stroke-width="0.5"><title>ne_ng_30th_st_09 · house_2f · house_2f_big_yard</title></rect>
+<rect class="cz" x="875.0" y="569.5" width="19.0" height="14.5" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_ng_30th_st_10 · house_1f · house_1f_small_yard</title></rect>
+<rect class="cz" x="763.5" y="571.0" width="8.0" height="8.0" fill="#b05fc4" stroke="#222" stroke-width="0.5"><title>ne_ng_30th_st_11 · special_building · safehouse_greybox</title></rect>
 <rect class="cz" x="573.1" y="596.0" width="20.5" height="16.0" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_ng_30th_st_12 · house_1f · house_1f_big_yard</title></rect>
 <rect class="cz" x="593.6" y="596.0" width="20.4" height="16.0" fill="#3f8f4f" stroke="#222" stroke-width="0.5"><title>ne_ng_30th_st_13 · house_2f · house_2f_big_yard</title></rect>
 <rect class="cz" x="626.0" y="596.0" width="16.0" height="24.0" fill="#3f8f4f" stroke="#222" stroke-width="0.5"><title>ne_ng_30th_st_14 · house_2f · house_2f_deep_lot</title></rect>
@@ -921,7 +923,8 @@
 <rect class="cz" x="574.0" y="342.0" width="90.0" height="88.0" fill="#b05fc4" stroke="#222" stroke-width="0.5"><title>ne_ng_36th_st_01 · special_building · grove_general_hospital</title></rect>
 <rect class="cz" x="875.0" y="412.0" width="19.0" height="16.0" fill="#e0453a" stroke="#222" stroke-width="0.5"><title>ne_ng_36th_st_02 · specialized_location · grove_apartments</title></rect>
 <rect class="cz" x="702.0" y="420.0" width="16.0" height="24.0" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_ng_36th_st_03 · house_1f · house_1f_deep_lot</title></rect>
-<rect class="cz" x="718.0" y="420.0" width="16.0" height="24.0" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_ng_36th_st_04 · house_1f · house_1f_deep_lot</title></rect>
+<rect class="cz" x="718.0" y="420.0" width="16.0" height="24.0" fill="#1fa3a3" stroke="#222" stroke-width="0.5"><title>ne_ng_36th_st_04 · standin_business · standin_corner_store</title></rect>
+<text class="cz" x="726.0" y="435.0" font-size="8.5" font-weight="700" fill="#fff" text-anchor="middle">S</text>
 <rect class="cz" x="746.0" y="428.0" width="21.5" height="16.0" fill="#7d8fa8" stroke="#222" stroke-width="0.5"><title>ne_ng_36th_st_05 · large_building · apartment_walkup_3f</title></rect>
 <rect class="cz" x="767.5" y="428.0" width="21.5" height="16.0" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_ng_36th_st_06 · house_1f · house_1f_big_yard</title></rect>
 <rect class="cz" x="801.0" y="428.0" width="21.5" height="16.0" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_ng_36th_st_07 · house_1f · house_1f_big_yard</title></rect>
@@ -953,8 +956,7 @@
 <rect class="cz" x="822.5" y="368.0" width="21.5" height="16.0" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_ng_40th_st_14 · house_1f · house_1f_big_yard</title></rect>
 <rect class="cz" x="875.0" y="368.0" width="19.0" height="16.0" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_ng_40th_st_15 · house_1f · house_1f_big_yard</title></rect>
 <rect class="cz" x="702.0" y="396.0" width="16.0" height="24.0" fill="#3f8f4f" stroke="#222" stroke-width="0.5"><title>ne_ng_40th_st_16 · house_2f · house_2f_deep_lot</title></rect>
-<rect class="cz" x="718.0" y="396.0" width="16.0" height="24.0" fill="#1fa3a3" stroke="#222" stroke-width="0.5"><title>ne_ng_40th_st_17 · standin_business · standin_corner_store</title></rect>
-<text class="cz" x="726.0" y="411.0" font-size="8.5" font-weight="700" fill="#fff" text-anchor="middle">S</text>
+<rect class="cz" x="718.0" y="396.0" width="16.0" height="24.0" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_ng_40th_st_17 · house_1f · house_1f_deep_lot</title></rect>
 <rect class="cz" x="746.0" y="396.0" width="21.5" height="16.0" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_ng_40th_st_18 · house_1f · house_1f_big_yard</title></rect>
 <rect class="cz" x="767.5" y="396.0" width="21.5" height="16.0" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_ng_40th_st_19 · house_1f · house_1f_big_yard</title></rect>
 <rect class="cz" x="801.0" y="396.0" width="21.5" height="16.0" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_ng_40th_st_20 · house_1f · house_1f_big_yard</title></rect>
@@ -977,7 +979,7 @@
 <rect class="cz" x="801.0" y="540.5" width="21.5" height="14.5" fill="#f0b323" stroke="#222" stroke-width="0.5"><title>ne_ng_broadway_14 · purchasable_business · tattoo_parlor</title></rect>
 <rect class="cz" x="822.5" y="540.5" width="21.3" height="14.5" fill="#a6dcd8" stroke="#222" stroke-width="0.5"><title>ne_ng_broadway_15 · standin_business · standin_shopfront_2f</title></rect>
 <rect class="cz" x="801.0" y="555.0" width="21.5" height="14.5" fill="#3f8f4f" stroke="#222" stroke-width="0.5"><title>ne_ng_broadway_16 · house_2f · house_2f_big_yard</title></rect>
-<rect class="cz" x="822.5" y="555.0" width="21.2" height="14.5" fill="#a6dcd8" stroke="#222" stroke-width="0.5"><title>ne_ng_broadway_17 · standin_business · standin_shopfront_2f</title></rect>
+<rect class="cz" x="822.5" y="555.0" width="21.2" height="14.5" fill="#7d8fa8" stroke="#222" stroke-width="0.5"><title>ne_ng_broadway_17 · large_building · mixed_use_2f</title></rect>
 <rect class="cz" x="767.5" y="612.0" width="21.5" height="16.0" fill="#7d8fa8" stroke="#222" stroke-width="0.5"><title>ne_ng_broadway_18 · large_building · apartment_walkup_3f</title></rect>
 <rect class="cz" x="801.0" y="612.0" width="21.5" height="16.0" fill="#7d8fa8" stroke="#222" stroke-width="0.5"><title>ne_ng_broadway_19 · large_building · apartment_walkup_3f</title></rect>
 <rect class="cz" x="822.5" y="612.0" width="21.1" height="16.0" fill="#1fa3a3" stroke="#222" stroke-width="0.5"><title>ne_ng_broadway_20 · standin_business · standin_shopfront_2f</title></rect>
@@ -991,41 +993,42 @@
 <rect class="cz" x="592.3" y="470.5" width="21.7" height="14.5" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_ng_dixie_hwy_03 · house_1f · house_1f_big_yard</title></rect>
 <rect class="cz" x="626.0" y="470.5" width="24.0" height="14.5" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_ng_dixie_hwy_04 · house_1f · house_1f_big_yard</title></rect>
 <rect class="cz" x="746.0" y="470.5" width="21.5" height="14.5" fill="#3f8f4f" stroke="#222" stroke-width="0.5"><title>ne_ng_dixie_hwy_05 · house_2f · house_2f_big_yard</title></rect>
-<rect class="cz" x="592.3" y="485.0" width="21.7" height="14.5" fill="#3f8f4f" stroke="#222" stroke-width="0.5"><title>ne_ng_dixie_hwy_06 · house_2f · house_2f_big_yard</title></rect>
-<rect class="cz" x="626.0" y="485.0" width="24.0" height="14.5" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_ng_dixie_hwy_07 · house_1f · house_1f_big_yard</title></rect>
-<rect class="cz" x="746.0" y="485.0" width="21.5" height="14.5" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_ng_dixie_hwy_08 · house_1f · house_1f_big_yard</title></rect>
-<rect class="cz" x="593.0" y="540.5" width="21.0" height="14.5" fill="#3f8f4f" stroke="#222" stroke-width="0.5"><title>ne_ng_dixie_hwy_09 · house_2f · house_2f_big_yard</title></rect>
-<rect class="cz" x="626.0" y="540.5" width="24.0" height="14.5" fill="#f0b323" stroke="#222" stroke-width="0.5"><title>ne_ng_dixie_hwy_10 · purchasable_business · pharmacy</title></rect>
-<rect class="cz" x="686.3" y="540.5" width="23.7" height="14.5" fill="#e0453a" stroke="#222" stroke-width="0.5"><title>ne_ng_dixie_hwy_11 · specialized_location · bar_the_gallery</title></rect>
-<rect class="cz" x="710.0" y="540.5" width="24.0" height="14.5" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_ng_dixie_hwy_12 · house_1f · house_1f_deep_lot</title></rect>
-<rect class="cz" x="746.0" y="540.5" width="21.5" height="14.5" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_ng_dixie_hwy_13 · house_1f · house_1f_big_yard</title></rect>
-<rect class="cz" x="593.0" y="555.0" width="21.0" height="14.5" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_ng_dixie_hwy_14 · house_1f · house_1f_big_yard</title></rect>
-<rect class="cz" x="626.0" y="555.0" width="24.0" height="14.5" fill="#3f8f4f" stroke="#222" stroke-width="0.5"><title>ne_ng_dixie_hwy_15 · house_2f · house_2f_big_yard</title></rect>
-<rect class="cz" x="686.3" y="555.0" width="23.7" height="14.5" fill="#1fa3a3" stroke="#222" stroke-width="0.5"><title>ne_ng_dixie_hwy_16 · standin_business · standin_shopfront_2f</title></rect>
-<text class="cz" x="698.15" y="565.25" font-size="8.5" font-weight="700" fill="#fff" text-anchor="middle">L</text>
-<rect class="cz" x="710.0" y="555.0" width="24.0" height="14.5" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_ng_dixie_hwy_17 · house_1f · house_1f_deep_lot</title></rect>
-<rect class="cz" x="686.4" y="596.0" width="15.6" height="24.0" fill="#a6dcd8" stroke="#222" stroke-width="0.5"><title>ne_ng_dixie_hwy_18 · standin_business · standin_shopfront_2f</title></rect>
-<rect class="cz" x="718.0" y="596.0" width="16.0" height="24.0" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_ng_dixie_hwy_19 · house_1f · house_1f_big_yard</title></rect>
-<rect class="cz" x="593.6" y="612.0" width="20.4" height="16.0" fill="#7d8fa8" stroke="#222" stroke-width="0.5"><title>ne_ng_dixie_hwy_20 · large_building · apartment_walkup_3f</title></rect>
-<rect class="cz" x="746.0" y="612.0" width="21.5" height="16.0" fill="#7d8fa8" stroke="#222" stroke-width="0.5"><title>ne_ng_dixie_hwy_21 · large_building · apartment_walkup_3f</title></rect>
-<rect class="cz" x="686.4" y="620.0" width="15.6" height="24.0" fill="#a6dcd8" stroke="#222" stroke-width="0.5"><title>ne_ng_dixie_hwy_22 · standin_business · standin_shopfront_2f</title></rect>
-<rect class="cz" x="718.0" y="620.0" width="16.0" height="24.0" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_ng_dixie_hwy_23 · house_1f · house_1f_big_yard</title></rect>
-<rect class="cz" x="594.2" y="670.5" width="19.8" height="14.5" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_ng_dixie_hwy_24 · house_1f · house_1f_small_yard</title></rect>
-<rect class="cz" x="626.0" y="670.5" width="24.0" height="14.5" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_ng_dixie_hwy_25 · house_1f · house_1f_big_yard</title></rect>
-<rect class="cz" x="686.5" y="670.5" width="23.5" height="14.5" fill="#1fa3a3" stroke="#222" stroke-width="0.5"><title>ne_ng_dixie_hwy_26 · standin_business · standin_shopfront_2f</title></rect>
+<rect class="cz" x="692.0" y="474.0" width="18.0" height="16.0" fill="#e0453a" stroke="#222" stroke-width="0.5"><title>ne_ng_dixie_hwy_06 · specialized_location · bank_branch</title></rect>
+<rect class="cz" x="592.3" y="485.0" width="21.7" height="14.5" fill="#3f8f4f" stroke="#222" stroke-width="0.5"><title>ne_ng_dixie_hwy_07 · house_2f · house_2f_big_yard</title></rect>
+<rect class="cz" x="626.0" y="485.0" width="24.0" height="14.5" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_ng_dixie_hwy_08 · house_1f · house_1f_big_yard</title></rect>
+<rect class="cz" x="746.0" y="485.0" width="21.5" height="14.5" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_ng_dixie_hwy_09 · house_1f · house_1f_big_yard</title></rect>
+<rect class="cz" x="593.0" y="540.5" width="21.0" height="14.5" fill="#3f8f4f" stroke="#222" stroke-width="0.5"><title>ne_ng_dixie_hwy_10 · house_2f · house_2f_big_yard</title></rect>
+<rect class="cz" x="626.0" y="540.5" width="24.0" height="14.5" fill="#f0b323" stroke="#222" stroke-width="0.5"><title>ne_ng_dixie_hwy_11 · purchasable_business · pharmacy</title></rect>
+<rect class="cz" x="686.3" y="540.5" width="23.7" height="14.5" fill="#e0453a" stroke="#222" stroke-width="0.5"><title>ne_ng_dixie_hwy_12 · specialized_location · bar_the_gallery</title></rect>
+<rect class="cz" x="710.0" y="540.5" width="24.0" height="14.5" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_ng_dixie_hwy_13 · house_1f · house_1f_deep_lot</title></rect>
+<rect class="cz" x="746.0" y="540.5" width="21.5" height="14.5" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_ng_dixie_hwy_14 · house_1f · house_1f_big_yard</title></rect>
+<rect class="cz" x="593.0" y="555.0" width="21.0" height="14.5" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_ng_dixie_hwy_15 · house_1f · house_1f_big_yard</title></rect>
+<rect class="cz" x="626.0" y="555.0" width="24.0" height="14.5" fill="#3f8f4f" stroke="#222" stroke-width="0.5"><title>ne_ng_dixie_hwy_16 · house_2f · house_2f_big_yard</title></rect>
+<rect class="cz" x="686.3" y="555.0" width="23.7" height="14.5" fill="#1fa3a3" stroke="#222" stroke-width="0.5"><title>ne_ng_dixie_hwy_17 · standin_business · standin_shopfront_2f</title></rect>
+<text class="cz" x="698.15" y="565.25" font-size="8.5" font-weight="700" fill="#fff" text-anchor="middle">B</text>
+<rect class="cz" x="710.0" y="555.0" width="24.0" height="14.5" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_ng_dixie_hwy_18 · house_1f · house_1f_deep_lot</title></rect>
+<rect class="cz" x="686.4" y="596.0" width="15.6" height="24.0" fill="#7d8fa8" stroke="#222" stroke-width="0.5"><title>ne_ng_dixie_hwy_19 · large_building · mixed_use_2f</title></rect>
+<rect class="cz" x="718.0" y="596.0" width="16.0" height="24.0" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_ng_dixie_hwy_20 · house_1f · house_1f_big_yard</title></rect>
+<rect class="cz" x="593.6" y="612.0" width="20.4" height="16.0" fill="#7d8fa8" stroke="#222" stroke-width="0.5"><title>ne_ng_dixie_hwy_21 · large_building · apartment_walkup_3f</title></rect>
+<rect class="cz" x="746.0" y="612.0" width="21.5" height="16.0" fill="#7d8fa8" stroke="#222" stroke-width="0.5"><title>ne_ng_dixie_hwy_22 · large_building · apartment_walkup_3f</title></rect>
+<rect class="cz" x="686.4" y="620.0" width="15.6" height="24.0" fill="#a6dcd8" stroke="#222" stroke-width="0.5"><title>ne_ng_dixie_hwy_23 · standin_business · standin_shopfront_2f</title></rect>
+<rect class="cz" x="718.0" y="620.0" width="16.0" height="24.0" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_ng_dixie_hwy_24 · house_1f · house_1f_big_yard</title></rect>
+<rect class="cz" x="594.2" y="670.5" width="19.8" height="14.5" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_ng_dixie_hwy_25 · house_1f · house_1f_small_yard</title></rect>
+<rect class="cz" x="626.0" y="670.5" width="24.0" height="14.5" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_ng_dixie_hwy_26 · house_1f · house_1f_big_yard</title></rect>
+<rect class="cz" x="686.5" y="670.5" width="23.5" height="14.5" fill="#1fa3a3" stroke="#222" stroke-width="0.5"><title>ne_ng_dixie_hwy_27 · standin_business · standin_shopfront_2f</title></rect>
 <text class="cz" x="698.25" y="680.75" font-size="8.5" font-weight="700" fill="#fff" text-anchor="middle">G</text>
-<rect class="cz" x="710.0" y="670.5" width="24.0" height="14.5" fill="#3f8f4f" stroke="#222" stroke-width="0.5"><title>ne_ng_dixie_hwy_27 · house_2f · house_2f_deep_lot</title></rect>
-<rect class="cz" x="746.0" y="670.5" width="21.5" height="14.5" fill="#3f8f4f" stroke="#222" stroke-width="0.5"><title>ne_ng_dixie_hwy_28 · house_2f · house_2f_big_yard</title></rect>
-<rect class="cz" x="594.2" y="685.0" width="19.8" height="14.5" fill="#3f8f4f" stroke="#222" stroke-width="0.5"><title>ne_ng_dixie_hwy_29 · house_2f · house_2f_small_yard</title></rect>
-<rect class="cz" x="626.0" y="685.0" width="24.0" height="14.5" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_ng_dixie_hwy_30 · house_1f · house_1f_big_yard</title></rect>
-<rect class="cz" x="710.0" y="685.0" width="24.0" height="14.5" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_ng_dixie_hwy_31 · house_1f · house_1f_big_yard</title></rect>
-<rect class="cz" x="746.0" y="685.0" width="21.5" height="14.5" fill="#3f8f4f" stroke="#222" stroke-width="0.5"><title>ne_ng_dixie_hwy_32 · house_2f · house_2f_big_yard</title></rect>
+<rect class="cz" x="710.0" y="670.5" width="24.0" height="14.5" fill="#3f8f4f" stroke="#222" stroke-width="0.5"><title>ne_ng_dixie_hwy_28 · house_2f · house_2f_deep_lot</title></rect>
+<rect class="cz" x="746.0" y="670.5" width="21.5" height="14.5" fill="#3f8f4f" stroke="#222" stroke-width="0.5"><title>ne_ng_dixie_hwy_29 · house_2f · house_2f_big_yard</title></rect>
+<rect class="cz" x="594.2" y="685.0" width="19.8" height="14.5" fill="#3f8f4f" stroke="#222" stroke-width="0.5"><title>ne_ng_dixie_hwy_30 · house_2f · house_2f_small_yard</title></rect>
+<rect class="cz" x="626.0" y="685.0" width="24.0" height="14.5" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_ng_dixie_hwy_31 · house_1f · house_1f_big_yard</title></rect>
+<rect class="cz" x="710.0" y="685.0" width="24.0" height="14.5" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_ng_dixie_hwy_32 · house_1f · house_1f_big_yard</title></rect>
+<rect class="cz" x="746.0" y="685.0" width="21.5" height="14.5" fill="#3f8f4f" stroke="#222" stroke-width="0.5"><title>ne_ng_dixie_hwy_33 · house_2f · house_2f_big_yard</title></rect>
 <rect class="cz" x="570.6" y="485.0" width="21.7" height="14.5" fill="#7d8fa8" stroke="#222" stroke-width="0.5"><title>ne_ng_grove_rd_arts_strip_01 · large_building · apartment_walkup_3f</title></rect>
 <rect class="cz" x="875.0" y="485.0" width="19.0" height="14.5" fill="#3f8f4f" stroke="#222" stroke-width="0.5"><title>ne_ng_grove_rd_arts_strip_02 · house_2f · house_2f_small_yard</title></rect>
 <rect class="cz" x="570.6" y="499.5" width="21.7" height="14.5" fill="#e0453a" stroke="#222" stroke-width="0.5"><title>ne_ng_grove_rd_arts_strip_03 · specialized_location · stash_house_grove</title></rect>
-<rect class="cz" x="592.3" y="499.5" width="21.7" height="14.5" fill="#3f8f4f" stroke="#222" stroke-width="0.5"><title>ne_ng_grove_rd_arts_strip_04 · house_2f · house_2f_big_yard</title></rect>
-<rect class="cz" x="626.0" y="499.5" width="24.0" height="14.5" fill="#1fa3a3" stroke="#222" stroke-width="0.5"><title>ne_ng_grove_rd_arts_strip_05 · standin_business · standin_standalone_shop</title></rect>
-<text class="cz" x="638.0" y="509.75" font-size="8.5" font-weight="700" fill="#fff" text-anchor="middle">C</text>
+<rect class="cz" x="592.3" y="499.5" width="21.7" height="14.5" fill="#1fa3a3" stroke="#222" stroke-width="0.5"><title>ne_ng_grove_rd_arts_strip_04 · standin_business · standin_standalone_shop</title></rect>
+<text class="cz" x="603.15" y="509.75" font-size="8.5" font-weight="700" fill="#fff" text-anchor="middle">C</text>
+<rect class="cz" x="626.0" y="499.5" width="24.0" height="14.5" fill="#3f8f4f" stroke="#222" stroke-width="0.5"><title>ne_ng_grove_rd_arts_strip_05 · house_2f · house_2f_big_yard</title></rect>
 <rect class="cz" x="746.0" y="499.5" width="21.5" height="14.5" fill="#7d8fa8" stroke="#222" stroke-width="0.5"><title>ne_ng_grove_rd_arts_strip_06 · large_building · apartment_walkup_3f</title></rect>
 <rect class="cz" x="767.5" y="499.5" width="21.5" height="14.5" fill="#f0b323" stroke="#222" stroke-width="0.5"><title>ne_ng_grove_rd_arts_strip_07 · purchasable_business · pawn_shop</title></rect>
 <rect class="cz" x="801.0" y="499.5" width="21.5" height="14.5" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_ng_grove_rd_arts_strip_08 · house_1f · house_1f_big_yard</title></rect>
@@ -1045,7 +1048,7 @@
 <rect class="cz" x="571.9" y="540.5" width="21.1" height="14.5" fill="#3f8f4f" stroke="#222" stroke-width="0.5"><title>ne_ng_grove_rd_arts_strip_21 · house_2f · house_2f_big_yard</title></rect>
 <rect class="cz" x="875.0" y="540.5" width="19.0" height="14.5" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_ng_grove_rd_arts_strip_22 · house_1f · house_1f_small_yard</title></rect>
 <rect class="cz" x="574.3" y="685.0" width="19.9" height="14.5" fill="#1fa3a3" stroke="#222" stroke-width="0.5"><title>ne_ng_lakes_blvd_01 · standin_business · standin_shopfront_2f</title></rect>
-<text class="cz" x="584.25" y="695.25" font-size="8.5" font-weight="700" fill="#fff" text-anchor="middle">B</text>
+<text class="cz" x="584.25" y="695.25" font-size="8.5" font-weight="700" fill="#fff" text-anchor="middle">L</text>
 <rect class="cz" x="875.0" y="685.0" width="19.0" height="14.5" fill="#7d8fa8" stroke="#222" stroke-width="0.5"><title>ne_ng_lakes_blvd_02 · large_building · mixed_use_2f</title></rect>
 <rect class="cz" x="573.1" y="612.0" width="20.5" height="16.0" fill="#3f8f4f" stroke="#222" stroke-width="0.5"><title>ne_ng_mangona_rd_01 · house_2f · house_2f_big_yard</title></rect>
 <rect class="cz" x="875.0" y="612.0" width="19.0" height="16.0" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_ng_mangona_rd_02 · house_1f · house_1f_big_yard</title></rect>
@@ -1125,59 +1128,61 @@
 <rect class="cz" x="483.5" y="814.4" width="15.5" height="9.6" fill="#3f8f4f" stroke="#222" stroke-width="0.5"><title>ne_tr_20th_st_06 · house_2f · house_2f_small_yard</title></rect>
 <rect class="cz" x="533.8" y="814.4" width="22.8" height="9.6" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_tr_20th_st_07 · house_1f · house_1f_small_yard</title></rect>
 <rect class="cz" x="426.0" y="836.0" width="15.0" height="9.6" fill="#3f8f4f" stroke="#222" stroke-width="0.5"><title>ne_tr_20th_st_08 · house_2f · house_2f_small_yard</title></rect>
-<rect class="cz" x="441.0" y="836.0" width="15.0" height="9.6" fill="#3f8f4f" stroke="#222" stroke-width="0.5"><title>ne_tr_20th_st_09 · house_2f · house_2f_small_yard</title></rect>
+<rect class="cz" x="441.0" y="836.0" width="15.0" height="9.6" fill="#1fa3a3" stroke="#222" stroke-width="0.5"><title>ne_tr_20th_st_09 · standin_business · standin_corner_store</title></rect>
+<text class="cz" x="448.5" y="843.8" font-size="8.5" font-weight="700" fill="#fff" text-anchor="middle">P</text>
 <rect class="cz" x="468.0" y="836.0" width="15.5" height="9.6" fill="#3f8f4f" stroke="#222" stroke-width="0.5"><title>ne_tr_20th_st_10 · house_2f · house_2f_small_yard</title></rect>
 <rect class="cz" x="483.5" y="836.0" width="15.5" height="9.6" fill="#3f8f4f" stroke="#222" stroke-width="0.5"><title>ne_tr_20th_st_11 · house_2f · house_2f_small_yard</title></rect>
 <rect class="cz" x="534.0" y="836.0" width="23.0" height="9.6" fill="#3f8f4f" stroke="#222" stroke-width="0.5"><title>ne_tr_20th_st_12 · house_2f · house_2f_small_yard</title></rect>
 <rect class="cz" x="483.5" y="845.6" width="15.5" height="9.6" fill="#3f8f4f" stroke="#222" stroke-width="0.5"><title>ne_tr_20th_st_13 · house_2f · house_2f_small_yard</title></rect>
 <rect class="cz" x="534.0" y="845.6" width="23.0" height="9.6" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_tr_20th_st_14 · house_1f · house_1f_small_yard</title></rect>
-<rect class="cz" x="538.1" y="745.0" width="9.0" height="19.0" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_tr_23rd_st_01 · house_1f · house_1f_small_yard</title></rect>
-<rect class="cz" x="547.1" y="745.0" width="9.1" height="19.0" fill="#3f8f4f" stroke="#222" stroke-width="0.5"><title>ne_tr_23rd_st_02 · house_2f · house_2f_small_yard</title></rect>
-<rect class="cz" x="426.0" y="754.5" width="15.0" height="9.5" fill="#3f8f4f" stroke="#222" stroke-width="0.5"><title>ne_tr_23rd_st_03 · house_2f · house_2f_small_yard</title></rect>
-<rect class="cz" x="441.0" y="754.5" width="15.0" height="9.5" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_tr_23rd_st_04 · house_1f · house_1f_small_yard</title></rect>
-<rect class="cz" x="468.0" y="754.5" width="15.5" height="9.5" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_tr_23rd_st_05 · house_1f · house_1f_small_yard</title></rect>
-<rect class="cz" x="483.5" y="754.5" width="15.5" height="9.5" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_tr_23rd_st_06 · house_1f · house_1f_small_yard</title></rect>
-<rect class="cz" x="426.0" y="776.0" width="15.0" height="9.6" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_tr_23rd_st_07 · house_1f · house_1f_small_yard</title></rect>
-<rect class="cz" x="441.0" y="776.0" width="15.0" height="9.6" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_tr_23rd_st_08 · house_1f · house_1f_small_yard</title></rect>
-<rect class="cz" x="468.0" y="776.0" width="15.5" height="9.6" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_tr_23rd_st_09 · house_1f · house_1f_small_yard</title></rect>
-<rect class="cz" x="483.5" y="776.0" width="15.5" height="9.6" fill="#3f8f4f" stroke="#222" stroke-width="0.5"><title>ne_tr_23rd_st_10 · house_2f · house_2f_small_yard</title></rect>
-<rect class="cz" x="527.2" y="781.0" width="11.7" height="10.0" fill="#b05fc4" stroke="#222" stroke-width="0.5"><title>ne_tr_23rd_st_11 · special_building · safehouse_duplex</title></rect>
-<rect class="cz" x="483.5" y="785.6" width="15.5" height="9.6" fill="#3f8f4f" stroke="#222" stroke-width="0.5"><title>ne_tr_23rd_st_12 · house_2f · house_2f_small_yard</title></rect>
-<rect class="cz" x="333.0" y="1071.0" width="20.0" height="30.0" fill="#e0453a" stroke="#222" stroke-width="0.5"><title>ne_tr_8th_st_01 · specialized_location · gas_station</title></rect>
-<rect class="cz" x="375.6" y="1085.0" width="9.6" height="19.0" fill="#3f8f4f" stroke="#222" stroke-width="0.5"><title>ne_tr_8th_st_02 · house_2f · house_2f_small_yard</title></rect>
-<rect class="cz" x="385.2" y="1085.0" width="9.6" height="19.0" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_tr_8th_st_03 · house_1f · house_1f_deep_lot</title></rect>
-<rect class="cz" x="394.8" y="1085.0" width="9.6" height="19.0" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_tr_8th_st_04 · house_1f · house_1f_small_yard</title></rect>
-<rect class="cz" x="530.1" y="1085.0" width="9.5" height="19.0" fill="#3f8f4f" stroke="#222" stroke-width="0.5"><title>ne_tr_8th_st_05 · house_2f · house_2f_small_yard</title></rect>
-<rect class="cz" x="539.6" y="1085.0" width="9.6" height="19.0" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_tr_8th_st_06 · house_1f · house_1f_small_yard</title></rect>
-<rect class="cz" x="549.2" y="1085.0" width="9.5" height="19.0" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_tr_8th_st_07 · house_1f · house_1f_small_yard</title></rect>
-<rect class="cz" x="426.0" y="1094.5" width="15.0" height="9.5" fill="#3f8f4f" stroke="#222" stroke-width="0.5"><title>ne_tr_8th_st_08 · house_2f · house_2f_small_yard</title></rect>
-<rect class="cz" x="441.0" y="1094.5" width="15.0" height="9.5" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_tr_8th_st_09 · house_1f · house_1f_small_yard</title></rect>
-<rect class="cz" x="468.0" y="1094.5" width="15.5" height="9.5" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_tr_8th_st_10 · house_1f · house_1f_small_yard</title></rect>
-<rect class="cz" x="483.5" y="1094.5" width="15.5" height="9.5" fill="#3f8f4f" stroke="#222" stroke-width="0.5"><title>ne_tr_8th_st_11 · house_2f · house_2f_small_yard</title></rect>
-<rect class="cz" x="315.6" y="1116.0" width="9.6" height="14.0" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_tr_8th_st_12 · house_1f · house_1f_small_yard</title></rect>
-<rect class="cz" x="325.2" y="1116.0" width="9.6" height="14.0" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_tr_8th_st_13 · house_1f · house_1f_small_yard</title></rect>
-<rect class="cz" x="334.8" y="1116.0" width="9.6" height="14.0" fill="#3f8f4f" stroke="#222" stroke-width="0.5"><title>ne_tr_8th_st_14 · house_2f · house_2f_small_yard</title></rect>
-<rect class="cz" x="375.6" y="1116.0" width="9.6" height="14.0" fill="#3f8f4f" stroke="#222" stroke-width="0.5"><title>ne_tr_8th_st_15 · house_2f · house_2f_small_yard</title></rect>
-<rect class="cz" x="385.2" y="1116.0" width="9.6" height="14.0" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_tr_8th_st_16 · house_1f · house_1f_small_yard</title></rect>
-<rect class="cz" x="394.8" y="1116.0" width="9.6" height="14.0" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_tr_8th_st_17 · house_1f · house_1f_small_yard</title></rect>
-<rect class="cz" x="436.0" y="1116.0" width="10.0" height="14.0" fill="#3f8f4f" stroke="#222" stroke-width="0.5"><title>ne_tr_8th_st_18 · house_2f · house_2f_small_yard</title></rect>
-<rect class="cz" x="478.3" y="1116.0" width="10.4" height="14.0" fill="#3f8f4f" stroke="#222" stroke-width="0.5"><title>ne_tr_8th_st_19 · house_2f · house_2f_small_yard</title></rect>
-<rect class="cz" x="488.7" y="1116.0" width="10.3" height="14.0" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_tr_8th_st_20 · house_1f · house_1f_small_yard</title></rect>
-<rect class="cz" x="530.2" y="1116.0" width="9.6" height="14.0" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_tr_8th_st_21 · house_1f · house_1f_small_yard</title></rect>
-<rect class="cz" x="539.8" y="1116.0" width="9.6" height="14.0" fill="#3f8f4f" stroke="#222" stroke-width="0.5"><title>ne_tr_8th_st_22 · house_2f · house_2f_small_yard</title></rect>
-<rect class="cz" x="549.4" y="1116.0" width="9.6" height="14.0" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_tr_8th_st_23 · house_1f · house_1f_small_yard</title></rect>
-<rect class="cz" x="315.6" y="1130.0" width="9.6" height="14.0" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_tr_8th_st_24 · house_1f · house_1f_small_yard</title></rect>
-<rect class="cz" x="325.2" y="1130.0" width="9.6" height="14.0" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_tr_8th_st_25 · house_1f · house_1f_small_yard</title></rect>
-<rect class="cz" x="334.8" y="1130.0" width="9.6" height="14.0" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_tr_8th_st_26 · house_1f · house_1f_small_yard</title></rect>
-<rect class="cz" x="375.6" y="1130.0" width="9.6" height="14.0" fill="#3f8f4f" stroke="#222" stroke-width="0.5"><title>ne_tr_8th_st_27 · house_2f · house_2f_small_yard</title></rect>
-<rect class="cz" x="385.2" y="1130.0" width="9.6" height="14.0" fill="#3f8f4f" stroke="#222" stroke-width="0.5"><title>ne_tr_8th_st_28 · house_2f · house_2f_small_yard</title></rect>
-<rect class="cz" x="394.8" y="1130.0" width="9.6" height="14.0" fill="#3f8f4f" stroke="#222" stroke-width="0.5"><title>ne_tr_8th_st_29 · house_2f · house_2f_small_yard</title></rect>
-<rect class="cz" x="436.0" y="1130.0" width="10.0" height="14.0" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_tr_8th_st_30 · house_1f · house_1f_small_yard</title></rect>
-<rect class="cz" x="478.3" y="1130.0" width="10.4" height="14.0" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_tr_8th_st_31 · house_1f · house_1f_small_yard</title></rect>
-<rect class="cz" x="488.7" y="1130.0" width="10.3" height="14.0" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_tr_8th_st_32 · house_1f · house_1f_small_yard</title></rect>
-<rect class="cz" x="530.2" y="1130.0" width="9.6" height="14.0" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_tr_8th_st_33 · house_1f · house_1f_small_yard</title></rect>
-<rect class="cz" x="539.8" y="1130.0" width="9.6" height="14.0" fill="#3f8f4f" stroke="#222" stroke-width="0.5"><title>ne_tr_8th_st_34 · house_2f · house_2f_small_yard</title></rect>
-<rect class="cz" x="549.4" y="1130.0" width="9.6" height="14.0" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_tr_8th_st_35 · house_1f · house_1f_small_yard</title></rect>
+<rect class="cz" x="529.1" y="745.0" width="9.0" height="19.0" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_tr_23rd_st_01 · house_1f · house_1f_small_yard</title></rect>
+<rect class="cz" x="538.1" y="745.0" width="9.0" height="19.0" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_tr_23rd_st_02 · house_1f · house_1f_small_yard</title></rect>
+<rect class="cz" x="547.1" y="745.0" width="9.1" height="19.0" fill="#3f8f4f" stroke="#222" stroke-width="0.5"><title>ne_tr_23rd_st_03 · house_2f · house_2f_small_yard</title></rect>
+<rect class="cz" x="426.0" y="754.5" width="15.0" height="9.5" fill="#3f8f4f" stroke="#222" stroke-width="0.5"><title>ne_tr_23rd_st_04 · house_2f · house_2f_small_yard</title></rect>
+<rect class="cz" x="441.0" y="754.5" width="15.0" height="9.5" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_tr_23rd_st_05 · house_1f · house_1f_small_yard</title></rect>
+<rect class="cz" x="468.0" y="754.5" width="15.5" height="9.5" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_tr_23rd_st_06 · house_1f · house_1f_small_yard</title></rect>
+<rect class="cz" x="483.5" y="754.5" width="15.5" height="9.5" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_tr_23rd_st_07 · house_1f · house_1f_small_yard</title></rect>
+<rect class="cz" x="426.0" y="776.0" width="15.0" height="9.6" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_tr_23rd_st_08 · house_1f · house_1f_small_yard</title></rect>
+<rect class="cz" x="441.0" y="776.0" width="15.0" height="9.6" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_tr_23rd_st_09 · house_1f · house_1f_small_yard</title></rect>
+<rect class="cz" x="468.0" y="776.0" width="15.5" height="9.6" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_tr_23rd_st_10 · house_1f · house_1f_small_yard</title></rect>
+<rect class="cz" x="483.5" y="776.0" width="15.5" height="9.6" fill="#3f8f4f" stroke="#222" stroke-width="0.5"><title>ne_tr_23rd_st_11 · house_2f · house_2f_small_yard</title></rect>
+<rect class="cz" x="529.5" y="783.0" width="7.0" height="6.0" fill="#b05fc4" stroke="#222" stroke-width="0.5"><title>ne_tr_23rd_st_12 · special_building · safehouse_duplex</title></rect>
+<rect class="cz" x="483.5" y="785.6" width="15.5" height="9.6" fill="#3f8f4f" stroke="#222" stroke-width="0.5"><title>ne_tr_23rd_st_13 · house_2f · house_2f_small_yard</title></rect>
+<rect class="cz" x="375.6" y="1085.0" width="9.6" height="19.0" fill="#3f8f4f" stroke="#222" stroke-width="0.5"><title>ne_tr_8th_st_01 · house_2f · house_2f_small_yard</title></rect>
+<rect class="cz" x="385.2" y="1085.0" width="9.6" height="19.0" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_tr_8th_st_02 · house_1f · house_1f_deep_lot</title></rect>
+<rect class="cz" x="394.8" y="1085.0" width="9.6" height="19.0" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_tr_8th_st_03 · house_1f · house_1f_small_yard</title></rect>
+<rect class="cz" x="530.1" y="1085.0" width="9.5" height="19.0" fill="#3f8f4f" stroke="#222" stroke-width="0.5"><title>ne_tr_8th_st_04 · house_2f · house_2f_small_yard</title></rect>
+<rect class="cz" x="539.6" y="1085.0" width="9.6" height="19.0" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_tr_8th_st_05 · house_1f · house_1f_small_yard</title></rect>
+<rect class="cz" x="549.2" y="1085.0" width="9.5" height="19.0" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_tr_8th_st_06 · house_1f · house_1f_small_yard</title></rect>
+<rect class="cz" x="426.0" y="1094.5" width="15.0" height="9.5" fill="#3f8f4f" stroke="#222" stroke-width="0.5"><title>ne_tr_8th_st_07 · house_2f · house_2f_small_yard</title></rect>
+<rect class="cz" x="441.0" y="1094.5" width="15.0" height="9.5" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_tr_8th_st_08 · house_1f · house_1f_small_yard</title></rect>
+<rect class="cz" x="468.0" y="1094.5" width="15.5" height="9.5" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_tr_8th_st_09 · house_1f · house_1f_small_yard</title></rect>
+<rect class="cz" x="483.5" y="1094.5" width="15.5" height="9.5" fill="#3f8f4f" stroke="#222" stroke-width="0.5"><title>ne_tr_8th_st_10 · house_2f · house_2f_small_yard</title></rect>
+<rect class="cz" x="315.6" y="1116.0" width="9.6" height="14.0" fill="#1fa3a3" stroke="#222" stroke-width="0.5"><title>ne_tr_8th_st_11 · standin_business · standin_corner_store</title></rect>
+<text class="cz" x="320.40000000000003" y="1126.0" font-size="8.5" font-weight="700" fill="#fff" text-anchor="middle">F</text>
+<rect class="cz" x="325.2" y="1116.0" width="9.6" height="14.0" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_tr_8th_st_12 · house_1f · house_1f_small_yard</title></rect>
+<rect class="cz" x="334.8" y="1116.0" width="9.6" height="14.0" fill="#3f8f4f" stroke="#222" stroke-width="0.5"><title>ne_tr_8th_st_13 · house_2f · house_2f_small_yard</title></rect>
+<rect class="cz" x="375.6" y="1116.0" width="9.6" height="14.0" fill="#3f8f4f" stroke="#222" stroke-width="0.5"><title>ne_tr_8th_st_14 · house_2f · house_2f_small_yard</title></rect>
+<rect class="cz" x="385.2" y="1116.0" width="9.6" height="14.0" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_tr_8th_st_15 · house_1f · house_1f_small_yard</title></rect>
+<rect class="cz" x="394.8" y="1116.0" width="9.6" height="14.0" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_tr_8th_st_16 · house_1f · house_1f_small_yard</title></rect>
+<rect class="cz" x="436.0" y="1116.0" width="10.0" height="14.0" fill="#3f8f4f" stroke="#222" stroke-width="0.5"><title>ne_tr_8th_st_17 · house_2f · house_2f_small_yard</title></rect>
+<rect class="cz" x="478.3" y="1116.0" width="10.4" height="14.0" fill="#3f8f4f" stroke="#222" stroke-width="0.5"><title>ne_tr_8th_st_18 · house_2f · house_2f_small_yard</title></rect>
+<rect class="cz" x="488.7" y="1116.0" width="10.3" height="14.0" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_tr_8th_st_19 · house_1f · house_1f_small_yard</title></rect>
+<rect class="cz" x="530.2" y="1116.0" width="9.6" height="14.0" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_tr_8th_st_20 · house_1f · house_1f_small_yard</title></rect>
+<rect class="cz" x="539.8" y="1116.0" width="9.6" height="14.0" fill="#3f8f4f" stroke="#222" stroke-width="0.5"><title>ne_tr_8th_st_21 · house_2f · house_2f_small_yard</title></rect>
+<rect class="cz" x="549.4" y="1116.0" width="9.6" height="14.0" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_tr_8th_st_22 · house_1f · house_1f_small_yard</title></rect>
+<rect class="cz" x="315.6" y="1130.0" width="9.6" height="14.0" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_tr_8th_st_23 · house_1f · house_1f_small_yard</title></rect>
+<rect class="cz" x="325.2" y="1130.0" width="9.6" height="14.0" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_tr_8th_st_24 · house_1f · house_1f_small_yard</title></rect>
+<rect class="cz" x="334.8" y="1130.0" width="9.6" height="14.0" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_tr_8th_st_25 · house_1f · house_1f_small_yard</title></rect>
+<rect class="cz" x="375.6" y="1130.0" width="9.6" height="14.0" fill="#3f8f4f" stroke="#222" stroke-width="0.5"><title>ne_tr_8th_st_26 · house_2f · house_2f_small_yard</title></rect>
+<rect class="cz" x="385.2" y="1130.0" width="9.6" height="14.0" fill="#3f8f4f" stroke="#222" stroke-width="0.5"><title>ne_tr_8th_st_27 · house_2f · house_2f_small_yard</title></rect>
+<rect class="cz" x="394.8" y="1130.0" width="9.6" height="14.0" fill="#3f8f4f" stroke="#222" stroke-width="0.5"><title>ne_tr_8th_st_28 · house_2f · house_2f_small_yard</title></rect>
+<rect class="cz" x="436.0" y="1130.0" width="10.0" height="14.0" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_tr_8th_st_29 · house_1f · house_1f_small_yard</title></rect>
+<rect class="cz" x="478.3" y="1130.0" width="10.4" height="14.0" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_tr_8th_st_30 · house_1f · house_1f_small_yard</title></rect>
+<rect class="cz" x="488.7" y="1130.0" width="10.3" height="14.0" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_tr_8th_st_31 · house_1f · house_1f_small_yard</title></rect>
+<rect class="cz" x="530.2" y="1130.0" width="9.6" height="14.0" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_tr_8th_st_32 · house_1f · house_1f_small_yard</title></rect>
+<rect class="cz" x="539.8" y="1130.0" width="9.6" height="14.0" fill="#3f8f4f" stroke="#222" stroke-width="0.5"><title>ne_tr_8th_st_33 · house_2f · house_2f_small_yard</title></rect>
+<rect class="cz" x="549.4" y="1130.0" width="9.6" height="14.0" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_tr_8th_st_34 · house_1f · house_1f_small_yard</title></rect>
 <rect class="cz" x="441.0" y="735.5" width="15.0" height="9.5" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_tr_division_ave_01 · house_1f · house_1f_small_yard</title></rect>
 <rect class="cz" x="468.0" y="735.5" width="15.5" height="9.5" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_tr_division_ave_02 · house_1f · house_1f_small_yard</title></rect>
 <rect class="cz" x="441.0" y="745.0" width="15.0" height="9.5" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_tr_division_ave_03 · house_1f · house_1f_small_yard</title></rect>
@@ -1234,55 +1239,49 @@
 <rect class="cz" x="426.0" y="965.2" width="15.0" height="9.6" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_tr_lakeview_ave_12 · house_1f · house_1f_small_yard</title></rect>
 <rect class="cz" x="426.0" y="974.8" width="15.0" height="9.6" fill="#3f8f4f" stroke="#222" stroke-width="0.5"><title>ne_tr_lakeview_ave_13 · house_2f · house_2f_small_yard</title></rect>
 <rect class="cz" x="334.8" y="1006.0" width="9.6" height="24.0" fill="#3f8f4f" stroke="#222" stroke-width="0.5"><title>ne_tr_lakeview_ave_14 · house_2f · house_2f_small_yard</title></rect>
-<rect class="cz" x="344.4" y="1006.0" width="9.6" height="24.0" fill="#1fa3a3" stroke="#222" stroke-width="0.5"><title>ne_tr_lakeview_ave_15 · standin_business · standin_corner_store</title></rect>
-<text class="cz" x="349.2" y="1021.0" font-size="8.5" font-weight="700" fill="#fff" text-anchor="middle">F</text>
-<rect class="cz" x="366.0" y="1006.0" width="9.6" height="24.0" fill="#3f8f4f" stroke="#222" stroke-width="0.5"><title>ne_tr_lakeview_ave_16 · house_2f · house_2f_small_yard</title></rect>
+<rect class="cz" x="344.4" y="1006.0" width="9.6" height="24.0" fill="#3f8f4f" stroke="#222" stroke-width="0.5"><title>ne_tr_lakeview_ave_15 · house_2f · house_2f_small_yard</title></rect>
+<rect class="cz" x="366.0" y="1006.0" width="9.6" height="24.0" fill="#1fa3a3" stroke="#222" stroke-width="0.5"><title>ne_tr_lakeview_ave_16 · standin_business · standin_corner_store</title></rect>
+<text class="cz" x="370.8" y="1021.0" font-size="8.5" font-weight="700" fill="#fff" text-anchor="middle">T</text>
 <rect class="cz" x="375.6" y="1006.0" width="9.6" height="24.0" fill="#3f8f4f" stroke="#222" stroke-width="0.5"><title>ne_tr_lakeview_ave_17 · house_2f · house_2f_small_yard</title></rect>
 <rect class="cz" x="394.8" y="1006.0" width="9.6" height="24.0" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_tr_lakeview_ave_18 · house_1f · house_1f_small_yard</title></rect>
 <rect class="cz" x="404.4" y="1006.0" width="9.6" height="24.0" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_tr_lakeview_ave_19 · house_1f · house_1f_small_yard</title></rect>
 <rect class="cz" x="426.0" y="1015.6" width="15.0" height="9.6" fill="#3f8f4f" stroke="#222" stroke-width="0.5"><title>ne_tr_lakeview_ave_20 · house_2f · house_2f_small_yard</title></rect>
 <rect class="cz" x="426.0" y="1025.2" width="15.0" height="9.6" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_tr_lakeview_ave_21 · house_1f · house_1f_small_yard</title></rect>
 <rect class="cz" x="426.0" y="1034.8" width="15.0" height="9.6" fill="#3f8f4f" stroke="#222" stroke-width="0.5"><title>ne_tr_lakeview_ave_22 · house_2f · house_2f_small_yard</title></rect>
-<rect class="cz" x="426.0" y="1075.5" width="15.0" height="9.5" fill="#3f8f4f" stroke="#222" stroke-width="0.5"><title>ne_tr_lakeview_ave_23 · house_2f · house_2f_small_yard</title></rect>
-<rect class="cz" x="366.0" y="1085.0" width="9.6" height="19.0" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_tr_lakeview_ave_24 · house_1f · house_1f_small_yard</title></rect>
-<rect class="cz" x="404.4" y="1085.0" width="9.6" height="19.0" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_tr_lakeview_ave_25 · house_1f · house_1f_small_yard</title></rect>
-<rect class="cz" x="426.0" y="1085.0" width="15.0" height="9.5" fill="#f0b323" stroke="#222" stroke-width="0.5"><title>ne_tr_lakeview_ave_26 · purchasable_business · liquor_store</title></rect>
-<rect class="cz" x="344.4" y="1116.0" width="9.6" height="14.0" fill="#3f8f4f" stroke="#222" stroke-width="0.5"><title>ne_tr_lakeview_ave_27 · house_2f · house_2f_small_yard</title></rect>
-<rect class="cz" x="366.0" y="1116.0" width="9.6" height="14.0" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_tr_lakeview_ave_28 · house_1f · house_1f_small_yard</title></rect>
-<rect class="cz" x="404.4" y="1116.0" width="9.6" height="14.0" fill="#3f8f4f" stroke="#222" stroke-width="0.5"><title>ne_tr_lakeview_ave_29 · house_2f · house_2f_small_yard</title></rect>
-<rect class="cz" x="426.0" y="1116.0" width="10.0" height="14.0" fill="#3f8f4f" stroke="#222" stroke-width="0.5"><title>ne_tr_lakeview_ave_30 · house_2f · house_2f_small_yard</title></rect>
-<rect class="cz" x="344.4" y="1130.0" width="9.6" height="14.0" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_tr_lakeview_ave_31 · house_1f · house_1f_small_yard</title></rect>
-<rect class="cz" x="366.0" y="1130.0" width="9.6" height="14.0" fill="#1fa3a3" stroke="#222" stroke-width="0.5"><title>ne_tr_lakeview_ave_32 · standin_business · standin_corner_store</title></rect>
-<text class="cz" x="370.8" y="1140.0" font-size="8.5" font-weight="700" fill="#fff" text-anchor="middle">P</text>
-<rect class="cz" x="404.4" y="1130.0" width="9.6" height="14.0" fill="#3f8f4f" stroke="#222" stroke-width="0.5"><title>ne_tr_lakeview_ave_33 · house_2f · house_2f_small_yard</title></rect>
-<rect class="cz" x="426.0" y="1130.0" width="10.0" height="14.0" fill="#3f8f4f" stroke="#222" stroke-width="0.5"><title>ne_tr_lakeview_ave_34 · house_2f · house_2f_small_yard</title></rect>
-<rect class="cz" x="534.6" y="1025.2" width="23.7" height="9.6" fill="#e0453a" stroke="#222" stroke-width="0.5"><title>ne_tr_okee_blvd_01 · specialized_location · trap_house_the_spot</title></rect>
+<rect class="cz" x="333.0" y="1071.0" width="20.0" height="30.0" fill="#e0453a" stroke="#222" stroke-width="0.5"><title>ne_tr_lakeview_ave_23 · specialized_location · gas_station</title></rect>
+<rect class="cz" x="426.0" y="1075.5" width="15.0" height="9.5" fill="#3f8f4f" stroke="#222" stroke-width="0.5"><title>ne_tr_lakeview_ave_24 · house_2f · house_2f_small_yard</title></rect>
+<rect class="cz" x="366.0" y="1085.0" width="9.6" height="19.0" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_tr_lakeview_ave_25 · house_1f · house_1f_small_yard</title></rect>
+<rect class="cz" x="404.4" y="1085.0" width="9.6" height="19.0" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_tr_lakeview_ave_26 · house_1f · house_1f_small_yard</title></rect>
+<rect class="cz" x="426.0" y="1085.0" width="15.0" height="9.5" fill="#f0b323" stroke="#222" stroke-width="0.5"><title>ne_tr_lakeview_ave_27 · purchasable_business · liquor_store</title></rect>
+<rect class="cz" x="344.4" y="1116.0" width="9.6" height="14.0" fill="#3f8f4f" stroke="#222" stroke-width="0.5"><title>ne_tr_lakeview_ave_28 · house_2f · house_2f_small_yard</title></rect>
+<rect class="cz" x="366.0" y="1116.0" width="9.6" height="14.0" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_tr_lakeview_ave_29 · house_1f · house_1f_small_yard</title></rect>
+<rect class="cz" x="404.4" y="1116.0" width="9.6" height="14.0" fill="#3f8f4f" stroke="#222" stroke-width="0.5"><title>ne_tr_lakeview_ave_30 · house_2f · house_2f_small_yard</title></rect>
+<rect class="cz" x="426.0" y="1116.0" width="10.0" height="14.0" fill="#3f8f4f" stroke="#222" stroke-width="0.5"><title>ne_tr_lakeview_ave_31 · house_2f · house_2f_small_yard</title></rect>
+<rect class="cz" x="344.4" y="1130.0" width="9.6" height="14.0" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_tr_lakeview_ave_32 · house_1f · house_1f_small_yard</title></rect>
+<rect class="cz" x="366.0" y="1130.0" width="9.6" height="14.0" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_tr_lakeview_ave_33 · house_1f · house_1f_small_yard</title></rect>
+<rect class="cz" x="404.4" y="1130.0" width="9.6" height="14.0" fill="#3f8f4f" stroke="#222" stroke-width="0.5"><title>ne_tr_lakeview_ave_34 · house_2f · house_2f_small_yard</title></rect>
+<rect class="cz" x="426.0" y="1130.0" width="10.0" height="14.0" fill="#3f8f4f" stroke="#222" stroke-width="0.5"><title>ne_tr_lakeview_ave_35 · house_2f · house_2f_small_yard</title></rect>
+<rect class="cz" x="534.6" y="1025.2" width="23.7" height="19.2" fill="#e0453a" stroke="#222" stroke-width="0.5"><title>ne_tr_okee_blvd_01 · specialized_location · trap_house_the_spot</title></rect>
 <rect class="cz" x="483.5" y="1034.8" width="15.5" height="9.6" fill="#f0b323" stroke="#222" stroke-width="0.5"><title>ne_tr_okee_blvd_02 · purchasable_business · bodega</title></rect>
-<rect class="cz" x="534.6" y="1034.8" width="23.7" height="9.6" fill="#1fa3a3" stroke="#222" stroke-width="0.5"><title>ne_tr_okee_blvd_03 · standin_business · standin_strip_unit</title></rect>
-<text class="cz" x="546.45" y="1042.6" font-size="8.5" font-weight="700" fill="#fff" text-anchor="middle">F</text>
-<rect class="cz" x="483.5" y="1075.5" width="15.5" height="9.5" fill="#1fa3a3" stroke="#222" stroke-width="0.5"><title>ne_tr_okee_blvd_04 · standin_business · standin_strip_unit</title></rect>
-<text class="cz" x="491.25" y="1083.25" font-size="8.5" font-weight="700" fill="#fff" text-anchor="middle">T</text>
+<rect class="cz" x="483.5" y="1075.5" width="15.5" height="9.5" fill="#1fa3a3" stroke="#222" stroke-width="0.5"><title>ne_tr_okee_blvd_03 · standin_business · standin_strip_unit</title></rect>
+<text class="cz" x="491.25" y="1083.25" font-size="8.5" font-weight="700" fill="#fff" text-anchor="middle">F</text>
 <rect class="cz" x="483.5" y="745.0" width="15.5" height="9.5" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_tr_tamarind_ave_01 · house_1f · house_1f_small_yard</title></rect>
 <rect class="cz" x="520.0" y="745.0" width="9.1" height="19.0" fill="#3f8f4f" stroke="#222" stroke-width="0.5"><title>ne_tr_tamarind_ave_02 · house_2f · house_2f_small_yard</title></rect>
-<rect class="cz" x="529.1" y="745.0" width="9.0" height="19.0" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_tr_tamarind_ave_03 · house_1f · house_1f_small_yard</title></rect>
-<rect class="cz" x="483.5" y="795.2" width="15.5" height="9.6" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_tr_tamarind_ave_04 · house_1f · house_1f_small_yard</title></rect>
-<rect class="cz" x="483.5" y="855.2" width="15.5" height="9.6" fill="#3f8f4f" stroke="#222" stroke-width="0.5"><title>ne_tr_tamarind_ave_05 · house_2f · house_2f_small_yard</title></rect>
-<rect class="cz" x="520.3" y="896.0" width="9.3" height="19.0" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_tr_tamarind_ave_06 · house_1f · house_1f_small_yard</title></rect>
-<rect class="cz" x="483.5" y="905.5" width="15.5" height="9.5" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_tr_tamarind_ave_07 · house_1f · house_1f_small_yard</title></rect>
-<rect class="cz" x="483.5" y="915.0" width="15.5" height="9.5" fill="#3f8f4f" stroke="#222" stroke-width="0.5"><title>ne_tr_tamarind_ave_08 · house_2f · house_2f_small_yard</title></rect>
-<rect class="cz" x="520.3" y="915.0" width="9.3" height="19.0" fill="#1fa3a3" stroke="#222" stroke-width="0.5"><title>ne_tr_tamarind_ave_09 · standin_business · standin_standalone_shop</title></rect>
+<rect class="cz" x="483.5" y="795.2" width="15.5" height="9.6" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_tr_tamarind_ave_03 · house_1f · house_1f_small_yard</title></rect>
+<rect class="cz" x="483.5" y="855.2" width="15.5" height="9.6" fill="#3f8f4f" stroke="#222" stroke-width="0.5"><title>ne_tr_tamarind_ave_04 · house_2f · house_2f_small_yard</title></rect>
+<rect class="cz" x="520.3" y="896.0" width="9.3" height="19.0" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_tr_tamarind_ave_05 · house_1f · house_1f_small_yard</title></rect>
+<rect class="cz" x="483.5" y="905.5" width="15.5" height="9.5" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_tr_tamarind_ave_06 · house_1f · house_1f_small_yard</title></rect>
+<rect class="cz" x="483.5" y="915.0" width="15.5" height="9.5" fill="#3f8f4f" stroke="#222" stroke-width="0.5"><title>ne_tr_tamarind_ave_07 · house_2f · house_2f_small_yard</title></rect>
+<rect class="cz" x="520.3" y="915.0" width="9.3" height="19.0" fill="#1fa3a3" stroke="#222" stroke-width="0.5"><title>ne_tr_tamarind_ave_08 · standin_business · standin_standalone_shop</title></rect>
 <text class="cz" x="524.9499999999999" y="927.5" font-size="8.5" font-weight="700" fill="#fff" text-anchor="middle">C</text>
-<rect class="cz" x="483.5" y="965.2" width="15.5" height="9.6" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_tr_tamarind_ave_10 · house_1f · house_1f_small_yard</title></rect>
-<rect class="cz" x="483.5" y="1015.6" width="15.5" height="9.6" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_tr_tamarind_ave_11 · house_1f · house_1f_small_yard</title></rect>
-<rect class="cz" x="483.5" y="1025.2" width="15.5" height="9.6" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_tr_tamarind_ave_12 · house_1f · house_1f_small_yard</title></rect>
-<rect class="cz" x="483.5" y="1085.0" width="15.5" height="9.5" fill="#3f8f4f" stroke="#222" stroke-width="0.5"><title>ne_tr_tamarind_ave_13 · house_2f · house_2f_small_yard</title></rect>
-<rect class="cz" x="520.5" y="1085.0" width="9.6" height="19.0" fill="#3f8f4f" stroke="#222" stroke-width="0.5"><title>ne_tr_tamarind_ave_14 · house_2f · house_2f_small_yard</title></rect>
-<rect class="cz" x="520.6" y="1116.0" width="9.6" height="14.0" fill="#3f8f4f" stroke="#222" stroke-width="0.5"><title>ne_tr_tamarind_ave_15 · house_2f · house_2f_small_yard</title></rect>
-<rect class="cz" x="520.6" y="1130.0" width="9.6" height="14.0" fill="#1fa3a3" stroke="#222" stroke-width="0.5"><title>ne_tr_tamarind_ave_16 · standin_business · standin_standalone_shop</title></rect>
+<rect class="cz" x="483.5" y="965.2" width="15.5" height="9.6" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_tr_tamarind_ave_09 · house_1f · house_1f_small_yard</title></rect>
+<rect class="cz" x="483.5" y="1015.6" width="15.5" height="9.6" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_tr_tamarind_ave_10 · house_1f · house_1f_small_yard</title></rect>
+<rect class="cz" x="483.5" y="1025.2" width="15.5" height="9.6" fill="#8fc98f" stroke="#222" stroke-width="0.5"><title>ne_tr_tamarind_ave_11 · house_1f · house_1f_small_yard</title></rect>
+<rect class="cz" x="483.5" y="1085.0" width="15.5" height="9.5" fill="#3f8f4f" stroke="#222" stroke-width="0.5"><title>ne_tr_tamarind_ave_12 · house_2f · house_2f_small_yard</title></rect>
+<rect class="cz" x="520.5" y="1085.0" width="9.6" height="19.0" fill="#3f8f4f" stroke="#222" stroke-width="0.5"><title>ne_tr_tamarind_ave_13 · house_2f · house_2f_small_yard</title></rect>
+<rect class="cz" x="520.6" y="1116.0" width="9.6" height="14.0" fill="#3f8f4f" stroke="#222" stroke-width="0.5"><title>ne_tr_tamarind_ave_14 · house_2f · house_2f_small_yard</title></rect>
+<rect class="cz" x="520.6" y="1130.0" width="9.6" height="14.0" fill="#1fa3a3" stroke="#222" stroke-width="0.5"><title>ne_tr_tamarind_ave_15 · standin_business · standin_standalone_shop</title></rect>
 <text class="cz" x="525.4" y="1140.0" font-size="8.5" font-weight="700" fill="#fff" text-anchor="middle">G</text>
-<polygon class="cz" points="710.0,473.0 719.0,482.0 710.0,491.0 701.0,482.0" fill="none" stroke="#e0453a" stroke-width="2.5"><title>ne_ng_unbuilt_roster_15 (unbuilt: needs a lot)</title></polygon>
-<polygon class="cz" points="380.0,239.0 389.0,248.0 380.0,257.0 371.0,248.0" fill="none" stroke="#f0b323" stroke-width="2.5"><title>ne_mg_unbuilt_mangona_gun_store (unbuilt: needs a lot)</title></polygon>
-<polygon class="cz" points="470.0,239.0 479.0,248.0 470.0,257.0 461.0,248.0" fill="none" stroke="#f0b323" stroke-width="2.5"><title>ne_mg_unbuilt_mangona_hardware_store (unbuilt: needs a lot)</title></polygon>
 </g>
 <!-- /census-overlay -->
 <text x="390.0" y="192.0" class="dname" text-anchor="middle">MANGONA</text>
@@ -1611,23 +1610,23 @@
 <rect class="cz" x="1044" y="1164" width="10" height="9" fill="#8fc98f" stroke="#222" stroke-width="0.5"/>
 <text class="cz" x="1059" y="1172">1-storey house (177)</text>
 <rect class="cz" x="1274" y="1164" width="10" height="9" fill="#3f8f4f" stroke="#222" stroke-width="0.5"/>
-<text class="cz" x="1289" y="1172">2-storey house (126)</text>
+<text class="cz" x="1289" y="1172">2-storey house (125)</text>
 <rect class="cz" x="1044" y="1177" width="10" height="9" fill="#7d8fa8" stroke="#222" stroke-width="0.5"/>
-<text class="cz" x="1059" y="1185">Large building (44)</text>
+<text class="cz" x="1059" y="1185">Large building (46)</text>
 <rect class="cz" x="1274" y="1177" width="10" height="9" fill="#b05fc4" stroke="#222" stroke-width="0.5"/>
 <text class="cz" x="1289" y="1185">Special building (4)</text>
 <rect class="cz" x="1044" y="1190" width="10" height="9" fill="#e0453a" stroke="#222" stroke-width="0.5"/>
-<text class="cz" x="1059" y="1198">Specialized location (11)</text>
+<text class="cz" x="1059" y="1198">Specialized location (12)</text>
 <rect class="cz" x="1274" y="1190" width="10" height="9" fill="#f0b323" stroke="#222" stroke-width="0.5"/>
-<text class="cz" x="1289" y="1198">Purchasable business (7)</text>
+<text class="cz" x="1289" y="1198">Purchasable business (9)</text>
 <rect class="cz" x="1044" y="1203" width="10" height="9" fill="#1fa3a3" stroke="#222" stroke-width="0.5"/>
 <text class="cz" x="1059" y="1211">Stand-in shop, enterable (17)</text>
 <rect class="cz" x="1274" y="1203" width="10" height="9" fill="#a6dcd8" stroke="#222" stroke-width="0.5"/>
-<text class="cz" x="1289" y="1211">Stand-in storefront, closed (7)</text>
+<text class="cz" x="1289" y="1211">Stand-in storefront, closed (5)</text>
 <rect class="cz" x="1044" y="1216" width="10" height="9" fill="#d6d2c8" stroke="#222" stroke-width="0.5"/>
 <text class="cz" x="1059" y="1224">Neighbour filler (60)</text>
 <polygon class="cz" points="1049,1228 1054,1233 1049,1238 1044,1233" fill="none" stroke="#e0453a" stroke-width="1.5"/>
-<text class="cz" x="1059" y="1237">Unbuilt roster place (3) · shop letters: A auto mod · G ammo/guns · C clothing ·</text>
+<text class="cz" x="1059" y="1237">Unbuilt roster place (0) · shop letters: A auto mod · G ammo/guns · C clothing ·</text>
 <text class="cz" x="1044" y="1248">F food · T tattoo · B barber · S corner store · L liquor · P pawn</text>
 </g>
 <!-- /census-legend -->
