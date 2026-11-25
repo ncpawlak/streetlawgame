@@ -1,5 +1,6 @@
 extends CanvasLayer
-## HUD: cash, respect, health, current turf, capture progress, interaction hints, notifications and minimap.
+## HUD: cash, respect, health, current turf, capture progress, interaction hints, notifications,
+## the minimap (with the GPS route to the map waypoint) and the full-screen pause map ([MapScreen]).
 
 const MINIMAP_SIZE := 240.0
 const MINIMAP_ZOOM := 160.0
@@ -18,7 +19,7 @@ var _feed: VBoxContainer
 var _map_container: SubViewportContainer
 var _map_camera: Camera3D
 var _player_marker: MeshInstance3D
-var _map_expanded := false
+var _gps: Control
 var _weapon_label: Label
 var _ammo_label: Label
 var _reload_bar: ProgressBar
@@ -31,6 +32,7 @@ var weapon_wheel: WeaponWheel
 var interaction_prompt: InteractionPrompt
 var interaction_menu: InteractionMenu
 var dialogue_view: DialogueView
+var map_screen: MapScreen
 
 
 func _ready() -> void:
@@ -46,17 +48,15 @@ func _ready() -> void:
 	add_child(interaction_menu)
 	dialogue_view = DialogueView.new()
 	add_child(dialogue_view)
+	map_screen = MapScreen.new()
+	add_child(map_screen)
+	map_screen.waypoint_changed.connect(_gps.queue_redraw)
 	EventBus.cash_changed.connect(func(amount: int) -> void: _cash_label.text = "$%d" % amount)
 	EventBus.respect_changed.connect(func(amount: int) -> void: _respect_label.text = "Respect %d" % amount)
 	EventBus.player_health_changed.connect(_on_health_changed)
 	EventBus.notify.connect(_push_notification)
 	_cash_label.text = "$%d" % GameState.cash
 	_respect_label.text = "Respect %d" % GameState.respect
-
-
-func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("toggle_map"):
-		_set_map_expanded(not _map_expanded)
 
 
 func _process(delta: float) -> void:
@@ -67,12 +67,11 @@ func _process(delta: float) -> void:
 	_update_vehicle(player.current_vehicle)
 	_damage_flash.color.a = move_toward(_damage_flash.color.a, 0.0, delta * 1.5)
 	var focus := player.get_focus_position()
-	if _map_expanded:
-		_map_camera.global_position = Vector3(0.0, MAP_CAMERA_HEIGHT, 0.0)
-	else:
-		_map_camera.global_position = Vector3(focus.x, MAP_CAMERA_HEIGHT, focus.z)
+	_map_camera.global_position = Vector3(focus.x, MAP_CAMERA_HEIGHT, focus.z)
+	map_screen.update_route(focus)
+	_gps.queue_redraw()
 	_player_marker.global_position = Vector3(focus.x, 90.0, focus.z)
-	_crosshair.visible = Input.mouse_mode == Input.MOUSE_MODE_CAPTURED and not _map_expanded and not weapon_wheel.is_open
+	_crosshair.visible = Input.mouse_mode == Input.MOUSE_MODE_CAPTURED and not map_screen.is_open and not weapon_wheel.is_open
 	_update_turf(Turf.current_district_id)
 	_update_hint(player)
 
@@ -146,7 +145,7 @@ func _update_weapon(player: Player, delta: float) -> void:
 	_reload_bar.visible = inventory.is_reloading and slot != null and not slot.data.thrown
 	_reload_bar.value = inventory.reload_progress() * 100.0
 	var detonate_hint := "  [G] Detonate (%d)" % inventory.placed_charges.size() if not inventory.placed_charges.is_empty() else ""
-	_keys_label.text = "[Q] Weapon wheel  [R] Reload  [1-9] Select" + detonate_hint
+	_keys_label.text = "[Q] Weapon wheel  [R] Reload  [1-9] Select  [M] Map" + detonate_hint
 	_hit_marker_left = maxf(0.0, _hit_marker_left - delta)
 	_crosshair.text = "x" if _hit_marker_left > 0.0 else "+"
 	_crosshair.modulate = Color(1.0, 0.3, 0.3) if _hit_marker_left > 0.0 else Color.WHITE
@@ -158,18 +157,37 @@ func _push_notification(text: String) -> void:
 	get_tree().create_timer(NOTIFICATION_LIFETIME).timeout.connect(label.queue_free)
 
 
-func _set_map_expanded(expanded: bool) -> void:
-	_map_expanded = expanded
-	if expanded:
-		_map_container.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT, Control.PRESET_MODE_MINSIZE, 60)
-		_map_camera.size = maxf(GameState.city_extent, MINIMAP_ZOOM)
-	else:
-		_map_container.set_anchors_preset(Control.PRESET_TOP_RIGHT)
-		_map_container.offset_left = -MINIMAP_SIZE - 16.0
-		_map_container.offset_right = -16.0
-		_map_container.offset_top = 16.0
-		_map_container.offset_bottom = 16.0 + MINIMAP_SIZE
-		_map_camera.size = MINIMAP_ZOOM
+## GPS line on the minimap: the street route to the pause-map waypoint, and the waypoint pin
+## (clamped to the minimap edge when it's out of range).
+func _draw_gps() -> void:
+	var player := GameState.player
+	if player == null or map_screen == null or not map_screen.has_waypoint():
+		return
+	var focus := player.get_focus_position()
+	var half := _gps.size * 0.5
+	var px_per_m := _gps.size.y / MINIMAP_ZOOM
+	var to_screen := func(at: Vector3) -> Vector2: return half + Vector2(at.x - focus.x, at.z - focus.z) * px_per_m
+	if map_screen.route.size() >= 2:
+		var points := PackedVector2Array()
+		for point in map_screen.route:
+			points.append(to_screen.call(point))
+		points[0] = half
+		_gps.draw_polyline(points, Color.BLACK, 6.0, true)
+		_gps.draw_polyline(points, MapScreen.ROUTE_COLOR, 3.5, true)
+	var pin: Vector2 = to_screen.call(map_screen.waypoint)
+	var inner := Rect2(Vector2(8.0, 8.0), _gps.size - Vector2(16.0, 16.0))
+	if not inner.has_point(pin):
+		pin = half + (pin - half) * minf(absf((half.x - 8.0) / (pin.x - half.x + 0.001)), absf((half.y - 8.0) / (pin.y - half.y + 0.001)))
+	_gps.draw_circle(pin, 7.0, Color.BLACK)
+	_gps.draw_circle(pin, 5.5, MapScreen.ROUTE_COLOR)
+
+
+func _place_minimap(control: Control) -> void:
+	control.set_anchors_preset(Control.PRESET_TOP_RIGHT)
+	control.offset_left = -MINIMAP_SIZE - 16.0
+	control.offset_right = -16.0
+	control.offset_top = 16.0
+	control.offset_bottom = 16.0 + MINIMAP_SIZE
 
 
 func _build_stats() -> void:
@@ -207,9 +225,16 @@ func _build_minimap() -> void:
 	_map_camera.projection = Camera3D.PROJECTION_ORTHOGONAL
 	_map_camera.rotation_degrees = Vector3(-90.0, 0.0, 0.0)
 	_map_camera.far = MAP_CAMERA_HEIGHT + 50.0
+	_map_camera.size = MINIMAP_ZOOM
 	viewport.add_child(_map_camera)
 	_map_camera.make_current()
-	_set_map_expanded(false)
+	_place_minimap(_map_container)
+	_gps = Control.new()
+	_gps.clip_contents = true
+	_gps.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_gps.draw.connect(_draw_gps)
+	add_child(_gps)
+	_place_minimap(_gps)
 
 	var marker_mesh := SphereMesh.new()
 	marker_mesh.radius = 4.0
