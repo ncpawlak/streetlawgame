@@ -197,22 +197,15 @@ func _build_body() -> void:
 	shape.position.y = 0.9
 	add_child(shape)
 
+	visual = _make_visual()
+	add_child(visual)
+
+
+## Builds the animated body; subclasses (cops, owners, crew) override for their own look.
+func _make_visual() -> CharacterVisual:
 	var color := GameState.gang_color(gang_id)
-	visual = CharacterVisual.create(&"gang", randi())
-	visual.set_tint(color.darkened(0.3))
-	visual.set_bandana(color)
-	visual.set_weapon(current_weapon())
-	add_child(visual)
-
-
-## Swaps the body for another [constant CharacterVisual.ARCHETYPES] kind (cops, civilians), tinted
-## [param tint] with an optional bandana. Subclasses call it from _ready after super._ready().
-func _rebuild_visual(kind: StringName, tint: Color, bandana: Variant = null) -> void:
-	if visual != null:
-		remove_child(visual)
-		visual.queue_free()
-	visual = CharacterVisual.create(kind, randi())
-	visual.set_tint(tint)
-	visual.set_bandana(bandana)
-	visual.set_weapon(current_weapon())
-	add_child(visual)
+	var body := CharacterVisual.create(&"gang", randi())
+	body.set_tint(color.darkened(0.3))
+	body.set_bandana(color)
+	body.set_weapon(current_weapon())
+	return body

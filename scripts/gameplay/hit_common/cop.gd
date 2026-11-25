@@ -21,8 +21,14 @@ func _init() -> void:
 func _ready() -> void:
 	super._ready()
 	add_to_group("cops")
-	# Police uniform (the SWAT model already wears a helmet, so no separate hat).
-	_rebuild_visual(&"cop", Color(0.1, 0.18, 0.45))
+
+
+## SWAT model in police navy; no gang bandana.
+func _make_visual() -> CharacterVisual:
+	var body := CharacterVisual.create(&"cop", randi())
+	body.set_tint(Color(0.1, 0.18, 0.45))
+	body.set_weapon(current_weapon())
+	return body
 
 
 ## Moves the cop's search area (it wanders around [param point] when it can't see the player).
