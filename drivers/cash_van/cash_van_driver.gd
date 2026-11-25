@@ -12,25 +12,51 @@ const ESCALATION_INTERVAL := 20.0
 const MAX_CRUISERS := 6
 ## Seconds from the first shot until the van's panic button brings the police.
 const PANIC_SECONDS := 20.0
-const PLAYER_START_BEHIND := 60.0
+## Where the player's car starts, and where the van joins the road on schedule (metres along the loop).
+const PLAYER_START_DISTANCE := 10.0
+const VAN_ON_RAMP_DISTANCE := 70.0
 const CRUISER_SPAWN_BEHIND := 90.0
 const ROADBLOCK_AHEAD := 110.0
 const STASH_POSITION := Vector3(0.0, 0.0, 0.0)
+## Without intel, the van counts as found once you get this close.
+const SPOT_RANGE := 90.0
 
-enum Phase { CHASE, VAN_DOWN, LOOT, ESCAPE, STASH, DONE, BUSTED }
+enum Phase { BRIEFING, WAIT, CHASE, VAN_DOWN, LOOT, ESCAPE, STASH, DONE, BUSTED }
+
+## Debug toggle (F6, or run with `-- --no-intel`): does the crew have intel on the van? Kept across
+## F5/F6 reloads.
+static var debug_intel := not OS.get_cmdline_user_args().has("--no-intel")
+
+## Intel on the van's route, schedule, guards and cargo. Defaults to [member debug_intel].
+@export var has_intel := CashVanDriver.debug_intel
+## Show the intel briefing first (tests switch it off to start straight away).
+@export var show_briefing := true
+## Seconds after the briefing until the van leaves the on-ramp (with intel).
+@export var departure_delay := 12.0
+## Seed for the unknown schedule without intel (0 = random).
+@export var intel_seed := 0
 
 var route: HighwayRoute
+## Null until the van leaves (see [member departs_in]).
 var van: ArmoredVan
+var intel: CashVanIntel
+var briefing: IntelBriefing
 var session: HitSession
 var stash: StashDropoff
 var getaway_car: Vehicle
 var cruisers: Array[PursuitCruiser] = []
-var phase := Phase.CHASE
+var phase := Phase.BRIEFING
+## Seconds until the van joins the highway (counts down in the WAIT phase).
+var departs_in := -1.0
+## Without intel: whether the player has found the van yet.
+var van_spotted := false
 ## Seconds since the first shot at the van (null-ish -1 until then).
 var hit_time := -1.0
 var cash_made := 0
 
 var _status: Label
+var _route_overlay: Node3D
+var _on_ramp_beacon: Node3D
 
 @onready var player: Player = $Player
 
@@ -41,22 +67,21 @@ func _ready() -> void:
 	route.name = "Route"
 	add_child(route)
 
-	van = ArmoredVan.new()
-	van.name = "CashVan"
-	van.route = route
-	van.start_distance = PLAYER_START_BEHIND + 10.0
-	add_child(van)
-	van.attacked.connect(_on_van_attacked)
-	van.tire_popped.connect(func(_tire: VanTire, _flats: int) -> void: _refresh_objective())
-	van.stopped.connect(func() -> void: _set_phase(Phase.VAN_DOWN))
-	van.doors_released.connect(func(_actor: Node) -> void: _set_phase(Phase.LOOT))
+	var rng := RandomNumberGenerator.new()
+	if intel_seed != 0:
+		rng.seed = intel_seed
+	else:
+		rng.randomize()
+	intel = CashVanIntel.gather(has_intel, route, VAN_ON_RAMP_DISTANCE, departure_delay, PLAYER_START_DISTANCE, rng)
 
 	_place_player()
 
 	session = HitSession.new()
 	session.name = "HitSession"
 	add_child(session)
-	session.setup(player, _roadblock_points(), van, PANIC_SECONDS)
+	session.setup(player, _roadblock_points(), null, PANIC_SECONDS)
+	# Nothing to hear until the van is on the road.
+	session.police_call.listen_gunshots = false
 	var response := session.police_response
 	response.spawn_cruiser = false
 	response.escalation_interval = ESCALATION_INTERVAL
@@ -79,13 +104,73 @@ func _ready() -> void:
 	session.register_stash(stash)
 	session.bag.changed.connect(_refresh_objective)
 
+	if intel.known:
+		_build_route_overlay()
 	_build_status_label()
-	_refresh_objective()
+	briefing = IntelBriefing.new()
+	briefing.name = "IntelBriefing"
+	add_child(briefing)
+	briefing.confirmed.connect(start_hit)
+	briefing.show_intel(intel, route, route.sample(PLAYER_START_DISTANCE).origin, route.to_local(stash.global_position))
+	if show_briefing:
+		_refresh_objective()
+	else:
+		briefing.visible = false
+		start_hit()
+
+
+## Ends the briefing: the van's departure clock starts.
+func start_hit() -> void:
+	if phase != Phase.BRIEFING:
+		return
+	if briefing != null:
+		briefing.visible = false
+	departs_in = intel.departure_delay
+	_set_phase(Phase.WAIT)
+	if departs_in <= 0.0:
+		_depart_van()
+
+
+## Puts the van on the highway at its (scheduled or unknown) start point.
+func _depart_van() -> void:
+	if van != null:
+		return
+	departs_in = 0.0
+	van = ArmoredVan.new()
+	van.name = "CashVan"
+	van.route = route
+	van.start_distance = intel.start_distance
+	van.guard_count = intel.guard_count
+	add_child(van)
+	van.attacked.connect(_on_van_attacked)
+	van.tire_popped.connect(func(_tire: VanTire, _flats: int) -> void: _refresh_objective())
+	van.stopped.connect(func() -> void: _set_phase(Phase.VAN_DOWN))
+	van.doors_released.connect(func(_actor: Node) -> void: _set_phase(Phase.LOOT))
+	session.police_call.listen_center = van
+	session.police_call.listen_gunshots = true
+	if is_instance_valid(_on_ramp_beacon):
+		_on_ramp_beacon.queue_free()
+	if intel.known:
+		EventBus.notify.emit("The cash van just pulled onto I-59 - go!")
+	_set_phase(Phase.CHASE)
 
 
 func _physics_process(delta: float) -> void:
+	if phase == Phase.WAIT:
+		departs_in = maxf(0.0, departs_in - delta)
+		if departs_in <= 0.0:
+			_depart_van()
+		else:
+			_refresh_objective()
+	if van != null and not van_spotted and player.get_focus_position().distance_to(van.global_position) < SPOT_RANGE:
+		van_spotted = true
+		if not intel.known:
+			EventBus.notify.emit("There's the cash van!")
+		_refresh_objective()
 	if hit_time >= 0.0 and phase < Phase.STASH:
 		hit_time += delta
+	if is_instance_valid(_route_overlay) and (hit_time >= 0.0 or phase > Phase.CHASE):
+		_route_overlay.queue_free()
 	if session != null:
 		session.police_response.spawn_points = _roadblock_points()
 	_prune_cruisers()
@@ -97,8 +182,23 @@ func _physics_process(delta: float) -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventKey and event.pressed and not event.echo and (event as InputEventKey).keycode == KEY_F5:
-		get_tree().reload_current_scene()
+	if not (event is InputEventKey and event.pressed and not event.echo):
+		return
+	match (event as InputEventKey).keycode:
+		KEY_F5:
+			get_tree().reload_current_scene()
+		KEY_F6:
+			CashVanDriver.debug_intel = not has_intel
+			get_tree().reload_current_scene()
+		KEY_ENTER, KEY_KP_ENTER:
+			if phase == Phase.BRIEFING:
+				briefing.dismiss()
+			elif briefing.visible:
+				briefing.visible = false
+		KEY_I:
+			if phase != Phase.BRIEFING:
+				briefing.visible = not briefing.visible
+				briefing.refresh(departs_in if phase == Phase.WAIT else -1.0)
 
 
 ## 1 at the first shot, +1 every [constant ESCALATION_INTERVAL] seconds.
@@ -209,7 +309,15 @@ func _set_phase(next: Phase) -> void:
 
 func objective_text() -> String:
 	match phase:
+		Phase.BRIEFING:
+			return "Read the intel - [Enter] to start" if intel.known else "No intel on the van - [Enter] to start"
+		Phase.WAIT:
+			if intel.known:
+				return "Van leaves the on-ramp (orange beacon) in %ds - get in position" % ceili(departs_in)
+			return "Find the cash van - it's somewhere on I-59"
 		Phase.CHASE:
+			if not intel.known and not van_spotted:
+				return "Find the cash van - it's somewhere on I-59"
 			return "Keep up with the cash van and shoot out its tires (%d/4 flat)" % van.flats()
 		Phase.VAN_DOWN:
 			return "Van's down - get to the FRONT of the van and release the rear doors [E]"
@@ -235,7 +343,7 @@ func _place_player() -> void:
 	getaway_car = Vehicle.new()
 	getaway_car.name = "ChaseCar"
 	getaway_car.body_color = Color(0.55, 0.08, 0.1)
-	var start := route.global_sample(van.start_distance - PLAYER_START_BEHIND, van.lane)
+	var start := route.global_sample(PLAYER_START_DISTANCE, 3.5)
 	getaway_car.transform = global_transform.affine_inverse() * start
 	getaway_car.position.y += 0.6
 	add_child(getaway_car)
@@ -267,7 +375,15 @@ func _build_status_label() -> void:
 func _update_status() -> void:
 	if _status == null:
 		return
-	var lines: PackedStringArray = ["CASH VAN HIT  [F5] restart"]
+	var lines: PackedStringArray = ["CASH VAN HIT  [F5] restart  [F6] intel %s  [I] intel card" % ("ON" if intel.known else "OFF")]
+	if van == null:
+		lines.append("Van leaves in %ds" % ceili(departs_in) if intel.known and phase == Phase.WAIT else "Van: not seen")
+		_status.text = "\n".join(lines)
+		return
+	if not intel.known and not van_spotted:
+		lines.append("Van: not seen")
+		_status.text = "\n".join(lines)
+		return
 	var tire_text: PackedStringArray = []
 	for tire in van.tires:
 		tire_text.append("%s:%s" % [String(tire.tire_id).replace("front_", "F").replace("rear_", "R").replace("left", "L").replace("right", "R"), "FLAT" if tire.is_flat() else "%d" % int(tire.health)])
@@ -275,6 +391,59 @@ func _update_status() -> void:
 	if hit_time >= 0.0:
 		lines.append("Hit clock %ds  heat %d  cruisers %d  cops %d" % [int(hit_time), heat_level(), alive_cruisers().size(), session.police_response.alive_cops().size()])
 	_status.text = "\n".join(lines)
+
+
+## With intel: glowing chevrons along the van's lane for one lap from the on-ramp, and a beacon on the
+## on-ramp until the van leaves. Cleared once the hit starts.
+func _build_route_overlay() -> void:
+	_route_overlay = Node3D.new()
+	_route_overlay.name = "IntelRoute"
+	route.add_child(_route_overlay)
+	var material := StandardMaterial3D.new()
+	material.albedo_color = Color(1.0, 0.6, 0.1, 0.8)
+	material.emission_enabled = true
+	material.emission = Color(1.0, 0.55, 0.1)
+	material.emission_energy_multiplier = 1.5
+	material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	var arm := BoxMesh.new()
+	arm.size = Vector3(0.35, 0.04, 2.2)
+	arm.material = material
+	var total := route.length()
+	var d := 0.0
+	while d < total:
+		var on_road := route.sample(intel.start_distance + d, 3.5)
+		for side in [-1.0, 1.0]:
+			var chevron := MeshInstance3D.new()
+			chevron.mesh = arm
+			chevron.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+			chevron.transform = on_road * Transform3D(Basis(Vector3.UP, side * deg_to_rad(40.0)), Vector3(side * 0.7, 0.06, 0.0))
+			_route_overlay.add_child(chevron)
+		d += 24.0
+	_on_ramp_beacon = Node3D.new()
+	_on_ramp_beacon.name = "OnRampBeacon"
+	_on_ramp_beacon.transform = route.sample(intel.start_distance, 3.5)
+	route.add_child(_on_ramp_beacon)
+	var pillar := CylinderMesh.new()
+	pillar.top_radius = 1.2
+	pillar.bottom_radius = 1.2
+	pillar.height = 40.0
+	var pillar_material := material.duplicate() as StandardMaterial3D
+	pillar_material.albedo_color = Color(1.0, 0.55, 0.1, 0.35)
+	pillar.material = pillar_material
+	var beam := MeshInstance3D.new()
+	beam.mesh = pillar
+	beam.position.y = 20.0
+	beam.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+	_on_ramp_beacon.add_child(beam)
+	var label := Label3D.new()
+	label.text = "VAN ON-RAMP"
+	label.font_size = 96
+	label.modulate = Color(1.0, 0.7, 0.3)
+	label.billboard = BaseMaterial3D.BILLBOARD_ENABLED
+	label.no_depth_test = true
+	label.position.y = 6.0
+	_on_ramp_beacon.add_child(label)
 
 
 func _build_environment() -> void:

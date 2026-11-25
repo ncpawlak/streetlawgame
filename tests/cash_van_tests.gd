@@ -18,8 +18,13 @@ func run(main: Node) -> void:
 	var main_player: Player = GameState.player
 	var cash := GameState.cash
 	var respect := GameState.respect
+	await _test_intel_briefing(main)
+	await _test_no_intel(main)
 	var driver: CashVanDriver = load(DRIVER_SCENE).instantiate()
 	driver.position = OFFSET
+	driver.has_intel = true
+	driver.show_briefing = false
+	driver.departure_delay = 0.0
 	main.add_child(driver)
 	await _runner._physics_frames(10)
 	var player := driver.player
@@ -46,6 +51,52 @@ func run(main: Node) -> void:
 		camera.make_current()
 	GameState.cash = cash
 	GameState.respect = respect
+
+
+func _test_intel_briefing(main: Node) -> void:
+	var driver: CashVanDriver = load(DRIVER_SCENE).instantiate()
+	driver.position = OFFSET
+	driver.has_intel = true
+	driver.departure_delay = 1.0
+	main.add_child(driver)
+	await _runner._physics_frames(5)
+	var intel := driver.intel
+	_runner._check(driver.phase == CashVanDriver.Phase.BRIEFING and driver.briefing.visible and driver.van == null, "cash van intel: briefing comes first, van not on the road yet")
+	var text := "\n".join(intel.lines())
+	_runner._check(intel.known and intel.start_distance == CashVanDriver.VAN_ON_RAMP_DISTANCE and text.contains("leaves the on-ramp in 1s"), "cash van intel: reveals the route and schedule")
+	_runner._check(intel.guard_count == 3 and intel.guard_loadout.size() == 3 and text.contains("Guards: 3"), "cash van intel: reveals guard count and loadout (%s)" % ", ".join(intel.guard_loadout))
+	_runner._check(intel.cargo_value == 3470 and intel.cargo_slots == 12 and text.contains("$3470"), "cash van intel: reveals the cargo value")
+	_runner._check(driver.route.get_node_or_null("IntelRoute") != null and driver.route.get_node_or_null("OnRampBeacon") != null, "cash van intel: route is marked on the road before the hit")
+	await _runner._physics_frames(90)
+	_runner._check(driver.van == null and driver.phase == CashVanDriver.Phase.BRIEFING, "cash van intel: the van waits for the briefing to end")
+	driver.start_hit()
+	_runner._check(driver.phase == CashVanDriver.Phase.WAIT and driver.van == null and driver.objective_text().contains("on-ramp"), "cash van intel: after the briefing, a known departure countdown")
+	await _runner._physics_frames(75)
+	var van := driver.van
+	_runner._check(van != null and driver.phase == CashVanDriver.Phase.CHASE and absf(van.distance - CashVanDriver.VAN_ON_RAMP_DISTANCE) < 15.0, "cash van intel: van leaves the on-ramp on schedule")
+	await _runner._physics_frames(2)
+	_runner._check(driver.route.get_node_or_null("OnRampBeacon") == null, "cash van intel: on-ramp beacon clears when the van leaves")
+	driver.queue_free()
+	await _runner._physics_frames(2)
+
+
+func _test_no_intel(main: Node) -> void:
+	var driver: CashVanDriver = load(DRIVER_SCENE).instantiate()
+	driver.position = OFFSET
+	driver.has_intel = false
+	driver.intel_seed = 7
+	main.add_child(driver)
+	await _runner._physics_frames(5)
+	var intel := driver.intel
+	var text := "\n".join(intel.lines())
+	_runner._check(not intel.known and text.contains("Route: UNKNOWN") and text.contains("Schedule: UNKNOWN") and text.contains("Guards: UNKNOWN") and text.contains("Cargo: UNKNOWN"), "cash van no intel: route, schedule, guards and cargo unknown")
+	_runner._check(driver.route.get_node_or_null("IntelRoute") == null and driver.route.get_node_or_null("OnRampBeacon") == null, "cash van no intel: no route marked")
+	var delay_ok := intel.departure_delay >= CashVanIntel.UNKNOWN_DELAY_RANGE.x and intel.departure_delay <= CashVanIntel.UNKNOWN_DELAY_RANGE.y
+	_runner._check(delay_ok and intel.start_distance != CashVanDriver.VAN_ON_RAMP_DISTANCE, "cash van no intel: van leaves from an unknown spot after an unknown wait (%.0f m, %.1f s)" % [intel.start_distance, intel.departure_delay])
+	driver.start_hit()
+	_runner._check(driver.objective_text().contains("Find the cash van") and not driver.objective_text().contains("leaves"), "cash van no intel: no departure countdown shown")
+	driver.queue_free()
+	await _runner._physics_frames(2)
 
 
 func _test_tires(driver: CashVanDriver, van: ArmoredVan, player: Player) -> void:

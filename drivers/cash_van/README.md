@@ -8,7 +8,14 @@ godot --path . res://drivers/cash_van/cash_van_driver.tscn
 
 ## Flow
 
-1. **Chase.** You start in a getaway car with an assault rifle and an SMG, about 80 m behind the van on a looping highway. The van cruises at about 61 km/h, and your car is faster.
+0. **Intel briefing.** Before the hit, an intel card and a map of I-59 show what the crew knows (the HIT_LOOP scout step). With intel you get:
+   - **Route:** the loop, the van's lane and speed, and its on-ramp. The route is drawn on the map and marked on the road with orange chevrons and an on-ramp beacon.
+   - **Schedule:** when the van leaves, plus the lap time.
+   - **Guards:** how many and what they carry (SMG, shotgun, pistol), and whether there's a panic button.
+   - **Cargo:** what's in the van and how much it's worth (about $3,470 in 12 slots).
+
+   Press **Enter** to start, and the departure countdown begins. Without intel, everything shows "UNKNOWN", nothing is marked, and the van joins the loop at a random point after a random 8–25 s wait. You have to find it. **[I]** reopens the card. **[F6]** is a debug toggle that switches intel on/off and restarts. You can also launch with `-- --no-intel`.
+1. **Chase.** You start in a getaway car with an assault rifle and an SMG. The van cruises at about 61 km/h, and your car is faster.
 2. **Tires.** Each of the 4 tires (FL/FR/RL/RR) has its own hitbox and 45 hp. Hits on the armoured hull do nothing except raise the alarm. Each flat slows the van to 80%, then 62%, then 45% of its speed, and the van leans toward the flat side. After 4 flats it brakes to a stop.
 3. **Guards.** When the van stops, 3 armed guards get out (SMG, shotgun and pistol, 90 hp each) and fight.
 4. **Police.** The first shot at the van starts the hit clock and a 20 s panic-button countdown. Gunshots near the van also count. Heat is `1 + hit_time / 20 s`. Every police wave sends `heat` pursuit cruisers from behind (up to 6 at once) and `heat - 1` foot cops at a roadblock ahead. A new wave comes every 20 s while you're wanted. Cruisers ram your car, and their officers get out when you're on foot, slow, or have wrecked the cruiser.
@@ -26,6 +33,8 @@ Press **F5** to restart.
 | `cash_van_driver.gd/.tscn` | Scene root. Sets up the scene, tracks phases, runs escalation and the HUD objective. |
 | `highway_route.gd` | Stadium-loop highway (Curve3D), ground and roadside blocks. |
 | `armored_van.gd` | Van movement, state, door release and loot. |
+| `cash_van_intel.gd` | Intel data: route, schedule, guards and cargo, known or unknown. |
+| `intel_briefing.gd` | The pre-hit briefing card and route map. |
 | `van_tire.gd` | A single shootable tire. |
 | `van_guard.gd` | Armed guard (extends `GangMember`). |
 | `pursuit_cruiser.gd` | Police car that chases and rams you, then lets its officers out. |

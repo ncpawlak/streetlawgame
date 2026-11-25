@@ -55,7 +55,7 @@ Self-contained scenes for testing one gameplay type each. They aren't connected 
 godot --path . res://drivers/cash_van/cash_van_driver.tscn
 ```
 
-You start in a getaway car on a looping stretch of I-59, behind an armoured cash van. Shoot out all 4 tires (each one is tracked separately, and the van slows with each flat). After the 4th flat the van stops and three armed guards get out. The longer the hit takes, the more police cruisers join the pursuit. Once the van is stopped, go to its **front** and hold **E** to release the rear doors. Then bag as much cargo as fits in your 8-slot carry bag, lose the police, and cash in at the stash garage in the infield. Press **F5** to restart. See [drivers/cash_van/README.md](drivers/cash_van/README.md) for details.
+You start in a getaway car on a looping stretch of I-59. First an intel briefing shows the van's route (drawn on a map and marked on the road), its schedule, its guards and what it's carrying. Without intel (press **F6** to toggle it for debugging), none of that is known and you have to find the van yourself. Press Enter and the van heads out. Shoot out all 4 tires (each one is tracked separately, and the van slows with each flat). After the 4th flat the van stops and three armed guards get out. The longer the hit takes, the more police cruisers join the pursuit. Once the van is stopped, go to its **front** and hold **E** to release the rear doors. Then bag as much cargo as fits in your 8-slot carry bag, lose the police, and cash in at the stash garage in the infield. Press **F5** to restart. See [drivers/cash_van/README.md](drivers/cash_van/README.md) for details.
 
 ## Tests
 
