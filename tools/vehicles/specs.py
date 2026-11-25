@@ -176,13 +176,13 @@ V("bubble", "Bubble", "lowrider", "donk", 1950, 3.2, 170, 3, 360, 4,
 # --- Muscle ---------------------------------------------------------------------------------------
 
 def _thunderhorse(b, s):
-    x.stripe(b, [(2.35, 0.72), (2.2, 0.85), (0.85, 0.9), (0.1, 1.32), (-0.7, 1.32), (-2.0, 0.92), (-2.35, 0.9)])
+    x.stripe(b, [(2.35, 0.72), (2.2, 0.85), (0.85, 0.9), (0.15, 1.32), (-0.45, 1.32), (-1.75, 0.92), (-2.35, 0.9)])
     b.span("HoodScoop", -0.3, 0.3, 0.9, 1.0, 1.1, 1.7, "black")
 
 
 V("thunderhorse", "Thunderhorse", "muscle", "muscle", 1550, 4.6, 205, 4, 320, 2,
   ["residential", "suburbs", "highway"], "middle", ["#1a3c8f", "#b31b1b", "#f2a900", "#101010", "#e5e5e5"],
-  sedan_body(4.7, 1.9, 0.25, 0.9, 1.32, 0.85, -1.0, 0.75, 1.3,
+  sedan_body(4.7, 1.9, 0.25, 0.9, 1.32, 0.85, -1.75, 0.7, 1.3,
              lower=[(-2.35, 0.88), (-2.2, 0.9), (0.85, 0.9), (2.2, 0.85), (2.35, 0.72)], nose=0.85, tail=0.88,
              door_lines=[-0.4]),
   dict(wb=2.7, r=0.34, w=0.27, style="black"), trim=["#f5f5f5", "#101010"], extras=[_thunderhorse],
@@ -225,8 +225,8 @@ def _kestrel(b, s):
 
 V("kestrel", "Kestrel GT", "sports", "sports", 1350, 5.8, 250, 8, 260, 2,
   ["waterfront", "downtown", "highway"], "upper", ["#c0c0c0", "#d1001f", "#0a0a0a", "#f2b705", "#1c5d99"],
-  sedan_body(4.5, 1.92, 0.18, 0.78, 1.22, 0.55, -0.9, 0.75, 0.9, nose=0.6, tail=0.75,
-             lower=[(-2.25, 0.75), (-2.0, 0.82), (0.55, 0.8), (2.0, 0.6), (2.25, 0.5)], grille_h=0.1,
+  sedan_body(4.5, 1.92, 0.18, 0.78, 1.22, 0.75, -1.55, 0.7, 1.0, nose=0.6, tail=0.75,
+             lower=[(-2.25, 0.75), (-2.0, 0.82), (0.75, 0.8), (2.0, 0.6), (2.25, 0.5)], grille_h=0.1,
              light_size=(0.4, 0.08), door_lines=[-0.45]),
   dict(wb=2.5, r=0.34, w=0.27, style="rim"), extras=[_kestrel],
   desc="Rear-engined GT with a ducktail. Precise and planted.")
@@ -239,8 +239,8 @@ def _vortex(b, s):
 
 V("vortex", "Vortex", "sports", "sports", 1400, 6.8, 290, 9, 240, 2,
   ["waterfront", "highway"], "rich", ["#a6e22e", "#ffb000", "#f25c05", "#f4f4f4", "#7b2cbf"],
-  sedan_body(4.6, 2.02, 0.12, 0.7, 1.12, 0.7, -0.4, 1.1, 0.25, nose=0.38, tail=0.8,
-             lower=[(-2.3, 0.82), (-1.6, 0.8), (0.7, 0.7), (2.3, 0.38)], light_y=0.42, light_size=(0.45, 0.06),
+  sedan_body(4.6, 2.02, 0.12, 0.7, 1.12, 0.75, -1.1, 1.0, 0.45, nose=0.38, tail=0.8,
+             lower=[(-2.3, 0.82), (-1.6, 0.8), (0.75, 0.7), (2.3, 0.38)], light_y=0.42, light_size=(0.45, 0.06),
              grille=None, bumper=None, roof_mat="black", pillar_mat="black"),
   dict(wb=2.7, r=0.35, w=0.3, style="black", drive="awd"), extras=[_vortex],
   desc="Mid-engined wedge. The fastest thing in Palm County with plates.")

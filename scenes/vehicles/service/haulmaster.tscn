@@ -198,7 +198,7 @@ mesh = SubResource("BoxMesh_4")
 metadata/paint = "primary"
 
 [node name="Body4" type="MeshInstance3D" parent="Body"]
-transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 0, 1.275, 3.75)
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 0, 1.275, 3.75)
 mesh = SubResource("PrismMesh_5")
 metadata/paint = "primary"
 
@@ -211,7 +211,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.95, 2.65)
 mesh = SubResource("BoxMesh_8")
 
 [node name="Glass2" type="MeshInstance3D" parent="Body"]
-transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 0, 1.95, 3.325)
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 0, 1.95, 3.325)
 mesh = SubResource("PrismMesh_9")
 
 [node name="Roof" type="MeshInstance3D" parent="Body"]
@@ -299,11 +299,11 @@ damping_compression = 2
 damping_relaxation = 2.8
 
 [node name="Tire" type="MeshInstance3D" parent="WheelFL"]
-transform = Transform3D(0, 1, 0, -1, 0, 0, 0, 0, 1, 0, 0, 0)
+transform = Transform3D(0, -1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0)
 mesh = SubResource("CylinderMesh_25")
 
 [node name="Rim" type="MeshInstance3D" parent="WheelFL"]
-transform = Transform3D(0, 1, 0, -1, 0, 0, 0, 0, 1, 0, 0, 0)
+transform = Transform3D(0, -1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0)
 mesh = SubResource("CylinderMesh_27")
 
 [node name="Hub" type="MeshInstance3D" parent="WheelFL"]
@@ -315,7 +315,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.162, 0, 0)
 mesh = SubResource("BoxMesh_29")
 
 [node name="WheelWell" type="MeshInstance3D" parent="Body"]
-transform = Transform3D(0, 1, 0, -1, 0, 0, 0, 0, 1, 1.156, 0.48, 2.8)
+transform = Transform3D(0, -1, 0, 1, 0, 0, 0, 0, 1, 1.156, 0.48, 2.8)
 mesh = SubResource("CylinderMesh_30")
 
 [node name="WheelFR" type="VehicleWheel3D" parent="."]
@@ -333,11 +333,11 @@ damping_compression = 2
 damping_relaxation = 2.8
 
 [node name="Tire" type="MeshInstance3D" parent="WheelFR"]
-transform = Transform3D(0, 1, 0, -1, 0, 0, 0, 0, 1, 0, 0, 0)
+transform = Transform3D(0, -1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0)
 mesh = SubResource("CylinderMesh_25")
 
 [node name="Rim" type="MeshInstance3D" parent="WheelFR"]
-transform = Transform3D(0, 1, 0, -1, 0, 0, 0, 0, 1, 0, 0, 0)
+transform = Transform3D(0, -1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0)
 mesh = SubResource("CylinderMesh_27")
 
 [node name="Hub" type="MeshInstance3D" parent="WheelFR"]
@@ -349,7 +349,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.162, 0, 0)
 mesh = SubResource("BoxMesh_29")
 
 [node name="WheelWell2" type="MeshInstance3D" parent="Body"]
-transform = Transform3D(0, 1, 0, -1, 0, 0, 0, 0, 1, -1.156, 0.48, 2.8)
+transform = Transform3D(0, -1, 0, 1, 0, 0, 0, 0, 1, -1.156, 0.48, 2.8)
 mesh = SubResource("CylinderMesh_30")
 
 [node name="WheelRL" type="VehicleWheel3D" parent="."]
@@ -367,11 +367,11 @@ damping_compression = 2
 damping_relaxation = 2.8
 
 [node name="Tire" type="MeshInstance3D" parent="WheelRL"]
-transform = Transform3D(0, 1, 0, -1, 0, 0, 0, 0, 1, 0, 0, 0)
+transform = Transform3D(0, -1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0)
 mesh = SubResource("CylinderMesh_25")
 
 [node name="Rim" type="MeshInstance3D" parent="WheelRL"]
-transform = Transform3D(0, 1, 0, -1, 0, 0, 0, 0, 1, 0, 0, 0)
+transform = Transform3D(0, -1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0)
 mesh = SubResource("CylinderMesh_27")
 
 [node name="Hub" type="MeshInstance3D" parent="WheelRL"]
@@ -383,7 +383,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.162, 0, 0)
 mesh = SubResource("BoxMesh_29")
 
 [node name="WheelWell3" type="MeshInstance3D" parent="Body"]
-transform = Transform3D(0, 1, 0, -1, 0, 0, 0, 0, 1, 1.156, 0.48, -1.8)
+transform = Transform3D(0, -1, 0, 1, 0, 0, 0, 0, 1, 1.156, 0.48, -1.8)
 mesh = SubResource("CylinderMesh_30")
 
 [node name="WheelRR" type="VehicleWheel3D" parent="."]
@@ -401,11 +401,11 @@ damping_compression = 2
 damping_relaxation = 2.8
 
 [node name="Tire" type="MeshInstance3D" parent="WheelRR"]
-transform = Transform3D(0, 1, 0, -1, 0, 0, 0, 0, 1, 0, 0, 0)
+transform = Transform3D(0, -1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0)
 mesh = SubResource("CylinderMesh_25")
 
 [node name="Rim" type="MeshInstance3D" parent="WheelRR"]
-transform = Transform3D(0, 1, 0, -1, 0, 0, 0, 0, 1, 0, 0, 0)
+transform = Transform3D(0, -1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0)
 mesh = SubResource("CylinderMesh_27")
 
 [node name="Hub" type="MeshInstance3D" parent="WheelRR"]
@@ -417,7 +417,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.162, 0, 0)
 mesh = SubResource("BoxMesh_29")
 
 [node name="WheelWell4" type="MeshInstance3D" parent="Body"]
-transform = Transform3D(0, 1, 0, -1, 0, 0, 0, 0, 1, -1.156, 0.48, -1.8)
+transform = Transform3D(0, -1, 0, 1, 0, 0, 0, 0, 1, -1.156, 0.48, -1.8)
 mesh = SubResource("CylinderMesh_30")
 
 [node name="Seats" type="Node3D" parent="."]
@@ -443,7 +443,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.2, -0.875)
 shape = SubResource("BoxShape3D_33")
 
 [node name="Livery" type="Label3D" parent="Body"]
-transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 1.237, 2.3, -0.9)
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 1.237, 2.3, -0.9)
 pixel_size = 0.009
 double_sided = false
 modulate = Color(0.85, 0.35, 0.05, 1)
@@ -453,7 +453,7 @@ font_size = 64
 outline_size = 10
 
 [node name="Livery2" type="Label3D" parent="Body"]
-transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -1.237, 2.3, -0.9)
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -1.237, 2.3, -0.9)
 pixel_size = 0.009
 double_sided = false
 modulate = Color(0.85, 0.35, 0.05, 1)

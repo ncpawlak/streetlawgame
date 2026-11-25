@@ -41,8 +41,8 @@ def basis(rot_deg=(0.0, 0.0, 0.0)):
 
 def xform(pos=(0.0, 0.0, 0.0), rot=(0.0, 0.0, 0.0)):
     m = basis(rot)
-    # Transform3D(xx, xy, xz, yx, yy, yz, zx, zy, zz, ox, oy, oz) lists the basis columns.
-    vals = (m[0][0], m[1][0], m[2][0], m[0][1], m[1][1], m[2][1], m[0][2], m[1][2], m[2][2]) + tuple(pos)
+    # The .tscn Transform3D(...) text lists the basis row by row (verified against str_to_var).
+    vals = (m[0][0], m[0][1], m[0][2], m[1][0], m[1][1], m[1][2], m[2][0], m[2][1], m[2][2]) + tuple(pos)
     return "Transform3D(%s)" % ", ".join(f(v) for v in vals)
 
 

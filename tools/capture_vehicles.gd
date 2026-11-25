@@ -1,9 +1,9 @@
 extends Node
 ## Screenshot tool for the vehicle kit. Run windowed:
 ##   godot --path . res://tools/capture_vehicles.tscn -- <output_dir> [vehicle ids...]
-## Saves lot overviews, the test loop, one shot per class (its whole line-up from the aisle) and a
-## front three-quarter close-up of every listed vehicle (all of them by default), with the player
-## standing alongside for scale.
+## Saves lot overviews, the test loop, one shot per class (its whole line-up from the aisle) and
+## front three-quarter (with the player alongside for scale), side and rear three-quarter close-ups
+## of every listed vehicle (all of them by default).
 
 const SHOWCASE := preload("res://scenes/vehicles/vehicle_showcase.tscn")
 
@@ -71,9 +71,18 @@ func _ready() -> void:
 		player.global_position = o + b * Vector3(-(float(size[0]) * 0.5 + 0.8), 0.05, length * 0.15)
 		player.global_rotation = Vector3(0.0, v.global_rotation.y, 0.0)
 		var dist := clampf(length * 0.95, 5.0, 9.0)
+		var aim := o + b * Vector3(0.0, height * 0.45, -length * 0.08)
 		var eye := o + b * Vector3(dist * 0.75, height * 0.5 + 1.1, dist * 0.7 + length * 0.2)
-		cam.look_at_from_position(eye, o + b * Vector3(0.0, height * 0.45, -length * 0.08))
+		cam.look_at_from_position(eye, aim)
 		await _shot(out_dir.path_join("vehicle_%s.png" % id))
+		player.visible = false
+		aim = o + b * Vector3(0.0, height * 0.45, 0.0)
+		cam.look_at_from_position(o + b * Vector3(length * 0.75 + 4.0, height * 0.45 + 0.4, 0.0), aim)
+		await _shot(out_dir.path_join("vehicle_%s_side.png" % id))
+		eye = o + b * Vector3(-dist * 0.75, height * 0.5 + 1.1, -(dist * 0.7 + length * 0.2))
+		cam.look_at_from_position(eye, aim)
+		await _shot(out_dir.path_join("vehicle_%s_rear.png" % id))
+		player.visible = true
 	get_tree().quit()
 
 

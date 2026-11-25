@@ -222,7 +222,7 @@ def build_showcase(specs):
             "horizontal_alignment": "0", "double_sided": "false", "modulate": color((0.92, 0.94, 0.96)),
             "text": quote(kiosk_text(s))})
     sc.node("Vehicles", "Node3D", ".")
-    sc.node("Player", None, ".", {"transform": xform((-LOOP_X + 12, 1.2, 0), (0, -90, 0))},
+    sc.node("Player", None, ".", {"transform": xform((-LOOP_X + 12, 1.2, 0), (0, 90, 0))},
             instance="res://scenes/player/player.tscn")
     sc.node("HUD", "CanvasLayer", ".", {"script": sc.res("res://scripts/ui/hud.gd", "Script")})
     sc.save(os.path.join(ROOT, "scenes", "vehicles", "vehicle_showcase.tscn"))

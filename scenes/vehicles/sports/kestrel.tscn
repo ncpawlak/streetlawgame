@@ -19,21 +19,21 @@ size = Vector3(0.25, 0.07, 1.92)
 
 [sub_resource type="BoxMesh" id="BoxMesh_4"]
 material = SubResource("StandardMaterial3D_1")
-size = Vector3(1.92, 0.62, 2.55)
+size = Vector3(1.92, 0.62, 2.75)
 
 [sub_resource type="PrismMesh" id="PrismMesh_5"]
 material = SubResource("StandardMaterial3D_1")
 left_to_right = 1
-size = Vector3(2.55, 0.02, 1.92)
+size = Vector3(2.75, 0.02, 1.92)
 
 [sub_resource type="BoxMesh" id="BoxMesh_6"]
 material = SubResource("StandardMaterial3D_1")
-size = Vector3(1.92, 0.42, 1.45)
+size = Vector3(1.92, 0.42, 1.25)
 
 [sub_resource type="PrismMesh" id="PrismMesh_7"]
 material = SubResource("StandardMaterial3D_1")
 left_to_right = 1
-size = Vector3(1.45, 0.2, 1.92)
+size = Vector3(1.25, 0.2, 1.92)
 
 [sub_resource type="BoxMesh" id="BoxMesh_8"]
 material = SubResource("StandardMaterial3D_1")
@@ -55,35 +55,35 @@ roughness = 0.08
 [sub_resource type="PrismMesh" id="PrismMesh_12"]
 material = SubResource("StandardMaterial3D_11")
 left_to_right = 0
-size = Vector3(0.9, 0.44, 1.72)
+size = Vector3(1, 0.44, 1.72)
 
 [sub_resource type="BoxMesh" id="BoxMesh_13"]
 material = SubResource("StandardMaterial3D_11")
-size = Vector3(1.72, 0.44, 0.2)
+size = Vector3(1.72, 0.44, 0.6)
 
 [sub_resource type="PrismMesh" id="PrismMesh_14"]
 material = SubResource("StandardMaterial3D_11")
 left_to_right = 1
-size = Vector3(0.75, 0.44, 1.72)
+size = Vector3(0.7, 0.44, 1.72)
 
 [sub_resource type="BoxMesh" id="BoxMesh_15"]
 material = SubResource("StandardMaterial3D_1")
-size = Vector3(1.75, 0.05, 0.16)
+size = Vector3(1.75, 0.05, 0.64)
 
 [sub_resource type="BoxMesh" id="BoxMesh_16"]
 material = SubResource("StandardMaterial3D_1")
-size = Vector3(0.06, 0.08, 0.8798)
+size = Vector3(0.06, 0.08, 0.8376)
 
 [sub_resource type="BoxMesh" id="BoxMesh_17"]
 material = SubResource("StandardMaterial3D_1")
-size = Vector3(0.06, 0.16, 1.0107)
+size = Vector3(0.06, 0.16, 1.1007)
 
 [sub_resource type="BoxMesh" id="BoxMesh_18"]
 material = SubResource("StandardMaterial3D_1")
 size = Vector3(0.036, 0.44, 0.1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_19"]
-size = Vector3(1.72, 0.44, 0.79)
+size = Vector3(1.72, 0.44, 1.62)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_20"]
 albedo_color = Color(0.12, 0.12, 0.13, 1)
@@ -205,27 +205,27 @@ mesh = SubResource("BoxMesh_2")
 metadata/paint = "primary"
 
 [node name="Body2" type="MeshInstance3D" parent="Body"]
-transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 0, 0.785, -2.125)
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 0, 0.785, -2.125)
 mesh = SubResource("PrismMesh_3")
 metadata/paint = "primary"
 
 [node name="Body3" type="MeshInstance3D" parent="Body"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.49, -0.725)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.49, -0.625)
 mesh = SubResource("BoxMesh_4")
 metadata/paint = "primary"
 
 [node name="Body4" type="MeshInstance3D" parent="Body"]
-transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 0, 0.81, -0.725)
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 0, 0.81, -0.625)
 mesh = SubResource("PrismMesh_5")
 metadata/paint = "primary"
 
 [node name="Body5" type="MeshInstance3D" parent="Body"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.39, 1.275)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.39, 1.375)
 mesh = SubResource("BoxMesh_6")
 metadata/paint = "primary"
 
 [node name="Body6" type="MeshInstance3D" parent="Body"]
-transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 0, 0.7, 1.275)
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 0, 0.7, 1.375)
 mesh = SubResource("PrismMesh_7")
 metadata/paint = "primary"
 
@@ -235,7 +235,7 @@ mesh = SubResource("BoxMesh_8")
 metadata/paint = "primary"
 
 [node name="Body8" type="MeshInstance3D" parent="Body"]
-transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 0, 0.55, 2.125)
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 0, 0.55, 2.125)
 mesh = SubResource("PrismMesh_9")
 metadata/paint = "primary"
 
@@ -244,62 +244,62 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.48, 0)
 shape = SubResource("BoxShape3D_10")
 
 [node name="Glass" type="MeshInstance3D" parent="Body"]
-transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 0, 1, -0.45)
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 0, 1, -1.05)
 mesh = SubResource("PrismMesh_12")
 
 [node name="Glass2" type="MeshInstance3D" parent="Body"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -0.1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -0.25)
 mesh = SubResource("BoxMesh_13")
 
 [node name="Glass3" type="MeshInstance3D" parent="Body"]
-transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 0, 1, 0.175)
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 0, 1, 0.4)
 mesh = SubResource("PrismMesh_14")
 
 [node name="Roof" type="MeshInstance3D" parent="Body"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.245, -0.1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.245, -0.25)
 mesh = SubResource("BoxMesh_15")
 metadata/paint = "primary"
 
 [node name="APillar" type="MeshInstance3D" parent="Body"]
-transform = Transform3D(-1, 0, 0, 0, 0.8524, 0.5228, 0, 0.5228, -0.8524, 0.866, 1.01, 0.175)
+transform = Transform3D(-1, 0, 0, 0, 0.8357, 0.5492, 0, 0.5492, -0.8357, 0.866, 1.01, 0.4)
 mesh = SubResource("BoxMesh_16")
 metadata/paint = "primary"
 
 [node name="APillar2" type="MeshInstance3D" parent="Body"]
-transform = Transform3D(-1, 0, 0, 0, 0.8524, 0.5228, 0, 0.5228, -0.8524, -0.866, 1.01, 0.175)
+transform = Transform3D(-1, 0, 0, 0, 0.8357, 0.5492, 0, 0.5492, -0.8357, -0.866, 1.01, 0.4)
 mesh = SubResource("BoxMesh_16")
 metadata/paint = "primary"
 
 [node name="CPillar" type="MeshInstance3D" parent="Body"]
-transform = Transform3D(1, 0, 0, 0, 0.8904, -0.4551, 0, 0.4551, 0.8904, 0.866, 1.01, -0.45)
+transform = Transform3D(1, 0, 0, 0, 0.9085, 0.4179, 0, -0.4179, 0.9085, 0.866, 1.01, -1.05)
 mesh = SubResource("BoxMesh_17")
 metadata/paint = "primary"
 
 [node name="CPillar2" type="MeshInstance3D" parent="Body"]
-transform = Transform3D(1, 0, 0, 0, 0.8904, -0.4551, 0, 0.4551, 0.8904, -0.866, 1.01, -0.45)
+transform = Transform3D(1, 0, 0, 0, 0.9085, 0.4179, 0, -0.4179, 0.9085, -0.866, 1.01, -1.05)
 mesh = SubResource("BoxMesh_17")
 metadata/paint = "primary"
 
 [node name="BPillar" type="MeshInstance3D" parent="Body"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.854, 1, -0.1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.854, 1, -0.25)
 mesh = SubResource("BoxMesh_18")
 metadata/paint = "primary"
 
 [node name="BPillar2" type="MeshInstance3D" parent="Body"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.854, 1, -0.1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.854, 1, -0.25)
 mesh = SubResource("BoxMesh_18")
 metadata/paint = "primary"
 
 [node name="CabinShape" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -0.1225)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -0.295)
 shape = SubResource("BoxShape3D_19")
 
 [node name="Mirror" type="MeshInstance3D" parent="Body"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0.9, 0.4)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0.9, 0.6)
 mesh = SubResource("BoxMesh_21")
 
 [node name="Mirror2" type="MeshInstance3D" parent="Body"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0.9, 0.4)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0.9, 0.6)
 mesh = SubResource("BoxMesh_21")
 
 [node name="FrontBumper" type="MeshInstance3D" parent="Body"]
@@ -353,11 +353,11 @@ damping_compression = 2.4
 damping_relaxation = 3.4
 
 [node name="Tire" type="MeshInstance3D" parent="WheelFL"]
-transform = Transform3D(0, 1, 0, -1, 0, 0, 0, 0, 1, 0, 0, 0)
+transform = Transform3D(0, -1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0)
 mesh = SubResource("CylinderMesh_31")
 
 [node name="Rim" type="MeshInstance3D" parent="WheelFL"]
-transform = Transform3D(0, 1, 0, -1, 0, 0, 0, 0, 1, 0, 0, 0)
+transform = Transform3D(0, -1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0)
 mesh = SubResource("CylinderMesh_33")
 
 [node name="Hub" type="MeshInstance3D" parent="WheelFL"]
@@ -369,7 +369,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.147, 0, 0)
 mesh = SubResource("BoxMesh_35")
 
 [node name="WheelWell" type="MeshInstance3D" parent="Body"]
-transform = Transform3D(0, 1, 0, -1, 0, 0, 0, 0, 1, 0.966, 0.34, 1.25)
+transform = Transform3D(0, -1, 0, 1, 0, 0, 0, 0, 1, 0.966, 0.34, 1.25)
 mesh = SubResource("CylinderMesh_36")
 
 [node name="WheelFR" type="VehicleWheel3D" parent="."]
@@ -387,11 +387,11 @@ damping_compression = 2.4
 damping_relaxation = 3.4
 
 [node name="Tire" type="MeshInstance3D" parent="WheelFR"]
-transform = Transform3D(0, 1, 0, -1, 0, 0, 0, 0, 1, 0, 0, 0)
+transform = Transform3D(0, -1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0)
 mesh = SubResource("CylinderMesh_31")
 
 [node name="Rim" type="MeshInstance3D" parent="WheelFR"]
-transform = Transform3D(0, 1, 0, -1, 0, 0, 0, 0, 1, 0, 0, 0)
+transform = Transform3D(0, -1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0)
 mesh = SubResource("CylinderMesh_33")
 
 [node name="Hub" type="MeshInstance3D" parent="WheelFR"]
@@ -403,7 +403,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.147, 0, 0)
 mesh = SubResource("BoxMesh_35")
 
 [node name="WheelWell2" type="MeshInstance3D" parent="Body"]
-transform = Transform3D(0, 1, 0, -1, 0, 0, 0, 0, 1, -0.966, 0.34, 1.25)
+transform = Transform3D(0, -1, 0, 1, 0, 0, 0, 0, 1, -0.966, 0.34, 1.25)
 mesh = SubResource("CylinderMesh_36")
 
 [node name="WheelRL" type="VehicleWheel3D" parent="."]
@@ -421,11 +421,11 @@ damping_compression = 2.4
 damping_relaxation = 3.4
 
 [node name="Tire" type="MeshInstance3D" parent="WheelRL"]
-transform = Transform3D(0, 1, 0, -1, 0, 0, 0, 0, 1, 0, 0, 0)
+transform = Transform3D(0, -1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0)
 mesh = SubResource("CylinderMesh_31")
 
 [node name="Rim" type="MeshInstance3D" parent="WheelRL"]
-transform = Transform3D(0, 1, 0, -1, 0, 0, 0, 0, 1, 0, 0, 0)
+transform = Transform3D(0, -1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0)
 mesh = SubResource("CylinderMesh_33")
 
 [node name="Hub" type="MeshInstance3D" parent="WheelRL"]
@@ -437,7 +437,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.147, 0, 0)
 mesh = SubResource("BoxMesh_35")
 
 [node name="WheelWell3" type="MeshInstance3D" parent="Body"]
-transform = Transform3D(0, 1, 0, -1, 0, 0, 0, 0, 1, 0.966, 0.34, -1.25)
+transform = Transform3D(0, -1, 0, 1, 0, 0, 0, 0, 1, 0.966, 0.34, -1.25)
 mesh = SubResource("CylinderMesh_36")
 
 [node name="WheelRR" type="VehicleWheel3D" parent="."]
@@ -455,11 +455,11 @@ damping_compression = 2.4
 damping_relaxation = 3.4
 
 [node name="Tire" type="MeshInstance3D" parent="WheelRR"]
-transform = Transform3D(0, 1, 0, -1, 0, 0, 0, 0, 1, 0, 0, 0)
+transform = Transform3D(0, -1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0)
 mesh = SubResource("CylinderMesh_31")
 
 [node name="Rim" type="MeshInstance3D" parent="WheelRR"]
-transform = Transform3D(0, 1, 0, -1, 0, 0, 0, 0, 1, 0, 0, 0)
+transform = Transform3D(0, -1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0)
 mesh = SubResource("CylinderMesh_33")
 
 [node name="Hub" type="MeshInstance3D" parent="WheelRR"]
@@ -471,19 +471,19 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.147, 0, 0)
 mesh = SubResource("BoxMesh_35")
 
 [node name="WheelWell4" type="MeshInstance3D" parent="Body"]
-transform = Transform3D(0, 1, 0, -1, 0, 0, 0, 0, 1, -0.966, 0.34, -1.25)
+transform = Transform3D(0, -1, 0, 1, 0, 0, 0, 0, 1, -0.966, 0.34, -1.25)
 mesh = SubResource("CylinderMesh_36")
 
 [node name="Seats" type="Node3D" parent="."]
 
 [node name="Driver" type="Marker3D" parent="Seats"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4224, 0.58, -0.55)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4224, 0.58, -0.3)
 
 [node name="Passenger1" type="Marker3D" parent="Seats"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4224, 0.58, -0.55)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4224, 0.58, -0.3)
 
 [node name="Exit" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.86, 0.2, -0.55)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.86, 0.2, -0.3)
 
 [node name="EngineSmoke" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.88, 1.45)

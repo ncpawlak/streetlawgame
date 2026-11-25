@@ -101,6 +101,9 @@ def car(b, s):
 
     if d.get("greenhouse", True):
         top_r, top_f = cr + rr, cf - ws
+        if top_f - top_r < 0.2:
+            raise ValueError("%s: windshield top (z=%.2f) must sit ahead of the rear-glass top (z=%.2f)"
+                             % (s["id"], top_f, top_r))
         b.profile("Glass", [(cr, belt), (top_r, roof), (top_f, roof), (cf, belt)], belt, gw, "glass")
         roof_mat = d.get("roof_mat", "paint")
         b.span("Roof", -gw / 2 - 0.015, gw / 2 + 0.015, roof, roof + 0.05, top_r - 0.02, top_f + 0.02, roof_mat)
@@ -146,28 +149,33 @@ def bike(b, s):
     scooter = d.get("scooter", False)
     wz = s["wheels"]["wb"] / 2
     if scooter:
-        b.profile("Body", [(-hl + 0.1, 0.62), (-0.1, 0.72), (0.25, 0.42), (hl - 0.35, 0.42)], 0.28, 0.42, "paint")
+        b.profile("Body", [(-hl + 0.1, 0.7), (-0.1, 0.72), (0.25, 0.42), (hl - 0.35, 0.42)], 0.28, 0.42, "paint")
         b.span("Floorboard", -0.2, 0.2, 0.28, 0.34, -0.05, hl - 0.3, "plastic")
         b.strut("Column", (0, 0.4, hl - 0.38), (0, 1.0, hl - 0.48), 0.22, "paint", depth=0.12)
         b.box("Shield", (0.42, 0.55, 0.08), (0, 0.66, hl - 0.33), "paint", rot=(-12, 0, 0))
-        b.box("Seat", (0.3, 0.1, 0.62), (0, 0.78, -0.25), "leather")
+        b.box("Seat", (0.3, 0.12, 0.62), (0, 0.78, -0.25), "leather")
         b.box("Bars", (0.7, 0.04, 0.04), (0, 1.02, hl - 0.48), "chrome")
-        b.box("Headlight", (0.16, 0.1, 0.04), (0, 0.9, hl - 0.42), "headlight")
+        b.box("Headlight", (0.16, 0.1, 0.04), (0, 0.95, hl - 0.4), "headlight")
         b.box("Taillight", (0.14, 0.06, 0.04), (0, 0.66, -hl + 0.08), "taillight")
-        b.box("Basket", (0.34, 0.2, 0.3), (0, 0.98, hl - 0.25), "steel")
+        b.box("Basket", (0.34, 0.2, 0.26), (0, 0.76, hl - 0.13), "steel")
     else:
-        b.box("Engine", (0.38, 0.4, 0.55), (0, 0.48, 0.05), "black")
-        b.profile("Fairing", [(0.2, 0.95), (hl - 0.25, 0.92), (hl - 0.05, 0.62)], 0.5, 0.46, "paint")
-        b.box("Tank", (0.4, 0.22, 0.5), (0, 0.98, 0.0), "paint")
-        b.box("Seat", (0.3, 0.1, 0.55), (0, 0.96, -0.45), "black")
-        b.profile("Tail", [(-hl + 0.05, 1.08), (-0.55, 0.98)], 0.82, 0.26, "paint2")
-        b.box("Screen", (0.3, 0.3, 0.03), (0, 1.08, hl - 0.28), "glass", rot=(-35, 0, 0))
-        b.strut("Fork", (0.1, 0.45, wz), (0.1, 1.0, hl - 0.35), 0.05, "chrome", mirror=True)
+        # Sportbike: low engine between the wheels, raked fork up to the headstock, tank sweeping
+        # back into the seat, a tail cowl rising to the rear and a nose fairing with a raked screen.
+        head = (0.0, 1.0, wz - 0.17)
+        b.box("Engine", (0.36, 0.38, 0.55), (0, 0.5, 0.05), "black")
+        b.strut("Spar", (0.14, 0.62, -0.3), (0.14, head[1] - 0.04, head[2] - 0.05), 0.05, "steel", mirror=True, depth=0.12)
+        b.strut("Fork", (0.1, r, wz), (0.1, head[1], head[2]), 0.05, "chrome", mirror=True)
+        b.profile("Tank", [(-0.2, 1.0), (0.12, 1.1), (0.48, 1.02)], 0.72, 0.4, "paint")
+        b.span("Seat", -0.15, 0.15, 0.86, 0.95, -0.68, -0.18, "black")
+        b.profile("Tail", [(-0.68, 0.94), (-hl + 0.05, 1.06)], 0.78, 0.26, "paint2")
+        b.profile("Fairing", [(0.42, 1.06), (0.74, 1.0), (hl - 0.06, 0.74)], 0.72, 0.5, "paint")
+        b.box("Screen", (0.32, 0.22, 0.02), (0, 1.14, 0.62), "glass", rot=(-35, 0, 0))
         b.strut("Swingarm", (0.12, 0.42, -0.2), (0.12, r, -wz), 0.05, "steel", mirror=True)
-        b.box("Bars", (0.62, 0.04, 0.04), (0, 1.02, hl - 0.42), "black")
-        b.box("Headlight", (0.2, 0.1, 0.04), (0, 0.82, hl - 0.06), "headlight")
-        b.box("Taillight", (0.14, 0.05, 0.04), (0, 1.02, -hl + 0.06), "taillight")
-        b.cyl("Exhaust", 0.05, 0.6, (-0.18, 0.5, -0.5), "chrome", rot=(80, 0, 0))
+        b.span("Fender", -0.08, 0.08, 0.68, 0.71, wz - 0.25, wz + 0.2, "black")
+        b.box("Bars", (0.56, 0.04, 0.04), (0, 0.98, head[2] - 0.08), "black")
+        b.box("Headlight", (0.22, 0.08, 0.04), (0, 0.84, hl - 0.15), "headlight")
+        b.box("Taillight", (0.14, 0.05, 0.04), (0, 1.02, -hl + 0.04), "taillight")
+        b.strut("Exhaust", (-0.17, 0.4, -0.15), (-0.17, 0.78, -0.82), 0.1, "chrome")
     b.shape("FrameShape", (0.5, 0.75, L * 0.9), (0, 0.7, 0))
     wd = s["wheels"]
     h = s["handling"]
