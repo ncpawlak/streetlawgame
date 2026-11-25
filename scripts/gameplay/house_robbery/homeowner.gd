@@ -47,7 +47,7 @@ func _ready() -> void:
 	super._ready()
 	add_to_group("homeowners")
 	remove_from_group("gang_members")
-	_body_material.albedo_color = Color(0.55, 0.42, 0.62) if not armed else Color(0.3, 0.3, 0.3)
+	_rebuild_visual(&"civilian", Color(0.55, 0.42, 0.62) if not armed else Color(0.3, 0.3, 0.3))
 	EventBus.gunshot.connect(_on_gunshot)
 	_marker = Label3D.new()
 	_marker.text = "OWNER"
@@ -63,7 +63,9 @@ func _ready() -> void:
 	add_child(_marker)
 	var phone_mesh := BoxMesh.new()
 	phone_mesh.size = Vector3(0.08, 0.16, 0.02)
-	phone_mesh.material = _material(Color(0.1, 0.1, 0.12))
+	var phone_material := StandardMaterial3D.new()
+	phone_material.albedo_color = Color(0.1, 0.1, 0.12)
+	phone_mesh.material = phone_material
 	_phone = MeshInstance3D.new()
 	_phone.mesh = phone_mesh
 	_phone.position = Vector3(0.35, 1.55, -0.1)
@@ -177,8 +179,8 @@ func _set_mood(value: Mood) -> void:
 	_phone.visible = value == Mood.PHONING
 	var squash := Vector3(1.0, 0.65, 1.0) if value == Mood.COWERING else Vector3.ONE
 	for child in get_children():
-		if child is MeshInstance3D and child != _phone:
-			(child as MeshInstance3D).scale = squash
+		if (child is MeshInstance3D or child is CharacterVisual) and child != _phone:
+			(child as Node3D).scale = squash
 
 
 func _on_gunshot(at: Vector3, shooter: Node) -> void:

@@ -49,7 +49,7 @@ docs/                  Design & architecture docs
 | `District` | `Node3D` | District bounds, safehouse, guards/patrols, map overlay; ticks its `CaptureRule`. Generated or placed by hand with a `district_id`. |
 | `Safehouse` | `Node3D` | A district's safehouse: visual from `SafehouseData.visual` (`VisualSpec`, greybox fallback), door, guard points, and an `Interactable` with "Take over" (`can_claim/claim`) and "Manage" (`can_manage/manage`, emits `safehouse_manage_requested` for #25). |
 | `CaptureRule` | `Resource` | Pluggable capture mechanic (`SafehouseCaptureRule` default, `ClearAndHoldCaptureRule`). Per-district progress lives in `DistrictState`. |
-| `CityGenerator` | `Node3D` | Deterministic greybox city: roads, buildings, districts from content (reserving a safehouse lot each), parked cars. |
+| `CityGenerator` | `Node3D` | Greybox North End built from `NorthEndLayout` (generated from the wireframe SVG by `tools/extract_north_end_layout.py`, 1 px = 1.2 m): roads, I-59, rail, lakes with shore collision, building lots, landmarks, street signs, districts from content, parked cars. `main.gd` places the roster (`NorthEndSpots`) on its lots. |
 | `Hitscan` | `RefCounted` | Shared instant-hit firing (pellets, damage scale), aiming from the camera, tracers. |
 | `Projectile` | `Node3D` | Thrown/launched explosives: ray-stepped flight, bounce/stick/explode on impact, fuses and remote detonation. |
 | `Explosion` | `Node3D` | `detonate()`: radius damage with falloff and line of sight, physics impulse, visual, `EventBus.explosion`. |
@@ -90,7 +90,8 @@ No gameplay code hardcodes `res://` content paths. See [CONTENT.md](CONTENT.md).
 - **Decoupling:** emit on `EventBus` for cross-system events, and read shared state from `GameState`.
 - **Physics layers:** 1 `world`, 2 `player`, 3 `npc`, 4 `vehicle`.
 - **Render layers:** layer 2 `map_only` holds overlays and markers that only the minimap camera renders. Gameplay cameras mask it out.
-- **Groups:** `player`, `vehicles`, `gang_members`, `hangout_crew`, `projectiles`, `fires`.
+- **Groups:** `player`, `vehicles`, `gang_members`, `hangout_crew`, `projectiles`, `fires`, `roster_markers` (meta `spot`), `hot_cars`.
+- **Pause map:** `MapScreen` (`scripts/ui/map_screen.gd`, a HUD child, `PROCESS_MODE_ALWAYS`) pauses the tree. Its markers come from `MapMarkers.collect()`, which reads Locations, Businesses, Operations, Turf and the groups above, so new content shows up without map code. The waypoint route comes from `RoadGraph` (A* over `NorthEndLayout.ROADS`) and the HUD draws it on the minimap.
 - **Content as data:** new guns, buildings, actions, dialogues and so on should be `.tres` resources looked up through `ContentDB`, not new code paths. New behaviour goes in a new `Condition`/`Cost`/`Effect`/strategy subclass.
 - Tabs for indentation, static typing everywhere (`:=`, typed params and returns).
 

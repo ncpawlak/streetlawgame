@@ -30,14 +30,15 @@ pass ships the 9 North End types and sites. Clout is a basic per-district score.
 
 ## Prototype placement
 
-`Businesses.place_sites()` runs after `LocationPlacer`. It puts each site on a free building lot in
-its district. The prototype map has no North End yet, so its neighbourhoods map onto Southside:
+`main.gd` puts each site on its wireframe lot from `NorthEndSpots` (`scripts/world/north_end_spots.gd`)
+with `Businesses.spawn_site()`. `Businesses.place_sites()` runs afterwards as a fallback and puts any
+site that has no spot on a free lot in its district. All three districts start as Red Viper turf:
 
-| Neighbourhood | Prototype district | Sites |
-| --- | --- | --- |
-| Tamarack Row | `the_bottoms` (yours at start) | corner store, barbershop, liquor store |
-| Northgrove | `rail_yards` (Vipers) | pawn shop, pharmacy, tattoo parlor |
-| Mangona | `old_harbor` (Syndicate) | chop shop, gun store (needs 10 clout), hardware store |
+| District | Sites |
+| --- | --- |
+| `tamarack_row` | corner store (#3), liquor store (#4), barbershop (#5) |
+| `northgrove` | pawn shop (#11), pharmacy (#12), tattoo parlor (#13) |
+| `mangona` | gun store (#18, needs 10 clout), hardware store (#19), chop shop (#20) |
 
 ## Adding content (no code)
 
