@@ -45,6 +45,25 @@ You start with fists and a pistol. There's a stash of guns (SMG, shotgun, rifle)
 
 Vehicles take damage from bullets, explosions and crashes: they smoke, then catch fire, then explode. Rivals will shoot at your car while you're driving.
 
+## Gameplay drivers
+
+Standalone test scenes, one per gameplay type. They boot straight into the scenario and aren't part of the city map.
+
+### Stick-up
+
+```sh
+godot --path . res://drivers/stick_up/stick_up_driver.tscn
+```
+
+A small street with a shop, three neighbouring businesses, bystanders, a getaway car and a stash.
+
+1. Walk into the shop and draw a gun (1-9 or the mouse wheel). Everyone gets wary and the police countdown starts.
+2. Aim (hold RMB) at the clerk to hold them up. The clerk empties the register into your bag while you keep them covered. If you lower your aim, the clerk stops, and an armed clerk will go for their gun.
+3. You can kill the clerk or anyone else and empty the register yourself (hold E on it). Customers run, and bystanders and the neighbouring shops phone the cops. A finished call brings the police at once.
+4. Leave, lose the cops if needed, then hold E at the stash to cash in the bag.
+
+Pick the shop with the debug panel or F1 (corner store) / F2 (liquor store, armed clerk). F3 restarts. Esc frees the mouse for the panel. Shop tuning lives in `drivers/stick_up/shops/*.tres`.
+
 ## Tests
 
 ```sh

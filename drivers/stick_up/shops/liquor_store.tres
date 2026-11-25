@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="StickUpShopDef" format=3]
+
+[ext_resource type="Script" path="res://scripts/gameplay/stick_up/stick_up_shop_def.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = &"liquor_store"
+business_type_id = &"liquor_store"
+interior_color = Color(0.62, 0.5, 0.4, 1)
+register_cash_min = 200
+register_cash_max = 500
+bag_rate = 50.0
+alarm_seconds = 35.0
+customer_count = 3
+clerk_weapon_id = &"shotgun"
+clerk_nerve = 4.0
+self_grab_time = 4.0

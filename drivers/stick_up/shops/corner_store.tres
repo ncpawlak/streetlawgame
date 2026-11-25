@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="StickUpShopDef" format=3]
+
+[ext_resource type="Script" path="res://scripts/gameplay/stick_up/stick_up_shop_def.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = &"corner_store"
+business_type_id = &"corner_store"
+interior_color = Color(0.86, 0.84, 0.74, 1)
+register_cash_min = 150
+register_cash_max = 400
+bag_rate = 60.0
+alarm_seconds = 45.0
+customer_count = 2
+clerk_weapon_id = &""
+clerk_nerve = 4.0
+self_grab_time = 3.0
