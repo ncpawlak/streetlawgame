@@ -14,6 +14,7 @@ func _init(framework: FrameworkTests) -> void:
 func run(main: Node, player: Player) -> void:
 	_player = player
 	_test_city_placement(main)
+	_test_road_network(main)
 	_test_district_ids()
 	await _framework.with_sandbox(main, _test_door_only_rob)
 	await _framework.with_sandbox(main, _test_pocket_interior_and_rob)
@@ -82,6 +83,164 @@ func _test_city_placement(main: Node) -> void:
 	_check(marker_location.is_marker_visible(), "set_marker_visible shows the marker")
 	marker_location.set_marker_visible(false)
 
+
+## Half widths (px) of the wireframe strokes, matching tools/extract_north_end_layout.py.
+const ROAD_HALF_WIDTH_PX := {&"loc": 3.75, &"ave": 5.0, &"art": 6.67, &"highway": 10.83, &"ramp": 3.33}
+
+
+func _test_road_network(main: Node) -> void:
+	var roads: Array = NorthEndLayout.ROADS.filter(func(road: Dictionary) -> bool: return road["kind"] != &"rail")
+	var parent := range(roads.size())
+	var find := func(i: int) -> int:
+		while parent[i] != i:
+			i = parent[i]
+		return i
+	var dead_ends: Array[String] = []
+	var wet: Array[String] = []
+	for i in roads.size():
+		var pts := PackedVector2Array(roads[i]["pts"])
+		for p in _sample(pts, 2.0):
+			if CityGenerator._in_water(p) or p.x >= NorthEndLayout.LAGOON_X:
+				wet.append("%s road at %s" % [roads[i]["kind"], p])
+				break
+		if pts[0].distance_to(pts[pts.size() - 1]) < 1.0:
+			continue  # loops have no ends
+		for end in [pts[0], pts[pts.size() - 1]]:
+			var joined := false
+			for j in roads.size():
+				if j != i and _may_join(roads[i]["kind"], roads[j]["kind"]) and _distance_to_road(end, roads[j]["pts"]) <= ROAD_HALF_WIDTH_PX[roads[j]["kind"]] + 1.0:
+					joined = true
+			var exits_map: bool = roads[i]["kind"] in [&"art", &"highway"] and not CityGenerator.PLAY_RECT_PX.has_point(end)
+			if not joined and not exits_map:
+				dead_ends.append("%s road ends at %s" % [roads[i]["kind"], end])
+	for i in roads.size():
+		for j in range(i + 1, roads.size()):
+			if _may_join(roads[i]["kind"], roads[j]["kind"]) and _roads_touch(roads[i], roads[j]):
+				parent[find.call(i)] = find.call(j)
+	var components := {}
+	for i in roads.size():
+		components[find.call(i)] = true
+	_check(components.size() == 1, "the North End road network is one connected component (%d found)" % components.size())
+	_check(dead_ends.is_empty(), "no street dead-ends (%s)" % ", ".join(dead_ends))
+	_check(wet.is_empty(), "no road runs into the water (%s)" % ", ".join(wet))
+	_check(NorthEndLayout.RAIL_CROSSINGS.size() >= 10, "streets cross the tracks at grade")
+	_test_interchanges(roads)
+
+	var city := main.get_node("City") as CityGenerator
+	var built_over: Array[String] = []
+	for lot in city.building_lots:
+		var rect: Rect2 = (lot["rect_px"] as Rect2).grow(-0.5)
+		for road in roads:
+			if Array(_sample(PackedVector2Array(road["pts"]), 1.5)).any(func(p: Vector2) -> bool: return rect.has_point(p)):
+				built_over.append(str(rect))
+				break
+	_check(built_over.is_empty(), "no building lot sits on a road (%s)" % ", ".join(built_over))
+	# Every lot fronts a street and doesn't back onto I-59/a ramp with no street in front (mirrors
+	# FRONTAGE_PX / fronts_street in tools/extract_north_end_layout.py).
+	var stranded: Array[String] = []
+	for lot in city.building_lots:
+		var rect: Rect2 = lot["rect_px"]
+		var street := INF
+		var freeway := INF
+		for road in roads:
+			var d := INF
+			for p: Vector2 in _sample(PackedVector2Array(road["pts"]), 1.5):
+				d = minf(d, p.distance_to(p.clamp(rect.position, rect.end)))
+			if road["kind"] in [&"loc", &"ave", &"art"]:
+				street = minf(street, d)
+			elif road["kind"] in [&"highway", &"ramp"]:
+				freeway = minf(freeway, d)
+		if street > 24.5 or street > freeway:
+			stranded.append(str(rect))
+	_check(stranded.is_empty(), "every building lot fronts a street (%s)" % ", ".join(stranded))
+
+
+## Only ramps join I-59, and ramps only join I-59 and arterials.
+func _may_join(a: StringName, b: StringName) -> bool:
+	if a == &"ramp" or b == &"ramp":
+		return (a == &"highway" or b == &"highway" or a == &"art" or b == &"art") and a != b
+	return a != &"highway" and b != &"highway"
+
+
+## I-59 is grade-separated: no street runs onto it or a ramp, and every arterial passing under it
+## has a full diamond (NB/SB on and off ramps, one per quadrant).
+func _test_interchanges(roads: Array) -> void:
+	var highway: Array = roads.filter(func(r: Dictionary) -> bool: return r["kind"] == &"highway")[0]["pts"]
+	var ramps: Array = roads.filter(func(r: Dictionary) -> bool: return r["kind"] == &"ramp")
+	var touching: Array[String] = []
+	for road in roads:
+		var kind: StringName = road["kind"]
+		if kind in [&"highway", &"ramp", &"art"]:
+			continue
+		var reach: float = ROAD_HALF_WIDTH_PX[kind] + 1.0
+		for p in _sample(PackedVector2Array(road["pts"]), 1.0):
+			var hit := _distance_to_road(p, highway) < ROAD_HALF_WIDTH_PX[&"highway"] + reach
+			for ramp in ramps:
+				hit = hit or _distance_to_road(p, ramp["pts"]) < ROAD_HALF_WIDTH_PX[&"ramp"] + reach
+			if hit:
+				touching.append("%s at %s" % [kind, p])
+				break
+	_check(touching.is_empty(), "no street meets I-59 or a ramp at grade (%s)" % ", ".join(touching))
+	var interchanges := 0
+	for road in roads:
+		if road["kind"] != &"art":
+			continue
+		var pts: Array = road["pts"]
+		for i in pts.size() - 1:
+			for k in highway.size() - 1:
+				var hit: Variant = Geometry2D.segment_intersects_segment(pts[i], pts[i + 1], highway[k], highway[k + 1])
+				if hit == null or not CityGenerator.PLAY_RECT_PX.has_point(hit):
+					continue
+				interchanges += 1
+				var quadrants := {}
+				for ramp in ramps:
+					var rp: Array = ramp["pts"]
+					if _distance_to_road(rp[rp.size() - 1], pts) <= ROAD_HALF_WIDTH_PX[&"art"] + 1.0 and _distance_to_road(rp[0], highway) <= ROAD_HALF_WIDTH_PX[&"highway"]:
+						var deck := _closest_on_road(rp[0], highway)
+						quadrants[Vector2i(int(signf(rp[0].x - deck.x)), int(signf(rp[0].y - (hit as Vector2).y)))] = true
+				_check(quadrants.size() == 4, "the I-59 interchange at %s has NB/SB on and off ramps (%d of 4)" % [hit, quadrants.size()])
+	_check(interchanges >= 2, "I-59 has interchanges at the arterials (%d)" % interchanges)
+
+
+func _closest_on_road(p: Vector2, pts: Array) -> Vector2:
+	var best := Vector2.INF
+	for i in pts.size() - 1:
+		var q := Geometry2D.get_closest_point_to_segment(p, pts[i], pts[i + 1])
+		if p.distance_to(q) < p.distance_to(best):
+			best = q
+	return best
+
+
+func _sample(pts: PackedVector2Array, step: float) -> PackedVector2Array:
+	var out := PackedVector2Array()
+	for i in pts.size() - 1:
+		var steps := maxi(1, ceili(pts[i].distance_to(pts[i + 1]) / step))
+		for s in steps + 1:
+			out.append(pts[i].lerp(pts[i + 1], float(s) / steps))
+	return out
+
+
+func _distance_to_road(p: Vector2, pts: Array) -> float:
+	var best := INF
+	for i in pts.size() - 1:
+		best = minf(best, p.distance_to(Geometry2D.get_closest_point_to_segment(p, pts[i], pts[i + 1])))
+	return best
+
+
+func _roads_touch(a: Dictionary, b: Dictionary) -> bool:
+	var pa: Array = a["pts"]
+	var pb: Array = b["pts"]
+	for end in [pa[0], pa[pa.size() - 1]]:
+		if _distance_to_road(end, pb) <= ROAD_HALF_WIDTH_PX[b["kind"]] + 1.0:
+			return true
+	for end in [pb[0], pb[pb.size() - 1]]:
+		if _distance_to_road(end, pa) <= ROAD_HALF_WIDTH_PX[a["kind"]] + 1.0:
+			return true
+	for i in pa.size() - 1:
+		for j in pb.size() - 1:
+			if Geometry2D.segment_intersects_segment(pa[i], pa[i + 1], pb[j], pb[j + 1]) != null:
+				return true
+	return false
 
 func _test_district_ids() -> void:
 	_check(Locations.to_district_id("The Bottoms") == &"the_bottoms" and Locations.to_district_id("  Old-Town  Docks ") == &"old_town_docks", "district names convert to snake_case ids")

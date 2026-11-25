@@ -28,12 +28,9 @@ const SAFEHOUSES_PX := {
 }
 ## On 23rd St, outside the Tamarack Row duplex.
 const PLAYER_SPAWN_PX := Vector2(533.0, 770.0)
-const LAKES_PX := [
-	{"name": "LAKE MANGONA", "center": Vector2(394.0, 439.0), "radii": Vector2(75.0, 175.0)},
-	{"name": "CLEAR LAKE", "center": Vector2(344.0, 862.0), "radii": Vector2(52.0, 105.0)},
-]
+const LAKES_PX := NorthEndLayout.LAKES
 ## Lake Worth Lagoon starts east of this x (px); it lies beyond the east wall.
-const LAGOON_X_PX := 950.0
+const LAGOON_X_PX := NorthEndLayout.LAGOON_X
 const BOAT_RAMP_PX := Vector2(318.0, 488.0)
 ## Hand-placed buildings that aren't split into lots. lot = recorded in [member building_lots].
 const LANDMARKS := [
@@ -49,10 +46,16 @@ const LANDMARKS := [
 ## Lake Mangona junkyard (#21): fenced scrap yard, no building.
 const JUNKYARD_PX := Rect2(522.0, 546.0, 32.0, 40.0)
 ## Hot car list (#24): one parked target per district, px + yaw.
-const HOT_CARS_PX := [[Vector2(300.0, 1034.0), 0.0], [Vector2(900.0, 460.0), 0.0], [Vector2(262.0, 380.0), 0.0]]
+const HOT_CARS_PX := [[Vector2(360.0, 1034.0), 0.0], [Vector2(900.0, 460.0), 0.0], [Vector2(262.0, 380.0), 0.0]]
 ## Drawn road widths (m), wider than the wireframe strokes so driving is comfortable.
 const ROAD_WIDTHS := {&"loc": 9.0, &"ave": 12.0, &"art": 16.0, &"highway": 26.0, &"ramp": 8.0}
 const ROAD_HEIGHTS := {&"loc": 0.02, &"ave": 0.025, &"art": 0.03, &"highway": 0.035, &"ramp": 0.03}
+## Half widths in wireframe px (ROAD_WIDTHS / METERS_PER_PX / 2), as the extractor uses them.
+const ROAD_HALF_WIDTHS_PX := {&"loc": 3.75, &"ave": 5.0, &"art": 6.67, &"highway": 10.83, &"ramp": 3.33}
+## I-59 deck top (m); arterials pass underneath.
+const DECK_HEIGHT := 6.5
+const DECK_THICKNESS := 1.0
+const PILLAR_SPACING := 24.0
 
 @export var city_seed := 1337
 @export var parked_vehicles := 18
@@ -81,6 +84,7 @@ func generate() -> void:
 	_build_water()
 	_build_roads()
 	_build_rail()
+	_build_rail_crossings()
 	_build_blocks()
 	_build_landmarks()
 	_build_labels()
@@ -190,58 +194,165 @@ static func _in_water(px: Vector2, margin: float = 0.0) -> bool:
 	return false
 
 
-## Roads stop at the water and at landmarks drawn over them in the wireframe.
-static func _road_blocked(px: Vector2) -> bool:
-	if _in_water(px, 2.0):
-		return true
-	for landmark in LANDMARKS:
-		if (landmark["rect"] as Rect2).grow(-1.0).has_point(px):
-			return true
-	return false
-
-
 func _build_roads() -> void:
 	var asphalt := _material("asphalt", Color(0.17, 0.17, 0.19))
 	var line := _material("road_line", Color(0.85, 0.72, 0.2))
 	for road in NorthEndLayout.ROADS:
 		var kind: StringName = road["kind"]
-		if kind == &"rail":
+		if kind == &"rail" or kind == &"highway" or kind == &"ramp":
 			continue
 		var width: float = ROAD_WIDTHS[kind]
 		var y: float = ROAD_HEIGHTS[kind]
 		var pts := PackedVector2Array(road["pts"])
 		for i in pts.size() - 1:
-			for run in _open_runs(pts[i], pts[i + 1]):
-				var a := px_to_world(run[0])
-				var b := px_to_world(run[1])
-				_add_segment(a, b, width, 0.04, y, asphalt, false)
-				if kind == &"highway" or kind == &"art":
-					_add_segment(a, b, 0.4, 0.04, y + 0.01, line, false)
-				_record_road(a, b, width)
-			if i > 0 and not _road_blocked(pts[i]):
+			var a := px_to_world(pts[i])
+			var b := px_to_world(pts[i + 1])
+			_add_segment(a, b, width, 0.04, y, asphalt, false)
+			if kind == &"art":
+				_add_segment(a, b, 0.4, 0.04, y + 0.01, line, false)
+			_record_road(a, b, width)
+			if i > 0:
 				# Fill the joint between bends.
-				var bend := px_to_world(pts[i])
 				var along := (px_to_world(pts[i + 1]) - px_to_world(pts[i - 1])).normalized() * width * 0.5
-				_add_segment(bend - along, bend + along, width, 0.04, y, asphalt, false)
+				_add_segment(a - along, a + along, width, 0.04, y, asphalt, false)
+	_build_highway(asphalt, line)
 
 
-## Splits a px segment into the stretches that aren't blocked: [[from, to], ...].
-func _open_runs(from: Vector2, to: Vector2) -> Array:
-	var runs := []
-	var length := from.distance_to(to)
-	var steps := maxi(1, ceili(length / 2.0))
-	var start := -1
-	for s in steps + 1:
-		var t := float(s) / steps
-		var open := not _road_blocked(from.lerp(to, t))
-		if open and start < 0:
-			start = s
-		if (not open or s == steps) and start >= 0:
-			var stop := s if open else s - 1
-			if stop > start:
-				runs.append([from.lerp(to, float(start) / steps), from.lerp(to, float(stop) / steps)])
-			start = -1
-	return runs
+## I-59 is an elevated viaduct: arterials pass under it and the diamond-interchange ramps slope
+## from the deck down to the arterial. Ramps list their deck end first (see the extractor).
+func _build_highway(asphalt: Material, line: Material) -> void:
+	var concrete := _material("concrete", Color(0.58, 0.57, 0.55))
+	var ramps: Array = NorthEndLayout.ROADS.filter(func(r: Dictionary) -> bool: return r["kind"] == &"ramp")
+	var arterials: Array = NorthEndLayout.ROADS.filter(func(r: Dictionary) -> bool: return r["kind"] == &"art")
+	var half: float = ROAD_WIDTHS[&"highway"] * 0.5
+	for road in NorthEndLayout.ROADS:
+		if road["kind"] != &"highway":
+			continue
+		var pts := PackedVector2Array(road["pts"])
+		var since_pillar := 0.0
+		for i in pts.size() - 1:
+			var a := px_to_world(pts[i])
+			var b := px_to_world(pts[i + 1])
+			var dir := (b - a).normalized()
+			var across := dir.cross(Vector3.UP)
+			_add_segment(a - dir * 0.5, b + dir * 0.5, half * 2.0, DECK_THICKNESS, DECK_HEIGHT - DECK_THICKNESS * 0.5, asphalt, true)
+			_add_segment(a, b, 0.4, 0.04, DECK_HEIGHT + 0.01, line, false)
+			var length := a.distance_to(b)
+			var steps := maxi(1, ceili(length / 4.0))
+			for s in steps:
+				var p0 := a.lerp(b, float(s) / steps)
+				var p1 := a.lerp(b, float(s + 1) / steps)
+				for side: float in [-1.0, 1.0]:
+					var offset := across * side * (half - 0.25)
+					if not _ramp_merges_at(world_to_px((p0 + p1) * 0.5 + offset), ramps):
+						_add_segment(p0 + offset, p1 + offset, 0.5, 1.0, DECK_HEIGHT + 0.5, concrete, true)
+			while since_pillar < length:
+				var at := a + dir * since_pillar
+				if not _near_any(world_to_px(at), arterials, ROAD_HALF_WIDTHS_PX[&"art"] + 3.0):
+					_add_static_box(Vector3(3.0, DECK_HEIGHT - DECK_THICKNESS, 3.0), at + Vector3(0.0, (DECK_HEIGHT - DECK_THICKNESS) * 0.5, 0.0), concrete)
+				since_pillar += PILLAR_SPACING
+			since_pillar -= length
+	var highway_pts: Array = NorthEndLayout.ROADS.filter(func(r: Dictionary) -> bool: return r["kind"] == &"highway")[0]["pts"]
+	for ramp in ramps:
+		_build_ramp(PackedVector2Array(ramp["pts"]), asphalt, concrete)
+		_build_ramp_sign(PackedVector2Array(ramp["pts"]), highway_pts)
+
+
+## Right-hand traffic: the NB carriageway is the east half. East ramps north of the arterial are
+## NB entrances and south of it NB exits; west ramps north are SB exits and south SB entrances.
+func _build_ramp_sign(pts: PackedVector2Array, highway: Array) -> void:
+	var end := pts[pts.size() - 1]
+	var east := pts[0].x > _closest_px(pts[0], highway).x
+	var north := pts[0].y < end.y
+	var street := ""
+	var best := INF
+	for entry in NorthEndLayout.STREET_LABELS:
+		if entry["art"] and absf(entry["pos"].y - end.y) < best:
+			best = absf(entry["pos"].y - end.y)
+			street = entry["text"]
+	var post_material := _material("sign_post", Color(0.3, 0.3, 0.32))
+	var text: String
+	var at: Vector3
+	if east != north:
+		# Exit: sign where the ramp leaves the deck.
+		text = "EXIT\n%s" % street
+		at = px_to_world(pts[1]) + Vector3(0.0, DECK_HEIGHT, 0.0)
+	else:
+		# Entrance: sign beside the foot of the ramp.
+		text = "I-59 %s\nENTRANCE" % ("NORTH" if east else "SOUTH")
+		var foot := px_to_world(pts[pts.size() - 3])
+		var dir := (px_to_world(pts[pts.size() - 2]) - foot).normalized()
+		at = foot + dir.cross(Vector3.UP) * (float(ROAD_WIDTHS[&"ramp"]) * 0.5 + 1.5)
+	_add_mesh_box(Vector3(0.2, 4.0, 0.2), at + Vector3(0.0, 2.0, 0.0), post_material)
+	var board := _label(text, 64, 0.03)
+	board.modulate = Color(0.55, 1.0, 0.6)
+	board.billboard = BaseMaterial3D.BILLBOARD_FIXED_Y
+	board.position = at + Vector3(0.0, 4.8, 0.0)
+	add_child(board)
+
+
+static func _closest_px(p: Vector2, pts: Array) -> Vector2:
+	var best := Vector2.INF
+	for i in pts.size() - 1:
+		var q := Geometry2D.get_closest_point_to_segment(p, pts[i], pts[i + 1])
+		if p.distance_to(q) < p.distance_to(best):
+			best = q
+	return best
+
+
+## Ramp surface: on the deck for the merge taper, then a straight grade down to the arterial.
+func _build_ramp(pts: PackedVector2Array, asphalt: Material, concrete: Material) -> void:
+	var width: float = ROAD_WIDTHS[&"ramp"]
+	var heights := PackedFloat32Array()
+	var total := 0.0
+	for i in range(1, pts.size() - 1):
+		total += pts[i].distance_to(pts[i + 1])
+	var run := 0.0
+	for i in pts.size():
+		if i >= 2:
+			run += pts[i - 1].distance_to(pts[i])
+		heights.append(lerpf(DECK_HEIGHT, ROAD_HEIGHTS[&"art"], run / total))
+	for i in pts.size() - 1:
+		var a := px_to_world(pts[i]) + Vector3(0.0, heights[i], 0.0)
+		var b := px_to_world(pts[i + 1]) + Vector3(0.0, heights[i + 1], 0.0)
+		var dir := (b - a).normalized()
+		_add_slab(a - dir * 0.4, b + dir * 0.4, width, 0.6, asphalt)
+		if i == 0 or minf(heights[i], heights[i + 1]) < 0.8:
+			continue
+		var across := Vector3(dir.x, 0.0, dir.z).normalized().cross(Vector3.UP)
+		for side: float in [-1.0, 1.0]:
+			var offset := across * side * (width * 0.5 - 0.2) + Vector3(0.0, 0.9, 0.0)
+			_add_slab(a + offset, b + offset, 0.4, 0.9, concrete)
+		if heights[i] > 2.0 and i % 2 == 1:
+			_add_static_box(Vector3(1.4, heights[i] - 0.6, 1.4), px_to_world(pts[i]) + Vector3(0.0, (heights[i] - 0.6) * 0.5, 0.0), concrete)
+
+
+## True where a ramp's merge taper (its first segment, on the deck) meets the deck edge at [param px].
+static func _ramp_merges_at(px: Vector2, ramps: Array) -> bool:
+	for ramp in ramps:
+		var pts: Array = ramp["pts"]
+		if px.distance_to(Geometry2D.get_closest_point_to_segment(px, pts[0], pts[1])) <= ROAD_HALF_WIDTHS_PX[&"ramp"] + 1.5:
+			return true
+	return false
+
+
+static func _near_any(px: Vector2, roads: Array, distance: float) -> bool:
+	for road in roads:
+		var pts: Array = road["pts"]
+		for i in pts.size() - 1:
+			if px.distance_to(Geometry2D.get_closest_point_to_segment(px, pts[i], pts[i + 1])) <= distance:
+				return true
+	return false
+
+
+## Box with collision from [param a] to [param b] (any slope); its top face runs through a and b.
+func _add_slab(a: Vector3, b: Vector3, width: float, thickness: float, material: Material) -> void:
+	var length := a.distance_to(b)
+	if length < 0.05:
+		return
+	var slab_basis := Basis.looking_at(b - a, Vector3.UP)
+	var body := _add_static_box(Vector3(width, thickness, length), (a + b) * 0.5 - slab_basis.y * thickness * 0.5, material)
+	body.basis = slab_basis
 
 
 func _record_road(a: Vector3, b: Vector3, width: float) -> void:
@@ -271,6 +382,25 @@ func _build_rail() -> void:
 			for offset in [side, -side]:
 				_add_segment(a + offset, b + offset, 0.12, 0.12, 0.12, steel, false)
 
+
+## Each at-grade crossing gets a pad over the rails and a crossbuck on both sides of the tracks.
+func _build_rail_crossings() -> void:
+	var pad := _material("crossing", Color(0.3, 0.3, 0.31))
+	var post := _material("sign_post", Color(0.55, 0.55, 0.55))
+	var board := _material("crossbuck", Color(0.95, 0.95, 0.92))
+	for crossing in NorthEndLayout.RAIL_CROSSINGS:
+		var at := px_to_world(crossing["at"])
+		var dir := Vector3(crossing["dir"].x, 0.0, crossing["dir"].y).normalized()
+		var across := dir.cross(Vector3.UP)
+		var width: float = ROAD_WIDTHS[crossing["kind"]]
+		_add_segment(at - dir * 4.0, at + dir * 4.0, width, 0.06, 0.17, pad, false)
+		for side: float in [-1.0, 1.0]:
+			# Right-hand kerb of traffic approaching the tracks from this side.
+			var base: Vector3 = at - dir * side * 6.0 + across * side * (width * 0.5 + 1.2)
+			_add_static_box(Vector3(0.15, 3.0, 0.15), base + Vector3(0.0, 1.5, 0.0), post)
+			for tilt: float in [PI / 4.0, -PI / 4.0]:
+				var arm := _add_mesh_box(Vector3(1.6, 0.25, 0.05), base + Vector3(0.0, 2.6, 0.0), board)
+				arm.rotation = Vector3(0.0, atan2(-across.z, across.x), tilt)
 
 func _build_blocks() -> void:
 	var sidewalk := _material("sidewalk", Color(0.47, 0.47, 0.46))
@@ -425,12 +555,13 @@ func _build_highway_signs() -> void:
 		while next <= travelled + length:
 			var px := pts[i].lerp(pts[i + 1], (next - travelled) / length)
 			if PLAY_RECT_PX.grow(20.0).has_point(px):
-				var at := px_to_world(px) + Vector3(-15.0, 0.0, 0.0)
-				_add_mesh_box(Vector3(0.2, 5.0, 0.2), at + Vector3(0.0, 2.5, 0.0), _material("sign_post", Color(0.3, 0.3, 0.32)))
+				var dir := px_to_world(pts[i + 1]) - px_to_world(pts[i])
+				var at := px_to_world(px) + dir.normalized().cross(Vector3.UP) * (float(ROAD_WIDTHS[&"highway"]) * 0.5 - 0.25) + Vector3(0.0, DECK_HEIGHT + 1.0, 0.0)
+				_add_mesh_box(Vector3(0.2, 4.0, 0.2), at + Vector3(0.0, 2.0, 0.0), _material("sign_post", Color(0.3, 0.3, 0.32)))
 				var shield := _label("I-59", 96, 0.03)
 				shield.modulate = Color(0.55, 0.7, 1.0)
 				shield.billboard = BaseMaterial3D.BILLBOARD_FIXED_Y
-				shield.position = at + Vector3(0.0, 5.6, 0.0)
+				shield.position = at + Vector3(0.0, 4.6, 0.0)
 				add_child(shield)
 			next += 220.0
 		travelled += length
