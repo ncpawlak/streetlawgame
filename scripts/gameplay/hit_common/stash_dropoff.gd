@@ -8,6 +8,12 @@ signal cashed_in(amount: int, actor: Node)
 @export var police_response: PoliceResponse
 @export var stash_time := 1.5
 @export var prompt_name := "Stash"
+## Carry-over heat: goods from a hot [member heat_area] pay [method HeatMap.payout_multiplier]
+## (loose cash pays in full). Null = full price.
+var heat_map: HeatMap
+var heat_area: StringName = &""
+## Fraction of the payout the crew takes (a [HitCrew] sets this via [method HitCrew.payout_cut]).
+var crew_cut := 0.0
 
 var interactable: Interactable
 
@@ -30,7 +36,7 @@ func _ready() -> void:
 	interactable.add_action(action)
 	interactable.context_builder = func(ctx: ActionContext) -> void:
 		var bag := CarryBag.of(ctx.actor, false)
-		ctx.set_var("value", bag.total_value() if bag != null else 0)
+		ctx.set_var("value", payout(bag) if bag != null else 0)
 	add_child(interactable)
 
 
@@ -51,11 +57,24 @@ func cash_in_reason(actor: Node) -> String:
 func cash_in(actor: Node) -> int:
 	if not can_cash_in(actor):
 		return 0
-	var amount := CarryBag.of(actor).empty()
+	var bag := CarryBag.of(actor)
+	var amount := payout(bag)
+	var full := bag.empty()
 	GameState.add_cash(amount)
-	EventBus.notify.emit("Bag stashed: +$%d" % amount)
+	if amount < full:
+		EventBus.notify.emit("Bag stashed: +$%d (heat/crew cut: -$%d)" % [amount, full - amount])
+	else:
+		EventBus.notify.emit("Bag stashed: +$%d" % amount)
 	cashed_in.emit(amount, actor)
 	return amount
+
+
+## What [param bag] is worth here: goods x the heat payout multiplier, plus the loose cash.
+func payout(bag: CarryBag) -> int:
+	if bag == null:
+		return 0
+	var multiplier := heat_map.payout_multiplier(heat_area) if heat_map != null else 1.0
+	return roundi((bag.goods_value() * multiplier + bag.cash) * (1.0 - clampf(crew_cut, 0.0, 1.0)))
 
 
 func _build_visual() -> void:

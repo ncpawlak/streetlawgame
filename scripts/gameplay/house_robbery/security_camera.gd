@@ -1,10 +1,14 @@
 class_name SecurityCamera
 extends StaticBody3D
 ## A wall-mounted CCTV camera. [method can_see] checks its view cone, range and line of sight; the
-## [House] trips the alarm when a camera sees a burglar. Shoot it to knock it out (that's a gunshot,
-## so the neighbours still hear it).
+## [House] trips the alarm when a camera sees a burglar. Ways to blind it:
+## - shoot it (a gunshot, so the neighbours still hear it),
+## - spray-paint the lens (quiet, needs a [constant HitTools.SPRAY_PAINT] can; reach up from below),
+## - cut the house's power at the breaker box ([member powered], temporary),
+## - unplug the recorder inside ([member feed_cut], for the rest of the hit; erases footage).
 
 signal destroyed(camera: SecurityCamera)
+signal state_changed(camera: SecurityCamera)
 
 @export var view_range := 14.0
 ## Full cone angle in degrees.
@@ -15,6 +19,12 @@ signal destroyed(camera: SecurityCamera)
 @export var health := 15.0
 
 var broken := false
+var sprayed := false
+## False while the house power is cut.
+var powered := true
+## True once the recorder (DVR) has been unplugged.
+var feed_cut := false
+var interactable: Interactable
 var _lens_material: StandardMaterial3D
 var _cone: MeshInstance3D
 var _marker: Label3D
@@ -91,6 +101,21 @@ func _ready() -> void:
 	_marker.visible = false
 	add_child(_marker)
 
+	interactable = Interactable.new()
+	interactable.prompt_name = "camera"
+	interactable.radius = 1.6
+	interactable.position = Vector3(0.0, -1.6, 0.0)
+	var effect := MethodEffect.create(&"spray")
+	effect.pass_actor = true
+	var condition := MethodCondition.create(&"can_spray")
+	condition.pass_actor = true
+	condition.hide_when_unmet = true
+	var action := InteractionAction.create(&"spray", "Spray-paint the {target}", [effect], [condition])
+	action.duration = 1.0
+	action.progress_text = "Spraying..."
+	interactable.add_action(action)
+	add_child(interactable)
+
 
 func label() -> String:
 	return "Security camera"
@@ -102,13 +127,18 @@ func look_direction() -> Vector3:
 
 ## True when [param target] (a body; aims at its chest) is inside the cone with a clear view.
 func can_see(target: Node3D) -> bool:
-	if broken or target == null or not is_inside_tree() or not target.is_inside_tree():
+	if not is_working() or target == null or not is_inside_tree() or not target.is_inside_tree():
 		return false
 	return can_see_point(target.global_position + Vector3(0.0, 1.0, 0.0), [target])
 
 
+## Watching and recording: not shot, sprayed, powered down or cut off from the recorder.
+func is_working() -> bool:
+	return not broken and not sprayed and powered and not feed_cut
+
+
 func can_see_point(point: Vector3, exclude: Array = []) -> bool:
-	if broken:
+	if not is_working():
 		return false
 	var eye := global_position
 	var to_point := point - eye
@@ -128,7 +158,44 @@ func can_see_point(point: Vector3, exclude: Array = []) -> bool:
 
 func set_marker_visible(show: bool) -> void:
 	if _marker != null:
-		_marker.visible = show and not broken
+		_marker.visible = show and is_working()
+
+
+func can_spray(actor: Node) -> bool:
+	var tools := HitTools.of(actor, false)
+	return not broken and not sprayed and tools != null and tools.has(HitTools.SPRAY_PAINT)
+
+
+## Paints over the lens (quiet). Uses one spray can.
+func spray(actor: Node) -> void:
+	if not can_spray(actor) or not HitTools.of(actor).use(HitTools.SPRAY_PAINT):
+		return
+	sprayed = true
+	EventBus.notify.emit("Camera lens painted over")
+	_refresh()
+
+
+func set_powered(value: bool) -> void:
+	powered = value
+	_refresh()
+
+
+func set_feed_cut(value: bool) -> void:
+	feed_cut = value
+	_refresh()
+
+
+func _refresh() -> void:
+	if _lens_material == null:
+		return
+	var working := is_working()
+	_lens_material.emission_enabled = working
+	if not broken:
+		_lens_material.albedo_color = Color(0.9, 0.1, 0.1) if working else (Color(0.1, 0.1, 0.1) if sprayed else Color(0.35, 0.12, 0.12))
+	_cone.visible = working
+	if not working:
+		_marker.visible = false
+	state_changed.emit(self)
 
 
 func take_damage(amount: float, _source: Node = null) -> void:

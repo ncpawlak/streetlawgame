@@ -4,6 +4,7 @@ extends StaticBody3D
 ## [CarryBag]; it may hold nothing. Re-fill with [method set_contents].
 
 signal searched(container: LootContainer, actor: Node, found: Dictionary)
+signal unlocked(container: LootContainer, actor: Node)
 
 @export var container_name := "Dresser"
 @export var size := Vector3(1.0, 0.9, 0.5)
@@ -14,6 +15,11 @@ signal searched(container: LootContainer, actor: Node, found: Dictionary)
 var contents: Dictionary = {}
 var is_searched := false
 var interactable: Interactable
+## Locked containers (safes) must be cracked with a [TimingMinigame] before they can be searched.
+var locked := false
+var lock_hits := 3
+var lock_speed := 0.5
+var minigame: TimingMinigame
 
 var _material: StandardMaterial3D
 
@@ -50,6 +56,11 @@ func _ready() -> void:
 	action.duration = search_time
 	action.progress_text = "Searching {target}..."
 	interactable.add_action(action)
+	var crack_effect := MethodEffect.create(&"crack")
+	crack_effect.pass_actor = true
+	var crack_condition := MethodCondition.create(&"can_crack")
+	crack_condition.hide_when_unmet = true
+	interactable.add_action(InteractionAction.create(&"crack", "Crack {target}", [crack_effect], [crack_condition]))
 	add_child(interactable)
 
 
@@ -65,7 +76,37 @@ func set_contents(found: Dictionary) -> void:
 
 
 func can_search() -> bool:
-	return not is_searched
+	return not is_searched and not locked
+
+
+func can_crack() -> bool:
+	return locked and not is_searched and (minigame == null or not minigame.active)
+
+
+## Locks it behind a [TimingMinigame] ([param hits] in a row at [param speed]).
+func set_locked(value: bool, hits := 3, speed := 0.5) -> void:
+	locked = value
+	lock_hits = hits
+	lock_speed = speed
+
+
+## Opens the lock minigame for [param actor]; on success it unlocks and searches. Returns it.
+func crack(actor: Node) -> TimingMinigame:
+	if not can_crack():
+		return null
+	if minigame == null:
+		minigame = TimingMinigame.new()
+		minigame.name = "LockMinigame"
+		minigame.title = "Crack the %s" % container_name.to_lower()
+		add_child(minigame)
+		minigame.succeeded.connect(func() -> void:
+			locked = false
+			unlocked.emit(self, minigame.actor)
+			search(minigame.actor))
+	minigame.hits_needed = lock_hits
+	minigame.speed = lock_speed
+	minigame.start(actor)
+	return minigame
 
 
 ## Searches the container. Returns what was bagged ({} for nothing or no room).
