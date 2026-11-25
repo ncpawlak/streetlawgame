@@ -35,6 +35,12 @@ floors = 1
 footprint = Vector2(30, 18)
 lot_size = Vector2(30, 34)
 lot_type = "Hardware store with a fenced lumber yard and front lot"
+metadata/dress_tier = "commercial"
+metadata/dress_solids = PackedVector4Array(-14.9, -33.9, 9, -16)
+metadata/dress_blocked = PackedVector4Array(-14.4, -16, -3.6, -13.8, -0.8, -16, 8.4, -13.8, -3.8, -16, -0.6, -13.8, 9, -24.2, 11.2, -19.8, 8.65, -16.45, 15.35, -15.55, 14.45, -34.35, 15.35, -15.55, 8.65, -34.35, 15.35, -33.45, 9.8, -32.2, 14.8, -28.8, 9.8, -27.2, 14.8, -23.8, 9.8, -22.2, 14.8, -18.8, 14.4, -33.2, 15, -32.6, 14.4, -18.4, 15, -17.8, -14.9, -2.5, -13.9, -1.5, 13.9, -2.5, 14.9, -1.5)
+metadata/dress_paved = PackedVector4Array(-15, -16, 15, -14, -15, -14, 15, 0, 9, -34, 15, -16)
+metadata/dress_walls = PackedFloat32Array(-14.9, -16, 9, -16, 0, 1, 6.8, 1, -14.9, -33.9, 9, -33.9, 0, -1, 6.8, 0, 9, -33.9, 9, -16, 1, 0, 6.8, 0, -14.9, -33.9, -14.9, -16, -1, 0, 6.8, 0)
+metadata/dress_openings = PackedFloat32Array(-9, 2.05, -16, 0, 1, 10, 3.3, 2, 3.8, 2.05, -16, 0, 1, 8.4, 3.3, 2, -2.2, 1.65, -16, 0, 1, 2.4, 3.3, 1, 9, 2.05, -22, 1, 0, 3.6, 4.1, 1, -2.95, 3.7, -16, 0, 1, 23.9, 1, 4, -3, 5.85, -16, 0, 1, 20, 1.3, 4)
 
 [node name="Lot" type="CSGCombiner3D" parent="."]
 use_collision = true

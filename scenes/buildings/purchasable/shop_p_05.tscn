@@ -32,6 +32,12 @@ floors = 1
 footprint = Vector2(20, 16)
 lot_size = Vector2(26, 32)
 lot_type = "Chain-style pharmacy, front lot, side drive-thru window"
+metadata/dress_tier = "commercial"
+metadata/dress_solids = PackedVector4Array(-11, -30, 9, -14)
+metadata/dress_blocked = PackedVector4Array(-10.6, -14, -1.4, -11.8, 1.4, -14, 8.6, -11.8, -1.6, -14, 1.6, -11.8, 8.7, -27.7, 12.7, -22.7, -12.9, -2.5, -11.9, -1.5, 11.9, -2.5, 12.9, -1.5)
+metadata/dress_paved = PackedVector4Array(-13, -14, 13, -12.5, -13, -12.5, 13, 0, 9, -32, 13, -12.5)
+metadata/dress_walls = PackedFloat32Array(-11, -14, 9, -14, 0, 1, 6.4, 1, -11, -30, 9, -30, 0, -1, 6.4, 0, 9, -30, 9, -14, 1, 0, 6.4, 0, -11, -30, -11, -14, -1, 0, 6.4, 0)
+metadata/dress_openings = PackedFloat32Array(-6, 2.05, -14, 0, 1, 8.4, 3.3, 2, 5, 2.05, -14, 0, 1, 6.4, 3.3, 2, 0, 1.6, -14, 0, 1, 2.4, 3.2, 1, 0, 3.7, -14, 0, 1, 4.4, 1, 4, -2, 5.3, -14, 0, 1, 14, 1.4, 4, 6.9, 5.3, -14, 0, 1, 2, 0.6, 4, 6.9, 5.3, -14, 0, 1, 0.6, 2, 4, 9, 1.6, -25.2, 1, 0, 1.6, 1.2, 4)
 
 [node name="Lot" type="CSGCombiner3D" parent="."]
 use_collision = true

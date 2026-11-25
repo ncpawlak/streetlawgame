@@ -1,0 +1,6 @@
+[gd_resource type="StandardMaterial3D" format=3]
+
+[resource]
+resource_name = "news_green"
+albedo_color = Color(0.1, 0.45, 0.25, 1)
+roughness = 0.9

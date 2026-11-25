@@ -33,6 +33,8 @@ class Scene:
     def __init__(self, uid_hint=""):
         self.ext = []  # (type, path, id)
         self._ext_ids = {}
+        self.subs = []  # (type, id, props)
+        self._sub_ids = {}
         self.nodes = []  # (header, props)
         self._names = {}
 
@@ -42,6 +44,15 @@ class Scene:
             self._ext_ids[path] = rid
             self.ext.append((rtype, path, rid))
         return 'ExtResource("%s")' % self._ext_ids[path]
+
+    def sub(self, rtype, props):
+        """Embedded resource (mesh, shape, ...); identical type + props are shared."""
+        key = (rtype, tuple(sorted(props.items())))
+        if key not in self._sub_ids:
+            rid = "%s_%d" % (rtype, len(self.subs) + 1)
+            self._sub_ids[key] = rid
+            self.subs.append((rtype, rid, props))
+        return 'SubResource("%s")' % self._sub_ids[key]
 
     def mat(self, name):
         return self.res(mat(name), "Material")
@@ -67,10 +78,15 @@ class Scene:
         return name if parent == "." else parent + "/" + name
 
     def text(self):
-        out = ["[gd_scene load_steps=%d format=3]" % (len(self.ext) + 1), ""]
+        out = ["[gd_scene load_steps=%d format=3]" % (len(self.ext) + len(self.subs) + 1), ""]
         for rtype, path, rid in self.ext:
             out.append('[ext_resource type="%s" path="%s" id="%s"]' % (rtype, path, rid))
         out.append("")
+        for rtype, rid, props in self.subs:
+            out.append('[sub_resource type="%s" id="%s"]' % (rtype, rid))
+            for k, v in props.items():
+                out.append("%s = %s" % (k, v))
+            out.append("")
         for header, props in self.nodes:
             out.append(header)
             for k, v in props.items():

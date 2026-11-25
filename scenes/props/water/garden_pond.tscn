@@ -1,0 +1,238 @@
+[gd_scene load_steps=24 format=3]
+
+[ext_resource type="Script" path="res://scripts/world/houses/kit_prop.gd" id="1_r"]
+[ext_resource type="Material" path="res://assets/materials/houses/water.tres" id="2_r"]
+[ext_resource type="Material" path="res://assets/materials/houses/concrete.tres" id="3_r"]
+[ext_resource type="Material" path="res://assets/materials/houses/leaf_dark.tres" id="4_r"]
+[ext_resource type="Material" path="res://assets/materials/houses/flower_white.tres" id="5_r"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_1"]
+top_radius = 1.6
+bottom_radius = 1.6
+height = 0.02
+radial_segments = 14
+rings = 1
+
+[sub_resource type="SphereMesh" id="SphereMesh_2"]
+radius = 0.295
+height = 0.59
+radial_segments = 6
+rings = 3
+
+[sub_resource type="SphereMesh" id="SphereMesh_3"]
+radius = 0.197
+height = 0.394
+radial_segments = 6
+rings = 3
+
+[sub_resource type="SphereMesh" id="SphereMesh_4"]
+radius = 0.183
+height = 0.366
+radial_segments = 6
+rings = 3
+
+[sub_resource type="SphereMesh" id="SphereMesh_5"]
+radius = 0.3
+height = 0.6
+radial_segments = 6
+rings = 3
+
+[sub_resource type="SphereMesh" id="SphereMesh_6"]
+radius = 0.202
+height = 0.404
+radial_segments = 6
+rings = 3
+
+[sub_resource type="SphereMesh" id="SphereMesh_7"]
+radius = 0.194
+height = 0.389
+radial_segments = 6
+rings = 3
+
+[sub_resource type="SphereMesh" id="SphereMesh_8"]
+radius = 0.258
+height = 0.516
+radial_segments = 6
+rings = 3
+
+[sub_resource type="SphereMesh" id="SphereMesh_9"]
+radius = 0.221
+height = 0.443
+radial_segments = 6
+rings = 3
+
+[sub_resource type="SphereMesh" id="SphereMesh_10"]
+radius = 0.287
+height = 0.573
+radial_segments = 6
+rings = 3
+
+[sub_resource type="SphereMesh" id="SphereMesh_11"]
+radius = 0.208
+height = 0.416
+radial_segments = 6
+rings = 3
+
+[sub_resource type="SphereMesh" id="SphereMesh_12"]
+radius = 0.218
+height = 0.437
+radial_segments = 6
+rings = 3
+
+[sub_resource type="SphereMesh" id="SphereMesh_13"]
+radius = 0.252
+height = 0.504
+radial_segments = 6
+rings = 3
+
+[sub_resource type="SphereMesh" id="SphereMesh_14"]
+radius = 0.292
+height = 0.584
+radial_segments = 6
+rings = 3
+
+[sub_resource type="SphereMesh" id="SphereMesh_15"]
+radius = 0.262
+height = 0.524
+radial_segments = 6
+rings = 3
+
+[sub_resource type="SphereMesh" id="SphereMesh_16"]
+radius = 0.291
+height = 0.582
+radial_segments = 6
+rings = 3
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_17"]
+top_radius = 0.18
+bottom_radius = 0.18
+height = 0.01
+radial_segments = 8
+rings = 1
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_18"]
+top_radius = 0.4
+bottom_radius = 0.4
+height = 0.02
+radial_segments = 6
+rings = 1
+
+[node name="GardenPond" type="Node3D"]
+script = ExtResource("1_r")
+prop_id = "garden_pond"
+category = "water"
+display_name = "Small garden pond"
+collides = false
+radius = 2
+mount = "ground"
+label_height = 1.2
+
+[node name="Water" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.7, 0, 0.03, 0)
+mesh = SubResource("CylinderMesh_1")
+material_override = ExtResource("2_r")
+
+[node name="Concrete" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.6, 0, 0, 0, 1, 1.7, 0.08, 0)
+mesh = SubResource("SphereMesh_2")
+material_override = ExtResource("3_r")
+
+[node name="Concrete2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.6, 0, 0, 0, 1, 1.571, 0.08, 0.459)
+mesh = SubResource("SphereMesh_3")
+material_override = ExtResource("3_r")
+
+[node name="Concrete3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.6, 0, 0, 0, 1, 1.202, 0.08, 0.849)
+mesh = SubResource("SphereMesh_4")
+material_override = ExtResource("3_r")
+
+[node name="Concrete4" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.6, 0, 0, 0, 1, 0.651, 0.08, 1.109)
+mesh = SubResource("SphereMesh_5")
+material_override = ExtResource("3_r")
+
+[node name="Concrete5" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.6, 0, 0, 0, 1, 0, 0.08, 1.2)
+mesh = SubResource("SphereMesh_6")
+material_override = ExtResource("3_r")
+
+[node name="Concrete6" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.6, 0, 0, 0, 1, -0.651, 0.08, 1.109)
+mesh = SubResource("SphereMesh_7")
+material_override = ExtResource("3_r")
+
+[node name="Concrete7" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.6, 0, 0, 0, 1, -1.202, 0.08, 0.849)
+mesh = SubResource("SphereMesh_8")
+material_override = ExtResource("3_r")
+
+[node name="Concrete8" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.6, 0, 0, 0, 1, -1.571, 0.08, 0.459)
+mesh = SubResource("SphereMesh_9")
+material_override = ExtResource("3_r")
+
+[node name="Concrete9" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.6, 0, 0, 0, 1, -1.7, 0.08, 0)
+mesh = SubResource("SphereMesh_10")
+material_override = ExtResource("3_r")
+
+[node name="Concrete10" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.6, 0, 0, 0, 1, -1.571, 0.08, -0.459)
+mesh = SubResource("SphereMesh_11")
+material_override = ExtResource("3_r")
+
+[node name="Concrete11" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.6, 0, 0, 0, 1, -1.202, 0.08, -0.849)
+mesh = SubResource("SphereMesh_2")
+material_override = ExtResource("3_r")
+
+[node name="Concrete12" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.6, 0, 0, 0, 1, -0.651, 0.08, -1.109)
+mesh = SubResource("SphereMesh_12")
+material_override = ExtResource("3_r")
+
+[node name="Concrete13" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.6, 0, 0, 0, 1, 0, 0.08, -1.2)
+mesh = SubResource("SphereMesh_13")
+material_override = ExtResource("3_r")
+
+[node name="Concrete14" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.6, 0, 0, 0, 1, 0.651, 0.08, -1.109)
+mesh = SubResource("SphereMesh_14")
+material_override = ExtResource("3_r")
+
+[node name="Concrete15" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.6, 0, 0, 0, 1, 1.202, 0.08, -0.849)
+mesh = SubResource("SphereMesh_15")
+material_override = ExtResource("3_r")
+
+[node name="Concrete16" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.6, 0, 0, 0, 1, 1.571, 0.08, -0.459)
+mesh = SubResource("SphereMesh_16")
+material_override = ExtResource("3_r")
+
+[node name="LeafDark" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.208, 0.045, -0.483)
+mesh = SubResource("CylinderMesh_17")
+material_override = ExtResource("4_r")
+
+[node name="LeafDark2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.763, 0.045, 0.15)
+mesh = SubResource("CylinderMesh_17")
+material_override = ExtResource("4_r")
+
+[node name="LeafDark3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.588, 0.045, -0.339)
+mesh = SubResource("CylinderMesh_17")
+material_override = ExtResource("4_r")
+
+[node name="LeafDark4" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.677, 0.045, -0.267)
+mesh = SubResource("CylinderMesh_17")
+material_override = ExtResource("4_r")
+
+[node name="FlowerWhite" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.3, 0, 0, 0, 1, 0, 0, 0, 0.3, 0.3, 0.05, -0.2)
+mesh = SubResource("CylinderMesh_18")
+material_override = ExtResource("5_r")

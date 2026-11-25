@@ -1,0 +1,373 @@
+[gd_scene load_steps=12 format=3]
+
+[ext_resource type="Script" path="res://scripts/world/houses/kit_prop.gd" id="1_r"]
+[ext_resource type="Material" path="res://assets/materials/houses/palm_trunk.tres" id="2_r"]
+[ext_resource type="Material" path="res://assets/materials/houses/sabal_frond.tres" id="3_r"]
+[ext_resource type="Material" path="res://assets/materials/houses/frond_dry.tres" id="4_r"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_1"]
+top_radius = 0.26
+bottom_radius = 0.28
+height = 5.6
+radial_segments = 7
+rings = 1
+
+[sub_resource type="BoxMesh" id="BoxMesh_2"]
+size = Vector3(0.16, 0.22, 0.1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_3"]
+size = Vector3(0.75, 0.03, 1.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_4"]
+size = Vector3(1, 0.03, 1.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_5"]
+size = Vector3(0.45, 0.03, 0.75)
+
+[sub_resource type="BoxMesh" id="BoxMesh_6"]
+size = Vector3(0.6, 0.03, 0.75)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_7"]
+height = 5.6
+radius = 0.3
+
+[node name="SabalPalm" type="Node3D"]
+script = ExtResource("1_r")
+prop_id = "sabal_palm"
+category = "palms"
+display_name = "Sabal (cabbage) palm"
+collides = true
+radius = 1.3
+mount = "ground"
+label_height = 7.6
+
+[node name="PalmTrunk" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.8, 0)
+mesh = SubResource("CylinderMesh_1")
+material_override = ExtResource("2_r")
+
+[node name="PalmTrunk2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.906, -0.423, 0, 0.423, 0.906, 0, 3.4, 0.27)
+mesh = SubResource("BoxMesh_2")
+material_override = ExtResource("2_r")
+
+[node name="PalmTrunk3" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.737, 0.286, 0.612, 0, 0.906, -0.423, -0.676, -0.312, -0.668, 0.182, 3.56, -0.199)
+mesh = SubResource("BoxMesh_2")
+material_override = ExtResource("2_r")
+
+[node name="PalmTrunk4" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.087, -0.421, -0.903, 0, 0.906, -0.423, 0.996, 0.037, 0.079, -0.269, 3.72, 0.024)
+mesh = SubResource("BoxMesh_2")
+material_override = ExtResource("2_r")
+
+[node name="PalmTrunk5" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.609, 0.335, 0.719, 0, 0.906, -0.423, -0.793, 0.257, 0.552, 0.214, 3.88, 0.164)
+mesh = SubResource("BoxMesh_2")
+material_override = ExtResource("2_r")
+
+[node name="PalmTrunk6" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.985, -0.073, -0.157, 0, 0.906, -0.423, 0.174, -0.416, -0.893, -0.047, 4.04, -0.266)
+mesh = SubResource("BoxMesh_2")
+material_override = ExtResource("2_r")
+
+[node name="PalmTrunk7" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.843, -0.227, -0.487, 0, 0.906, -0.423, 0.537, 0.356, 0.764, -0.145, 4.2, 0.228)
+mesh = SubResource("BoxMesh_2")
+material_override = ExtResource("2_r")
+
+[node name="PalmTrunk8" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.259, 0.408, 0.875, 0, 0.906, -0.423, -0.966, -0.109, -0.235, 0.261, 4.36, -0.07)
+mesh = SubResource("BoxMesh_2")
+material_override = ExtResource("2_r")
+
+[node name="PalmTrunk9" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.462, -0.375, -0.804, 0, 0.906, -0.423, 0.887, -0.195, -0.418, -0.239, 4.52, -0.125)
+mesh = SubResource("BoxMesh_2")
+material_override = ExtResource("2_r")
+
+[node name="PalmTrunk10" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.94, 0.145, 0.31, 0, 0.906, -0.423, -0.342, 0.397, 0.852, 0.092, 4.68, 0.254)
+mesh = SubResource("BoxMesh_2")
+material_override = ExtResource("2_r")
+
+[node name="PalmTrunk11" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.924, 0.162, 0.347, 0, 0.906, -0.423, -0.383, -0.39, -0.837, 0.103, 4.84, -0.249)
+mesh = SubResource("BoxMesh_2")
+material_override = ExtResource("2_r")
+
+[node name="PalmTrunk12" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.423, -0.383, -0.821, 0, 0.906, -0.423, 0.906, 0.179, 0.383, -0.245, 5, 0.114)
+mesh = SubResource("BoxMesh_2")
+material_override = ExtResource("2_r")
+
+[node name="PalmTrunk13" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.301, 0.403, 0.864, 0, 0.906, -0.423, -0.954, 0.127, 0.273, 0.258, 5.16, 0.081)
+mesh = SubResource("BoxMesh_2")
+material_override = ExtResource("2_r")
+
+[node name="PalmTrunk14" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.866, -0.211, -0.453, 0, 0.906, -0.423, 0.5, -0.366, -0.785, -0.135, 5.32, -0.234)
+mesh = SubResource("BoxMesh_2")
+material_override = ExtResource("2_r")
+
+[node name="PalmTrunk15" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.976, -0.091, -0.196, 0, 0.906, -0.423, 0.216, 0.413, 0.885, -0.058, 5.48, 0.264)
+mesh = SubResource("BoxMesh_2")
+material_override = ExtResource("2_r")
+
+[node name="SabalFrond" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.999, 0.021, -0.03, 0, 0.819, 0.574, 0.037, -0.573, 0.819, -0.015, 6.087, 0.409)
+mesh = SubResource("BoxMesh_3")
+material_override = ExtResource("3_r")
+
+[node name="SabalFrond2" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.999, 0.008, -0.036, 0, 0.974, 0.225, 0.037, -0.225, 0.974, -0.048, 6.486, 1.305)
+mesh = SubResource("BoxMesh_4")
+material_override = ExtResource("3_r")
+
+[node name="SabalFrond3" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.947, -0.263, 0.184, 0, 0.574, 0.819, -0.321, -0.776, 0.543, 0.092, 6.21, 0.272)
+mesh = SubResource("BoxMesh_3")
+material_override = ExtResource("3_r")
+
+[node name="SabalFrond4" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.947, -0.175, 0.269, 0, 0.839, 0.545, -0.321, -0.516, 0.794, 0.319, 6.891, 0.94)
+mesh = SubResource("BoxMesh_4")
+material_override = ExtResource("3_r")
+
+[node name="SabalFrond5" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.82, -0.468, 0.328, 0, 0.574, 0.819, -0.572, -0.672, 0.471, 0.164, 6.21, 0.235)
+mesh = SubResource("BoxMesh_3")
+material_override = ExtResource("3_r")
+
+[node name="SabalFrond6" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.82, -0.311, 0.479, 0, 0.839, 0.545, -0.572, -0.447, 0.688, 0.568, 6.891, 0.815)
+mesh = SubResource("BoxMesh_4")
+material_override = ExtResource("3_r")
+
+[node name="SabalFrond7" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.524, -0.698, 0.488, 0, 0.574, 0.819, -0.852, -0.429, 0.301, 0.244, 6.21, 0.15)
+mesh = SubResource("BoxMesh_3")
+material_override = ExtResource("3_r")
+
+[node name="SabalFrond8" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.524, -0.464, 0.714, 0, 0.839, 0.545, -0.852, -0.285, 0.44, 0.846, 6.891, 0.52)
+mesh = SubResource("BoxMesh_4")
+material_override = ExtResource("3_r")
+
+[node name="SabalFrond9" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.089, -0.571, 0.816, 0, 0.819, 0.574, -0.996, -0.051, 0.073, 0.408, 6.087, 0.036)
+mesh = SubResource("BoxMesh_3")
+material_override = ExtResource("3_r")
+
+[node name="SabalFrond10" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.089, -0.224, 0.971, 0, 0.974, 0.225, -0.996, -0.02, 0.086, 1.301, 6.486, 0.116)
+mesh = SubResource("BoxMesh_4")
+material_override = ExtResource("3_r")
+
+[node name="SabalFrond11" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.078, 0.087, 0.993, 0, 0.996, -0.087, -0.997, -0.007, -0.077, 0.497, 5.756, -0.039)
+mesh = SubResource("BoxMesh_3")
+material_override = ExtResource("3_r")
+
+[node name="SabalFrond12" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.078, 0.453, 0.888, 0, 0.891, -0.454, -0.997, -0.035, -0.069, 1.437, 5.486, -0.112)
+mesh = SubResource("BoxMesh_4")
+material_override = ExtResource("3_r")
+
+[node name="SabalFrond13" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.485, -0.502, 0.716, 0, 0.819, 0.574, -0.874, 0.278, -0.397, 0.358, 6.087, -0.199)
+mesh = SubResource("BoxMesh_3")
+material_override = ExtResource("3_r")
+
+[node name="SabalFrond14" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.485, -0.197, 0.852, 0, 0.974, 0.225, -0.874, 0.109, -0.473, 1.142, 6.486, -0.634)
+mesh = SubResource("BoxMesh_4")
+material_override = ExtResource("3_r")
+
+[node name="SabalFrond15" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.708, 0.062, 0.703, 0, 0.996, -0.087, -0.706, -0.062, -0.706, 0.352, 5.756, -0.353)
+mesh = SubResource("BoxMesh_3")
+material_override = ExtResource("3_r")
+
+[node name="SabalFrond16" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.708, 0.321, 0.629, 0, 0.891, -0.454, -0.706, -0.322, -0.631, 1.018, 5.486, -1.021)
+mesh = SubResource("BoxMesh_4")
+material_override = ExtResource("3_r")
+
+[node name="SabalFrond17" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.904, -0.35, 0.245, 0, 0.574, 0.819, -0.427, 0.741, -0.519, 0.123, 6.21, -0.259)
+mesh = SubResource("BoxMesh_3")
+material_override = ExtResource("3_r")
+
+[node name="SabalFrond18" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.904, -0.233, 0.358, 0, 0.839, 0.545, -0.427, 0.492, -0.758, 0.424, 6.891, -0.898)
+mesh = SubResource("BoxMesh_4")
+material_override = ExtResource("3_r")
+
+[node name="SabalFrond19" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.996, 0.077, -0.054, 0, 0.574, 0.819, 0.094, 0.816, -0.571, -0.027, 6.21, -0.286)
+mesh = SubResource("BoxMesh_3")
+material_override = ExtResource("3_r")
+
+[node name="SabalFrond20" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.996, 0.051, -0.078, 0, 0.839, 0.545, 0.094, 0.542, -0.835, -0.093, 6.891, -0.989)
+mesh = SubResource("BoxMesh_4")
+material_override = ExtResource("3_r")
+
+[node name="SabalFrond21" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.934, -0.031, -0.356, 0, 0.996, -0.087, 0.357, -0.081, -0.93, -0.178, 5.756, -0.465)
+mesh = SubResource("BoxMesh_3")
+material_override = ExtResource("3_r")
+
+[node name="SabalFrond22" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.934, -0.162, -0.318, 0, 0.891, -0.454, 0.357, -0.424, -0.832, -0.515, 5.486, -1.347)
+mesh = SubResource("BoxMesh_4")
+material_override = ExtResource("3_r")
+
+[node name="SabalFrond23" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.823, 0.326, -0.465, 0, 0.819, 0.574, 0.568, 0.472, -0.674, -0.233, 6.087, -0.337)
+mesh = SubResource("BoxMesh_3")
+material_override = ExtResource("3_r")
+
+[node name="SabalFrond24" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.823, 0.128, -0.553, 0, 0.974, 0.225, 0.568, 0.185, -0.802, -0.742, 6.486, -1.075)
+mesh = SubResource("BoxMesh_4")
+material_override = ExtResource("3_r")
+
+[node name="SabalFrond25" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.58, 0.467, -0.667, 0, 0.819, 0.574, 0.815, 0.333, -0.475, -0.334, 6.087, -0.237)
+mesh = SubResource("BoxMesh_3")
+material_override = ExtResource("3_r")
+
+[node name="SabalFrond26" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.58, 0.183, -0.794, 0, 0.974, 0.225, 0.815, 0.13, -0.565, -1.064, 6.486, -0.757)
+mesh = SubResource("BoxMesh_4")
+material_override = ExtResource("3_r")
+
+[node name="SabalFrond27" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.217, 0.56, -0.8, 0, 0.819, 0.574, 0.976, 0.124, -0.178, -0.4, 6.087, -0.089)
+mesh = SubResource("BoxMesh_3")
+material_override = ExtResource("3_r")
+
+[node name="SabalFrond28" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.217, 0.22, -0.951, 0, 0.974, 0.225, 0.976, 0.049, -0.211, -1.275, 6.486, -0.283)
+mesh = SubResource("BoxMesh_4")
+material_override = ExtResource("3_r")
+
+[node name="SabalFrond29" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.182, 0.254, -0.95, 0, 0.966, 0.259, 0.983, -0.047, 0.176, -0.475, 5.929, 0.088)
+mesh = SubResource("BoxMesh_3")
+material_override = ExtResource("3_r")
+
+[node name="SabalFrond30" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.182, -0.12, -0.976, 0, 0.993, -0.122, 0.983, 0.022, 0.181, -1.438, 5.998, 0.266)
+mesh = SubResource("BoxMesh_4")
+material_override = ExtResource("3_r")
+
+[node name="SabalFrond31" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.511, 0.493, -0.704, 0, 0.819, 0.574, 0.86, -0.293, 0.418, -0.352, 6.087, 0.209)
+mesh = SubResource("BoxMesh_3")
+material_override = ExtResource("3_r")
+
+[node name="SabalFrond32" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.511, 0.193, -0.838, 0, 0.974, 0.225, 0.86, -0.115, 0.498, -1.123, 6.486, 0.667)
+mesh = SubResource("BoxMesh_4")
+material_override = ExtResource("3_r")
+
+[node name="SabalFrond33" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.71, 0.404, -0.577, 0, 0.819, 0.574, 0.704, -0.407, 0.582, -0.288, 6.087, 0.291)
+mesh = SubResource("BoxMesh_3")
+material_override = ExtResource("3_r")
+
+[node name="SabalFrond34" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.71, 0.158, -0.686, 0, 0.974, 0.225, 0.704, -0.16, 0.692, -0.92, 6.486, 0.928)
+mesh = SubResource("BoxMesh_4")
+material_override = ExtResource("3_r")
+
+[node name="SabalFrond35" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.93, 0.301, -0.211, 0, 0.574, 0.819, 0.367, -0.762, 0.534, -0.105, 6.21, 0.267)
+mesh = SubResource("BoxMesh_3")
+material_override = ExtResource("3_r")
+
+[node name="SabalFrond36" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.93, 0.2, -0.308, 0, 0.839, 0.545, 0.367, -0.507, 0.78, -0.364, 6.891, 0.924)
+mesh = SubResource("BoxMesh_4")
+material_override = ExtResource("3_r")
+
+[node name="FrondDry" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.342, -0.94, 0, 0.94, 0.342, 0, 5.071, 0.12)
+mesh = SubResource("BoxMesh_5")
+material_override = ExtResource("4_r")
+
+[node name="FrondDry2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.259, -0.966, 0, 0.966, 0.259, 0, 4.404, 0.33)
+mesh = SubResource("BoxMesh_6")
+material_override = ExtResource("4_r")
+
+[node name="FrondDry3" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.629, 0.73, 0.266, 0, 0.342, -0.94, -0.777, 0.591, 0.215, 0.093, 5.071, 0.075)
+mesh = SubResource("BoxMesh_5")
+material_override = ExtResource("4_r")
+
+[node name="FrondDry4" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.629, 0.751, 0.201, 0, 0.259, -0.966, -0.777, 0.608, 0.163, 0.256, 4.404, 0.208)
+mesh = SubResource("BoxMesh_6")
+material_override = ExtResource("4_r")
+
+[node name="FrondDry5" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.208, 0.919, 0.335, 0, 0.342, -0.94, -0.978, -0.195, -0.071, 0.117, 5.071, -0.025)
+mesh = SubResource("BoxMesh_5")
+material_override = ExtResource("4_r")
+
+[node name="FrondDry6" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.208, 0.945, 0.253, 0, 0.259, -0.966, -0.978, -0.201, -0.054, 0.323, 4.404, -0.069)
+mesh = SubResource("BoxMesh_6")
+material_override = ExtResource("4_r")
+
+[node name="FrondDry7" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.891, 0.427, 0.155, 0, 0.342, -0.94, -0.454, -0.837, -0.305, 0.054, 5.071, -0.107)
+mesh = SubResource("BoxMesh_5")
+material_override = ExtResource("4_r")
+
+[node name="FrondDry8" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.891, 0.439, 0.118, 0, 0.259, -0.966, -0.454, -0.861, -0.231, 0.15, 4.404, -0.294)
+mesh = SubResource("BoxMesh_6")
+material_override = ExtResource("4_r")
+
+[node name="FrondDry9" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.914, -0.382, -0.139, 0, 0.342, -0.94, 0.407, -0.858, -0.312, -0.049, 5.071, -0.109)
+mesh = SubResource("BoxMesh_5")
+material_override = ExtResource("4_r")
+
+[node name="FrondDry10" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.914, -0.393, -0.105, 0, 0.259, -0.966, 0.407, -0.882, -0.236, -0.134, 4.404, -0.301)
+mesh = SubResource("BoxMesh_6")
+material_override = ExtResource("4_r")
+
+[node name="FrondDry11" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.259, -0.908, -0.33, 0, 0.342, -0.94, 0.966, -0.243, -0.089, -0.116, 5.071, -0.031)
+mesh = SubResource("BoxMesh_5")
+material_override = ExtResource("4_r")
+
+[node name="FrondDry12" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.259, -0.933, -0.25, 0, 0.259, -0.966, 0.966, -0.25, -0.067, -0.319, 4.404, -0.085)
+mesh = SubResource("BoxMesh_6")
+material_override = ExtResource("4_r")
+
+[node name="FrondDry13" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.588, -0.76, -0.277, 0, 0.342, -0.94, 0.809, 0.552, 0.201, -0.097, 5.071, 0.07)
+mesh = SubResource("BoxMesh_5")
+material_override = ExtResource("4_r")
+
+[node name="FrondDry14" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.588, -0.781, -0.209, 0, 0.259, -0.966, 0.809, 0.568, 0.152, -0.267, 4.404, 0.194)
+mesh = SubResource("BoxMesh_6")
+material_override = ExtResource("4_r")
+
+[node name="Collision" type="StaticBody3D" parent="."]
+
+[node name="Shape" type="CollisionShape3D" parent="Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.8, 0)
+shape = SubResource("CylinderShape3D_7")

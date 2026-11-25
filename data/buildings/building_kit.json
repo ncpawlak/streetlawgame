@@ -43,7 +43,8 @@
       20
      ],
      "enterable": false,
-     "shop_type": ""
+     "shop_type": "",
+     "dress_tier": "low"
     },
     {
      "id": "A-02",
@@ -60,7 +61,8 @@
       20
      ],
      "enterable": false,
-     "shop_type": ""
+     "shop_type": "",
+     "dress_tier": "low"
     }
    ]
   },
@@ -83,7 +85,8 @@
       20
      ],
      "enterable": true,
-     "shop_type": "bank"
+     "shop_type": "bank",
+     "dress_tier": "civic"
     }
    ]
   },
@@ -116,7 +119,8 @@
       16
      ],
      "enterable": true,
-     "shop_type": "bar"
+     "shop_type": "bar",
+     "dress_tier": "commercial"
     }
    ]
   },
@@ -149,7 +153,8 @@
       10
      ],
      "enterable": true,
-     "shop_type": "barbershop"
+     "shop_type": "barbershop",
+     "dress_tier": "commercial"
     }
    ]
   },
@@ -182,7 +187,8 @@
       12
      ],
      "enterable": true,
-     "shop_type": "corner_store"
+     "shop_type": "corner_store",
+     "dress_tier": "commercial"
     }
    ]
   },
@@ -215,7 +221,8 @@
       24
      ],
      "enterable": true,
-     "shop_type": "chop_shop"
+     "shop_type": "chop_shop",
+     "dress_tier": "commercial"
     }
    ]
   },
@@ -248,7 +255,8 @@
       11.2
      ],
      "enterable": false,
-     "shop_type": ""
+     "shop_type": "",
+     "dress_tier": "low"
     }
    ]
   },
@@ -281,7 +289,8 @@
       16
      ],
      "enterable": true,
-     "shop_type": "electronics"
+     "shop_type": "electronics",
+     "dress_tier": "commercial"
     }
    ]
   },
@@ -314,7 +323,8 @@
       32
      ],
      "enterable": true,
-     "shop_type": "gas_station"
+     "shop_type": "gas_station",
+     "dress_tier": "commercial"
     }
    ]
   },
@@ -347,7 +357,8 @@
       20
      ],
      "enterable": false,
-     "shop_type": ""
+     "shop_type": "",
+     "dress_tier": "low"
     }
    ]
   },
@@ -380,7 +391,8 @@
       96
      ],
      "enterable": false,
-     "shop_type": ""
+     "shop_type": "",
+     "dress_tier": "civic"
     }
    ]
   },
@@ -403,7 +415,8 @@
       27
      ],
      "enterable": true,
-     "shop_type": "gun_store"
+     "shop_type": "gun_store",
+     "dress_tier": "commercial"
     }
    ]
   },
@@ -426,7 +439,8 @@
       18
      ],
      "enterable": true,
-     "shop_type": "hardware_store"
+     "shop_type": "hardware_store",
+     "dress_tier": "commercial"
     }
    ]
   },
@@ -460,7 +474,8 @@
       6
      ],
      "enterable": false,
-     "shop_type": ""
+     "shop_type": "",
+     "dress_tier": "medium"
     },
     {
      "id": "1F-07",
@@ -477,7 +492,8 @@
       13
      ],
      "enterable": false,
-     "shop_type": ""
+     "shop_type": "",
+     "dress_tier": "medium"
     },
     {
      "id": "1F-08",
@@ -494,7 +510,8 @@
       16
      ],
      "enterable": false,
-     "shop_type": ""
+     "shop_type": "",
+     "dress_tier": "medium"
     },
     {
      "id": "1F-10",
@@ -511,7 +528,8 @@
       15
      ],
      "enterable": false,
-     "shop_type": ""
+     "shop_type": "",
+     "dress_tier": "medium"
     },
     {
      "id": "1F-12",
@@ -528,7 +546,8 @@
       9
      ],
      "enterable": false,
-     "shop_type": ""
+     "shop_type": "",
+     "dress_tier": "medium"
     },
     {
      "id": "1F-15",
@@ -545,7 +564,8 @@
       16
      ],
      "enterable": false,
-     "shop_type": ""
+     "shop_type": "",
+     "dress_tier": "medium"
     }
    ]
   },
@@ -579,7 +599,8 @@
       9
      ],
      "enterable": false,
-     "shop_type": ""
+     "shop_type": "",
+     "dress_tier": "low"
     },
     {
      "id": "1F-09",
@@ -596,7 +617,8 @@
       11.0
      ],
      "enterable": false,
-     "shop_type": ""
+     "shop_type": "",
+     "dress_tier": "low"
     },
     {
      "id": "1F-13",
@@ -613,7 +635,8 @@
       17
      ],
      "enterable": false,
-     "shop_type": ""
+     "shop_type": "",
+     "dress_tier": "low"
     }
    ]
   },
@@ -647,7 +670,8 @@
       13
      ],
      "enterable": false,
-     "shop_type": ""
+     "shop_type": "",
+     "dress_tier": "low"
     },
     {
      "id": "1F-02",
@@ -664,7 +688,8 @@
       7.5
      ],
      "enterable": false,
-     "shop_type": ""
+     "shop_type": "",
+     "dress_tier": "low"
     },
     {
      "id": "1F-05",
@@ -681,7 +706,8 @@
       7.5
      ],
      "enterable": false,
-     "shop_type": ""
+     "shop_type": "",
+     "dress_tier": "low"
     },
     {
      "id": "1F-06",
@@ -698,7 +724,8 @@
       9.5
      ],
      "enterable": false,
-     "shop_type": ""
+     "shop_type": "",
+     "dress_tier": "low"
     },
     {
      "id": "1F-11",
@@ -715,7 +742,8 @@
       10
      ],
      "enterable": false,
-     "shop_type": ""
+     "shop_type": "",
+     "dress_tier": "low"
     },
     {
      "id": "1F-14",
@@ -732,7 +760,8 @@
       6
      ],
      "enterable": false,
-     "shop_type": ""
+     "shop_type": "",
+     "dress_tier": "low"
     }
    ]
   },
@@ -766,7 +795,8 @@
       8
      ],
      "enterable": false,
-     "shop_type": ""
+     "shop_type": "",
+     "dress_tier": "high"
     },
     {
      "id": "2F-06",
@@ -783,7 +813,8 @@
       11
      ],
      "enterable": false,
-     "shop_type": ""
+     "shop_type": "",
+     "dress_tier": "high"
     }
    ]
   },
@@ -817,7 +848,8 @@
       12
      ],
      "enterable": false,
-     "shop_type": ""
+     "shop_type": "",
+     "dress_tier": "medium"
     },
     {
      "id": "2F-09",
@@ -834,7 +866,8 @@
       7
      ],
      "enterable": false,
-     "shop_type": ""
+     "shop_type": "",
+     "dress_tier": "medium"
     }
    ]
   },
@@ -868,7 +901,8 @@
       9
      ],
      "enterable": false,
-     "shop_type": ""
+     "shop_type": "",
+     "dress_tier": "medium"
     },
     {
      "id": "2F-02",
@@ -885,7 +919,8 @@
       11
      ],
      "enterable": false,
-     "shop_type": ""
+     "shop_type": "",
+     "dress_tier": "medium"
     },
     {
      "id": "2F-04",
@@ -902,7 +937,8 @@
       16
      ],
      "enterable": false,
-     "shop_type": ""
+     "shop_type": "",
+     "dress_tier": "medium"
     },
     {
      "id": "2F-07",
@@ -919,7 +955,8 @@
       11
      ],
      "enterable": false,
-     "shop_type": ""
+     "shop_type": "",
+     "dress_tier": "medium"
     },
     {
      "id": "2F-08",
@@ -936,7 +973,8 @@
       11
      ],
      "enterable": false,
-     "shop_type": ""
+     "shop_type": "",
+     "dress_tier": "medium"
     },
     {
      "id": "2F-10",
@@ -953,7 +991,8 @@
       9
      ],
      "enterable": false,
-     "shop_type": ""
+     "shop_type": "",
+     "dress_tier": "medium"
     }
    ]
   },
@@ -986,7 +1025,8 @@
       18
      ],
      "enterable": false,
-     "shop_type": ""
+     "shop_type": "",
+     "dress_tier": "commercial"
     },
     {
      "id": "S-03",
@@ -1003,7 +1043,8 @@
       14
      ],
      "enterable": true,
-     "shop_type": "chop_shop"
+     "shop_type": "chop_shop",
+     "dress_tier": "commercial"
     }
    ]
   },
@@ -1036,7 +1077,8 @@
       11.2
      ],
      "enterable": false,
-     "shop_type": ""
+     "shop_type": "",
+     "dress_tier": "low"
     }
    ]
   },
@@ -1069,7 +1111,8 @@
       12
      ],
      "enterable": true,
-     "shop_type": "liquor_store"
+     "shop_type": "liquor_store",
+     "dress_tier": "commercial"
     }
    ]
   },
@@ -1102,7 +1145,8 @@
       16
      ],
      "enterable": false,
-     "shop_type": ""
+     "shop_type": "",
+     "dress_tier": "commercial"
     }
    ]
   },
@@ -1135,7 +1179,8 @@
       14
      ],
      "enterable": true,
-     "shop_type": "pawn_shop"
+     "shop_type": "pawn_shop",
+     "dress_tier": "commercial"
     }
    ]
   },
@@ -1168,7 +1213,8 @@
       16
      ],
      "enterable": true,
-     "shop_type": "pharmacy"
+     "shop_type": "pharmacy",
+     "dress_tier": "commercial"
     }
    ]
   },
@@ -1201,7 +1247,8 @@
       12
      ],
      "enterable": false,
-     "shop_type": ""
+     "shop_type": "",
+     "dress_tier": "low"
     }
    ]
   },
@@ -1234,7 +1281,8 @@
       10
      ],
      "enterable": false,
-     "shop_type": ""
+     "shop_type": "",
+     "dress_tier": "low"
     }
    ]
   },
@@ -1267,7 +1315,8 @@
       14
      ],
      "enterable": false,
-     "shop_type": ""
+     "shop_type": "",
+     "dress_tier": "low"
     }
    ]
   },
@@ -1300,7 +1349,8 @@
       14.5
      ],
      "enterable": true,
-     "shop_type": "corner_store"
+     "shop_type": "corner_store",
+     "dress_tier": "commercial"
     }
    ]
   },
@@ -1333,7 +1383,8 @@
       14
      ],
      "enterable": true,
-     "shop_type": "chop_shop"
+     "shop_type": "chop_shop",
+     "dress_tier": "commercial"
     }
    ]
   },
@@ -1366,7 +1417,8 @@
       16
      ],
      "enterable": false,
-     "shop_type": ""
+     "shop_type": "",
+     "dress_tier": "commercial"
     },
     {
      "id": "S-09",
@@ -1383,7 +1435,8 @@
       16
      ],
      "enterable": true,
-     "shop_type": "food"
+     "shop_type": "food",
+     "dress_tier": "commercial"
     }
    ]
   },
@@ -1416,7 +1469,8 @@
       14
      ],
      "enterable": true,
-     "shop_type": "gun_store"
+     "shop_type": "gun_store",
+     "dress_tier": "commercial"
     },
     {
      "id": "S-06",
@@ -1433,7 +1487,8 @@
       12
      ],
      "enterable": true,
-     "shop_type": "liquor_store"
+     "shop_type": "liquor_store",
+     "dress_tier": "commercial"
     }
    ]
   },
@@ -1466,7 +1521,8 @@
       14
      ],
      "enterable": false,
-     "shop_type": ""
+     "shop_type": "",
+     "dress_tier": "commercial"
     },
     {
      "id": "S-01",
@@ -1483,7 +1539,8 @@
       12
      ],
      "enterable": true,
-     "shop_type": "clothing_store"
+     "shop_type": "clothing_store",
+     "dress_tier": "commercial"
     }
    ]
   },
@@ -1516,7 +1573,8 @@
       14
      ],
      "enterable": false,
-     "shop_type": ""
+     "shop_type": "",
+     "dress_tier": "low"
     }
    ]
   },
@@ -1549,7 +1607,8 @@
       14
      ],
      "enterable": false,
-     "shop_type": ""
+     "shop_type": "",
+     "dress_tier": "low"
     }
    ]
   },
@@ -1572,7 +1631,8 @@
       14
      ],
      "enterable": false,
-     "shop_type": ""
+     "shop_type": "",
+     "dress_tier": "commercial"
     },
     {
      "id": "B-02",
@@ -1589,7 +1649,8 @@
       16
      ],
      "enterable": false,
-     "shop_type": ""
+     "shop_type": "",
+     "dress_tier": "commercial"
     },
     {
      "id": "S-01",
@@ -1606,7 +1667,8 @@
       12
      ],
      "enterable": true,
-     "shop_type": "clothing_store"
+     "shop_type": "clothing_store",
+     "dress_tier": "commercial"
     },
     {
      "id": "S-02",
@@ -1623,7 +1685,8 @@
       14
      ],
      "enterable": true,
-     "shop_type": "gun_store"
+     "shop_type": "gun_store",
+     "dress_tier": "commercial"
     },
     {
      "id": "S-04",
@@ -1640,7 +1703,8 @@
       14
      ],
      "enterable": true,
-     "shop_type": "tattoo_parlor"
+     "shop_type": "tattoo_parlor",
+     "dress_tier": "commercial"
     },
     {
      "id": "S-05",
@@ -1657,7 +1721,8 @@
       12
      ],
      "enterable": true,
-     "shop_type": "barbershop"
+     "shop_type": "barbershop",
+     "dress_tier": "commercial"
     },
     {
      "id": "S-06",
@@ -1674,7 +1739,8 @@
       12
      ],
      "enterable": true,
-     "shop_type": "liquor_store"
+     "shop_type": "liquor_store",
+     "dress_tier": "commercial"
     },
     {
      "id": "S-07",
@@ -1691,7 +1757,8 @@
       14.5
      ],
      "enterable": true,
-     "shop_type": "corner_store"
+     "shop_type": "corner_store",
+     "dress_tier": "commercial"
     },
     {
      "id": "S-08",
@@ -1708,7 +1775,8 @@
       14
      ],
      "enterable": true,
-     "shop_type": "pawn_shop"
+     "shop_type": "pawn_shop",
+     "dress_tier": "commercial"
     }
    ]
   },
@@ -1741,7 +1809,8 @@
       10
      ],
      "enterable": true,
-     "shop_type": "tattoo_parlor"
+     "shop_type": "tattoo_parlor",
+     "dress_tier": "commercial"
     }
    ]
   },
@@ -1775,7 +1844,8 @@
       16
      ],
      "enterable": false,
-     "shop_type": ""
+     "shop_type": "",
+     "dress_tier": "low"
     },
     {
      "id": "T-02",
@@ -1792,7 +1862,8 @@
       16
      ],
      "enterable": false,
-     "shop_type": ""
+     "shop_type": "",
+     "dress_tier": "low"
     },
     {
      "id": "T-03",
@@ -1809,7 +1880,8 @@
       16
      ],
      "enterable": false,
-     "shop_type": ""
+     "shop_type": "",
+     "dress_tier": "low"
     }
    ]
   },
@@ -1842,7 +1914,8 @@
       14
      ],
      "enterable": false,
-     "shop_type": ""
+     "shop_type": "",
+     "dress_tier": "low"
     }
    ]
   },
@@ -1875,7 +1948,8 @@
       16
      ],
      "enterable": false,
-     "shop_type": ""
+     "shop_type": "",
+     "dress_tier": "low"
     }
    ]
   },
@@ -1908,7 +1982,8 @@
       32
      ],
      "enterable": false,
-     "shop_type": ""
+     "shop_type": "",
+     "dress_tier": "commercial"
     }
    ]
   },
@@ -1941,9 +2016,537 @@
       30
      ],
      "enterable": false,
-     "shop_type": ""
+     "shop_type": "",
+     "dress_tier": "commercial"
     }
    ]
+  }
+ },
+ "dressing": "res://data/buildings/kit_dressing.json",
+ "props": {
+  "royal_palm": {
+   "name": "Royal palm",
+   "category": "palms",
+   "scene": "res://scenes/props/palms/royal_palm.tscn",
+   "collision": true,
+   "mount": "ground",
+   "radius_m": 1.6,
+   "tiers": [
+    "civic",
+    "high"
+   ]
+  },
+  "coconut_palm": {
+   "name": "Coconut palm (leaning)",
+   "category": "palms",
+   "scene": "res://scenes/props/palms/coconut_palm.tscn",
+   "collision": true,
+   "mount": "ground",
+   "radius_m": 1.5,
+   "tiers": [
+    "commercial",
+    "high",
+    "low",
+    "medium"
+   ]
+  },
+  "sabal_palm": {
+   "name": "Sabal (cabbage) palm",
+   "category": "palms",
+   "scene": "res://scenes/props/palms/sabal_palm.tscn",
+   "collision": true,
+   "mount": "ground",
+   "radius_m": 1.3,
+   "tiers": [
+    "civic",
+    "commercial",
+    "low",
+    "medium"
+   ]
+  },
+  "banyan": {
+   "name": "Banyan",
+   "category": "trees",
+   "scene": "res://scenes/props/trees/banyan.tscn",
+   "collision": true,
+   "mount": "ground",
+   "radius_m": 5.5,
+   "tiers": []
+  },
+  "live_oak": {
+   "name": "Live oak with Spanish moss",
+   "category": "trees",
+   "scene": "res://scenes/props/trees/live_oak.tscn",
+   "collision": true,
+   "mount": "ground",
+   "radius_m": 4.0,
+   "tiers": [
+    "civic",
+    "high",
+    "medium"
+   ]
+  },
+  "sea_grape": {
+   "name": "Sea grape shrub",
+   "category": "shrubs",
+   "scene": "res://scenes/props/shrubs/sea_grape.tscn",
+   "collision": false,
+   "mount": "ground",
+   "radius_m": 1.5,
+   "tiers": [
+    "medium"
+   ]
+  },
+  "sea_grape_hedge": {
+   "name": "Sea grape hedge (6 m)",
+   "category": "shrubs",
+   "scene": "res://scenes/props/shrubs/sea_grape_hedge.tscn",
+   "collision": false,
+   "mount": "ground",
+   "radius_m": 3.0,
+   "tiers": [
+    "civic",
+    "high"
+   ]
+  },
+  "brush_clump": {
+   "name": "Saw palmetto brush",
+   "category": "shrubs",
+   "scene": "res://scenes/props/shrubs/brush_clump.tscn",
+   "collision": false,
+   "mount": "ground",
+   "radius_m": 1.1,
+   "tiers": [
+    "commercial",
+    "low"
+   ]
+  },
+  "weeds_tall": {
+   "name": "Tall weeds / overgrowth",
+   "category": "shrubs",
+   "scene": "res://scenes/props/shrubs/weeds_tall.tscn",
+   "collision": false,
+   "mount": "ground",
+   "radius_m": 0.9,
+   "tiers": [
+    "commercial",
+    "low"
+   ]
+  },
+  "hibiscus_bed": {
+   "name": "Hibiscus bed",
+   "category": "flowers",
+   "scene": "res://scenes/props/flowers/hibiscus_bed.tscn",
+   "collision": false,
+   "mount": "bed",
+   "radius_m": 1.6,
+   "tiers": [
+    "civic",
+    "high",
+    "medium"
+   ]
+  },
+  "bougainvillea": {
+   "name": "Bougainvillea",
+   "category": "flowers",
+   "scene": "res://scenes/props/flowers/bougainvillea.tscn",
+   "collision": false,
+   "mount": "bed",
+   "radius_m": 1.3,
+   "tiers": [
+    "high"
+   ]
+  },
+  "flower_bed": {
+   "name": "Round flower bed",
+   "category": "flowers",
+   "scene": "res://scenes/props/flowers/flower_bed.tscn",
+   "collision": false,
+   "mount": "ground",
+   "radius_m": 1.1,
+   "tiers": [
+    "civic",
+    "high",
+    "medium"
+   ]
+  },
+  "sand_patch": {
+   "name": "Patchy sandy grass",
+   "category": "ground",
+   "scene": "res://scenes/props/ground/sand_patch.tscn",
+   "collision": false,
+   "mount": "ground",
+   "radius_m": 1.8,
+   "tiers": [
+    "commercial",
+    "low",
+    "medium"
+   ]
+  },
+  "dirt_patch": {
+   "name": "Bare dirt patch",
+   "category": "ground",
+   "scene": "res://scenes/props/ground/dirt_patch.tscn",
+   "collision": false,
+   "mount": "ground",
+   "radius_m": 1.5,
+   "tiers": [
+    "low"
+   ]
+  },
+  "fallen_frond": {
+   "name": "Fallen palm frond",
+   "category": "ground",
+   "scene": "res://scenes/props/ground/fallen_frond.tscn",
+   "collision": false,
+   "mount": "ground",
+   "radius_m": 1.3,
+   "tiers": [
+    "commercial",
+    "low",
+    "medium"
+   ]
+  },
+  "garden_pond": {
+   "name": "Small garden pond",
+   "category": "water",
+   "scene": "res://scenes/props/water/garden_pond.tscn",
+   "collision": false,
+   "mount": "ground",
+   "radius_m": 2.0,
+   "tiers": [
+    "high"
+   ]
+  },
+  "retention_pond": {
+   "name": "Fenced retention pond",
+   "category": "water",
+   "scene": "res://scenes/props/water/retention_pond.tscn",
+   "collision": true,
+   "mount": "ground",
+   "radius_m": 10.0,
+   "tiers": [],
+   "ground_cut": [
+    -8.0,
+    -5.5,
+    16.0,
+    11.0
+   ]
+  },
+  "canal_segment": {
+   "name": "Canal segment (24 m)",
+   "category": "water",
+   "scene": "res://scenes/props/water/canal_segment.tscn",
+   "collision": true,
+   "mount": "ground",
+   "radius_m": 12.0,
+   "tiers": [],
+   "ground_cut": [
+    -12.0,
+    -7.0,
+    24.0,
+    14.0
+   ]
+  },
+  "chain_fence_3m": {
+   "name": "Chain-link fence (3 m)",
+   "category": "yard",
+   "scene": "res://scenes/props/yard/chain_fence_3m.tscn",
+   "collision": true,
+   "mount": "ground",
+   "radius_m": 1.5,
+   "tiers": []
+  },
+  "block_wall_3m": {
+   "name": "Stucco block wall (3 m)",
+   "category": "yard",
+   "scene": "res://scenes/props/yard/block_wall_3m.tscn",
+   "collision": true,
+   "mount": "ground",
+   "radius_m": 1.5,
+   "tiers": []
+  },
+  "carport_metal": {
+   "name": "Metal carport",
+   "category": "yard",
+   "scene": "res://scenes/props/yard/carport_metal.tscn",
+   "collision": true,
+   "mount": "ground",
+   "radius_m": 3.2,
+   "tiers": []
+  },
+  "wall_ac": {
+   "name": "Through-wall AC unit",
+   "category": "yard",
+   "scene": "res://scenes/props/yard/wall_ac.tscn",
+   "collision": false,
+   "mount": "wall",
+   "radius_m": 0.5,
+   "tiers": [
+    "commercial",
+    "low",
+    "medium"
+   ]
+  },
+  "window_ac": {
+   "name": "Window AC unit",
+   "category": "yard",
+   "scene": "res://scenes/props/yard/window_ac.tscn",
+   "collision": false,
+   "mount": "window",
+   "radius_m": 0.45,
+   "tiers": [
+    "low"
+   ]
+  },
+  "window_bars": {
+   "name": "Window security bars (1 x 1 m, scaled to the opening)",
+   "category": "yard",
+   "scene": "res://scenes/props/yard/window_bars.tscn",
+   "collision": false,
+   "mount": "window",
+   "radius_m": 0.5,
+   "tiers": [
+    "low"
+   ]
+  },
+  "storm_panel": {
+   "name": "Hurricane storm panel (1 x 1 m, scaled to the opening)",
+   "category": "yard",
+   "scene": "res://scenes/props/yard/storm_panel.tscn",
+   "collision": false,
+   "mount": "window",
+   "radius_m": 0.5,
+   "tiers": [
+    "medium"
+   ]
+  },
+  "satellite_dish": {
+   "name": "Satellite dish",
+   "category": "yard",
+   "scene": "res://scenes/props/yard/satellite_dish.tscn",
+   "collision": false,
+   "mount": "wall",
+   "radius_m": 0.5,
+   "tiers": [
+    "low",
+    "medium"
+   ]
+  },
+  "trash_bin": {
+   "name": "Rolling trash bin",
+   "category": "yard",
+   "scene": "res://scenes/props/yard/trash_bin.tscn",
+   "collision": true,
+   "mount": "ground",
+   "radius_m": 0.5,
+   "tiers": [
+    "commercial",
+    "high",
+    "low",
+    "medium"
+   ]
+  },
+  "recycle_bin": {
+   "name": "Recycling bin",
+   "category": "yard",
+   "scene": "res://scenes/props/yard/recycle_bin.tscn",
+   "collision": true,
+   "mount": "ground",
+   "radius_m": 0.5,
+   "tiers": [
+    "high",
+    "medium"
+   ]
+  },
+  "laundry_line": {
+   "name": "Laundry line",
+   "category": "yard",
+   "scene": "res://scenes/props/yard/laundry_line.tscn",
+   "collision": true,
+   "mount": "ground",
+   "radius_m": 2.8,
+   "tiers": [
+    "low",
+    "medium"
+   ]
+  },
+  "above_ground_pool": {
+   "name": "Above-ground pool",
+   "category": "yard",
+   "scene": "res://scenes/props/yard/above_ground_pool.tscn",
+   "collision": true,
+   "mount": "ground",
+   "radius_m": 3.0,
+   "tiers": [
+    "low"
+   ]
+  },
+  "screened_pool": {
+   "name": "Screened pool enclosure (10 x 8 m)",
+   "category": "yard",
+   "scene": "res://scenes/props/yard/screened_pool.tscn",
+   "collision": true,
+   "mount": "ground",
+   "radius_m": 5.0,
+   "tiers": [
+    "high"
+   ],
+   "ground_cut": [
+    -5.0,
+    -4.0,
+    10.0,
+    8.0
+   ]
+  },
+  "screened_pool_small": {
+   "name": "Screened pool enclosure (8 x 6.5 m)",
+   "category": "yard",
+   "scene": "res://scenes/props/yard/screened_pool_small.tscn",
+   "collision": true,
+   "mount": "ground",
+   "radius_m": 4.0,
+   "tiers": [
+    "high"
+   ],
+   "ground_cut": [
+    -4.0,
+    -3.25,
+    8.0,
+    6.5
+   ]
+  },
+  "pavers_patio": {
+   "name": "Paver patio (4 x 4 m)",
+   "category": "yard",
+   "scene": "res://scenes/props/yard/pavers_patio.tscn",
+   "collision": false,
+   "mount": "ground",
+   "radius_m": 2.0,
+   "tiers": [
+    "medium"
+   ]
+  },
+  "shopping_cart": {
+   "name": "Abandoned shopping cart",
+   "category": "yard",
+   "scene": "res://scenes/props/yard/shopping_cart.tscn",
+   "collision": true,
+   "mount": "ground",
+   "radius_m": 0.6,
+   "tiers": [
+    "commercial",
+    "low"
+   ]
+  },
+  "graffiti_tag": {
+   "name": "Graffiti tag",
+   "category": "decals",
+   "scene": "res://scenes/props/decals/graffiti_tag.tscn",
+   "collision": false,
+   "mount": "wall",
+   "radius_m": 1.4,
+   "tiers": [
+    "commercial",
+    "low"
+   ]
+  },
+  "mural": {
+   "name": "Mural (6 x 3 m)",
+   "category": "decals",
+   "scene": "res://scenes/props/decals/mural.tscn",
+   "collision": false,
+   "mount": "wall",
+   "radius_m": 3.0,
+   "tiers": [
+    "commercial"
+   ]
+  },
+  "rust_streak": {
+   "name": "Rust stain",
+   "category": "decals",
+   "scene": "res://scenes/props/decals/rust_streak.tscn",
+   "collision": false,
+   "mount": "wall",
+   "radius_m": 0.4,
+   "tiers": [
+    "commercial",
+    "low"
+   ]
+  },
+  "power_pole": {
+   "name": "Wooden power pole",
+   "category": "street",
+   "scene": "res://scenes/props/street/power_pole.tscn",
+   "collision": true,
+   "mount": "ground",
+   "radius_m": 0.4,
+   "tiers": []
+  },
+  "power_pole_transformer": {
+   "name": "Wooden power pole + transformer",
+   "category": "street",
+   "scene": "res://scenes/props/street/power_pole_transformer.tscn",
+   "collision": true,
+   "mount": "ground",
+   "radius_m": 0.4,
+   "tiers": []
+  },
+  "bus_bench": {
+   "name": "Bus bench with ad back",
+   "category": "street",
+   "scene": "res://scenes/props/street/bus_bench.tscn",
+   "collision": true,
+   "mount": "ground",
+   "radius_m": 1.1,
+   "tiers": []
+  },
+  "bus_shelter": {
+   "name": "Bus shelter",
+   "category": "street",
+   "scene": "res://scenes/props/street/bus_shelter.tscn",
+   "collision": true,
+   "mount": "ground",
+   "radius_m": 2.2,
+   "tiers": []
+  },
+  "mailbox": {
+   "name": "Curbside mailbox",
+   "category": "street",
+   "scene": "res://scenes/props/street/mailbox.tscn",
+   "collision": true,
+   "mount": "ground",
+   "radius_m": 0.3,
+   "tiers": []
+  },
+  "mailbox_cluster": {
+   "name": "Cluster mailbox (CBU)",
+   "category": "street",
+   "scene": "res://scenes/props/street/mailbox_cluster.tscn",
+   "collision": true,
+   "mount": "ground",
+   "radius_m": 0.6,
+   "tiers": []
+  },
+  "newspaper_boxes": {
+   "name": "Newspaper boxes",
+   "category": "street",
+   "scene": "res://scenes/props/street/newspaper_boxes.tscn",
+   "collision": true,
+   "mount": "ground",
+   "radius_m": 0.9,
+   "tiers": [
+    "commercial"
+   ]
+  },
+  "overgrown_lot": {
+   "name": "Overgrown empty lot (12 x 20 m)",
+   "category": "lots",
+   "scene": "res://scenes/props/lots/overgrown_lot.tscn",
+   "collision": true,
+   "mount": "ground",
+   "radius_m": 6.0,
+   "tiers": []
   }
  }
 }

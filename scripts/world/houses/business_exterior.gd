@@ -27,6 +27,19 @@ extends Node3D
 		show_label = value
 		_update_label()
 
+## Seeded West Palm Beach dressing (palms, brush, beds, yard clutter, window units, wear); 0 = none.
+## See [KitDressing]. The tier comes from the generator's dress_tier metadata unless overridden.
+@export var dress_seed := 0:
+	set(value):
+		dress_seed = value
+		_redress()
+@export_enum("auto", "low", "medium", "high", "commercial", "civic") var dress_tier := "auto":
+	set(value):
+		dress_tier = value
+		_redress()
+## Set by KitPlacement when the building is mirrored so the dressing follows it.
+var dress_mirrored := false
+
 ## Extra label line set at runtime (e.g. the variant seed by KitPlacement).
 var label_note := "":
 	set(value):
@@ -37,6 +50,12 @@ var _label: Label3D
 
 func _ready() -> void:
 	_update_label()
+	_redress()
+
+
+func _redress() -> void:
+	if is_inside_tree():
+		KitDressing.apply(self, dress_seed, dress_tier, dress_mirrored)
 
 
 func lot_rect() -> Rect2:

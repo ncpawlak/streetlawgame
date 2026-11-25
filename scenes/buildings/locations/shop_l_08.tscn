@@ -33,6 +33,12 @@ floors = 2
 footprint = Vector2(20, 16)
 lot_size = Vector2(24, 30)
 lot_type = "2-storey corner bar with neon, rear lot"
+metadata/dress_tier = "commercial"
+metadata/dress_solids = PackedVector4Array(-10, -17, 10, -1)
+metadata/dress_blocked = PackedVector4Array(-9.6, -1, -1.6, 1.2, 1.6, -1, 9.6, 1.2, 10, -15.4, 12.2, -8.6, -1.3, -1, 1.3, 1.2, -11.9, -20.5, -10.9, -19.5, 9.2, -20.9, 11.6, -19.1)
+metadata/dress_paved = PackedVector4Array(-12, -1, 12, 0, -12, -30, 12, -17, 10, -17, 12, -1)
+metadata/dress_walls = PackedFloat32Array(-10, -1, 10, -1, 0, 1, 8.3, 1, -10, -17, 10, -17, 0, -1, 8.3, 0, 10, -17, 10, -1, 1, 0, 8.3, 0, -10, -17, -10, -1, -1, 0, 8.3, 0)
+metadata/dress_openings = PackedFloat32Array(-5.6, 2.15, -1, 0, 1, 7.2, 2.5, 2, 5.6, 2.15, -1, 0, 1, 7.2, 2.5, 2, 10, 2.15, -12, 1, 0, 6, 2.5, 2, 0, 1.55, -1, 0, 1, 1.8, 3.1, 1, -8, 5.5, -1, 0, 1, 1.4, 1.8, 0, -5, 5.5, -1, 0, 1, 1.4, 1.8, 0, -2, 5.5, -1, 0, 1, 1.4, 1.8, 0, 2, 5.5, -1, 0, 1, 1.4, 1.8, 0, 5, 5.5, -1, 0, 1, 1.4, 1.8, 0, 8, 5.5, -1, 0, 1, 1.4, 1.8, 0, 10, 5.5, -14, 1, 0, 1.4, 1.8, 0, 10, 5.5, -10, 1, 0, 1.4, 1.8, 0, 10, 5.5, -6, 1, 0, 1.4, 1.8, 0, 0, 3.15, -1, 0, 1, 2.8, 1, 4, 0, 3.3, -1, 0, 1, 16, 0.6, 4, 10, 5.45, -5, 1, 0, 6, 2.3, 4)
 
 [node name="Lot" type="CSGCombiner3D" parent="."]
 use_collision = true

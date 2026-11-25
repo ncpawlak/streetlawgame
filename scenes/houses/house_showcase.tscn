@@ -1,4 +1,4 @@
-[gd_scene load_steps=78 format=3]
+[gd_scene load_steps=128 format=3]
 
 [ext_resource type="Script" path="res://scripts/world/houses/house_showcase.gd" id="1_r"]
 [ext_resource type="Material" path="res://assets/materials/houses/ground.tres" id="2_r"]
@@ -76,7 +76,57 @@
 [ext_resource type="PackedScene" path="res://scenes/buildings/purchasable/shop_p_08.tscn" id="74_r"]
 [ext_resource type="PackedScene" path="res://scenes/buildings/purchasable/shop_p_09.tscn" id="75_r"]
 [ext_resource type="PackedScene" path="res://scenes/businesses/shops/shop_s_09.tscn" id="76_r"]
-[ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="77_r"]
+[ext_resource type="Material" path="res://assets/materials/houses/grass.tres" id="77_r"]
+[ext_resource type="PackedScene" path="res://scenes/props/palms/royal_palm.tscn" id="78_r"]
+[ext_resource type="PackedScene" path="res://scenes/props/palms/coconut_palm.tscn" id="79_r"]
+[ext_resource type="PackedScene" path="res://scenes/props/palms/sabal_palm.tscn" id="80_r"]
+[ext_resource type="PackedScene" path="res://scenes/props/trees/banyan.tscn" id="81_r"]
+[ext_resource type="PackedScene" path="res://scenes/props/trees/live_oak.tscn" id="82_r"]
+[ext_resource type="PackedScene" path="res://scenes/props/shrubs/sea_grape.tscn" id="83_r"]
+[ext_resource type="PackedScene" path="res://scenes/props/shrubs/sea_grape_hedge.tscn" id="84_r"]
+[ext_resource type="PackedScene" path="res://scenes/props/shrubs/brush_clump.tscn" id="85_r"]
+[ext_resource type="PackedScene" path="res://scenes/props/shrubs/weeds_tall.tscn" id="86_r"]
+[ext_resource type="PackedScene" path="res://scenes/props/flowers/hibiscus_bed.tscn" id="87_r"]
+[ext_resource type="PackedScene" path="res://scenes/props/flowers/bougainvillea.tscn" id="88_r"]
+[ext_resource type="PackedScene" path="res://scenes/props/flowers/flower_bed.tscn" id="89_r"]
+[ext_resource type="PackedScene" path="res://scenes/props/ground/sand_patch.tscn" id="90_r"]
+[ext_resource type="PackedScene" path="res://scenes/props/ground/dirt_patch.tscn" id="91_r"]
+[ext_resource type="PackedScene" path="res://scenes/props/ground/fallen_frond.tscn" id="92_r"]
+[ext_resource type="PackedScene" path="res://scenes/props/water/garden_pond.tscn" id="93_r"]
+[ext_resource type="PackedScene" path="res://scenes/props/yard/chain_fence_3m.tscn" id="94_r"]
+[ext_resource type="PackedScene" path="res://scenes/props/yard/block_wall_3m.tscn" id="95_r"]
+[ext_resource type="PackedScene" path="res://scenes/props/yard/carport_metal.tscn" id="96_r"]
+[ext_resource type="PackedScene" path="res://scenes/props/yard/trash_bin.tscn" id="97_r"]
+[ext_resource type="PackedScene" path="res://scenes/props/yard/recycle_bin.tscn" id="98_r"]
+[ext_resource type="PackedScene" path="res://scenes/props/yard/laundry_line.tscn" id="99_r"]
+[ext_resource type="PackedScene" path="res://scenes/props/yard/above_ground_pool.tscn" id="100_r"]
+[ext_resource type="PackedScene" path="res://scenes/props/yard/pavers_patio.tscn" id="101_r"]
+[ext_resource type="PackedScene" path="res://scenes/props/yard/shopping_cart.tscn" id="102_r"]
+[ext_resource type="PackedScene" path="res://scenes/props/yard/screened_pool_small.tscn" id="103_r"]
+[ext_resource type="PackedScene" path="res://scenes/props/yard/screened_pool.tscn" id="104_r"]
+[ext_resource type="PackedScene" path="res://scenes/props/water/retention_pond.tscn" id="105_r"]
+[ext_resource type="PackedScene" path="res://scenes/props/lots/overgrown_lot.tscn" id="106_r"]
+[ext_resource type="PackedScene" path="res://scenes/props/street/mailbox.tscn" id="107_r"]
+[ext_resource type="PackedScene" path="res://scenes/props/street/mailbox_cluster.tscn" id="108_r"]
+[ext_resource type="PackedScene" path="res://scenes/props/street/newspaper_boxes.tscn" id="109_r"]
+[ext_resource type="PackedScene" path="res://scenes/props/street/bus_bench.tscn" id="110_r"]
+[ext_resource type="PackedScene" path="res://scenes/props/street/bus_shelter.tscn" id="111_r"]
+[ext_resource type="PackedScene" path="res://scenes/props/street/power_pole.tscn" id="112_r"]
+[ext_resource type="PackedScene" path="res://scenes/props/street/power_pole_transformer.tscn" id="113_r"]
+[ext_resource type="Material" path="res://assets/materials/houses/stucco_mint.tres" id="114_r"]
+[ext_resource type="Material" path="res://assets/materials/houses/trim_white.tres" id="115_r"]
+[ext_resource type="PackedScene" path="res://scenes/props/yard/wall_ac.tscn" id="116_r"]
+[ext_resource type="PackedScene" path="res://scenes/props/yard/satellite_dish.tscn" id="117_r"]
+[ext_resource type="PackedScene" path="res://scenes/props/decals/rust_streak.tscn" id="118_r"]
+[ext_resource type="PackedScene" path="res://scenes/props/decals/graffiti_tag.tscn" id="119_r"]
+[ext_resource type="Material" path="res://assets/materials/houses/glass.tres" id="120_r"]
+[ext_resource type="PackedScene" path="res://scenes/props/yard/window_ac.tscn" id="121_r"]
+[ext_resource type="PackedScene" path="res://scenes/props/yard/window_bars.tscn" id="122_r"]
+[ext_resource type="PackedScene" path="res://scenes/props/yard/storm_panel.tscn" id="123_r"]
+[ext_resource type="PackedScene" path="res://scenes/props/decals/mural.tscn" id="124_r"]
+[ext_resource type="PackedScene" path="res://scenes/props/water/canal_segment.tscn" id="125_r"]
+[ext_resource type="Script" path="res://scripts/world/houses/power_line_run.gd" id="126_r"]
+[ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="127_r"]
 
 [node name="HouseShowcase" type="Node3D"]
 script = ExtResource("1_r")
@@ -86,1136 +136,1226 @@ use_collision = true
 
 [node name="Ground" type="CSGBox3D" parent="Street"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, -0.36, -98)
-size = Vector3(624, 0.48, 291)
+size = Vector3(678, 0.48, 291)
 material = ExtResource("2_r")
 
 [node name="Road" type="CSGBox3D" parent="Street"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.34, 0)
-size = Vector3(604, 0.52, 9)
+size = Vector3(658, 0.52, 9)
 material = ExtResource("3_r")
 
 [node name="Sidewalk" type="CSGBox3D" parent="Street"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.5, -0.27, -5.5)
-size = Vector3(595, 0.66, 2)
+size = Vector3(649, 0.66, 2)
 material = ExtResource("4_r")
 
 [node name="Kerb" type="CSGBox3D" parent="Street"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.5, -0.26, -4.58)
-size = Vector3(595, 0.68, 0.16)
+size = Vector3(649, 0.68, 0.16)
 material = ExtResource("5_r")
 
 [node name="Sidewalk2" type="CSGBox3D" parent="Street"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.5, -0.27, 5.5)
-size = Vector3(595, 0.66, 2)
+size = Vector3(649, 0.66, 2)
 material = ExtResource("4_r")
 
 [node name="Kerb2" type="CSGBox3D" parent="Street"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.5, -0.26, 4.58)
-size = Vector3(595, 0.68, 0.16)
+size = Vector3(649, 0.68, 0.16)
 material = ExtResource("5_r")
 
 [node name="Dash" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -288.5, -0.075, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -315.5, -0.075, 0)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash2" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -282.5, -0.075, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -309.5, -0.075, 0)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash3" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -276.5, -0.075, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -303.5, -0.075, 0)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash4" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -270.5, -0.075, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -297.5, -0.075, 0)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash5" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -264.5, -0.075, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -291.5, -0.075, 0)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash6" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -258.5, -0.075, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -285.5, -0.075, 0)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash7" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -252.5, -0.075, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -279.5, -0.075, 0)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash8" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -246.5, -0.075, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -273.5, -0.075, 0)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash9" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -240.5, -0.075, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -267.5, -0.075, 0)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash10" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -234.5, -0.075, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -261.5, -0.075, 0)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash11" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -228.5, -0.075, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -255.5, -0.075, 0)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash12" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -222.5, -0.075, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -249.5, -0.075, 0)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash13" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -216.5, -0.075, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -243.5, -0.075, 0)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash14" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -210.5, -0.075, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -237.5, -0.075, 0)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash15" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -204.5, -0.075, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -231.5, -0.075, 0)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash16" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -198.5, -0.075, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -225.5, -0.075, 0)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash17" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -192.5, -0.075, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -219.5, -0.075, 0)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash18" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -186.5, -0.075, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -213.5, -0.075, 0)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash19" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -180.5, -0.075, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -207.5, -0.075, 0)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash20" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -174.5, -0.075, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -201.5, -0.075, 0)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash21" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -168.5, -0.075, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -195.5, -0.075, 0)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash22" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -162.5, -0.075, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -189.5, -0.075, 0)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash23" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -156.5, -0.075, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -183.5, -0.075, 0)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash24" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -150.5, -0.075, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -177.5, -0.075, 0)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash25" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -144.5, -0.075, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -171.5, -0.075, 0)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash26" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -138.5, -0.075, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -165.5, -0.075, 0)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash27" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -132.5, -0.075, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -159.5, -0.075, 0)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash28" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -126.5, -0.075, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -153.5, -0.075, 0)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash29" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -120.5, -0.075, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -147.5, -0.075, 0)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash30" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -114.5, -0.075, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -141.5, -0.075, 0)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash31" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -108.5, -0.075, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -135.5, -0.075, 0)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash32" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -102.5, -0.075, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -129.5, -0.075, 0)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash33" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -96.5, -0.075, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -123.5, -0.075, 0)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash34" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -90.5, -0.075, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -117.5, -0.075, 0)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash35" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -84.5, -0.075, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -111.5, -0.075, 0)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash36" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -78.5, -0.075, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -105.5, -0.075, 0)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash37" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -72.5, -0.075, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -99.5, -0.075, 0)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash38" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -66.5, -0.075, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -93.5, -0.075, 0)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash39" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -60.5, -0.075, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -87.5, -0.075, 0)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash40" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -54.5, -0.075, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -81.5, -0.075, 0)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash41" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -48.5, -0.075, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -75.5, -0.075, 0)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash42" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -42.5, -0.075, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -69.5, -0.075, 0)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash43" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -36.5, -0.075, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -63.5, -0.075, 0)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash44" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30.5, -0.075, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -57.5, -0.075, 0)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash45" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.5, -0.075, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -51.5, -0.075, 0)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash46" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.5, -0.075, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45.5, -0.075, 0)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash47" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.5, -0.075, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -39.5, -0.075, 0)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash48" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.5, -0.075, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -33.5, -0.075, 0)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash49" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, -0.075, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.5, -0.075, 0)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash50" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, -0.075, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.5, -0.075, 0)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash51" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.5, -0.075, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.5, -0.075, 0)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash52" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.5, -0.075, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.5, -0.075, 0)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash53" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.5, -0.075, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5, -0.075, 0)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash54" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.5, -0.075, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, -0.075, 0)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash55" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35.5, -0.075, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.5, -0.075, 0)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash56" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 41.5, -0.075, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.5, -0.075, 0)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash57" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 47.5, -0.075, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.5, -0.075, 0)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash58" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 53.5, -0.075, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26.5, -0.075, 0)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash59" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 59.5, -0.075, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32.5, -0.075, 0)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash60" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 65.5, -0.075, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38.5, -0.075, 0)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash61" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 71.5, -0.075, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 44.5, -0.075, 0)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash62" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 77.5, -0.075, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50.5, -0.075, 0)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash63" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 83.5, -0.075, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 56.5, -0.075, 0)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash64" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 89.5, -0.075, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 62.5, -0.075, 0)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash65" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 95.5, -0.075, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 68.5, -0.075, 0)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash66" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 101.5, -0.075, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 74.5, -0.075, 0)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash67" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 107.5, -0.075, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 80.5, -0.075, 0)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash68" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 113.5, -0.075, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 86.5, -0.075, 0)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash69" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 119.5, -0.075, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 92.5, -0.075, 0)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash70" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 125.5, -0.075, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 98.5, -0.075, 0)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash71" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 131.5, -0.075, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 104.5, -0.075, 0)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash72" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 137.5, -0.075, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 110.5, -0.075, 0)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash73" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 143.5, -0.075, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 116.5, -0.075, 0)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash74" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 149.5, -0.075, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 122.5, -0.075, 0)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash75" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 155.5, -0.075, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 128.5, -0.075, 0)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash76" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 161.5, -0.075, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 134.5, -0.075, 0)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash77" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 167.5, -0.075, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 140.5, -0.075, 0)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash78" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 173.5, -0.075, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 146.5, -0.075, 0)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash79" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 179.5, -0.075, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 152.5, -0.075, 0)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash80" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 185.5, -0.075, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 158.5, -0.075, 0)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash81" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 191.5, -0.075, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 164.5, -0.075, 0)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash82" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 197.5, -0.075, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 170.5, -0.075, 0)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash83" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 203.5, -0.075, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 176.5, -0.075, 0)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash84" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 209.5, -0.075, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 182.5, -0.075, 0)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash85" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 215.5, -0.075, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 188.5, -0.075, 0)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash86" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 221.5, -0.075, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 194.5, -0.075, 0)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash87" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 227.5, -0.075, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 200.5, -0.075, 0)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash88" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 233.5, -0.075, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 206.5, -0.075, 0)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash89" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 239.5, -0.075, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 212.5, -0.075, 0)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash90" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 245.5, -0.075, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 218.5, -0.075, 0)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash91" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 251.5, -0.075, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 224.5, -0.075, 0)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash92" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 257.5, -0.075, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 230.5, -0.075, 0)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash93" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 263.5, -0.075, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 236.5, -0.075, 0)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash94" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 269.5, -0.075, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 242.5, -0.075, 0)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash95" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 275.5, -0.075, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 248.5, -0.075, 0)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash96" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 281.5, -0.075, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 254.5, -0.075, 0)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash97" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 287.5, -0.075, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 260.5, -0.075, 0)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash98" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 293.5, -0.075, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 266.5, -0.075, 0)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash99" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 299.5, -0.075, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 272.5, -0.075, 0)
+size = Vector3(3, 0.01, 0.16)
+material = ExtResource("6_r")
+
+[node name="Dash100" type="CSGBox3D" parent="Street"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 278.5, -0.075, 0)
+size = Vector3(3, 0.01, 0.16)
+material = ExtResource("6_r")
+
+[node name="Dash101" type="CSGBox3D" parent="Street"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 284.5, -0.075, 0)
+size = Vector3(3, 0.01, 0.16)
+material = ExtResource("6_r")
+
+[node name="Dash102" type="CSGBox3D" parent="Street"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 290.5, -0.075, 0)
+size = Vector3(3, 0.01, 0.16)
+material = ExtResource("6_r")
+
+[node name="Dash103" type="CSGBox3D" parent="Street"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 296.5, -0.075, 0)
+size = Vector3(3, 0.01, 0.16)
+material = ExtResource("6_r")
+
+[node name="Dash104" type="CSGBox3D" parent="Street"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 302.5, -0.075, 0)
+size = Vector3(3, 0.01, 0.16)
+material = ExtResource("6_r")
+
+[node name="Dash105" type="CSGBox3D" parent="Street"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 308.5, -0.075, 0)
+size = Vector3(3, 0.01, 0.16)
+material = ExtResource("6_r")
+
+[node name="Dash106" type="CSGBox3D" parent="Street"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 314.5, -0.075, 0)
+size = Vector3(3, 0.01, 0.16)
+material = ExtResource("6_r")
+
+[node name="Dash107" type="CSGBox3D" parent="Street"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 320.5, -0.075, 0)
+size = Vector3(3, 0.01, 0.16)
+material = ExtResource("6_r")
+
+[node name="Dash108" type="CSGBox3D" parent="Street"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 326.5, -0.075, 0)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Road2" type="CSGBox3D" parent="Street"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.34, -115)
-size = Vector3(604, 0.52, 9)
+size = Vector3(658, 0.52, 9)
 material = ExtResource("3_r")
 
 [node name="Sidewalk3" type="CSGBox3D" parent="Street"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.5, -0.27, -120.5)
-size = Vector3(595, 0.66, 2)
+size = Vector3(649, 0.66, 2)
 material = ExtResource("4_r")
 
 [node name="Kerb3" type="CSGBox3D" parent="Street"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.5, -0.26, -119.58)
-size = Vector3(595, 0.68, 0.16)
+size = Vector3(649, 0.68, 0.16)
 material = ExtResource("5_r")
 
 [node name="Sidewalk4" type="CSGBox3D" parent="Street"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.5, -0.27, -109.5)
-size = Vector3(595, 0.66, 2)
+size = Vector3(649, 0.66, 2)
 material = ExtResource("4_r")
 
 [node name="Kerb4" type="CSGBox3D" parent="Street"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.5, -0.26, -110.42)
-size = Vector3(595, 0.68, 0.16)
+size = Vector3(649, 0.68, 0.16)
 material = ExtResource("5_r")
 
-[node name="Dash100" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -288.5, -0.075, -115)
-size = Vector3(3, 0.01, 0.16)
-material = ExtResource("6_r")
-
-[node name="Dash101" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -282.5, -0.075, -115)
-size = Vector3(3, 0.01, 0.16)
-material = ExtResource("6_r")
-
-[node name="Dash102" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -276.5, -0.075, -115)
-size = Vector3(3, 0.01, 0.16)
-material = ExtResource("6_r")
-
-[node name="Dash103" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -270.5, -0.075, -115)
-size = Vector3(3, 0.01, 0.16)
-material = ExtResource("6_r")
-
-[node name="Dash104" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -264.5, -0.075, -115)
-size = Vector3(3, 0.01, 0.16)
-material = ExtResource("6_r")
-
-[node name="Dash105" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -258.5, -0.075, -115)
-size = Vector3(3, 0.01, 0.16)
-material = ExtResource("6_r")
-
-[node name="Dash106" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -252.5, -0.075, -115)
-size = Vector3(3, 0.01, 0.16)
-material = ExtResource("6_r")
-
-[node name="Dash107" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -246.5, -0.075, -115)
-size = Vector3(3, 0.01, 0.16)
-material = ExtResource("6_r")
-
-[node name="Dash108" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -240.5, -0.075, -115)
-size = Vector3(3, 0.01, 0.16)
-material = ExtResource("6_r")
-
 [node name="Dash109" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -234.5, -0.075, -115)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -315.5, -0.075, -115)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash110" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -228.5, -0.075, -115)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -309.5, -0.075, -115)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash111" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -222.5, -0.075, -115)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -303.5, -0.075, -115)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash112" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -216.5, -0.075, -115)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -297.5, -0.075, -115)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash113" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -210.5, -0.075, -115)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -291.5, -0.075, -115)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash114" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -204.5, -0.075, -115)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -285.5, -0.075, -115)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash115" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -198.5, -0.075, -115)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -279.5, -0.075, -115)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash116" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -192.5, -0.075, -115)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -273.5, -0.075, -115)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash117" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -186.5, -0.075, -115)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -267.5, -0.075, -115)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash118" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -180.5, -0.075, -115)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -261.5, -0.075, -115)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash119" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -174.5, -0.075, -115)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -255.5, -0.075, -115)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash120" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -168.5, -0.075, -115)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -249.5, -0.075, -115)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash121" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -162.5, -0.075, -115)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -243.5, -0.075, -115)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash122" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -156.5, -0.075, -115)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -237.5, -0.075, -115)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash123" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -150.5, -0.075, -115)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -231.5, -0.075, -115)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash124" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -144.5, -0.075, -115)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -225.5, -0.075, -115)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash125" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -138.5, -0.075, -115)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -219.5, -0.075, -115)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash126" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -132.5, -0.075, -115)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -213.5, -0.075, -115)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash127" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -126.5, -0.075, -115)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -207.5, -0.075, -115)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash128" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -120.5, -0.075, -115)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -201.5, -0.075, -115)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash129" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -114.5, -0.075, -115)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -195.5, -0.075, -115)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash130" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -108.5, -0.075, -115)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -189.5, -0.075, -115)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash131" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -102.5, -0.075, -115)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -183.5, -0.075, -115)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash132" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -96.5, -0.075, -115)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -177.5, -0.075, -115)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash133" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -90.5, -0.075, -115)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -171.5, -0.075, -115)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash134" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -84.5, -0.075, -115)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -165.5, -0.075, -115)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash135" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -78.5, -0.075, -115)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -159.5, -0.075, -115)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash136" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -72.5, -0.075, -115)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -153.5, -0.075, -115)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash137" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -66.5, -0.075, -115)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -147.5, -0.075, -115)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash138" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -60.5, -0.075, -115)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -141.5, -0.075, -115)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash139" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -54.5, -0.075, -115)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -135.5, -0.075, -115)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash140" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -48.5, -0.075, -115)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -129.5, -0.075, -115)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash141" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -42.5, -0.075, -115)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -123.5, -0.075, -115)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash142" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -36.5, -0.075, -115)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -117.5, -0.075, -115)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash143" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30.5, -0.075, -115)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -111.5, -0.075, -115)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash144" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.5, -0.075, -115)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -105.5, -0.075, -115)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash145" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.5, -0.075, -115)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -99.5, -0.075, -115)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash146" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.5, -0.075, -115)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -93.5, -0.075, -115)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash147" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.5, -0.075, -115)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -87.5, -0.075, -115)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash148" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, -0.075, -115)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -81.5, -0.075, -115)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash149" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, -0.075, -115)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -75.5, -0.075, -115)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash150" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.5, -0.075, -115)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -69.5, -0.075, -115)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash151" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.5, -0.075, -115)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -63.5, -0.075, -115)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash152" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.5, -0.075, -115)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -57.5, -0.075, -115)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash153" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.5, -0.075, -115)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -51.5, -0.075, -115)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash154" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35.5, -0.075, -115)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45.5, -0.075, -115)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash155" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 41.5, -0.075, -115)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -39.5, -0.075, -115)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash156" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 47.5, -0.075, -115)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -33.5, -0.075, -115)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash157" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 53.5, -0.075, -115)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.5, -0.075, -115)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash158" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 59.5, -0.075, -115)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.5, -0.075, -115)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash159" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 65.5, -0.075, -115)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.5, -0.075, -115)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash160" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 71.5, -0.075, -115)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.5, -0.075, -115)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash161" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 77.5, -0.075, -115)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5, -0.075, -115)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash162" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 83.5, -0.075, -115)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, -0.075, -115)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash163" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 89.5, -0.075, -115)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.5, -0.075, -115)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash164" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 95.5, -0.075, -115)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.5, -0.075, -115)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash165" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 101.5, -0.075, -115)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.5, -0.075, -115)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash166" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 107.5, -0.075, -115)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26.5, -0.075, -115)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash167" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 113.5, -0.075, -115)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32.5, -0.075, -115)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash168" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 119.5, -0.075, -115)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38.5, -0.075, -115)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash169" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 125.5, -0.075, -115)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 44.5, -0.075, -115)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash170" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 131.5, -0.075, -115)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50.5, -0.075, -115)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash171" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 137.5, -0.075, -115)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 56.5, -0.075, -115)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash172" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 143.5, -0.075, -115)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 62.5, -0.075, -115)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash173" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 149.5, -0.075, -115)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 68.5, -0.075, -115)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash174" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 155.5, -0.075, -115)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 74.5, -0.075, -115)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash175" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 161.5, -0.075, -115)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 80.5, -0.075, -115)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash176" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 167.5, -0.075, -115)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 86.5, -0.075, -115)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash177" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 173.5, -0.075, -115)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 92.5, -0.075, -115)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash178" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 179.5, -0.075, -115)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 98.5, -0.075, -115)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash179" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 185.5, -0.075, -115)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 104.5, -0.075, -115)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash180" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 191.5, -0.075, -115)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 110.5, -0.075, -115)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash181" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 197.5, -0.075, -115)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 116.5, -0.075, -115)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash182" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 203.5, -0.075, -115)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 122.5, -0.075, -115)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash183" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 209.5, -0.075, -115)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 128.5, -0.075, -115)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash184" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 215.5, -0.075, -115)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 134.5, -0.075, -115)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash185" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 221.5, -0.075, -115)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 140.5, -0.075, -115)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash186" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 227.5, -0.075, -115)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 146.5, -0.075, -115)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash187" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 233.5, -0.075, -115)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 152.5, -0.075, -115)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash188" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 239.5, -0.075, -115)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 158.5, -0.075, -115)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash189" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 245.5, -0.075, -115)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 164.5, -0.075, -115)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash190" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 251.5, -0.075, -115)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 170.5, -0.075, -115)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash191" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 257.5, -0.075, -115)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 176.5, -0.075, -115)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash192" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 263.5, -0.075, -115)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 182.5, -0.075, -115)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash193" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 269.5, -0.075, -115)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 188.5, -0.075, -115)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash194" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 275.5, -0.075, -115)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 194.5, -0.075, -115)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash195" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 281.5, -0.075, -115)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 200.5, -0.075, -115)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash196" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 287.5, -0.075, -115)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 206.5, -0.075, -115)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash197" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 293.5, -0.075, -115)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 212.5, -0.075, -115)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="Dash198" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 299.5, -0.075, -115)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 218.5, -0.075, -115)
+size = Vector3(3, 0.01, 0.16)
+material = ExtResource("6_r")
+
+[node name="Dash199" type="CSGBox3D" parent="Street"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 224.5, -0.075, -115)
+size = Vector3(3, 0.01, 0.16)
+material = ExtResource("6_r")
+
+[node name="Dash200" type="CSGBox3D" parent="Street"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 230.5, -0.075, -115)
+size = Vector3(3, 0.01, 0.16)
+material = ExtResource("6_r")
+
+[node name="Dash201" type="CSGBox3D" parent="Street"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 236.5, -0.075, -115)
+size = Vector3(3, 0.01, 0.16)
+material = ExtResource("6_r")
+
+[node name="Dash202" type="CSGBox3D" parent="Street"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 242.5, -0.075, -115)
+size = Vector3(3, 0.01, 0.16)
+material = ExtResource("6_r")
+
+[node name="Dash203" type="CSGBox3D" parent="Street"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 248.5, -0.075, -115)
+size = Vector3(3, 0.01, 0.16)
+material = ExtResource("6_r")
+
+[node name="Dash204" type="CSGBox3D" parent="Street"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 254.5, -0.075, -115)
+size = Vector3(3, 0.01, 0.16)
+material = ExtResource("6_r")
+
+[node name="Dash205" type="CSGBox3D" parent="Street"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 260.5, -0.075, -115)
+size = Vector3(3, 0.01, 0.16)
+material = ExtResource("6_r")
+
+[node name="Dash206" type="CSGBox3D" parent="Street"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 266.5, -0.075, -115)
+size = Vector3(3, 0.01, 0.16)
+material = ExtResource("6_r")
+
+[node name="Dash207" type="CSGBox3D" parent="Street"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 272.5, -0.075, -115)
+size = Vector3(3, 0.01, 0.16)
+material = ExtResource("6_r")
+
+[node name="Dash208" type="CSGBox3D" parent="Street"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 278.5, -0.075, -115)
+size = Vector3(3, 0.01, 0.16)
+material = ExtResource("6_r")
+
+[node name="Dash209" type="CSGBox3D" parent="Street"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 284.5, -0.075, -115)
+size = Vector3(3, 0.01, 0.16)
+material = ExtResource("6_r")
+
+[node name="Dash210" type="CSGBox3D" parent="Street"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 290.5, -0.075, -115)
+size = Vector3(3, 0.01, 0.16)
+material = ExtResource("6_r")
+
+[node name="Dash211" type="CSGBox3D" parent="Street"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 296.5, -0.075, -115)
+size = Vector3(3, 0.01, 0.16)
+material = ExtResource("6_r")
+
+[node name="Dash212" type="CSGBox3D" parent="Street"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 302.5, -0.075, -115)
+size = Vector3(3, 0.01, 0.16)
+material = ExtResource("6_r")
+
+[node name="Dash213" type="CSGBox3D" parent="Street"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 308.5, -0.075, -115)
+size = Vector3(3, 0.01, 0.16)
+material = ExtResource("6_r")
+
+[node name="Dash214" type="CSGBox3D" parent="Street"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 314.5, -0.075, -115)
+size = Vector3(3, 0.01, 0.16)
+material = ExtResource("6_r")
+
+[node name="Dash215" type="CSGBox3D" parent="Street"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 320.5, -0.075, -115)
+size = Vector3(3, 0.01, 0.16)
+material = ExtResource("6_r")
+
+[node name="Dash216" type="CSGBox3D" parent="Street"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 326.5, -0.075, -115)
 size = Vector3(3, 0.01, 0.16)
 material = ExtResource("6_r")
 
 [node name="CrossRoad" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -297.5, -0.34, -57.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -324.5, -0.34, -57.5)
 size = Vector3(9, 0.52, 124)
 material = ExtResource("3_r")
 
-[node name="Dash199" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -297.5, -0.075, -106)
+[node name="Dash217" type="CSGBox3D" parent="Street"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -324.5, -0.075, -106)
 size = Vector3(0.16, 0.01, 3)
 material = ExtResource("6_r")
 
-[node name="Dash200" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -297.5, -0.075, -100)
+[node name="Dash218" type="CSGBox3D" parent="Street"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -324.5, -0.075, -100)
 size = Vector3(0.16, 0.01, 3)
 material = ExtResource("6_r")
 
-[node name="Dash201" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -297.5, -0.075, -94)
+[node name="Dash219" type="CSGBox3D" parent="Street"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -324.5, -0.075, -94)
 size = Vector3(0.16, 0.01, 3)
 material = ExtResource("6_r")
 
-[node name="Dash202" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -297.5, -0.075, -88)
+[node name="Dash220" type="CSGBox3D" parent="Street"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -324.5, -0.075, -88)
 size = Vector3(0.16, 0.01, 3)
 material = ExtResource("6_r")
 
-[node name="Dash203" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -297.5, -0.075, -82)
+[node name="Dash221" type="CSGBox3D" parent="Street"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -324.5, -0.075, -82)
 size = Vector3(0.16, 0.01, 3)
 material = ExtResource("6_r")
 
-[node name="Dash204" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -297.5, -0.075, -76)
+[node name="Dash222" type="CSGBox3D" parent="Street"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -324.5, -0.075, -76)
 size = Vector3(0.16, 0.01, 3)
 material = ExtResource("6_r")
 
-[node name="Dash205" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -297.5, -0.075, -70)
+[node name="Dash223" type="CSGBox3D" parent="Street"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -324.5, -0.075, -70)
 size = Vector3(0.16, 0.01, 3)
 material = ExtResource("6_r")
 
-[node name="Dash206" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -297.5, -0.075, -64)
+[node name="Dash224" type="CSGBox3D" parent="Street"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -324.5, -0.075, -64)
 size = Vector3(0.16, 0.01, 3)
 material = ExtResource("6_r")
 
-[node name="Dash207" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -297.5, -0.075, -58)
+[node name="Dash225" type="CSGBox3D" parent="Street"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -324.5, -0.075, -58)
 size = Vector3(0.16, 0.01, 3)
 material = ExtResource("6_r")
 
-[node name="Dash208" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -297.5, -0.075, -52)
+[node name="Dash226" type="CSGBox3D" parent="Street"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -324.5, -0.075, -52)
 size = Vector3(0.16, 0.01, 3)
 material = ExtResource("6_r")
 
-[node name="Dash209" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -297.5, -0.075, -46)
+[node name="Dash227" type="CSGBox3D" parent="Street"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -324.5, -0.075, -46)
 size = Vector3(0.16, 0.01, 3)
 material = ExtResource("6_r")
 
-[node name="Dash210" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -297.5, -0.075, -40)
+[node name="Dash228" type="CSGBox3D" parent="Street"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -324.5, -0.075, -40)
 size = Vector3(0.16, 0.01, 3)
 material = ExtResource("6_r")
 
-[node name="Dash211" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -297.5, -0.075, -34)
+[node name="Dash229" type="CSGBox3D" parent="Street"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -324.5, -0.075, -34)
 size = Vector3(0.16, 0.01, 3)
 material = ExtResource("6_r")
 
-[node name="Dash212" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -297.5, -0.075, -28)
+[node name="Dash230" type="CSGBox3D" parent="Street"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -324.5, -0.075, -28)
 size = Vector3(0.16, 0.01, 3)
 material = ExtResource("6_r")
 
-[node name="Dash213" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -297.5, -0.075, -22)
+[node name="Dash231" type="CSGBox3D" parent="Street"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -324.5, -0.075, -22)
 size = Vector3(0.16, 0.01, 3)
 material = ExtResource("6_r")
 
-[node name="Dash214" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -297.5, -0.075, -16)
+[node name="Dash232" type="CSGBox3D" parent="Street"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -324.5, -0.075, -16)
 size = Vector3(0.16, 0.01, 3)
 material = ExtResource("6_r")
 
-[node name="Dash215" type="CSGBox3D" parent="Street"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -297.5, -0.075, -10)
+[node name="Dash233" type="CSGBox3D" parent="Street"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -324.5, -0.075, -10)
 size = Vector3(0.16, 0.01, 3)
 material = ExtResource("6_r")
 
@@ -1230,610 +1370,1034 @@ material = ExtResource("6_r")
 [node name="CarSpots" type="Node3D" parent="."]
 
 [node name="1F_01" parent="Houses" instance=ExtResource("8_r")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -281, 0, -6.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -308, 0, -6.5)
 show_label = true
+dress_seed = 11
 
 [node name="Car" type="Marker3D" parent="CarSpots"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -277.4, 0.6, -9.7)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -304.4, 0.6, -9.7)
 
 [node name="1F_02" parent="Houses" instance=ExtResource("9_r")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -268, 0, -6.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -295, 0, -6.5)
 show_label = true
+dress_seed = 18
 
 [node name="Car2" type="Marker3D" parent="CarSpots"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -263.6, 0.6, -9.7)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -290.6, 0.6, -9.7)
 
 [node name="1F_03" parent="Houses" instance=ExtResource("10_r")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -251.5, 0, -6.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -278.5, 0, -6.5)
 show_label = true
+dress_seed = 25
 
 [node name="Car3" type="Marker3D" parent="CarSpots"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -259.1, 0.6, -9.7)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -286.1, 0.6, -9.7)
 
 [node name="1F_04" parent="Houses" instance=ExtResource("11_r")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -235, 0, -6.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -262, 0, -6.5)
 show_label = true
+dress_seed = 32
 
 [node name="Car4" type="Marker3D" parent="CarSpots"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -230.4, 0.6, -9.7)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -257.4, 0.6, -9.7)
 
 [node name="1F_05" parent="Houses" instance=ExtResource("12_r")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -219.5, 0, -6.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -246.5, 0, -6.5)
 show_label = true
+dress_seed = 39
 
 [node name="Car5" type="Marker3D" parent="CarSpots"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -213.8, 0.6, -9.7)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -240.8, 0.6, -9.7)
 
 [node name="1F_06" parent="Houses" instance=ExtResource("13_r")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -201.5, 0, -6.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -228.5, 0, -6.5)
 show_label = true
+dress_seed = 46
 
 [node name="Car6" type="Marker3D" parent="CarSpots"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -196.4, 0.6, -9.7)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -223.4, 0.6, -9.7)
 
 [node name="1F_07" parent="Houses" instance=ExtResource("14_r")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -182.5, 0, -6.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -209.5, 0, -6.5)
 show_label = true
+dress_seed = 53
 
 [node name="Car7" type="Marker3D" parent="CarSpots"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -176.35, 0.6, -9.7)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -203.35, 0.6, -9.7)
 
 [node name="1F_08" parent="Houses" instance=ExtResource("15_r")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -162.5, 0, -6.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -189.5, 0, -6.5)
 show_label = true
+dress_seed = 60
 
 [node name="1F_09" parent="Houses" instance=ExtResource("16_r")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -146, 0, -6.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -173, 0, -6.5)
 show_label = true
+dress_seed = 67
 
 [node name="Car8" type="Marker3D" parent="CarSpots"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -142, 0.6, -9.7)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -169, 0.6, -9.7)
 
 [node name="1F_10" parent="Houses" instance=ExtResource("17_r")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -129.5, 0, -6.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -156.5, 0, -6.5)
 show_label = true
+dress_seed = 74
 
 [node name="1F_11" parent="Houses" instance=ExtResource("18_r")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -113, 0, -6.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -140, 0, -6.5)
 show_label = true
+dress_seed = 81
 
 [node name="Car9" type="Marker3D" parent="CarSpots"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -109.2, 0.6, -9.7)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -136.2, 0.6, -9.7)
 
 [node name="1F_12" parent="Houses" instance=ExtResource("19_r")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -96.5, 0, -6.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -123.5, 0, -6.5)
 show_label = true
+dress_seed = 88
 
 [node name="Car10" type="Marker3D" parent="CarSpots"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -90.55, 0.6, -9.7)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -117.55, 0.6, -9.7)
 
 [node name="1F_13" parent="Houses" instance=ExtResource("20_r")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -80, 0, -6.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -107, 0, -6.5)
 show_label = true
+dress_seed = 95
 
 [node name="Car11" type="Marker3D" parent="CarSpots"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -76.2, 0.6, -9.7)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -103.2, 0.6, -9.7)
 
 [node name="1F_14" parent="Houses" instance=ExtResource("21_r")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -67, 0, -6.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -94, 0, -6.5)
 show_label = true
+dress_seed = 102
 
 [node name="Car12" type="Marker3D" parent="CarSpots"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -62.8, 0.6, -9.7)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -89.8, 0.6, -9.7)
 
 [node name="1F_15" parent="Houses" instance=ExtResource("22_r")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -43, 0, -6.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -70, 0, -6.5)
 show_label = true
+dress_seed = 109
 
 [node name="Car13" type="Marker3D" parent="CarSpots"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -48.25, 0.6, -9.7)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -75.25, 0.6, -9.7)
 
 [node name="B_01" parent="Businesses" instance=ExtResource("23_r")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0, -6.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 0, -6.5)
 show_label = true
+dress_seed = 116
 
 [node name="Car14" type="Marker3D" parent="CarSpots"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.15, 0.6, -19.4)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32.15, 0.6, -19.4)
 
 [node name="Car15" type="Marker3D" parent="CarSpots"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.65, 0.6, -19.4)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.35, 0.6, -19.4)
 
 [node name="Car16" type="Marker3D" parent="CarSpots"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.45, 0.6, -19.4)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.55, 0.6, -19.4)
 
 [node name="B_02" parent="Businesses" instance=ExtResource("24_r")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38, 0, -6.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 0, -6.5)
 show_label = true
+dress_seed = 123
 
 [node name="Car17" type="Marker3D" parent="CarSpots"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.25, 0.6, -34)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.25, 0.6, -34)
 
 [node name="B_03" parent="Businesses" instance=ExtResource("25_r")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 63, 0, -6.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36, 0, -6.5)
 show_label = true
+dress_seed = 130
 
 [node name="Car18" type="Marker3D" parent="CarSpots"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 58.95, 0.6, -32)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.95, 0.6, -32)
 
 [node name="B_04" parent="Businesses" instance=ExtResource("26_r")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 91, 0, -6.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 64, 0, -6.5)
 show_label = true
+dress_seed = 137
 
 [node name="Car19" type="Marker3D" parent="CarSpots"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 85, 0.6, -10.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 58, 0.6, -10.5)
 
 [node name="B_05" parent="Businesses" instance=ExtResource("27_r")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 132, 0, -6.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 105, 0, -6.5)
 show_label = true
+dress_seed = 144
 
 [node name="Car20" type="Marker3D" parent="CarSpots"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 139.85, 0.6, -14)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 112.85, 0.6, -14)
 
 [node name="Car21" type="Marker3D" parent="CarSpots"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 145.25, 0.6, -14)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 118.25, 0.6, -14)
 
 [node name="2F_01" parent="Houses" instance=ExtResource("28_r")]
-transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -278.5, 0, 6.5)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -305.5, 0, 6.5)
 show_label = true
+dress_seed = 151
 
 [node name="Car22" type="Marker3D" parent="CarSpots"]
-transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -284.5, 0.6, 9.7)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -311.5, 0.6, 9.7)
 
 [node name="2F_02" parent="Houses" instance=ExtResource("29_r")]
-transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -263, 0, 6.5)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -290, 0, 6.5)
 show_label = true
+dress_seed = 158
 
 [node name="Car23" type="Marker3D" parent="CarSpots"]
-transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -266.8, 0.6, 9.7)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -293.8, 0.6, 9.7)
 
 [node name="2F_03" parent="Houses" instance=ExtResource("30_r")]
-transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -246.5, 0, 6.5)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -273.5, 0, 6.5)
 show_label = true
+dress_seed = 165
 
 [node name="Car24" type="Marker3D" parent="CarSpots"]
-transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -253.15, 0.6, 9.7)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -280.15, 0.6, 9.7)
 
 [node name="2F_04" parent="Houses" instance=ExtResource("31_r")]
-transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -227.5, 0, 6.5)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -254.5, 0, 6.5)
 show_label = true
+dress_seed = 172
 
 [node name="2F_05" parent="Houses" instance=ExtResource("32_r")]
-transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -208.5, 0, 6.5)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -235.5, 0, 6.5)
 show_label = true
+dress_seed = 179
 
 [node name="Car25" type="Marker3D" parent="CarSpots"]
-transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -215.7, 0.6, 9.7)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -242.7, 0.6, 9.7)
 
 [node name="2F_06" parent="Houses" instance=ExtResource("33_r")]
-transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -188.5, 0, 6.5)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -215.5, 0, 6.5)
 show_label = true
+dress_seed = 186
 
 [node name="Car26" type="Marker3D" parent="CarSpots"]
-transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -194.8, 0.6, 9.7)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -221.8, 0.6, 9.7)
 
 [node name="2F_07" parent="Houses" instance=ExtResource("34_r")]
-transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -169.5, 0, 6.5)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -196.5, 0, 6.5)
 show_label = true
+dress_seed = 193
 
 [node name="Car27" type="Marker3D" parent="CarSpots"]
-transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -176.45, 0.6, 9.7)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -203.45, 0.6, 9.7)
 
 [node name="2F_08" parent="Houses" instance=ExtResource("35_r")]
-transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -151.5, 0, 6.5)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -178.5, 0, 6.5)
 show_label = true
+dress_seed = 200
 
 [node name="Car28" type="Marker3D" parent="CarSpots"]
-transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -156.5, 0.6, 9.7)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -183.5, 0.6, 9.7)
 
 [node name="2F_09" parent="Houses" instance=ExtResource("36_r")]
-transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -132.5, 0, 6.5)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -159.5, 0, 6.5)
 show_label = true
+dress_seed = 207
 
 [node name="Car29" type="Marker3D" parent="CarSpots"]
-transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -138, 0.6, 9.7)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -165, 0.6, 9.7)
 
 [node name="2F_10" parent="Houses" instance=ExtResource("37_r")]
-transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -113.5, 0, 6.5)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -140.5, 0, 6.5)
 show_label = true
+dress_seed = 214
 
 [node name="Car30" type="Marker3D" parent="CarSpots"]
-transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -119.4, 0.6, 9.7)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -146.4, 0.6, 9.7)
 
 [node name="S_01" parent="Businesses" instance=ExtResource("38_r")]
-transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -4, 0, 6.5)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -31, 0, 6.5)
 show_label = true
+dress_seed = 221
 
 [node name="Car31" type="Marker3D" parent="CarSpots"]
-transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0.05, 0.6, 14.5)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -26.95, 0.6, 14.5)
 
 [node name="S_02" parent="Businesses" instance=ExtResource("39_r")]
-transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 14, 0, 6.5)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -13, 0, 6.5)
 show_label = true
+dress_seed = 228
 
 [node name="Car32" type="Marker3D" parent="CarSpots"]
-transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 6.3, 0.6, 21.15)
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -20.7, 0.6, 21.15)
 
 [node name="S_03" parent="Businesses" instance=ExtResource("40_r")]
-transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 37, 0, 6.5)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 10, 0, 6.5)
 show_label = true
+dress_seed = 235
 
 [node name="Car33" type="Marker3D" parent="CarSpots"]
-transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 39, 0.6, 10.5)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 12, 0.6, 10.5)
 
 [node name="Car34" type="Marker3D" parent="CarSpots"]
-transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 44, 0.6, 10.5)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 17, 0.6, 10.5)
 
 [node name="S_04" parent="Businesses" instance=ExtResource("41_r")]
-transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 55, 0, 6.5)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 28, 0, 6.5)
 show_label = true
+dress_seed = 242
 
 [node name="S_05" parent="Businesses" instance=ExtResource("42_r")]
-transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 67, 0, 6.5)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 40, 0, 6.5)
 show_label = true
+dress_seed = 249
 
 [node name="Car35" type="Marker3D" parent="CarSpots"]
-transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 65.65, 0.6, 26)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 38.65, 0.6, 26)
 
 [node name="S_06" parent="Businesses" instance=ExtResource("43_r")]
-transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 83, 0, 6.5)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 56, 0, 6.5)
 show_label = true
+dress_seed = 256
 
 [node name="Car36" type="Marker3D" parent="CarSpots"]
-transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 89.75, 0.6, 12.5)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 62.75, 0.6, 12.5)
 
 [node name="Car37" type="Marker3D" parent="CarSpots"]
-transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 78.95, 0.6, 12.5)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 51.95, 0.6, 12.5)
 
 [node name="S_07" parent="Businesses" instance=ExtResource("44_r")]
-transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 102, 0, 6.5)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 75, 0, 6.5)
 show_label = true
+dress_seed = 263
 
 [node name="Car38" type="Marker3D" parent="CarSpots"]
-transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 108.6, 0.6, 16.7)
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 81.6, 0.6, 16.7)
 
 [node name="S_08" parent="Businesses" instance=ExtResource("45_r")]
-transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 119, 0, 6.5)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 92, 0, 6.5)
 show_label = true
+dress_seed = 270
 
 [node name="H_01" parent="Buildings" instance=ExtResource("46_r")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -232, 0, -121.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -259, 0, -121.5)
 show_label = true
+dress_seed = 277
 
 [node name="Car39" type="Marker3D" parent="CarSpots"]
-transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -268, 0.6, -125)
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -295, 0.6, -125)
 
 [node name="Car40" type="Marker3D" parent="CarSpots"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -179.4, 0.6, -209.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -206.4, 0.6, -209.5)
 
 [node name="A_01" parent="Buildings" instance=ExtResource("47_r")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -159, 0, -121.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -186, 0, -121.5)
 show_label = true
+dress_seed = 284
 
 [node name="Car41" type="Marker3D" parent="CarSpots"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -172.5, 0.6, -155)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -199.5, 0.6, -155)
 
 [node name="Car42" type="Marker3D" parent="CarSpots"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -161.7, 0.6, -155)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -188.7, 0.6, -155)
 
 [node name="A_02" parent="Buildings" instance=ExtResource("48_r")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -124, 0, -121.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -151, 0, -121.5)
 show_label = true
+dress_seed = 291
 
 [node name="Car43" type="Marker3D" parent="CarSpots"]
-transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -109.5, 0.6, -146)
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -136.5, 0.6, -146)
 
 [node name="Car44" type="Marker3D" parent="CarSpots"]
-transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -109.5, 0.6, -135.2)
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -136.5, 0.6, -135.2)
 
 [node name="T_01" parent="Buildings" instance=ExtResource("49_r")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -99, 0, -121.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -126, 0, -121.5)
 show_label = true
+dress_seed = 298
 
 [node name="Car45" type="Marker3D" parent="CarSpots"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -94.8, 0.6, -124.7)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -121.8, 0.6, -124.7)
 
 [node name="T_02" parent="Buildings" instance=ExtResource("50_r")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -84, 0, -121.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -111, 0, -121.5)
 show_label = true
+dress_seed = 305
 
 [node name="Car46" type="Marker3D" parent="CarSpots"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -81, 0.6, -124.7)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -108, 0.6, -124.7)
 
 [node name="T_03" parent="Buildings" instance=ExtResource("51_r")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -69, 0, -121.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -96, 0, -121.5)
 show_label = true
+dress_seed = 312
 
 [node name="Car47" type="Marker3D" parent="CarSpots"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -73.4, 0.6, -124.7)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -100.4, 0.6, -124.7)
 
 [node name="SH_01" parent="Buildings" instance=ExtResource("52_r")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -49, 0, -121.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -76, 0, -121.5)
 show_label = true
+dress_seed = 319
 
 [node name="Car48" type="Marker3D" parent="CarSpots"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -39.5, 0.6, -124.7)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -66.5, 0.6, -124.7)
 
 [node name="SH_02" parent="Buildings" instance=ExtResource("53_r")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21, 0, -121.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -48, 0, -121.5)
 show_label = true
+dress_seed = 326
 
 [node name="Car49" type="Marker3D" parent="CarSpots"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0.6, -127.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -39, 0.6, -127.5)
 
 [node name="SH_03" parent="Buildings" instance=ExtResource("54_r")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0, -121.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 0, -121.5)
 show_label = true
+dress_seed = 333
 
 [node name="Car50" type="Marker3D" parent="CarSpots"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.5, 0.6, -124.7)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.5, 0.6, -124.7)
 
 [node name="L_01" parent="Buildings" instance=ExtResource("55_r")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, 0, -121.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 0, -121.5)
 show_label = true
+dress_seed = 340
 
 [node name="Car51" type="Marker3D" parent="CarSpots"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 54, 0.6, -124.7)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27, 0.6, -124.7)
 
 [node name="L_02" parent="Buildings" instance=ExtResource("56_r")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 78, 0, -121.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 51, 0, -121.5)
 show_label = true
+dress_seed = 347
 
 [node name="Car52" type="Marker3D" parent="CarSpots"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 89.5, 0.6, -124.7)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 62.5, 0.6, -124.7)
 
 [node name="L_03" parent="Buildings" instance=ExtResource("57_r")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 105, 0, -121.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 78, 0, -121.5)
 show_label = true
+dress_seed = 354
 
 [node name="Car53" type="Marker3D" parent="CarSpots"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 116.6, 0.6, -124.7)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 89.6, 0.6, -124.7)
 
 [node name="L_04" parent="Buildings" instance=ExtResource("58_r")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 126, 0, -121.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 99, 0, -121.5)
 show_label = true
+dress_seed = 361
 
 [node name="Car54" type="Marker3D" parent="CarSpots"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 130.2, 0.6, -124.7)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 103.2, 0.6, -124.7)
 
 [node name="L_05" parent="Buildings" instance=ExtResource("59_r")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 152, 0, -121.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 125, 0, -121.5)
 show_label = true
+dress_seed = 368
 
 [node name="Car55" type="Marker3D" parent="CarSpots"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 150, 0.6, -137.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 123, 0.6, -137.5)
 
 [node name="Car56" type="Marker3D" parent="CarSpots"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 156.5, 0.6, -133.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 129.5, 0.6, -133.5)
 
 [node name="Car57" type="Marker3D" parent="CarSpots"]
-transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 140, 0.6, -127.5)
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 113, 0.6, -127.5)
 
 [node name="L_09" parent="Buildings" instance=ExtResource("60_r")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 180, 0, -121.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 153, 0, -121.5)
 show_label = true
+dress_seed = 375
 
 [node name="L_10" parent="Buildings" instance=ExtResource("61_r")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 207, 0, -121.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 180, 0, -121.5)
 show_label = true
+dress_seed = 382
 
 [node name="Car58" type="Marker3D" parent="CarSpots"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 194.85, 0.6, -126.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 167.85, 0.6, -126.5)
 
 [node name="Car59" type="Marker3D" parent="CarSpots"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 205.65, 0.6, -126.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 178.65, 0.6, -126.5)
 
 [node name="Car60" type="Marker3D" parent="CarSpots"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 213.75, 0.6, -126.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 186.75, 0.6, -126.5)
 
 [node name="L_11" parent="Buildings" instance=ExtResource("62_r")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 234, 0, -121.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 207, 0, -121.5)
 show_label = true
+dress_seed = 389
 
 [node name="Car61" type="Marker3D" parent="CarSpots"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 231.4, 0.6, -129.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 204.4, 0.6, -129.5)
 
 [node name="L_06" parent="Buildings" instance=ExtResource("63_r")]
-transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -275, 0, -108.5)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -302, 0, -108.5)
 show_label = true
+dress_seed = 396
 
 [node name="Car62" type="Marker3D" parent="CarSpots"]
-transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -268.8, 0.6, -96)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -295.8, 0.6, -96)
 
 [node name="Car63" type="Marker3D" parent="CarSpots"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -281.2, 0.6, -97)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -308.2, 0.6, -97)
 
 [node name="L_07" parent="Buildings" instance=ExtResource("64_r")]
-transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -250, 0, -108.5)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -277, 0, -108.5)
 show_label = true
+dress_seed = 403
 
 [node name="Car64" type="Marker3D" parent="CarSpots"]
-transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -243.25, 0.6, -100.5)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -270.25, 0.6, -100.5)
 
 [node name="Car65" type="Marker3D" parent="CarSpots"]
-transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -254.05, 0.6, -100.5)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -281.05, 0.6, -100.5)
 
 [node name="L_08" parent="Buildings" instance=ExtResource("65_r")]
-transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -225, 0, -108.5)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -252, 0, -108.5)
 show_label = true
+dress_seed = 410
 
 [node name="Car66" type="Marker3D" parent="CarSpots"]
-transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -218.25, 0.6, -81)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -245.25, 0.6, -81)
 
 [node name="L_12" parent="Buildings" instance=ExtResource("66_r")]
-transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -196, 0, -108.5)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -223, 0, -108.5)
 show_label = true
+dress_seed = 417
 
 [node name="Car67" type="Marker3D" parent="CarSpots"]
-transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -181.9, 0.6, -86.8)
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -208.9, 0.6, -86.8)
 
 [node name="Car68" type="Marker3D" parent="CarSpots"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -209.8, 0.6, -89.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -236.8, 0.6, -89.5)
 
 [node name="P_01" parent="Buildings" instance=ExtResource("67_r")]
-transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -170, 0, -108.5)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -197, 0, -108.5)
 show_label = true
+dress_seed = 424
 
 [node name="Car69" type="Marker3D" parent="CarSpots"]
-transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -164.75, 0.6, -87)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -191.75, 0.6, -87)
 
 [node name="P_02" parent="Buildings" instance=ExtResource("68_r")]
-transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -150, 0, -108.5)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -177, 0, -108.5)
 show_label = true
+dress_seed = 431
 
 [node name="Car70" type="Marker3D" parent="CarSpots"]
-transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -143.25, 0.6, -100.5)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -170.25, 0.6, -100.5)
 
 [node name="Car71" type="Marker3D" parent="CarSpots"]
-transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -156.75, 0.6, -100.5)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -183.75, 0.6, -100.5)
 
 [node name="P_03" parent="Buildings" instance=ExtResource("69_r")]
-transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -131, 0, -108.5)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -158, 0, -108.5)
 show_label = true
+dress_seed = 438
 
 [node name="Car72" type="Marker3D" parent="CarSpots"]
-transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -137.5, 0.6, -98.5)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -164.5, 0.6, -98.5)
 
 [node name="P_04" parent="Buildings" instance=ExtResource("70_r")]
-transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -112, 0, -108.5)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -139, 0, -108.5)
 show_label = true
+dress_seed = 445
 
 [node name="Car73" type="Marker3D" parent="CarSpots"]
-transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -107.95, 0.6, -100.5)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -134.95, 0.6, -100.5)
 
 [node name="P_05" parent="Buildings" instance=ExtResource("71_r")]
-transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -88, 0, -108.5)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -115, 0, -108.5)
 show_label = true
+dress_seed = 452
 
 [node name="Car74" type="Marker3D" parent="CarSpots"]
-transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -78.55, 0.6, -98.5)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -105.55, 0.6, -98.5)
 
 [node name="Car75" type="Marker3D" parent="CarSpots"]
-transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -86.65, 0.6, -98.5)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -113.65, 0.6, -98.5)
 
 [node name="P_06" parent="Buildings" instance=ExtResource("72_r")]
-transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -66, 0, -108.5)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -93, 0, -108.5)
 show_label = true
+dress_seed = 459
 
 [node name="Car76" type="Marker3D" parent="CarSpots"]
-transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -61.95, 0.6, -89)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -88.95, 0.6, -89)
 
 [node name="P_07" parent="Buildings" instance=ExtResource("73_r")]
-transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -39, 0, -108.5)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -66, 0, -108.5)
 show_label = true
+dress_seed = 466
 
 [node name="Car77" type="Marker3D" parent="CarSpots"]
-transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -34.5, 0.6, -104.5)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -61.5, 0.6, -104.5)
 
 [node name="Car78" type="Marker3D" parent="CarSpots"]
-transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -51, 0.6, -104)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -78, 0.6, -104)
 
 [node name="P_08" parent="Buildings" instance=ExtResource("74_r")]
-transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -8, 0, -108.5)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -35, 0, -108.5)
 show_label = true
+dress_seed = 473
 
 [node name="Car79" type="Marker3D" parent="CarSpots"]
-transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -18.6, 0.6, -96)
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -45.6, 0.6, -96)
 
 [node name="P_09" parent="Buildings" instance=ExtResource("75_r")]
-transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 20, 0, -108.5)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -7, 0, -108.5)
 show_label = true
+dress_seed = 480
 
 [node name="Car80" type="Marker3D" parent="CarSpots"]
-transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 30.55, 0.6, -97)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 3.55, 0.6, -97)
 
 [node name="Car81" type="Marker3D" parent="CarSpots"]
-transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 17.05, 0.6, -97)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -9.95, 0.6, -97)
 
 [node name="S_09" parent="Buildings" instance=ExtResource("76_r")]
-transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 48, 0, -108.5)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 21, 0, -108.5)
 show_label = true
+dress_seed = 487
 
 [node name="Car82" type="Marker3D" parent="CarSpots"]
-transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 46.65, 0.6, -83)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 19.65, 0.6, -83)
 
 [node name="1F_02_seed0" type="Node3D" parent="Variants"]
-transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 81, 0, -108.5)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 54, 0, -108.5)
 script = ExtResource("7_r")
 building = "res://scenes/houses/one_floor/house_1f_02.tscn"
 variant_seed = 0
+dress_seed = 494
+dress_tier = "auto"
 show_label = true
 
 [node name="1F_02_seed1" type="Node3D" parent="Variants"]
-transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 94, 0, -108.5)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 67, 0, -108.5)
 script = ExtResource("7_r")
 building = "res://scenes/houses/one_floor/house_1f_02.tscn"
 variant_seed = 1
+dress_seed = 501
+dress_tier = "auto"
 show_label = true
 
 [node name="1F_02_seed2" type="Node3D" parent="Variants"]
-transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 107, 0, -108.5)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 80, 0, -108.5)
 script = ExtResource("7_r")
 building = "res://scenes/houses/one_floor/house_1f_02.tscn"
 variant_seed = 2
+dress_seed = 508
+dress_tier = "auto"
 show_label = true
 
 [node name="1F_02_seed3" type="Node3D" parent="Variants"]
-transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 120, 0, -108.5)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 93, 0, -108.5)
 script = ExtResource("7_r")
 building = "res://scenes/houses/one_floor/house_1f_02.tscn"
 variant_seed = 3
+dress_seed = 515
+dress_tier = "auto"
 show_label = true
 
 [node name="2F_03_seed0" type="Node3D" parent="Variants"]
-transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 136.5, 0, -108.5)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 109.5, 0, -108.5)
 script = ExtResource("7_r")
 building = "res://scenes/houses/two_floor/house_2f_03.tscn"
 variant_seed = 0
+dress_seed = 522
+dress_tier = "auto"
 show_label = true
 
 [node name="2F_03_seed1" type="Node3D" parent="Variants"]
-transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 156.5, 0, -108.5)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 129.5, 0, -108.5)
 script = ExtResource("7_r")
 building = "res://scenes/houses/two_floor/house_2f_03.tscn"
 variant_seed = 1
+dress_seed = 529
+dress_tier = "auto"
 show_label = true
 
 [node name="2F_03_seed2" type="Node3D" parent="Variants"]
-transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 176.5, 0, -108.5)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 149.5, 0, -108.5)
 script = ExtResource("7_r")
 building = "res://scenes/houses/two_floor/house_2f_03.tscn"
 variant_seed = 2
+dress_seed = 536
+dress_tier = "auto"
 show_label = true
 
 [node name="2F_03_seed3" type="Node3D" parent="Variants"]
-transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 196.5, 0, -108.5)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 169.5, 0, -108.5)
 script = ExtResource("7_r")
 building = "res://scenes/houses/two_floor/house_2f_03.tscn"
 variant_seed = 3
+dress_seed = 543
+dress_tier = "auto"
 show_label = true
 
 [node name="1F_07_seed0" type="Node3D" parent="Variants"]
-transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 216.5, 0, -108.5)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 189.5, 0, -108.5)
 script = ExtResource("7_r")
 building = "res://scenes/houses/one_floor/house_1f_07.tscn"
 variant_seed = 0
+dress_seed = 550
+dress_tier = "auto"
 show_label = true
 
 [node name="1F_07_seed1" type="Node3D" parent="Variants"]
-transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 236.5, 0, -108.5)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 209.5, 0, -108.5)
 script = ExtResource("7_r")
 building = "res://scenes/houses/one_floor/house_1f_07.tscn"
 variant_seed = 1
+dress_seed = 557
+dress_tier = "auto"
 show_label = true
 
 [node name="1F_07_seed2" type="Node3D" parent="Variants"]
-transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 256.5, 0, -108.5)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 229.5, 0, -108.5)
 script = ExtResource("7_r")
 building = "res://scenes/houses/one_floor/house_1f_07.tscn"
 variant_seed = 2
+dress_seed = 564
+dress_tier = "auto"
 show_label = true
 
 [node name="1F_07_seed3" type="Node3D" parent="Variants"]
-transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 276.5, 0, -108.5)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 249.5, 0, -108.5)
 script = ExtResource("7_r")
 building = "res://scenes/houses/one_floor/house_1f_07.tscn"
 variant_seed = 3
+dress_seed = 571
+dress_tier = "auto"
 show_label = true
 
-[node name="Player" parent="." instance=ExtResource("77_r")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -281, 1, -5.5)
+[node name="1F_06_seed0" type="Node3D" parent="Variants"]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 268.5, 0, -108.5)
+script = ExtResource("7_r")
+building = "res://scenes/houses/one_floor/house_1f_06.tscn"
+variant_seed = 0
+dress_seed = 578
+dress_tier = "low"
+show_label = true
+
+[node name="1F_06_seed02" type="Node3D" parent="Variants"]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 286.5, 0, -108.5)
+script = ExtResource("7_r")
+building = "res://scenes/houses/one_floor/house_1f_06.tscn"
+variant_seed = 0
+dress_seed = 585
+dress_tier = "medium"
+show_label = true
+
+[node name="1F_06_seed03" type="Node3D" parent="Variants"]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 304.5, 0, -108.5)
+script = ExtResource("7_r")
+building = "res://scenes/houses/one_floor/house_1f_06.tscn"
+variant_seed = 0
+dress_seed = 592
+dress_tier = "high"
+show_label = true
+
+[node name="FloridaGallery" type="Node3D" parent="."]
+
+[node name="GalleryGrass" type="CSGBox3D" parent="Street"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 208.1, -0.3, -22.5)
+size = Vector3(130.2, 0.6, 32)
+material = ExtResource("77_r")
+
+[node name="GalleryGrass2" type="CSGBox3D" parent="Street"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 208.1, -0.3, 22.5)
+size = Vector3(130.2, 0.6, 32)
+material = ExtResource("77_r")
+
+[node name="royal_palm" parent="FloridaGallery" instance=ExtResource("78_r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 146.6, 0, -9.1)
+show_label = true
+
+[node name="coconut_palm" parent="FloridaGallery" instance=ExtResource("79_r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 151.2, 0, -9)
+show_label = true
+
+[node name="sabal_palm" parent="FloridaGallery" instance=ExtResource("80_r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 155.5, 0, -8.8)
+show_label = true
+
+[node name="banyan" parent="FloridaGallery" instance=ExtResource("81_r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 163.8, 0, -13)
+show_label = true
+
+[node name="live_oak" parent="FloridaGallery" instance=ExtResource("82_r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 174.8, 0, -11.5)
+show_label = true
+
+[node name="sea_grape" parent="FloridaGallery" instance=ExtResource("83_r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 181.8, 0, -9)
+show_label = true
+
+[node name="sea_grape_hedge" parent="FloridaGallery" instance=ExtResource("84_r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 187.8, 0, -10.5)
+show_label = true
+
+[node name="brush_clump" parent="FloridaGallery" instance=ExtResource("85_r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 193.4, 0, -8.6)
+show_label = true
+
+[node name="weeds_tall" parent="FloridaGallery" instance=ExtResource("86_r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 196.9, 0, -8.4)
+show_label = true
+
+[node name="hibiscus_bed" parent="FloridaGallery" instance=ExtResource("87_r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 200.9, 0, -9.1)
+show_label = true
+
+[node name="bougainvillea" parent="FloridaGallery" instance=ExtResource("88_r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 205.3, 0, -8.8)
+show_label = true
+
+[node name="flower_bed" parent="FloridaGallery" instance=ExtResource("89_r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 209.2, 0, -8.6)
+show_label = true
+
+[node name="sand_patch" parent="FloridaGallery" instance=ExtResource("90_r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 213.6, 0, -9.3)
+show_label = true
+
+[node name="dirt_patch" parent="FloridaGallery" instance=ExtResource("91_r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 218.4, 0, -9)
+show_label = true
+
+[node name="fallen_frond" parent="FloridaGallery" instance=ExtResource("92_r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 222.7, 0, -8.8)
+show_label = true
+
+[node name="garden_pond" parent="FloridaGallery" instance=ExtResource("93_r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 227.5, 0, -9.5)
+show_label = true
+
+[node name="chain_fence_3m" parent="FloridaGallery" instance=ExtResource("94_r")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 146.5, 0, 9)
+show_label = true
+
+[node name="block_wall_3m" parent="FloridaGallery" instance=ExtResource("95_r")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 151, 0, 9)
+show_label = true
+
+[node name="carport_metal" parent="FloridaGallery" instance=ExtResource("96_r")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 157.2, 0, 10.7)
+show_label = true
+
+[node name="trash_bin" parent="FloridaGallery" instance=ExtResource("97_r")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 162.4, 0, 8)
+show_label = true
+
+[node name="recycle_bin" parent="FloridaGallery" instance=ExtResource("98_r")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 164.9, 0, 8)
+show_label = true
+
+[node name="laundry_line" parent="FloridaGallery" instance=ExtResource("99_r")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 169.7, 0, 10.3)
+show_label = true
+
+[node name="above_ground_pool" parent="FloridaGallery" instance=ExtResource("100_r")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 177, 0, 10.5)
+show_label = true
+
+[node name="pavers_patio" parent="FloridaGallery" instance=ExtResource("101_r")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 183.5, 0, 9.5)
+show_label = true
+
+[node name="shopping_cart" parent="FloridaGallery" instance=ExtResource("102_r")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 187.6, 0, 8.1)
+show_label = true
+
+[node name="screened_pool_small" parent="FloridaGallery" instance=ExtResource("103_r")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 194.9, 0, 11.95)
+show_label = true
+
+[node name="screened_pool" parent="FloridaGallery" instance=ExtResource("104_r")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 207.8, 0, 12.7)
+show_label = true
+
+[node name="retention_pond" parent="FloridaGallery" instance=ExtResource("105_r")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 224.7, 0, 14.2)
+show_label = true
+
+[node name="overgrown_lot" parent="FloridaGallery" instance=ExtResource("106_r")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 241.4, 0, 17.5)
+show_label = true
+
+[node name="mailbox" parent="FloridaGallery" instance=ExtResource("107_r")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 249.2, 0, 7.8)
+show_label = true
+
+[node name="mailbox_cluster" parent="FloridaGallery" instance=ExtResource("108_r")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 251.6, 0, 8.1)
+show_label = true
+
+[node name="newspaper_boxes" parent="FloridaGallery" instance=ExtResource("109_r")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 254.6, 0, 8.4)
+show_label = true
+
+[node name="bus_bench" parent="FloridaGallery" instance=ExtResource("110_r")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 258.1, 0, 8.6)
+show_label = true
+
+[node name="bus_shelter" parent="FloridaGallery" instance=ExtResource("111_r")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 262.9, 0, 9.7)
+show_label = true
+
+[node name="power_pole" parent="FloridaGallery" instance=ExtResource("112_r")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 267, 0, 7.9)
+show_label = true
+
+[node name="power_pole_transformer" parent="FloridaGallery" instance=ExtResource("113_r")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 269.3, 0, 7.9)
+show_label = true
+
+[node name="DisplayWall" type="CSGCombiner3D" parent="FloridaGallery"]
+use_collision = true
+
+[node name="Wall" type="CSGBox3D" parent="FloridaGallery/DisplayWall"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 242, 1.7, -10.65)
+size = Vector3(22, 3.4, 0.3)
+material = ExtResource("114_r")
+
+[node name="Cap" type="CSGBox3D" parent="FloridaGallery/DisplayWall"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 242, 3.475, -10.65)
+size = Vector3(22.1, 0.15, 0.4)
+material = ExtResource("115_r")
+
+[node name="wall_ac" parent="FloridaGallery" instance=ExtResource("116_r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 232.2, 1.4, -10.49)
+show_label = true
+
+[node name="satellite_dish" parent="FloridaGallery" instance=ExtResource("117_r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 233.8, 2.6, -10.49)
+show_label = true
+
+[node name="rust_streak" parent="FloridaGallery" instance=ExtResource("118_r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 235.2, 2.4, -10.49)
+show_label = true
+
+[node name="graffiti_tag" parent="FloridaGallery" instance=ExtResource("119_r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 237, 1.2, -10.49)
+show_label = true
+
+[node name="Window" type="CSGBox3D" parent="FloridaGallery/DisplayWall"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 239.6, 1.95, -10.515)
+size = Vector3(1.1, 1.5, 0.07)
+material = ExtResource("120_r")
+
+[node name="window_ac" parent="FloridaGallery" instance=ExtResource("121_r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 239.6, 1.2, -10.49)
+show_label = true
+
+[node name="Window2" type="CSGBox3D" parent="FloridaGallery/DisplayWall"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 241.6, 2.05, -10.515)
+size = Vector3(1.1, 1.5, 0.07)
+material = ExtResource("120_r")
+
+[node name="window_bars" parent="FloridaGallery" instance=ExtResource("122_r")]
+transform = Transform3D(1.1, 0, 0, 0, 1.5, 0, 0, 0, 1, 241.6, 2.05, -10.48)
+show_label = true
+
+[node name="Window3" type="CSGBox3D" parent="FloridaGallery/DisplayWall"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 243.6, 2.05, -10.515)
+size = Vector3(1.1, 1.5, 0.07)
+material = ExtResource("120_r")
+
+[node name="storm_panel" parent="FloridaGallery" instance=ExtResource("123_r")]
+transform = Transform3D(1.1, 0, 0, 0, 1.5, 0, 0, 0, 1, 243.6, 2.05, -10.48)
+show_label = true
+
+[node name="mural" parent="FloridaGallery" instance=ExtResource("124_r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 249, 2, -10.49)
+show_label = true
+
+[node name="canal_segment" parent="FloridaGallery" instance=ExtResource("125_r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 157, 0, -26.5)
+show_label = true
+
+[node name="canal_segment2" parent="FloridaGallery" instance=ExtResource("125_r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 181, 0, -26.5)
+show_label = true
+
+[node name="canal_segment3" parent="FloridaGallery" instance=ExtResource("125_r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 205, 0, -26.5)
+show_label = true
+
+[node name="canal_segment4" parent="FloridaGallery" instance=ExtResource("125_r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 229, 0, -26.5)
+show_label = true
+
+[node name="canal_segment5" parent="FloridaGallery" instance=ExtResource("125_r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 253, 0, -26.5)
+show_label = true
+
+[node name="WaterCut" type="CSGBox3D" parent="Street"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 194.9, -1.75, 11.95)
+size = Vector3(8, 4.5, 6.5)
+operation = 2
+
+[node name="WaterCut2" type="CSGBox3D" parent="Street"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 207.8, -1.75, 12.7)
+size = Vector3(10, 4.5, 8)
+operation = 2
+
+[node name="WaterCut3" type="CSGBox3D" parent="Street"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 224.7, -1.75, 14.2)
+size = Vector3(16, 4.5, 11)
+operation = 2
+
+[node name="WaterCut4" type="CSGBox3D" parent="Street"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 157, -1.75, -26.5)
+size = Vector3(24, 4.5, 14)
+operation = 2
+
+[node name="WaterCut5" type="CSGBox3D" parent="Street"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 181, -1.75, -26.5)
+size = Vector3(24, 4.5, 14)
+operation = 2
+
+[node name="WaterCut6" type="CSGBox3D" parent="Street"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 205, -1.75, -26.5)
+size = Vector3(24, 4.5, 14)
+operation = 2
+
+[node name="WaterCut7" type="CSGBox3D" parent="Street"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 229, -1.75, -26.5)
+size = Vector3(24, 4.5, 14)
+operation = 2
+
+[node name="WaterCut8" type="CSGBox3D" parent="Street"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 253, -1.75, -26.5)
+size = Vector3(24, 4.5, 14)
+operation = 2
+
+[node name="StreetFurniture" type="Node3D" parent="."]
+
+[node name="PowerLine1" type="Node3D" parent="StreetFurniture"]
+script = ExtResource("126_r")
+points = PackedVector3Array(-316, 0.06, -5.1, -283.95, 0.06, -5.1, -251.9, 0.06, -5.1, -219.85, 0.06, -5.1, -187.8, 0.06, -5.1, -155.75, 0.06, -5.1, -123.7, 0.06, -5.1, -91.65, 0.06, -5.1, -59.6, 0.06, -5.1, -27.55, 0.06, -5.1, 4.5, 0.06, -5.1, 36.55, 0.06, -5.1, 68.6, 0.06, -5.1, 100.65, 0.06, -5.1, 132.7, 0.06, -5.1, 164.75, 0.06, -5.1, 196.8, 0.06, -5.1, 228.85, 0.06, -5.1, 260.9, 0.06, -5.1, 292.95, 0.06, -5.1, 325, 0.06, -5.1)
+
+[node name="PowerLine2" type="Node3D" parent="StreetFurniture"]
+script = ExtResource("126_r")
+points = PackedVector3Array(-316, 0.06, -109.9, -283.95, 0.06, -109.9, -251.9, 0.06, -109.9, -219.85, 0.06, -109.9, -187.8, 0.06, -109.9, -155.75, 0.06, -109.9, -123.7, 0.06, -109.9, -91.65, 0.06, -109.9, -59.6, 0.06, -109.9, -27.55, 0.06, -109.9, 4.5, 0.06, -109.9, 36.55, 0.06, -109.9, 68.6, 0.06, -109.9, 100.65, 0.06, -109.9, 132.7, 0.06, -109.9, 164.75, 0.06, -109.9, 196.8, 0.06, -109.9, 228.85, 0.06, -109.9, 260.9, 0.06, -109.9, 292.95, 0.06, -109.9, 325, 0.06, -109.9)
+
+[node name="bus_shelter" parent="StreetFurniture" instance=ExtResource("111_r")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -47.5, -0.12, 8.9)
+
+[node name="bus_bench" parent="StreetFurniture" instance=ExtResource("110_r")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -43, 0.06, 5.9)
+
+[node name="bus_bench2" parent="StreetFurniture" instance=ExtResource("110_r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45.5, 0.06, -5.9)
+
+[node name="newspaper_boxes" parent="StreetFurniture" instance=ExtResource("109_r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -41, 0.06, -5.9)
+
+[node name="mailbox_cluster" parent="StreetFurniture" instance=ExtResource("108_r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -49.5, -0.12, -7.5)
+
+[node name="mailbox_cluster2" parent="StreetFurniture" instance=ExtResource("108_r")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -312, -0.12, -107.5)
+
+[node name="Player" parent="." instance=ExtResource("127_r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -308, 1, -5.5)

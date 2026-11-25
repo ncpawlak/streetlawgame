@@ -32,6 +32,12 @@ floors = 1
 footprint = Vector2(18, 27)
 lot_size = Vector2(24, 30)
 lot_type = "Block gun store with an indoor-range annex behind it"
+metadata/dress_tier = "commercial"
+metadata/dress_solids = PackedVector4Array(-9, -16, 9, -2, -8, -29, 8, -16)
+metadata/dress_blocked = PackedVector4Array(-8.6, -2, -1.6, 0.2, 1.6, -2, 8.6, 0.2, -1.4, -2, 1.4, 0.2, 8, -27, 10.2, -25, 10.9, -1.5, 11.9, -0.5)
+metadata/dress_paved = PackedVector4Array(-12, -2, 12, 0, 9, -30, 12, -2, -12, -30, -9, -2)
+metadata/dress_walls = PackedFloat32Array(-9, -2, 9, -2, 0, 1, 5.4, 1, -9, -16, 9, -16, 0, -1, 5.4, 0, 9, -16, 9, -2, 1, 0, 5.4, 0, -9, -16, -9, -2, -1, 0, 5.4, 0, -8, -16, 8, -16, 0, 1, 4.6, 1, -8, -29, 8, -29, 0, -1, 4.6, 0, 8, -29, 8, -16, 1, 0, 4.6, 0, -8, -29, -8, -16, -1, 0, 4.6, 0)
+metadata/dress_openings = PackedFloat32Array(-5.1, 2.05, -2, 0, 1, 6.2, 2.3, 2, 5.1, 2.05, -2, 0, 1, 6.2, 2.3, 2, 0, 1.55, -2, 0, 1, 2, 3.1, 1, 8, 1.45, -26, 1, 0, 1.2, 2.9, 1, 0, 4.6, -2, 0, 1, 17, 1.2, 4, -8, 3, -22.5, -1, 0, 9, 0.8, 4)
 
 [node name="Lot" type="CSGCombiner3D" parent="."]
 use_collision = true

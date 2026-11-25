@@ -36,6 +36,7 @@ func _run() -> void:
 	await BusinessTests.new(self).run()
 	await preload("res://tests/house_tests.gd").new(self).run()
 	await preload("res://tests/building_kit_tests.gd").new(self).run()
+	await preload("res://tests/dressing_tests.gd").new(self).run()
 	print("\n%s (%d failure(s))" % ["FAILED" if _failures > 0 else "ALL TESTS PASSED", _failures])
 	get_tree().quit(1 if _failures > 0 else 0)
 

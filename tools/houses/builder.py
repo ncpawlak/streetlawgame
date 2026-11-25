@@ -2,6 +2,7 @@
 import math
 
 import roofs
+from dressmeta import DressMeta
 from tscn import SUBTRACT, Scene, box, combiner, f, prism, v2, v3, xform
 
 PARTS = "res://scenes/houses/parts/"
@@ -60,6 +61,7 @@ class HouseBuilder:
         self.wings = [Wing(spec, w) for w in spec["wings"]]
         self.reserved = {}  # (wing, side, floor) -> [(at, half width)]
         self.lot_w, self.lot_d = spec["lot"]
+        self.meta = DressMeta(spec.get("dress_tier", "medium"))
 
     # --- helpers ----------------------------------------------------------------------
     def reserve(self, wi, side, floor, at, half):
@@ -69,6 +71,12 @@ class HouseBuilder:
         x, yy, z = wing.face(side, at, y)
         p = {"transform": xform((x, yy, z), SIDES[side][1])}
         p.update(props)
+        ow, oh = (float(v) for v in props["opening"][len("Vector2("):-1].split(","))
+        if kind == "house_window":
+            k = 3 if ("bars" in props or "storm" in props) else 0
+        else:
+            k = 1
+        self.meta.opening((x, yy, z), side, ow, oh, k)
         return self.sc.node(kind.title().replace("_", ""), None, parent, p,
                             instance=PARTS + kind + ".tscn")
 
@@ -177,9 +185,23 @@ class HouseBuilder:
                             props["shutters"] = "true"
                             if s.get("shutter_mat"):
                                 props["shutter_material"] = self.sc.mat(s["shutter_mat"])
+                        # Florida window options: "jalousie" / "win_bars" (True or a list of
+                        # sides), "storm" = 1 accordion, 2 panel, 3 bahama (+ "storm_sides").
+                        if self._on_side(s.get("jalousie"), side):
+                            props["jalousie"] = "true"
+                        if self._on_side(s.get("win_bars"), side):
+                            props["bars"] = "true"
+                        if s.get("storm") and side in s.get("storm_sides", ("front",)):
+                            props["storm"] = str(s["storm"])
+                            if s["storm"] == 3 and s.get("shutter_mat"):
+                                props["shutter_material"] = self.sc.mat(s["shutter_mat"])
                         if w.trim != "trim_white":
                             props["frame_material"] = self.sc.mat(w.trim)
                         self.part(house, "house_window", w, side, at, wy, props)
+
+    @staticmethod
+    def _on_side(rule, side):
+        return rule is True or (isinstance(rule, (list, tuple)) and side in rule)
 
     def roof_all(self, house):
         for i, w in enumerate(self.wings):
@@ -364,12 +386,26 @@ class HouseBuilder:
                 "chain": (1.2, 0.02, "fence_chain", "metal_grey"),
                 "hedge": (1.2, 0.8, "hedge", None),
                 "wall": (0.7, 0.3, "brick_red", None),
+                "block_wall": (1.5, 0.2, "stucco_beige", None),
             }[kind]
             lo_x, hi_x, lo_z, hi_z = min(x0, x1), max(x0, x1), min(z0, z1), max(z0, z1)
             if along_x:
                 box(self.sc, fence, kind.title(), lo_x, hi_x, 0, h, z0 - t / 2, z0 + t / 2, mat)
             else:
                 box(self.sc, fence, kind.title(), x0 - t / 2, x0 + t / 2, 0, h, lo_z, hi_z, mat)
+            if kind == "block_wall":
+                # Florida CMU garden wall: stucco face, cap course and pilasters every ~3 m.
+                c = t / 2 + 0.04
+                if along_x:
+                    box(self.sc, fence, "WallCap", lo_x, hi_x, h, h + 0.08, z0 - c, z0 + c, "trim_white")
+                else:
+                    box(self.sc, fence, "WallCap", x0 - c, x0 + c, h, h + 0.08, lo_z, hi_z, "trim_white")
+                n = max(1, int(math.ceil(length / 3.0)))
+                for i in range(n + 1):
+                    k = i / n
+                    px, pz = x0 + (x1 - x0) * k, z0 + (z1 - z0) * k
+                    box(self.sc, fence, "Pilaster", px - 0.2, px + 0.2, 0, h + 0.2, pz - 0.2, pz + 0.2, mat)
+                continue
             if not post_mat:
                 continue
             n = max(1, int(math.ceil(length / 2.4)))
@@ -459,4 +495,25 @@ class HouseBuilder:
         self.blocks(house)
         self.fences(root)
         self.landscape(root)
+        for w in self.wings:
+            self.meta.solid(w.x0, w.x1, w.z0, w.z1, w.top)
+        self.meta.site(s)
+        for p in s.get("porches", []):
+            self.meta.block(*p["rect"], pad=0.3)
+        for c in s.get("carports", []):
+            self.meta.block(*c["rect"], pad=0.2)
+        for d in s.get("doors", []):
+            if d.get("stoop", True):
+                self.meta.block(*self._stoop_rect(d), pad=0.3)
+        sc.nodes[0][1].update(self.meta.props())
         return sc
+
+    def _stoop_rect(self, d):
+        w = self.wings[d.get("wing", 0)]
+        side = d.get("side", "front")
+        n = SIDES[side][0]
+        depth, half = d.get("stoop_d", 1.3) + 0.8, d.get("stoop_w", 2.0) / 2
+        _, value, _ = self._edges(w.x0, w.x1, w.z0, w.z1)[side]
+        if side in ("front", "back"):
+            return (d["at"] - half, d["at"] + half, value, value + n[1] * depth)
+        return (value, value + n[0] * depth, d["at"] - half, d["at"] + half)

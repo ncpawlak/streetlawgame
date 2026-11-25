@@ -1,0 +1,67 @@
+[gd_scene load_steps=10 format=3]
+
+[ext_resource type="Script" path="res://scripts/world/houses/kit_prop.gd" id="1_r"]
+[ext_resource type="Material" path="res://assets/materials/houses/stucco_beige.tres" id="2_r"]
+[ext_resource type="Material" path="res://assets/materials/houses/trim_white.tres" id="3_r"]
+[ext_resource type="Material" path="res://assets/materials/houses/rust_light.tres" id="4_r"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_1"]
+size = Vector3(3, 1.5, 0.2)
+
+[sub_resource type="BoxMesh" id="BoxMesh_2"]
+size = Vector3(3.08, 0.08, 0.28)
+
+[sub_resource type="BoxMesh" id="BoxMesh_3"]
+size = Vector3(0.4, 1.7, 0.4)
+
+[sub_resource type="BoxMesh" id="BoxMesh_4"]
+size = Vector3(0.06, 0.5, 0.01)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5"]
+size = Vector3(3, 1.6, 0.4)
+
+[node name="BlockWall3M" type="Node3D"]
+script = ExtResource("1_r")
+prop_id = "block_wall_3m"
+category = "yard"
+display_name = "Stucco block wall (3 m)"
+collides = true
+radius = 1.5
+mount = "ground"
+label_height = 2.4
+
+[node name="StuccoBeige" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+mesh = SubResource("BoxMesh_1")
+material_override = ExtResource("2_r")
+
+[node name="TrimWhite" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.54, 0)
+mesh = SubResource("BoxMesh_2")
+material_override = ExtResource("3_r")
+
+[node name="StuccoBeige2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.4, 0.85, 0)
+mesh = SubResource("BoxMesh_3")
+material_override = ExtResource("2_r")
+
+[node name="StuccoBeige3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4, 0.85, 0)
+mesh = SubResource("BoxMesh_3")
+material_override = ExtResource("2_r")
+
+[node name="RustLight" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6, 1.15, 0.105)
+mesh = SubResource("BoxMesh_4")
+material_override = ExtResource("4_r")
+
+[node name="RustLight2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, 1.15, 0.105)
+mesh = SubResource("BoxMesh_4")
+material_override = ExtResource("4_r")
+
+[node name="Collision" type="StaticBody3D" parent="."]
+
+[node name="Shape" type="CollisionShape3D" parent="Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
+shape = SubResource("BoxShape3D_5")

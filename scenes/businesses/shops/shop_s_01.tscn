@@ -29,6 +29,12 @@ floors = 1
 footprint = Vector2(13, 12)
 lot_size = Vector2(14, 26)
 lot_type = "Strip-mall unit behind 4 parking stalls"
+metadata/dress_tier = "commercial"
+metadata/dress_solids = PackedVector4Array(-6.5, -24, 6.5, -12)
+metadata/dress_blocked = PackedVector4Array(-6.4, -12, -0.9, -9.8, 0.9, -12, 6.4, -9.8, -1.3, -12, 1.3, -9.8)
+metadata/dress_paved = PackedVector4Array(-7, -12, 7, -10.5, -7, -10.5, 7, 0)
+metadata/dress_walls = PackedFloat32Array(-6.5, -12, 6.5, -12, 0, 1, 5.4, 1, -6.5, -24, 6.5, -24, 0, -1, 5.4, 0, 6.5, -24, 6.5, -12, 1, 0, 5.4, 0, -6.5, -24, -6.5, -12, -1, 0, 5.4, 0)
+metadata/dress_openings = PackedFloat32Array(-3.65, 1.95, -12, 0, 1, 4.7, 3.1, 2, 3.65, 1.95, -12, 0, 1, 4.7, 3.1, 2, 0, 1.55, -12, 0, 1, 1.8, 3.1, 1, 0, 3.45, -12, 0, 1, 12.6, 1, 4, 0, 4.55, -12, 0, 1, 10, 0.9, 4)
 
 [node name="Lot" type="CSGCombiner3D" parent="."]
 use_collision = true

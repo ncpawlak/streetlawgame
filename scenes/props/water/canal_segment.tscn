@@ -1,0 +1,130 @@
+[gd_scene load_steps=19 format=3]
+
+[ext_resource type="Script" path="res://scripts/world/houses/kit_prop.gd" id="1_r"]
+[ext_resource type="Material" path="res://assets/materials/houses/grass.tres" id="2_r"]
+[ext_resource type="Material" path="res://assets/materials/houses/concrete.tres" id="3_r"]
+[ext_resource type="Material" path="res://assets/materials/houses/dirt.tres" id="4_r"]
+[ext_resource type="Material" path="res://assets/materials/houses/canal_water.tres" id="5_r"]
+[ext_resource type="Material" path="res://assets/materials/houses/metal_grey.tres" id="6_r"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_1"]
+size = Vector3(24, 0.3, 4.031)
+
+[sub_resource type="BoxMesh" id="BoxMesh_2"]
+size = Vector3(24, 2.6, 0.4)
+
+[sub_resource type="BoxMesh" id="BoxMesh_3"]
+size = Vector3(24, 0.15, 0.6)
+
+[sub_resource type="BoxMesh" id="BoxMesh_4"]
+size = Vector3(24, 0.2, 14)
+
+[sub_resource type="BoxMesh" id="BoxMesh_5"]
+size = Vector3(24, 0.02, 13.6)
+
+[sub_resource type="BoxMesh" id="BoxMesh_6"]
+size = Vector3(0.15, 0.9, 0.15)
+
+[sub_resource type="BoxMesh" id="BoxMesh_7"]
+size = Vector3(24, 0.3, 0.06)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8"]
+size = Vector3(24, 0.3, 4.031)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_9"]
+size = Vector3(24, 2.6, 0.4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_10"]
+size = Vector3(24, 0.2, 14)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_11"]
+size = Vector3(0.15, 0.9, 0.15)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_12"]
+size = Vector3(24, 0.9, 0.1)
+
+[node name="CanalSegment" type="Node3D"]
+script = ExtResource("1_r")
+prop_id = "canal_segment"
+category = "water"
+display_name = "Canal segment (24 m)"
+collides = true
+radius = 12
+mount = "ground"
+label_height = 1.6
+metadata/ground_cut = Rect2(-12, -7, 24, 14)
+
+[node name="Grass" type="MeshInstance3D" parent="."]
+transform = Transform3D(-1, 0, 0, 0, 0.868, 0.496, 0, 0.496, -0.868, 0, -1.13, -5.324)
+mesh = SubResource("BoxMesh_1")
+material_override = ExtResource("2_r")
+
+[node name="Concrete" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.2, 6.8)
+mesh = SubResource("BoxMesh_2")
+material_override = ExtResource("3_r")
+
+[node name="Concrete2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.12, 6.75)
+mesh = SubResource("BoxMesh_3")
+material_override = ExtResource("3_r")
+
+[node name="Dirt" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.6, 0)
+mesh = SubResource("BoxMesh_4")
+material_override = ExtResource("4_r")
+
+[node name="CanalWater" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.4, 0)
+mesh = SubResource("BoxMesh_5")
+material_override = ExtResource("5_r")
+
+[node name="MetalGrey" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0.45, 6.9)
+mesh = SubResource("BoxMesh_6")
+material_override = ExtResource("6_r")
+
+[node name="MetalGrey2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.45, 6.9)
+mesh = SubResource("BoxMesh_6")
+material_override = ExtResource("6_r")
+
+[node name="MetalGrey3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0.45, 6.9)
+mesh = SubResource("BoxMesh_6")
+material_override = ExtResource("6_r")
+
+[node name="MetalGrey4" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 6.98)
+mesh = SubResource("BoxMesh_7")
+material_override = ExtResource("6_r")
+
+[node name="Collision" type="StaticBody3D" parent="."]
+
+[node name="Shape" type="CollisionShape3D" parent="Collision"]
+transform = Transform3D(-1, 0, 0, 0, 0.868, 0.496, 0, 0.496, -0.868, 0, -1.13, -5.324)
+shape = SubResource("BoxShape3D_8")
+
+[node name="Shape2" type="CollisionShape3D" parent="Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.2, 6.8)
+shape = SubResource("BoxShape3D_9")
+
+[node name="Shape3" type="CollisionShape3D" parent="Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.6, 0)
+shape = SubResource("BoxShape3D_10")
+
+[node name="Shape4" type="CollisionShape3D" parent="Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0.45, 6.9)
+shape = SubResource("BoxShape3D_11")
+
+[node name="Shape5" type="CollisionShape3D" parent="Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.45, 6.9)
+shape = SubResource("BoxShape3D_11")
+
+[node name="Shape6" type="CollisionShape3D" parent="Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0.45, 6.9)
+shape = SubResource("BoxShape3D_11")
+
+[node name="Shape7" type="CollisionShape3D" parent="Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.45, 6.95)
+shape = SubResource("BoxShape3D_12")

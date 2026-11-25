@@ -1,0 +1,59 @@
+[gd_scene load_steps=10 format=3]
+
+[ext_resource type="Script" path="res://scripts/world/houses/kit_prop.gd" id="1_r"]
+[ext_resource type="Material" path="res://assets/materials/houses/metal_grey.tres" id="2_r"]
+[ext_resource type="Material" path="res://assets/materials/houses/plastic_white.tres" id="3_r"]
+[ext_resource type="Material" path="res://assets/materials/houses/metal_dark.tres" id="4_r"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_1"]
+size = Vector3(0.08, 0.3, 0.04)
+
+[sub_resource type="BoxMesh" id="BoxMesh_2"]
+size = Vector3(0.05, 0.05, 0.45)
+
+[sub_resource type="SphereMesh" id="SphereMesh_3"]
+radius = 0.38
+height = 0.76
+radial_segments = 10
+rings = 4
+
+[sub_resource type="BoxMesh" id="BoxMesh_4"]
+size = Vector3(0.03, 0.03, 0.45)
+
+[sub_resource type="BoxMesh" id="BoxMesh_5"]
+size = Vector3(0.08, 0.08, 0.1)
+
+[node name="SatelliteDish" type="Node3D"]
+script = ExtResource("1_r")
+prop_id = "satellite_dish"
+category = "yard"
+display_name = "Satellite dish"
+collides = false
+radius = 0.5
+mount = "wall"
+label_height = 1.4
+
+[node name="MetalGrey" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.02)
+mesh = SubResource("BoxMesh_1")
+material_override = ExtResource("2_r")
+
+[node name="MetalGrey2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.25)
+mesh = SubResource("BoxMesh_2")
+material_override = ExtResource("2_r")
+
+[node name="PlasticWhite" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.866, 0.125, 0, -0.5, 0.217, 0, 0.12, 0.5)
+mesh = SubResource("SphereMesh_3")
+material_override = ExtResource("3_r")
+
+[node name="MetalGrey3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.906, 0.423, 0, -0.423, 0.906, 0, 0, 0.75)
+mesh = SubResource("BoxMesh_4")
+material_override = ExtResource("2_r")
+
+[node name="MetalDark" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.08, 0.95)
+mesh = SubResource("BoxMesh_5")
+material_override = ExtResource("4_r")

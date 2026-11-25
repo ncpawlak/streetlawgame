@@ -32,6 +32,12 @@ floors = 1
 footprint = Vector2(21, 32)
 lot_size = Vector2(24, 36)
 lot_type = "Gas station: pay kiosk at the back, 2 pump islands under a canopy (stick-up / burglary)"
+metadata/dress_tier = "commercial"
+metadata/dress_solids = PackedVector4Array(-8, -34, 8, -22)
+metadata/dress_blocked = PackedVector4Array(-7.8, -22, -1, -19.8, 1, -22, 7.8, -19.8, -1.6, -22, 1.6, -19.8, 5, -36.2, 7, -34, 8.1, -27.2, 10.1, -25.4, 8.1, -24.7, 9.5, -23.3, -10.8, -18.8, 10.8, -6.2, -4.8, -15.4, -3.2, -9.6, 3.2, -15.4, 4.8, -9.6, -11.9, -28.5, -10.9, -27.5, 10.9, -30.5, 11.9, -29.5, -11.6, -35.3, -9.2, -33.5, 8.8, -2.3, 12, -0.7)
+metadata/dress_paved = PackedVector4Array(-12, -36, 12, 0, -12, -21.5, 12, -19.5)
+metadata/dress_walls = PackedFloat32Array(-8, -22, 8, -22, 0, 1, 5.2, 1, -8, -34, 8, -34, 0, -1, 5.2, 0, 8, -34, 8, -22, 1, 0, 5.2, 0, -8, -34, -8, -22, -1, 0, 5.2, 0)
+metadata/dress_openings = PackedFloat32Array(-4.4, 1.95, -22, 0, 1, 6, 2.9, 2, 4.4, 1.95, -22, 0, 1, 6, 2.9, 2, 0, 1.6, -22, 0, 1, 2.4, 3.2, 1, 6, 1.45, -34, 0, -1, 1.2, 2.9, 1, 0, 4.025, -22, 0, 1, 12, 0.65, 4)
 
 [node name="Lot" type="CSGCombiner3D" parent="."]
 use_collision = true

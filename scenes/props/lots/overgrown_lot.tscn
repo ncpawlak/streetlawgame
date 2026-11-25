@@ -1,0 +1,1661 @@
+[gd_scene load_steps=189 format=3]
+
+[ext_resource type="Script" path="res://scripts/world/houses/kit_prop.gd" id="1_r"]
+[ext_resource type="Material" path="res://assets/materials/houses/grass.tres" id="2_r"]
+[ext_resource type="Material" path="res://assets/materials/houses/sand.tres" id="3_r"]
+[ext_resource type="Material" path="res://assets/materials/houses/dirt.tres" id="4_r"]
+[ext_resource type="Material" path="res://assets/materials/houses/brush_dry.tres" id="5_r"]
+[ext_resource type="Material" path="res://assets/materials/houses/weeds.tres" id="6_r"]
+[ext_resource type="Material" path="res://assets/materials/houses/sea_grape.tres" id="7_r"]
+[ext_resource type="Material" path="res://assets/materials/houses/brush.tres" id="8_r"]
+[ext_resource type="Material" path="res://assets/materials/houses/cloth_white.tres" id="9_r"]
+[ext_resource type="Material" path="res://assets/materials/houses/tire.tres" id="10_r"]
+[ext_resource type="Material" path="res://assets/materials/houses/bin_black.tres" id="11_r"]
+[ext_resource type="Material" path="res://assets/materials/houses/palm_trunk.tres" id="12_r"]
+[ext_resource type="Material" path="res://assets/materials/houses/sabal_frond.tres" id="13_r"]
+[ext_resource type="Material" path="res://assets/materials/houses/sign_white.tres" id="14_r"]
+[ext_resource type="Material" path="res://assets/materials/houses/fence_wood.tres" id="15_r"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_1"]
+size = Vector3(12, 0.22, 20)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_2"]
+top_radius = 1.697
+bottom_radius = 1.697
+height = 0.016
+radial_segments = 9
+rings = 1
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_3"]
+top_radius = 1.941
+bottom_radius = 1.941
+height = 0.016
+radial_segments = 9
+rings = 1
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_4"]
+top_radius = 1.944
+bottom_radius = 1.944
+height = 0.016
+radial_segments = 9
+rings = 1
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_5"]
+top_radius = 1.966
+bottom_radius = 1.966
+height = 0.016
+radial_segments = 9
+rings = 1
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_6"]
+top_radius = 1.06
+bottom_radius = 1.06
+height = 0.016
+radial_segments = 9
+rings = 1
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_7"]
+top_radius = 1.793
+bottom_radius = 1.793
+height = 0.016
+radial_segments = 9
+rings = 1
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_8"]
+top_radius = 1.444
+bottom_radius = 1.444
+height = 0.016
+radial_segments = 9
+rings = 1
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_9"]
+top_radius = 1.473
+bottom_radius = 1.473
+height = 0.016
+radial_segments = 9
+rings = 1
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_10"]
+top_radius = 1.632
+bottom_radius = 1.632
+height = 0.016
+radial_segments = 9
+rings = 1
+
+[sub_resource type="BoxMesh" id="BoxMesh_11"]
+size = Vector3(0.05, 0.915, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_12"]
+size = Vector3(0.05, 0.825, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_13"]
+size = Vector3(0.05, 0.583, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_14"]
+size = Vector3(0.05, 0.577, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_15"]
+size = Vector3(0.05, 1.225, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_16"]
+size = Vector3(0.05, 0.876, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_17"]
+size = Vector3(0.05, 1.155, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_18"]
+size = Vector3(0.05, 0.844, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_19"]
+size = Vector3(0.05, 0.987, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_20"]
+size = Vector3(0.05, 1.252, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_21"]
+size = Vector3(0.05, 0.581, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_22"]
+size = Vector3(0.05, 1.287, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_23"]
+size = Vector3(0.05, 0.535, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_24"]
+size = Vector3(0.05, 0.675, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_25"]
+size = Vector3(0.05, 0.67, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_26"]
+size = Vector3(0.05, 1.044, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_27"]
+size = Vector3(0.05, 0.888, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_28"]
+size = Vector3(0.05, 0.512, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_29"]
+size = Vector3(0.05, 1.123, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_30"]
+size = Vector3(0.05, 0.539, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_31"]
+size = Vector3(0.05, 0.746, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_32"]
+size = Vector3(0.05, 1.055, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_33"]
+size = Vector3(0.05, 0.511, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_34"]
+size = Vector3(0.05, 1.299, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_35"]
+size = Vector3(0.05, 1.111, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_36"]
+size = Vector3(0.05, 0.652, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_37"]
+size = Vector3(0.05, 1.02, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_38"]
+size = Vector3(0.05, 0.941, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_39"]
+size = Vector3(0.05, 0.856, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_40"]
+size = Vector3(0.05, 0.656, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_41"]
+size = Vector3(0.05, 0.595, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_42"]
+size = Vector3(0.05, 0.72, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_43"]
+size = Vector3(0.05, 0.738, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_44"]
+size = Vector3(0.05, 0.742, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_45"]
+size = Vector3(0.05, 0.907, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_46"]
+size = Vector3(0.05, 0.832, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_47"]
+size = Vector3(0.05, 0.793, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_48"]
+size = Vector3(0.05, 0.945, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_49"]
+size = Vector3(0.05, 0.877, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_50"]
+size = Vector3(0.05, 0.814, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_51"]
+size = Vector3(0.05, 0.663, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_52"]
+size = Vector3(0.05, 0.783, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_53"]
+size = Vector3(0.05, 0.767, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_54"]
+size = Vector3(0.05, 1.271, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_55"]
+size = Vector3(0.05, 0.724, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_56"]
+size = Vector3(0.05, 0.786, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_57"]
+size = Vector3(0.05, 1.152, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_58"]
+size = Vector3(0.05, 0.842, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_59"]
+size = Vector3(0.05, 0.532, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_60"]
+size = Vector3(0.05, 0.99, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_61"]
+size = Vector3(0.05, 0.561, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_62"]
+size = Vector3(0.05, 1.269, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_63"]
+size = Vector3(0.05, 1.168, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_64"]
+size = Vector3(0.05, 0.794, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_65"]
+size = Vector3(0.05, 0.899, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_66"]
+size = Vector3(0.05, 0.935, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_67"]
+size = Vector3(0.05, 1.173, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_68"]
+size = Vector3(0.05, 1.045, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_69"]
+size = Vector3(0.05, 0.947, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_70"]
+size = Vector3(0.05, 0.95, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_71"]
+size = Vector3(0.05, 0.733, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_72"]
+size = Vector3(0.05, 0.928, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_73"]
+size = Vector3(0.05, 1.118, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_74"]
+size = Vector3(0.05, 0.54, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_75"]
+size = Vector3(0.05, 0.605, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_76"]
+size = Vector3(0.05, 0.994, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_77"]
+size = Vector3(0.05, 1.191, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_78"]
+size = Vector3(0.05, 0.611, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_79"]
+size = Vector3(0.05, 1.131, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_80"]
+size = Vector3(0.05, 0.536, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_81"]
+size = Vector3(0.05, 1.167, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_82"]
+size = Vector3(0.05, 0.965, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_83"]
+size = Vector3(0.05, 0.574, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_84"]
+size = Vector3(0.05, 0.796, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_85"]
+size = Vector3(0.05, 0.521, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_86"]
+size = Vector3(0.05, 1.018, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_87"]
+size = Vector3(0.05, 0.884, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_88"]
+size = Vector3(0.05, 0.93, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_89"]
+size = Vector3(0.05, 0.548, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_90"]
+size = Vector3(0.05, 0.828, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_91"]
+size = Vector3(0.05, 1.065, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_92"]
+size = Vector3(0.05, 0.871, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_93"]
+size = Vector3(0.05, 1.275, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_94"]
+size = Vector3(0.05, 0.683, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_95"]
+size = Vector3(0.05, 0.61, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_96"]
+size = Vector3(0.05, 0.578, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_97"]
+size = Vector3(0.05, 0.813, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_98"]
+size = Vector3(0.05, 0.763, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_99"]
+size = Vector3(0.05, 1.039, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_100"]
+size = Vector3(0.05, 0.751, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_101"]
+size = Vector3(0.05, 1.169, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_102"]
+size = Vector3(0.05, 1.217, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_103"]
+size = Vector3(0.05, 0.641, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_104"]
+size = Vector3(0.05, 1.012, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_105"]
+size = Vector3(0.05, 0.648, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_106"]
+size = Vector3(0.05, 0.759, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_107"]
+size = Vector3(0.05, 0.866, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_108"]
+size = Vector3(0.05, 0.655, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_109"]
+size = Vector3(0.05, 1.028, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_110"]
+size = Vector3(0.05, 0.598, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_111"]
+size = Vector3(0.05, 0.874, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_112"]
+size = Vector3(0.05, 0.526, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_113"]
+size = Vector3(0.05, 0.78, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_114"]
+size = Vector3(0.05, 0.938, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_115"]
+size = Vector3(0.05, 1.239, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_116"]
+size = Vector3(0.05, 0.513, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_117"]
+size = Vector3(0.05, 0.695, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_118"]
+size = Vector3(0.05, 0.628, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_119"]
+size = Vector3(0.05, 0.933, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_120"]
+size = Vector3(0.05, 0.747, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_121"]
+size = Vector3(0.05, 0.709, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_122"]
+size = Vector3(0.05, 0.931, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_123"]
+size = Vector3(0.05, 0.547, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_124"]
+size = Vector3(0.05, 0.516, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_125"]
+size = Vector3(0.05, 0.954, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_126"]
+size = Vector3(0.05, 0.632, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_127"]
+size = Vector3(0.05, 0.82, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_128"]
+size = Vector3(0.05, 1.246, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_129"]
+size = Vector3(0.05, 1.182, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_130"]
+size = Vector3(0.05, 0.614, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_131"]
+size = Vector3(0.05, 0.638, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_132"]
+size = Vector3(0.05, 0.75, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_133"]
+size = Vector3(0.05, 0.717, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_134"]
+size = Vector3(0.05, 0.948, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_135"]
+size = Vector3(0.05, 0.817, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_136"]
+size = Vector3(0.05, 1.017, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_137"]
+size = Vector3(0.05, 0.645, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_138"]
+size = Vector3(0.05, 0.76, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_139"]
+size = Vector3(0.05, 1.273, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_140"]
+size = Vector3(0.05, 1.261, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_141"]
+size = Vector3(0.05, 0.562, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_142"]
+size = Vector3(0.05, 0.897, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_143"]
+size = Vector3(0.05, 0.714, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_144"]
+size = Vector3(0.05, 1.149, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_145"]
+size = Vector3(0.05, 1.157, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_146"]
+size = Vector3(0.05, 0.736, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_147"]
+size = Vector3(0.05, 1.022, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_148"]
+size = Vector3(0.05, 0.775, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_149"]
+size = Vector3(0.05, 1.06, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_150"]
+size = Vector3(0.05, 1.248, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_151"]
+size = Vector3(0.05, 0.579, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_152"]
+size = Vector3(0.05, 1.215, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_153"]
+size = Vector3(0.05, 1.102, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_154"]
+size = Vector3(0.05, 0.885, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_155"]
+size = Vector3(0.05, 1.233, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_156"]
+size = Vector3(0.05, 0.542, 0.05)
+
+[sub_resource type="SphereMesh" id="SphereMesh_157"]
+radius = 0.91
+height = 1.819
+radial_segments = 7
+rings = 4
+
+[sub_resource type="SphereMesh" id="SphereMesh_158"]
+radius = 0.92
+height = 1.839
+radial_segments = 7
+rings = 4
+
+[sub_resource type="SphereMesh" id="SphereMesh_159"]
+radius = 0.855
+height = 1.71
+radial_segments = 7
+rings = 4
+
+[sub_resource type="SphereMesh" id="SphereMesh_160"]
+radius = 0.821
+height = 1.643
+radial_segments = 7
+rings = 4
+
+[sub_resource type="SphereMesh" id="SphereMesh_161"]
+radius = 0.638
+height = 1.276
+radial_segments = 7
+rings = 4
+
+[sub_resource type="SphereMesh" id="SphereMesh_162"]
+radius = 0.756
+height = 1.512
+radial_segments = 7
+rings = 4
+
+[sub_resource type="BoxMesh" id="BoxMesh_163"]
+size = Vector3(1.4, 0.2, 1.9)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_164"]
+top_radius = 0.35
+bottom_radius = 0.35
+height = 0.22
+radial_segments = 10
+rings = 1
+
+[sub_resource type="BoxMesh" id="BoxMesh_165"]
+size = Vector3(0.6, 0.45, 0.45)
+
+[sub_resource type="SphereMesh" id="SphereMesh_166"]
+radius = 0.3
+height = 0.6
+radial_segments = 6
+rings = 4
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_167"]
+top_radius = 0.24
+bottom_radius = 0.26
+height = 4
+radial_segments = 7
+rings = 1
+
+[sub_resource type="BoxMesh" id="BoxMesh_168"]
+size = Vector3(0.675, 0.03, 0.95)
+
+[sub_resource type="BoxMesh" id="BoxMesh_169"]
+size = Vector3(0.9, 0.03, 0.95)
+
+[sub_resource type="BoxMesh" id="BoxMesh_170"]
+size = Vector3(1, 0.8, 0.04)
+
+[sub_resource type="BoxMesh" id="BoxMesh_171"]
+size = Vector3(0.06, 1.4, 0.06)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_172"]
+size = Vector3(12, 0.22, 20)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_173"]
+height = 4
+radius = 0.26
+
+[node name="OvergrownLot" type="Node3D"]
+script = ExtResource("1_r")
+prop_id = "overgrown_lot"
+category = "lots"
+display_name = "Overgrown empty lot (12 x 20 m)"
+collides = true
+radius = 6
+mount = "ground"
+label_height = 3.1
+
+[node name="Grass" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.09, -10)
+mesh = SubResource("BoxMesh_1")
+material_override = ExtResource("2_r")
+
+[node name="Sand" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.564, -2.675, 0.028, -14.717)
+mesh = SubResource("CylinderMesh_2")
+material_override = ExtResource("3_r")
+
+[node name="Sand2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.818, -0.205, 0.028, -6.317)
+mesh = SubResource("CylinderMesh_3")
+material_override = ExtResource("3_r")
+
+[node name="Sand3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.893, 4.381, 0.028, -11.454)
+mesh = SubResource("CylinderMesh_4")
+material_override = ExtResource("3_r")
+
+[node name="Sand4" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.572, -4.241, 0.028, -2.994)
+mesh = SubResource("CylinderMesh_5")
+material_override = ExtResource("3_r")
+
+[node name="Dirt" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.682, -0.151, 0.028, -5.756)
+mesh = SubResource("CylinderMesh_6")
+material_override = ExtResource("4_r")
+
+[node name="Dirt2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.922, -4.223, 0.028, -2.504)
+mesh = SubResource("CylinderMesh_7")
+material_override = ExtResource("4_r")
+
+[node name="Dirt3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.8, 0.085, 0.028, -7.69)
+mesh = SubResource("CylinderMesh_8")
+material_override = ExtResource("4_r")
+
+[node name="Dirt4" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.716, 2.844, 0.028, -4.382)
+mesh = SubResource("CylinderMesh_9")
+material_override = ExtResource("4_r")
+
+[node name="Sand5" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.97, -3.994, 0.028, -2.784)
+mesh = SubResource("CylinderMesh_10")
+material_override = ExtResource("3_r")
+
+[node name="BrushDry" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.61, -0.129, 0.782, -0.236, 0.971, -0.024, -0.757, -0.199, -0.623, -1.602, 0.457, -11.778)
+mesh = SubResource("BoxMesh_11")
+material_override = ExtResource("5_r")
+
+[node name="Weeds" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.961, 0.049, 0.272, 0.022, 0.967, -0.254, -0.275, 0.25, 0.928, -1.353, 0.413, -11.213)
+mesh = SubResource("BoxMesh_12")
+material_override = ExtResource("6_r")
+
+[node name="Weeds2" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.271, 0.041, 0.962, -0.237, 0.966, -0.108, -0.933, -0.257, -0.252, -1.022, 0.292, -11.084)
+mesh = SubResource("BoxMesh_13")
+material_override = ExtResource("6_r")
+
+[node name="BrushDry2" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.987, -0.103, 0.125, -0.078, 0.979, 0.191, -0.142, 0.178, -0.974, -1.458, 0.289, -11.773)
+mesh = SubResource("BoxMesh_14")
+material_override = ExtResource("5_r")
+
+[node name="Weeds3" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.595, 0.127, 0.794, -0.078, 0.974, -0.214, -0.8, -0.189, -0.569, -1.041, 0.613, -11.218)
+mesh = SubResource("BoxMesh_15")
+material_override = ExtResource("6_r")
+
+[node name="Weeds4" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.213, -0.229, 0.95, 0.012, 0.972, 0.236, -0.977, 0.061, -0.205, -1.337, 0.438, -11.812)
+mesh = SubResource("BoxMesh_16")
+material_override = ExtResource("6_r")
+
+[node name="BrushDry3" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.959, 0.265, 0.105, -0.246, 0.955, -0.164, -0.144, 0.132, 0.981, 5.083, 0.577, -7.791)
+mesh = SubResource("BoxMesh_17")
+material_override = ExtResource("5_r")
+
+[node name="Weeds5" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.867, 0.068, 0.493, -0.203, 0.953, 0.226, -0.454, -0.297, 0.84, 4.936, 0.422, -7.914)
+mesh = SubResource("BoxMesh_18")
+material_override = ExtResource("6_r")
+
+[node name="Weeds6" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.209, 0.148, 0.967, -0.246, 0.965, -0.094, -0.947, -0.218, 0.238, 4.729, 0.493, -8.24)
+mesh = SubResource("BoxMesh_19")
+material_override = ExtResource("6_r")
+
+[node name="BrushDry4" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.151, 0.069, 0.986, -0.055, 0.995, -0.078, -0.987, -0.066, -0.146, 5.095, 0.626, -7.507)
+mesh = SubResource("BoxMesh_20")
+material_override = ExtResource("5_r")
+
+[node name="Weeds7" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.894, -0.09, 0.439, 0.05, 0.994, 0.101, -0.445, -0.069, 0.893, 5.475, 0.29, -7.905)
+mesh = SubResource("BoxMesh_21")
+material_override = ExtResource("6_r")
+
+[node name="Weeds8" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.039, 0.108, 0.993, 0.08, 0.991, -0.104, -0.996, 0.075, -0.047, 5.024, 0.643, -7.611)
+mesh = SubResource("BoxMesh_22")
+material_override = ExtResource("6_r")
+
+[node name="BrushDry5" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.64, -0.152, 0.753, -0.033, 0.974, 0.225, -0.768, -0.169, 0.618, 2.224, 0.268, -2.339)
+mesh = SubResource("BoxMesh_23")
+material_override = ExtResource("5_r")
+
+[node name="Weeds9" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.645, 0.036, 0.763, -0.201, 0.956, -0.215, -0.737, -0.292, -0.61, 2.509, 0.337, -2.528)
+mesh = SubResource("BoxMesh_24")
+material_override = ExtResource("6_r")
+
+[node name="Weeds10" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.992, -0.049, 0.118, 0.063, 0.99, -0.122, -0.11, 0.129, 0.985, 2.715, 0.335, -2.419)
+mesh = SubResource("BoxMesh_25")
+material_override = ExtResource("6_r")
+
+[node name="BrushDry6" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.974, -0.221, 0.045, -0.226, 0.947, -0.228, 0.008, -0.232, -0.973, 2.542, 0.522, -1.897)
+mesh = SubResource("BoxMesh_26")
+material_override = ExtResource("5_r")
+
+[node name="Weeds11" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.859, 0.123, 0.497, -0.226, 0.962, 0.153, -0.459, -0.244, 0.854, 2.202, 0.444, -1.938)
+mesh = SubResource("BoxMesh_27")
+material_override = ExtResource("6_r")
+
+[node name="Weeds12" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.837, 0.104, 0.537, 0.115, 0.993, -0.012, -0.535, 0.052, -0.843, 2.318, 0.256, -2.377)
+mesh = SubResource("BoxMesh_28")
+material_override = ExtResource("6_r")
+
+[node name="BrushDry7" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.253, 0.233, 0.939, -0.014, 0.97, -0.244, -0.967, -0.075, -0.242, -2.078, 0.562, -14.52)
+mesh = SubResource("BoxMesh_29")
+material_override = ExtResource("5_r")
+
+[node name="Weeds13" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.982, -0.092, 0.165, 0.052, 0.972, 0.23, -0.181, -0.217, 0.959, -2.088, 0.27, -14.279)
+mesh = SubResource("BoxMesh_30")
+material_override = ExtResource("6_r")
+
+[node name="Weeds14" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.687, -0.182, 0.704, 0.111, 0.983, 0.146, -0.718, -0.022, 0.695, -1.819, 0.373, -14.852)
+mesh = SubResource("BoxMesh_31")
+material_override = ExtResource("6_r")
+
+[node name="BrushDry8" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.069, 0.154, 0.986, -0.209, 0.968, -0.137, -0.976, -0.196, 0.1, -2.275, 0.528, -14.471)
+mesh = SubResource("BoxMesh_32")
+material_override = ExtResource("5_r")
+
+[node name="Weeds15" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.949, -0.256, 0.182, 0.205, 0.944, 0.258, -0.238, -0.208, 0.949, -1.515, 0.255, -14.958)
+mesh = SubResource("BoxMesh_33")
+material_override = ExtResource("6_r")
+
+[node name="Weeds16" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.97, 0.098, 0.222, -0.063, 0.985, -0.161, -0.234, 0.142, 0.962, -1.689, 0.65, -14.287)
+mesh = SubResource("BoxMesh_34")
+material_override = ExtResource("6_r")
+
+[node name="BrushDry9" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.984, 0.065, 0.168, 0.075, 0.996, 0.055, -0.163, 0.066, -0.984, 1.678, 0.556, -6.902)
+mesh = SubResource("BoxMesh_35")
+material_override = ExtResource("5_r")
+
+[node name="Weeds17" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.932, -0.193, 0.308, 0.161, 0.979, 0.125, -0.326, -0.066, 0.943, 1.458, 0.326, -6.233)
+mesh = SubResource("BoxMesh_36")
+material_override = ExtResource("6_r")
+
+[node name="Weeds18" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.551, -0.159, 0.819, -0.103, 0.987, 0.122, -0.828, -0.017, -0.56, 1.419, 0.51, -6.623)
+mesh = SubResource("BoxMesh_37")
+material_override = ExtResource("6_r")
+
+[node name="BrushDry10" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.91, -0.031, 0.414, -0.001, 0.997, 0.078, -0.415, -0.071, 0.907, 1.862, 0.471, -6.471)
+mesh = SubResource("BoxMesh_38")
+material_override = ExtResource("5_r")
+
+[node name="Weeds19" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.587, -0.085, 0.805, 0.105, 0.994, 0.028, -0.803, 0.068, 0.592, 1.742, 0.269, -6.623)
+mesh = SubResource("BoxMesh_30")
+material_override = ExtResource("6_r")
+
+[node name="Weeds20" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.969, 0.084, 0.232, -0.136, 0.966, 0.219, -0.206, -0.244, 0.948, 1.478, 0.428, -6.832)
+mesh = SubResource("BoxMesh_39")
+material_override = ExtResource("6_r")
+
+[node name="BrushDry11" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.715, 0.082, 0.695, -0.021, 0.995, -0.096, -0.699, 0.054, 0.713, 2.213, 0.328, -7.26)
+mesh = SubResource("BoxMesh_40")
+material_override = ExtResource("5_r")
+
+[node name="Weeds21" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.999, 0.003, 0.034, 0.004, 1, 0.031, -0.034, 0.031, -0.999, 2.818, 0.297, -7.015)
+mesh = SubResource("BoxMesh_41")
+material_override = ExtResource("6_r")
+
+[node name="Weeds22" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.97, 0.042, 0.241, 0.027, 0.997, -0.065, -0.243, -0.057, -0.968, 2.734, 0.36, -6.715)
+mesh = SubResource("BoxMesh_42")
+material_override = ExtResource("6_r")
+
+[node name="BrushDry12" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.071, 0.242, 0.968, -0.234, 0.939, -0.252, -0.97, -0.245, -0.01, 2.701, 0.369, -7.422)
+mesh = SubResource("BoxMesh_43")
+material_override = ExtResource("5_r")
+
+[node name="Weeds23" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.443, 0.111, 0.89, 0.199, 0.955, -0.218, -0.874, 0.274, 0.401, 2.685, 0.371, -6.792)
+mesh = SubResource("BoxMesh_44")
+material_override = ExtResource("6_r")
+
+[node name="Weeds24" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.226, 0.056, 0.972, -0.249, 0.962, -0.113, -0.942, -0.268, -0.204, 2.646, 0.453, -6.78)
+mesh = SubResource("BoxMesh_45")
+material_override = ExtResource("6_r")
+
+[node name="BrushDry13" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.674, -0.106, 0.731, -0.079, 0.994, 0.072, -0.735, -0.01, -0.678, -2.126, 0.416, -5.271)
+mesh = SubResource("BoxMesh_46")
+material_override = ExtResource("5_r")
+
+[node name="Weeds25" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.283, 0.191, 0.94, -0.075, 0.973, -0.22, -0.956, -0.132, -0.261, -1.675, 0.397, -5.548)
+mesh = SubResource("BoxMesh_47")
+material_override = ExtResource("6_r")
+
+[node name="Weeds26" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.114, -0.232, 0.966, 0.198, 0.947, 0.251, -0.973, 0.22, -0.062, -1.545, 0.472, -5.368)
+mesh = SubResource("BoxMesh_48")
+material_override = ExtResource("6_r")
+
+[node name="BrushDry14" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.819, 0.125, 0.56, 0.139, 0.99, -0.018, -0.557, 0.063, -0.828, -2.02, 0.438, -5.844)
+mesh = SubResource("BoxMesh_49")
+material_override = ExtResource("5_r")
+
+[node name="Weeds27" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.019, 0.049, 0.999, -0.053, 0.997, -0.048, -0.998, -0.052, 0.021, -2.105, 0.407, -5.711)
+mesh = SubResource("BoxMesh_50")
+material_override = ExtResource("6_r")
+
+[node name="Weeds28" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.872, 0.194, 0.45, -0.181, 0.981, -0.071, -0.455, -0.02, 0.89, -1.786, 0.332, -5.83)
+mesh = SubResource("BoxMesh_51")
+material_override = ExtResource("6_r")
+
+[node name="BrushDry15" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.931, 0.106, 0.349, 0.14, 0.988, 0.073, -0.337, 0.116, -0.934, 4.697, 0.392, -19.28)
+mesh = SubResource("BoxMesh_52")
+material_override = ExtResource("5_r")
+
+[node name="Weeds29" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.562, 0.071, 0.824, 0.132, 0.976, -0.174, -0.816, 0.207, 0.539, 4.612, 0.383, -19.143)
+mesh = SubResource("BoxMesh_53")
+material_override = ExtResource("6_r")
+
+[node name="Weeds30" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.077, 0.183, 0.98, 0.22, 0.962, -0.163, -0.973, 0.203, -0.114, 4.529, 0.635, -18.858)
+mesh = SubResource("BoxMesh_54")
+material_override = ExtResource("6_r")
+
+[node name="BrushDry16" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.96, -0.241, 0.143, -0.227, 0.968, 0.11, -0.165, 0.073, -0.984, 4.678, 0.362, -19.079)
+mesh = SubResource("BoxMesh_55")
+material_override = ExtResource("5_r")
+
+[node name="Weeds31" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.918, -0.093, 0.386, -0.137, 0.986, -0.089, -0.373, -0.135, -0.918, 5.088, 0.393, -19.151)
+mesh = SubResource("BoxMesh_56")
+material_override = ExtResource("6_r")
+
+[node name="Weeds32" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.915, 0.217, 0.341, 0.21, 0.976, -0.057, -0.345, 0.02, -0.938, 4.844, 0.335, -19.311)
+mesh = SubResource("BoxMesh_25")
+material_override = ExtResource("6_r")
+
+[node name="BrushDry17" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.732, -0.082, 0.677, 0.007, 0.992, 0.128, -0.682, 0.099, -0.725, 4.759, 0.576, -10.273)
+mesh = SubResource("BoxMesh_57")
+material_override = ExtResource("5_r")
+
+[node name="Weeds33" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.98, 0.164, 0.116, -0.155, 0.984, -0.088, -0.128, 0.068, 0.989, 4.121, 0.421, -10.175)
+mesh = SubResource("BoxMesh_58")
+material_override = ExtResource("6_r")
+
+[node name="Weeds34" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.831, 0.002, 0.556, -0.057, 0.995, 0.083, -0.553, -0.1, 0.827, 4.425, 0.266, -10.259)
+mesh = SubResource("BoxMesh_59")
+material_override = ExtResource("6_r")
+
+[node name="BrushDry18" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.957, 0.061, 0.285, 0.038, 0.996, -0.084, -0.289, -0.07, -0.955, 4.029, 0.495, -10.77)
+mesh = SubResource("BoxMesh_60")
+material_override = ExtResource("5_r")
+
+[node name="Weeds35" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.671, 0.102, 0.735, -0.127, 0.992, -0.022, -0.731, -0.078, 0.678, 4.399, 0.281, -10.621)
+mesh = SubResource("BoxMesh_61")
+material_override = ExtResource("6_r")
+
+[node name="Weeds36" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.152, 0.266, 0.952, -0.083, 0.963, -0.256, -0.985, -0.04, 0.168, 4.278, 0.634, -10.478)
+mesh = SubResource("BoxMesh_62")
+material_override = ExtResource("6_r")
+
+[node name="BrushDry19" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.913, 0.233, 0.335, -0.225, 0.972, -0.064, -0.341, -0.017, 0.94, -2.195, 0.584, -16.395)
+mesh = SubResource("BoxMesh_63")
+material_override = ExtResource("5_r")
+
+[node name="Weeds37" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.89, -0.005, 0.455, -0.062, 0.992, -0.11, -0.451, -0.126, -0.884, -2.9, 0.397, -16.302)
+mesh = SubResource("BoxMesh_64")
+material_override = ExtResource("6_r")
+
+[node name="Weeds38" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.773, 0.103, 0.626, 0.042, 0.976, -0.212, -0.633, 0.191, 0.75, -2.901, 0.45, -16.536)
+mesh = SubResource("BoxMesh_65")
+material_override = ExtResource("6_r")
+
+[node name="BrushDry20" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.872, 0.067, 0.486, 0.19, 0.96, 0.207, -0.452, 0.272, -0.849, -2.762, 0.468, -16.636)
+mesh = SubResource("BoxMesh_66")
+material_override = ExtResource("5_r")
+
+[node name="Weeds39" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.624, -0.051, 0.78, -0.18, 0.962, 0.207, -0.761, -0.27, 0.591, -2.229, 0.587, -16.852)
+mesh = SubResource("BoxMesh_67")
+material_override = ExtResource("6_r")
+
+[node name="Weeds40" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.986, 0.163, 0.048, -0.145, 0.956, -0.256, -0.087, 0.245, 0.966, -2.468, 0.523, -16.601)
+mesh = SubResource("BoxMesh_68")
+material_override = ExtResource("6_r")
+
+[node name="BrushDry21" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.764, 0.008, 0.645, 0.01, 1, -0.025, -0.645, 0.025, 0.764, -3.355, 0.369, -18.062)
+mesh = SubResource("BoxMesh_43")
+material_override = ExtResource("5_r")
+
+[node name="Weeds41" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.549, 0.057, 0.834, -0.198, 0.96, -0.197, -0.812, -0.273, -0.515, -3.744, 0.474, -18.31)
+mesh = SubResource("BoxMesh_69")
+material_override = ExtResource("6_r")
+
+[node name="Weeds42" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.668, -0.161, 0.727, 0.15, 0.985, 0.081, -0.729, 0.055, 0.682, -3.117, 0.475, -18.269)
+mesh = SubResource("BoxMesh_70")
+material_override = ExtResource("6_r")
+
+[node name="BrushDry22" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.896, -0.032, 0.443, 0.057, 0.997, -0.043, -0.441, 0.064, 0.895, -3.115, 0.367, -18.082)
+mesh = SubResource("BoxMesh_71")
+material_override = ExtResource("5_r")
+
+[node name="Weeds43" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.154, 0.015, 0.988, -0.193, 0.981, 0.016, -0.969, -0.193, 0.153, -3.882, 0.464, -18.803)
+mesh = SubResource("BoxMesh_72")
+material_override = ExtResource("6_r")
+
+[node name="Weeds44" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.253, 0.123, 0.96, -0.071, 0.987, -0.145, -0.965, -0.105, -0.241, -3.377, 0.559, -18.636)
+mesh = SubResource("BoxMesh_73")
+material_override = ExtResource("6_r")
+
+[node name="BrushDry23" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.206, -0.085, 0.975, 0.075, 0.995, 0.071, -0.976, 0.059, 0.211, 1.712, 0.27, -17.025)
+mesh = SubResource("BoxMesh_74")
+material_override = ExtResource("5_r")
+
+[node name="Weeds45" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.672, 0.126, 0.73, 0.059, 0.973, -0.222, -0.738, 0.192, 0.647, 1.68, 0.303, -17.319)
+mesh = SubResource("BoxMesh_75")
+material_override = ExtResource("6_r")
+
+[node name="Weeds46" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.977, 0.199, 0.075, 0.178, 0.959, -0.222, -0.116, -0.204, -0.972, 1.237, 0.497, -17.322)
+mesh = SubResource("BoxMesh_76")
+material_override = ExtResource("6_r")
+
+[node name="BrushDry24" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.855, -0.012, 0.519, -0.081, 0.984, 0.156, -0.513, -0.175, 0.84, 1.906, 0.595, -17.17)
+mesh = SubResource("BoxMesh_77")
+material_override = ExtResource("5_r")
+
+[node name="Weeds47" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.961, -0.174, 0.213, 0.18, 0.984, -0.005, -0.208, 0.043, 0.977, 1.479, 0.306, -16.853)
+mesh = SubResource("BoxMesh_78")
+material_override = ExtResource("6_r")
+
+[node name="Weeds48" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.612, -0.242, 0.753, 0.071, 0.965, 0.252, -0.788, -0.101, 0.608, 1.881, 0.36, -17.374)
+mesh = SubResource("BoxMesh_42")
+material_override = ExtResource("6_r")
+
+[node name="BrushDry25" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.747, 0.16, 0.646, -0.233, 0.972, 0.028, -0.623, -0.172, 0.763, 4.259, 0.565, -9.467)
+mesh = SubResource("BoxMesh_79")
+material_override = ExtResource("5_r")
+
+[node name="Weeds49" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.997, -0.053, 0.064, 0.047, 0.996, 0.081, -0.068, -0.078, 0.995, 4.371, 0.268, -9.567)
+mesh = SubResource("BoxMesh_80")
+material_override = ExtResource("6_r")
+
+[node name="Weeds50" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.865, -0.091, 0.493, -0.102, 0.995, 0.005, -0.49, -0.046, -0.87, 4.765, 0.583, -9.499)
+mesh = SubResource("BoxMesh_81")
+material_override = ExtResource("6_r")
+
+[node name="BrushDry26" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.858, 0.107, 0.502, 0.151, 0.987, 0.048, -0.49, 0.118, -0.864, 4.532, 0.482, -9.477)
+mesh = SubResource("BoxMesh_82")
+material_override = ExtResource("5_r")
+
+[node name="Weeds51" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.902, -0.166, 0.399, 0.207, 0.977, -0.06, -0.38, 0.137, 0.915, 4.775, 0.287, -9.085)
+mesh = SubResource("BoxMesh_83")
+material_override = ExtResource("6_r")
+
+[node name="Weeds52" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.945, -0.259, 0.198, 0.235, 0.962, 0.136, -0.226, -0.082, 0.971, 4.606, 0.398, -9.212)
+mesh = SubResource("BoxMesh_84")
+material_override = ExtResource("6_r")
+
+[node name="BrushDry27" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.193, 0.223, 0.956, 0.114, 0.962, -0.247, -0.975, 0.157, 0.16, 1.593, 0.26, -17.819)
+mesh = SubResource("BoxMesh_85")
+material_override = ExtResource("5_r")
+
+[node name="Weeds53" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.057, 0.207, 0.977, -0.08, 0.976, -0.202, -0.995, -0.067, 0.072, 1.756, 0.509, -17.526)
+mesh = SubResource("BoxMesh_86")
+material_override = ExtResource("6_r")
+
+[node name="Weeds54" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.9, -0.13, 0.417, -0.19, 0.976, -0.104, -0.393, -0.172, -0.903, 1.214, 0.442, -17.631)
+mesh = SubResource("BoxMesh_87")
+material_override = ExtResource("6_r")
+
+[node name="BrushDry28" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.645, 0.088, 0.759, -0.01, 0.992, -0.123, -0.764, -0.087, -0.64, 1.547, 0.465, -17.395)
+mesh = SubResource("BoxMesh_88")
+material_override = ExtResource("5_r")
+
+[node name="Weeds55" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.931, 0.117, 0.346, 0.195, 0.961, 0.198, -0.309, 0.252, -0.917, 1.63, 0.274, -17.675)
+mesh = SubResource("BoxMesh_89")
+material_override = ExtResource("6_r")
+
+[node name="Weeds56" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.013, 0.147, 0.989, 0.219, 0.965, -0.146, -0.976, 0.219, -0.02, 1.391, 0.414, -17.58)
+mesh = SubResource("BoxMesh_90")
+material_override = ExtResource("6_r")
+
+[node name="BrushDry29" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.978, 0.141, 0.155, -0.169, 0.968, 0.186, -0.124, -0.208, 0.97, 4.148, 0.533, -14.963)
+mesh = SubResource("BoxMesh_91")
+material_override = ExtResource("5_r")
+
+[node name="Weeds57" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.838, 0.098, 0.536, -0.054, 0.994, -0.098, -0.542, 0.054, 0.838, 4.139, 0.436, -14.675)
+mesh = SubResource("BoxMesh_92")
+material_override = ExtResource("6_r")
+
+[node name="Weeds58" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.943, -0.119, 0.311, -0.108, 0.993, 0.053, -0.315, 0.016, -0.949, 3.823, 0.637, -15.218)
+mesh = SubResource("BoxMesh_93")
+material_override = ExtResource("6_r")
+
+[node name="BrushDry30" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.68, -0.128, 0.722, 0.029, 0.979, 0.201, -0.733, 0.157, -0.662, 4.245, 0.584, -15.355)
+mesh = SubResource("BoxMesh_81")
+material_override = ExtResource("5_r")
+
+[node name="Weeds59" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.972, -0.034, 0.231, 0.002, 0.988, 0.153, -0.234, 0.15, -0.961, 4.072, 0.341, -14.887)
+mesh = SubResource("BoxMesh_94")
+material_override = ExtResource("6_r")
+
+[node name="Weeds60" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.153, -0.06, 0.986, -0.011, 0.998, 0.062, -0.988, -0.02, 0.152, 3.903, 0.305, -15.33)
+mesh = SubResource("BoxMesh_95")
+material_override = ExtResource("6_r")
+
+[node name="BrushDry31" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.226, -0.181, 0.957, -0.005, 0.983, 0.185, -0.974, 0.037, -0.223, 2.826, 0.289, -12.544)
+mesh = SubResource("BoxMesh_96")
+material_override = ExtResource("5_r")
+
+[node name="Weeds61" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.996, -0.078, 0.036, 0.075, 0.994, 0.081, -0.043, -0.078, 0.996, 2.54, 0.637, -12.553)
+mesh = SubResource("BoxMesh_93")
+material_override = ExtResource("6_r")
+
+[node name="Weeds62" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.944, 0.025, 0.33, -0.028, 0.988, -0.154, -0.33, -0.155, -0.931, 3.12, 0.406, -12.606)
+mesh = SubResource("BoxMesh_97")
+material_override = ExtResource("6_r")
+
+[node name="BrushDry32" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.209, -0.195, 0.958, -0.059, 0.976, 0.212, -0.976, -0.101, 0.192, 2.729, 0.381, -12.665)
+mesh = SubResource("BoxMesh_98")
+material_override = ExtResource("5_r")
+
+[node name="Weeds63" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.581, -0.033, 0.813, 0.128, 0.99, -0.052, -0.804, 0.135, 0.579, 3.182, 0.519, -13.063)
+mesh = SubResource("BoxMesh_99")
+material_override = ExtResource("6_r")
+
+[node name="Weeds64" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.404, -0.212, 0.89, 0.163, 0.974, 0.157, -0.9, 0.082, 0.428, 2.8, 0.376, -12.728)
+mesh = SubResource("BoxMesh_100")
+material_override = ExtResource("6_r")
+
+[node name="BrushDry33" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.327, 0.009, 0.945, 0.083, 0.996, -0.038, -0.941, 0.091, 0.325, 2.414, 0.585, -1.566)
+mesh = SubResource("BoxMesh_101")
+material_override = ExtResource("5_r")
+
+[node name="Weeds65" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.431, 0.005, 0.902, -0.241, 0.964, 0.11, -0.869, -0.265, 0.417, 2.396, 0.608, -1.555)
+mesh = SubResource("BoxMesh_102")
+material_override = ExtResource("6_r")
+
+[node name="Weeds66" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.805, -0.018, 0.593, 0.178, 0.961, -0.213, -0.566, 0.277, 0.777, 2.712, 0.32, -1.568)
+mesh = SubResource("BoxMesh_103")
+material_override = ExtResource("6_r")
+
+[node name="BrushDry34" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.464, 0.063, 0.884, 0.227, 0.956, -0.187, -0.857, 0.287, 0.429, 2.61, 0.506, -1.884)
+mesh = SubResource("BoxMesh_104")
+material_override = ExtResource("5_r")
+
+[node name="Weeds67" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.973, -0.214, 0.09, 0.211, 0.977, 0.039, -0.096, -0.019, 0.995, 2.738, 0.324, -1.834)
+mesh = SubResource("BoxMesh_105")
+material_override = ExtResource("6_r")
+
+[node name="Weeds68" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.846, 0.255, 0.468, -0.254, 0.965, -0.065, -0.468, -0.064, 0.882, 2.771, 0.38, -1.692)
+mesh = SubResource("BoxMesh_106")
+material_override = ExtResource("6_r")
+
+[node name="BrushDry35" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.954, -0.086, 0.288, -0.029, 0.98, 0.198, -0.299, 0.18, -0.937, -0.041, 0.433, -8.591)
+mesh = SubResource("BoxMesh_107")
+material_override = ExtResource("5_r")
+
+[node name="Weeds69" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.713, 0.062, 0.698, -0.028, 0.993, -0.116, -0.701, -0.102, -0.706, 0.668, 0.328, -8.698)
+mesh = SubResource("BoxMesh_108")
+material_override = ExtResource("6_r")
+
+[node name="Weeds70" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.548, -0.258, 0.796, -0.221, 0.962, 0.16, -0.807, -0.088, -0.584, 0.177, 0.514, -8.959)
+mesh = SubResource("BoxMesh_109")
+material_override = ExtResource("6_r")
+
+[node name="BrushDry36" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.704, -0.085, 0.705, 0.239, 0.963, -0.122, -0.669, 0.255, 0.698, 0.686, 0.299, -8.572)
+mesh = SubResource("BoxMesh_110")
+material_override = ExtResource("5_r")
+
+[node name="Weeds71" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.892, 0.002, 0.451, 0.127, 0.958, -0.255, -0.433, 0.285, 0.855, 0.522, 0.437, -8.945)
+mesh = SubResource("BoxMesh_111")
+material_override = ExtResource("6_r")
+
+[node name="Weeds72" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.909, -0.155, 0.386, 0.223, 0.965, -0.14, -0.351, 0.213, 0.912, 0.558, 0.263, -8.738)
+mesh = SubResource("BoxMesh_112")
+material_override = ExtResource("6_r")
+
+[node name="BrushDry37" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.712, -0.038, 0.701, 0.187, 0.952, 0.242, -0.677, 0.303, -0.671, -1.821, 0.39, -17.946)
+mesh = SubResource("BoxMesh_113")
+material_override = ExtResource("5_r")
+
+[node name="Weeds73" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.291, -0.031, 0.956, 0.177, 0.984, -0.022, -0.94, 0.175, 0.292, -2.289, 0.469, -17.965)
+mesh = SubResource("BoxMesh_114")
+material_override = ExtResource("6_r")
+
+[node name="Weeds74" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.76, -0.005, 0.65, 0.005, 1, 0.014, -0.65, 0.014, -0.76, -2.137, 0.619, -18.302)
+mesh = SubResource("BoxMesh_115")
+material_override = ExtResource("6_r")
+
+[node name="BrushDry38" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.93, -0.164, 0.328, -0.24, 0.948, -0.208, -0.277, -0.273, -0.921, -1.715, 0.256, -17.692)
+mesh = SubResource("BoxMesh_116")
+material_override = ExtResource("5_r")
+
+[node name="Weeds75" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.42, -0.113, 0.9, -0.152, 0.969, 0.193, -0.895, -0.218, 0.39, -2.083, 0.347, -17.871)
+mesh = SubResource("BoxMesh_117")
+material_override = ExtResource("6_r")
+
+[node name="Weeds76" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.913, 0.022, 0.407, -0.103, 0.979, 0.176, -0.395, -0.203, 0.896, -1.624, 0.314, -17.76)
+mesh = SubResource("BoxMesh_118")
+material_override = ExtResource("6_r")
+
+[node name="BrushDry39" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.966, -0.168, 0.199, -0.19, 0.977, -0.101, -0.177, -0.135, -0.975, 1.012, 0.466, -12.608)
+mesh = SubResource("BoxMesh_119")
+material_override = ExtResource("5_r")
+
+[node name="Weeds77" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.909, -0.19, 0.372, 0.146, 0.979, 0.142, -0.391, -0.075, 0.917, 0.844, 0.373, -12.466)
+mesh = SubResource("BoxMesh_120")
+material_override = ExtResource("6_r")
+
+[node name="Weeds78" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.924, -0.049, 0.379, 0.116, 0.981, -0.158, -0.364, 0.19, 0.912, 0.756, 0.354, -12.428)
+mesh = SubResource("BoxMesh_121")
+material_override = ExtResource("6_r")
+
+[node name="BrushDry40" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.128, 0.028, 0.991, -0.191, 0.98, -0.052, -0.973, -0.196, -0.12, 0.932, 0.341, -12.647)
+mesh = SubResource("BoxMesh_94")
+material_override = ExtResource("5_r")
+
+[node name="Weeds79" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.874, 0.01, 0.485, 0.01, 0.999, -0.039, -0.485, 0.039, 0.873, 0.688, 0.465, -12.078)
+mesh = SubResource("BoxMesh_122")
+material_override = ExtResource("6_r")
+
+[node name="Weeds80" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.985, 0.158, 0.065, -0.149, 0.981, -0.123, -0.083, 0.112, 0.99, 0.819, 0.273, -12.289)
+mesh = SubResource("BoxMesh_123")
+material_override = ExtResource("6_r")
+
+[node name="BrushDry41" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.197, 0.095, 0.976, 0.243, 0.96, -0.142, -0.95, 0.265, 0.166, -1.076, 0.258, -2.355)
+mesh = SubResource("BoxMesh_124")
+material_override = ExtResource("5_r")
+
+[node name="Weeds81" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.074, 0.001, 0.997, -0.017, 1, 0, -0.997, -0.017, 0.074, -1.52, 0.477, -2.351)
+mesh = SubResource("BoxMesh_125")
+material_override = ExtResource("6_r")
+
+[node name="Weeds82" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.938, 0.027, 0.346, -0.035, 0.999, 0.016, -0.345, -0.027, 0.938, -1.098, 0.316, -2.515)
+mesh = SubResource("BoxMesh_126")
+material_override = ExtResource("6_r")
+
+[node name="BrushDry42" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.581, 0.127, 0.804, 0.206, 0.979, -0.006, -0.787, 0.162, -0.595, -1.425, 0.303, -1.917)
+mesh = SubResource("BoxMesh_75")
+material_override = ExtResource("5_r")
+
+[node name="Weeds83" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.996, -0.006, 0.093, 0, 0.998, 0.07, -0.093, 0.069, -0.993, -1.059, 0.41, -1.899)
+mesh = SubResource("BoxMesh_127")
+material_override = ExtResource("6_r")
+
+[node name="Weeds84" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.081, -0.033, 0.996, 0.02, 0.999, 0.032, -0.996, 0.018, 0.082, -1.397, 0.623, -1.997)
+mesh = SubResource("BoxMesh_128")
+material_override = ExtResource("6_r")
+
+[node name="BrushDry43" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.394, 0.125, 0.91, -0.122, 0.975, -0.187, -0.911, -0.184, -0.369, 0.533, 0.457, -1.235)
+mesh = SubResource("BoxMesh_11")
+material_override = ExtResource("5_r")
+
+[node name="Weeds85" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.292, 0.162, 0.942, -0.248, 0.939, -0.239, -0.924, -0.303, -0.234, 0.796, 0.591, -1.68)
+mesh = SubResource("BoxMesh_129")
+material_override = ExtResource("6_r")
+
+[node name="Weeds86" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.789, -0.033, 0.613, -0.023, 0.999, 0.025, -0.614, 0.006, -0.789, 0.559, 0.307, -1.251)
+mesh = SubResource("BoxMesh_130")
+material_override = ExtResource("6_r")
+
+[node name="BrushDry44" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.152, 0.201, 0.968, -0.168, 0.97, -0.175, -0.974, -0.136, 0.181, 1.118, 0.319, -1.348)
+mesh = SubResource("BoxMesh_131")
+material_override = ExtResource("5_r")
+
+[node name="Weeds87" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.477, -0.278, 0.833, 0.218, 0.956, 0.195, -0.851, 0.088, 0.517, 0.467, 0.375, -1.422)
+mesh = SubResource("BoxMesh_132")
+material_override = ExtResource("6_r")
+
+[node name="Weeds88" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.899, -0.126, 0.42, 0.034, 0.975, 0.22, -0.437, -0.183, 0.881, 0.43, 0.358, -1.192)
+mesh = SubResource("BoxMesh_133")
+material_override = ExtResource("6_r")
+
+[node name="BrushDry45" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.904, 0.189, 0.383, -0.107, 0.968, -0.225, -0.414, 0.162, 0.896, 2.436, 0.474, -5.495)
+mesh = SubResource("BoxMesh_134")
+material_override = ExtResource("5_r")
+
+[node name="Weeds89" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.758, 0.063, 0.649, 0.146, 0.987, 0.074, -0.636, 0.151, -0.757, 2.307, 0.409, -4.873)
+mesh = SubResource("BoxMesh_135")
+material_override = ExtResource("6_r")
+
+[node name="Weeds90" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.064, -0.143, 0.988, 0.169, 0.974, 0.152, -0.984, 0.177, -0.038, 2.283, 0.509, -4.902)
+mesh = SubResource("BoxMesh_136")
+material_override = ExtResource("6_r")
+
+[node name="BrushDry46" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.689, -0.146, 0.71, -0.239, 0.97, -0.033, -0.684, -0.193, -0.704, 2.016, 0.469, -5.461)
+mesh = SubResource("BoxMesh_114")
+material_override = ExtResource("5_r")
+
+[node name="Weeds91" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.967, 0.233, 0.103, 0.217, 0.965, -0.144, -0.133, -0.117, -0.984, 1.95, 0.323, -5.361)
+mesh = SubResource("BoxMesh_137")
+material_override = ExtResource("6_r")
+
+[node name="Weeds92" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.479, 0.086, 0.873, 0.099, 0.984, -0.151, -0.872, 0.159, 0.463, 2.306, 0.38, -5.587)
+mesh = SubResource("BoxMesh_138")
+material_override = ExtResource("6_r")
+
+[node name="BrushDry47" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.893, 0.002, 0.451, -0.073, 0.988, 0.139, -0.445, -0.157, 0.882, 5.425, 0.637, -3.903)
+mesh = SubResource("BoxMesh_139")
+material_override = ExtResource("5_r")
+
+[node name="Weeds93" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.782, 0.095, 0.617, -0.125, 0.992, 0.005, -0.611, -0.081, 0.787, 5.41, 0.63, -3.35)
+mesh = SubResource("BoxMesh_140")
+material_override = ExtResource("6_r")
+
+[node name="Weeds94" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.818, -0.311, 0.484, -0.243, 0.949, 0.2, -0.521, 0.046, -0.852, 5.153, 0.281, -3.709)
+mesh = SubResource("BoxMesh_141")
+material_override = ExtResource("6_r")
+
+[node name="BrushDry48" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.649, -0.298, 0.7, 0.206, 0.954, 0.215, -0.732, 0.005, 0.681, 5.022, 0.448, -3.535)
+mesh = SubResource("BoxMesh_142")
+material_override = ExtResource("5_r")
+
+[node name="Weeds95" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.748, 0.007, 0.664, -0.071, 0.995, 0.069, -0.66, -0.098, 0.745, 5.547, 0.357, -3.766)
+mesh = SubResource("BoxMesh_143")
+material_override = ExtResource("6_r")
+
+[node name="Weeds96" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.972, -0.234, 0.014, -0.227, 0.953, 0.201, -0.06, 0.192, -0.979, 5.083, 0.574, -3.799)
+mesh = SubResource("BoxMesh_144")
+material_override = ExtResource("6_r")
+
+[node name="BrushDry49" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.399, -0.114, 0.91, -0.213, 0.977, 0.029, -0.892, -0.183, -0.414, -1.493, 0.579, -7.903)
+mesh = SubResource("BoxMesh_145")
+material_override = ExtResource("5_r")
+
+[node name="Weeds97" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.682, 0.118, 0.721, 0.017, 0.984, -0.178, -0.731, 0.134, 0.669, -1.77, 0.368, -7.58)
+mesh = SubResource("BoxMesh_146")
+material_override = ExtResource("6_r")
+
+[node name="Weeds98" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.225, 0.185, 0.956, -0.051, 0.978, -0.202, -0.973, -0.094, -0.211, -1.641, 0.511, -8.278)
+mesh = SubResource("BoxMesh_147")
+material_override = ExtResource("6_r")
+
+[node name="BrushDry50" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.216, -0.215, 0.953, -0.041, 0.973, 0.229, -0.976, -0.089, 0.201, -1.711, 0.388, -8.033)
+mesh = SubResource("BoxMesh_148")
+material_override = ExtResource("5_r")
+
+[node name="Weeds99" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.999, 0.02, 0.025, 0.018, 0.998, -0.062, -0.026, -0.062, -0.998, -1.879, 0.53, -8.155)
+mesh = SubResource("BoxMesh_149")
+material_override = ExtResource("6_r")
+
+[node name="Weeds100" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.996, 0.019, 0.087, 0.03, 0.991, 0.131, -0.083, 0.133, -0.988, -2.031, 0.624, -8.303)
+mesh = SubResource("BoxMesh_150")
+material_override = ExtResource("6_r")
+
+[node name="BrushDry51" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.968, -0.204, 0.145, 0.186, 0.975, 0.124, -0.166, -0.093, 0.982, 3.539, 0.29, -14.474)
+mesh = SubResource("BoxMesh_151")
+material_override = ExtResource("5_r")
+
+[node name="Weeds101" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.242, 0.175, 0.954, 0.037, 0.981, -0.189, -0.97, 0.081, 0.231, 3.679, 0.607, -14.848)
+mesh = SubResource("BoxMesh_152")
+material_override = ExtResource("6_r")
+
+[node name="Weeds102" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.83, 0.192, 0.524, 0.075, 0.969, -0.236, -0.553, -0.157, -0.819, 3.273, 0.551, -14.661)
+mesh = SubResource("BoxMesh_153")
+material_override = ExtResource("6_r")
+
+[node name="BrushDry52" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.997, -0.082, 0.004, 0.08, 0.981, 0.178, -0.019, -0.177, 0.984, 3.569, 0.442, -14.352)
+mesh = SubResource("BoxMesh_154")
+material_override = ExtResource("5_r")
+
+[node name="Weeds103" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.607, -0.223, 0.763, 0.234, 0.967, 0.096, -0.76, 0.12, 0.639, 3.722, 0.617, -14.252)
+mesh = SubResource("BoxMesh_155")
+material_override = ExtResource("6_r")
+
+[node name="Weeds104" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.76, -0.244, 0.603, -0.177, 0.97, 0.169, -0.625, 0.021, -0.78, 3.284, 0.271, -14.673)
+mesh = SubResource("BoxMesh_156")
+material_override = ExtResource("6_r")
+
+[node name="SeaGrape" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.3, 0, 0, 0, 0.7, 0, 0, 0, 1.2, 2.295, 0.4, -9.002)
+mesh = SubResource("SphereMesh_157")
+material_override = ExtResource("7_r")
+
+[node name="Brush" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.3, 0, 0, 0, 0.7, 0, 0, 0, 1.2, 2.912, 0.4, -6.649)
+mesh = SubResource("SphereMesh_158")
+material_override = ExtResource("8_r")
+
+[node name="BrushDry53" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.3, 0, 0, 0, 0.7, 0, 0, 0, 1.2, -2.96, 0.4, -6.532)
+mesh = SubResource("SphereMesh_159")
+material_override = ExtResource("5_r")
+
+[node name="Brush2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.3, 0, 0, 0, 0.7, 0, 0, 0, 1.2, 2.21, 0.4, -12.73)
+mesh = SubResource("SphereMesh_160")
+material_override = ExtResource("8_r")
+
+[node name="Brush3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.3, 0, 0, 0, 0.7, 0, 0, 0, 1.2, -4.013, 0.4, -3.911)
+mesh = SubResource("SphereMesh_161")
+material_override = ExtResource("8_r")
+
+[node name="BrushDry54" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.3, 0, 0, 0, 0.7, 0, 0, 0, 1.2, -2.045, 0.4, -12.296)
+mesh = SubResource("SphereMesh_162")
+material_override = ExtResource("5_r")
+
+[node name="ClothWhite" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.904, -0.063, 0.423, 0.07, 0.998, 0, -0.422, 0.029, 0.906, 2.5, 0.12, -14)
+mesh = SubResource("BoxMesh_163")
+material_override = ExtResource("9_r")
+
+[node name="Tire" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0.12, -9)
+mesh = SubResource("CylinderMesh_164")
+material_override = ExtResource("10_r")
+
+[node name="Tire2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4, 0.12, -9.4)
+mesh = SubResource("CylinderMesh_164")
+material_override = ExtResource("10_r")
+
+[node name="BinBlack" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.766, 0, 0.643, 0, 1, 0, -0.643, 0, 0.766, -1, 0.23, -4)
+mesh = SubResource("BoxMesh_165")
+material_override = ExtResource("11_r")
+
+[node name="BinBlack2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.8, 0, 0, 0, 1, 3, 0.22, -3.5)
+mesh = SubResource("SphereMesh_166")
+material_override = ExtResource("11_r")
+
+[node name="BinBlack3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.8, 0, 0, 0, 1, 3.4, 0.22, -3)
+mesh = SubResource("SphereMesh_166")
+material_override = ExtResource("11_r")
+
+[node name="BinBlack4" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.8, 0, 0, 0, 1, -4.2, 0.22, -16)
+mesh = SubResource("SphereMesh_166")
+material_override = ExtResource("11_r")
+
+[node name="PalmTrunk" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5, 2, -15)
+mesh = SubResource("CylinderMesh_167")
+material_override = ExtResource("12_r")
+
+[node name="SabalFrond" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.643, 0.766, 0, -0.766, 0.643, -3.5, 4.445, -14.711)
+mesh = SubResource("BoxMesh_168")
+material_override = ExtResource("13_r")
+
+[node name="SabalFrond2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.883, 0.469, 0, -0.469, 0.883, -3.5, 5.001, -14.024)
+mesh = SubResource("BoxMesh_169")
+material_override = ExtResource("13_r")
+
+[node name="SabalFrond3" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.866, -0.211, 0.453, 0, 0.906, 0.423, -0.5, -0.366, 0.785, -3.296, 4.29, -14.647)
+mesh = SubResource("BoxMesh_168")
+material_override = ExtResource("13_r")
+
+[node name="SabalFrond4" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.866, -0.026, 0.499, 0, 0.999, 0.052, -0.5, -0.045, 0.865, -2.867, 4.504, -13.904)
+mesh = SubResource("BoxMesh_169")
+material_override = ExtResource("13_r")
+
+[node name="SabalFrond5" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.5, 0, 0.866, 0, 1, 0, -0.866, 0, 0.5, -3.11, 4.1, -14.775)
+mesh = SubResource("BoxMesh_168")
+material_override = ExtResource("13_r")
+
+[node name="SabalFrond6" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.5, 0.324, 0.803, 0, 0.927, -0.375, -0.866, 0.187, 0.464, -2.359, 3.931, -14.341)
+mesh = SubResource("BoxMesh_169")
+material_override = ExtResource("13_r")
+
+[node name="SabalFrond7" type="MeshInstance3D" parent="."]
+transform = Transform3D(0, -0.766, 0.643, 0, 0.643, 0.766, -1, 0, 0, -3.211, 4.445, -15)
+mesh = SubResource("BoxMesh_168")
+material_override = ExtResource("13_r")
+
+[node name="SabalFrond8" type="MeshInstance3D" parent="."]
+transform = Transform3D(0, -0.469, 0.883, 0, 0.883, 0.469, -1, 0, 0, -2.524, 5.001, -15)
+mesh = SubResource("BoxMesh_169")
+material_override = ExtResource("13_r")
+
+[node name="SabalFrond9" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.5, -0.366, 0.785, 0, 0.906, 0.423, -0.866, 0.211, -0.453, -3.147, 4.29, -15.204)
+mesh = SubResource("BoxMesh_168")
+material_override = ExtResource("13_r")
+
+[node name="SabalFrond10" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.5, -0.045, 0.865, 0, 0.999, 0.052, -0.866, 0.026, -0.499, -2.404, 4.504, -15.633)
+mesh = SubResource("BoxMesh_169")
+material_override = ExtResource("13_r")
+
+[node name="SabalFrond11" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.866, 0, 0.5, 0, 1, 0, -0.5, 0, -0.866, -3.275, 4.1, -15.39)
+mesh = SubResource("BoxMesh_168")
+material_override = ExtResource("13_r")
+
+[node name="SabalFrond12" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.866, 0.187, 0.464, 0, 0.927, -0.375, -0.5, -0.324, -0.803, -2.841, 3.931, -16.141)
+mesh = SubResource("BoxMesh_169")
+material_override = ExtResource("13_r")
+
+[node name="SabalFrond13" type="MeshInstance3D" parent="."]
+transform = Transform3D(-1, 0, 0, 0, 0.643, 0.766, 0, 0.766, -0.643, -3.5, 4.445, -15.289)
+mesh = SubResource("BoxMesh_168")
+material_override = ExtResource("13_r")
+
+[node name="SabalFrond14" type="MeshInstance3D" parent="."]
+transform = Transform3D(-1, 0, 0, 0, 0.883, 0.469, 0, 0.469, -0.883, -3.5, 5.001, -15.976)
+mesh = SubResource("BoxMesh_169")
+material_override = ExtResource("13_r")
+
+[node name="SabalFrond15" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.866, 0.211, -0.453, 0, 0.906, 0.423, 0.5, 0.366, -0.785, -3.704, 4.29, -15.353)
+mesh = SubResource("BoxMesh_168")
+material_override = ExtResource("13_r")
+
+[node name="SabalFrond16" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.866, 0.026, -0.499, 0, 0.999, 0.052, 0.5, 0.045, -0.865, -4.133, 4.504, -16.096)
+mesh = SubResource("BoxMesh_169")
+material_override = ExtResource("13_r")
+
+[node name="SabalFrond17" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.5, 0, -0.866, 0, 1, 0, 0.866, 0, -0.5, -3.89, 4.1, -15.225)
+mesh = SubResource("BoxMesh_168")
+material_override = ExtResource("13_r")
+
+[node name="SabalFrond18" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.5, -0.324, -0.803, 0, 0.927, -0.375, 0.866, -0.187, -0.464, -4.641, 3.931, -15.659)
+mesh = SubResource("BoxMesh_169")
+material_override = ExtResource("13_r")
+
+[node name="SabalFrond19" type="MeshInstance3D" parent="."]
+transform = Transform3D(0, 0.766, -0.643, 0, 0.643, 0.766, 1, 0, 0, -3.789, 4.445, -15)
+mesh = SubResource("BoxMesh_168")
+material_override = ExtResource("13_r")
+
+[node name="SabalFrond20" type="MeshInstance3D" parent="."]
+transform = Transform3D(0, 0.469, -0.883, 0, 0.883, 0.469, 1, 0, 0, -4.476, 5.001, -15)
+mesh = SubResource("BoxMesh_169")
+material_override = ExtResource("13_r")
+
+[node name="SabalFrond21" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.5, 0.366, -0.785, 0, 0.906, 0.423, 0.866, -0.211, 0.453, -3.853, 4.29, -14.796)
+mesh = SubResource("BoxMesh_168")
+material_override = ExtResource("13_r")
+
+[node name="SabalFrond22" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.5, 0.045, -0.865, 0, 0.999, 0.052, 0.866, -0.026, 0.499, -4.596, 4.504, -14.367)
+mesh = SubResource("BoxMesh_169")
+material_override = ExtResource("13_r")
+
+[node name="SabalFrond23" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.866, 0, -0.5, 0, 1, 0, 0.5, 0, 0.866, -3.725, 4.1, -14.61)
+mesh = SubResource("BoxMesh_168")
+material_override = ExtResource("13_r")
+
+[node name="SabalFrond24" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.866, -0.187, -0.464, 0, 0.927, -0.375, 0.5, 0.324, 0.803, -4.159, 3.931, -13.859)
+mesh = SubResource("BoxMesh_169")
+material_override = ExtResource("13_r")
+
+[node name="SignWhite" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 1, -0.6)
+mesh = SubResource("BoxMesh_170")
+material_override = ExtResource("14_r")
+
+[node name="FenceWood" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0.7, -0.65)
+mesh = SubResource("BoxMesh_171")
+material_override = ExtResource("15_r")
+
+[node name="Collision" type="StaticBody3D" parent="."]
+
+[node name="Shape" type="CollisionShape3D" parent="Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.09, -10)
+shape = SubResource("BoxShape3D_172")
+
+[node name="Shape2" type="CollisionShape3D" parent="Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5, 2, -15)
+shape = SubResource("CylinderShape3D_173")
+
+[node name="Sign" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 1, -0.57)
+text = "FOR SALE
+BY OWNER"
+font_size = 48
+pixel_size = 0.006
+outline_size = 8
+modulate = Color(1, 1, 1, 1)

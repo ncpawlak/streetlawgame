@@ -1,0 +1,142 @@
+[gd_scene load_steps=17 format=3]
+
+[ext_resource type="Script" path="res://scripts/world/houses/kit_prop.gd" id="1_r"]
+[ext_resource type="Material" path="res://assets/materials/houses/metal_grey.tres" id="2_r"]
+[ext_resource type="Material" path="res://assets/materials/houses/glass.tres" id="3_r"]
+[ext_resource type="Material" path="res://assets/materials/houses/sign_white.tres" id="4_r"]
+[ext_resource type="Material" path="res://assets/materials/houses/news_blue.tres" id="5_r"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_1"]
+size = Vector3(0.08, 2.5, 0.08)
+
+[sub_resource type="BoxMesh" id="BoxMesh_2"]
+size = Vector3(4.2, 0.12, 1.8)
+
+[sub_resource type="BoxMesh" id="BoxMesh_3"]
+size = Vector3(3.9, 2, 0.02)
+
+[sub_resource type="BoxMesh" id="BoxMesh_4"]
+size = Vector3(0.02, 1.8, 1.3)
+
+[sub_resource type="BoxMesh" id="BoxMesh_5"]
+size = Vector3(2, 0.06, 0.4)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_6"]
+top_radius = 0.04
+bottom_radius = 0.04
+height = 2.8
+radial_segments = 8
+rings = 1
+
+[sub_resource type="BoxMesh" id="BoxMesh_7"]
+size = Vector3(0.45, 0.6, 0.03)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8"]
+size = Vector3(0.1, 2.5, 0.1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_9"]
+size = Vector3(4, 2, 0.08)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_10"]
+size = Vector3(0.06, 1.8, 1.3)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_11"]
+size = Vector3(2, 0.5, 0.4)
+
+[node name="BusShelter" type="Node3D"]
+script = ExtResource("1_r")
+prop_id = "bus_shelter"
+category = "street"
+display_name = "Bus shelter"
+collides = true
+radius = 2.2
+mount = "ground"
+label_height = 3.4
+
+[node name="MetalGrey" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.95, 1.25, -0.7)
+mesh = SubResource("BoxMesh_1")
+material_override = ExtResource("2_r")
+
+[node name="MetalGrey2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.95, 1.25, 0.7)
+mesh = SubResource("BoxMesh_1")
+material_override = ExtResource("2_r")
+
+[node name="MetalGrey3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.95, 1.25, -0.7)
+mesh = SubResource("BoxMesh_1")
+material_override = ExtResource("2_r")
+
+[node name="MetalGrey4" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.95, 1.25, 0.7)
+mesh = SubResource("BoxMesh_1")
+material_override = ExtResource("2_r")
+
+[node name="MetalGrey5" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.56, 0.1)
+mesh = SubResource("BoxMesh_2")
+material_override = ExtResource("2_r")
+
+[node name="Glass" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, -0.7)
+mesh = SubResource("BoxMesh_3")
+material_override = ExtResource("3_r")
+
+[node name="SignWhite" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.95, 1.2, 0)
+mesh = SubResource("BoxMesh_4")
+material_override = ExtResource("4_r")
+
+[node name="MetalGrey6" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, 0.45, -0.4)
+mesh = SubResource("BoxMesh_5")
+material_override = ExtResource("2_r")
+
+[node name="MetalGrey7" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4, 1.4, 0.5)
+mesh = SubResource("CylinderMesh_6")
+material_override = ExtResource("2_r")
+
+[node name="NewsBlue" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4, 2.5, 0.52)
+mesh = SubResource("BoxMesh_7")
+material_override = ExtResource("5_r")
+
+[node name="Collision" type="StaticBody3D" parent="."]
+
+[node name="Shape" type="CollisionShape3D" parent="Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.95, 1.25, -0.7)
+shape = SubResource("BoxShape3D_8")
+
+[node name="Shape2" type="CollisionShape3D" parent="Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.95, 1.25, 0.7)
+shape = SubResource("BoxShape3D_8")
+
+[node name="Shape3" type="CollisionShape3D" parent="Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.95, 1.25, -0.7)
+shape = SubResource("BoxShape3D_8")
+
+[node name="Shape4" type="CollisionShape3D" parent="Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.95, 1.25, 0.7)
+shape = SubResource("BoxShape3D_8")
+
+[node name="Shape5" type="CollisionShape3D" parent="Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, -0.7)
+shape = SubResource("BoxShape3D_9")
+
+[node name="Shape6" type="CollisionShape3D" parent="Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.95, 1.2, 0)
+shape = SubResource("BoxShape3D_10")
+
+[node name="Shape7" type="CollisionShape3D" parent="Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, 0.25, -0.4)
+shape = SubResource("BoxShape3D_11")
+
+[node name="Sign" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4, 2.55, 0.54)
+text = "BUS"
+font_size = 48
+pixel_size = 0.006
+outline_size = 8
+modulate = Color(1, 1, 1, 1)

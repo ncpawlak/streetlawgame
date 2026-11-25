@@ -1,0 +1,124 @@
+[gd_scene load_steps=18 format=3]
+
+[ext_resource type="Script" path="res://scripts/world/houses/kit_prop.gd" id="1_r"]
+[ext_resource type="Material" path="res://assets/materials/houses/metal_grey.tres" id="2_r"]
+[ext_resource type="Material" path="res://assets/materials/houses/wire.tres" id="3_r"]
+[ext_resource type="Material" path="res://assets/materials/houses/cloth_white.tres" id="4_r"]
+[ext_resource type="Material" path="res://assets/materials/houses/cloth_blue.tres" id="5_r"]
+[ext_resource type="Material" path="res://assets/materials/houses/cloth_yellow.tres" id="6_r"]
+[ext_resource type="Material" path="res://assets/materials/houses/cloth_red.tres" id="7_r"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_1"]
+size = Vector3(0.08, 2, 0.08)
+
+[sub_resource type="BoxMesh" id="BoxMesh_2"]
+size = Vector3(0.06, 0.06, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_3"]
+size = Vector3(5, 0.015, 0.015)
+
+[sub_resource type="BoxMesh" id="BoxMesh_4"]
+size = Vector3(0.766, 0.874, 0.02)
+
+[sub_resource type="BoxMesh" id="BoxMesh_5"]
+size = Vector3(0.541, 0.665, 0.02)
+
+[sub_resource type="BoxMesh" id="BoxMesh_6"]
+size = Vector3(0.356, 0.71, 0.02)
+
+[sub_resource type="BoxMesh" id="BoxMesh_7"]
+size = Vector3(0.67, 0.611, 0.02)
+
+[sub_resource type="BoxMesh" id="BoxMesh_8"]
+size = Vector3(0.376, 0.792, 0.02)
+
+[sub_resource type="BoxMesh" id="BoxMesh_9"]
+size = Vector3(0.629, 0.885, 0.02)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_10"]
+size = Vector3(0.1, 2, 0.1)
+
+[node name="LaundryLine" type="Node3D"]
+script = ExtResource("1_r")
+prop_id = "laundry_line"
+category = "yard"
+display_name = "Laundry line"
+collides = true
+radius = 2.8
+mount = "ground"
+label_height = 2.8
+
+[node name="MetalGrey" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 1, 0)
+mesh = SubResource("BoxMesh_1")
+material_override = ExtResource("2_r")
+
+[node name="MetalGrey2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 1.95, 0)
+mesh = SubResource("BoxMesh_2")
+material_override = ExtResource("2_r")
+
+[node name="MetalGrey3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 1, 0)
+mesh = SubResource("BoxMesh_1")
+material_override = ExtResource("2_r")
+
+[node name="MetalGrey4" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 1.95, 0)
+mesh = SubResource("BoxMesh_2")
+material_override = ExtResource("2_r")
+
+[node name="Wire" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.94, -0.4)
+mesh = SubResource("BoxMesh_3")
+material_override = ExtResource("3_r")
+
+[node name="Wire2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.94, 0)
+mesh = SubResource("BoxMesh_3")
+material_override = ExtResource("3_r")
+
+[node name="Wire3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.94, 0.4)
+mesh = SubResource("BoxMesh_3")
+material_override = ExtResource("3_r")
+
+[node name="ClothWhite" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.717, 1.503, -0.4)
+mesh = SubResource("BoxMesh_4")
+material_override = ExtResource("4_r")
+
+[node name="ClothBlue" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.786, 1.607, -0.4)
+mesh = SubResource("BoxMesh_5")
+material_override = ExtResource("5_r")
+
+[node name="ClothWhite2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.157, 1.585, -0.4)
+mesh = SubResource("BoxMesh_6")
+material_override = ExtResource("4_r")
+
+[node name="ClothYellow" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.482, 1.635, 0.4)
+mesh = SubResource("BoxMesh_7")
+material_override = ExtResource("6_r")
+
+[node name="ClothRed" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.212, 1.544, 0.4)
+mesh = SubResource("BoxMesh_8")
+material_override = ExtResource("7_r")
+
+[node name="ClothRed2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.012, 1.497, 0)
+mesh = SubResource("BoxMesh_9")
+material_override = ExtResource("7_r")
+
+[node name="Collision" type="StaticBody3D" parent="."]
+
+[node name="Shape" type="CollisionShape3D" parent="Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 1, 0)
+shape = SubResource("BoxShape3D_10")
+
+[node name="Shape2" type="CollisionShape3D" parent="Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 1, 0)
+shape = SubResource("BoxShape3D_10")

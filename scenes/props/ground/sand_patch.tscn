@@ -1,0 +1,62 @@
+[gd_scene load_steps=7 format=3]
+
+[ext_resource type="Script" path="res://scripts/world/houses/kit_prop.gd" id="1_r"]
+[ext_resource type="Material" path="res://assets/materials/houses/sand.tres" id="2_r"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_1"]
+top_radius = 1.334
+bottom_radius = 1.334
+height = 0.016
+radial_segments = 9
+rings = 1
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_2"]
+top_radius = 0.882
+bottom_radius = 0.882
+height = 0.016
+radial_segments = 9
+rings = 1
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_3"]
+top_radius = 1.101
+bottom_radius = 1.101
+height = 0.016
+radial_segments = 9
+rings = 1
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_4"]
+top_radius = 0.772
+bottom_radius = 0.772
+height = 0.016
+radial_segments = 9
+rings = 1
+
+[node name="SandPatch" type="Node3D"]
+script = ExtResource("1_r")
+prop_id = "sand_patch"
+category = "ground"
+display_name = "Patchy sandy grass"
+collides = false
+radius = 1.8
+mount = "ground"
+label_height = 0.9
+
+[node name="Sand" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.862, 0.298, 0.008, 0.426)
+mesh = SubResource("CylinderMesh_1")
+material_override = ExtResource("2_r")
+
+[node name="Sand2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.849, 0.217, 0.01, 0.648)
+mesh = SubResource("CylinderMesh_2")
+material_override = ExtResource("2_r")
+
+[node name="Sand3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.898, -0.529, 0.012, -0.142)
+mesh = SubResource("CylinderMesh_3")
+material_override = ExtResource("2_r")
+
+[node name="Sand4" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.68, -0.289, 0.014, 0.72)
+mesh = SubResource("CylinderMesh_4")
+material_override = ExtResource("2_r")

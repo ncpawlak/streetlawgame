@@ -1,0 +1,65 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scripts/world/houses/kit_prop.gd" id="1_r"]
+[ext_resource type="Material" path="res://assets/materials/houses/storm_panel.tres" id="2_r"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_1"]
+size = Vector3(1.2, 1.2, 0.02)
+
+[sub_resource type="BoxMesh" id="BoxMesh_2"]
+size = Vector3(0.03, 1.2, 0.03)
+
+[node name="StormPanel" type="Node3D"]
+script = ExtResource("1_r")
+prop_id = "storm_panel"
+category = "yard"
+display_name = "Hurricane storm panel (1 x 1 m, scaled to the opening)"
+collides = false
+radius = 0.5
+mount = "window"
+label_height = 1.6
+
+[node name="StormPanel" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.06)
+mesh = SubResource("BoxMesh_1")
+material_override = ExtResource("2_r")
+
+[node name="StormPanel2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.525, 0, 0.08)
+mesh = SubResource("BoxMesh_2")
+material_override = ExtResource("2_r")
+
+[node name="StormPanel3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.375, 0, 0.08)
+mesh = SubResource("BoxMesh_2")
+material_override = ExtResource("2_r")
+
+[node name="StormPanel4" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.225, 0, 0.08)
+mesh = SubResource("BoxMesh_2")
+material_override = ExtResource("2_r")
+
+[node name="StormPanel5" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.075, 0, 0.08)
+mesh = SubResource("BoxMesh_2")
+material_override = ExtResource("2_r")
+
+[node name="StormPanel6" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.075, 0, 0.08)
+mesh = SubResource("BoxMesh_2")
+material_override = ExtResource("2_r")
+
+[node name="StormPanel7" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.225, 0, 0.08)
+mesh = SubResource("BoxMesh_2")
+material_override = ExtResource("2_r")
+
+[node name="StormPanel8" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.375, 0, 0.08)
+mesh = SubResource("BoxMesh_2")
+material_override = ExtResource("2_r")
+
+[node name="StormPanel9" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.525, 0, 0.08)
+mesh = SubResource("BoxMesh_2")
+material_override = ExtResource("2_r")

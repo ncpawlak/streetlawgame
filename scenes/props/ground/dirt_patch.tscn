@@ -1,0 +1,50 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://scripts/world/houses/kit_prop.gd" id="1_r"]
+[ext_resource type="Material" path="res://assets/materials/houses/dirt.tres" id="2_r"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_1"]
+top_radius = 0.699
+bottom_radius = 0.699
+height = 0.016
+radial_segments = 8
+rings = 1
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_2"]
+top_radius = 0.887
+bottom_radius = 0.887
+height = 0.016
+radial_segments = 8
+rings = 1
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_3"]
+top_radius = 1.085
+bottom_radius = 1.085
+height = 0.016
+radial_segments = 8
+rings = 1
+
+[node name="DirtPatch" type="Node3D"]
+script = ExtResource("1_r")
+prop_id = "dirt_patch"
+category = "ground"
+display_name = "Bare dirt patch"
+collides = false
+radius = 1.5
+mount = "ground"
+label_height = 0.9
+
+[node name="Dirt" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.7, 0.228, 0.009, 0.162)
+mesh = SubResource("CylinderMesh_1")
+material_override = ExtResource("2_r")
+
+[node name="Dirt2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.7, -0.341, 0.011, 0.351)
+mesh = SubResource("CylinderMesh_2")
+material_override = ExtResource("2_r")
+
+[node name="Dirt3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.7, 0.015, 0.013, 0.006)
+mesh = SubResource("CylinderMesh_3")
+material_override = ExtResource("2_r")

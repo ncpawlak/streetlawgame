@@ -18,6 +18,15 @@ extends Node3D
 	set(value):
 		allow_mirror = value
 		_rebuild()
+## Seeded West Palm Beach dressing on the placed building (see [KitDressing]); 0 = none.
+@export var dress_seed := 0:
+	set(value):
+		dress_seed = value
+		_rebuild()
+@export_enum("auto", "low", "medium", "high", "commercial", "civic") var dress_tier := "auto":
+	set(value):
+		dress_tier = value
+		_rebuild()
 @export var show_label := false:
 	set(value):
 		show_label = value
@@ -41,8 +50,18 @@ func _rebuild() -> void:
 	if building.is_empty() or not ResourceLoader.exists(building):
 		return
 	instance = (load(building) as PackedScene).instantiate() as Node3D
+	if "dress_seed" in instance:
+		instance.dress_seed = 0
 	add_child(instance, false, Node.INTERNAL_MODE_BACK)
 	mirrored = KitVariant.apply(instance, variant_seed, allow_mirror)
+	if "dress_seed" in instance:
+		instance.dress_mirrored = mirrored
+		instance.dress_tier = dress_tier
+		instance.dress_seed = dress_seed
+	else:
+		KitDressing.apply(instance, dress_seed, dress_tier, mirrored)
 	if "label_note" in instance:
 		instance.label_note = "variant seed %d%s" % [variant_seed, " (mirrored)" if mirrored else ""]
+		if dress_seed != 0 and dress_tier != "auto":
+			instance.label_note += "\ndressing: %s tier" % dress_tier
 		instance.show_label = show_label

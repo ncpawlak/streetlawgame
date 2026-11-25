@@ -1,0 +1,143 @@
+[gd_scene load_steps=17 format=3]
+
+[ext_resource type="Script" path="res://scripts/world/houses/kit_prop.gd" id="1_r"]
+[ext_resource type="Material" path="res://assets/materials/houses/paint_teal.tres" id="2_r"]
+[ext_resource type="Material" path="res://assets/materials/houses/paint_cyan.tres" id="3_r"]
+[ext_resource type="Material" path="res://assets/materials/houses/paint_orange.tres" id="4_r"]
+[ext_resource type="Material" path="res://assets/materials/houses/paint_black.tres" id="5_r"]
+[ext_resource type="Material" path="res://assets/materials/houses/paint_green.tres" id="6_r"]
+[ext_resource type="Material" path="res://assets/materials/houses/paint_pink.tres" id="7_r"]
+[ext_resource type="Material" path="res://assets/materials/houses/paint_purple.tres" id="8_r"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_1"]
+size = Vector3(6, 3, 0.01)
+
+[sub_resource type="BoxMesh" id="BoxMesh_2"]
+size = Vector3(6, 1, 0.01)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_3"]
+top_radius = 0.75
+bottom_radius = 0.75
+height = 0.01
+radial_segments = 16
+rings = 1
+
+[sub_resource type="BoxMesh" id="BoxMesh_4"]
+size = Vector3(0.12, 2.2, 0.01)
+
+[sub_resource type="BoxMesh" id="BoxMesh_5"]
+size = Vector3(0.9, 0.08, 0.01)
+
+[sub_resource type="BoxMesh" id="BoxMesh_6"]
+size = Vector3(0.12, 1.7, 0.01)
+
+[sub_resource type="BoxMesh" id="BoxMesh_7"]
+size = Vector3(5.6, 0.25, 0.01)
+
+[sub_resource type="BoxMesh" id="BoxMesh_8"]
+size = Vector3(5.6, 0.12, 0.01)
+
+[node name="Mural" type="Node3D"]
+script = ExtResource("1_r")
+prop_id = "mural"
+category = "decals"
+display_name = "Mural (6 x 3 m)"
+collides = false
+radius = 3
+mount = "wall"
+label_height = 3.6
+
+[node name="PaintTeal" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.006)
+mesh = SubResource("BoxMesh_1")
+material_override = ExtResource("2_r")
+
+[node name="PaintCyan" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0.009)
+mesh = SubResource("BoxMesh_2")
+material_override = ExtResource("3_r")
+
+[node name="PaintOrange" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 1.6, 0.6, 0.012)
+mesh = SubResource("CylinderMesh_3")
+material_override = ExtResource("4_r")
+
+[node name="PaintBlack" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.995, -0.105, 0, 0.105, 0.995, 0, 0, 0, 1, -2, -0.4, 0.014)
+mesh = SubResource("BoxMesh_4")
+material_override = ExtResource("5_r")
+
+[node name="PaintGreen" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.259, 0.966, 0, -0.966, 0.259, 0, 0, 0, 1, -1.9, 0.7, 0.015)
+mesh = SubResource("BoxMesh_5")
+material_override = ExtResource("6_r")
+
+[node name="PaintGreen2" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.707, 0.707, 0, -0.707, 0.707, 0, 0, 0, 1, -1.9, 0.7, 0.015)
+mesh = SubResource("BoxMesh_5")
+material_override = ExtResource("6_r")
+
+[node name="PaintGreen3" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.966, 0.259, 0, -0.259, 0.966, 0, 0, 0, 1, -1.9, 0.7, 0.015)
+mesh = SubResource("BoxMesh_5")
+material_override = ExtResource("6_r")
+
+[node name="PaintGreen4" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.966, -0.259, 0, 0.259, 0.966, 0, 0, 0, 1, -1.9, 0.7, 0.015)
+mesh = SubResource("BoxMesh_5")
+material_override = ExtResource("6_r")
+
+[node name="PaintGreen5" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.707, -0.707, 0, 0.707, 0.707, 0, 0, 0, 1, -1.9, 0.7, 0.015)
+mesh = SubResource("BoxMesh_5")
+material_override = ExtResource("6_r")
+
+[node name="PaintGreen6" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.259, -0.966, 0, 0.966, 0.259, 0, 0, 0, 1, -1.9, 0.7, 0.015)
+mesh = SubResource("BoxMesh_5")
+material_override = ExtResource("6_r")
+
+[node name="PaintBlack2" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.995, -0.105, 0, 0.105, 0.995, 0, 0, 0, 1, -0.6, -0.65, 0.014)
+mesh = SubResource("BoxMesh_6")
+material_override = ExtResource("5_r")
+
+[node name="PaintGreen7" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.259, 0.966, 0, -0.966, 0.259, 0, 0, 0, 1, -0.5, 0.2, 0.015)
+mesh = SubResource("BoxMesh_5")
+material_override = ExtResource("6_r")
+
+[node name="PaintGreen8" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.707, 0.707, 0, -0.707, 0.707, 0, 0, 0, 1, -0.5, 0.2, 0.015)
+mesh = SubResource("BoxMesh_5")
+material_override = ExtResource("6_r")
+
+[node name="PaintGreen9" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.966, 0.259, 0, -0.259, 0.966, 0, 0, 0, 1, -0.5, 0.2, 0.015)
+mesh = SubResource("BoxMesh_5")
+material_override = ExtResource("6_r")
+
+[node name="PaintGreen10" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.966, -0.259, 0, 0.259, 0.966, 0, 0, 0, 1, -0.5, 0.2, 0.015)
+mesh = SubResource("BoxMesh_5")
+material_override = ExtResource("6_r")
+
+[node name="PaintGreen11" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.707, -0.707, 0, 0.707, 0.707, 0, 0, 0, 1, -0.5, 0.2, 0.015)
+mesh = SubResource("BoxMesh_5")
+material_override = ExtResource("6_r")
+
+[node name="PaintGreen12" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.259, -0.966, 0, 0.966, 0.259, 0, 0, 0, 1, -0.5, 0.2, 0.015)
+mesh = SubResource("BoxMesh_5")
+material_override = ExtResource("6_r")
+
+[node name="PaintPink" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0.012)
+mesh = SubResource("BoxMesh_7")
+material_override = ExtResource("7_r")
+
+[node name="PaintPurple" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.95, 0.012)
+mesh = SubResource("BoxMesh_8")
+material_override = ExtResource("8_r")

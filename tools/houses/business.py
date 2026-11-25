@@ -10,6 +10,7 @@ Spec keys (all coordinates in lot space: origin = front property line centre, st
   pylon, pole (barber pole), cars.
 """
 from builder import HouseBuilder
+from dressmeta import DressMeta
 from roofs import gable
 from tscn import SUBTRACT, Scene, box, combiner, f, prism, v2, v3, xform
 
@@ -30,6 +31,7 @@ class BusinessBuilder:
         # with "mass": i, the i-th entry of spec["masses"] (1-based).
         self.rects = [spec["body"]] + [m["rect"] for m in spec.get("masses", [])]
         self.cur = self.rects[0]
+        self.meta = DressMeta(spec.get("dress_tier", "commercial"))
 
     def on(self, item):
         self.cur = self.rects[item.get("mass", 0)]
@@ -55,6 +57,10 @@ class BusinessBuilder:
         p = self.plane(side)
         return {"front": (a, y, p + d), "back": (a, y, p - d),
                 "right": (p + d, y, a), "left": (p - d, y, a)}[side]
+
+    def note(self, side, a0, a1, y0, y1, kind):
+        """Records a facade opening / feature on the current mass for the dressing metadata."""
+        self.meta.opening(self.face_point(side, (a0 + a1) / 2, (y0 + y1) / 2, 0), side, a1 - a0, y1 - y0, kind)
 
     def sprism(self, parent, name, side, a0, a1, pts, material):
         """Extrudes (d, y) profile `pts` (d = outward distance from the face) along the face."""
@@ -160,6 +166,7 @@ class BusinessBuilder:
             side, a0, a1 = fr["side"], fr["a0"], fr["a1"]
             sill, top = fr.get("sill", 0.5), fr.get("top", 3.0)
             kind = fr.get("kind", "glass")
+            self.note(side, a0, a1, sill, top + 0.5, 2)
             self.sbox(b, "Storefront", side, a0, a1, sill, top, -0.16, 0.05, fr.get("glass", lit), SUBTRACT)
             frame = fr.get("frame", "metal_dark")
             self.sbox(b, "Sill", side, a0 - 0.05, a1 + 0.05, sill - 0.06, sill, -0.16, 0.06, frame)
@@ -189,6 +196,7 @@ class BusinessBuilder:
             w, h = dr.get("w", 3.6 if bay else 1.8), dr.get("h", 4.0 if bay else 2.6)
             a0, a1 = at - w / 2, at + w / 2
             frame = "metal_dark"
+            self.note(side, a0, a1, 0.0, h + 0.5, 1)
             if dr.get("open"):
                 self.sbox(b, "Doorway", side, a0, a1, FLOOR_Y + 0.02, h, -WALL_T - 0.1, 0.1, "interior_wall", SUBTRACT)
                 if entrance is None:
@@ -224,6 +232,7 @@ class BusinessBuilder:
         for row in map(self.on, self.s.get("upper", [])):
             side, y0, wh, ww = row["side"], row["y0"], row.get("h", 1.5), row.get("w", 1.2)
             for a in row["at"]:
+                self.note(side, a - ww / 2, a + ww / 2, y0, y0 + wh, 0)
                 self.sbox(b, "Window", side, a - ww / 2, a + ww / 2, y0, y0 + wh, -0.14, 0.05, "glass", SUBTRACT)
                 self.sbox(b, "WinSill", side, a - ww / 2 - 0.08, a + ww / 2 + 0.08, y0 - 0.08, y0, -0.1, 0.1,
                           row.get("trim", "trim_cream"))
@@ -235,6 +244,7 @@ class BusinessBuilder:
     def awnings(self, b):
         for aw in map(self.on, self.s.get("awnings", [])):
             side, a0, a1, y, d = aw["side"], aw["a0"], aw["a1"], aw.get("y", 3.2), aw.get("d", 1.3)
+            self.note(side, a0, a1, y - 0.3, y + 0.7, 4)
             if aw.get("style", "slope") == "slope":
                 pts = [(0, y + 0.7), (d, y), (d, y - 0.3), (d - 0.05, y - 0.3), (0, y + 0.6)]
             else:
@@ -245,6 +255,7 @@ class BusinessBuilder:
         for sg in map(self.on, self.s.get("signs", [])):
             side, a0, a1, y0, y1 = sg["side"], sg["a0"], sg["a1"], sg["y0"], sg["y1"]
             d = sg.get("d", 0.15)
+            self.note(side, a0, a1, y0, y1, 4)
             self.sbox(b, "SignBand", side, a0, a1, y0, y1, 0, d, sg["mat"])
             self.label(sg["text"], self.face_point(side, (a0 + a1) / 2, (y0 + y1) / 2, d + 0.02),
                        SIDE_YAW[side], a1 - a0, y1 - y0, sg.get("color", "white"))
@@ -322,6 +333,7 @@ class BusinessBuilder:
     def extras(self, b):
         """Face-relative boxes: balconies, pilasters, murals, ATMs, cameras, vents, walkways."""
         for e in map(self.on, self.s.get("extras", [])):
+            self.note(e["side"], e["a0"], e["a1"], e["y0"], e["y1"], 4)
             self.sbox(b, e.get("name", "Extra"), e["side"], e["a0"], e["a1"], e["y0"], e["y1"], e.get("d0", 0),
                       e.get("d1", 0.1), e.get("mat"), SUBTRACT if e.get("cut") else None)
         self.cur = self.rects[0]
@@ -420,4 +432,11 @@ class BusinessBuilder:
         self.columns(b)
         self.blocks(b)
         self.counter(b, root)
+        tops = [self.h + (s.get("parapet", 0.0) if s.get("roof", "flat") == "flat" else 0.0)]
+        tops += [m["height"] + m.get("parapet", 0.0) for m in s.get("masses", [])]
+        ground = [m.get("y0", 0.0) < 1.0 for m in s.get("masses", [])]
+        for r, top, walls in zip(self.rects, tops, [True] + ground):
+            self.meta.solid(r[0], r[1], r[2], r[3], top, walls=walls)
+        self.meta.site(s)
+        sc.nodes[0][1].update(self.meta.props())
         return sc

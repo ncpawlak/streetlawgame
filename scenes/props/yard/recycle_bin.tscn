@@ -1,0 +1,57 @@
+[gd_scene load_steps=8 format=3]
+
+[ext_resource type="Script" path="res://scripts/world/houses/kit_prop.gd" id="1_r"]
+[ext_resource type="Material" path="res://assets/materials/houses/bin_blue.tres" id="2_r"]
+[ext_resource type="Material" path="res://assets/materials/houses/tire.tres" id="3_r"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_1"]
+size = Vector3(0.58, 0.95, 0.68)
+
+[sub_resource type="BoxMesh" id="BoxMesh_2"]
+size = Vector3(0.62, 0.06, 0.74)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_3"]
+top_radius = 0.1
+bottom_radius = 0.1
+height = 0.06
+radial_segments = 8
+rings = 1
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4"]
+size = Vector3(0.6, 1.05, 0.72)
+
+[node name="RecycleBin" type="Node3D"]
+script = ExtResource("1_r")
+prop_id = "recycle_bin"
+category = "yard"
+display_name = "Recycling bin"
+collides = true
+radius = 0.5
+mount = "ground"
+label_height = 1.7
+
+[node name="BinBlue" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.52, 0)
+mesh = SubResource("BoxMesh_1")
+material_override = ExtResource("2_r")
+
+[node name="BinBlue2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.02, 0.02)
+mesh = SubResource("BoxMesh_2")
+material_override = ExtResource("2_r")
+
+[node name="Tire" type="MeshInstance3D" parent="."]
+transform = Transform3D(0, -1, 0, 1, 0, 0, 0, 0, 1, -0.24, 0.1, -0.33)
+mesh = SubResource("CylinderMesh_3")
+material_override = ExtResource("3_r")
+
+[node name="Tire2" type="MeshInstance3D" parent="."]
+transform = Transform3D(0, -1, 0, 1, 0, 0, 0, 0, 1, 0.24, 0.1, -0.33)
+mesh = SubResource("CylinderMesh_3")
+material_override = ExtResource("3_r")
+
+[node name="Collision" type="StaticBody3D" parent="."]
+
+[node name="Shape" type="CollisionShape3D" parent="Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.52, 0)
+shape = SubResource("BoxShape3D_4")

@@ -1,0 +1,128 @@
+[gd_scene load_steps=16 format=3]
+
+[ext_resource type="Script" path="res://scripts/world/houses/kit_prop.gd" id="1_r"]
+[ext_resource type="Material" path="res://assets/materials/houses/oak_bark.tres" id="2_r"]
+[ext_resource type="Material" path="res://assets/materials/houses/flower_pink.tres" id="3_r"]
+[ext_resource type="Material" path="res://assets/materials/houses/flower_purple.tres" id="4_r"]
+[ext_resource type="Material" path="res://assets/materials/houses/leaf_dark.tres" id="5_r"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_1"]
+top_radius = 0.04
+bottom_radius = 0.05
+height = 2
+radial_segments = 8
+rings = 1
+
+[sub_resource type="SphereMesh" id="SphereMesh_2"]
+radius = 0.515
+height = 1.031
+radial_segments = 7
+rings = 4
+
+[sub_resource type="SphereMesh" id="SphereMesh_3"]
+radius = 0.472
+height = 0.945
+radial_segments = 7
+rings = 4
+
+[sub_resource type="SphereMesh" id="SphereMesh_4"]
+radius = 0.465
+height = 0.929
+radial_segments = 7
+rings = 4
+
+[sub_resource type="SphereMesh" id="SphereMesh_5"]
+radius = 0.523
+height = 1.046
+radial_segments = 7
+rings = 4
+
+[sub_resource type="SphereMesh" id="SphereMesh_6"]
+radius = 0.547
+height = 1.094
+radial_segments = 7
+rings = 4
+
+[sub_resource type="SphereMesh" id="SphereMesh_7"]
+radius = 0.409
+height = 0.817
+radial_segments = 7
+rings = 4
+
+[sub_resource type="SphereMesh" id="SphereMesh_8"]
+radius = 0.494
+height = 0.988
+radial_segments = 7
+rings = 4
+
+[sub_resource type="SphereMesh" id="SphereMesh_9"]
+radius = 0.568
+height = 1.137
+radial_segments = 7
+rings = 4
+
+[sub_resource type="SphereMesh" id="SphereMesh_10"]
+radius = 0.425
+height = 0.849
+radial_segments = 7
+rings = 4
+
+[node name="Bougainvillea" type="Node3D"]
+script = ExtResource("1_r")
+prop_id = "bougainvillea"
+category = "flowers"
+display_name = "Bougainvillea"
+collides = false
+radius = 1.3
+mount = "bed"
+label_height = 3
+
+[node name="OakBark" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -0.3)
+mesh = SubResource("CylinderMesh_1")
+material_override = ExtResource("2_r")
+
+[node name="FlowerPink" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.293, 1.035, 0.363)
+mesh = SubResource("SphereMesh_2")
+material_override = ExtResource("3_r")
+
+[node name="FlowerPurple" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.225, 1.29, 0.379)
+mesh = SubResource("SphereMesh_3")
+material_override = ExtResource("4_r")
+
+[node name="LeafDark" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.694, 0.923, 0.051)
+mesh = SubResource("SphereMesh_4")
+material_override = ExtResource("5_r")
+
+[node name="FlowerPink2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.017, 1.019, 0.4)
+mesh = SubResource("SphereMesh_5")
+material_override = ExtResource("3_r")
+
+[node name="FlowerPurple2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.318, 1.886, -0.356)
+mesh = SubResource("SphereMesh_6")
+material_override = ExtResource("4_r")
+
+[node name="LeafDark2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.657, 0.88, -0.138)
+mesh = SubResource("SphereMesh_7")
+material_override = ExtResource("5_r")
+
+[node name="FlowerPink3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.067, 0.823, -0.398)
+mesh = SubResource("SphereMesh_8")
+material_override = ExtResource("3_r")
+
+[node name="FlowerPurple3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.308, 1.837, -0.359)
+mesh = SubResource("SphereMesh_9")
+material_override = ExtResource("4_r")
+
+[node name="LeafDark3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.148, 0.511, 0.391)
+mesh = SubResource("SphereMesh_10")
+material_override = ExtResource("5_r")

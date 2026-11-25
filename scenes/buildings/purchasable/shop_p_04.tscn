@@ -29,6 +29,12 @@ floors = 1
 footprint = Vector2(16, 14)
 lot_size = Vector2(20, 28)
 lot_type = "Standalone pawn shop, barred glass, front lot"
+metadata/dress_tier = "commercial"
+metadata/dress_solids = PackedVector4Array(-8, -26, 8, -12)
+metadata/dress_blocked = PackedVector4Array(-7.8, -12, -1, -9.8, 1, -12, 7.8, -9.8, -1.3, -12, 1.3, -9.8, 6.9, -2.4, 9.9, -0.8)
+metadata/dress_paved = PackedVector4Array(-10, -12, 10, -10.6, -10, -10.6, 10, 0)
+metadata/dress_walls = PackedFloat32Array(-8, -12, 8, -12, 0, 1, 5.4, 1, -8, -26, 8, -26, 0, -1, 5.4, 0, 8, -26, 8, -12, 1, 0, 5.4, 0, -8, -26, -8, -12, -1, 0, 5.4, 0)
+metadata/dress_openings = PackedFloat32Array(-4.4, 2, -12, 0, 1, 6, 2.6, 2, 4.4, 2, -12, 0, 1, 6, 2.6, 2, 0, 1.55, -12, 0, 1, 1.8, 3.1, 1, 0, 4.6, -12, 0, 1, 15, 1.2, 4, 0, 3.25, -12, 0, 1, 14, 0.5, 4)
 
 [node name="Lot" type="CSGCombiner3D" parent="."]
 use_collision = true

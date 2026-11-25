@@ -47,6 +47,27 @@ func _ready() -> void:
 	var variants := street.get_node_or_null("Variants")
 	if variants:
 		await _row_shots(cam, variants.get_children(), 4, out_dir, "variants")
+	var gallery := street.get_node_or_null("FloridaGallery") as Node3D
+	if gallery:
+		var gx0 := INF
+		var gx1 := -INF
+		for n in gallery.get_children():
+			if n is KitProp and (n as KitProp).mount == "ground":
+				gx0 = minf(gx0, (n as Node3D).global_position.x)
+				gx1 = maxf(gx1, (n as Node3D).global_position.x)
+		var steps := maxi(1, ceili((gx1 - gx0) / 40.0))
+		for i in steps + 1:
+			var x := lerpf(gx0, gx1, float(i) / steps)
+			cam.look_at_from_position(Vector3(x - 6, 14, 20), Vector3(x + 4, 0, -10))
+			await _shot(out_dir.path_join("gallery_north_%d.png" % i))
+			cam.look_at_from_position(Vector3(x + 6, 14, -20), Vector3(x - 4, 0, 10))
+			await _shot(out_dir.path_join("gallery_south_%d.png" % i))
+	var furniture := street.get_node_or_null("StreetFurniture/bus_shelter") as Node3D
+	if furniture:
+		var p := furniture.global_position
+		player.global_position = p + Vector3(3, 0.0, -1)
+		cam.look_at_from_position(p + Vector3(-22, 7, 9), p + Vector3(6, 3, -2))
+		await _shot(out_dir.path_join("street_power_lines.png"))
 	for id in ids:
 		var house: Node3D = null
 		for group: Node in [houses, businesses, buildings]:

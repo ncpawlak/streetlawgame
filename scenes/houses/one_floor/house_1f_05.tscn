@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scripts/world/houses/house_exterior.gd" id="1_r"]
 [ext_resource type="Material" path="res://assets/materials/houses/grass.tres" id="2_r"]
 [ext_resource type="Material" path="res://assets/materials/houses/concrete.tres" id="3_r"]
-[ext_resource type="Material" path="res://assets/materials/houses/siding_tan.tres" id="4_r"]
+[ext_resource type="Material" path="res://assets/materials/houses/stucco_coral.tres" id="4_r"]
 [ext_resource type="Material" path="res://assets/materials/houses/foundation.tres" id="5_r"]
 [ext_resource type="Material" path="res://assets/materials/houses/trim_white.tres" id="6_r"]
 [ext_resource type="Material" path="res://assets/materials/houses/door_wood.tres" id="7_r"]
@@ -27,6 +27,12 @@ footprint = Vector2(11.5, 7.5)
 lot_size = Vector2(17, 26)
 lot_type = "Wide, shallow house; attached carport"
 archetype = "house_1f_small_yard"
+metadata/dress_tier = "low"
+metadata/dress_solids = PackedVector4Array(-8, -13.5, 3.5, -6)
+metadata/dress_blocked = PackedVector4Array(-4, -6, -2, -3.8, -7.8, -6.2, -6.2, -4.6, -6.3, -6.1, -4.9, -4.7, -2.2, -6.2, -0.6, -4.6, 1.7, -6.1, 3.1, -4.7, 2.8, -0.9, 3.8, 0.1, -8.8, -15.8, -7.2, -14.2, 3.3, -13.2, 8.1, -6.2, -4.3, -6.3, -1.7, -3.6)
+metadata/dress_paved = PackedVector4Array(3.8, -13, 7.6, 0, -3.6, -4.7, -2.4, 0)
+metadata/dress_walls = PackedFloat32Array(-8, -6, 3.5, -6, 0, 1, 3.4, 1, -8, -13.5, 3.5, -13.5, 0, -1, 3.4, 0, 3.5, -13.5, 3.5, -6, 1, 0, 3.4, 0, -8, -13.5, -8, -6, -1, 0, 3.4, 0)
+metadata/dress_openings = PackedFloat32Array(-3, 1.6, -6, 0, 1, 1.2, 2.4, 1, 0.5, 2.1, -6, 0, 1, 2.4, 1.6, 0, -6.083, 2.05, -6, 0, 1, 1.1, 1.5, 0, -6.083, 2.05, -13.5, 0, -1, 1.1, 1.5, 0, -2.25, 2.4, -13.5, 0, -1, 0.7, 0.7, 0, 1.583, 2.05, -13.5, 0, -1, 1.1, 1.5, 0, 3.5, 2.05, -11.625, 1, 0, 1.1, 1.5, 0, 3.5, 2.05, -7.875, 1, 0, 1.1, 1.5, 0, -8, 2.05, -11.625, -1, 0, 1.1, 1.5, 0, -8, 2.05, -7.875, -1, 0, 1.1, 1.5, 0)
 
 [node name="Lot" type="CSGCombiner3D" parent="."]
 use_collision = true
@@ -64,26 +70,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.25, 3.25, -9.75)
 size = Vector3(11.56, 0.3, 7.56)
 material = ExtResource("6_r")
 
-[node name="Corner" type="CSGBox3D" parent="House"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 1.925, -13.5)
-size = Vector3(0.14, 2.95, 0.14)
-material = ExtResource("6_r")
-
-[node name="Corner2" type="CSGBox3D" parent="House"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 1.925, -6)
-size = Vector3(0.14, 2.95, 0.14)
-material = ExtResource("6_r")
-
-[node name="Corner3" type="CSGBox3D" parent="House"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5, 1.925, -13.5)
-size = Vector3(0.14, 2.95, 0.14)
-material = ExtResource("6_r")
-
-[node name="Corner4" type="CSGBox3D" parent="House"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5, 1.925, -6)
-size = Vector3(0.14, 2.95, 0.14)
-material = ExtResource("6_r")
-
 [node name="HouseDoor" parent="House" instance=ExtResource("8_r")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 1.6, -6)
 opening = Vector2(1.2, 2.4)
@@ -98,35 +84,43 @@ muntins = false
 [node name="HouseWindow2" parent="House" instance=ExtResource("9_r")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.083, 2.05, -6)
 opening = Vector2(1.1, 1.5)
+jalousie = true
 
 [node name="HouseWindow3" parent="House" instance=ExtResource("9_r")]
 transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -6.083, 2.05, -13.5)
 opening = Vector2(1.1, 1.5)
+jalousie = true
 
 [node name="HouseWindow4" parent="House" instance=ExtResource("9_r")]
 transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -2.25, 2.4, -13.5)
 opening = Vector2(0.7, 0.7)
 muntins = false
+jalousie = true
 
 [node name="HouseWindow5" parent="House" instance=ExtResource("9_r")]
 transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 1.583, 2.05, -13.5)
 opening = Vector2(1.1, 1.5)
+jalousie = true
 
 [node name="HouseWindow6" parent="House" instance=ExtResource("9_r")]
 transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 3.5, 2.05, -11.625)
 opening = Vector2(1.1, 1.5)
+jalousie = true
 
 [node name="HouseWindow7" parent="House" instance=ExtResource("9_r")]
 transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 3.5, 2.05, -7.875)
 opening = Vector2(1.1, 1.5)
+jalousie = true
 
 [node name="HouseWindow8" parent="House" instance=ExtResource("9_r")]
 transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -8, 2.05, -11.625)
 opening = Vector2(1.1, 1.5)
+jalousie = true
 
 [node name="HouseWindow9" parent="House" instance=ExtResource("9_r")]
 transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -8, 2.05, -7.875)
 opening = Vector2(1.1, 1.5)
+jalousie = true
 
 [node name="Roof1" type="CSGPolygon3D" parent="House"]
 transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 3.8, 0, -9.75)

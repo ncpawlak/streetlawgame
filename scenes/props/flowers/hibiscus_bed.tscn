@@ -1,0 +1,125 @@
+[gd_scene load_steps=10 format=3]
+
+[ext_resource type="Script" path="res://scripts/world/houses/kit_prop.gd" id="1_r"]
+[ext_resource type="Material" path="res://assets/materials/houses/mulch.tres" id="2_r"]
+[ext_resource type="Material" path="res://assets/materials/houses/leaf_dark.tres" id="3_r"]
+[ext_resource type="Material" path="res://assets/materials/houses/flower_red.tres" id="4_r"]
+[ext_resource type="Material" path="res://assets/materials/houses/flower_pink.tres" id="5_r"]
+[ext_resource type="Material" path="res://assets/materials/houses/flower_yellow.tres" id="6_r"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_1"]
+size = Vector3(3, 0.08, 1.1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_2"]
+radius = 0.5
+height = 1
+radial_segments = 7
+rings = 4
+
+[sub_resource type="BoxMesh" id="BoxMesh_3"]
+size = Vector3(0.16, 0.06, 0.16)
+
+[node name="HibiscusBed" type="Node3D"]
+script = ExtResource("1_r")
+prop_id = "hibiscus_bed"
+category = "flowers"
+display_name = "Hibiscus bed"
+collides = false
+radius = 1.6
+mount = "bed"
+label_height = 1.8
+
+[node name="Mulch" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.04, 0)
+mesh = SubResource("BoxMesh_1")
+material_override = ExtResource("2_r")
+
+[node name="LeafDark" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1.1, 0, 0, 0, 1, -1, 0.55, 0)
+mesh = SubResource("SphereMesh_2")
+material_override = ExtResource("3_r")
+
+[node name="FlowerRed" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.062, 0, 0.998, 0, 1, 0, -0.998, 0, 0.062, -1.446, 0.894, -0.062)
+mesh = SubResource("BoxMesh_3")
+material_override = ExtResource("4_r")
+
+[node name="FlowerPink" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.448, 0, 0.894, 0, 1, 0, -0.894, 0, 0.448, -1.111, 0.871, 0.436)
+mesh = SubResource("BoxMesh_3")
+material_override = ExtResource("5_r")
+
+[node name="FlowerYellow" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.999, 0, 0.042, 0, 1, 0, -0.042, 0, 0.999, -1.238, 0.511, -0.382)
+mesh = SubResource("BoxMesh_3")
+material_override = ExtResource("6_r")
+
+[node name="FlowerRed2" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.922, 0, 0.386, 0, 1, 0, -0.386, 0, 0.922, -1.336, 0.861, 0.299)
+mesh = SubResource("BoxMesh_3")
+material_override = ExtResource("4_r")
+
+[node name="FlowerPink2" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.239, 0, 0.971, 0, 1, 0, -0.971, 0, 0.239, -1.45, 0.625, -0.005)
+mesh = SubResource("BoxMesh_3")
+material_override = ExtResource("5_r")
+
+[node name="LeafDark2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1.1, 0, 0, 0, 1, 0, 0.55, 0)
+mesh = SubResource("SphereMesh_2")
+material_override = ExtResource("3_r")
+
+[node name="FlowerPink3" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.002, 0, 1, 0, 1, 0, -1, 0, 0.002, 0.424, 0.671, -0.152)
+mesh = SubResource("BoxMesh_3")
+material_override = ExtResource("5_r")
+
+[node name="FlowerYellow2" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.195, 0, 0.981, 0, 1, 0, -0.981, 0, 0.195, 0.416, 0.897, 0.171)
+mesh = SubResource("BoxMesh_3")
+material_override = ExtResource("6_r")
+
+[node name="FlowerRed3" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.639, 0, 0.769, 0, 1, 0, -0.769, 0, 0.639, 0.262, 0.838, 0.366)
+mesh = SubResource("BoxMesh_3")
+material_override = ExtResource("4_r")
+
+[node name="FlowerPink4" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.661, 0, 0.75, 0, 1, 0, -0.75, 0, 0.661, 0.432, 0.566, -0.125)
+mesh = SubResource("BoxMesh_3")
+material_override = ExtResource("5_r")
+
+[node name="FlowerYellow3" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.884, 0, 0.467, 0, 1, 0, -0.467, 0, 0.884, 0.333, 0.801, -0.303)
+mesh = SubResource("BoxMesh_3")
+material_override = ExtResource("6_r")
+
+[node name="LeafDark3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1.1, 0, 0, 0, 1, 1, 0.55, 0)
+mesh = SubResource("SphereMesh_2")
+material_override = ExtResource("3_r")
+
+[node name="FlowerYellow4" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.735, 0, 0.678, 0, 1, 0, -0.678, 0, 0.735, 1.392, 0.967, 0.221)
+mesh = SubResource("BoxMesh_3")
+material_override = ExtResource("6_r")
+
+[node name="FlowerRed4" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.291, 0, 0.957, 0, 1, 0, -0.957, 0, 0.291, 1.45, 0.528, -0.01)
+mesh = SubResource("BoxMesh_3")
+material_override = ExtResource("4_r")
+
+[node name="FlowerPink5" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0.028, 0, 1, 0, -0.028, 0, 1, 1.174, 0.956, -0.415)
+mesh = SubResource("BoxMesh_3")
+material_override = ExtResource("5_r")
+
+[node name="FlowerYellow5" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.38, 0, 0.925, 0, 1, 0, -0.925, 0, 0.38, 0.687, 0.478, 0.324)
+mesh = SubResource("BoxMesh_3")
+material_override = ExtResource("6_r")
+
+[node name="FlowerRed5" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.832, 0, 0.555, 0, 1, 0, -0.555, 0, 0.832, 0.725, 0.978, 0.356)
+mesh = SubResource("BoxMesh_3")
+material_override = ExtResource("4_r")

@@ -1,0 +1,90 @@
+[gd_scene load_steps=11 format=3]
+
+[ext_resource type="Script" path="res://scripts/world/houses/kit_prop.gd" id="1_r"]
+[ext_resource type="Material" path="res://assets/materials/houses/wood_pole.tres" id="2_r"]
+[ext_resource type="Material" path="res://assets/materials/houses/metal_dark.tres" id="3_r"]
+[ext_resource type="Material" path="res://assets/materials/houses/plastic_white.tres" id="4_r"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_1"]
+top_radius = 0.13
+bottom_radius = 0.17
+height = 10
+radial_segments = 8
+rings = 1
+
+[sub_resource type="BoxMesh" id="BoxMesh_2"]
+size = Vector3(2.6, 0.12, 0.12)
+
+[sub_resource type="BoxMesh" id="BoxMesh_3"]
+size = Vector3(0.05, 0.05, 0.9)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_4"]
+top_radius = 0.05
+bottom_radius = 0.06
+height = 0.2
+radial_segments = 8
+rings = 1
+
+[sub_resource type="BoxMesh" id="BoxMesh_5"]
+size = Vector3(0.1, 0.1, 0.12)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_6"]
+height = 10
+radius = 0.18
+
+[node name="PowerPole" type="Node3D"]
+script = ExtResource("1_r")
+prop_id = "power_pole"
+category = "street"
+display_name = "Wooden power pole"
+collides = true
+radius = 0.4
+mount = "ground"
+label_height = 10.6
+metadata/anchors = PackedVector3Array(-1.1, 9.46, 0, 1.1, 9.46, 0, 0, 10.05, 0, 0, 7, 0.18)
+
+[node name="WoodPole" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
+mesh = SubResource("CylinderMesh_1")
+material_override = ExtResource("2_r")
+
+[node name="WoodPole2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.2, 0)
+mesh = SubResource("BoxMesh_2")
+material_override = ExtResource("2_r")
+
+[node name="MetalDark" type="MeshInstance3D" parent="."]
+transform = Transform3D(0, 0, 1, -0.643, 0.766, 0, -0.766, -0.643, 0, -0.55, 8.95, 0)
+mesh = SubResource("BoxMesh_3")
+material_override = ExtResource("3_r")
+
+[node name="MetalDark2" type="MeshInstance3D" parent="."]
+transform = Transform3D(0, 0, 1, 0.643, 0.766, 0, -0.766, 0.643, 0, 0.55, 8.95, 0)
+mesh = SubResource("BoxMesh_3")
+material_override = ExtResource("3_r")
+
+[node name="PlasticWhite" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1, 9.36, 0)
+mesh = SubResource("CylinderMesh_4")
+material_override = ExtResource("4_r")
+
+[node name="PlasticWhite2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.95, 0)
+mesh = SubResource("CylinderMesh_4")
+material_override = ExtResource("4_r")
+
+[node name="PlasticWhite3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1, 9.36, 0)
+mesh = SubResource("CylinderMesh_4")
+material_override = ExtResource("4_r")
+
+[node name="MetalDark3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7, 0.15)
+mesh = SubResource("BoxMesh_5")
+material_override = ExtResource("3_r")
+
+[node name="Collision" type="StaticBody3D" parent="."]
+
+[node name="Shape" type="CollisionShape3D" parent="Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
+shape = SubResource("CylinderShape3D_6")

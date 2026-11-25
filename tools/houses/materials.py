@@ -148,6 +148,63 @@ def _slats():
     return img
 
 
+def _barrel_tile():
+    """Spanish / barrel roof tile: alternating round caps and pans in staggered courses."""
+    img = Image.new("RGB", (256, 256))
+    px = img.load()
+    course, pitch = 64, 32
+    for y in range(256):
+        lap = (y % course) / course
+        for x in range(256):
+            u = (x % pitch) / pitch
+            v = 0.62 + 0.38 * math.sin(u * math.pi * 2.0)
+            v *= 0.78 + 0.22 * (1.0 - lap)
+            if lap > 0.93:
+                v *= 0.6
+            c = int(255 * max(0.0, min(1.0, v)))
+            px[x, y] = (c, c, c)
+    return _noise(img, 10, 41)
+
+
+def _pavers():
+    rnd = random.Random(42)
+    img = Image.new("RGB", (256, 256), (150, 145, 138))
+    d = ImageDraw.Draw(img)
+    s = 32
+    for row in range(256 // s):
+        for col in range(256 // s):
+            k = rnd.uniform(0.85, 1.1)
+            v = int(232 * k)
+            if (row + col) % 2:
+                d.rectangle([col * s + 2, row * s + 2, col * s + s - 2, row * s + s // 2 - 1], fill=(v, v, v))
+                d.rectangle([col * s + 2, row * s + s // 2 + 1, col * s + s - 2, row * s + s - 2], fill=(v, v, v))
+            else:
+                d.rectangle([col * s + 2, row * s + 2, col * s + s // 2 - 1, row * s + s - 2], fill=(v, v, v))
+                d.rectangle([col * s + s // 2 + 1, row * s + 2, col * s + s - 2, row * s + s - 2], fill=(v, v, v))
+    return _noise(img, 8, 43)
+
+
+def _palm_trunk():
+    """Ringed palm trunk (rings run around the trunk: horizontal bands in triplanar side view)."""
+    img = Image.new("RGB", (256, 256))
+    d = ImageDraw.Draw(img)
+    for y in range(256):
+        k = (y % 16) / 16
+        v = int(200 + 40 * math.sin(k * math.pi)) if k > 0.12 else 140
+        d.line([0, y, 255, y], fill=(v, v, v))
+    return _noise(img, 10, 44)
+
+
+def _water():
+    img = _speckle((235, 235, 235), 10, 45, 1.6)
+    d = ImageDraw.Draw(img)
+    rnd = random.Random(46)
+    for _ in range(40):
+        x, y = rnd.randint(0, 255), rnd.randint(0, 255)
+        d.arc([x, y, x + rnd.randint(14, 40), y + rnd.randint(4, 10)], 180, 360, fill=(255, 255, 255))
+    return img
+
+
 TEXTURES = {
     "cmu": _cmu,
     "corrugated": _corrugated,
@@ -166,16 +223,27 @@ TEXTURES = {
     "planks": _planks,
     "picket": _picket,
     "chainlink": _chainlink,
+    "barrel_tile": _barrel_tile,
+    "barrel_tile_z": lambda: _barrel_tile().rotate(90),
+    "pavers": _pavers,
+    "palm_trunk": _palm_trunk,
+    "sand": lambda: _speckle((225, 225, 225), 22, 47, 0.5),
+    "water": _water,
 }
 
 _SIDING = {"white": (0.93, 0.93, 0.9), "cream": (0.94, 0.88, 0.72), "sage": (0.62, 0.7, 0.57),
            "blue": (0.56, 0.66, 0.77), "grey": (0.62, 0.64, 0.65), "yellow": (0.93, 0.82, 0.5),
            "tan": (0.77, 0.68, 0.54), "mint": (0.66, 0.81, 0.72), "red": (0.6, 0.22, 0.18),
            "navy": (0.26, 0.31, 0.43)}
+# West Palm Beach: concrete-block houses in pastel stucco.
 _STUCCO = {"pink": (0.92, 0.72, 0.68), "beige": (0.88, 0.8, 0.66), "white": (0.93, 0.92, 0.88),
-           "peach": (0.96, 0.78, 0.6), "grey": (0.7, 0.7, 0.68)}
+           "peach": (0.96, 0.78, 0.6), "grey": (0.7, 0.7, 0.68), "mint": (0.72, 0.88, 0.78),
+           "lavender": (0.8, 0.75, 0.9), "sky": (0.66, 0.82, 0.92), "salmon": (0.95, 0.64, 0.54),
+           "butter": (0.97, 0.9, 0.6), "seafoam": (0.6, 0.85, 0.8), "coral": (0.93, 0.52, 0.46)}
 _ROOF = {"charcoal": (0.32, 0.32, 0.34), "brown": (0.46, 0.34, 0.26), "slate": (0.42, 0.47, 0.52),
-         "green": (0.3, 0.42, 0.33), "red": (0.62, 0.3, 0.22)}
+         "green": (0.3, 0.42, 0.33), "red": (0.62, 0.3, 0.22), "white": (0.86, 0.86, 0.84)}
+# Barrel (Spanish) tile roofs for the nicer homes.
+_ROOF_TILE = {"terracotta": (0.8, 0.44, 0.28), "tan": (0.88, 0.7, 0.52), "brown": (0.58, 0.36, 0.25)}
 _FLAT = {
     "trim_white": (0.95, 0.95, 0.93), "trim_cream": (0.92, 0.87, 0.74), "trim_dark": (0.16, 0.16, 0.17),
     "trim_brown": (0.36, 0.25, 0.18), "brass": (0.8, 0.65, 0.3), "shutter_dark": (0.13, 0.2, 0.17),
@@ -186,6 +254,25 @@ _FLAT = {
     "roof_metal": (0.55, 0.58, 0.6), "roof_flat": (0.35, 0.35, 0.36), "bark": (0.3, 0.22, 0.16),
     "foliage": (0.2, 0.42, 0.18), "foliage_dark": (0.14, 0.3, 0.14), "hedge": (0.18, 0.36, 0.16),
     "ac_unit": (0.78, 0.79, 0.77), "road_line": (0.95, 0.8, 0.2),
+}
+_PROPS = {
+    "frond": (0.3, 0.52, 0.2), "frond_light": (0.42, 0.6, 0.24), "frond_dry": (0.62, 0.5, 0.28),
+    "sabal_frond": (0.32, 0.46, 0.27), "coconut": (0.45, 0.32, 0.13), "banyan_bark": (0.5, 0.47, 0.41),
+    "oak_bark": (0.27, 0.23, 0.19), "moss": (0.62, 0.66, 0.56), "oak_leaf": (0.2, 0.33, 0.16),
+    "banyan_leaf": (0.18, 0.38, 0.16), "sea_grape": (0.3, 0.5, 0.2), "brush": (0.36, 0.44, 0.2),
+    "brush_dry": (0.58, 0.52, 0.32), "weeds": (0.46, 0.54, 0.24), "leaf_dark": (0.14, 0.32, 0.14),
+    "flower_red": (0.86, 0.1, 0.14), "flower_pink": (0.88, 0.18, 0.56), "flower_yellow": (0.98, 0.82, 0.16),
+    "flower_white": (0.96, 0.95, 0.92), "flower_orange": (0.96, 0.5, 0.12), "flower_purple": (0.56, 0.24, 0.72),
+    "wire": (0.04, 0.04, 0.05), "bin_green": (0.16, 0.36, 0.2), "bin_blue": (0.14, 0.3, 0.62),
+    "bin_black": (0.1, 0.1, 0.11), "plastic_white": (0.9, 0.9, 0.88), "pool_liner": (0.32, 0.55, 0.82),
+    "rust": (0.46, 0.24, 0.11), "rust_light": (0.6, 0.36, 0.18),
+    "paint_pink": (0.95, 0.3, 0.6), "paint_green": (0.2, 0.75, 0.35), "paint_orange": (0.98, 0.55, 0.1),
+    "paint_purple": (0.5, 0.25, 0.78), "paint_black": (0.06, 0.06, 0.07), "paint_red": (0.85, 0.12, 0.12),
+    "paint_teal": (0.1, 0.65, 0.68), "paint_cyan": (0.3, 0.8, 0.92),
+    "cloth_white": (0.95, 0.95, 0.94), "cloth_blue": (0.3, 0.45, 0.75), "cloth_red": (0.8, 0.25, 0.25),
+    "cloth_yellow": (0.95, 0.85, 0.35), "cart_red": (0.75, 0.1, 0.1), "news_blue": (0.1, 0.25, 0.6),
+    "news_red": (0.72, 0.1, 0.1), "news_yellow": (0.95, 0.78, 0.1), "news_green": (0.1, 0.45, 0.25),
+    "storm_panel": (0.74, 0.76, 0.77), "tire": (0.07, 0.07, 0.07),
 }
 
 
@@ -201,7 +288,27 @@ def material_table():
     for k, c in _ROOF.items():
         t["roof_%s_x" % k] = ("shingles", c, 0.8, {"sharp": 8.0})
         t["roof_%s_z" % k] = ("shingles_z", c, 0.8, {"sharp": 8.0})
+    for k, c in _ROOF_TILE.items():
+        t["roof_tile_%s_x" % k] = ("barrel_tile", c, 0.9, {"sharp": 8.0})
+        t["roof_tile_%s_z" % k] = ("barrel_tile_z", c, 0.9, {"sharp": 8.0})
     for k, c in _FLAT.items():
+        t[k] = (None, c, 1.0, {})
+    # --- West Palm Beach landscaping / street dressing (scenes/props/) ------------------------
+    t["palm_trunk"] = ("palm_trunk", (0.62, 0.58, 0.5), 1.2, {})
+    t["royal_trunk"] = ("palm_trunk", (0.82, 0.8, 0.76), 0.8, {})
+    t["crownshaft"] = (None, (0.38, 0.55, 0.3), 1.0, {})
+    t["sand"] = ("sand", (0.86, 0.79, 0.62), 0.5, {})
+    t["dirt"] = ("sand", (0.56, 0.46, 0.34), 0.5, {})
+    t["mulch"] = ("gravel", (0.6, 0.42, 0.3), 0.8, {})
+    t["pavers"] = ("pavers", (0.9, 0.78, 0.64), 0.6, {})
+    t["pavers_grey"] = ("pavers", (0.78, 0.77, 0.74), 0.6, {})
+    t["water"] = ("water", (0.22, 0.38, 0.34), 0.15, {"metallic": 0.2, "roughness": 0.06})
+    t["canal_water"] = ("water", (0.16, 0.3, 0.3), 0.1, {"metallic": 0.2, "roughness": 0.06})
+    t["pool_water"] = ("water", (0.32, 0.72, 0.86), 0.3, {"roughness": 0.05, "emission": (0.1, 0.35, 0.45),
+                                                          "energy": 0.3})
+    t["screen"] = (None, (0.12, 0.13, 0.14), 1.0, {"blend": 0.35})
+    t["wood_pole"] = ("planks", (0.42, 0.33, 0.25), 0.4, {})
+    for k, c in _PROPS.items():
         t[k] = (None, c, 1.0, {})
     t["glass"] = (None, (0.16, 0.22, 0.28), 1.0, {"metallic": 0.5, "roughness": 0.08})
     t["garage_panel"] = ("siding", (0.92, 0.92, 0.9), 1.6, {})
@@ -265,7 +372,11 @@ def write_all(root):
         lines.append('resource_name = "%s"' % name)
         if extra.get("alpha"):
             lines += ["transparency = 2", "alpha_scissor_threshold = 0.5", "cull_mode = 2"]
-        lines.append("albedo_color = Color(%s, %s, %s, 1)" % tuple(_fmt(c) for c in rgb))
+        if "blend" in extra:
+            lines += ["transparency = 1", "cull_mode = 2"]
+            rgb = tuple(rgb) + (extra["blend"],)
+        a = rgb[3] if len(rgb) > 3 else 1
+        lines.append("albedo_color = Color(%s, %s, %s, %s)" % (tuple(_fmt(c) for c in rgb[:3]) + (_fmt(a),)))
         if tex:
             lines.append('albedo_texture = ExtResource("1_tex")')
         if "metallic" in extra:
