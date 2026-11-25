@@ -42,6 +42,15 @@ func _ready() -> void:
 	for x in [-1.4, 1.4]:
 		_box(Vector3(0.2, OVERHANG_CLEARANCE, 0.2), OVERHANG + Vector3(x, OVERHANG_CLEARANCE * 0.5, 1.9), Color(0.6, 0.4, 0.3))
 	reset()
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_cancel"):
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	elif event is InputEventMouseButton and event.pressed and Input.mouse_mode != Input.MOUSE_MODE_CAPTURED:
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+		get_viewport().set_input_as_handled()
 
 
 func _unhandled_input(event: InputEvent) -> void:
