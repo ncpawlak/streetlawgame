@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="ClothingItemDef" format=3]
+
+[ext_resource type="Script" path="res://scripts/framework/appearance/clothing_item_def.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+slot = &"bottom"
+base_price = 40
+starter = true
+source_model = &"hoodie"
+part = &"Legs"
+tint_materials = Array[StringName]([&"LightBlue"])
+colors = Array[Color]([Color(0.3, 0.42, 0.68, 1), Color(0.1, 0.1, 0.11, 1), Color(0.92, 0.92, 0.9, 1), Color(0.45, 0.45, 0.47, 1)])
+color_names = PackedStringArray("Denim", "Black", "White", "Grey")
+color_tags = Array[StringName]([&"blue", &"black", &"white", &"grey"])
+id = &"jeans"
+display_name = "Jeans"
+description = "Everyday jeans."

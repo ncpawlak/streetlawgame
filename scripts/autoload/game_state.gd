@@ -12,6 +12,8 @@ const GANGS := {
 	&"vipers": {"name": "Red Vipers", "color": Color(0.85, 0.15, 0.15)},
 	&"kings": {"name": "Eastside Kings", "color": Color(0.95, 0.8, 0.1)},
 	&"syndicate": {"name": "Harbor Syndicate", "color": Color(0.15, 0.45, 0.95)},
+	&"angeles": {"name": "Angeles", "color": Color(0.98, 0.84, 0.2)},
+	&"hellraisers": {"name": "Hellraisers", "color": Color(0.95, 0.45, 0.08)},
 }
 
 @export var starting_cash := 500

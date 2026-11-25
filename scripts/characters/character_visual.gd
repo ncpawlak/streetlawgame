@@ -197,6 +197,26 @@ func set_bandana(color: Variant) -> void:
 		((_bandana.mesh as BoxMesh).material as StandardMaterial3D).albedo_color = color
 
 
+## Dresses the body in [param look] (clothes, hair, skin; see AppearanceRig). An empty look (or
+## null) puts the model's own parts back.
+func apply_appearance(look: Appearance) -> void:
+	if _model == null:
+		_build()
+	AppearanceRig.for_visual(self).apply(look)
+
+
+## The look last applied with [method apply_appearance], or null.
+func appearance() -> Appearance:
+	var rig := get_node_or_null("AppearanceRig") as AppearanceRig
+	return rig.look if rig != null else null
+
+
+## Meshes the hit flash covers (AppearanceRig replaces them when parts are swapped).
+func set_part_meshes(meshes: Array[MeshInstance3D]) -> void:
+	_set_overlay(null)
+	_meshes = meshes
+
+
 ## World position of the right hand (where weapons are held).
 func hand_position() -> Vector3:
 	return skeleton.global_transform * skeleton.get_bone_global_pose(_hand_bone).origin

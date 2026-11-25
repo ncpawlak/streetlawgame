@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ClothingItemDef" format=3]
+
+[ext_resource type="Script" path="res://scripts/framework/appearance/clothing_item_def.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+slot = &"hat"
+base_price = 20
+attachment = &"beanie"
+colors = Array[Color]([Color(0.1, 0.1, 0.11, 1), Color(0.45, 0.45, 0.47, 1), Color(0.98, 0.84, 0.2, 1), Color(0.95, 0.45, 0.08, 1), Color(0.75, 0.12, 0.12, 1)])
+color_names = PackedStringArray("Black", "Grey", "Yellow", "Orange", "Red")
+color_tags = Array[StringName]([&"black", &"grey", &"yellow", &"orange", &"red"])
+id = &"beanie"
+display_name = "Beanie"
+description = "Knit beanie."

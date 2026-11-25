@@ -54,6 +54,7 @@ func _ready() -> void:
 	_camera.cull_mask &= ~GameState.MAP_LAYER
 	_camera.make_current()
 	GameState.player = self
+	PlayerAppearance.dress(visual)
 	EventBus.explosion.connect(_on_explosion)
 
 

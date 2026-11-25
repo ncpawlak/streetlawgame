@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="HairItemDef" format=3]
+
+[ext_resource type="Script" path="res://scripts/framework/appearance/hair_item_def.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+slot = &"hair_color"
+base_price = 30
+colors = Array[Color]([Color(0.1, 0.1, 0.11, 1), Color(0.17, 0.11, 0.07, 1), Color(0.36, 0.24, 0.15, 1), Color(0.88, 0.72, 0.38, 1), Color(0.93, 0.92, 0.86, 1), Color(0.72, 0.3, 0.1, 1), Color(0.7, 0.08, 0.1, 1)])
+color_names = PackedStringArray("Black", "Dark brown", "Brown", "Blonde", "Platinum", "Ginger", "Dyed red")
+color_tags = Array[StringName]([&"black", &"brown", &"brown", &"yellow", &"white", &"orange", &"red"])
+id = &"hair_dye"
+display_name = "Hair colour"
+description = "Dye or bleach."

@@ -47,6 +47,67 @@ You start with fists and a pistol. There's a stash of guns (SMG, shotgun, rifle)
 
 Vehicles take damage from bullets, explosions and crashes: they smoke, then catch fire, then explode. Rivals will shoot at your car while you're driving.
 
+## Appearance, clothing and disguise
+
+You start in a fixed look (purple hoodie, jeans, sneakers and a short crop) and can only change it at a **clothing store**, a **barber** or a **wardrobe**. Everything lives in `scripts/framework/appearance/`, and the content is data: `data/clothing/`, `data/hair/` and `data/faction_styles/`.
+
+**Looks.** An `Appearance` resource holds eight slots: top, bottom, shoes, hat, accessory, hair, hair colour and facial hair. Each slot stores an item id and a colour variant.
+- `AppearanceRig` applies a look to a `CharacterVisual`.
+  - Tops, bottoms, shoes and hairstyles swap in that body part from another Quaternius model.
+  - Colour variants tint the item's materials.
+  - Hats, glasses, chains and facial hair are procedural attachments that follow the head and neck bones.
+- `CharacterVisual.apply_appearance(look)` works on any character, so gang uniforms use it too.
+
+**Catalogs.** Each `ClothingItemDef` and `HairItemDef` has an id, name, slot, price, colour variants and colour tags. Tags such as `yellow` or `white` are used for gang colours.
+
+**Player state.** The `PlayerAppearance` autoload holds:
+- The current look and the owned clothes (keyed by item and colour).
+- Each faction's remembered look.
+
+Saving uses `to_dict` / `from_dict`.
+
+**Changing your look.**
+- `buy`, `equip` and `get_haircut` charge through `GameState` cash.
+- Prices rise 25% per area tier and are halved at sites you own.
+- Hair isn't owned: a new cut costs money, but keeping your current one is free.
+
+**Shops and stations.**
+- An `AppearanceStation` opens the `AppearancePanel`. Modes:
+  - `clothing`: buy and wear clothes.
+  - `barber`: hairstyle, colour and facial hair, with the player in the chair.
+  - `wardrobe`: change into clothes you already own, for free.
+- The panel has:
+  - Slot tabs and an item list with colour swatches.
+  - A live preview on the player, with an orbit camera (Q/E).
+  - A per-faction readout: "would / won't recognise you".
+- `Wardrobe` is a ready-made station for safehouses.
+- Business types with `appearance_service = clothing` or `barber` add the store action to their door. Both are set up: `clothing_store` and `barbershop`.
+
+**Disguise and gang colours.**
+- Each gang's `FactionStyleDef` lists its colours, its rivals, its attitudes and an optional uniform.
+- A faction recognises you when your look matches the one it remembers at 60% or more.
+  - The top, hair, hair colour and hat count most.
+  - The same item in a different colour only counts partly.
+- `reaction_of(faction)` resolves to hostile, suspicious, neutral or friendly, in this order:
+  1. If they recognise you, their "recognised" attitude applies.
+  2. Wearing their rivals' colours makes them hostile.
+  3. Wearing their own colours applies their "own colours" attitude.
+  4. Otherwise their default attitude applies.
+- `GangMember` reads this every half second:
+  - Neutral and friendly members leave you alone unless shot at.
+  - Suspicious members walk up and stare, then turn hostile.
+  - A gang memorises your look when it fights you.
+- **Angeles** (yellow and white) know the starting look, so change your top and hair before walking up to their block. Wearing their colours makes them friendly.
+- **Hellraisers** (black and orange, Angeles rivals) are suspicious of strangers.
+- The Red Vipers, Kings and Syndicate stay hostile.
+
+**For missions.**
+- Conditions: `DisguisedCondition` (`is_disguised_from`), `FactionReactionCondition`, `WearingCondition` (an item or a share of a colour).
+- Effects: `RememberLookEffect`, `OpenAppearanceEffect`.
+- Signals on `EventBus`: `appearance_changed`, `appearance_purchase`, `faction_attitude_changed`.
+
+**Showcase:** `godot --path . res://scenes/showcase/appearance_showcase.tscn` has a clothing store, barber chair, wardrobe, an Angeles block and a Hellraiser corner, plus a live readout of recognition and reactions. Reference screenshots: `godot --path . res://tools/capture_appearance.tscn -- <output_dir>`.
+
 ## Tests
 
 ```sh

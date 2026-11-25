@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="ClothingItemDef" format=3]
+
+[ext_resource type="Script" path="res://scripts/framework/appearance/clothing_item_def.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+slot = &"bottom"
+base_price = 45
+source_model = &"punk"
+part = &"Legs"
+tint_materials = Array[StringName]([&"Black"])
+colors = Array[Color]([Color(0.1, 0.1, 0.11, 1), Color(0.75, 0.12, 0.12, 1), Color(0.92, 0.92, 0.9, 1), Color(0.98, 0.84, 0.2, 1)])
+color_names = PackedStringArray("Black", "Red", "White", "Yellow")
+color_tags = Array[StringName]([&"black", &"red", &"white", &"yellow"])
+id = &"punk_pants"
+display_name = "Skinny pants"
+description = "Tight skinny pants."

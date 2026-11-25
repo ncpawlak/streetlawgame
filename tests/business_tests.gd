@@ -51,11 +51,14 @@ func run() -> void:
 
 func _test_content() -> void:
 	_check(Businesses.all_sites().size() == 9, "9 North End sites load (got %d)" % Businesses.all_sites().size())
-	_check(ContentDB.all(BusinessTypeDef.TYPE).size() == 9, "9 business types load")
+	_check(ContentDB.all(BusinessTypeDef.TYPE).size() == 10, "10 business types load")
 	for district in [BOTTOMS, RAIL_YARDS, OLD_HARBOR]:
 		_check(Businesses.sites_in(district).size() == 3, "3 sites in %s" % district)
 	_check(Businesses.type_of(GUNS).id == &"gun_store" and Businesses.type_of(GUNS).has_shop(), "gun store type has a shop")
 	_check(not Businesses.type_of(&"tamarack_barbershop").has_shop(), "barbershop has no shop")
+	var barber_door := Locations.get_location(&"tamarack_barbershop")
+	_check(barber_door != null and barber_door.def.all_door_actions().any(func(action: InteractionAction) -> bool:
+		return action.id == Businesses.APPEARANCE_ACTION), "barbershop door offers a haircut")
 
 
 func _test_placement() -> void:

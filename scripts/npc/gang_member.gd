@@ -7,7 +7,13 @@ const GANG_ARSENAL := {
 	&"vipers": [&"pistol", &"pistol", &"smg"],
 	&"kings": [&"pistol", &"shotgun", &"smg"],
 	&"syndicate": [&"smg", &"rifle", &"shotgun"],
+	&"angeles": [&"pistol", &"pistol", &"smg"],
+	&"hellraisers": [&"shotgun", &"pistol", &"smg"],
 }
+## Seconds between re-reading how the gang feels about the player's look.
+const REACTION_INTERVAL := 0.5
+## Suspicious members walk up to about this distance to stare.
+const STARE_DISTANCE := 3.5
 
 @export var gang_id: StringName = &"vipers"
 @export var max_health := 60.0
@@ -28,6 +34,13 @@ const GANG_ARSENAL := {
 @export_range(0.0, 1.0) var drop_chance := 0.6
 
 var health := 0.0
+## How this member treats the player right now (PlayerAppearance.reaction_of for the gang, based
+## on recognition + colours): &"hostile" engages, &"suspicious" closes in and stares (turning
+## hostile after the gang's suspicion_time in range), &"neutral" / &"friendly" leave them alone.
+## Being shot at always makes them hostile for alert_duration.
+var attitude: StringName = &"hostile"
+## Seconds spent suspicious within suspicion range.
+var suspicion := 0.0
 ## District this member defends (&"" for none) and its job there: &"guard" (safehouse) or &"patrol".
 var home_district: StringName
 var role: StringName
@@ -42,6 +55,8 @@ var _alert_left := 0.0
 ## Animated body tinted in the gang's colours (see CharacterVisual).
 var visual: CharacterVisual
 var _dead := false
+var _style: FactionStyleDef
+var _reaction_timer := 0.0
 var _gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 
@@ -63,7 +78,9 @@ func _ready() -> void:
 	weapons.extra_spread = extra_spread
 	add_child(weapons)
 	_burst_pause = randf_range(0.3, 1.5)
+	_style = FactionStyleDef.find(gang_id)
 	_build_body()
+	refresh_attitude()
 
 
 func is_alive() -> bool:
@@ -84,14 +101,28 @@ func _physics_process(delta: float) -> void:
 	var move_direction := Vector3.ZERO
 	var speed := move_speed
 	var range_now := alerted_range if _alert_left > 0.0 else aggro_range
-	if target != null and global_position.distance_to(target.global_position) < range_now:
+	_reaction_timer -= delta
+	if _reaction_timer <= 0.0:
+		refresh_attitude()
+	var distance := global_position.distance_to(target.global_position) if target != null else INF
+	var engaging := is_hostile() and distance < range_now
+	if engaging:
 		var to_target := target.global_position - global_position
 		to_target.y = 0.0
 		_face(to_target)
 		if to_target.length() > attack_range * 0.6:
 			move_direction = to_target.normalized()
 		if to_target.length() <= _engage_range():
+			_remember_player(player)
 			_update_attack(target, delta)
+	elif attitude == PlayerAppearance.SUSPICIOUS and target == player and distance < _suspicion_range() * 2.0:
+		var to_target := target.global_position - global_position
+		to_target.y = 0.0
+		_face(to_target)
+		if to_target.length() > STARE_DISTANCE:
+			move_direction = to_target.normalized()
+			speed *= 0.5
+		_build_suspicion(player, distance, delta)
 	else:
 		move_direction = _wander_direction(delta)
 		speed *= 0.4
@@ -100,7 +131,7 @@ func _physics_process(delta: float) -> void:
 	velocity.x = move_direction.x * speed
 	velocity.z = move_direction.z * speed
 	move_and_slide()
-	visual.set_aiming(target != null and global_position.distance_to(target.global_position) < range_now)
+	visual.set_aiming(engaging)
 	visual.update_motion(velocity, delta)
 
 
@@ -115,6 +146,47 @@ func take_damage(amount: float, source: Node = null) -> void:
 		return
 	_alert_left = alert_duration
 	_flash()
+
+
+func is_hostile() -> bool:
+	return attitude == PlayerAppearance.HOSTILE or _alert_left > 0.0
+
+
+## Re-reads the gang's reaction to the player's look (also runs every REACTION_INTERVAL).
+func refresh_attitude() -> void:
+	_reaction_timer = REACTION_INTERVAL
+	var next := PlayerAppearance.reaction_of(gang_id)
+	if next != PlayerAppearance.SUSPICIOUS:
+		suspicion = 0.0
+	if next != attitude:
+		attitude = next
+		EventBus.faction_attitude_changed.emit(self, gang_id, attitude)
+
+
+## Makes the member hostile (as if shot at) for [member alert_duration].
+func provoke() -> void:
+	_alert_left = alert_duration
+
+
+func _suspicion_range() -> float:
+	return _style.suspicion_range if _style != null else 9.0
+
+
+func _build_suspicion(player: Node3D, distance: float, delta: float) -> void:
+	if distance > _suspicion_range() or _style == null or _style.suspicion_time <= 0.0:
+		return
+	suspicion += delta
+	if suspicion >= _style.suspicion_time:
+		suspicion = 0.0
+		provoke()
+		_remember_player(player)
+
+
+## The gang memorises the player's look when it fights them (FactionStyleDef.remembers_on_sight).
+func _remember_player(player: Node3D) -> void:
+	if player is Player and (player as Player).is_on_foot() and _style != null and _style.remembers_on_sight \
+			and not PlayerAppearance.recognised_by(gang_id):
+		PlayerAppearance.remember_look(gang_id)
 
 
 func current_weapon() -> WeaponData:
@@ -199,7 +271,12 @@ func _build_body() -> void:
 
 	var color := GameState.gang_color(gang_id)
 	visual = CharacterVisual.create(&"gang", randi())
-	visual.set_tint(color.darkened(0.3))
-	visual.set_bandana(color)
+	var uniform := _style.uniform_look() if _style != null else null
+	if uniform != null:
+		uniform.skin_tone = Appearance.SKIN_TONES.pick_random()
+		visual.apply_appearance(uniform)
+	else:
+		visual.set_tint(color.darkened(0.3))
+		visual.set_bandana(color)
 	visual.set_weapon(current_weapon())
 	add_child(visual)

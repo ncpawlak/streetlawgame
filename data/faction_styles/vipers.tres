@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="FactionStyleDef" format=3]
+
+[ext_resource type="Script" path="res://scripts/framework/appearance/faction_style_def.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+color_tags = Array[StringName]([&"red"])
+rivals = Array[StringName]([&"kings", &"syndicate"])
+default_attitude = &"hostile"
+recognised_attitude = &"hostile"
+own_colors_attitude = &"hostile"
+remembers_on_sight = true
+knows_starting_look = false
+uniform = {}
+id = &"vipers"
+display_name = "Red Vipers"
+description = "Rival gang: shoots on sight whatever you wear."

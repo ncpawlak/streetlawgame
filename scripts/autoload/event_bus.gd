@@ -60,3 +60,12 @@ signal business_acquired(site_id: StringName, reason: StringName)
 signal business_lost(site_id: StringName, reason: StringName)
 signal shop_purchase(site_id: StringName, item_id: StringName, price: int)
 signal clout_changed(district_id: StringName, clout: int, previous: int)
+
+# Player appearance (clothing, hair, disguise). See scripts/framework/appearance.
+signal appearance_changed(look: Appearance)
+## Paid for a clothing item or a barber service. [param site_id] is &"" outside a business.
+signal appearance_purchase(item_id: StringName, color: int, price: int, site_id: StringName)
+## [param faction] now remembers the player's current look (they can recognise it again).
+signal look_remembered(faction: StringName)
+## A faction member's attitude to the player changed (&"hostile", &"suspicious", &"neutral", &"friendly").
+signal faction_attitude_changed(member: Node, faction: StringName, attitude: StringName)

@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="FactionStyleDef" format=3]
+
+[ext_resource type="Script" path="res://scripts/framework/appearance/faction_style_def.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+color_tags = Array[StringName]([&"yellow", &"white"])
+rivals = Array[StringName]([&"hellraisers"])
+default_attitude = &"neutral"
+recognised_attitude = &"hostile"
+own_colors_attitude = &"friendly"
+remembers_on_sight = true
+knows_starting_look = true
+uniform = {
+"slots": {
+"top": {"item": "varsity_jacket", "color": 1},
+"bottom": {"item": "jeans", "color": 2},
+"shoes": {"item": "sneakers", "color": 5},
+"hat": {"item": "cap", "color": 1},
+"hair": {"item": "buzz_cut", "color": 0},
+"hair_color": {"item": "hair_dye", "color": 0}
+}
+}
+id = &"angeles"
+display_name = "Angeles"
+description = "Yellow and white. They know the face you walked in with."

@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="HairItemDef" format=3]
+
+[ext_resource type="Script" path="res://scripts/framework/appearance/hair_item_def.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+slot = &"hair"
+base_price = 45
+source_model = &"punk_red"
+hair_materials = Array[StringName]([&"Red", &"Red_Dark"])
+id = &"spikes"
+display_name = "Spikes"
+description = "Red-tipped spikes and earrings."

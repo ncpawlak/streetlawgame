@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="ClothingItemDef" format=3]
+
+[ext_resource type="Script" path="res://scripts/framework/appearance/clothing_item_def.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+slot = &"top"
+base_price = 90
+fixed_color_tags = Array[StringName]([&"black"])
+source_model = &"punk"
+part = &"Body"
+tint_materials = Array[StringName]([&"Pink"])
+colors = Array[Color]([Color(0.9, 0.35, 0.6, 1), Color(0.98, 0.84, 0.2, 1), Color(0.75, 0.12, 0.12, 1), Color(0.92, 0.92, 0.9, 1), Color(0.95, 0.45, 0.08, 1)])
+color_names = PackedStringArray("Pink", "Yellow", "Red", "White", "Orange")
+color_tags = Array[StringName]([&"pink", &"yellow", &"red", &"white", &"orange"])
+id = &"punk_jacket"
+display_name = "Studded jacket"
+description = "Black leather with coloured panels."

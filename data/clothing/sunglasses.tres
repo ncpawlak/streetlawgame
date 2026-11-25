@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ClothingItemDef" format=3]
+
+[ext_resource type="Script" path="res://scripts/framework/appearance/clothing_item_def.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+slot = &"accessory"
+base_price = 40
+attachment = &"sunglasses"
+colors = Array[Color]([Color(0.1, 0.1, 0.11, 1), Color(0.92, 0.92, 0.9, 1), Color(0.98, 0.84, 0.2, 1)])
+color_names = PackedStringArray("Black", "White", "Yellow")
+color_tags = Array[StringName]([&"black", &"white", &"yellow"])
+id = &"sunglasses"
+display_name = "Sunglasses"
+description = "Shades."

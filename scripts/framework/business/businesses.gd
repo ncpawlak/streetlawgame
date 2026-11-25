@@ -9,6 +9,8 @@ extends Node
 const LOCATION_ID := &"business"
 const BUY_ACTION := &"buy_business"
 const SHOP_ACTION := &"open_shop"
+## Clothing store / barber counter (BusinessTypeDef.appearance_service).
+const APPEARANCE_ACTION := &"appearance_service"
 ## Shop discount at a site the player owns (only that site, not the whole chain).
 const OWNER_DISCOUNT := 0.5
 ## Price/income multiplier by area tier (AreaData.tier).
@@ -243,6 +245,12 @@ func location_def_for(site_id: StringName) -> LocationDef:
 	if business_type != null and business_type.has_shop():
 		var effects: Array[Effect] = [OpenShopEffect.new()]
 		actions.append(InteractionAction.create(SHOP_ACTION, "Shop", effects))
+	if business_type != null and business_type.appearance_service != &"":
+		var open_panel := OpenAppearanceEffect.new()
+		open_panel.mode = business_type.appearance_service
+		var appearance_effects: Array[Effect] = [open_panel]
+		var label := "Get a haircut" if open_panel.mode == &"barber" else "Browse clothes"
+		actions.append(InteractionAction.create(APPEARANCE_ACTION, label, appearance_effects))
 	def.door_actions = actions
 	return def
 

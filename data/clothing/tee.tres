@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="ClothingItemDef" format=3]
+
+[ext_resource type="Script" path="res://scripts/framework/appearance/clothing_item_def.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+slot = &"top"
+base_price = 25
+source_model = &"casual"
+part = &"Body"
+tint_materials = Array[StringName]([&"LightBrown"])
+colors = Array[Color]([Color(0.92, 0.92, 0.9, 1), Color(0.1, 0.1, 0.11, 1), Color(0.98, 0.84, 0.2, 1), Color(0.75, 0.12, 0.12, 1), Color(0.95, 0.45, 0.08, 1), Color(0.45, 0.45, 0.47, 1), Color(0.2, 0.5, 0.25, 1)])
+color_names = PackedStringArray("White", "Black", "Yellow", "Red", "Orange", "Grey", "Green")
+color_tags = Array[StringName]([&"white", &"black", &"yellow", &"red", &"orange", &"grey", &"green"])
+id = &"tee"
+display_name = "T-shirt"
+description = "Plain tee."

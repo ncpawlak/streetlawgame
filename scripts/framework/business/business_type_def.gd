@@ -17,6 +17,9 @@ const TYPE := &"business_types"
 @export var hangout_crew_count := 2
 ## Shop stock (data/shop_items/<id>.tres). Empty = no shop.
 @export var shop_item_ids: Array[StringName] = []
+## Appearance service run at the counter: &"clothing" (clothing store), &"barber" or &"" (none).
+## Opens the appearance panel priced at the site (see PlayerAppearance / OpenAppearanceEffect).
+@export var appearance_service: StringName = &""
 ## Door, sign and map marker colour.
 @export var color := Color(0.75, 0.6, 0.3)
 
@@ -36,4 +39,6 @@ func validate() -> PackedStringArray:
 	for item_id in shop_item_ids:
 		if not ContentDB.has_def(ShopItemDef.TYPE, item_id):
 			issues.append("unknown shop item '%s'" % item_id)
+	if not [&"", &"clothing", &"barber"].has(appearance_service):
+		issues.append("unknown appearance_service '%s'" % appearance_service)
 	return issues

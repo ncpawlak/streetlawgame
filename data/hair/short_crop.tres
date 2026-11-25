@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="HairItemDef" format=3]
+
+[ext_resource type="Script" path="res://scripts/framework/appearance/hair_item_def.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+slot = &"hair"
+base_price = 20
+source_model = &"hoodie"
+hair_materials = Array[StringName]([&"Hair"])
+id = &"short_crop"
+display_name = "Short crop"
+description = "Short and neat."

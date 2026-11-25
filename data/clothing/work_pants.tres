@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="ClothingItemDef" format=3]
+
+[ext_resource type="Script" path="res://scripts/framework/appearance/clothing_item_def.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+slot = &"bottom"
+base_price = 35
+source_model = &"worker"
+part = &"Legs"
+tint_materials = Array[StringName]([&"Brown2"])
+colors = Array[Color]([Color(0.36, 0.24, 0.15, 1), Color(0.1, 0.1, 0.11, 1), Color(0.66, 0.58, 0.4, 1)])
+color_names = PackedStringArray("Brown", "Black", "Khaki")
+color_tags = Array[StringName]([&"brown", &"black", &"brown"])
+id = &"work_pants"
+display_name = "Work pants"
+description = "Heavy canvas pants."

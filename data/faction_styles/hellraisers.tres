@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="FactionStyleDef" format=3]
+
+[ext_resource type="Script" path="res://scripts/framework/appearance/faction_style_def.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+color_tags = Array[StringName]([&"black", &"orange"])
+rivals = Array[StringName]([&"angeles"])
+default_attitude = &"suspicious"
+recognised_attitude = &"hostile"
+own_colors_attitude = &"neutral"
+remembers_on_sight = true
+knows_starting_look = false
+uniform = {
+"slots": {
+"top": {"item": "punk_jacket", "color": 4},
+"bottom": {"item": "punk_pants", "color": 0},
+"shoes": {"item": "boots", "color": 0},
+"hat": {"item": "head_bandana", "color": 3},
+"facial_hair": {"item": "beard", "color": 0},
+"hair_color": {"item": "hair_dye", "color": 1}
+}
+}
+id = &"hellraisers"
+display_name = "Hellraisers"
+description = "Biker gang in black and orange. Wary of anyone they don't know."

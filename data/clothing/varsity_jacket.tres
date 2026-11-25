@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="ClothingItemDef" format=3]
+
+[ext_resource type="Script" path="res://scripts/framework/appearance/clothing_item_def.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+slot = &"top"
+base_price = 110
+fixed_color_tags = Array[StringName]([&"black"])
+source_model = &"punk_red"
+part = &"Body"
+tint_materials = Array[StringName]([&"White"])
+colors = Array[Color]([Color(0.92, 0.92, 0.9, 1), Color(0.98, 0.84, 0.2, 1), Color(0.75, 0.12, 0.12, 1), Color(0.95, 0.45, 0.08, 1)])
+color_names = PackedStringArray("White", "Yellow", "Red", "Orange")
+color_tags = Array[StringName]([&"white", &"yellow", &"red", &"orange"])
+id = &"varsity_jacket"
+display_name = "Varsity jacket"
+description = "Two-tone letterman jacket."
