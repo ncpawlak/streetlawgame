@@ -51,6 +51,14 @@ Vehicles take damage from bullets, explosions and crashes: they smoke, then catc
 
 Drivers are standalone test scenes for a single gameplay type. They aren't part of the city.
 
+### Carjack / hot car
+
+```sh
+godot --path . res://drivers/carjack/carjack_driver.tscn
+```
+
+Jack a car through a minigame, lose its tracker, and deliver it to the chop shop. Press F2 in-game, or pass `-- --minigame=lock_pick|hotwire|struggle|auto`, to switch the minigame. See [drivers/carjack/README.md](drivers/carjack/README.md).
+
 ### House robbery
 
 ```sh
