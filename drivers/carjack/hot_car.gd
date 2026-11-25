@@ -6,9 +6,11 @@ extends Vehicle
 
 signal jack_requested(car: HotCar, actor: Node)
 
-@export var car_name := "Sedan"
-## Chop shop price for an undamaged car.
-@export var car_value := 1500
+## Set vehicle_class_id (see [VehicleClass]) for the name, chop value, lock difficulty and handling.
+## car_name / car_value override the class when set.
+@export var car_name := ""
+## Chop shop price for an undamaged car (-1: the class's chop_value).
+@export var car_value := -1
 @export var occupied := false
 ## Fitted with a tracker (resolved by the driver's tracker setting when the car is jacked).
 @export var has_tracker := false
@@ -24,6 +26,11 @@ var _alarm_left := 0.0
 
 
 func _ready() -> void:
+	var data := VehicleClass.find(vehicle_class_id) if vehicle_class_id != &"" else null
+	if car_name == "":
+		car_name = data.display_name if data != null else "Car"
+	if car_value < 0:
+		car_value = data.chop_value if data != null else 1500
 	super._ready()
 	add_to_group("hot_cars")
 	if occupied:
@@ -49,6 +56,15 @@ func _ready() -> void:
 
 func label() -> String:
 	return car_name
+
+
+## Multiplier on the jack minigame's difficulty (the class's lock_difficulty; 1.0 without a class).
+func lock_difficulty() -> float:
+	return vehicle_class.lock_difficulty if vehicle_class != null else 1.0
+
+
+func class_label() -> String:
+	return vehicle_class.display_name if vehicle_class != null else "Unclassed"
 
 
 func _build_interactable() -> void:

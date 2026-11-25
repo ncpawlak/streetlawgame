@@ -1,9 +1,9 @@
 class_name VehicleTuning
 extends RefCounted
-## Live handling knobs for balancing car feel (the carjack debug tuning panel, F7). Defaults are
-## captured from a real Vehicle so nothing changes until a slider moves; apply() pushes the current
-## values onto any Vehicle's body and wheels. to_text() is the line to paste back when you find
-## settings you like.
+## A car's handling numbers. The field defaults are the stock [Vehicle] build. [VehicleClass] keeps
+## one per class, apply() pushes the values onto any Vehicle's body and wheels, and the carjack
+## driver's F7 panel edits them live. to_text() prints the same keys the class table uses, so a line
+## copied from the panel can be pasted straight into [constant VehicleClass.TABLE].
 
 ## [property, label, min, max, step]
 const PARAMS := [
@@ -49,6 +49,15 @@ static func from_vehicle(vehicle: Vehicle) -> VehicleTuning:
 		tuning.suspension_travel = wheel.suspension_travel
 		tuning.roll_influence = wheel.wheel_roll_influence
 		tuning.friction_slip = wheel.wheel_friction_slip
+	return tuning
+
+
+## Stock handling with [param overrides] (PARAMS keys) on top.
+static func from_dict(overrides: Dictionary) -> VehicleTuning:
+	var tuning := VehicleTuning.new()
+	for key: StringName in overrides:
+		assert(tuning.get(key) != null, "Unknown handling key %s" % key)
+		tuning.set(key, float(overrides[key]))
 	return tuning
 
 

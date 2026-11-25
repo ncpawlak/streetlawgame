@@ -24,6 +24,7 @@ func run() -> void:
 	_test_lock_pick()
 	_test_hotwire()
 	_test_struggle()
+	_test_vehicle_classes()
 	var saved_player := GameState.player
 	var saved_cash := GameState.cash
 	var driver: CarjackDriver = load(SCENE).instantiate()
@@ -45,6 +46,27 @@ func _results(minigame: CarjackMinigame) -> Dictionary:
 	minigame.finished.connect(func(success: bool, _reason: String) -> void: results["finished"].append(success))
 	minigame.too_slow.connect(func() -> void: results["slow"] += 1)
 	return results
+
+
+## The shared class table (scripts/vehicles/vehicle_class.gd) on a plain Vehicle.
+func _test_vehicle_classes() -> void:
+	_check(VehicleClass.ids() == [&"junker", &"sedan", &"muscle", &"suv", &"sports", &"luxury"], "the class table has junker, sedan, muscle, SUV, sports and luxury")
+	var stock := VehicleTuning.new()
+	_check(VehicleClass.find(&"sedan").handling.to_text() == stock.to_text(), "the sedan row is the stock handling")
+	_check(VehicleClass.find(&"sports").roll_tracker() and VehicleClass.find(&"luxury").roll_tracker() and not VehicleClass.find(&"junker").roll_tracker(), "tracker chance: sports / luxury always, junker never")
+	_check(VehicleClass.find(&"hovercraft") == null, "unknown class ids return null")
+	var plain := Vehicle.new()
+	var muscle := Vehicle.new()
+	muscle.vehicle_class_id = &"muscle"
+	_runner.add_child(plain)
+	_runner.add_child(muscle)
+	var data := VehicleClass.find(&"muscle")
+	_check(plain.vehicle_class == null and plain.mass == 1000.0 and plain.max_engine_force == 3000.0, "a Vehicle without a class keeps the stock build")
+	_check(muscle.vehicle_class == data and muscle.mass == data.handling.mass and muscle.max_engine_force == data.handling.engine_force
+		and muscle.health == data.max_health and muscle.body_color == data.color
+		and is_equal_approx(VehicleTuning.wheels_of(muscle)[0].wheel_friction_slip, data.handling.friction_slip), "a Vehicle with a class takes its handling, health and paint")
+	plain.free()
+	muscle.free()
 
 
 func _test_lock_pick() -> void:
@@ -183,6 +205,25 @@ func _test_driver(driver: CarjackDriver) -> void:
 	_check(not sedan.can_enter() and sedan.can_jack(), "a target car is locked until it's jacked")
 	_check(driver.chop_shop.deliver(sedan) == 0, "the chop shop refuses a car that hasn't been stolen")
 
+	# Car classes: one of each spawns, and the class sets value, lock difficulty, trackers and handling.
+	var classes := {}
+	for car in driver.targets():
+		classes[car.vehicle_class.id] = car
+	_check(classes.size() == VehicleClass.TABLE.size(), "the driver spawns one car of every class")
+	var junker: HotCar = classes[&"junker"]
+	var luxury: HotCar = classes[&"luxury"]
+	_check(junker.car_value == VehicleClass.find(&"junker").chop_value and luxury.car_value > coupe.car_value and coupe.car_value > junker.car_value, "a car's chop value comes from its class")
+	_check(driver.jack_difficulty(junker) < driver.jack_difficulty(sedan) and driver.jack_difficulty(sedan) < driver.jack_difficulty(luxury), "classes set lock difficulty (junker < sedan < luxury)")
+	_check(coupe.has_tracker and luxury.has_tracker and not junker.has_tracker, "sports and luxury cars always carry a tracker, junkers never do")
+	_check(suv.mass == 2000.0 and luxury.mass > sedan.mass and junker.max_health < sedan.max_health, "classes set the handling and health")
+	driver.difficulty_level = &"hard"
+	_check(driver.jack_difficulty(luxury) == CarjackDriver.MAX_JACK_DIFFICULTY, "hard + luxury is capped so it stays winnable")
+	driver.difficulty_level = &"normal"
+	var lux_game := driver.start_jack(luxury, CarjackMinigame.KIND_LOCK_PICK)
+	_check(lux_game != null and is_equal_approx(lux_game.difficulty, VehicleClass.find(&"luxury").lock_difficulty), "the minigame runs at the car's class difficulty")
+	lux_game.cancel()
+	await _frames(2)
+
 	_check(driver.minigame_kind_for(sedan) == CarjackMinigame.KIND_LOCK_PICK and driver.minigame_kind_for(suv) == CarjackMinigame.KIND_STRUGGLE, "auto mode: lock pick for parked cars, struggle for occupied ones")
 	_check(driver.cycle_minigame_mode() == &"lock_pick" and driver.cycle_minigame_mode() == &"hotwire", "F2 cycles the minigame")
 	_check(driver.minigame_kind_for(suv) == CarjackMinigame.KIND_HOTWIRE, "a chosen minigame applies to every car")
@@ -240,15 +281,20 @@ func _test_driver(driver: CarjackDriver) -> void:
 	await _frames(10)
 	_check(is_equal_approx(sedan._camera_pivot.rotation.y, look) and is_equal_approx(sedan._look_yaw, look), "the driving camera stays where you look while the car turns")
 
-	# Live handling tuning (F7): sliders push values onto every target car; reset restores them.
-	_check(driver.default_tuning.mass == 1000.0 and driver.default_tuning.suspension_stiffness == 40.0, "tuning defaults are captured from the stock Vehicle")
+	# Live handling tuning (F7): per class, sliders push values onto that class's cars; reset restores.
+	driver.select_tuning_class(&"sedan")
+	_check(driver.default_tuning().mass == 1000.0 and driver.default_tuning().suspension_stiffness == 40.0, "the sedan class keeps the stock handling")
 	driver.set_tuning(&"mass", 2400.0)
 	driver.set_tuning(&"damping_relaxation", 2.5)
-	var wheels := VehicleTuning.wheels_of(suv)
-	_check(sedan.mass == 2400.0 and suv.mass == 2400.0 and wheels.size() == 4 and wheels[0].damping_relaxation == 2.5, "tuning sliders apply live to every target car")
-	_check(driver.report_tuning().contains("mass=2400"), "tuning values can be copied out")
+	var wheels := VehicleTuning.wheels_of(sedan)
+	_check(sedan.mass == 2400.0 and wheels.size() == 4 and wheels[0].damping_relaxation == 2.5, "tuning sliders apply live to the class being tuned")
+	_check(suv.mass == VehicleClass.find(&"suv").handling.mass and VehicleClass.find(&"sedan").handling.mass == 1000.0, "tuning one class leaves other classes and the class table alone")
+	var report := driver.report_tuning()
+	_check(report.contains("[sedan]") and report.contains("mass=2400"), "tuning values can be copied out, labelled with the class")
 	driver.reset_tuning()
-	_check(sedan.mass == 1000.0 and is_equal_approx(VehicleTuning.wheels_of(sedan)[0].damping_relaxation, driver.default_tuning.damping_relaxation), "reset restores the stock handling")
+	_check(sedan.mass == 1000.0 and is_equal_approx(VehicleTuning.wheels_of(sedan)[0].damping_relaxation, driver.default_tuning().damping_relaxation), "reset restores the class's handling")
+	_check(driver.cycle_tuning_class() == &"muscle", "F8 steps the tuning panel to the next class")
+	driver.select_tuning_class(&"sedan")
 
 	# Chop shop: park on the pad and get paid.
 	var payouts: Array[int] = []
@@ -273,6 +319,8 @@ func _test_driver(driver: CarjackDriver) -> void:
 	await _frames(2)
 	_check(not suv.has_occupant() and not _runner.get_tree().get_nodes_in_group("fleeing_drivers").is_empty(), "the yanked driver runs off")
 	_check(player.current_vehicle == suv and alarm_reasons == [PoliceCall.REASON_WITNESS] and driver.police_call.is_counting(), "the victim calls the cops")
+	await _frames(2)
+	_check(driver.tuning_class == &"suv", "getting into a car switches the tuning panel to its class")
 	suv.exit()
 	await _frames(2)
 

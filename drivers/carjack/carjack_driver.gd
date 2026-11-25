@@ -5,7 +5,7 @@ extends Node3D
 ## tracker and roll the car into the chop shop for cash.
 ##
 ## Run: godot --path . res://drivers/carjack/carjack_driver.tscn [-- --minigame=hotwire --tracker=always --difficulty=hard]
-## Debug keys: F1 panel, F2 minigame, F3 tracker, F4 difficulty, F5 reset, F6 jump to next car.
+## Debug keys: F1 panel, F2 minigame, F3 tracker, F4 difficulty, F5 reset, F6 jump to next car, F7 tuning panel, F8 next tuning class.
 
 signal jack_started(car: HotCar, minigame: CarjackMinigame)
 signal jack_finished(car: HotCar, success: bool)
@@ -22,17 +22,21 @@ const BLOCK_SPACING := 52.0
 const BLOCK_SIZE := 40.0
 const PLAYER_SPAWN := Vector3(-23.0, 1.0, -42.0)
 const POLICE_SPAWN := Vector3(56.0, 0.5, -26.0)
-## name, position, yaw, colour, value, occupied, tracker
+## [VehicleClass] id, position, yaw, occupied. One of each class.
 const TARGETS := [
-	["Sedan", Vector3(-23.5, 0.8, -30.0), 0.0, Color(0.55, 0.6, 0.65), 1200, false, false],
-	["Sports coupe", Vector3(-28.5, 0.8, -4.0), PI, Color(0.8, 0.1, 0.1), 3500, false, true],
-	["SUV", Vector3(-8.0, 0.8, -28.5), PI / 2.0, Color(0.15, 0.3, 0.2), 2200, true, false],
-	["Muscle car", Vector3(10.0, 0.8, 23.5), -PI / 2.0, Color(0.9, 0.55, 0.1), 2800, false, true],
+	[&"sedan", Vector3(-23.5, 0.8, -30.0), 0.0, false],
+	[&"sports", Vector3(-28.5, 0.8, -4.0), PI, false],
+	[&"suv", Vector3(-8.0, 0.8, -28.5), PI / 2.0, true],
+	[&"muscle", Vector3(10.0, 0.8, 23.5), -PI / 2.0, false],
+	[&"junker", Vector3(23.5, 0.8, -10.0), 0.0, true],
+	[&"luxury", Vector3(-12.0, 0.8, 28.5), PI / 2.0, false],
 ]
+## Cap on difficulty x class lock difficulty, so hard + luxury stays winnable.
+const MAX_JACK_DIFFICULTY := 2.0
 
 ## &"auto" (parked: lock pick, occupied: struggle) or a [constant CarjackMinigame.KINDS] id.
 @export var minigame_mode: StringName = MINIGAME_AUTO
-## &"per_car" (use each car's has_tracker), &"always" or &"never".
+## &"per_car" (each car rolls its class's tracker_chance at spawn), &"always" or &"never".
 @export var tracker_mode: StringName = &"per_car"
 @export var difficulty_level: StringName = &"normal"
 ## Seconds from driving off until a fitted tracker starts pinging.
@@ -61,19 +65,24 @@ var minigame_car: HotCar
 var hot_car: HotCar
 var cruisers: Array[PursuitCruiser] = []
 var alarms: Array[StringName] = []
-## Live handling values for every target car (F7 tuning panel). default_tuning is what the Vehicle
-## code builds, captured from the first car so the defaults are untouched.
-var tuning: VehicleTuning
-var default_tuning: VehicleTuning
+## Live handling per [VehicleClass] id (F7 tuning panel). Starts as a copy of the class table, so
+## nothing changes until a slider moves; tuning_class is the class the panel is editing.
+var tunings := {}
+var tuning_class: StringName = &"sedan"
 
 var _minigame_layer: CanvasLayer
 var _targets: Array[HotCar] = []
 var _teleport_index := 0
+var _rng := RandomNumberGenerator.new()
+var _last_driven: Vehicle
 
 
 func _ready() -> void:
 	if read_command_line:
 		_read_command_line()
+	_rng.randomize()
+	for class_id in VehicleClass.ids():
+		tunings[class_id] = VehicleClass.find(class_id).handling.duplicate_tuning()
 	_build_environment()
 	_build_world()
 	player = $Player
@@ -113,6 +122,11 @@ func _physics_process(delta: float) -> void:
 	_update_cruisers(delta)
 	if hot_car != null and not is_instance_valid(hot_car):
 		hot_car = null
+	var driving := player.current_vehicle if player != null else null
+	if driving != _last_driven:
+		_last_driven = driving
+		if driving != null and driving.vehicle_class != null:
+			select_tuning_class(driving.vehicle_class.id)
 
 
 func _input(event: InputEvent) -> void:
@@ -146,6 +160,8 @@ func _unhandled_key_input(event: InputEvent) -> void:
 			teleport_to_next_target()
 		KEY_F7:
 			hud.toggle_tuning()
+		KEY_F8:
+			cycle_tuning_class()
 		_:
 			return
 	get_viewport().set_input_as_handled()
@@ -176,11 +192,16 @@ func minigame_mode_name() -> String:
 
 
 func tracker_mode_name() -> String:
-	return {&"per_car": "Per car (coupe + muscle car)", &"always": "Every car", &"never": "Off"}.get(tracker_mode, String(tracker_mode))
+	return {&"per_car": "Per car (sports + luxury always, others by class chance)", &"always": "Every car", &"never": "Off"}.get(tracker_mode, String(tracker_mode))
 
 
 func difficulty() -> float:
 	return DIFFICULTIES.get(difficulty_level, 1.0)
+
+
+## The minigame difficulty for [param car]: the F4 setting times its class's lock difficulty.
+func jack_difficulty(car: HotCar) -> float:
+	return minf(difficulty() * (car.lock_difficulty() if car != null else 1.0), MAX_JACK_DIFFICULTY)
 
 
 func minigame_kind_for(car: HotCar) -> StringName:
@@ -189,26 +210,52 @@ func minigame_kind_for(car: HotCar) -> StringName:
 	return CarjackMinigame.KIND_STRUGGLE if car != null and car.has_occupant() else CarjackMinigame.KIND_LOCK_PICK
 
 
-## Sets one [constant VehicleTuning.PARAMS] value and applies it live to every target car.
+func current_tuning() -> VehicleTuning:
+	return tunings[tuning_class]
+
+
+## The class table's handling for the class being tuned (what "Reset defaults" goes back to).
+func default_tuning() -> VehicleTuning:
+	return VehicleClass.find(tuning_class).handling
+
+
+func select_tuning_class(class_id: StringName) -> void:
+	if tunings.has(class_id):
+		tuning_class = class_id
+
+
+func cycle_tuning_class() -> StringName:
+	var ids := VehicleClass.ids()
+	select_tuning_class(ids[(ids.find(tuning_class) + 1) % ids.size()])
+	EventBus.notify.emit("Tuning: %s" % VehicleClass.find(tuning_class).display_name)
+	return tuning_class
+
+
+## Sets one [constant VehicleTuning.PARAMS] value for the class being tuned and applies it live to
+## every target car of that class.
 func set_tuning(property: StringName, value: float) -> void:
-	tuning.set(property, value)
-	for car in targets():
-		tuning.apply(car)
+	current_tuning().set(property, value)
+	_apply_tuning()
 
 
 func reset_tuning() -> void:
-	tuning = default_tuning.duplicate_tuning()
-	for car in targets():
-		tuning.apply(car)
+	tunings[tuning_class] = default_tuning().duplicate_tuning()
+	_apply_tuning()
 
 
-## Prints the current handling values and copies them to the clipboard.
+## Prints the current class's handling values and copies them to the clipboard.
 func report_tuning() -> String:
-	var text := "Car tuning: " + tuning.to_text()
+	var text := "Car tuning [%s]: %s" % [tuning_class, current_tuning().to_text()]
 	print(text)
 	DisplayServer.clipboard_set(text)
 	EventBus.notify.emit("Tuning copied to clipboard (also printed to the console)")
 	return text
+
+
+func _apply_tuning() -> void:
+	for car in targets():
+		if car.vehicle_class != null and car.vehicle_class.id == tuning_class:
+			current_tuning().apply(car)
 
 
 func targets() -> Array[HotCar]:
@@ -241,7 +288,7 @@ func start_jack(car: HotCar, kind: StringName = &"") -> CarjackMinigame:
 		return null
 	minigame_car = car
 	minigame = CarjackMinigame.create(kind if kind != &"" else minigame_kind_for(car))
-	minigame.difficulty = difficulty()
+	minigame.difficulty = jack_difficulty(car)
 	minigame.name = "Minigame"
 	minigame.begin(car)
 	minigame.finished.connect(_on_minigame_finished)
@@ -418,24 +465,19 @@ func _on_delivered(car: HotCar, _payout: int) -> void:
 func _spawn_target(index: int) -> HotCar:
 	var spec: Array = TARGETS[index]
 	var car := HotCar.new()
-	car.name = String(spec[0]).replace(" ", "")
-	car.car_name = spec[0]
+	car.vehicle_class_id = spec[0]
+	car.name = String(spec[0]).capitalize().replace(" ", "")
 	car.position = spec[1]
 	car.rotation.y = spec[2]
-	car.body_color = spec[3]
-	car.car_value = spec[4]
-	car.occupied = spec[5]
-	car.has_tracker = spec[6]
+	car.occupied = spec[3]
+	car.has_tracker = VehicleClass.find(spec[0]).roll_tracker(_rng)
 	car.set_meta(&"target_index", index)
 	car.jack_requested.connect(_on_jack_requested)
 	car.exploded.connect(_schedule_respawn.bind(car))
 	get_node("Targets").add_child(car)
 	_targets.append(car)
-	if tuning == null:
-		default_tuning = VehicleTuning.from_vehicle(car)
-		tuning = default_tuning.duplicate_tuning()
-	else:
-		tuning.apply(car)
+	# Keep slider tweaks on respawned cars.
+	tunings[car.vehicle_class.id].apply(car)
 	return car
 
 

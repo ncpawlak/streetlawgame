@@ -24,12 +24,25 @@ godot --path . res://drivers/carjack/carjack_driver.tscn -- --minigame=hotwire -
 
 Target cars respawn 8 s after they're delivered or destroyed.
 
-| Car | Value | Notes |
-| --- | --- | --- |
-| Sedan | $1,200 | parked |
-| Sports coupe | $3,500 | parked, tracker |
-| SUV | $2,200 | occupied |
-| Muscle car | $2,800 | parked, tracker |
+## Car classes
+
+The scene spawns one car of each class. Classes live in the shared table `scripts/vehicles/vehicle_class.gd` (`VehicleClass.TABLE`), so the main game's cars can use the same rows: set `vehicle_class_id` on any `Vehicle`. A class sets:
+
+- the lock difficulty: a multiplier on the F4 difficulty for every minigame, capped at 2.0 so hard + luxury is still winnable
+- the tracker chance, rolled when the car spawns
+- the chop shop value
+- health, handling and paint
+
+| Class | Lock | Tracker | Chop value | Handling | Spawns |
+| --- | --- | --- | --- | --- | --- |
+| Junker | ×0.70 | never | $600 | light, soft, weak engine | occupied |
+| Sedan | ×1.00 | 10 % | $1,200 | stock `Vehicle` handling (unchanged) | parked |
+| Muscle car | ×1.10 | 35 % | $2,800 | heavy, big engine, loose rear | parked |
+| SUV | ×1.15 | 25 % | $2,200 | 2 t, high centre of mass, leans | occupied |
+| Sports coupe | ×1.30 | always | $3,500 | low, stiff, grippy, quick steering | parked |
+| Luxury sedan | ×1.45 | always | $4,500 | heavy, firm, smooth | parked |
+
+The F1 panel shows this table. To add a class, add a row to `VehicleClass.TABLE`. Any handling key you leave out keeps the stock value.
 
 ## Minigames (prototypes, swappable)
 
@@ -57,17 +70,19 @@ To add a new prototype, extend `CarjackMinigame`, override `_setup` / `_tick` / 
 | F5 | Reload the scene |
 | F6 | Teleport next to the next target car |
 | F7 | Show / hide the **car tuning** panel |
+| F8 | Switch the tuning panel to the next car class |
 
 These map to the command-line args `--minigame=auto|lock_pick|hotwire|struggle`, `--tracker=per_car|always|never` and `--difficulty=easy|normal|hard`, and to the matching exports on `CarjackDriver`.
 
 ## Car tuning (F7)
 
-The panel on the right live-adjusts the handling of every target car: mass, centre-of-mass height, suspension stiffness, compression and rebound damping, suspension travel, roll influence (body lean), tyre grip, engine force, max steer and steer speed.
+The panel on the right live-adjusts the handling of one **car class** at a time: mass, centre-of-mass height, suspension stiffness, compression and rebound damping, suspension travel, roll influence (body lean), tyre grip, engine force, max steer and steer speed. Changes apply to every car of that class.
 
+- The panel follows the car you get into. Use **F8** or the `< Class >` button to pick another class.
 - Press **Esc** to free the mouse, drag the sliders, then click the world to resume driving.
-- Values you've changed from the stock defaults show in yellow.
-- **Copy values** copies a one-line summary to the clipboard (it's also printed to the console), e.g. `Car tuning: mass=1000, center_of_mass_y=0.30, ...`. Paste that back to lock the settings in.
-- **Reset defaults** restores the stock handling. The defaults are not changed until you pick values.
+- Values you've changed from the class table show in yellow.
+- **Copy values** copies a one-line summary to the clipboard (it's also printed to the console), e.g. `Car tuning [sedan]: mass=1000, center_of_mass_y=0.30, ...`. The keys match `VehicleClass.TABLE`, so the numbers can be pasted into that class's `handling` row.
+- **Reset defaults** restores the class table values. Nothing in the table changes until you pick values.
 
 "Floppy" feel mostly comes from damping, roll influence and centre-of-mass height, not just mass. Low rebound damping and high roll influence make the body wallow.
 
@@ -84,7 +99,7 @@ This applies to all vehicles, via the shared `scripts/vehicles/vehicle.gd`. The 
 | `hot_car.gd` | `HotCar` (a `Vehicle`): locked / occupied / stolen state, the Jack interaction, the alarm |
 | `hot_car_tracker.gd` | `HotCarTracker`: pings, expiry and jamming |
 | `chop_shop.gd` | `ChopShop`: the drop-off pad and payouts |
-| `vehicle_tuning.gd` | `VehicleTuning`: handling knobs captured from and applied to a `Vehicle` |
+| `vehicle_class.gd` / `vehicle_tuning.gd` (in `scripts/vehicles/`) | Shared `VehicleClass` table and `VehicleTuning` handling knobs |
 | `jam_zone.gd` | Parking garage that blocks tracker signals |
 | `pursuit_cruiser.gd` | Simple AI police car that chases tracker pings |
 | `fleeing_driver.gd` | Victim who runs off after being pulled out |

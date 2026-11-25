@@ -43,7 +43,8 @@ docs/                  Design & architecture docs
 | Class | Extends | Responsibility |
 | --- | --- | --- |
 | `Player` | `CharacterBody3D` | On-foot movement, orbit camera, shooting, entering vehicles, health and respawn. |
-| `Vehicle` | `VehicleBody3D` | Driving, chase camera, drive-by shooting, running over NPCs, health/crash damage, smoke/fire/explode states. Built in code. |
+| `Vehicle` | `VehicleBody3D` | Driving, free-look chase camera, drive-by shooting, running over NPCs, health/crash damage, smoke/fire/explode states. Built in code. Set `vehicle_class_id` to take a `VehicleClass` row. |
+| `VehicleClass` | `Resource` | Data table of car classes (junker, sedan, muscle, SUV, sports, luxury): lock difficulty, tracker chance, chop value, health and `VehicleTuning` handling. `VehicleClass.find(id)`. |
 | `GangMember` | `CharacterBody3D` | Rival NPC: wander, aggro, shoot, die and drop rewards. |
 | `District` | `Node3D` | District bounds, safehouse, guards/patrols, map overlay; ticks its `CaptureRule`. Generated or placed by hand with a `district_id`. |
 | `Safehouse` | `Node3D` | A district's safehouse: visual from `SafehouseData.visual` (`VisualSpec`, greybox fallback), door, guard points, and an `Interactable` with "Take over" (`can_claim/claim`) and "Manage" (`can_manage/manage`, emits `safehouse_manage_requested` for #25). |

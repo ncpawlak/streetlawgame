@@ -8,6 +8,7 @@ signal exploded
 
 enum DamageState { OK, SMOKING, BURNING, WRECKED }
 
+const DEFAULT_BODY_COLOR := Color(0.2, 0.2, 0.25)
 const WHEEL_LAYOUT := [
 	# [position, is_front]
 	[Vector3(0.9, 0.6, 1.4), true],
@@ -16,7 +17,10 @@ const WHEEL_LAYOUT := [
 	[Vector3(-0.9, 0.6, -1.4), false],
 ]
 
-@export var body_color := Color(0.2, 0.2, 0.25)
+@export var body_color := DEFAULT_BODY_COLOR
+## A [constant VehicleClass.TABLE] row (e.g. &"sports"): sets health, handling and, unless body_color
+## was changed, the paint. Empty keeps the stock build.
+@export var vehicle_class_id: StringName = &""
 @export var max_engine_force := 3000.0
 @export var max_brake_force := 60.0
 @export var max_steer := 0.55
@@ -42,6 +46,8 @@ const WHEEL_LAYOUT := [
 var driver: Player
 var health := 0.0
 var damage_state := DamageState.OK
+## Resolved from vehicle_class_id in _ready (null for a stock car).
+var vehicle_class: VehicleClass
 
 var _camera_pivot: Node3D
 var _spring_arm: SpringArm3D
@@ -67,9 +73,16 @@ func _ready() -> void:
 	contact_monitor = true
 	max_contacts_reported = 4
 	body_entered.connect(_on_body_entered)
+	if vehicle_class_id != &"":
+		vehicle_class = VehicleClass.find(vehicle_class_id)
+		assert(vehicle_class != null, "Unknown vehicle class %s" % vehicle_class_id)
+		if vehicle_class != null and body_color == DEFAULT_BODY_COLOR:
+			body_color = vehicle_class.color
 	health = max_health
 	_build_body()
 	_build_wheels()
+	if vehicle_class != null:
+		vehicle_class.apply_to(self)
 	_build_camera()
 	_build_damage_effects()
 	_build_interactable()

@@ -16,6 +16,9 @@ var _tuning_panel: PanelContainer
 var _sliders := {}
 var _values := {}
 var _syncing := false
+var _class_button: Button
+## The class the sliders were last filled from (resync when the driver switches class).
+var _synced_class: StringName = &""
 
 
 func _ready() -> void:
@@ -68,6 +71,16 @@ func _build_tuning_panel() -> void:
 	title.text = "CAR TUNING  [F7 hide]  -  [Esc] frees the mouse to drag"
 	title.add_theme_font_size_override("font_size", 13)
 	rows.add_child(title)
+	var class_row := HBoxContainer.new()
+	rows.add_child(class_row)
+	var class_label := Label.new()
+	class_label.text = "Class  [F8 next]"
+	class_label.custom_minimum_size.x = 190.0
+	class_label.add_theme_font_size_override("font_size", 13)
+	class_row.add_child(class_label)
+	_class_button = _button("", func() -> void: driver.cycle_tuning_class())
+	_class_button.custom_minimum_size.x = 206.0
+	class_row.add_child(_class_button)
 	for spec: Array in VehicleTuning.PARAMS:
 		var row := HBoxContainer.new()
 		rows.add_child(row)
@@ -109,13 +122,16 @@ func _button(text: String, action: Callable) -> Button:
 	return button
 
 
-## Pulls the driver's current tuning into the sliders.
+## Pulls the driver's current class tuning into the sliders.
 func sync_tuning() -> void:
-	if driver == null or driver.tuning == null:
+	if driver == null or driver.tunings.is_empty():
 		return
 	_syncing = true
+	_synced_class = driver.tuning_class
+	_class_button.text = "< %s >" % VehicleClass.find(driver.tuning_class).display_name
+	var tuning := driver.current_tuning()
 	for spec: Array in VehicleTuning.PARAMS:
-		var value: float = driver.tuning.get(spec[0])
+		var value: float = tuning.get(spec[0])
 		_sliders[spec[0]].value = value
 		_update_value_label(spec, value)
 	_syncing = false
@@ -133,14 +149,14 @@ func _on_slider_changed(value: float, property: StringName) -> void:
 func _update_value_label(spec: Array, value: float) -> void:
 	var label: Label = _values[spec[0]]
 	label.text = VehicleTuning.format_value(value, spec[4])
-	var default_value: float = driver.default_tuning.get(spec[0])
+	var default_value: float = driver.default_tuning().get(spec[0])
 	label.add_theme_color_override("font_color", Color.WHITE if is_equal_approx(value, default_value) else Color(1.0, 0.8, 0.3))
 
 
 func _process(_delta: float) -> void:
 	if driver == null:
 		return
-	if _sliders.size() > 0 and driver.tuning != null and _values[&"mass"].text == "":
+	if _sliders.size() > 0 and _synced_class != driver.tuning_class:
 		sync_tuning()
 	_tuning_panel.visible = tuning_visible and not driver.is_minigame_open()
 	_objective.text = objective_text()
@@ -153,9 +169,18 @@ func _process(_delta: float) -> void:
 	var car := driver.hot_car
 	_tracker.text = car.tracker.status_text() if car != null and is_instance_valid(car) and car.tracker != null else ""
 	_debug_panel.visible = debug_visible
-	_debug_label.text = "CARJACK DEBUG  [F1 hide]\n[F2] Minigame:  %s\n[F3] Trackers:  %s\n[F4] Difficulty:  %s\n[F5] Reset scene    [F6] Jump to next car    [F7] Car tuning\nChop shop paid: $%d (%d cars)" % [
+	_debug_label.text = "CARJACK DEBUG  [F1 hide]\n[F2] Minigame:  %s\n[F3] Trackers:  %s\n[F4] Difficulty:  %s\n[F5] Reset scene    [F6] Jump to next car    [F7] Car tuning\nChop shop paid: $%d (%d cars)\n%s" % [
 		driver.minigame_mode_name(), driver.tracker_mode_name(), String(driver.difficulty_level).capitalize(),
-		driver.chop_shop.total_paid, driver.chop_shop.deliveries]
+		driver.chop_shop.total_paid, driver.chop_shop.deliveries, class_table_text()]
+
+
+## One line per [VehicleClass]: lock difficulty, tracker chance and chop value.
+static func class_table_text() -> String:
+	var lines: PackedStringArray = ["Class            Lock   Tracker   Chop"]
+	for class_id in VehicleClass.ids():
+		var data := VehicleClass.find(class_id)
+		lines.append("%s  x%.2f   %3d%%    $%d" % [data.display_name.rpad(14), data.lock_difficulty, int(round(data.tracker_chance * 100.0)), data.chop_value])
+	return "\n".join(lines)
 
 
 func objective_text() -> String:
