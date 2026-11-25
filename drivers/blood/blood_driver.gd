@@ -291,6 +291,34 @@ func _take_screenshots(dir: String) -> void:
 	await _seconds(0.15)
 	await _capture(dir, "blood_wounds_hit_reaction.png")
 
+	# 2b. Wound splotches on every model type: close-ups, then the normal third-person camera.
+	var member := targets.back() as GangMember
+	member.health = 10000.0
+	var models := {suit = civilian, swat = cop, gang = member}
+	for model: String in models:
+		var target := models[model] as Node3D
+		if target is BloodTarget:
+			(target as BloodTarget).health = 10000.0
+		_player.global_position = target.global_position + Vector3(0.0, 0.0, 3.0)
+		_player.rotation.y = 0.0
+		for offset in [Vector3(0.08, 1.3, 0.0), Vector3(-0.1, 1.05, 0.0), Vector3(0.12, 0.7, 0.0)]:
+			_shoot_at(target.global_position + offset)
+			await _seconds(0.15)
+	await _seconds(0.8)
+	for model: String in models:
+		var target := models[model] as Node3D
+		view.look_at_from_position(target.global_position + Vector3(0.3, 1.25, 1.4), target.global_position + Vector3(0.0, 1.0, 0.0), Vector3.UP)
+		await _wait(5)
+		await _capture(dir, "blood_wounds_%s.png" % model)
+	_player.global_position = Vector3(1.5, 0.0, 0.5)
+	_player.rotation.y = 0.0
+	(_player.get_node("CameraPivot") as Node3D).rotation.y = 0.0
+	_camera.make_current()
+	await _wait(20)
+	await _capture(dir, "blood_wounds_third_person.png")
+	view.make_current()
+	_player.global_position = Vector3(-1.0, 0.0, 2.0)
+
 	# 3. Ground and wall splats: rifle and shotgun bursts at the capsules and the walker.
 	capsule.health = 10000.0
 	for i in 6:
@@ -310,6 +338,8 @@ func _take_screenshots(dir: String) -> void:
 	for target in targets:
 		if target is BloodTarget:
 			(target as BloodTarget).health = minf((target as BloodTarget).health, (target as BloodTarget).max_health)
+		elif target is GangMember:
+			(target as GangMember).health = minf((target as GangMember).health, (target as GangMember).max_health)
 	kill_all()
 	await _seconds(POOL_SCREENSHOT_DELAY)
 	view.look_at_from_position(Vector3(3.5, 4.5, -1.0), Vector3(1.0, 0.0, -7.0), Vector3.UP)

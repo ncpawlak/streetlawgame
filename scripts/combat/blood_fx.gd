@@ -19,6 +19,9 @@ const DROPLETS_PER_HIT := 4
 ## Furthest a droplet is thrown along the shot (m).
 const DROPLET_RANGE := 2.4
 const WOUND_SIZE := 0.2
+## Wound splotch on animated models: width (m) and how far it sits off the skin.
+const SPLOTCH_SIZE := 0.18
+const SPLOTCH_LIFT := 0.012
 const POOL_START_SIZE := 0.35
 const POOL_SIZE := 1.9
 const POOL_GROW_TIME := 7.0
@@ -30,12 +33,13 @@ const TEXTURE_VARIANTS := 4
 static var _textures: Array[Texture2D] = []
 static var _wound_texture: Texture2D
 static var _droplet_mesh: Mesh
+static var _splotch: Mesh
 
 var _sprays: Array[GPUParticles3D] = []
 var _next_spray := 0
 var _splats: Array[Decal] = []
 var _pools: Array[Decal] = []
-var _wounds: Array[Decal] = []
+var _wounds: Array[Node3D] = []
 
 
 ## The scene's BloodFx, created on first use.
@@ -71,20 +75,41 @@ static func on_hit(body: Node3D, point: Vector3, direction: Vector3, normal: Vec
 func spawn_hit(body: Node3D, point: Vector3, direction: Vector3, normal: Vector3) -> void:
 	var shot := direction.normalized() if direction.length_squared() > 0.0001 else -normal
 	_spray(point, shot)
-	add_wound(body, point, normal if normal.length_squared() > 0.0001 else -shot)
+	add_wound(body, point, normal if normal.length_squared() > 0.0001 else -shot, shot)
 	_throw_droplets(point, shot, body)
 	if _is_down(body):
 		start_pool(body)
 
 
 ## Wound mark at [param point] that follows the body (or the nearest bone of its animated model).
-func add_wound(body: Node3D, point: Vector3, normal: Vector3) -> Decal:
-	var anchor := _wound_anchor(body, point)
-	var wound := _make_decal(_wound_tex(), Vector3(WOUND_SIZE, 0.3, WOUND_SIZE), BLOOD_COLOR.darkened(0.15))
+## On an animated model the point is the hit on the (wider) collision capsule, so the bullet's line
+## [param direction] is traced on into the posed skin and a splotch mesh is laid just outside it.
+func add_wound(body: Node3D, point: Vector3, normal: Vector3, direction := Vector3.ZERO) -> Node3D:
+	var wound: Node3D
+	var skeleton := _skeleton_of(body)
+	var skin := {}
+	if skeleton != null:
+		skin = skin_hit(skeleton, point, direction if direction.length_squared() > 0.0001 else -normal)
+	if not skin.is_empty():
+		var skin_normal: Vector3 = skin["normal"]
+		var splotch := MeshInstance3D.new()
+		splotch.mesh = _splotch_mesh()
+		splotch.layers = skin["layers"]
+		splotch.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+		wound = splotch
+		_wound_anchor(body, skin["position"]).add_child(wound)
+		var basis := Basis.looking_at(-skin_normal, Vector3.UP if absf(skin_normal.y) < 0.9 else Vector3.FORWARD)
+		# Thin limbs get a smaller splotch so it doesn't overhang their edges.
+		var thickness: float = (skin["position"] as Vector3).distance_to(_nearest_bone(skeleton, skin["position"])[1])
+		var size := clampf(thickness * 2.2, SPLOTCH_SIZE * 0.4, SPLOTCH_SIZE)
+		basis = basis.rotated(skin_normal, randf() * TAU).scaled_local(Vector3(size, size, 1.0))
+		wound.global_transform = Transform3D(basis, skin["position"] + skin_normal * SPLOTCH_LIFT)
+	else:
+		wound = _make_decal(_wound_tex(), Vector3(WOUND_SIZE, 0.3, WOUND_SIZE), BLOOD_COLOR.darkened(0.15))
+		_wound_anchor(body, point).add_child(wound)
+		wound.global_transform = Transform3D(_basis_facing(normal), point)
 	wound.name = "BloodWound"
 	wound.set_meta(&"blood_body", body)
-	anchor.add_child(wound)
-	wound.global_transform = Transform3D(_basis_facing(normal), point)
 
 	var own: Array = body.get_meta(&"blood_wounds", [])
 	own = own.filter(_valid)
@@ -302,21 +327,13 @@ func _place_pool(pool: Decal, body: Node3D) -> void:
 
 # --- wounds ---------------------------------------------------------------------------------------
 
-## Parent for a wound at [param point]: the body's own wound_anchor(point) if it has one, else a
-## BoneAttachment3D on the bone of its animated model nearest the point, else the body itself.
+## Parent for a wound at [param point]: a BoneAttachment3D on the bone of the body's animated model
+## nearest the point, else the body's own wound_anchor(point) if it has one, else the body itself.
 func _wound_anchor(body: Node3D, point: Vector3) -> Node3D:
-	if body.has_method(&"wound_anchor"):
-		return body.call(&"wound_anchor", point)
 	var skeleton := _skeleton_of(body)
 	if skeleton == null:
-		return body
-	var best := -1
-	var best_distance := INF
-	for bone in skeleton.get_bone_count():
-		var distance := (skeleton.global_transform * skeleton.get_bone_global_pose(bone).origin).distance_squared_to(point)
-		if distance < best_distance:
-			best = bone
-			best_distance = distance
+		return body.call(&"wound_anchor", point) if body.has_method(&"wound_anchor") else body
+	var best: int = _nearest_bone(skeleton, point)[0]
 	if best < 0:
 		return body
 	var bone_name := skeleton.get_bone_name(best)
@@ -329,6 +346,64 @@ func _wound_anchor(body: Node3D, point: Vector3) -> Node3D:
 		attachment.bone_name = bone_name
 	attachment.global_transform = skeleton.global_transform * skeleton.get_bone_global_pose(best)
 	return attachment
+
+
+## [bone, closest world point] of the bone (as a segment to each child bone) nearest [param point].
+## Root bones are skipped: their segment runs from the feet up between the legs.
+static func _nearest_bone(skeleton: Skeleton3D, point: Vector3) -> Array:
+	var best := -1
+	var best_point := point
+	var best_distance := INF
+	for bone in skeleton.get_bone_count():
+		if skeleton.get_bone_parent(bone) < 0:
+			continue
+		var start := skeleton.global_transform * skeleton.get_bone_global_pose(bone).origin
+		var ends: Array[Vector3] = [start]
+		for child in skeleton.get_bone_children(bone):
+			ends.append(skeleton.global_transform * skeleton.get_bone_global_pose(child).origin)
+		for end in ends:
+			var closest := Geometry3D.get_closest_point_to_segment(point, start, end)
+			var distance := closest.distance_squared_to(point)
+			if distance < best_distance:
+				best = bone
+				best_point = closest
+				best_distance = distance
+	return [best, best_point]
+
+
+## Where a bullet through [param point] along [param direction] meets the posed skin of the
+## skeleton's skinned meshes: {position, normal, layers, mesh}, or {} if there's no skin there.
+## The point is usually on the collision capsule, which is wider than the model, so a line that
+## grazes past the model is retried straight at the nearest bone.
+static func skin_hit(skeleton: Skeleton3D, point: Vector3, direction: Vector3) -> Dictionary:
+	if direction.length_squared() < 0.0001:
+		return {}
+	var dir := direction.normalized()
+	var hit := SkinRaycast.intersect(skeleton, point - dir * 0.6, point + dir * 1.2)
+	if hit.is_empty():
+		var bone: Vector3 = _nearest_bone(skeleton, point)[1]
+		var toward := bone - point
+		if toward.length_squared() > 0.0001:
+			toward = toward.normalized()
+			hit = SkinRaycast.intersect(skeleton, point - toward * 0.3, bone + toward * 0.05)
+	if not hit.is_empty():
+		hit["layers"] = (hit["mesh"] as MeshInstance3D).layers
+	return hit
+
+static func _splotch_mesh() -> Mesh:
+	if _splotch == null:
+		var material := StandardMaterial3D.new()
+		material.albedo_texture = _wound_tex()
+		material.albedo_color = BLOOD_COLOR.lightened(0.05)
+		material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA_SCISSOR
+		material.alpha_scissor_threshold = 0.4
+		material.cull_mode = BaseMaterial3D.CULL_DISABLED
+		material.roughness = 0.3
+		var quad := QuadMesh.new()
+		quad.size = Vector2.ONE
+		quad.material = material
+		_splotch = quad
+	return _splotch
 
 
 static func _skeleton_of(body: Node) -> Skeleton3D:

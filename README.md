@@ -47,7 +47,7 @@ You start with fists and a pistol. There's a stash of guns (SMG, shotgun, rifle)
 
 Vehicles take damage from bullets, explosions and crashes: they smoke, then catch fire, then explode. Rivals will shoot at your car while you're driving.
 
-Gunshots draw blood (`scripts/combat/blood_fx.gd`, hooked into `Hitscan.fire`). Every bullet that hits a character (the player, NPCs or cops, capsules or animated models) sprays blood along the shot. The droplets splat on the ground and on nearby walls, and a red wound mark stays at the impact point, riding the nearest bone so it moves with the body. The dead bleed out into a pool that grows under the body. Props and melee hits don't bleed. Everything is capped and recycled: 16 sprays, 120 splats, 12 pools, 64 wound marks (8 per body).
+Gunshots draw blood (`scripts/combat/blood_fx.gd`, hooked into `Hitscan.fire`). Every bullet that hits a character (the player, NPCs or cops, capsules or animated models) sprays blood along the shot. The droplets splat on the ground and on nearby walls, and a red wound mark stays at the impact point, riding the nearest bone so it moves with the body. On animated models the bullet line is cast against the posed skin (`scripts/combat/skin_raycast.gd`, CPU-skinned since the collision capsule is much wider than the model) and the wound is a small blood splotch laid just outside the skin, sized to the limb; capsules get a projected decal. The dead bleed out into a pool that grows under the body. Props and melee hits don't bleed. Everything is capped and recycled: 16 sprays, 120 splats, 12 pools, 64 wound marks (8 per body).
 
 ## Gameplay drivers
 

@@ -24,6 +24,7 @@ func run(main: Node, player: Player) -> void:
 	await _test_capsule_hit(main, fx, origin + Vector3(4.0, 0.0, 0.0))
 	await _test_no_blood_for_props(main, fx, origin + Vector3(-4.0, 0.0, 0.0))
 	await _test_caps(main, fx, origin + Vector3(8.0, 0.0, 0.0))
+	await _test_every_model(main, origin + Vector3(0.0, 0.0, 12.0))
 	fx.clear()
 	_shooter.queue_free()
 
@@ -53,7 +54,7 @@ func _test_animated_hit(main: Node, fx: BloodFx, at: Vector3) -> void:
 	var wound := wounds[0] as Node3D
 	var anchor := wound.get_parent()
 	_check(anchor is BoneAttachment3D and anchor.get_parent() == member.visual.skeleton, "the wound rides a bone of the animated model (%s)" % anchor.name)
-	_check(wound.global_position.distance_to(expected) < 0.05, "the wound mark sits at the impact point (%.3f m off)" % wound.global_position.distance_to(expected))
+	_check_on_skin(wound, member.visual.skeleton, expected, "the gang member")
 	_check(fx.spray_count() >= 1, "the hit sprays blood")
 	_check(fx.splat_count() > splats_before, "blood droplets land on the ground (%d splats)" % (fx.splat_count() - splats_before))
 	var ground_y := _ray_point(member, member.global_position + Vector3.UP, Vector3.DOWN).y
@@ -138,6 +139,52 @@ func _test_caps(main: Node, fx: BloodFx, at: Vector3) -> void:
 	body.queue_free()
 	for other in bodies:
 		other.queue_free()
+
+
+## Every character model, hit in the chest and the thigh: the wound is a visible splotch lying on
+## its skin (the bullet stops on the wider collision capsule, which the old decals missed).
+func _test_every_model(main: Node, at: Vector3) -> void:
+	var models := {}
+	for archetype: StringName in CharacterVisual.ARCHETYPES:
+		var list: Array = CharacterVisual.ARCHETYPES[archetype]
+		for i in list.size():
+			if not models.has(list[i]):
+				models[list[i]] = [archetype, i]
+	var spot := at
+	for model: StringName in models:
+		var body := _capsule(main, spot)
+		var visual := CharacterVisual.create(models[model][0], models[model][1])
+		body.add_child(visual)
+		body.set(&"visual", visual)
+		spot += Vector3(2.5, 0.0, 0.0)
+		await _frames(10)
+		for height in [1.3, 0.7]:
+			var muzzle := body.global_position + Vector3(0.08, height, 3.0)
+			var expected := _ray_point(body, muzzle, Vector3.FORWARD)
+			var count := BloodFx.wounds_on(body).size()
+			Hitscan.fire(_shooter, muzzle, Vector3.FORWARD, _gun(), [])
+			var wounds := BloodFx.wounds_on(body)
+			_check(wounds.size() == count + 1, "%s: a %.1f m high hit leaves a wound" % [model, height])
+			if wounds.size() > count:
+				_check_on_skin(wounds[-1], visual.skeleton, expected, "%s at %.1f m" % [model, height])
+		body.queue_free()
+
+
+## The wound is a visible mesh on the model's layers, lying just outside its posed skin (nothing
+## of the model between it and the shooter, skin right behind it) and behind the capsule impact point.
+func _check_on_skin(wound: Node3D, skeleton: Skeleton3D, capsule_point: Vector3, label: String) -> void:
+	var mesh := wound as MeshInstance3D
+	var skin := BloodFx.skin_hit(skeleton, capsule_point, Vector3.FORWARD)
+	if mesh == null or skin.is_empty():
+		_check(false, "%s: the wound is a splotch mesh on the skin (mesh %s, skin hit %s)" % [label, mesh != null, not skin.is_empty()])
+		return
+	var skin_mesh := skin["mesh"] as MeshInstance3D
+	_check(mesh.is_visible_in_tree() and mesh.layers & skin_mesh.layers != 0 and mesh.mesh != null, "%s: the wound is a visible mesh on the model's layers" % label)
+	var normal := mesh.global_basis.z.normalized()
+	var in_front := SkinRaycast.intersect(skeleton, wound.global_position + Vector3.BACK * 0.5, wound.global_position + Vector3.BACK * 0.001)
+	var behind := SkinRaycast.intersect(skeleton, wound.global_position, wound.global_position - normal * 0.05)
+	_check(in_front.is_empty() and not behind.is_empty(), "%s: the wound lies just outside the skin (skin %.3f m behind)" % [label, wound.global_position.distance_to(behind.get("position", Vector3.ZERO))])
+	_check(capsule_point.z - wound.global_position.z > 0.03, "%s: the wound sits in from the capsule surface (%.2f m)" % [label, capsule_point.z - wound.global_position.z])
 
 
 func _capsule(main: Node, at: Vector3) -> CharacterBody3D:
