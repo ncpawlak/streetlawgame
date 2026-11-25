@@ -70,6 +70,8 @@ func reset_all() -> void:
 	var player := get_node_or_null("Player") as Player
 	if player != null and player.current_vehicle != null:
 		player.current_vehicle.exit()
+	elif player != null:
+		player.cancel_moves()
 	for node in vehicles():
 		$Vehicles.remove_child(node)
 		node.queue_free()

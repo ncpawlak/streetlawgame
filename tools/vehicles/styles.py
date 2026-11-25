@@ -2,6 +2,9 @@
 shapes, wheels and the gameplay markers (Seats/Driver, Exit, EngineSmoke) on a VehicleBuilder."""
 import math
 
+from builder import clip_z
+from tscn import xform
+
 G = 9.8
 
 
@@ -40,7 +43,7 @@ def wheels(b, s):
 def markers(b, s, driver_z, seat_y, per_row=2, row_gap=0.85, width=None):
     """Seats/Driver + Seats/PassengerN, the driver-side Exit and the EngineSmoke emitter."""
     body = s["body"]
-    W = width or body["W"]
+    W = body["W"] if width is None else width
     seats = b.sc.node("Seats", "Node3D", ".")
     n = s["seats"]
     xs = [W * 0.22, -W * 0.22] if per_row == 2 else [W * (0.36 - 0.24 * i) for i in range(per_row)]
@@ -49,6 +52,90 @@ def markers(b, s, driver_z, seat_y, per_row=2, row_gap=0.85, width=None):
         b.marker("Driver" if i == 0 else "Passenger%d" % i, (xs[col], seat_y, driver_z - row * row_gap), seats)
     b.marker("Exit", (W / 2 + 0.9, 0.2, driver_z))
     b.marker("EngineSmoke", body.get("smoke", (0, body.get("belt", 1.0) + 0.1, body["L"] / 2 - 0.8)))
+
+
+SEATED_HEAD = 0.86  # hip joint to the top of the head, sitting upright (1.8 m character)
+LEG = 0.86          # hip to heel
+
+
+def seat_hip(d, greenhouse):
+    """Hip-joint height for the driver: low enough that the head clears the roof, above the floor."""
+    ride, belt, roof = d["ride"], d["belt"], d.get("roof", 0)
+    if "seat_y" in d:
+        return d["seat_y"]
+    if not greenhouse:
+        return belt - 0.3
+    return max(ride + 0.18, min(roof - 0.95, belt - 0.15))
+
+
+def ride_markers(b, s, hip, pedals, steer, grip, lean, door=None, stand=None, entry="door", feet=0.12,
+                 steer_tilt=60, wheel=True, step=None):
+    """Driver pose markers read by Vehicle/CharacterVisual (vehicle space, +z forward):
+    Ride/Pedals (feet centre), Ride/Steer (hands centre, grips at +-`grip` x), DoorStand (ground
+    point the driver walks to), optional Doors/Driver hinge (painted panel + Handle) and Ride/Step
+    (inside the bus door). The pose itself goes in the registry entry's "ride" block."""
+    ride = b.sc.node("Ride", "Node3D", ".")
+    b.marker("Pedals", pedals, ride)
+    b.marker("Steer", steer, ride)
+    if step is not None:
+        b.marker("Step", step, ride)
+    b.marker("DoorStand", stand)
+    if wheel:
+        b.cyl("SteeringWheel", 0.19, 0.035, steer, "black", rot=(-steer_tilt, 0, 0), sides=18)
+        b.cyl("SteeringHub", 0.05, 0.06, steer, "plastic", rot=(-steer_tilt, 0, 0), sides=8)
+    side = 1 if stand[0] >= 0 else -1
+    if door is not None:
+        z_front, z_rear, y0, y1 = door
+        hinge_x = side * (s["body"]["W"] / 2 + 0.012)
+        doors = b.sc.node("Doors", "Node3D", ".")
+        hinge = b.sc.node("Driver", "Node3D", doors, {"transform": xform((hinge_x, 0, z_front))})
+        length = z_front - z_rear
+        b.box("Panel", (0.03, y1 - y0, length), (side * 0.004, (y0 + y1) / 2, -length / 2), "paint", parent=hinge)
+        b.box("HandleGrip", (0.03, 0.035, 0.14), (side * 0.03, y1 - 0.1, -length + 0.16), "chrome", parent=hinge)
+        b.marker("Handle", (side * 0.06, y1 - 0.1, -length + 0.16), hinge)
+    s["ride"] = {"pose": "straddle" if entry == "straddle" else "seat", "entry": entry,
+                 "side": "left" if side > 0 else "right", "lean": round(lean, 3), "grip": grip, "feet": feet,
+                 "hip": [round(v, 3) for v in hip], "door": door is not None}
+
+
+def pedal_reach(drop):
+    """Forward distance from hip to heels for a seat `drop` m above the floor (knees slightly bent)."""
+    return math.sqrt(max(0.05, LEG * LEG - drop * drop)) * 0.85
+
+
+def car_ride(b, s, driver_x, driver_z, greenhouse):
+    d = s["body"]
+    W, ride, belt, roof = d["W"], d["ride"], d["belt"], d.get("roof", 0)
+    cf = d.get("cab_front", 0)
+    hip_y = seat_hip(d, greenhouse)
+    headroom = (roof - 0.06 - hip_y) if greenhouse else 9.0
+    lean = -math.acos(max(0.55, headroom / SEATED_HEAD)) if headroom < SEATED_HEAD - 0.005 else 0.0
+    floor_y = max(ride + 0.06, hip_y - 0.55)
+    upright = hip_y - floor_y > 0.45
+    # Keep the toes (~0.25 m past the ankle) inside the nose, e.g. the bus's flat front.
+    driver_z = min(driver_z, d["L"] / 2 - 0.4 - pedal_reach(hip_y - floor_y))
+    top = roof - 0.25 if greenhouse else belt + 0.45
+    steer_y = min(max(hip_y + 0.38, belt + 0.08), top)
+    steer = (driver_x, steer_y, driver_z + (0.38 if upright else 0.48) - 0.12 * lean)
+    pedals = (driver_x, floor_y, driver_z + pedal_reach(hip_y - floor_y))
+    entry = d.get("entry", "door")
+    if entry == "bus":
+        door_z = d["bus_door_z"]
+        stand = (-(W / 2 + 0.6), 0.0, door_z)
+        step = (-W / 2 + 0.55, floor_y, door_z)
+        ride_markers(b, s, (driver_x, hip_y, driver_z), pedals, steer, 0.2, lean, stand=stand, entry="bus",
+                     steer_tilt=25, step=step)
+        return hip_y, driver_z
+    door = None
+    if d.get("doors", True):
+        z_front = min(cf - 0.03, driver_z + 0.9)
+        behind = [z for z in d.get("door_lines", []) if z < z_front - 0.5]
+        z_rear = max(behind + [driver_z - 0.65])
+        door = (z_front, z_rear, ride + 0.1, belt - 0.02)
+    stand = (W / 2 + 0.5, 0.0, driver_z - 0.15)
+    ride_markers(b, s, (driver_x, hip_y, driver_z), pedals, steer, 0.18, lean, door=door, stand=stand,
+                 entry=entry, steer_tilt=30 if upright else 60)
+    return hip_y, driver_z
 
 
 def lights(b, s, front_y, rear_y, front_z=None, rear_z=None, spread=None, size=(0.34, 0.12)):
@@ -81,6 +168,31 @@ def camera(s):
 
 
 # --- styles -------------------------------------------------------------------------------------------
+
+def glass_zones(b, d, cr, cf, top_r, top_f, belt, roof, gw, W):
+    """Register the greenhouse's visible glass (windshield, rear glass, both side-window bands) minus
+    the z ranges painted over by `panels`, so livery can be clipped and checked against it."""
+    free = [(cr, cf)]
+    for p0, p1 in d.get("panels", []):
+        nxt = []
+        for a, c in free:
+            if p1 <= a or p0 >= c:
+                nxt.append((a, c))
+                continue
+            if p0 > a:
+                nxt.append((a, p0))
+            if p1 < c:
+                nxt.append((p1, c))
+        free = nxt
+    side = [(cr, belt), (top_r, roof), (top_f, roof), (cf, belt)]
+    windshield = [(cf, belt), (top_f, belt), (top_f, roof)]
+    rear = [(cr, belt), (top_r, belt), (top_r, roof)]
+    for a, c in free:
+        b.glass_zone("Windshield", -gw / 2, gw / 2, clip_z(windshield, a, c))
+        b.glass_zone("RearGlass", -gw / 2, gw / 2, clip_z(rear, a, c))
+        b.glass_zone("SideGlass", gw / 2 - 0.02, W / 2 + 0.1, clip_z(side, a, c))
+        b.glass_zone("SideGlass", -W / 2 - 0.1, -gw / 2 + 0.02, clip_z(side, a, c))
+
 
 def car(b, s):
     """Cars, vans, pickups, trucks and buses: a lower-body side profile, an optional greenhouse
@@ -121,6 +233,7 @@ def car(b, s):
             b.span("Panel", -gw / 2 - 0.012, gw / 2 + 0.012, belt - 0.01, roof + 0.01, z0, z1, d.get("panel_mat", roof_mat))
         b.shape("CabinShape", (gw, roof - belt, top_f - top_r + (ws + rr) * 0.6),
                 (0, (belt + roof) / 2, (top_r + top_f) / 2 + (ws - rr) * 0.15))
+        glass_zones(b, d, cr, cf, top_r, top_f, belt, roof, gw, W)
         if d.get("mirrors", True):
             mirrors(b, W / 2, belt + 0.12, cf - 0.15)
 
@@ -135,8 +248,10 @@ def car(b, s):
         b.span("DoorLine", -W / 2 - 0.006, -W / 2 + 0.01, ride + 0.12, belt - 0.03, z - 0.008, z + 0.008, "black")
     wheels(b, s)
     top_f = cf - ws
-    markers(b, s, d.get("driver_z", top_f - 0.35), d.get("seat_y", belt - 0.2), per_row=d.get("per_row", 2),
-            row_gap=d.get("row_gap", 0.85))
+    driver_z = d.get("driver_z", top_f - 0.35)
+    per_row = d.get("per_row", 2)
+    hip_y, driver_z = car_ride(b, s, W * (0.22 if per_row == 2 else 0.36), driver_z, d.get("greenhouse", True))
+    markers(b, s, driver_z, hip_y, per_row=per_row, row_gap=d.get("row_gap", 0.85))
 
 
 def bike(b, s):
@@ -151,11 +266,11 @@ def bike(b, s):
     if scooter:
         b.profile("Body", [(-hl + 0.1, 0.7), (-0.1, 0.72), (0.25, 0.42), (hl - 0.35, 0.42)], 0.28, 0.42, "paint")
         b.span("Floorboard", -0.2, 0.2, 0.28, 0.34, -0.05, hl - 0.3, "plastic")
-        b.strut("Column", (0, 0.4, hl - 0.38), (0, 1.0, hl - 0.48), 0.22, "paint", depth=0.12)
+        b.strut("Column", (0, 0.4, hl - 0.38), (0, 1.18, hl - 0.5), 0.22, "paint", depth=0.12)
         b.box("Shield", (0.42, 0.55, 0.08), (0, 0.66, hl - 0.33), "paint", rot=(-12, 0, 0))
         b.box("Seat", (0.3, 0.12, 0.62), (0, 0.78, -0.25), "leather")
-        b.box("Bars", (0.7, 0.04, 0.04), (0, 1.02, hl - 0.48), "chrome")
-        b.box("Headlight", (0.16, 0.1, 0.04), (0, 0.95, hl - 0.4), "headlight")
+        b.box("Bars", (0.7, 0.04, 0.04), (0, 1.2, hl - 0.5), "chrome")
+        b.box("Headlight", (0.16, 0.1, 0.04), (0, 1.12, hl - 0.43), "headlight")
         b.box("Taillight", (0.14, 0.06, 0.04), (0, 0.66, -hl + 0.08), "taillight")
         b.box("Basket", (0.34, 0.2, 0.26), (0, 0.76, hl - 0.13), "steel")
     else:
@@ -188,7 +303,13 @@ def bike(b, s):
                 sag=sag, travel=h["rest"], rim_ratio=wd.get("rim_ratio", 0.62), visual_x=0.0)
         b.wheel("Wheel%sR" % tag, -0.18, z, r, wd["w"], steer, not steer, rest=h["rest"], sag=sag, travel=h["rest"],
                 hidden=True)
-    markers(b, s, -0.3, 0.95, per_row=1, row_gap=0.45, width=0.0)
+    if scooter:
+        hip, pedals, bars, lean = (0.0, 0.92, -0.32), (0.0, 0.36, 0.2), (0.0, 1.2, hl - 0.54), 0.12
+    else:
+        hip, pedals, bars, lean = (0.0, 1.03, -0.42), (0.0, 0.5, -0.2), (0.0, 1.0, head[2] - 0.1), 0.62
+    ride_markers(b, s, hip, pedals, bars, 0.27, lean, stand=(0.75, 0.0, hip[2] + 0.1), entry="straddle",
+                 feet=0.14 if scooter else 0.2, wheel=False)
+    markers(b, s, hip[2], hip[1], per_row=1, row_gap=0.45, width=0.0)
 
 
 def airboat(b, s):

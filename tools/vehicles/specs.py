@@ -306,7 +306,7 @@ V("palmetto", "Palmetto", "suv", "utility", 1700, 3.4, 150, 5, 360, 4,
   ["glades", "waterfront", "residential"], "middle", ["#d9c27a", "#2e6b45", "#c1121f", "#f8f9fa", "#3a86ff"],
   sedan_body(4.0, 1.8, 0.5, 1.15, 1.15, 0.5, -1.9, 0.4, 0.0, greenhouse=False, nose=1.1, tail=1.12,
              lower=[(-2.0, 1.12), (-1.95, 1.15), (0.5, 1.15), (1.9, 1.1), (2.0, 1.0)], grille="black",
-             grille_w=0.9, grille_h=0.3, bumper="black", driver_z=-0.15, seat_y=1.0),
+             grille_w=0.9, grille_h=0.3, bumper="black", driver_z=-0.15, seat_y=1.0, doors=False),
   dict(wb=2.45, r=0.42, w=0.3, style="black", drive="awd", wells=False), extras=[_palmetto],
   desc="Doorless open-top 4x4 with a roll cage. Built for the Glades.")
 
@@ -389,7 +389,7 @@ def _cruiser(b, s):
     x.side_panel(b, s, -1.35, 1.05, 0.45, 0.93, "white")
     x.lightbar(b, s, -0.3, 1.47, width=1.3)
     x.push_bar(b, s, 0.35, 0.95, width=1.2)
-    b.side_label("Livery", "PALM COUNTY\nSHERIFF", 0.72, -0.15, 0.95, size=0.0045, col=(0.06, 0.1, 0.3), outline=0)
+    b.side_label("Livery", "PALM COUNTY\nSHERIFF", 0.68, -0.15, 0.95, size=0.0032, col=(0.06, 0.1, 0.3), outline=0)
     b.box("Spotlight", (0.12, 0.12, 0.18), (0.98, 1.05, 0.95), "chrome")
 
 
@@ -404,7 +404,7 @@ def _interceptor(b, s):
     x.side_panel(b, s, -1.6, 1.2, 0.6, 1.1, "white")
     x.lightbar(b, s, -0.1, 1.85, width=1.0, depth=0.2)
     x.push_bar(b, s, 0.45, 1.1, width=1.3)
-    b.side_label("Livery", "PALM COUNTY\nSHERIFF", 0.86, -0.2, 1.0, size=0.0045, col=(0.06, 0.1, 0.3), outline=0)
+    b.side_label("Livery", "PALM COUNTY\nSHERIFF", 0.82, -0.2, 1.0, size=0.0036, col=(0.06, 0.1, 0.3), outline=0)
 
 
 V("interceptor", "Interceptor", "police", "utility", 1850, 5.2, 235, 6, 420, 4,
@@ -469,7 +469,7 @@ def _engine9(b, s):
     b.strut("LadderRest", (0.3, 2.2, 2.4), (0.3, 2.55, 2.4), 0.08, "steel", mirror=True)
     b.cyl("Turntable", 0.6, 0.15, (0, 2.27, -3.9), "steel", sides=20)
     x.lightbar(b, s, 3.55, 2.86, width=1.8)
-    b.side_label("Livery", "ENGINE 9", 1.65, 3.3, 1.25, size=0.008, col=(1.0, 0.85, 0.2))
+    b.side_label("Livery", "ENGINE 9", 1.1, 3.3, 1.25, size=0.006, col=(1.0, 0.85, 0.2))
     b.side_label("Livery", "PALM COUNTY FIRE RESCUE", 1.42, -1.6, 1.26, size=0.007, col=(1.0, 0.85, 0.2))
     b.box("Siren", (0.3, 0.2, 0.1), (0, 0.85, 4.8), "chrome")
 
@@ -500,19 +500,24 @@ V("sunshine_cab", "Sunshine Cab", "service", "sedan", 1450, 3.4, 170, 6, 300, 4,
 
 
 def _transit(b, s):
-    x.side_panel(b, s, -5.6, 5.6, 1.05, 1.22, "paint2")
+    # Belt-line band; on the kerb side (-x) it stops at the doors instead of running over their glass.
+    hw = x.half_w(s) + 0.006
+    b.span("SidePanel", hw - 0.01, hw + 0.008, 1.05, 1.22, -5.6, 5.6, "paint2")
+    for z0, z1 in ((-5.6, -0.02), (1.22, 3.38), (4.62, 5.6)):
+        b.span("SidePanel", -hw - 0.008, -hw + 0.01, 1.05, 1.22, z0, z1, "paint2")
     x.sign_box(b, "12  DOWNTOWN", (0, 2.92, 5.77), (1.8, 0.3, 0.06), material="black", text_col=(1.0, 0.6, 0.1))
     b.side_label("Livery", "PALM METRO", 0.72, -2.0, 1.28, size=0.009, col=(0.1, 0.5, 0.5), outline=0)
     b.span("RoofPod", -0.9, 0.9, 3.12, 3.4, -4.6, -2.2, "white")
     for z in (4.0, 0.6):
-        b.span("Door", 1.27, 1.3, 0.4, 2.7, z - 0.6, z + 0.6, "glass")
+        b.span("Door", -1.3, -1.27, 0.4, 2.7, z - 0.6, z + 0.6, "glass")
 
 
 V("transit", "Metro Transit", "service", "truck", 11000, 1.4, 95, 1, 800, 24,
   ["downtown", "projects", "residential", "depot"], "service", ["#ececea"],
   sedan_body(11.5, 2.55, 0.35, 1.25, 3.1, 5.72, -5.72, 0.25, 0.05, nose=1.25, tail=1.25,
              lower=[(-5.75, 1.25), (5.75, 1.25)], b_pillars=[4.6, 3.3, 2.0, 0.6, -0.8, -2.2, -3.6, -5.0],
-             bumper="black", bumper_h=0.28, grille=None, light_y=0.85, per_row=4, row_gap=1.45, mirrors=True),
+             bumper="black", bumper_h=0.28, grille=None, light_y=0.85, per_row=4, row_gap=1.45, mirrors=True,
+             entry="bus", bus_door_z=4.0),
   dict(wb=6.0, r=0.5, w=0.3, style="steel", offset=0.25), trim=["#1a8f8a"], extras=[_transit], com_y=0.9,
   desc="Low-floor city bus. Twenty-four seats, zero acceleration.")
 
@@ -542,7 +547,7 @@ def _hook_haul(b, s):
     b.span("WheelLift", -0.9, 0.9, 0.42, 0.52, -3.75, -3.3, "orange")
     b.span("WheelLiftArm", -0.12, 0.12, 0.45, 0.55, -3.5, -2.5, "steel")
     x.lightbar(b, s, 0.35, 2.47, width=1.4, colors=("amber", "amber"))
-    b.side_label("Livery", "HOOK & HAUL\nTOWING 24/7", 1.18, 1.25, 1.15, size=0.005, col=(0.95, 0.8, 0.1))
+    b.side_label("Livery", "HOOK & HAUL\nTOWING 24/7", 1.1, 1.25, 1.15, size=0.0032, col=(0.95, 0.8, 0.1))
 
 
 V("hook_haul", "Hook & Haul", "service", "truck", 4500, 2.2, 130, 3, 550, 2,

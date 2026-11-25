@@ -76,12 +76,21 @@ A lot with 34 vehicles across 12 classes, all fictional. Each vehicle sits on a 
   - seats and class
   - spawn zones and income tier
   - whether the vehicle is stealable (Strongbox and Bulwark aren't)
+  - a `ride` block for the driver: pose (`seat`, `straddle` or `none`), entry (`door`, `bus` or `straddle`), door side, hip position, lean, grip and foot spread
+- **Getting in and out.** Pressing E starts an animated boarding using the animated character model (`CharacterVisual` plus `CharacterPoseModifier` IK):
+  - Cars: the player walks to the `DoorStand` marker (going round the nose or tail if needed), reaches for the handle, swings `Doors/Driver` open, sits down and shuts the door.
+  - Buses: the player boards through the front door via `Ride/Step`.
+  - Bikes and scooters: the player straddles the seat.
+  - While driving, the hips sit on `Seats/Driver`, the feet on `Ride/Pedals` and the hands on `Ride/Steer` (the wheel or the bars). The held gun is holstered until you aim for a drive-by.
+  - Pressing E again reverses the sequence. `Vehicle.exit()` still bails out instantly.
+- **Livery and glass.** Stripes and other painted-on livery are clipped at the glass. The generator raises an error if any decal overlaps a window, and a test checks every scene.
+- **Bullet holes.** Hitscan hits on a vehicle call `Vehicle.on_bullet_hit`, which adds `BulletHoles` (`scripts/vehicles/bullet_holes.gd`) decals: dark holes in the bodywork and crack stars on the glass. Each vehicle keeps a capped number of marks, and they move with the body.
 - **`VehicleCatalog`** (`scripts/vehicles/vehicle_catalog.gd`) reads the registry for traffic, carjacking and population. It provides `entries()`, `find(id)`, `query(class, zone, tier, stealable_only)`, `paint_colors(id, seed)` and `instantiate(id, seed)`. Exports must include `*.json` in the export filter, because the registry is read with `FileAccess`.
 - **Paint.** The `paint_seed` value gives each vehicle a repeatable paint and trim colour.
 - **`vehicle.gd`.** The controller drives both these authored scenes and the code-built city cars, which work as before.
   - The authored scenes set a speed cap, steering that tightens at speed, and an upright assist to stop arcade rollovers.
   - The motorcycles run on hidden training wheels for now, with no lean controller yet.
-- **Screenshots.** To capture them, run `godot --path . --resolution 1600x900 res://tools/capture_vehicles.tscn -- <out_dir> [ids]`.
+- **Screenshots.** To capture them, run `godot --path . --resolution 1600x900 res://tools/capture_vehicles.tscn -- <out_dir> [ids]`. Add `--boarding` to capture enter, seated, exit and bullet-hole shots instead.
 
 ## Tests
 

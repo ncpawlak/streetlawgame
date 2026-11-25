@@ -98,6 +98,20 @@
     4.5
    ],
    "wheels": 4,
+   "ride": {
+    "pose": "seat",
+    "entry": "door",
+    "side": "left",
+    "lean": 0.0,
+    "grip": 0.18,
+    "feet": 0.12,
+    "hip": [
+     0.392,
+     0.5,
+     -0.1
+    ],
+    "door": true
+   },
    "description": "Twenty-year-old sedan held together by primer and prayer. Cheap to lose."
   },
   {
@@ -147,6 +161,20 @@
     2.7
    ],
    "wheels": 4,
+   "ride": {
+    "pose": "seat",
+    "entry": "door",
+    "side": "left",
+    "lean": 0.0,
+    "grip": 0.18,
+    "feet": 0.12,
+    "hip": [
+     0.341,
+     0.6,
+     -0.05
+    ],
+    "door": true
+   },
    "description": "Two-seat city bubble. Parks anywhere, loses every fight."
   },
   {
@@ -196,6 +224,20 @@
     3.9
    ],
    "wheels": 4,
+   "ride": {
+    "pose": "seat",
+    "entry": "door",
+    "side": "left",
+    "lean": 0.0,
+    "grip": 0.18,
+    "feet": 0.12,
+    "hip": [
+     0.378,
+     0.5,
+     -0.25
+    ],
+    "door": true
+   },
    "description": "Hot-hatch on a budget. Zippy, light and easy to throw around."
   },
   {
@@ -247,6 +289,20 @@
     4.7
    ],
    "wheels": 4,
+   "ride": {
+    "pose": "seat",
+    "entry": "door",
+    "side": "left",
+    "lean": 0.0,
+    "grip": 0.18,
+    "feet": 0.12,
+    "hip": [
+     0.407,
+     0.48,
+     0.0
+    ],
+    "door": true
+   },
    "description": "The commuter car every city is full of. Does everything okay."
   },
   {
@@ -296,6 +352,20 @@
     5.2
    ],
    "wheels": 4,
+   "ride": {
+    "pose": "seat",
+    "entry": "door",
+    "side": "left",
+    "lean": 0.0,
+    "grip": 0.18,
+    "feet": 0.12,
+    "hip": [
+     0.429,
+     0.53,
+     0.15
+    ],
+    "door": true
+   },
    "description": "Executive saloon. Soft, heavy and quietly fast."
   },
   {
@@ -343,6 +413,20 @@
     5.0
    ],
    "wheels": 4,
+   "ride": {
+    "pose": "seat",
+    "entry": "door",
+    "side": "left",
+    "lean": 0.0,
+    "grip": 0.18,
+    "feet": 0.12,
+    "hip": [
+     0.418,
+     0.5,
+     0.1
+    ],
+    "door": true
+   },
    "description": "Wood-panelled family wagon. Five seats and a roof rack."
   },
   {
@@ -391,6 +475,20 @@
     5.4
    ],
    "wheels": 4,
+   "ride": {
+    "pose": "seat",
+    "entry": "door",
+    "side": "left",
+    "lean": -0.265,
+    "grip": 0.18,
+    "feet": 0.12,
+    "hip": [
+     0.436,
+     0.36,
+     -0.2
+    ],
+    "door": true
+   },
    "description": "Candy paint, wire wheels and whitewalls. Wallows like a waterbed."
   },
   {
@@ -440,6 +538,20 @@
     5.4
    ],
    "wheels": 4,
+   "ride": {
+    "pose": "seat",
+    "entry": "door",
+    "side": "left",
+    "lean": 0.0,
+    "grip": 0.18,
+    "feet": 0.12,
+    "hip": [
+     0.44,
+     1.0,
+     0.15
+    ],
+    "door": true
+   },
    "description": "Box-body donk on 26-inch gold rims. Turns like a parade float."
   },
   {
@@ -488,6 +600,20 @@
     5.4
    ],
    "wheels": 4,
+   "ride": {
+    "pose": "seat",
+    "entry": "door",
+    "side": "left",
+    "lean": 0.0,
+    "grip": 0.18,
+    "feet": 0.12,
+    "hip": [
+     0.44,
+     1.0,
+     0.0
+    ],
+    "door": true
+   },
    "description": "Rounded 90s land yacht on chrome 24s. Candy paint mandatory."
   },
   {
@@ -539,6 +665,20 @@
     4.7
    ],
    "wheels": 4,
+   "ride": {
+    "pose": "seat",
+    "entry": "door",
+    "side": "left",
+    "lean": -0.265,
+    "grip": 0.18,
+    "feet": 0.12,
+    "hip": [
+     0.418,
+     0.43,
+     -0.2
+    ],
+    "door": true
+   },
    "description": "Classic fastback with twin stripes. Loud, light and tail-happy."
   },
   {
@@ -589,6 +729,20 @@
     5.0
    ],
    "wheels": 4,
+   "ride": {
+    "pose": "seat",
+    "entry": "door",
+    "side": "left",
+    "lean": -0.265,
+    "grip": 0.18,
+    "feet": 0.12,
+    "hip": [
+     0.429,
+     0.46,
+     -0.45
+    ],
+    "door": true
+   },
    "description": "Supercharged street brawler. Blower through the hood, grip optional."
   },
   {
@@ -639,6 +793,20 @@
     5.05
    ],
    "wheels": 4,
+   "ride": {
+    "pose": "seat",
+    "entry": "door",
+    "side": "left",
+    "lean": 0.0,
+    "grip": 0.18,
+    "feet": 0.12,
+    "hip": [
+     0.429,
+     0.5,
+     -0.15
+    ],
+    "door": true
+   },
    "description": "Four-door muscle sedan. Seats the crew and still smokes the tyres."
   },
   {
@@ -688,6 +856,20 @@
     4.5
    ],
    "wheels": 4,
+   "ride": {
+    "pose": "seat",
+    "entry": "door",
+    "side": "left",
+    "lean": -0.376,
+    "grip": 0.18,
+    "feet": 0.12,
+    "hip": [
+     0.422,
+     0.36,
+     -0.3
+    ],
+    "door": true
+   },
    "description": "Rear-engined GT with a ducktail. Precise and planted."
   },
   {
@@ -736,6 +918,20 @@
     4.6
    ],
    "wheels": 4,
+   "ride": {
+    "pose": "seat",
+    "entry": "door",
+    "side": "left",
+    "lean": -0.487,
+    "grip": 0.18,
+    "feet": 0.12,
+    "hip": [
+     0.444,
+     0.3,
+     -0.6
+    ],
+    "door": true
+   },
    "description": "Mid-engined wedge. The fastest thing in Palm County with plates."
   },
   {
@@ -785,6 +981,20 @@
     4.2
    ],
    "wheels": 4,
+   "ride": {
+    "pose": "seat",
+    "entry": "door",
+    "side": "left",
+    "lean": 0.0,
+    "grip": 0.18,
+    "feet": 0.12,
+    "hip": [
+     0.396,
+     0.7,
+     -0.25
+    ],
+    "door": true
+   },
    "description": "Two-seat drop-top roadster for A1A cruising."
   },
   {
@@ -834,6 +1044,20 @@
     5.1
    ],
    "wheels": 4,
+   "ride": {
+    "pose": "seat",
+    "entry": "door",
+    "side": "left",
+    "lean": 0.0,
+    "grip": 0.18,
+    "feet": 0.12,
+    "hip": [
+     0.44,
+     0.95,
+     0.3
+    ],
+    "door": true
+   },
    "description": "Three-row luxury SUV. Big, safe and thirsty."
   },
   {
@@ -883,6 +1107,20 @@
     4.0
    ],
    "wheels": 4,
+   "ride": {
+    "pose": "seat",
+    "entry": "door",
+    "side": "left",
+    "lean": 0.0,
+    "grip": 0.18,
+    "feet": 0.12,
+    "hip": [
+     0.396,
+     1.0,
+     -0.15
+    ],
+    "door": false
+   },
    "description": "Doorless open-top 4x4 with a roll cage. Built for the Glades."
   },
   {
@@ -933,6 +1171,20 @@
     5.6
    ],
    "wheels": 4,
+   "ride": {
+    "pose": "seat",
+    "entry": "door",
+    "side": "left",
+    "lean": 0.0,
+    "grip": 0.18,
+    "feet": 0.12,
+    "hip": [
+     0.72,
+     1.0,
+     0.25
+    ],
+    "door": true
+   },
    "description": "Full-size work pickup with a bench seat for three."
   },
   {
@@ -981,6 +1233,20 @@
     5.3
    ],
    "wheels": 4,
+   "ride": {
+    "pose": "seat",
+    "entry": "door",
+    "side": "left",
+    "lean": 0.0,
+    "grip": 0.18,
+    "feet": 0.12,
+    "hip": [
+     0.451,
+     1.3,
+     0.1
+    ],
+    "door": true
+   },
    "description": "Lifted swamp truck on mud tyres. Climbs anything, corners like a fridge."
   },
   {
@@ -1029,6 +1295,20 @@
     5.4
    ],
    "wheels": 4,
+   "ride": {
+    "pose": "seat",
+    "entry": "door",
+    "side": "left",
+    "lean": 0.0,
+    "grip": 0.18,
+    "feet": 0.12,
+    "hip": [
+     0.44,
+     1.05,
+     0.6
+    ],
+    "door": true
+   },
    "description": "Panel van with a ladder rack. Every contractor in the county drives one."
   },
   {
@@ -1076,6 +1356,20 @@
     6.2
    ],
    "wheels": 4,
+   "ride": {
+    "pose": "seat",
+    "entry": "door",
+    "side": "left",
+    "lean": 0.0,
+    "grip": 0.18,
+    "feet": 0.12,
+    "hip": [
+     0.506,
+     1.2,
+     1.35
+    ],
+    "door": true
+   },
    "description": "Armoured cash-in-transit truck. Only obtainable through the heist."
   },
   {
@@ -1122,6 +1416,20 @@
     5.0
    ],
    "wheels": 4,
+   "ride": {
+    "pose": "seat",
+    "entry": "door",
+    "side": "left",
+    "lean": 0.0,
+    "grip": 0.18,
+    "feet": 0.12,
+    "hip": [
+     0.418,
+     0.53,
+     -0.0
+    ],
+    "door": true
+   },
    "description": "Standard sheriff's patrol car. Stealing one gets noticed."
   },
   {
@@ -1167,6 +1475,20 @@
     5.1
    ],
    "wheels": 4,
+   "ride": {
+    "pose": "seat",
+    "entry": "door",
+    "side": "left",
+    "lean": 0.0,
+    "grip": 0.18,
+    "feet": 0.12,
+    "hip": [
+     0.44,
+     0.85,
+     0.2
+    ],
+    "door": true
+   },
    "description": "Pursuit-spec police SUV. Fast, heavy and hard to shake."
   },
   {
@@ -1213,6 +1535,20 @@
     6.4
    ],
    "wheels": 4,
+   "ride": {
+    "pose": "seat",
+    "entry": "door",
+    "side": "left",
+    "lean": 0.0,
+    "grip": 0.18,
+    "feet": 0.12,
+    "hip": [
+     0.55,
+     1.55,
+     1.5
+    ],
+    "door": true
+   },
    "description": "Armoured SWAT truck. Rams through roadblocks; seats a full team."
   },
   {
@@ -1258,6 +1594,20 @@
     6.6
    ],
    "wheels": 4,
+   "ride": {
+    "pose": "seat",
+    "entry": "door",
+    "side": "left",
+    "lean": 0.0,
+    "grip": 0.18,
+    "feet": 0.12,
+    "hip": [
+     0.473,
+     1.05,
+     1.5
+    ],
+    "door": true
+   },
    "description": "Box ambulance. Carries a full med kit and a defibrillator."
   },
   {
@@ -1302,6 +1652,20 @@
     9.5
    ],
    "wheels": 6,
+   "ride": {
+    "pose": "seat",
+    "entry": "door",
+    "side": "left",
+    "lean": 0.0,
+    "grip": 0.18,
+    "feet": 0.12,
+    "hip": [
+     0.55,
+     1.3,
+     3.65
+    ],
+    "door": true
+   },
    "description": "Ladder engine with tandem rear axle. Six crew, one very long turning circle."
   },
   {
@@ -1348,6 +1712,20 @@
     4.7
    ],
    "wheels": 4,
+   "ride": {
+    "pose": "seat",
+    "entry": "door",
+    "side": "left",
+    "lean": 0.0,
+    "grip": 0.18,
+    "feet": 0.12,
+    "hip": [
+     0.407,
+     0.48,
+     0.0
+    ],
+    "door": true
+   },
    "description": "The city's yellow taxi. Drive a fare, earn a fare."
   },
   {
@@ -1394,6 +1772,20 @@
     11.5
    ],
    "wheels": 4,
+   "ride": {
+    "pose": "seat",
+    "entry": "bus",
+    "side": "right",
+    "lean": 0.0,
+    "grip": 0.2,
+    "feet": 0.12,
+    "hip": [
+     0.918,
+     1.1,
+     4.788
+    ],
+    "door": false
+   },
    "description": "Low-floor city bus. Twenty-four seats, zero acceleration."
   },
   {
@@ -1442,6 +1834,20 @@
     7.8
    ],
    "wheels": 4,
+   "ride": {
+    "pose": "seat",
+    "entry": "door",
+    "side": "left",
+    "lean": 0.0,
+    "grip": 0.18,
+    "feet": 0.12,
+    "hip": [
+     0.506,
+     1.2,
+     2.7
+    ],
+    "door": true
+   },
    "description": "Box truck. Slow and wide, with a lot of room in the back."
   },
   {
@@ -1489,6 +1895,20 @@
     6.6
    ],
    "wheels": 4,
+   "ride": {
+    "pose": "seat",
+    "entry": "door",
+    "side": "left",
+    "lean": 0.0,
+    "grip": 0.18,
+    "feet": 0.12,
+    "hip": [
+     0.495,
+     1.2,
+     1.1
+    ],
+    "door": true
+   },
    "description": "Wrecker with a boom and wheel-lift. Hooks up whatever you park badly."
   },
   {
@@ -1536,6 +1956,20 @@
     9.0
    ],
    "wheels": 6,
+   "ride": {
+    "pose": "seat",
+    "entry": "door",
+    "side": "left",
+    "lean": 0.0,
+    "grip": 0.18,
+    "feet": 0.12,
+    "hip": [
+     0.882,
+     1.35,
+     3.538
+    ],
+    "door": true
+   },
    "description": "Rear-loader garbage truck. The heaviest thing on the lot."
   },
   {
@@ -1586,6 +2020,20 @@
     2.1
    ],
    "wheels": 4,
+   "ride": {
+    "pose": "straddle",
+    "entry": "straddle",
+    "side": "left",
+    "lean": 0.62,
+    "grip": 0.27,
+    "feet": 0.2,
+    "hip": [
+     0.0,
+     1.03,
+     -0.42
+    ],
+    "door": false
+   },
    "description": "Superbike. Fastest launch in the game; one bump and you're off."
   },
   {
@@ -1635,6 +2083,20 @@
     1.8
    ],
    "wheels": 4,
+   "ride": {
+    "pose": "straddle",
+    "entry": "straddle",
+    "side": "left",
+    "lean": 0.12,
+    "grip": 0.27,
+    "feet": 0.14,
+    "hip": [
+     0.0,
+     0.92,
+     -0.32
+    ],
+    "door": false
+   },
    "description": "49cc scooter with a basket. Slow, cheap and weaves through traffic."
   },
   {
@@ -1682,6 +2144,9 @@
     5.0
    ],
    "wheels": 0,
+   "ride": {
+    "pose": "none"
+   },
    "description": "Everglades airboat on its trailer. Display only until the game has water."
   }
  ]

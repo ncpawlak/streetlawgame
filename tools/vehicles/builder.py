@@ -5,11 +5,11 @@ origin sits on the ground plane, so every y below is a height above the road whe
 rest on its suspension."""
 import math
 
-from tscn import Scene, color, f, hex_rgb, quote, v3, xform
+from tscn import Scene, basis, color, f, hex_rgb, quote, v3, xform
 
 # Material library: name -> StandardMaterial3D props. "paint" / "paint2" are recoloured per spawn.
 MATERIALS = {
-    "glass": {"albedo_color": color((0.08, 0.11, 0.14)), "metallic": "0.6", "roughness": "0.08"},
+    "glass": {"transparency": "1", "albedo_color": color((0.08, 0.11, 0.14, 0.55)), "metallic": "0.6", "roughness": "0.08"},
     "chrome": {"albedo_color": color((0.86, 0.87, 0.9)), "metallic": "1.0", "roughness": "0.14"},
     "black": {"albedo_color": color((0.05, 0.05, 0.055)), "roughness": "0.75"},
     "plastic": {"albedo_color": color((0.12, 0.12, 0.13)), "roughness": "0.85"},
@@ -46,6 +46,103 @@ MATERIALS = {
              "emission": color((0.9, 0.1, 1.0)), "emission_energy_multiplier": "1.5"},
 }
 PAINT_SLOTS = {"paint": "primary", "paint2": "secondary"}
+# Node names that are painted-on livery (stripes, panels, lettering): never allowed over the glass.
+DECAL_NAMES = ("Stripe", "SidePanel", "Livery", "RearLivery")
+
+
+def _transform_points(points, pos, rot):
+    m = basis(rot)
+    return [tuple(sum(m[i][k] * p[k] for k in range(3)) + pos[i] for i in range(3)) for p in points]
+
+
+def _hull(points):
+    """Convex hull (counter-clockwise) of 2D points."""
+    pts = sorted(set((round(a, 5), round(b, 5)) for a, b in points))
+    if len(pts) <= 2:
+        return pts
+
+    def cross(o, a, b):
+        return (a[0] - o[0]) * (b[1] - o[1]) - (a[1] - o[1]) * (b[0] - o[0])
+
+    lower, upper = [], []
+    for p in pts:
+        while len(lower) >= 2 and cross(lower[-2], lower[-1], p) <= 0:
+            lower.pop()
+        lower.append(p)
+    for p in reversed(pts):
+        while len(upper) >= 2 and cross(upper[-2], upper[-1], p) <= 0:
+            upper.pop()
+        upper.append(p)
+    return lower[:-1] + upper[:-1]
+
+
+def hull_distance(hull, p):
+    """Distance from 2D point `p` to a convex polygon (0 inside)."""
+    n = len(hull)
+    if n == 0:
+        return float("inf")
+    inside = n >= 3
+    best = float("inf")
+    for i in range(n):
+        a, b = hull[i], hull[(i + 1) % n]
+        ex, ey = b[0] - a[0], b[1] - a[1]
+        if ex * (p[1] - a[1]) - ey * (p[0] - a[0]) < 0:
+            inside = False
+        seg = ex * ex + ey * ey
+        t = 0.0 if seg < 1e-12 else max(0.0, min(1.0, ((p[0] - a[0]) * ex + (p[1] - a[1]) * ey) / seg))
+        best = min(best, math.hypot(p[0] - a[0] - t * ex, p[1] - a[1] - t * ey))
+    return 0.0 if inside else best
+
+
+def clip_z(poly, z0, z1):
+    """Clip a 2D (z, y) polygon to z0 <= z <= z1 (Sutherland-Hodgman against two half-planes)."""
+    def clip(points, inside, cut):
+        out = []
+        for i, cur in enumerate(points):
+            prev = points[i - 1]
+            if inside(cur):
+                if not inside(prev):
+                    out.append(cut(prev, cur))
+                out.append(cur)
+            elif inside(prev):
+                out.append(cut(prev, cur))
+        return out
+
+    def at(zc):
+        def cut(a, b):
+            t = (zc - a[0]) / (b[0] - a[0])
+            return (zc, a[1] + t * (b[1] - a[1]))
+        return cut
+
+    poly = clip(list(poly), lambda p: p[0] >= z0, at(z0))
+    return clip(poly, lambda p: p[0] <= z1, at(z1)) if poly else []
+
+
+class Part:
+    """Vehicle-space footprint of one mesh: x range, side-view (z, y) hull and interior sample points."""
+
+    def __init__(self, name, corners, samples=()):
+        self.name = name
+        xs = [c[0] for c in corners]
+        self.x0, self.x1 = min(xs), max(xs)
+        self.zy = _hull([(c[2], c[1]) for c in corners])
+        self.samples = list(samples)
+
+    def touches(self, p, tol):
+        return self.x0 - tol <= p[0] <= self.x1 + tol and hull_distance(self.zy, (p[2], p[1])) <= tol
+
+
+def _box_part(name, size, pos, rot, margin=0.015):
+    hx, hy, hz = (s / 2 for s in size)
+    corners = _transform_points([(sx * hx, sy * hy, sz * hz) for sx in (-1, 1) for sy in (-1, 1) for sz in (-1, 1)],
+                                pos, rot)
+
+    def axis(h):
+        inner = h - margin if h > margin * 1.5 else 0.0
+        return [-inner + 2 * inner * i / 6 for i in range(7)] if inner > 0 else [0.0]
+
+    samples = _transform_points([(a, b, c) for a in axis(hx) for b in axis(hy) for c in axis(hz)], pos, rot)
+    return Part(name, corners, samples)
 
 
 class VehicleBuilder:
@@ -63,6 +160,31 @@ class VehicleBuilder:
         self.body = self.sc.node("Body", "Node3D", ".")
         self.wheels = []
         self.shapes = []
+        self.glass_zones = []
+        self.decals = []
+
+    # --- glass vs livery ------------------------------------------------------------------------
+
+    GLASS_TOL = 0.03
+
+    def glass_zone(self, name, x0, x1, poly):
+        """Register a see-through region: x range plus a side-view (z, y) polygon."""
+        if len(poly) >= 3:
+            self.glass_zones.append(Part(name, [(x0, y, z) for z, y in poly] + [(x1, y, z) for z, y in poly]))
+
+    def over_glass(self, p, tol=None):
+        tol = self.GLASS_TOL if tol is None else tol
+        return any(z.touches(p, tol) for z in self.glass_zones)
+
+    def decal_conflicts(self):
+        """[(decal name, glass name)] for every painted-on decal that lies over a window."""
+        hits = []
+        for d in self.decals:
+            for z in self.glass_zones:
+                if any(z.touches(p, self.GLASS_TOL) for p in d.samples):
+                    hits.append((d.name, z.name))
+                    break
+        return hits
 
     # --- materials ------------------------------------------------------------------------
 
@@ -75,6 +197,7 @@ class VehicleBuilder:
                 props.update({"metallic": "0.0", "roughness": "0.85"})
         else:
             props = dict(MATERIALS[name])
+            props["resource_name"] = quote(name)
         return self.sc.sub("StandardMaterial3D", props)
 
     def _mesh_node(self, name, mesh, pos, rot, material, parent):
@@ -93,6 +216,15 @@ class VehicleBuilder:
         self._mesh_node(name, mesh, pos, rot, material, parent)
         if mirror:
             self._mesh_node(name, mesh, (-pos[0], pos[1], pos[2]), (rot[0], -rot[1], -rot[2]), material, parent)
+        if parent is None:
+            placed = [(pos, rot)] + ([((-pos[0], pos[1], pos[2]), (rot[0], -rot[1], -rot[2]))] if mirror else [])
+            for p, r in placed:
+                if name in DECAL_NAMES:
+                    self.decals.append(_box_part(name, size, p, r))
+                elif material == "glass" and name != "Glass":
+                    # car() registers its greenhouse zones itself (with the roof and panels cut out).
+                    part = _box_part(name, size, p, r)
+                    self.glass_zones.append(part)
 
     def span(self, name, x0, x1, y0, y1, z0, z1, material, parent=None):
         """Axis-aligned box from corner ranges."""
@@ -224,6 +356,14 @@ class VehicleBuilder:
             "transform": xform(pos, rot), "pixel_size": f(size), "double_sided": "false",
             "modulate": color(col), "outline_modulate": color(outline_col), "text": quote(text),
             "font_size": str(font), "outline_size": str(outline)})
+        if name in DECAL_NAMES:
+            # Rough text extent of the default font (~0.55 em per glyph, 1.2 em per line).
+            lines = text.split("\n")
+            hw = max(len(line) for line in lines) * font * size * 0.55 / 2 * 0.85
+            hh = len(lines) * font * size * 1.2 / 2 * 0.85
+            local = [(-hw + 2 * hw * i / 8, -hh + 2 * hh * j / 4, 0.0) for i in range(9) for j in range(5)]
+            corners = [(sx * hw, sy * hh, 0.0) for sx in (-1, 1) for sy in (-1, 1)]
+            self.decals.append(Part(name, _transform_points(corners, pos, rot), _transform_points(local, pos, rot)))
 
     def side_label(self, name, text, y, z, half_width, **kw):
         """The same decal on both flanks, readable from outside the vehicle."""

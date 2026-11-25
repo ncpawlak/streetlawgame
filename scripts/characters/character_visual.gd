@@ -3,6 +3,9 @@ extends Node3D
 ## Animated humanoid body (Quaternius CC0 models, see assets/characters/quaternius/CREDITS.md) used by
 ## the player and NPCs in place of greybox capsules. Purely visual: owners keep their own collision and
 ## drive it with update_motion(), set_aiming(), set_aim_pitch(), fire(), hit() and die().
+## Vehicle seats are posed procedurally (the clip set has no sitting clips): set_seated() drops the
+## pelvis, set_ride() pins hips, feet and hands to a vehicle's seat, pedals and steering wheel, and
+## set_reach() reaches a hand to a world point such as a door handle (see [CharacterPoseModifier]).
 ## The model is normalised so the reference man is [constant HEIGHT] m tall (see docs/design/SCALE.md),
 ## stands on this node's origin and faces -Z like the rest of the game.
 
@@ -61,6 +64,14 @@ var weapon: WeaponData
 var _model: Node3D
 var _meshes: Array[MeshInstance3D] = []
 var _aim_modifier: AimPitchModifier
+var _pose: CharacterPoseModifier
+## Rest position of the Hips bone in this node's space (where the seat pins it from).
+var _hip_rest := Vector3.ZERO
+var _seated := 0.0
+var _seated_weight := 0.0
+var _reach := {&"L": [Vector3.ZERO, 0.0], &"R": [Vector3.ZERO, 0.0]}
+var _ride_frame: Node3D
+var _ride := {}
 var _weapon_mesh: MeshInstance3D
 var _bandana: MeshInstance3D
 var _flash_material: StandardMaterial3D
@@ -106,6 +117,8 @@ func _process(delta: float) -> void:
 	animation_tree.set(&"parameters/aim_upper/blend_amount", _aim_weight)
 	animation_tree.set(&"parameters/armed/blend_amount", (1.0 - _aim_weight) if is_armed() else 0.0)
 	_aim_modifier.pitch = _aim_pitch * _aim_weight
+	_seated_weight = move_toward(_seated_weight, _seated, delta * 4.0)
+	_update_pose()
 
 
 ## Feeds world-space velocity; the clip blend and playback speed follow it.
@@ -126,6 +139,40 @@ func is_aiming() -> bool:
 ## Aim pitch in radians (positive looks up); applied to the chest while aiming.
 func set_aim_pitch(radians: float) -> void:
 	_aim_pitch = clampf(radians, -1.0, 1.0)
+
+
+## 0..1 sitting: pelvis drops onto the seat, legs reach for the pedals (see [method set_ride]).
+func set_seated(amount: float) -> void:
+	_seated = clampf(amount, 0.0, 1.0)
+
+
+## Current (blended) sitting weight.
+func seated_weight() -> float:
+	return _seated_weight
+
+
+## Pins the seated pose to a vehicle: [param pose] holds [code]hips[/code], [code]foot_l[/code],
+## [code]foot_r[/code], [code]hand_l[/code], [code]hand_r[/code] (positions in [param frame]'s space)
+## and [code]lean[/code] (radians, forward positive). A null frame goes back to a generic chair pose.
+func set_ride(frame: Node3D, pose: Dictionary = {}) -> void:
+	_ride_frame = frame
+	_ride = pose
+
+
+## Reaches a hand (&"L" / &"R") to a world point (door handles); weight 0 releases it.
+func set_reach(side: StringName, world_position: Vector3, weight: float) -> void:
+	_reach[side] = [world_position, clampf(weight, 0.0, 1.0)]
+
+
+## Reach-and-use gesture over the upper body (door handles, pickups).
+func interact() -> void:
+	if not _dead:
+		animation_tree.set(&"parameters/interact/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
+
+
+## World position of the hips after this frame's posing (falls back to the rest pose).
+func hips_position() -> Vector3:
+	return _pose.hips.origin if _pose.has_pose else global_transform * _hip_rest
 
 
 func set_weapon(data: WeaponData) -> void:
@@ -228,6 +275,11 @@ func _build() -> void:
 	_aim_modifier.name = "AimPitch"
 	_aim_modifier.facing = self
 	skeleton.add_child(_aim_modifier)
+	_pose = CharacterPoseModifier.new()
+	_pose.name = "Pose"
+	_pose.facing = self
+	skeleton.add_child(_pose)
+	_hip_rest = _transform_to(skeleton, self) * skeleton.get_bone_global_rest(skeleton.find_bone("Hips")).origin
 	skeleton.skeleton_updated.connect(_on_skeleton_updated)
 
 	_weapon_mesh = _box("Weapon", Vector3(0.06, 0.12, 0.3), Color(0.12, 0.12, 0.13))
@@ -260,6 +312,9 @@ func _on_skeleton_updated() -> void:
 	if not is_inside_tree():
 		return
 	if _weapon_mesh.visible:
+		# Holstered while gripping the wheel or bars; drawn again for drive-bys.
+		var holstered := _seated_weight > 0.5 and not _aiming
+		_weapon_mesh.transparency = 1.0 if holstered else 0.0
 		var forward := -global_basis.z.normalized()
 		var pitch := _aim_pitch * _aim_weight + (1.0 - _aim_weight) * -0.7
 		var direction := Basis(global_basis.x.normalized(), pitch) * forward
@@ -270,6 +325,36 @@ func _on_skeleton_updated() -> void:
 		var head := skeleton.global_transform * skeleton.get_bone_global_pose(_head_bone)
 		var basis := head.basis.orthonormalized()
 		_bandana.global_transform = Transform3D(basis, head.origin + basis.y * 0.12 * _shared_scale())
+
+
+## Feeds the pose modifier: seat (hips, pedals, wheel) and hand reaches.
+func _update_pose() -> void:
+	var weight := _seated_weight if not _dead else 0.0
+	var offset := Vector3(0.0, -0.45, 0.15) * weight
+	var lean := 0.0
+	var feet := {&"L": global_transform * Vector3(-0.12, 0.08, -0.45), &"R": global_transform * Vector3(0.12, 0.08, -0.45)}
+	var hands := {}
+	if _ride_frame != null and is_instance_valid(_ride_frame) and not _ride.is_empty():
+		var frame := _ride_frame.global_transform
+		offset = global_basis.inverse() * (frame * (_ride[&"hips"] as Vector3) - global_transform * _hip_rest) * weight
+		lean = _ride.get(&"lean", 0.0)
+		feet = {&"L": frame * (_ride[&"foot_l"] as Vector3), &"R": frame * (_ride[&"foot_r"] as Vector3)}
+		hands = {&"L": frame * (_ride[&"hand_l"] as Vector3), &"R": frame * (_ride[&"hand_r"] as Vector3)}
+	_pose.body_offset = offset
+	_pose.spine_pitch = lean * weight
+	_pose.head_pitch = -lean * 0.6 * weight
+	for side: StringName in [&"L", &"R"]:
+		_pose.foot_targets[side] = feet[side]
+		_pose.foot_weights[side] = weight
+		var target: Vector3 = hands.get(side, Vector3.ZERO)
+		# The gun hand lets go of the wheel for drive-bys.
+		var hand_weight := weight if hands.has(side) and not (side == &"R" and _aiming) else 0.0
+		var reach: Array = _reach[side]
+		if reach[1] > 0.0:
+			target = target.lerp(reach[0], reach[1]) if hand_weight > 0.0 else reach[0]
+			hand_weight = maxf(hand_weight, reach[1])
+		_pose.hand_targets[side] = target
+		_pose.hand_weights[side] = hand_weight if not _dead else 0.0
 
 
 func _set_overlay(material: Material) -> void:
@@ -308,7 +393,8 @@ func _build_tree() -> void:
 
 	var previous := &"loco"
 	for layer: Array in [[&"armed", &"Idle_Gun", false], [&"aim_upper", &"Idle_Gun_Pointing", false],
-			[&"shoot", &"Idle_Gun_Shoot", true], [&"punch", &"Punch_Right", true], [&"hit", &"HitRecieve", true]]:
+			[&"shoot", &"Idle_Gun_Shoot", true], [&"punch", &"Punch_Right", true], [&"interact", &"Interact", true],
+			[&"hit", &"HitRecieve", true]]:
 		var node: AnimationNode
 		if layer[2]:
 			var one_shot := AnimationNodeOneShot.new()

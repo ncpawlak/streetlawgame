@@ -22,8 +22,11 @@ func _check(condition: bool, description: String) -> void:
 func run(player: Player) -> void:
 	_test_registry()
 	_test_scenes()
+	_test_stripes_clear_glass()
 	_test_paint()
+	await _test_bullet_holes()
 	await _test_drive(player)
+	await _test_boarding(player)
 	await _test_showcase()
 
 
@@ -91,10 +94,124 @@ func _scene_problem(entry: Dictionary) -> String:
 			problem = "engine force"
 		elif root.find_children("*", "VehicleWheel3D", false).size() < 4:
 			problem = "fewer than 4 wheels"
+		else:
+			problem = _ride_problem(root, entry["ride"])
 	elif not root is StaticBody3D:
 		problem = "display vehicle is not a StaticBody3D"
 	root.free()
 	return problem
+
+
+## Seating markers match the registry's ride data: pedals, wheel / bars and a spot to board from,
+## a hinged door with a handle exactly when the ride says so, and the bus's step.
+func _ride_problem(root: Node, ride: Dictionary) -> String:
+	if ride.get("pose", "none") == "none":
+		return "no ride data"
+	for path in ["Ride/Pedals", "Ride/Steer", "DoorStand"]:
+		if root.get_node_or_null(path) == null:
+			return "no %s marker" % path
+	if bool(ride["door"]) != (root.get_node_or_null("Doors/Driver/Handle") != null):
+		return "door does not match the registry"
+	if ride["entry"] == "bus" and root.get_node_or_null("Ride/Step") == null:
+		return "bus without a boarding step"
+	if (ride["pose"] == "straddle") != (ride["entry"] == "straddle"):
+		return "straddle pose without a straddle entry"
+	var hip: Array = ride["hip"]
+	if (root.get_node("Seats/Driver") as Node3D).position.distance_to(Vector3(hip[0], hip[1], hip[2])) > 0.01:
+		return "seat does not match the registry hip"
+	return ""
+
+
+## Racing stripes must stop at the glass: no Stripe piece may overlap a window in any scene.
+func _test_stripes_clear_glass() -> void:
+	var bad: Array[String] = []
+	var striped := 0
+	for entry: Dictionary in VehicleCatalog.entries():
+		var root := (load(entry["scene"]) as PackedScene).instantiate() as Node3D
+		var stripes: Array[AABB] = []
+		var glass: Array[AABB] = []
+		for node in root.find_children("*", "MeshInstance3D", true, false):
+			var instance := node as MeshInstance3D
+			if instance.mesh == null:
+				continue
+			var box := (_to_root(root, instance) * instance.mesh.get_aabb()).grow(-0.006)
+			if instance.name.begins_with("Stripe"):
+				stripes.append(box)
+			else:
+				var material := instance.mesh.surface_get_material(0)
+				if material != null and material.resource_name == BulletHoles.GLASS_MATERIAL:
+					glass.append(box)
+		if not stripes.is_empty():
+			striped += 1
+		for stripe in stripes:
+			for pane in glass:
+				if stripe.intersects(pane) and not bad.has(String(entry["id"])):
+					bad.append(entry["id"])
+		root.free()
+	_check(striped > 0 and bad.is_empty(), "stripes stop at the glass on all %d striped vehicles (%s)" % [striped, ", ".join(bad)])
+
+
+## Real Hitscan shots: a body shot leaves a hole on the bodywork, a window shot leaves a crack in
+## the glass, melee leaves nothing, and old holes are recycled past the cap.
+func _test_bullet_holes() -> void:
+	var shooter := Node3D.new()
+	_runner.add_child(shooter)
+	var vehicle := VehicleCatalog.instantiate(&"meridian", 1) as Vehicle
+	vehicle.freeze = true
+	_runner.add_child(vehicle)
+	vehicle.global_position = TEST_ORIGIN + Vector3(60.0, 0.0, 0.0)
+	await _runner.get_tree().physics_frame
+	await _runner.get_tree().physics_frame
+	var pistol := (load("res://data/weapons/pistol.tres") as WeaponData).duplicate() as WeaponData
+	pistol.spread_degrees = 0.0
+	pistol.show_tracer = false
+	var centre := vehicle.global_position
+	var health := vehicle.health
+
+	var door := centre + Vector3(0.0, 0.55, 0.0)
+	Hitscan.fire(shooter, door + Vector3(6.0, 0.0, 0.0), Vector3.LEFT, pistol)
+	var holes := BulletHoles.holes_on(vehicle)
+	var hole: MeshInstance3D = holes[0] if holes.size() == 1 else null
+	_check(hole != null and hole.name == "BulletHole" and not BulletHoles.is_glass(hole.get_parent())
+		and hole.global_position.x > centre.x + 0.5 and absf(hole.global_position.y - door.y) < 0.05,
+		"a body shot leaves one bullet hole on the bodywork where it struck")
+	_check(vehicle.health < health, "the shot still damages the vehicle")
+
+	var pane := _glass_centre(vehicle)
+	Hitscan.fire(shooter, pane + Vector3(0.0, 0.6, 5.0), (pane - (pane + Vector3(0.0, 0.6, 5.0))).normalized(), pistol)
+	holes = BulletHoles.holes_on(vehicle)
+	_check(holes.size() == 2 and holes[1].name == "GlassCrack" and BulletHoles.is_glass(holes[1].get_parent()),
+		"a window shot cracks the glass")
+
+	var fists := load("res://data/weapons/fists.tres") as WeaponData
+	Hitscan.fire(shooter, door + Vector3(6.0, 0.0, 0.0), Vector3.LEFT, fists)
+	_check(BulletHoles.holes_on(vehicle).size() == 2, "melee hits leave no holes")
+
+	for i in BulletHoles.MAX_PER_BODY + 10:
+		vehicle.on_bullet_hit(door + Vector3(1.0, 0.0, -1.0 + i * 0.04), Vector3.LEFT, Vector3.RIGHT)
+	await _runner.get_tree().process_frame
+	var kept := BulletHoles.holes_on(vehicle).size()
+	_check(kept == BulletHoles.MAX_PER_BODY, "holes are capped at %d per vehicle (%d)" % [BulletHoles.MAX_PER_BODY, kept])
+	vehicle.free()
+	shooter.free()
+
+
+func _glass_centre(vehicle: Vehicle) -> Vector3:
+	for node in vehicle.find_children("*", "MeshInstance3D", true, false):
+		var instance := node as MeshInstance3D
+		if instance.name == "Windshield" or instance.name == "Glass":
+			return instance.global_transform * instance.mesh.get_aabb().get_center()
+	return vehicle.global_position + Vector3.UP
+
+
+func _to_root(root: Node3D, node: Node3D) -> Transform3D:
+	var xform := Transform3D.IDENTITY
+	var current: Node = node
+	while current != null and current != root:
+		if current is Node3D:
+			xform = (current as Node3D).transform * xform
+		current = current.get_parent()
+	return xform
 
 
 func _test_paint() -> void:
@@ -110,6 +227,10 @@ func _test_paint() -> void:
 	_runner.add_child(vehicle)
 	vehicle.global_position = TEST_ORIGIN + Vector3(0.0, 50.0, 0.0)
 	_check(vehicle.paint_color().is_equal_approx(a[0]), "a spawned vehicle wears its seeded paint")
+	var door_panel := vehicle.get_node_or_null("Doors/Driver/Panel") as MeshInstance3D
+	_check(door_panel != null and door_panel.material_override is StandardMaterial3D
+			and (door_panel.material_override as StandardMaterial3D).albedo_color.is_equal_approx(a[0]),
+			"the swinging driver door wears the body paint")
 	var other := VehicleCatalog.instantiate(&"meridian", 7) as Vehicle
 	_runner.add_child(other)
 	other.apply_paint(3)
@@ -188,6 +309,66 @@ func _test_drive(player: Player) -> void:
 	_check(fast == 0, "no vehicle exceeds its top speed")
 	for vehicle in vehicles:
 		vehicle.free()
+	ground.free()
+
+
+## Animated get-in / get-out on a door car (approached from the far side), a motorbike, the bus and
+## the doorless 4x4: the player ends up driving with the hips on the seat, the door swings and shuts,
+## and getting out leaves them standing beside the vehicle.
+func _test_boarding(player: Player) -> void:
+	var ground := StaticBody3D.new()
+	var shape := CollisionShape3D.new()
+	var box := BoxShape3D.new()
+	box.size = Vector3(120.0, 1.0, 40.0)
+	shape.shape = box
+	ground.add_child(shape)
+	_runner.add_child(ground)
+	var origin := TEST_ORIGIN + Vector3(0.0, 0.0, 150.0)
+	ground.global_position = origin + Vector3(40.0, -0.5, 0.0)
+	var home := player.global_position
+	var index := 0
+	for id: StringName in [&"regent", &"razorback", &"transit", &"palmetto"]:
+		var vehicle := VehicleCatalog.instantiate(id, 7) as Vehicle
+		_runner.add_child(vehicle)
+		vehicle.global_position = origin + Vector3(index * 25.0, 0.3, 0.0)
+		index += 1
+		await _runner.call("_physics_frames", 60)
+		var info := vehicle.ride_info()
+		var far_side := -signf((vehicle.get_node("DoorStand") as Node3D).position.x)
+		player.global_position = vehicle.global_transform * Vector3(far_side * 3.5, 0.0, 0.5)
+		vehicle.begin_enter(player)
+		var started := player.is_busy() and not vehicle.can_enter()
+		var door := vehicle.get_node_or_null("Doors/Driver") as Node3D
+		var swing := 0.0
+		for frame in 900:
+			if not player.is_busy():
+				break
+			await _runner.call("_physics_frames", 1)
+			if door != null:
+				swing = maxf(swing, absf(door.rotation.y))
+		await _runner.call("_physics_frames", 30)
+		var seat := vehicle.global_transform * (vehicle.get_node("Seats/Driver") as Node3D).position
+		var hips := player.visual.hips_position()
+		_check(started and vehicle.driver == player and not player.is_on_foot(), "%s: E starts an animated get-in that ends driving" % id)
+		_check(hips.distance_to(seat) < 0.2, "%s: the driver sits on the seat (hips %.2f m off)" % [id, hips.distance_to(seat)])
+		if info["door"]:
+			_check(swing > 0.8 and absf(door.rotation.y) < 0.05, "%s: the driver's door opens and shuts (swung %.2f rad)" % [id, swing])
+		if info["pose"] == "straddle":
+			var feet := player.visual.global_transform.origin
+			_check(absf(hips.y - feet.y) < 0.8, "%s: the rider straddles the bike, not standing" % id)
+
+		vehicle.begin_exit()
+		_check(vehicle.driver == null and player.is_busy(), "%s: E starts an animated get-out" % id)
+		for frame in 900:
+			if not player.is_busy():
+				break
+			await _runner.call("_physics_frames", 1)
+		var stand := vehicle.global_transform * (vehicle.get_node("DoorStand") as Node3D).position
+		var flat := Vector2(player.global_position.x - stand.x, player.global_position.z - stand.z).length()
+		_check(player.is_on_foot() and flat < 1.0 and player.global_basis.y.y > 0.99, "%s: getting out leaves the player standing by the door (%.2f m)" % [id, flat])
+		vehicle.free()
+	player.global_position = home
+	player.velocity = Vector3.ZERO
 	ground.free()
 
 

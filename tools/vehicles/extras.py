@@ -1,5 +1,6 @@
 """Accessories bolted onto a body style: light bars, signs, spoilers, cargo boxes, ladders, decals.
 Every function takes the VehicleBuilder `b` and the spec `s` first."""
+import math
 
 
 def hl(s):
@@ -17,10 +18,35 @@ def side_panel(b, s, z0, z1, y0, y1, material, inset=0.0):
     b.span("SidePanel", -x - 0.008, -x + 0.01, y0, y1, z0, z1, material)
 
 
-def stripe(b, pts, material="paint2", x=0.17, w=0.2):
-    """Racing stripes following a top outline [(z, y), ...]; drawn twice at +-x."""
-    for (za, ya), (zb, yb) in zip(pts, pts[1:]):
-        b.strut("Stripe", (x, ya + 0.012, za), (x, yb + 0.012, zb), w, material, mirror=True, depth=0.012)
+def stripe(b, pts, material="paint2", x=0.17, w=0.2, step=0.04):
+    """Racing stripes following a top outline [(z, y), ...]; drawn twice at +-x. The stripe is cut
+    into runs that skip every window (windshield, rear glass), so it never paints over glass."""
+    lift = 0.012
+    for sx in (x, -x):
+        run = []
+
+        def flush():
+            if len(run) >= 2:
+                b.strut("Stripe", run[0], run[-1], w, material, depth=0.012)
+            run.clear()
+
+        for (za, ya), (zb, yb) in zip(pts, pts[1:]):
+            n = max(1, int(math.ceil(math.hypot(zb - za, yb - ya) / step)))
+            flush()
+            for i in range(n):
+                t0, t1 = i / n, (i + 1) / n
+                p0 = (sx, ya + (yb - ya) * t0 + lift, za + (zb - za) * t0)
+                p1 = (sx, ya + (yb - ya) * t1 + lift, za + (zb - za) * t1)
+                # Test the piece's two ends and middle, across the stripe's full width.
+                blocked = any(b.over_glass((sx + dx, p[1], p[2])) for dx in (-w / 2, 0.0, w / 2)
+                              for p in (p0, p1, tuple((p0[i] + p1[i]) / 2 for i in range(3))))
+                if blocked:
+                    flush()
+                    continue
+                if not run:
+                    run.append(p0)
+                run.append(p1)
+        flush()
 
 
 def lightbar(b, s, z, y, width=1.2, colors=("siren_red", "siren_blue"), depth=0.28):

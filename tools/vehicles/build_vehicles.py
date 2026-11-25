@@ -38,6 +38,9 @@ def build_vehicle(spec):
     styles.STYLES[spec["style"]](b, spec)
     for extra in spec["extras"]:
         extra(b, spec)
+    conflicts = b.decal_conflicts()
+    if conflicts:
+        raise ValueError("%s: livery over glass: %s" % (spec["id"], ", ".join("%s on %s" % c for c in conflicts)))
     body = spec["body"]
     cam_dist, cam_h = styles.camera(spec)
     h = spec["handling"]
@@ -114,6 +117,7 @@ def registry_entry(spec):
         "trim_palette": spec["trim_palette"],
         "size_m": [body.get("W", 0.7), max(body.get("roof", 0), body.get("belt", 0)), body["L"]],
         "wheels": spec.get("wheel_count", 0),
+        "ride": spec.get("ride", {"pose": "none"}),
         "description": spec["description"],
     }
 

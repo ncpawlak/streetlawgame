@@ -28,6 +28,7 @@ size = Vector3(1, 0.35, 2.4)
 albedo_color = Color(0.42, 0.44, 0.46, 1)
 metallic = 0.7
 roughness = 0.45
+resource_name = "steel"
 
 [sub_resource type="BoxMesh" id="BoxMesh_7"]
 material = SubResource("StandardMaterial3D_6")
@@ -44,6 +45,7 @@ size = Vector3(0.06, 0.06, 1.4)
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_10"]
 albedo_color = Color(0.05, 0.05, 0.055, 1)
 roughness = 0.75
+resource_name = "black"
 
 [sub_resource type="BoxMesh" id="BoxMesh_11"]
 material = SubResource("StandardMaterial3D_10")
@@ -52,6 +54,7 @@ size = Vector3(0.9, 0.1, 0.6)
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_12"]
 albedo_color = Color(0.93, 0.93, 0.92, 1)
 roughness = 0.45
+resource_name = "white"
 
 [sub_resource type="BoxMesh" id="BoxMesh_13"]
 material = SubResource("StandardMaterial3D_12")
@@ -72,6 +75,7 @@ rings = 1
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_16"]
 albedo_color = Color(0.5, 0.32, 0.16, 1)
 roughness = 0.8
+resource_name = "wood"
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_17"]
 material = SubResource("StandardMaterial3D_16")
@@ -85,6 +89,7 @@ rings = 1
 albedo_color = Color(0.86, 0.87, 0.9, 1)
 metallic = 1.0
 roughness = 0.14
+resource_name = "chrome"
 
 [sub_resource type="BoxMesh" id="BoxMesh_19"]
 material = SubResource("StandardMaterial3D_18")
@@ -111,6 +116,7 @@ size = Vector3(0.1, 0.1, 1.0548)
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_24"]
 albedo_color = Color(0.03, 0.03, 0.03, 1)
 roughness = 0.95
+resource_name = "tire"
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_25"]
 material = SubResource("StandardMaterial3D_24")
@@ -124,6 +130,7 @@ rings = 1
 albedo_color = Color(0.55, 0.56, 0.6, 1)
 metallic = 0.8
 roughness = 0.3
+resource_name = "rim"
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_27"]
 material = SubResource("StandardMaterial3D_26")

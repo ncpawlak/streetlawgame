@@ -6,11 +6,22 @@ extends VehicleBody3D
 ## (scenes/vehicles/, see tools/vehicles/) bring their own "Body", wheels, collision, "Seats" and
 ## "Exit"/"EngineSmoke" markers; their physics values are set on the root and listed in
 ## data/vehicles/vehicles.json ([VehicleCatalog]).
+## Getting in and out is animated ([method begin_enter], [method begin_exit]): the driver walks to the
+## "DoorStand" marker, opens "Doors/Driver" by its "Handle", sits on "Seats/Driver" with feet on
+## "Ride/Pedals" and hands on "Ride/Steer" (bikes are straddled, the bus is boarded up its "Ride/Step").
+## [method enter] and [method exit] stay instant for scripts, bail-outs and explosions.
 
 signal health_changed(current: float, maximum: float)
 signal exploded
 
 enum DamageState { OK, SMOKING, BURNING, WRECKED }
+
+## Door swing (radians) when getting in or out.
+const DOOR_OPEN_ANGLE := 1.1
+## Faster than this (m/s) the driver bails out instantly instead of climbing out.
+const CLIMB_OUT_MAX_SPEED := 3.0
+## Walking pace (m/s) of the scripted walk to the door.
+const BOARD_WALK_SPEED := 2.6
 
 const WHEEL_LAYOUT := [
 	# [position, is_front]
@@ -69,6 +80,8 @@ var _last_attacker: Node
 var _body_materials: Array[StandardMaterial3D] = []
 var _smoke: CPUParticles3D
 var _flames: CPUParticles3D
+## Player mid get-in / get-out (the vehicle can't be taken meanwhile).
+var _boarder: Player
 
 
 func _ready() -> void:
@@ -105,7 +118,7 @@ func _build_interactable() -> void:
 	interactable.radius = maxf(3.5, _half_length() + 1.0)
 	var enter_condition := MethodCondition.create(&"can_enter")
 	enter_condition.hide_when_unmet = true
-	var enter_effect := MethodEffect.create(&"enter")
+	var enter_effect := MethodEffect.create(&"begin_enter")
 	enter_effect.pass_actor = true
 	var conditions: Array[Condition] = [enter_condition]
 	var effects: Array[Effect] = [enter_effect]
@@ -138,7 +151,177 @@ func paint_color() -> Color:
 
 
 func can_enter() -> bool:
-	return driver == null and not is_wrecked()
+	return driver == null and not is_wrecked() and not _is_boarding()
+
+
+func _is_boarding() -> bool:
+	return _boarder != null and is_instance_valid(_boarder) and _boarder.is_busy()
+
+
+## The registry's seating data ([code]pose[/code], [code]entry[/code], [code]lean[/code], ...).
+func ride_info() -> Dictionary:
+	var entry := VehicleCatalog.find(model_id) if model_id != &"" else {}
+	return entry.get("ride", {})
+
+
+## Seated pose in this vehicle's space for [method CharacterVisual.set_ride]: hips on the driver seat,
+## feet on the pedals / pegs, hands on the wheel / bars. The character faces +Z, so its left is +X.
+func ride_pose() -> Dictionary:
+	var info := ride_info()
+	var seat := get_node_or_null("Seats/Driver") as Node3D
+	var pedals := get_node_or_null("Ride/Pedals") as Node3D
+	var steer := get_node_or_null("Ride/Steer") as Node3D
+	var hips := seat.position if seat != null else Vector3(0.45, 1.3, -0.3)
+	var feet_at := pedals.position if pedals != null else hips + Vector3(0.0, -0.45, 0.55)
+	var hands_at := steer.position if steer != null else hips + Vector3(0.0, 0.4, 0.45)
+	var feet := Vector3(float(info.get("feet", 0.12)), 0.0, 0.0)
+	var grip := Vector3(float(info.get("grip", 0.2)), 0.0, 0.0)
+	var ankle := Vector3(0.0, 0.08, 0.0)
+	return {&"hips": hips, &"foot_l": feet_at + feet + ankle, &"foot_r": feet_at - feet + ankle,
+		&"hand_l": hands_at + grip, &"hand_r": hands_at - grip, &"lean": float(info.get("lean", 0.0))}
+
+
+## Where the driver's body (feet origin) sits, in this vehicle's space, facing forward (+Z).
+func seat_transform() -> Transform3D:
+	var pose := ride_pose()
+	var hips: Vector3 = pose[&"hips"]
+	var pedals := get_node_or_null("Ride/Pedals") as Node3D
+	var floor_y := pedals.position.y if pedals != null else hips.y - 0.45
+	return Transform3D(Basis(Vector3.UP, PI), Vector3(hips.x, floor_y, hips.z))
+
+
+## Animated get-in: walk to the door, open it, sit down, shut it, then [method enter].
+## Vehicles without seating markers are entered instantly.
+func begin_enter(player: Player) -> void:
+	if not can_enter():
+		return
+	var stand := get_node_or_null("DoorStand") as Node3D
+	if stand == null or not has_node("Ride/Pedals") or player.is_busy():
+		enter(player)
+		return
+	_boarder = player
+	var seat := seat_transform()
+	var steps := _walk_to(player, stand.position, seat.origin)
+	var stand_xf := steps[-1]["to"] as Transform3D
+	var hop := 0.12 if seat.origin.y > 0.3 else 0.04
+	match String(ride_info().get("entry", "door")):
+		"straddle":
+			steps.append(_step(seat, 0.65, {"arc": 0.35, "seated": 1.0}))
+		"bus":
+			var step_at := (get_node("Ride/Step") as Node3D).position
+			var forward := Basis(Vector3.UP, PI)
+			steps.append(_step(Transform3D(forward, step_at), 0.5, {"arc": 0.15, "walk": true}))
+			steps.append(_step(Transform3D(forward, Vector3(0.1, seat.origin.y, seat.origin.z - 0.6)), 0.7, {"walk": true}))
+			steps.append(_step(seat, 0.6, {"seated": 1.0}))
+		_:
+			var door := get_node_or_null("Doors/Driver") as Node3D
+			var handle := get_node_or_null("Doors/Driver/Handle") as Node3D
+			if door != null and handle != null:
+				var side := _hand_for(stand_xf, handle.position)
+				var behind := Transform3D(stand_xf.basis, stand_xf.origin + Vector3(0.0, 0.0, -0.25))
+				steps.append(_step(stand_xf, 0.3, {"reach": [side, handle, 1.0]}))
+				steps.append(_step(behind, 0.45, {"reach": [side, handle, 1.0], "call": _swing_door.bind(door, true)}))
+				steps.append(_step(seat, 0.75, {"arc": hop, "seated": 1.0, "reach": [side, handle, 0.0]}))
+				steps.append(_step(seat, 0.35, {"call": _swing_door.bind(door, false)}))
+			else:
+				steps.append(_step(seat, 0.7, {"arc": hop, "seated": 1.0}))
+	player.play_moves(steps, _finish_enter.bind(player))
+
+
+## Animated get-out (the reverse of [method begin_enter]); instant when moving fast.
+func begin_exit() -> void:
+	var player := driver
+	var stand := get_node_or_null("DoorStand") as Node3D
+	if player == null:
+		return
+	if stand == null or not has_node("Ride/Pedals") or linear_velocity.length() > CLIMB_OUT_MAX_SPEED:
+		exit()
+		return
+	driver = null
+	_boarder = player
+	var seat := seat_transform()
+	var away := Basis(Vector3.UP, atan2(-stand.position.x, 0.0)) if absf(stand.position.x) > 0.01 else Basis.IDENTITY
+	var out := Transform3D(away, stand.position)
+	var steps: Array[Dictionary] = [_step(seat, 0.05, {})]
+	var hop := 0.12 if seat.origin.y > 0.3 else 0.04
+	match String(ride_info().get("entry", "door")):
+		"straddle":
+			steps.append(_step(out, 0.65, {"arc": 0.35, "seated": 0.0}))
+		"bus":
+			var step_at := (get_node("Ride/Step") as Node3D).position
+			var back := Basis.IDENTITY
+			steps.append(_step(Transform3D(back, Vector3(0.1, seat.origin.y, seat.origin.z - 0.6)), 0.6, {"seated": 0.0}))
+			steps.append(_step(Transform3D(back, step_at), 0.7, {"walk": true}))
+			steps.append(_step(out, 0.5, {"arc": 0.15, "walk": true}))
+		_:
+			var door := get_node_or_null("Doors/Driver") as Node3D
+			if door != null:
+				steps.append(_step(seat, 0.3, {"call": _swing_door.bind(door, true)}))
+			steps.append(_step(out, 0.75, {"arc": hop, "seated": 0.0}))
+			var clear := Transform3D(away, stand.position + away * Vector3(0.0, 0.0, -0.6))
+			steps.append(_step(clear, 0.45, {"walk": true, "call": _swing_door.bind(door, false) if door != null else Callable()}))
+	player.play_moves(steps, _finish_exit.bind(player))
+
+
+func _finish_enter(player: Player) -> void:
+	_boarder = null
+	if driver == null and not is_wrecked() and is_instance_valid(player) and player.current_vehicle == null:
+		enter(player)
+	else:
+		player.set_on_foot(true)
+
+
+func _finish_exit(player: Player) -> void:
+	_boarder = null
+	if is_instance_valid(player) and player.current_vehicle == self:
+		player.set_on_foot(true)
+
+
+## Scripted move in this vehicle's space (see [method Player.play_moves]).
+func _step(to: Transform3D, time: float, extra: Dictionary) -> Dictionary:
+	var step := {"to": to, "time": time, "frame": self}
+	step.merge(extra)
+	if step.get("call") is Callable and not (step["call"] as Callable).is_valid():
+		step.erase("call")
+	return step
+
+
+## Walk steps from the player to [param stand] (vehicle space), around the nose or tail if they're on
+## the far side, ending turned toward [param look_at].
+func _walk_to(player: Player, stand: Vector3, look_at: Vector3) -> Array[Dictionary]:
+	var start := global_transform.affine_inverse() * player.global_position
+	start.y = 0.0
+	var points: Array[Vector3] = []
+	var half := _half_length()
+	if absf(stand.x) > 0.01 and signf(start.x) != signf(stand.x) and absf(start.z) < half + 0.3:
+		var end_z := (half + 0.8) * (1.0 if start.z >= 0.0 else -1.0)
+		points.append(Vector3(start.x, 0.0, end_z))
+		points.append(Vector3(stand.x, 0.0, end_z))
+	points.append(Vector3(stand.x, 0.0, stand.z))
+	var steps: Array[Dictionary] = []
+	var from := start
+	for point in points:
+		var direction := point - from
+		if direction.length() > 0.05:
+			var facing := Basis(Vector3.UP, atan2(-direction.x, -direction.z))
+			steps.append(_step(Transform3D(facing, point), clampf(direction.length() / BOARD_WALK_SPEED, 0.15, 3.0), {"walk": true}))
+		from = point
+	var toward := look_at - stand
+	var turn := Basis(Vector3.UP, atan2(-toward.x, -toward.z)) if Vector2(toward.x, toward.z).length() > 0.05 else Basis.IDENTITY
+	steps.append(_step(Transform3D(turn, Vector3(stand.x, 0.0, stand.z)), 0.2, {}))
+	return steps
+
+
+## Which hand reaches [param target] from a stance (the character's right is its basis +X).
+func _hand_for(stance: Transform3D, target: Vector3) -> StringName:
+	return &"R" if (target - stance.origin).dot(stance.basis.x) > 0.0 else &"L"
+
+
+func _swing_door(door: Node3D, open: bool) -> void:
+	if not is_instance_valid(door):
+		return
+	var side := signf(door.position.x) if absf(door.position.x) > 0.01 else 1.0
+	create_tween().tween_property(door, "rotation:y", -side * DOOR_OPEN_ANGLE if open else 0.0, 0.3 if open else 0.25)
 
 
 func is_wrecked() -> bool:
@@ -155,6 +338,11 @@ func take_damage(amount: float, source: Node = null) -> void:
 	_update_damage_state()
 
 
+## Leaves a bullet hole (or a crack in glass) where a shot struck the bodywork. See BulletHoles.
+func on_bullet_hit(point: Vector3, direction: Vector3, normal: Vector3) -> void:
+	BulletHoles.add(self, point, direction, normal)
+
+
 func _unhandled_input(event: InputEvent) -> void:
 	if driver == null:
 		return
@@ -162,7 +350,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		_look_yaw -= (event as InputEventMouseMotion).relative.x * mouse_sensitivity
 	elif event.is_action_pressed("interact"):
 		get_viewport().set_input_as_handled()
-		exit()
+		begin_exit()
 
 
 func _physics_process(delta: float) -> void:
@@ -214,15 +402,24 @@ func enter(player: Player) -> void:
 
 
 func exit() -> void:
-	if driver == null:
-		return
 	var player := driver
+	if player == null and _boarder != null and is_instance_valid(_boarder) and _boarder.current_vehicle == self:
+		player = _boarder
+	if player == null:
+		return
+	player.cancel_moves()
 	driver = null
+	_boarder = null
+	var door := get_node_or_null("Doors/Driver") as Node3D
+	if door != null:
+		door.rotation.y = 0.0
 	var exit_marker := get_node_or_null("Exit") as Node3D
 	var exit_point := exit_marker.global_position if exit_marker != null else global_position + global_basis.x * 1.8
 	player.global_position = exit_point + Vector3.UP * 0.5
 	player.rotation.y = global_rotation.y + PI
 	player.set_on_foot(true)
+	player.visual.set_ride(null)
+	player.visual.set_seated(0.0)
 
 
 ## Drive-bys use the driver's equipped gun and ammo. Melee and explosives can't be used from a car.
@@ -394,6 +591,8 @@ func _speed_limit_factor(throttle: float, forward_speed: float) -> float:
 func _adopt_body_materials() -> void:
 	var copies := {}
 	var stack: Array[Node] = [get_node("Body")]
+	if has_node("Doors"):
+		stack.append(get_node("Doors"))
 	while not stack.is_empty():
 		var node: Node = stack.pop_back()
 		stack.append_array(node.get_children())
@@ -412,10 +611,11 @@ func _adopt_body_materials() -> void:
 
 func _painted_meshes() -> Array[MeshInstance3D]:
 	var result: Array[MeshInstance3D] = []
-	var body := get_node_or_null("Body")
-	if body == null:
-		return result
-	var stack: Array[Node] = [body]
+	var stack: Array[Node] = []
+	for root_name in ["Body", "Doors"]:
+		var root := get_node_or_null(root_name)
+		if root != null:
+			stack.append(root)
 	while not stack.is_empty():
 		var node: Node = stack.pop_back()
 		stack.append_array(node.get_children())

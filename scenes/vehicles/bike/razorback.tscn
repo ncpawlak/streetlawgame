@@ -5,6 +5,7 @@
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1"]
 albedo_color = Color(0.05, 0.05, 0.055, 1)
 roughness = 0.75
+resource_name = "black"
 
 [sub_resource type="BoxMesh" id="BoxMesh_2"]
 material = SubResource("StandardMaterial3D_1")
@@ -14,6 +15,7 @@ size = Vector3(0.36, 0.38, 0.55)
 albedo_color = Color(0.42, 0.44, 0.46, 1)
 metallic = 0.7
 roughness = 0.45
+resource_name = "steel"
 
 [sub_resource type="BoxMesh" id="BoxMesh_4"]
 material = SubResource("StandardMaterial3D_3")
@@ -23,6 +25,7 @@ size = Vector3(0.05, 0.12, 0.8601)
 albedo_color = Color(0.86, 0.87, 0.9, 1)
 metallic = 1.0
 roughness = 0.14
+resource_name = "chrome"
 
 [sub_resource type="BoxMesh" id="BoxMesh_6"]
 material = SubResource("StandardMaterial3D_5")
@@ -90,9 +93,11 @@ left_to_right = 1
 size = Vector3(0.25, 0.26, 0.5)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_20"]
-albedo_color = Color(0.08, 0.11, 0.14, 1)
+transparency = 1
+albedo_color = Color(0.08, 0.11, 0.14, 0.55)
 metallic = 0.6
 roughness = 0.08
+resource_name = "glass"
 
 [sub_resource type="BoxMesh" id="BoxMesh_21"]
 material = SubResource("StandardMaterial3D_20")
@@ -115,6 +120,7 @@ albedo_color = Color(1, 0.97, 0.85, 1)
 emission_enabled = true
 emission = Color(1, 0.95, 0.8, 1)
 emission_energy_multiplier = 1.2
+resource_name = "headlight"
 
 [sub_resource type="BoxMesh" id="BoxMesh_26"]
 material = SubResource("StandardMaterial3D_25")
@@ -125,6 +131,7 @@ albedo_color = Color(0.8, 0.05, 0.04, 1)
 emission_enabled = true
 emission = Color(0.9, 0.05, 0.03, 1)
 emission_energy_multiplier = 0.8
+resource_name = "taillight"
 
 [sub_resource type="BoxMesh" id="BoxMesh_28"]
 material = SubResource("StandardMaterial3D_27")
@@ -140,6 +147,7 @@ size = Vector3(0.5, 0.75, 1.89)
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_31"]
 albedo_color = Color(0.03, 0.03, 0.03, 1)
 roughness = 0.95
+resource_name = "tire"
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_32"]
 material = SubResource("StandardMaterial3D_31")
@@ -152,6 +160,7 @@ rings = 1
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_33"]
 albedo_color = Color(0.12, 0.12, 0.13, 1)
 roughness = 0.85
+resource_name = "plastic"
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_34"]
 material = SubResource("StandardMaterial3D_33")
@@ -388,16 +397,27 @@ suspension_max_force = 2156
 damping_compression = 2
 damping_relaxation = 3
 
+[node name="Ride" type="Node3D" parent="."]
+
+[node name="Pedals" type="Marker3D" parent="Ride"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -0.2)
+
+[node name="Steer" type="Marker3D" parent="Ride"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0.44)
+
+[node name="DoorStand" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.75, 0, -0.32)
+
 [node name="Seats" type="Node3D" parent="."]
 
 [node name="Driver" type="Marker3D" parent="Seats"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.252, 0.95, -0.3)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.03, -0.42)
 
 [node name="Passenger1" type="Marker3D" parent="Seats"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.252, 0.95, -0.75)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.03, -0.87)
 
 [node name="Exit" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.25, 0.2, -0.3)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.9, 0.2, -0.42)
 
 [node name="EngineSmoke" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1, 0.25)
