@@ -28,6 +28,13 @@ signal busted
 ## Optional func(elapsed_wanted: float, wave: int) -> int that decides each wave's size, replacing
 ## cops_per_wave + wave * wave_growth. Use it for time-driven escalation.
 var wave_size_hook: Callable
+## Carry-over heat: each wave gets [method HeatMap.extra_cops] more cops for [member heat_area]
+## (added on top of the hook's count too). Null = no heat.
+var heat_map: HeatMap
+var heat_area: StringName = &""
+## Extra multiplier on how fast the player loses the cops (e.g. a crew wheelman). The player's
+## [HitIdentity] (mask off + a different car) multiplies it too.
+var escape_rate := 1.0
 ## Seconds since the police arrived in this chase.
 var wanted_time := 0.0
 var _escalate_left := 0.0
@@ -81,6 +88,8 @@ func dispatch() -> void:
 	var count := cops_per_wave + waves * wave_growth
 	if wave_size_hook.is_valid():
 		count = int(wave_size_hook.call(wanted_time, waves))
+	if heat_map != null:
+		count += heat_map.extra_cops(heat_area)
 	waves += 1
 	for i in count:
 		var point: Vector3 = points[i % points.size()] + Vector3(randf_range(-1.5, 1.5), 0.0, randf_range(-1.5, 1.5))
@@ -119,8 +128,11 @@ func update(delta: float) -> void:
 			cop.search_at(last_seen)
 		if not _seen:
 			player_spotted.emit()
+			var spotted := HitIdentity.of(player, false)
+			if spotted != null and spotted.on_hit:
+				spotted.witness(heat_map, &"police")
 	else:
-		unseen_time += delta
+		unseen_time += delta * escape_multiplier()
 	_seen = seen
 	wanted_time += delta
 	if escalation_interval > 0.0:
@@ -136,6 +148,12 @@ func update(delta: float) -> void:
 			dispatch()
 	if unseen_time >= lose_time and target.global_position.distance_to(last_seen) > search_radius:
 		_escape()
+
+
+## Current rate the player loses the cops at ([member escape_rate] x their [HitIdentity]).
+func escape_multiplier() -> float:
+	var identity := HitIdentity.of(GameState.player, false) if GameState.player != null else null
+	return escape_rate * (identity.escape_multiplier() if identity != null else 1.0)
 
 
 func is_seen() -> bool:
