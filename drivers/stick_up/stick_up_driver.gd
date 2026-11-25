@@ -32,6 +32,7 @@ var customers: Array[StickUpNpc] = []
 var witnesses: Array[StickUpNpc] = []
 var register: Node3D
 var register_interactable: Interactable
+var stands: Array[ShelfStand] = []
 
 var _status: Label
 var _shop_picker: OptionButton
@@ -123,9 +124,9 @@ func _process(_delta: float) -> void:
 	if session.police_response.is_wanted():
 		police += ", WANTED"
 	var aimed := controller.aimed_npc.label() if controller.aimed_npc != null else "-"
-	_status.text = "Gun out: %s\nAiming at: %s\nClerk: %s\nRegister: $%d   Taken: $%d\nBag: $%d\nPolice: %s" % [
+	_status.text = "Gun out: %s\nAiming at: %s\nClerk: %s\nRegister: $%d   Taken: $%d\nBag: $%d (%d/%d slots)\nPolice: %s" % [
 		"yes" if controller.is_gun_drawn else "no", aimed, StickUpNpc.State.keys()[clerk.state],
-		controller.register_cash, controller.taken, session.bag.total_value(), police]
+		controller.register_cash, controller.taken, session.bag.total_value(), session.bag.used_slots(), session.bag.capacity, police]
 
 
 func select_shop(id: StringName) -> void:
@@ -184,8 +185,12 @@ func _build_shop() -> void:
 	var counter_z := back + 3.0
 	_box("Counter", Vector3(6.0, 1.0, 0.8), Vector3(-2.0, 0.5, counter_z), color.darkened(0.4))
 	_box("BackShelf", Vector3(8.0, 2.2, 0.5), Vector3(-1.0, 1.1, back + 0.5), color.darkened(0.2))
-	for i in 2:
-		_box("Aisle", Vector3(0.8, 1.6, 4.0), Vector3(2.5 + i * 2.2, 0.8, SHOP_FRONT - 5.0), color.lightened(0.2))
+	var stand_spots: Array[Vector3] = [Vector3(3.0, 0.0, SHOP_FRONT - 4.0), Vector3(3.0, 0.0, SHOP_FRONT - 8.5), Vector3(-4.0, 0.0, SHOP_FRONT - 6.0)]
+	for i in mini(shop.products.size(), stand_spots.size()):
+		var product: Dictionary = shop.products[i]
+		var stand := ShelfStand.create(product["name"], product["value"], product["stock"], stand_spots[i], product.get("color", color.lightened(0.2)))
+		add_child(stand)
+		stands.append(stand)
 
 	register = Node3D.new()
 	register.name = "Register"
@@ -363,7 +368,7 @@ func _build_debug_panel() -> void:
 	var help := Label.new()
 	help.add_theme_font_size_override("font_size", 12)
 	help.modulate.a = 0.75
-	help.text = "Draw: 1-9 / wheel   Hold up: RMB on clerk\nShoot: LMB   Car: E   Stash: hold E\nEsc: free mouse"
+	help.text = "Draw: 1-9 / wheel   Hold up: RMB on clerk\nShoot: LMB   Car: E   Stash: hold E\nShelves / bodies: hold E   Esc: free mouse"
 	box.add_child(help)
 
 

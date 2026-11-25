@@ -88,7 +88,18 @@ signals: finished(cash), failed(reason)
 
 # HitHud (CanvasLayer)
 bind(bag, police_call, police_response); set_objective(text)
+
+# BodyLoot (Node3D, child "BodyLoot" of a corpse)
+static attach(body, amount := -1) -> BodyLoot   # -1 = random DEFAULT_CASH (20-80); <= 0 = nothing
+static of(body) -> BodyLoot; can_loot(actor); loot(actor) -> int
+signal looted(amount, actor); exports cash, search_time (1.2)
 ```
+
+## Body looting
+
+Every dead NPC leaves a lootable body by default. Hold E on it ("Search the body ($N)") and the cash goes straight into the player's wallet (`GameState.add_cash`), not into the bag. Each body pays once and is freed with the corpse.
+
+`GangMember._die` already calls `BodyLoot.attach(self)`, so gang members, cops and anything else that extends `GangMember` are covered. Kills don't pay cash directly any more; the cash is on the body. To give another NPC type a lootable body, call `BodyLoot.attach(self)` (or `BodyLoot.attach(self, amount)`) in its death code. Repeat calls on the same body are ignored.
 
 ## Minimal setup
 ```gdscript

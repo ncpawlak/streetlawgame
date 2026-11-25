@@ -15,3 +15,4 @@ customer_count = 2
 clerk_weapon_id = &""
 clerk_nerve = 4.0
 self_grab_time = 3.0
+products = Array[Dictionary]([{"name": "Cigarettes", "value": 30, "stock": 6, "color": Color(0.85, 0.85, 0.9, 1)}, {"name": "Snacks", "value": 10, "stock": 8, "color": Color(0.95, 0.6, 0.15, 1)}, {"name": "Energy Drinks", "value": 15, "stock": 6, "color": Color(0.3, 0.8, 0.95, 1)}])

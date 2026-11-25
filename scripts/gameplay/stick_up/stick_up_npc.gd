@@ -36,6 +36,8 @@ const STATE_ICONS := {
 @export var call_duration := 3.0
 @export var body_color := Color(0.7, 0.6, 0.5)
 @export var corpse_lifetime := 60.0
+## Cash on the body when killed (searched with hold E, see [BodyLoot]).
+@export var loot_cash := BodyLoot.DEFAULT_CASH
 ## Armed clerks fight back with this weapon when they turn HOSTILE.
 @export var weapon_id: StringName = &""
 
@@ -147,6 +149,7 @@ func _die(killer: Node) -> void:
 	rotation.x = -PI / 2.0
 	position.y += 0.4
 	_apply_state_visuals()
+	BodyLoot.attach(self, randi_range(loot_cash.x, loot_cash.y))
 	state_changed.emit(self, state)
 	died.emit(self, killer)
 	if corpse_lifetime > 0.0:

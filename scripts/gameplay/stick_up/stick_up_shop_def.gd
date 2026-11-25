@@ -22,6 +22,8 @@ extends Resource
 @export var clerk_nerve := 4.0
 ## Seconds it takes to empty the register yourself once the clerk is dead.
 @export var self_grab_time := 3.0
+## Stocked stands: each {"name": String, "value": int (stash value per unit), "stock": int, "color": Color}.
+@export var products: Array[Dictionary] = []
 
 
 func label() -> String:

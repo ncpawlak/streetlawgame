@@ -31,8 +31,10 @@ func _frames(count: int) -> void:
 func run() -> void:
 	var saved_cash := GameState.cash
 	await _test_corner_store()
+	await _test_shelves()
 	await _test_armed_clerk()
 	Input.action_release("aim")
+	Input.action_release("interact")
 	DriverScript.selected_shop = &"corner_store"
 	GameState.cash = saved_cash
 
@@ -125,6 +127,12 @@ func _test_corner_store() -> void:
 	clerk.take_damage(1000.0, player)
 	await _frames(2)
 	_check(not clerk.is_alive() and controller.can_grab_register(player), "the clerk can be killed, opening up the register")
+	await _frames(1)
+	var body := BodyLoot.of(clerk)
+	var wallet := GameState.cash
+	var on_body := body.cash if body != null else 0
+	_check(body != null and on_body > 0 and body.interactable.perform(BodyLoot.ACTION, player) and GameState.cash == wallet + on_body, "searching the clerk's body pays their cash (+$%d)" % on_body)
+	_check(not body.interactable.perform(BodyLoot.ACTION, player) and GameState.cash == wallet + on_body, "a body can only be searched once")
 	var register_interactable: Interactable = driver.get("register_interactable")
 	_check(register_interactable.perform(&"grab_register", player) and controller.register_cash == 0 and bag.cash == taken + remaining, "emptying the register yourself puts the rest in the bag ($%d)" % bag.cash)
 	_check(customers.all(func(npc: StickUpNpc) -> bool: return npc.state == StickUpNpc.State.FLEEING), "a killing sends the customers running")
@@ -138,6 +146,47 @@ func _test_corner_store() -> void:
 	var liquor_def: StickUpShopDef = DriverScript.SHOPS[&"liquor_store"]
 	var corner_def: StickUpShopDef = DriverScript.SHOPS[&"corner_store"]
 	_check(liquor_def.label() == "Liquor Store" and corner_def.label() == "Corner Store" and liquor_def.clerk_weapon_id != &"" and corner_def.clerk_weapon_id == &"", "shop types come from the business catalogue with their own tuning")
+
+
+func _test_shelves() -> void:
+	var driver := await _load_driver(&"corner_store")
+	var player: Player = driver.get("player")
+	var stands: Array[ShelfStand] = driver.get("stands")
+	var stash: StashDropoff = driver.get("stash")
+	var bag := CarryBag.of(player)
+	var interactor := player.interactor
+	_check(stands.size() == 3 and stands.all(func(s: ShelfStand) -> bool: return s.stock_left == s.stock and s.meter == 1.0), "the shop has three fully stocked stands")
+
+	var smokes := stands[0]
+	player.global_position = smokes.global_position + Vector3(0.0, 0.1, 1.2)
+	await _frames(5)
+	Input.action_press("interact")
+	_check(interactor.start(smokes.action, smokes.interactable), "holding E on a stand starts bagging product")
+	await _frames(15)
+	_check(smokes.meter < 1.0 and smokes.meter > (smokes.stock - 1.0) / smokes.stock and bag.items.is_empty(), "the stock meter drains while you hold (%.2f)" % smokes.meter)
+	Input.action_release("interact")
+	await _frames(3)
+	_check(not interactor.is_channelling() and smokes.stock_left == smokes.stock and smokes.meter == 1.0, "letting go stops bagging and the meter springs back")
+
+	Input.action_press("interact")
+	interactor.start(smokes.action, smokes.interactable)
+	await _frames(int(smokes.stock * smokes.seconds_per_unit * 60.0) + 40)
+	_check(smokes.stock_left == 0 and smokes.meter == 0.0 and bag.used_slots() == smokes.stock, "keeping E held empties the whole stand into the bag (%d items)" % bag.items.size())
+	_check(bag.goods_value() == smokes.stock * smokes.unit_value and bag.items[0]["name"] == "Cigarettes", "each unit goes in the bag with its stash value ($%d)" % bag.goods_value())
+	_check(not smokes.can_grab(player) and smokes.grab_reason(player) == "Shelf's empty", "an empty stand can't be grabbed from")
+
+	var snacks := stands[1]
+	player.global_position = snacks.global_position + Vector3(0.0, 0.1, 1.2)
+	await _frames(5)
+	interactor.start(snacks.action, snacks.interactable)
+	await _frames(int(snacks.stock * snacks.seconds_per_unit * 60.0) + 40)
+	_check(bag.is_full() and snacks.stock_left == snacks.stock - (bag.capacity - smokes.stock), "bagging stops when the bag is full (%d/%d), leaving stock on the stand" % [bag.used_slots(), bag.capacity])
+	_check(not snacks.can_grab(player) and snacks.grab_reason(player).begins_with("Bag full"), "a full bag blocks more product")
+	Input.action_release("interact")
+
+	var wallet := GameState.cash
+	var worth := bag.total_value()
+	_check(stash.cash_in(player) == worth and GameState.cash == wallet + worth and bag.is_empty(), "the stash pays out the product in the bag (+$%d)" % worth)
 
 
 func _test_armed_clerk() -> void:

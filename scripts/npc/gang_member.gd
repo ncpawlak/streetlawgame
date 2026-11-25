@@ -178,8 +178,9 @@ func _die(killer: Node) -> void:
 	rotation.x = -PI / 2.0
 	position.y += 0.4
 	if killer == GameState.player or (killer is Vehicle and (killer as Vehicle).driver != null):
-		GameState.add_cash(randi_range(20, 80))
 		GameState.add_respect(10)
+	# Cash is on the body: hold E to search it.
+	BodyLoot.attach(self)
 	_drop_weapon()
 	EventBus.gang_member_killed.emit(self, killer)
 	get_tree().create_timer(corpse_lifetime).timeout.connect(queue_free)

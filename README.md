@@ -100,6 +100,11 @@ A small street with a shop, three neighbouring businesses, bystanders, a getaway
 3. You can kill the clerk or anyone else and empty the register yourself (hold E on it). Customers run, and bystanders and the neighbouring shops phone the cops. A finished call brings the police at once.
 4. Leave, lose the cops if needed, then hold E at the stash to cash in the bag.
 
+Extras:
+
+- **Shelves:** each stand has a stock meter. Hold E on a stand to drain the meter and fill your bag with product, one unit at a time, until the stand is empty or the bag is full (8 slots). Letting go stops it. Product sells at the stash on top of the cash.
+- **Bodies:** hold E on any dead NPC to take their cash. This is the default for every NPC (see `scripts/gameplay/hit_common/README.md`).
+
 Pick the shop with the debug panel or F1 (corner store) / F2 (liquor store, armed clerk). F3 restarts. Esc frees the mouse for the panel. Shop tuning lives in `drivers/stick_up/shops/*.tres`.
 
 ## Tests

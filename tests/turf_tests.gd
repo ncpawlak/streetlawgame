@@ -74,7 +74,14 @@ func _test_safehouse_capture(player: Player) -> void:
 	var respect_before := GameState.respect
 	_kill(&"rail_yards", &"guard", player)
 	_check(district.guards_remaining() == 0 and district.defenders_remaining() == 2, "guards die, patrols remain")
-	_check(GameState.cash > cash_before and GameState.respect > respect_before, "kills reward cash and respect")
+	_check(GameState.cash == cash_before and GameState.respect > respect_before, "kills reward respect; the cash stays on the body")
+	var looted := 0
+	await _frames(1)
+	for node in _runner.get_tree().get_nodes_in_group(&"gang_members"):
+		var body := BodyLoot.of(node)
+		if body != null and body.interactable.perform(BodyLoot.ACTION, player):
+			looted += 1
+	_check(looted >= 4 and GameState.cash > cash_before, "searching the dead guards' bodies pays their cash")
 	_check(safehouse.can_claim(player), "a cleared safehouse can be claimed")
 	_kill(&"rail_yards", &"", player)
 
