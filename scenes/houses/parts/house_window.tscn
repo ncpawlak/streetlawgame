@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/world/houses/house_window.gd" id="1_s"]
+
+[node name="HouseWindow" type="CSGBox3D"]
+operation = 2
+size = Vector3(1.1, 1.5, 0.24)
+script = ExtResource("1_s")

@@ -1,0 +1,14 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/textures/houses/slats.png" id="1_tex"]
+
+[resource]
+resource_name = "grate"
+albedo_color = Color(0.7, 0.72, 0.74, 1)
+albedo_texture = ExtResource("1_tex")
+metallic = 0.5
+roughness = 0.5
+uv1_scale = Vector3(1, 1, 1)
+uv1_triplanar = true
+uv1_triplanar_sharpness = 1
+texture_filter = 5
