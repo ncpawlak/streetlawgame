@@ -45,6 +45,12 @@ You start with fists and a pistol. There's a stash of guns (SMG, shotgun, rifle)
 
 Vehicles take damage from bullets, explosions and crashes: they smoke, then catch fire, then explode. Rivals will shoot at your car while you're driving.
 
+## Gameplay drivers
+
+Standalone test scenes for single gameplay types. They are not part of the city map.
+
+- **Carjack / hot car**: `godot --path . res://drivers/carjack/carjack_driver.tscn`. Jack a car through a minigame, lose its tracker, and deliver it to the chop shop. Press F2 in-game, or pass `-- --minigame=lock_pick|hotwire|struggle|auto`, to switch the minigame. See [drivers/carjack/README.md](drivers/carjack/README.md).
+
 ## Tests
 
 ```sh
