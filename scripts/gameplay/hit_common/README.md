@@ -6,6 +6,7 @@ These are the reusable pieces for the end of every hit: bag the loot, beat the p
 | --- | --- | --- |
 | `CarryBag` | `carry_bag.gd` | The player's bag: goods (slots + value) and loose cash. |
 | `LootItem` | `loot_item.gd` | A world pickup. Hold E to put it in the bag. |
+| `LootContainer` | `loot_container.gd` | A searchable StaticBody3D (drawers, a safe, a register). Hold E to search it and bag what's inside. |
 | `PoliceCall` | `police_call.gd` | The countdown to the police being called, or an immediate call. |
 | `PoliceResponse` | `police_response.gd` | Spawns cops when called. Tracks wanted, escape and bust. |
 | `Cop` | `cop.gd` | A police officer (`GangMember` AI) with line-of-sight checks. |
@@ -47,6 +48,12 @@ vars: capacity := 8, items: Array[Dictionary] {name, value, slots}, cash: int
 LootItem.create(item_name, value, slots, is_cash, position) -> LootItem
 take(actor) -> bool         # what the hold-E action calls
 signal taken(item, actor)
+
+# LootContainer (StaticBody3D, layer 1)
+@export container_name, size: Vector3, color, search_time := 1.5
+set_contents({name, value, slots, cash} or {})   # {} = nothing worth taking
+search(actor) -> Dictionary  # what the hold-E "search" action calls; bags the item or cash
+can_search() -> bool; vars: contents, is_searched; signal searched(container, actor, found)
 
 # PoliceCall (Node)
 enum State { IDLE, COUNTDOWN, CALLED }
