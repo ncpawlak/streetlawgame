@@ -45,6 +45,48 @@ You start with fists and a pistol. There's a stash of guns (SMG, shotgun, rifle)
 
 Vehicles take damage from bullets, explosions and crashes: they smoke, then catch fire, then explode. Rivals will shoot at your car while you're driving.
 
+## Gameplay drivers
+
+Drivers are standalone test scenes for a single gameplay type. They aren't part of the city.
+
+### House robbery
+
+```sh
+godot --path . res://drivers/house_robbery/house_robbery_driver.tscn
+```
+
+A street with a house you can burgle, its neighbours, a stakeout bench across the road, a getaway car and a lock-up garage (the stash) at the west end of the street.
+
+- **Tiers:**
+  - Low income: no security.
+  - Medium income: one camera and an alarm on the front door.
+  - High income: 9 cameras, and most doors and windows are alarmed. The master bedroom's side window is the blind spot.
+- **Stakeout:** hold E on the bench to see who's home, plus the cameras, alarmed entries and neighbour timer.
+- **Getting in:**
+  - Doors: pick the lock (quiet) or kick it in (loud).
+  - Windows: pry them (quiet) or smash them (loud), then climb through.
+- **Calling the police:**
+  - Breaking in while nobody's home starts the neighbours' countdown (60 / 45 / 35 s by tier).
+  - An alarmed door or window calls the police straight away. So does being seen by a camera after the break-in.
+  - Gunshots, including killing the owners, start the countdown.
+  - Owners who are home and spot you phone the police. If you point a gun at them, they cower.
+- **Looting:** hold E on loose items and cash, and search furniture (drawers, safes and so on). Loot placement is random. The bag holds 8 slots.
+- **Escaping:** leave, lose any cops, then hold E at the stash to cash in. The stash won't take the bag while you're wanted.
+
+Debug keys:
+
+| Key | Does |
+| --- | --- |
+| F1 / F2 / F3 | Low / medium / high-income house |
+| F4 | Toggle owners home |
+| F5 | Re-roll loot |
+| F6 | Reset |
+| F7 | Toggle roof |
+
+`-- --screenshots=<dir>` saves the tier layouts, the stakeout view and the looting HUD to `<dir>`, then quits.
+
+The shared pieces of the hit aftermath are in `scripts/gameplay/hit_common/` (see its README): the bag, loot, police countdown, cops and stash. The house-specific code is in `scripts/gameplay/house_robbery/`.
+
 ## Tests
 
 ```sh
