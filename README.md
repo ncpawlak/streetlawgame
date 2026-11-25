@@ -32,8 +32,10 @@ godot --path .
 | Enter, steal or exit a vehicle | E |
 | Handbrake | Space (in vehicle) |
 | Drive-by (uses your equipped gun) | LMB (in vehicle) |
-| Map | Tab / M |
+| Pause map | M (M / Esc closes) |
 | Release / capture mouse | Esc / click |
+
+**Pause map (M):** the game pauses while it's open. Pan with a mouse drag or WASD/arrows, and zoom with the wheel or Q/E, from the whole North End down to a few blocks. Click a marker for its info card. Right-click sets a waypoint, or right-click the pin to clear it. A GPS line to the waypoint follows the streets on the minimap. Space recentres on you and Backspace clears the waypoint. The legend toggles each category: objectives and the current mission, hit spots, your businesses and trap houses, businesses for sale, rival fronts, plugs and corners, safehouses, gun and explosive shops, world events (hot cars) and turf colours. Roster spots without a system yet show as *coming soon*.
 
 ## Prototype gameplay
 

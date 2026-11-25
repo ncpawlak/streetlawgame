@@ -89,7 +89,8 @@ No gameplay code hardcodes `res://` content paths. See [CONTENT.md](CONTENT.md).
 - **Decoupling:** emit on `EventBus` for cross-system events, and read shared state from `GameState`.
 - **Physics layers:** 1 `world`, 2 `player`, 3 `npc`, 4 `vehicle`.
 - **Render layers:** layer 2 `map_only` holds overlays and markers that only the minimap camera renders. Gameplay cameras mask it out.
-- **Groups:** `player`, `vehicles`, `gang_members`, `hangout_crew`, `projectiles`, `fires`.
+- **Groups:** `player`, `vehicles`, `gang_members`, `hangout_crew`, `projectiles`, `fires`, `roster_markers` (meta `spot`), `hot_cars`.
+- **Pause map:** `MapScreen` (`scripts/ui/map_screen.gd`, a HUD child, `PROCESS_MODE_ALWAYS`) pauses the tree. Its markers come from `MapMarkers.collect()`, which reads Locations, Businesses, Operations, Turf and the groups above, so new content shows up without map code. The waypoint route comes from `RoadGraph` (A* over `NorthEndLayout.ROADS`) and the HUD draws it on the minimap.
 - **Content as data:** new guns, buildings, actions, dialogues and so on should be `.tres` resources looked up through `ContentDB`, not new code paths. New behaviour goes in a new `Condition`/`Cost`/`Effect`/strategy subclass.
 - Tabs for indentation, static typing everywhere (`:=`, typed params and returns).
 
