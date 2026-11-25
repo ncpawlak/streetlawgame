@@ -4,8 +4,8 @@ extends RefCounted
 ## save/load. Hooked from run_tests.gd. Model tests run on isolated OperationsModel instances
 ## (dict-backed districts, local crew, seeded rng); the autoload test restores what it touches.
 
-const BOTTOMS := &"the_bottoms"
-const RIVERSIDE := &"riverside"
+const BOTTOMS := &"tamarack_row"
+const RIVERSIDE := &"northgrove"
 const TRAP := &"bottoms_trap_house"
 const LAB := &"riverside_lab"
 
@@ -39,8 +39,8 @@ func _model(keep_risks := false, cash := [1000000]) -> OperationsModel:
 	var model := OperationsModel.new()
 	model.rng.seed = 12345
 	model.districts = DistrictProvider.new()
-	model.districts.set_owner(BOTTOMS, OperationsModel.PLAYER_GANG, "The Bottoms")
-	model.districts.set_owner(RIVERSIDE, &"syndicate", "Riverside")
+	model.districts.set_owner(BOTTOMS, OperationsModel.PLAYER_GANG, "Tamarack Row")
+	model.districts.set_owner(RIVERSIDE, &"syndicate", "Northgrove")
 	model.spend_cash = func(amount: int) -> bool:
 		if cash[0] < amount:
 			return false
@@ -183,7 +183,7 @@ func _test_district_loss_blocks() -> void:
 	model.site_stash(TRAP).add(&"grow_kit", 5)
 	model.districts.set_owner(BOTTOMS, &"syndicate")
 	model.step(60.0)
-	_check(job.status == JobAssignment.Status.BLOCKED and job.status_reason.contains("The Bottoms"), "losing the district blocks its sites")
+	_check(job.status == JobAssignment.Status.BLOCKED and job.status_reason.contains("Tamarack Row"), "losing the district blocks its sites")
 	_check(model.site_stash(TRAP).count(&"weed") == 0, "blocked sites don't produce")
 	model.districts.set_owner(BOTTOMS, OperationsModel.PLAYER_GANG)
 	model.step(30.0)
@@ -226,7 +226,7 @@ func _test_assignment_rules() -> void:
 	jailed.status = CrewMemberData.Status.ARRESTED
 	_check(model.can_assign(jailed.id, TRAP, &"guard").contains("arrested"), "unavailable crew can't be assigned")
 	_check(model.acquire_site(LAB) != "", "you can't buy a site in a district you don't control")
-	model.districts.set_owner(RIVERSIDE, OperationsModel.PLAYER_GANG, "Riverside")
+	model.districts.set_owner(RIVERSIDE, OperationsModel.PLAYER_GANG, "Northgrove")
 	_check(model.acquire_site(LAB) != "" and not model.is_site_acquired(LAB), "buying a site needs the cash")
 	cash[0] = model.site(LAB).acquire_price
 	_check(model.acquire_site(LAB) == "" and model.is_site_acquired(LAB) and cash[0] == 0, "buying a site charges its price")
@@ -264,7 +264,7 @@ func _test_risk() -> void:
 	model.site_stash(TRAP).add(&"weed", 10)
 	var events := model.step(1.0)
 	var risk_events := _events_of(events, &"operation_risk")
-	_check(risk_events.size() == 1 and String(risk_events[0].text) == "Bust at Bottoms Trap House: Victim", "risks fire and format their notification")
+	_check(risk_events.size() == 1 and String(risk_events[0].text) == "Bust at The Spot: Victim", "risks fire and format their notification")
 	_check(model.site_stash(TRAP).count(&"weed") == 5, "a seizure takes stock")
 	_check(victim.status == CrewMemberData.Status.ARRESTED and model.assignment_for_crew(victim.id) == null, "an arrest pulls the crew member off the job")
 	events = model.step(31.0)
@@ -428,13 +428,13 @@ func _test_world_districts(model: OperationsModel) -> void:
 	if turf == null:
 		return
 	var ids := model.districts.all_districts()
-	var expected: Array[StringName] = [&"downtown", &"eastside", &"hillcrest", &"midtown", &"northgate", &"old_harbor", &"rail_yards", &"riverside", &"the_bottoms"]
+	var expected: Array[StringName] = [&"mangona", &"northgrove", &"tamarack_row"]
 	var sorted_ids := ids.duplicate()
 	sorted_ids.sort_custom(func(a: StringName, b: StringName) -> bool: return String(a) < String(b))
-	_check(sorted_ids == expected, "WorldDistrictProvider lists Turf's 9 districts %s" % [sorted_ids])
-	_check(model.districts.display_name(&"old_harbor") == turf.call("display_name", &"old_harbor"), "district names come from Turf")
-	var previous: StringName = turf.call("owner_of", &"riverside")
-	turf.call("set_district_owner", &"riverside", &"player", &"test")
-	_check(model.districts.owner_of(&"riverside") == &"player" and model.districts.owned_districts(&"player").has(&"riverside"), "district ownership follows Turf")
-	turf.call("set_district_owner", &"riverside", previous, &"test")
-	_check(model.districts.owner_of(&"riverside") == previous, "restored district owner is seen")
+	_check(sorted_ids == expected, "WorldDistrictProvider lists Turf's 3 districts %s" % [sorted_ids])
+	_check(model.districts.display_name(&"mangona") == turf.call("display_name", &"mangona"), "district names come from Turf")
+	var previous: StringName = turf.call("owner_of", &"northgrove")
+	turf.call("set_district_owner", &"northgrove", &"player", &"test")
+	_check(model.districts.owner_of(&"northgrove") == &"player" and model.districts.owned_districts(&"player").has(&"northgrove"), "district ownership follows Turf")
+	turf.call("set_district_owner", &"northgrove", previous, &"test")
+	_check(model.districts.owner_of(&"northgrove") == previous, "restored district owner is seen")

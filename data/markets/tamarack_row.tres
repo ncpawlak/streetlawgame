@@ -4,11 +4,11 @@
 
 [resource]
 script = ExtResource("1_583h0")
-district_id = &"the_bottoms"
+district_id = &"tamarack_row"
 demand = {
 &"coke": 0.7,
 &"drug": 1.0,
 &"weed": 1.2
 }
-id = &"the_bottoms"
-display_name = "The Bottoms market"
+id = &"tamarack_row"
+display_name = "Tamarack Row market"

@@ -6,14 +6,15 @@
 [sub_resource type="Resource" id="bonus"]
 script = ExtResource("2")
 income_multiplier = 1.25
-flat_income_per_cycle = 150
-respect_reward = 300
-unlocks = Array[StringName]([&"northside_control"])
+flat_income_per_cycle = 100
+respect_reward = 250
+unlocks = Array[StringName]([&"north_end_control"])
 
 [resource]
 script = ExtResource("1")
-id = &"northside"
-display_name = "Northside"
+id = &"north_end"
+display_name = "North End"
 bonuses = Array[ExtResource("2")]([SubResource("bonus")])
-story_beat = &"area_northside_taken"
-sort_order = 2
+story_beat = &"area_north_end_taken"
+sort_order = 0
+tier = 1
