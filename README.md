@@ -45,6 +45,18 @@ You start with fists and a pistol. There's a stash of guns (SMG, shotgun, rifle)
 
 Vehicles take damage from bullets, explosions and crashes: they smoke, then catch fire, then explode. Rivals will shoot at your car while you're driving.
 
+## Gameplay drivers
+
+Self-contained scenes for testing one gameplay type each. They aren't connected to the city map.
+
+### Cash van hit
+
+```sh
+godot --path . res://drivers/cash_van/cash_van_driver.tscn
+```
+
+You start in a getaway car on a looping stretch of I-59, behind an armoured cash van. Shoot out all 4 tires (each one is tracked separately, and the van slows with each flat). After the 4th flat the van stops and three armed guards get out. The longer the hit takes, the more police cruisers join the pursuit. Once the van is stopped, go to its **front** and hold **E** to release the rear doors. Then bag as much cargo as fits in your 8-slot carry bag, lose the police, and cash in at the stash garage in the infield. Press **F5** to restart. See [drivers/cash_van/README.md](drivers/cash_van/README.md) for details.
+
 ## Tests
 
 ```sh
