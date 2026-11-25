@@ -20,6 +20,7 @@ const REASON_ALARM := &"alarm"
 const REASON_CAMERA := &"camera"
 const REASON_SILENT_ALARM := &"silent_alarm"
 const REASON_WITNESS := &"witness"
+const REASON_DOG := &"dog"
 
 const REASON_TEXT := {
 	&"neighbours": "The neighbours noticed the break-in",
@@ -29,6 +30,7 @@ const REASON_TEXT := {
 	&"camera": "Caught on camera! The police have been called",
 	&"silent_alarm": "Silent alarm",
 	&"witness": "A witness is calling the cops",
+	&"dog": "A dog is barking its head off - the neighbours are looking",
 }
 
 ## Default countdown when no time is given.
@@ -40,6 +42,8 @@ const REASON_TEXT := {
 @export var listen_gunshots := true
 ## A hidden countdown turns visible with this many seconds left.
 @export var reveal_at := 10.0
+## Multiplies every countdown length (heat makes it shorter, a crew lookout longer).
+var countdown_scale := 1.0
 
 var state := State.IDLE
 var time_left := 0.0
@@ -82,7 +86,7 @@ func is_active() -> bool:
 func start_countdown(why: StringName, seconds := -1.0, secret := false) -> void:
 	if state == State.CALLED:
 		return
-	var duration := countdown_seconds if seconds < 0.0 else seconds
+	var duration := (countdown_seconds if seconds < 0.0 else seconds) * countdown_scale
 	if state == State.COUNTDOWN:
 		if duration < time_left:
 			time_left = duration
@@ -117,6 +121,13 @@ func report_noise(at: Vector3, why: StringName = REASON_GUNSHOT) -> void:
 	if listen_center != null and is_instance_valid(listen_center) and listen_center.global_position.distance_to(at) > hearing_radius:
 		return
 	start_countdown(why)
+
+
+## Makes a hidden (silent alarm) countdown visible early, e.g. a crew lookout spotting it.
+func reveal() -> void:
+	if state == State.COUNTDOWN and hidden:
+		hidden = false
+		countdown_revealed.emit()
 
 
 func reset() -> void:

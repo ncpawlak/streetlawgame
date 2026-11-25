@@ -86,6 +86,16 @@ func add_cash(amount: int) -> void:
 	changed.emit()
 
 
+## Takes the item at [param index] out of the bag and returns it ({} if out of range).
+func remove_item(index: int) -> Dictionary:
+	if index < 0 or index >= items.size():
+		return {}
+	var item: Dictionary = items[index]
+	items.remove_at(index)
+	changed.emit()
+	return item
+
+
 ## Clears the bag and returns what it was worth.
 func empty() -> int:
 	var total := total_value()
