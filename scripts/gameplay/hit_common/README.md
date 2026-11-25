@@ -35,6 +35,7 @@ These are the reusable pieces for the end of every hit: bag the loot, beat the p
 CarryBag.of(actor, create := true) -> CarryBag
 add_item(item_name: String, value: int, slots := 1) -> bool   # false + `rejected` when full
 add_cash(amount: int)                                          # no slots
+remove_item(index: int) -> Dictionary                          # {} if out of range
 can_fit(slots) / free_slots() / used_slots() / is_full() / is_empty()
 total_value() -> int        # goods + cash
 empty() -> int              # clears, returns the total (the stash uses this)
@@ -62,9 +63,10 @@ exports: countdown_seconds := 45, hearing_radius := 40, listen_center: Node3D, l
 dispatch()                  # send a wave now
 update(delta)               # chase tick (runs automatically in physics)
 stand_down()                # cops leave, the call resets
-is_wanted(), is_seen(), escape_progress(), alive_cops(); last_seen, unseen_time
+is_wanted(), is_seen(), escape_progress(), alive_cops(); last_seen, unseen_time, wanted_time, waves
+wave_size_hook: Callable    # optional func(wanted_time: float, wave: int) -> int, replaces cops_per_wave + wave * wave_growth
 signals: cops_arrived(count), player_spotted, escaped, busted
-exports: police_call, cops_per_wave := 3, wave_growth := 1, reinforcement_delay := 8, search_radius := 50, lose_time := 12, spawn_cruiser := true, spawn_points: Array[Vector3]
+exports: police_call, cops_per_wave := 3, wave_growth := 1, reinforcement_delay := 8, escalation_interval := 0 (seconds between extra waves while wanted; 0 = only when all cops are down), search_radius := 50, lose_time := 12, spawn_cruiser := true, spawn_points: Array[Vector3]
 
 # StashDropoff (Node3D)
 cash_in(actor) -> int, can_cash_in(actor), cash_in_reason(actor)
