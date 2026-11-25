@@ -26,7 +26,7 @@ hide_when_unmet = false
 [resource]
 script = ExtResource("6_yxrxp")
 kind = &"lab"
-district_id = &"riverside"
+district_id = &"northgrove"
 location_id = &"riverside_lab"
 allowed_jobs = Array[StringName]([&"cook", &"dealer", &"guard"])
 stash_capacity = 300
@@ -36,6 +36,6 @@ operate_conditions = Array[ExtResource("1_v4rok")]([SubResource("Resource_npj5y"
 risks = Array[ExtResource("3_ypikr")]([ExtResource("4_3q23g"), ExtResource("5_dqtmw")])
 heat_decay_per_minute = 3.0
 id = &"riverside_lab"
-display_name = "Riverside Lab"
-description = "A proper cook spot. You'll need to run Riverside first."
+display_name = "Grove Stash House"
+description = "A proper cook spot. You'll need to run Northgrove first."
 tags = Array[StringName]([&"lab", &"grow", &"stash"])

@@ -9,7 +9,7 @@ var id := 0
 var crew_id: StringName
 var site_id: StringName
 var job_id: StringName
-## Job-specific choices, e.g. {"recipe_id": &"grow_weed"} or {"district_id": &"the_bottoms"}.
+## Job-specific choices, e.g. {"recipe_id": &"grow_weed"} or {"district_id": &"tamarack_row"}.
 var params := {}
 ## Fractional cycles accumulated by the behaviour.
 var progress := 0.0

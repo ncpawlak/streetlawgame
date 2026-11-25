@@ -44,7 +44,7 @@ const TYPE := &"locations"
 ## Relative chance when filling free lots.
 @export var spawn_weight := 1.0
 @export var max_per_district := -1
-## Only place in these district ids (snake_case, e.g. &"the_bottoms"). Empty = anywhere.
+## Only place in these district ids (snake_case, e.g. &"tamarack_row"). Empty = anywhere.
 @export var district_ids: Array[StringName] = []
 @export_group("")
 ## Free-form data for other systems (#27: production slots, #24: safehouse config...).

@@ -357,7 +357,7 @@ func _recompute_area(area_id: StringName, reason: StringName = &"init") -> void:
 	if holder == previous:
 		return
 	state.owner = holder
-	if reason == &"init":
+	if reason == &"init" or reason == &"load":
 		return
 	if previous != GameState.NO_GANG:
 		EventBus.area_lost.emit(area_id, previous)

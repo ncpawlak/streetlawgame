@@ -26,9 +26,11 @@ func _run() -> void:
 	await _test_vehicle(player)
 	await _test_weapons(player)
 	await _test_weapon_wheel(main, player)
+	await _test_pause_map(main, player)
 	await _test_ai_combat(main, player)
 	await _test_explosives(main, player)
 	await _test_vehicle_damage(main, city, player)
+	await preload("res://tests/character_tests.gd").new(self).run(main, player)
 	await FrameworkTests.new(self).run(main, player)
 	await OperationsTests.new(self).run()
 	await BusinessTests.new(self).run()
@@ -114,6 +116,94 @@ func _test_weapon_wheel(main: Node, player: Player) -> void:
 	wheel._move_cursor(Vector2(0.0, 150.0))
 	wheel.close(false)
 	_check(weapons.current_index == target, "cancelling the wheel keeps the current weapon")
+
+
+func _key(keycode: Key, pressed := true) -> void:
+	var event := InputEventKey.new()
+	event.physical_keycode = keycode
+	event.keycode = keycode
+	event.pressed = pressed
+	get_viewport().push_input(event)
+
+
+func _test_pause_map(main: Node, player: Player) -> void:
+	var hud: Node = main.get_node("HUD")
+	var map: MapScreen = hud.map_screen
+	var wheel: WeaponWheel = hud.weapon_wheel
+	_check(not InputMap.action_get_events("toggle_map").any(func(e: InputEvent) -> bool: return e is InputEventKey and (e as InputEventKey).physical_keycode == KEY_TAB), "Tab no longer opens the map")
+	_key(KEY_M)
+	_key(KEY_M, false)
+	await _physics_frames(2)
+	_check(map.is_open and get_tree().paused, "M opens the map and pauses the game")
+	var before := player.global_position
+	player.velocity = Vector3(5.0, 0.0, 0.0)
+	await _physics_frames(10)
+	_check(player.global_position.is_equal_approx(before), "the world is frozen while the map is open")
+	var zoom := map.zoom
+	_key(KEY_Q)
+	await _physics_frames(10)
+	_key(KEY_Q, false)
+	await _physics_frames(1)
+	_check(not wheel.is_open and map.zoom < zoom, "Q zooms the map instead of opening the weapon wheel")
+	_key(KEY_M)
+	_key(KEY_M, false)
+	await _physics_frames(2)
+	_check(not map.is_open and not get_tree().paused, "M closes the map and unpauses")
+	map.open()
+	_key(KEY_ESCAPE)
+	_key(KEY_ESCAPE, false)
+	await _physics_frames(2)
+	_check(not map.is_open and not get_tree().paused, "Esc closes the map")
+
+	map.open()
+	map.set_zoom(1.0)
+	_check(is_equal_approx(map.zoom, MapScreen.MIN_ZOOM), "zoom clamps at a few blocks")
+	map.zoom_by(1000.0)
+	_check(is_equal_approx(map.zoom, map.max_zoom()) and map.max_zoom() >= GameState.city_extent, "zoom clamps at the whole North End")
+	map.set_zoom(300.0)
+	map.pan(Vector2(5000.0, 5000.0))
+	map.recentre()
+	var focus := player.get_focus_position()
+	_check(map.center.distance_to(Vector2(focus.x, focus.z)) < 1.0, "recentre puts the player back in the middle")
+
+	var counts := {}
+	for marker in map.markers:
+		for category: StringName in marker["categories"]:
+			counts[category] = counts.get(category, 0) + 1
+	var missing: Array[String] = []
+	for category: StringName in [&"objective", &"hit", &"owned", &"for_sale", &"rival", &"plug", &"safehouse", &"weapons", &"event"]:
+		if counts.get(category, 0) == 0:
+			missing.append(String(category))
+	_check(missing.is_empty(), "the map marks every category from game data (missing: %s)" % ", ".join(missing))
+	_check(map.markers.filter(func(m: Dictionary) -> bool: return m["current"]).size() == 1, "exactly one marker is the current mission")
+	_check(map.markers.any(func(m: Dictionary) -> bool: return m["coming_soon"] and String(m["title"]).begins_with("#")), "marker-only roster items show as coming soon")
+
+	var all := map.visible_markers().size()
+	var hits := map.markers.filter(func(m: Dictionary) -> bool: return m["categories"] == [&"hit"])
+	map.set_category_visible(&"hit", false)
+	var shown := map.visible_markers()
+	_check(shown.size() == all - hits.size() and not shown.any(func(m: Dictionary) -> bool: return m["categories"] == [&"hit"]), "turning off a legend category hides its markers")
+	map.set_zoom(MapScreen.MIN_ZOOM)
+	map.center = Vector2(hits[0]["position"].x, hits[0]["position"].z)
+	map.pan(Vector2.ZERO)
+	_check(map.marker_at(map.world_to_screen(hits[0]["position"])) != hits[0], "hidden markers can't be clicked")
+	map.set_category_visible(&"hit", true)
+	_check(map.visible_markers().size() == all, "turning a category back on shows its markers")
+	map.select_marker(map.marker_at(map.world_to_screen(hits[0]["position"])))
+	_check(not map.selected.is_empty(), "clicking a marker selects it for the info card")
+
+	var target: Vector3 = Turf.safehouse_of(&"northgrove").door_position()
+	map.set_waypoint(target)
+	_check(map.has_waypoint() and map.route.size() > 2, "setting a waypoint plots a street route (%d points)" % map.route.size())
+	_check(map.route[map.route.size() - 1].distance_to(Vector3(target.x, 0.0, target.z)) < 0.1, "the route ends at the waypoint")
+	var longest := 0.0
+	for i in map.route.size() - 1:
+		longest = maxf(longest, map.route[i].distance_to(map.route[i + 1]))
+	_check(longest < 120.0, "the route follows the streets (longest leg %.0f m)" % longest)
+	map.close()
+	_check(map.has_waypoint(), "the waypoint stays set after closing the map (minimap GPS)")
+	map.clear_waypoint()
+	_check(not map.has_waypoint() and map.route.is_empty(), "the waypoint can be cleared")
 
 
 func _test_ai_combat(main: Node, player: Player) -> void:

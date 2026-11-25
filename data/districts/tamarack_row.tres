@@ -5,17 +5,17 @@
 
 [sub_resource type="Resource" id="defenders"]
 script = ExtResource("2")
-guard_count = 4
+guard_count = 0
 patrol_count = 2
 
 [resource]
 script = ExtResource("1")
-id = &"hillcrest"
-display_name = "Hillcrest"
-area_id = &"northside"
-starting_owner = &"kings"
-income_per_cycle = 200
+id = &"tamarack_row"
+display_name = "Tamarack Row"
+area_id = &"north_end"
+starting_owner = &"vipers"
+income_per_cycle = 150
 capture_respect = 100
+safehouse_id = &"duplex"
 defenders = SubResource("defenders")
-tags = Array[StringName]([&"suburbs", &"wealthy"])
-grid_origin = Vector2i(1, 2)
+tags = Array[StringName]([&"residential", &"shotgun_houses"])
