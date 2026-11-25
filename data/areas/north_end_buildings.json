@@ -3,12 +3,13 @@
 	"generated_by": "tools/north_end_census.tscn (NorthEndCensus.build); do not hand-edit",
 	"meters_per_px": 1.2,
 	"counts": {
-		"house_1f": 178,
-		"house_2f": 129,
-		"large_building": 60,
+		"house_1f": 173,
+		"house_2f": 126,
+		"large_building": 44,
 		"special_building": 4,
 		"specialized_location": 11,
-		"purchasable_business": 7
+		"purchasable_business": 7,
+		"standin_business": 24
 	},
 	"archetypes": {
 		"house_1f_small_yard": {
@@ -24,7 +25,7 @@
 			],
 			"tier": "low",
 			"label": "1-storey house, small yard",
-			"count": 118
+			"count": 117
 		},
 		"house_1f_big_yard": {
 			"category": "house_1f",
@@ -39,7 +40,7 @@
 			],
 			"tier": "medium",
 			"label": "1-storey house, big yard",
-			"count": 42
+			"count": 39
 		},
 		"house_1f_deep_lot": {
 			"category": "house_1f",
@@ -54,7 +55,7 @@
 			],
 			"tier": "low",
 			"label": "1-storey house, deep lot with long driveway",
-			"count": 14
+			"count": 13
 		},
 		"house_2f_small_yard": {
 			"category": "house_2f",
@@ -69,7 +70,7 @@
 			],
 			"tier": "medium",
 			"label": "2-storey house, small yard",
-			"count": 79
+			"count": 76
 		},
 		"house_2f_big_yard": {
 			"category": "house_2f",
@@ -116,20 +117,6 @@
 			"label": "Single-wide trailer / shack",
 			"count": 4
 		},
-		"storefront_1f": {
-			"category": "large_building",
-			"storeys": 1,
-			"footprint_m": [
-				20.0,
-				16.0
-			],
-			"lot_m": [
-				24.0,
-				30.0
-			],
-			"label": "1-storey strip storefront (generic shop)",
-			"count": 3
-		},
 		"mixed_use_2f": {
 			"category": "large_building",
 			"storeys": 2,
@@ -142,7 +129,7 @@
 				28.0
 			],
 			"label": "Shop below, flat above (arterial frontage)",
-			"count": 12
+			"count": 1
 		},
 		"apartment_walkup_3f": {
 			"category": "large_building",
@@ -170,7 +157,7 @@
 				32.0
 			],
 			"label": "Workshop / small industrial shed (6 m eaves)",
-			"count": 11
+			"count": 9
 		},
 		"warehouse": {
 			"category": "large_building",
@@ -515,6 +502,76 @@
 			"one_off": true,
 			"label": "Lakeside Chop Shop (bays + car drop-off)",
 			"count": 1
+		},
+		"standin_strip_unit": {
+			"category": "standin_business",
+			"storeys": 1,
+			"footprint_m": [
+				20.0,
+				16.0
+			],
+			"lot_m": [
+				24.0,
+				30.0
+			],
+			"label": "Stand-in strip-mall unit (glass front, signboard, roll-down shutter)",
+			"count": 2
+		},
+		"standin_shopfront_2f": {
+			"category": "standin_business",
+			"storeys": 2,
+			"footprint_m": [
+				22.0,
+				16.0
+			],
+			"lot_m": [
+				24.0,
+				28.0
+			],
+			"label": "Stand-in shop below, flat above (arterial)",
+			"count": 11
+		},
+		"standin_standalone_shop": {
+			"category": "standin_business",
+			"storeys": 1,
+			"footprint_m": [
+				16.0,
+				14.0
+			],
+			"lot_m": [
+				20.0,
+				28.0
+			],
+			"label": "Stand-in standalone shop (own lot, front parking)",
+			"count": 5
+		},
+		"standin_corner_store": {
+			"category": "standin_business",
+			"storeys": 1,
+			"footprint_m": [
+				14.0,
+				12.0
+			],
+			"lot_m": [
+				18.0,
+				24.0
+			],
+			"label": "Stand-in corner shop on a residential corner lot",
+			"count": 3
+		},
+		"standin_garage_bays": {
+			"category": "standin_business",
+			"storeys": 1,
+			"footprint_m": [
+				24.0,
+				18.0
+			],
+			"lot_m": [
+				30.0,
+				36.0
+			],
+			"label": "Stand-in auto shop: 3 roll-up bays + forecourt",
+			"count": 3
 		}
 	},
 	"buildings": [
@@ -637,15 +694,30 @@
 				24.72,
 				22.44
 			],
-			"category": "large_building",
+			"category": "standin_business",
 			"tags": [
-				"industrial",
-				"mangona"
+				"standin_shop",
+				"large_building",
+				"mangona",
+				"commercial"
 			],
-			"roles": [],
-			"design_archetype": "industrial_shed",
-			"name": "",
-			"roster": []
+			"roles": [
+				{
+					"role": "shop",
+					"shop_type": "auto_mod",
+					"enterable": true,
+					"purchasable": false
+				}
+			],
+			"design_archetype": "standin_garage_bays",
+			"name": "Auto mod shop",
+			"roster": [],
+			"standin": {
+				"subtype": "standin_shop",
+				"enterable": true,
+				"shop_type": "auto_mod",
+				"replaces": "shed"
+			}
 		},
 		{
 			"id": "ne_mg_austral_ave_04",
@@ -962,15 +1034,30 @@
 				10.56,
 				16.8
 			],
-			"category": "large_building",
+			"category": "standin_business",
 			"tags": [
-				"industrial",
-				"mangona"
+				"standin_shop",
+				"large_building",
+				"mangona",
+				"commercial"
 			],
-			"roles": [],
-			"design_archetype": "industrial_shed",
-			"name": "",
-			"roster": []
+			"roles": [
+				{
+					"role": "shop",
+					"shop_type": "food",
+					"enterable": true,
+					"purchasable": false
+				}
+			],
+			"design_archetype": "standin_standalone_shop",
+			"name": "Food (diner / takeout)",
+			"roster": [],
+			"standin": {
+				"subtype": "standin_shop",
+				"enterable": true,
+				"shop_type": "food",
+				"replaces": "shed"
+			}
 		},
 		{
 			"id": "ne_mg_industrial_way_01",
@@ -2893,15 +2980,30 @@
 				19.2,
 				28.8
 			],
-			"category": "house_1f",
+			"category": "standin_business",
 			"tags": [
-				"residential",
-				"northgrove"
+				"standin_shop",
+				"house_1f",
+				"northgrove",
+				"commercial"
 			],
-			"roles": [],
-			"design_archetype": "house_1f_deep_lot",
-			"name": "",
-			"roster": []
+			"roles": [
+				{
+					"role": "shop",
+					"shop_type": "corner_store",
+					"enterable": true,
+					"purchasable": false
+				}
+			],
+			"design_archetype": "standin_corner_store",
+			"name": "Corner store",
+			"roster": [],
+			"standin": {
+				"subtype": "standin_shop",
+				"enterable": true,
+				"shop_type": "corner_store",
+				"replaces": "corner"
+			}
 		},
 		{
 			"id": "ne_ng_36th_st_05",
@@ -4694,15 +4796,30 @@
 				19.2,
 				25.8
 			],
-			"category": "large_building",
+			"category": "standin_business",
 			"tags": [
-				"commercial",
-				"northgrove"
+				"standin_shop",
+				"large_building",
+				"northgrove",
+				"commercial"
 			],
-			"roles": [],
-			"design_archetype": "mixed_use_2f",
-			"name": "",
-			"roster": []
+			"roles": [
+				{
+					"role": "shop",
+					"shop_type": "clothing",
+					"enterable": true,
+					"purchasable": false
+				}
+			],
+			"design_archetype": "standin_shopfront_2f",
+			"name": "Clothing store",
+			"roster": [],
+			"standin": {
+				"subtype": "standin_shop",
+				"enterable": true,
+				"shop_type": "clothing",
+				"replaces": "mixed_use"
+			}
 		},
 		{
 			"id": "ne_ng_broadway_04",
@@ -4823,15 +4940,28 @@
 				19.2,
 				25.8
 			],
-			"category": "large_building",
+			"category": "standin_business",
 			"tags": [
-				"commercial",
-				"northgrove"
+				"standin_closed",
+				"large_building",
+				"northgrove",
+				"commercial"
 			],
-			"roles": [],
-			"design_archetype": "mixed_use_2f",
-			"name": "",
-			"roster": []
+			"roles": [
+				{
+					"role": "storefront",
+					"enterable": false
+				}
+			],
+			"design_archetype": "standin_shopfront_2f",
+			"name": "Closed storefront",
+			"roster": [],
+			"standin": {
+				"subtype": "standin_closed",
+				"enterable": false,
+				"shop_type": "",
+				"replaces": "mixed_use"
+			}
 		},
 		{
 			"id": "ne_ng_broadway_07",
@@ -4952,15 +5082,28 @@
 				17.4,
 				25.8
 			],
-			"category": "large_building",
+			"category": "standin_business",
 			"tags": [
-				"commercial",
-				"northgrove"
+				"standin_closed",
+				"large_building",
+				"northgrove",
+				"commercial"
 			],
-			"roles": [],
-			"design_archetype": "mixed_use_2f",
-			"name": "",
-			"roster": []
+			"roles": [
+				{
+					"role": "storefront",
+					"enterable": false
+				}
+			],
+			"design_archetype": "standin_shopfront_2f",
+			"name": "Closed storefront",
+			"roster": [],
+			"standin": {
+				"subtype": "standin_closed",
+				"enterable": false,
+				"shop_type": "",
+				"replaces": "mixed_use"
+			}
 		},
 		{
 			"id": "ne_ng_broadway_10",
@@ -5081,15 +5224,28 @@
 				17.4,
 				25.8
 			],
-			"category": "large_building",
+			"category": "standin_business",
 			"tags": [
-				"commercial",
-				"northgrove"
+				"standin_closed",
+				"large_building",
+				"northgrove",
+				"commercial"
 			],
-			"roles": [],
-			"design_archetype": "mixed_use_2f",
-			"name": "",
-			"roster": []
+			"roles": [
+				{
+					"role": "storefront",
+					"enterable": false
+				}
+			],
+			"design_archetype": "standin_shopfront_2f",
+			"name": "Closed storefront",
+			"roster": [],
+			"standin": {
+				"subtype": "standin_closed",
+				"enterable": false,
+				"shop_type": "",
+				"replaces": "mixed_use"
+			}
 		},
 		{
 			"id": "ne_ng_broadway_13",
@@ -5233,15 +5389,28 @@
 				17.4,
 				25.8
 			],
-			"category": "large_building",
+			"category": "standin_business",
 			"tags": [
-				"commercial",
-				"northgrove"
+				"standin_closed",
+				"large_building",
+				"northgrove",
+				"commercial"
 			],
-			"roles": [],
-			"design_archetype": "mixed_use_2f",
-			"name": "",
-			"roster": []
+			"roles": [
+				{
+					"role": "storefront",
+					"enterable": false
+				}
+			],
+			"design_archetype": "standin_shopfront_2f",
+			"name": "Closed storefront",
+			"roster": [],
+			"standin": {
+				"subtype": "standin_closed",
+				"enterable": false,
+				"shop_type": "",
+				"replaces": "mixed_use"
+			}
 		},
 		{
 			"id": "ne_ng_broadway_16",
@@ -5319,15 +5488,28 @@
 				17.4,
 				25.8
 			],
-			"category": "large_building",
+			"category": "standin_business",
 			"tags": [
-				"commercial",
-				"northgrove"
+				"standin_closed",
+				"large_building",
+				"northgrove",
+				"commercial"
 			],
-			"roles": [],
-			"design_archetype": "mixed_use_2f",
-			"name": "",
-			"roster": []
+			"roles": [
+				{
+					"role": "storefront",
+					"enterable": false
+				}
+			],
+			"design_archetype": "standin_shopfront_2f",
+			"name": "Closed storefront",
+			"roster": [],
+			"standin": {
+				"subtype": "standin_closed",
+				"enterable": false,
+				"shop_type": "",
+				"replaces": "mixed_use"
+			}
 		},
 		{
 			"id": "ne_ng_broadway_18",
@@ -5484,15 +5666,30 @@
 				19.2,
 				25.8
 			],
-			"category": "large_building",
+			"category": "standin_business",
 			"tags": [
-				"commercial",
-				"northgrove"
+				"standin_shop",
+				"large_building",
+				"northgrove",
+				"commercial"
 			],
-			"roles": [],
-			"design_archetype": "mixed_use_2f",
-			"name": "",
-			"roster": []
+			"roles": [
+				{
+					"role": "shop",
+					"shop_type": "food",
+					"enterable": true,
+					"purchasable": false
+				}
+			],
+			"design_archetype": "standin_shopfront_2f",
+			"name": "Food (diner / takeout)",
+			"roster": [],
+			"standin": {
+				"subtype": "standin_shop",
+				"enterable": true,
+				"shop_type": "food",
+				"replaces": "mixed_use"
+			}
 		},
 		{
 			"id": "ne_ng_broadway_21",
@@ -6423,15 +6620,28 @@
 				17.4,
 				28.8
 			],
-			"category": "large_building",
+			"category": "standin_business",
 			"tags": [
-				"commercial",
-				"northgrove"
+				"standin_closed",
+				"large_building",
+				"northgrove",
+				"commercial"
 			],
-			"roles": [],
-			"design_archetype": "mixed_use_2f",
-			"name": "",
-			"roster": []
+			"roles": [
+				{
+					"role": "storefront",
+					"enterable": false
+				}
+			],
+			"design_archetype": "standin_shopfront_2f",
+			"name": "Closed storefront",
+			"roster": [],
+			"standin": {
+				"subtype": "standin_closed",
+				"enterable": false,
+				"shop_type": "",
+				"replaces": "mixed_use"
+			}
 		},
 		{
 			"id": "ne_ng_dixie_hwy_17",
@@ -6509,15 +6719,28 @@
 				28.8,
 				19.2
 			],
-			"category": "large_building",
+			"category": "standin_business",
 			"tags": [
-				"commercial",
-				"northgrove"
+				"standin_closed",
+				"large_building",
+				"northgrove",
+				"commercial"
 			],
-			"roles": [],
-			"design_archetype": "mixed_use_2f",
-			"name": "",
-			"roster": []
+			"roles": [
+				{
+					"role": "storefront",
+					"enterable": false
+				}
+			],
+			"design_archetype": "standin_shopfront_2f",
+			"name": "Closed storefront",
+			"roster": [],
+			"standin": {
+				"subtype": "standin_closed",
+				"enterable": false,
+				"shop_type": "",
+				"replaces": "mixed_use"
+			}
 		},
 		{
 			"id": "ne_ng_dixie_hwy_19",
@@ -6692,15 +6915,30 @@
 				28.8,
 				19.2
 			],
-			"category": "large_building",
+			"category": "standin_business",
 			"tags": [
-				"commercial",
-				"northgrove"
+				"standin_shop",
+				"large_building",
+				"northgrove",
+				"commercial"
 			],
-			"roles": [],
-			"design_archetype": "mixed_use_2f",
-			"name": "",
-			"roster": []
+			"roles": [
+				{
+					"role": "shop",
+					"shop_type": "food",
+					"enterable": true,
+					"purchasable": false
+				}
+			],
+			"design_archetype": "standin_shopfront_2f",
+			"name": "Food (diner / takeout)",
+			"roster": [],
+			"standin": {
+				"subtype": "standin_shop",
+				"enterable": true,
+				"shop_type": "food",
+				"replaces": "mixed_use"
+			}
 		},
 		{
 			"id": "ne_ng_dixie_hwy_23",
@@ -7530,15 +7768,30 @@
 				25.8,
 				17.4
 			],
-			"category": "house_1f",
+			"category": "standin_business",
 			"tags": [
-				"residential",
-				"northgrove"
+				"standin_shop",
+				"house_1f",
+				"northgrove",
+				"commercial"
 			],
-			"roles": [],
-			"design_archetype": "house_1f_big_yard",
-			"name": "",
-			"roster": []
+			"roles": [
+				{
+					"role": "shop",
+					"shop_type": "auto_mod",
+					"enterable": true,
+					"purchasable": false
+				}
+			],
+			"design_archetype": "standin_garage_bays",
+			"name": "Auto mod shop",
+			"roster": [],
+			"standin": {
+				"subtype": "standin_shop",
+				"enterable": true,
+				"shop_type": "auto_mod",
+				"replaces": "corner_art"
+			}
 		},
 		{
 			"id": "ne_ng_grove_rd_arts_strip_10",
@@ -7686,15 +7939,30 @@
 				25.2,
 				17.4
 			],
-			"category": "house_1f",
+			"category": "standin_business",
 			"tags": [
-				"residential",
-				"northgrove"
+				"standin_shop",
+				"house_1f",
+				"northgrove",
+				"commercial"
 			],
-			"roles": [],
-			"design_archetype": "house_1f_big_yard",
-			"name": "",
-			"roster": []
+			"roles": [
+				{
+					"role": "shop",
+					"shop_type": "ammo",
+					"enterable": true,
+					"purchasable": false
+				}
+			],
+			"design_archetype": "standin_standalone_shop",
+			"name": "Ammo & gun counter",
+			"roster": [],
+			"standin": {
+				"subtype": "standin_shop",
+				"enterable": true,
+				"shop_type": "ammo",
+				"replaces": "corner_art"
+			}
 		},
 		{
 			"id": "ne_ng_grove_rd_arts_strip_13",
@@ -7815,15 +8083,30 @@
 				28.8,
 				17.4
 			],
-			"category": "house_1f",
+			"category": "standin_business",
 			"tags": [
-				"residential",
-				"northgrove"
+				"standin_shop",
+				"house_1f",
+				"northgrove",
+				"commercial"
 			],
-			"roles": [],
-			"design_archetype": "house_1f_big_yard",
-			"name": "",
-			"roster": []
+			"roles": [
+				{
+					"role": "shop",
+					"shop_type": "liquor",
+					"enterable": true,
+					"purchasable": false
+				}
+			],
+			"design_archetype": "standin_standalone_shop",
+			"name": "Liquor store",
+			"roster": [],
+			"standin": {
+				"subtype": "standin_shop",
+				"enterable": true,
+				"shop_type": "liquor",
+				"replaces": "corner_art"
+			}
 		},
 		{
 			"id": "ne_ng_grove_rd_arts_strip_16",
@@ -8170,15 +8453,30 @@
 				23.88,
 				17.4
 			],
-			"category": "large_building",
+			"category": "standin_business",
 			"tags": [
-				"commercial",
-				"northgrove"
+				"standin_shop",
+				"large_building",
+				"northgrove",
+				"commercial"
 			],
-			"roles": [],
-			"design_archetype": "mixed_use_2f",
-			"name": "",
-			"roster": []
+			"roles": [
+				{
+					"role": "shop",
+					"shop_type": "barber",
+					"enterable": true,
+					"purchasable": false
+				}
+			],
+			"design_archetype": "standin_shopfront_2f",
+			"name": "Barber",
+			"roster": [],
+			"standin": {
+				"subtype": "standin_shop",
+				"enterable": true,
+				"shop_type": "barber",
+				"replaces": "mixed_use"
+			}
 		},
 		{
 			"id": "ne_ng_lakes_blvd_02",
@@ -13482,15 +13780,30 @@
 				16.8,
 				11.52
 			],
-			"category": "house_1f",
+			"category": "standin_business",
 			"tags": [
-				"residential",
-				"tamarack_row"
+				"standin_shop",
+				"house_1f",
+				"tamarack_row",
+				"commercial"
 			],
-			"roles": [],
-			"design_archetype": "house_1f_small_yard",
-			"name": "",
-			"roster": []
+			"roles": [
+				{
+					"role": "shop",
+					"shop_type": "food",
+					"enterable": true,
+					"purchasable": false
+				}
+			],
+			"design_archetype": "standin_corner_store",
+			"name": "Food (diner / takeout)",
+			"roster": [],
+			"standin": {
+				"subtype": "standin_shop",
+				"enterable": true,
+				"shop_type": "food",
+				"replaces": "corner"
+			}
 		},
 		{
 			"id": "ne_tr_8th_st_24",
@@ -15764,15 +16077,30 @@
 				18.6,
 				11.4
 			],
-			"category": "large_building",
+			"category": "standin_business",
 			"tags": [
-				"commercial",
-				"tamarack_row"
+				"standin_shop",
+				"large_building",
+				"tamarack_row",
+				"commercial"
 			],
-			"roles": [],
-			"design_archetype": "storefront_1f",
-			"name": "",
-			"roster": []
+			"roles": [
+				{
+					"role": "shop",
+					"shop_type": "auto_mod",
+					"enterable": true,
+					"purchasable": false
+				}
+			],
+			"design_archetype": "standin_garage_bays",
+			"name": "Auto mod shop",
+			"roster": [],
+			"standin": {
+				"subtype": "standin_shop",
+				"enterable": true,
+				"shop_type": "auto_mod",
+				"replaces": "storefront"
+			}
 		},
 		{
 			"id": "ne_tr_lakeview_ave_01",
@@ -16506,15 +16834,30 @@
 				28.8,
 				11.52
 			],
-			"category": "house_2f",
+			"category": "standin_business",
 			"tags": [
-				"residential",
-				"tamarack_row"
+				"standin_shop",
+				"house_2f",
+				"tamarack_row",
+				"commercial"
 			],
-			"roles": [],
-			"design_archetype": "house_2f_small_yard",
-			"name": "",
-			"roster": []
+			"roles": [
+				{
+					"role": "shop",
+					"shop_type": "pawn",
+					"enterable": true,
+					"purchasable": false
+				}
+			],
+			"design_archetype": "standin_corner_store",
+			"name": "Pawn shop",
+			"roster": [],
+			"standin": {
+				"subtype": "standin_shop",
+				"enterable": true,
+				"shop_type": "pawn",
+				"replaces": "corner"
+			}
 		},
 		{
 			"id": "ne_tr_lakeview_ave_17",
@@ -17489,15 +17832,30 @@
 				28.44,
 				11.52
 			],
-			"category": "large_building",
+			"category": "standin_business",
 			"tags": [
-				"commercial",
-				"tamarack_row"
+				"standin_shop",
+				"large_building",
+				"tamarack_row",
+				"commercial"
 			],
-			"roles": [],
-			"design_archetype": "storefront_1f",
-			"name": "",
-			"roster": []
+			"roles": [
+				{
+					"role": "shop",
+					"shop_type": "food",
+					"enterable": true,
+					"purchasable": false
+				}
+			],
+			"design_archetype": "standin_strip_unit",
+			"name": "Food (diner / takeout)",
+			"roster": [],
+			"standin": {
+				"subtype": "standin_shop",
+				"enterable": true,
+				"shop_type": "food",
+				"replaces": "storefront"
+			}
 		},
 		{
 			"id": "ne_tr_okee_blvd_04",
@@ -17532,15 +17890,30 @@
 				18.6,
 				11.4
 			],
-			"category": "large_building",
+			"category": "standin_business",
 			"tags": [
-				"commercial",
-				"tamarack_row"
+				"standin_shop",
+				"large_building",
+				"tamarack_row",
+				"commercial"
 			],
-			"roles": [],
-			"design_archetype": "storefront_1f",
-			"name": "",
-			"roster": []
+			"roles": [
+				{
+					"role": "shop",
+					"shop_type": "tattoo",
+					"enterable": true,
+					"purchasable": false
+				}
+			],
+			"design_archetype": "standin_strip_unit",
+			"name": "Tattoo shop",
+			"roster": [],
+			"standin": {
+				"subtype": "standin_shop",
+				"enterable": true,
+				"shop_type": "tattoo",
+				"replaces": "storefront"
+			}
 		},
 		{
 			"id": "ne_tr_tamarind_ave_01",
@@ -17968,15 +18341,30 @@
 				22.8,
 				11.16
 			],
-			"category": "house_2f",
+			"category": "standin_business",
 			"tags": [
-				"residential",
-				"tamarack_row"
+				"standin_shop",
+				"house_2f",
+				"tamarack_row",
+				"commercial"
 			],
-			"roles": [],
-			"design_archetype": "house_2f_small_yard",
-			"name": "",
-			"roster": []
+			"roles": [
+				{
+					"role": "shop",
+					"shop_type": "clothing",
+					"enterable": true,
+					"purchasable": false
+				}
+			],
+			"design_archetype": "standin_standalone_shop",
+			"name": "Clothing store",
+			"roster": [],
+			"standin": {
+				"subtype": "standin_shop",
+				"enterable": true,
+				"shop_type": "clothing",
+				"replaces": "corner_art"
+			}
 		},
 		{
 			"id": "ne_tr_tamarind_ave_10",
@@ -18269,15 +18657,30 @@
 				16.8,
 				11.52
 			],
-			"category": "house_2f",
+			"category": "standin_business",
 			"tags": [
-				"residential",
-				"tamarack_row"
+				"standin_shop",
+				"house_2f",
+				"tamarack_row",
+				"commercial"
 			],
-			"roles": [],
-			"design_archetype": "house_2f_small_yard",
-			"name": "",
-			"roster": []
+			"roles": [
+				{
+					"role": "shop",
+					"shop_type": "ammo",
+					"enterable": true,
+					"purchasable": false
+				}
+			],
+			"design_archetype": "standin_standalone_shop",
+			"name": "Ammo & gun counter",
+			"roster": [],
+			"standin": {
+				"subtype": "standin_shop",
+				"enterable": true,
+				"shop_type": "ammo",
+				"replaces": "corner_art"
+			}
 		}
 	],
 	"out_of_area": [

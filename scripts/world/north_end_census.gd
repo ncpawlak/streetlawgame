@@ -9,7 +9,7 @@ extends RefCounted
 const GROUP := &"census_buildings"
 const PATH := "res://data/areas/north_end_buildings.json"
 const VERSION := 1
-const CATEGORIES := [&"house_1f", &"house_2f", &"large_building", &"special_building", &"specialized_location", &"purchasable_business"]
+const CATEGORIES := [&"house_1f", &"house_2f", &"large_building", &"special_building", &"specialized_location", &"purchasable_business", &"standin_business"]
 const DISTRICT_CODES := {&"tamarack_row": "tr", &"northgrove": "ng", &"mangona": "mg", &"": "xx"}
 ## Target (designed) sizes in meters: footprint [w, d], lot [frontage, depth]. Houses follow the
 ## SCALE targets (low ~14x11.2, medium ~19.6x14, high ~28x19.6). one_off = designed for one building.
@@ -57,6 +57,12 @@ const ARCHETYPES := {
 	"gun_store": {"category": "purchasable_business", "storeys": 1, "footprint_m": [18.0, 14.0], "lot_m": [24.0, 30.0], "one_off": true, "label": "Mangona Guns & Ammo (+ back range)"},
 	"hardware_store": {"category": "purchasable_business", "storeys": 1, "footprint_m": [24.0, 18.0], "lot_m": [30.0, 34.0], "one_off": true, "label": "Mangona Hardware (+ yard)"},
 	"chop_shop": {"category": "purchasable_business", "storeys": 1, "footprint_m": [30.0, 24.0], "lot_m": [36.0, 48.0], "one_off": true, "label": "Lakeside Chop Shop (bays + car drop-off)"},
+	# Stand-in businesses: shop fronts that are closed (scenery) or open for buying (no ownership, no hits).
+	"standin_strip_unit": {"category": "standin_business", "storeys": 1, "footprint_m": [20.0, 16.0], "lot_m": [24.0, 30.0], "label": "Stand-in strip-mall unit (glass front, signboard, roll-down shutter)"},
+	"standin_shopfront_2f": {"category": "standin_business", "storeys": 2, "footprint_m": [22.0, 16.0], "lot_m": [24.0, 28.0], "label": "Stand-in shop below, flat above (arterial)"},
+	"standin_standalone_shop": {"category": "standin_business", "storeys": 1, "footprint_m": [16.0, 14.0], "lot_m": [20.0, 28.0], "label": "Stand-in standalone shop (own lot, front parking)"},
+	"standin_corner_store": {"category": "standin_business", "storeys": 1, "footprint_m": [14.0, 12.0], "lot_m": [18.0, 24.0], "label": "Stand-in corner shop on a residential corner lot"},
+	"standin_garage_bays": {"category": "standin_business", "storeys": 1, "footprint_m": [24.0, 18.0], "lot_m": [30.0, 36.0], "label": "Stand-in auto shop: 3 roll-up bays + forecourt"},
 	# Outside the North End: hatched neighbour blocks, not designed in this pass.
 	"neighbour_filler": {"category": "", "storeys": 0, "footprint_m": [0.0, 0.0], "lot_m": [0.0, 0.0], "label": "Neighbouring-district filler block"},
 }
@@ -82,6 +88,16 @@ const SITE_ARCHETYPES := {
 	"northgrove_pawn_shop": "pawn_shop", "northgrove_pharmacy": "pharmacy", "northgrove_tattoo_parlor": "tattoo_parlor",
 	"mangona_gun_store": "gun_store", "mangona_hardware_store": "hardware_store", "mangona_chop_shop": "chop_shop",
 }
+## Stand-in shop types (enterable, buy goods only) every zone needs within reach, in placement order
+## (most constrained first). Purchasable businesses of the same trade already serve their zone.
+const STANDIN_SHOP_TYPES := ["auto_mod", "ammo", "clothing", "food", "tattoo", "barber", "corner_store", "liquor", "pawn"]
+const STANDIN_ZONE_NEEDS := {
+	"tamarack_row": ["auto_mod", "ammo", "clothing", "food", "food", "tattoo", "barber", "corner_store", "liquor", "pawn"],
+	"northgrove": ["auto_mod", "ammo", "clothing", "food", "food", "tattoo", "barber", "corner_store", "liquor", "pawn"],
+	"mangona": ["auto_mod", "ammo", "food"],
+}
+## Purchasable business type -> the stand-in shop type it already covers in its zone.
+const BUSINESS_SHOP_TYPES := {"corner_store": "corner_store", "liquor_store": "liquor", "barbershop": "barber", "tattoo_parlor": "tattoo", "pawn_shop": "pawn", "gun_store": "ammo"}
 ## Business types the HITS roster lets the player hold up before buying.
 const STICK_UP_TYPES := [&"corner_store", &"liquor_store", &"barbershop", &"pawn_shop", &"pharmacy", &"tattoo_parlor", &"gun_store", &"hardware_store", &"chop_shop"]
 
@@ -161,6 +177,7 @@ static func build(main: Node) -> Dictionary:
 	var unbuilt := _unbuilt(spots_by_lot, locations_by_lot, streets)
 	_assign_ids(buildings)
 	_assign_ids(out_of_area)
+	_plan_standins(buildings, unbuilt)
 	buildings.sort_custom(func(a: Dictionary, b: Dictionary) -> bool: return a["id"] < b["id"])
 	out_of_area.sort_custom(func(a: Dictionary, b: Dictionary) -> bool: return a["id"] < b["id"])
 	var counts := {}
@@ -547,3 +564,149 @@ static func _assign_ids(entries: Array[Dictionary]) -> void:
 			return ra[1] < rb[1] if not is_equal_approx(ra[1], rb[1]) else ra[0] < rb[0])
 		for i in list.size():
 			list[i]["id"] = "%s_%02d" % [prefix, i + 1]
+
+
+## Stand-in businesses. Generic buildings only (no roster place, hit, Location or purchasable site):
+## 1. Open shops: for each zone, every needed shop type not already served by a purchasable business of
+##    that trade gets one stand-in shop. Candidates are commercial frontages (storefront, mixed-use, and
+##    Mangona sheds for auto shops) and residential corner lots. The pick scores the candidate kind plus
+##    the distance to shops already placed (farthest wins), so shops spread out.
+## 2. Every remaining storefront / mixed-use unit and arterial corner lot becomes a closed stand-in, so
+##    arterials read as commercial streets.
+static func _plan_standins(buildings: Array[Dictionary], unbuilt: Array[Dictionary]) -> void:
+	var drivable := []
+	for road: Dictionary in NorthEndLayout.ROADS:
+		if road["kind"] in [&"loc", &"ave", &"art"]:
+			drivable.append(road["pts"])
+	var served := {}
+	for entry in buildings + unbuilt:
+		for role: Dictionary in entry["roles"]:
+			if role.get("role") == "business" and role.get("purchasable", false) and BUSINESS_SHOP_TYPES.has(role["type"]):
+				served["%s/%s" % [entry["district"], BUSINESS_SHOP_TYPES[role["type"]]]] = true
+	var candidates: Array[Dictionary] = []
+	for entry in buildings:
+		if entry["source"] != "lot" or not entry["roles"].is_empty() or not entry["roster"].is_empty() or entry.has("location"):
+			continue
+		var kind := _standin_kind(entry, drivable)
+		if kind != "":
+			entry["_standin_kind"] = kind
+			candidates.append(entry)
+	var placed: Array[Dictionary] = []
+	for zone: String in STANDIN_ZONE_NEEDS:
+		var zone_placed: Array[Dictionary] = []
+		for shop_type: String in STANDIN_ZONE_NEEDS[zone]:
+			if served.has("%s/%s" % [zone, shop_type]) and shop_type != "food":
+				continue
+			var best: Dictionary = {}
+			var best_score := -INF
+			for entry in candidates:
+				if entry["district"] != zone or entry.has("standin"):
+					continue
+				var score := _standin_score(entry, shop_type, zone_placed + placed)
+				if score > best_score:
+					best_score = score
+					best = entry
+			if best.is_empty():
+				push_warning("census: no stand-in candidate for %s in %s" % [shop_type, zone])
+				continue
+			_make_standin(best, "standin_shop", shop_type)
+			zone_placed.append(best)
+		placed.append_array(zone_placed)
+	for entry in candidates:
+		var arterial_corner: bool = entry["_standin_kind"] == "corner_art" and entry["street_kind"] == "art"
+		if not entry.has("standin") and (entry["_standin_kind"] in ["storefront", "mixed_use"] or arterial_corner):
+			_make_standin(entry, "standin_closed", "")
+	for entry in candidates:
+		entry.erase("_standin_kind")
+
+
+## storefront / mixed_use / shed (commercial or industrial frontage), corner_art / corner (residential
+## corner lot, on an arterial or avenue / on a local street), or "" when not a candidate.
+static func _standin_kind(entry: Dictionary, drivable: Array) -> String:
+	match entry["design_archetype"]:
+		"storefront_1f":
+			return "storefront"
+		"mixed_use_2f":
+			return "mixed_use"
+		"industrial_shed":
+			return "shed"
+	if not String(entry["category"]).begins_with("house_"):
+		return ""
+	var r: Array = entry["rect_px"]
+	var rect := Rect2(r[0], r[1], r[2], r[3]).grow(10.0)
+	var horizontal := false
+	var vertical := false
+	for pts: Array in drivable:
+		for i in pts.size() - 1:
+			var a: Vector2 = pts[i]
+			var b: Vector2 = pts[i + 1]
+			if not _segment_hits_rect(a, b, rect):
+				continue
+			if absf(b.x - a.x) >= absf(b.y - a.y):
+				horizontal = true
+			else:
+				vertical = true
+	if not (horizontal and vertical):
+		return ""
+	return "corner_art" if entry["street_kind"] in ["art", "ave"] else "corner"
+
+
+static func _segment_hits_rect(a: Vector2, b: Vector2, rect: Rect2) -> bool:
+	var steps := maxi(1, ceili(a.distance_to(b) / 3.0))
+	for s in steps + 1:
+		if rect.has_point(a.lerp(b, float(s) / steps)):
+			return true
+	return false
+
+
+static func _standin_score(entry: Dictionary, shop_type: String, placed: Array) -> float:
+	var kind: String = entry["_standin_kind"]
+	var bonus: float
+	if shop_type == "auto_mod":
+		bonus = {"shed": 300.0, "storefront": 120.0, "corner_art": 100.0}.get(kind, 0.0)
+	elif shop_type == "corner_store":
+		bonus = {"corner": 160.0, "corner_art": 140.0, "storefront": 60.0}.get(kind, 0.0)
+	else:
+		bonus = {"storefront": 160.0, "mixed_use": 150.0, "corner_art": 120.0, "corner": 40.0}.get(kind, -200.0)
+	var center := _rect_center(entry)
+	var nearest := 400.0
+	for other: Dictionary in placed:
+		nearest = minf(nearest, center.distance_to(_rect_center(other)))
+	return bonus + nearest * 1.5
+
+
+static func _rect_center(entry: Dictionary) -> Vector2:
+	var r: Array = entry["rect_px"]
+	return Vector2(r[0] + r[2] * 0.5, r[1] + r[3] * 0.5)
+
+
+const STANDIN_SHOP_LABELS := {
+	"auto_mod": "Auto mod shop", "ammo": "Ammo & gun counter", "clothing": "Clothing store", "food": "Food (diner / takeout)",
+	"tattoo": "Tattoo shop", "barber": "Barber", "corner_store": "Corner store", "liquor": "Liquor store", "pawn": "Pawn shop",
+}
+
+
+static func _make_standin(entry: Dictionary, subtype: String, shop_type: String) -> void:
+	var kind: String = entry["_standin_kind"]
+	var was: String = entry["category"]
+	var archetype: String
+	if shop_type == "auto_mod":
+		archetype = "standin_garage_bays"
+	elif kind == "storefront":
+		archetype = "standin_strip_unit"
+	elif kind == "mixed_use":
+		archetype = "standin_shopfront_2f"
+	elif shop_type == "corner_store" or kind == "corner":
+		archetype = "standin_corner_store"
+	else:
+		archetype = "standin_standalone_shop"
+	entry["category"] = "standin_business"
+	entry["design_archetype"] = archetype
+	entry["tags"] = [subtype, was] + (entry["tags"] as Array).filter(func(tag: String) -> bool: return tag not in ["residential", "commercial", "industrial"]) + ["commercial"]
+	entry["standin"] = {"subtype": subtype, "enterable": subtype == "standin_shop", "shop_type": shop_type, "replaces": kind}
+	if subtype == "standin_shop":
+		entry["roles"] = [{"role": "shop", "shop_type": shop_type, "enterable": true, "purchasable": false}]
+		entry["name"] = STANDIN_SHOP_LABELS[shop_type]
+	else:
+		entry["roles"] = [{"role": "storefront", "enterable": false}]
+		entry["name"] = "Closed storefront"

@@ -19,7 +19,7 @@ The playable map is generated, not hand-placed:
 - connectors
 - dropped lots
 
-Don't hand-edit the SVG to match. The as-built picture is `docs/map/<zone>_buildings.png`/`.svg`, rendered by `tools/render_north_end_buildings.py` from the generated layout and the census, with buildings coloured by category. Regenerate it after every layout or census change.
+Don't hand-edit the SVG to match. The as-built picture is `docs/map/<zone>_buildings.png`/`.svg`, rendered by `tools/render_north_end_buildings.py` from the generated layout and the census, with buildings coloured by category. The same script also overlays the census on the wireframe itself. It writes the generated `<!-- census-overlay -->` and `<!-- census-legend -->` blocks (class `cz`, which the extractor ignores) into the SVG and re-rasterises the wireframe PNG with headless Edge/Chrome. Never hand-edit those blocks. Regenerate after every layout or census change.
 
 ## Road network rules (all enforced)
 
@@ -62,12 +62,20 @@ Keep the current scale (1.2 m per wireframe px) unless the user decides otherwis
 Every building box in the scene is listed in `data/areas/north_end_buildings.json`. It is built by `NorthEndCensus.build(main)` in `scripts/world/north_end_census.gd` and documented in `docs/design/NORTH_END_BUILDINGS.md`.
 
 - **Tagging.** `city_generator.gd` tags every building StaticBody3D through `_tag_building`, which sets the group `census_buildings` and the metas `rect_px` and `census_kind` (lot, filler or landmark). Safehouses come from the `safehouses` group. Any new building source must call `_tag_building`; otherwise the coverage test fails.
-- **Categories.** Each entry has exactly one primary `category`: `house_1f`, `house_2f`, `large_building`, `special_building`, `specialized_location` or `purchasable_business`. Neighbour fillers are `out_of_area`. Secondary categories go in `tags`; for example, a trap house in a 2-storey house is `specialized_location` with tag `house_2f`. `roles` carries the gameplay roles (robbery tier, stick_up, trap_house tier, business type/price/income, raid, safehouse, turf_point, ...).
+- **Categories.** Each entry has exactly one primary `category`: `house_1f`, `house_2f`, `large_building`, `special_building`, `specialized_location`, `purchasable_business` or `standin_business`. Neighbour fillers are `out_of_area`. Secondary categories go in `tags`; for example, a trap house in a 2-storey house is `specialized_location` with tag `house_2f`. `roles` carries the gameplay roles (robbery tier, stick_up, trap_house tier, business type/price/income, raid, safehouse, turf_point, ...).
 - **Design types.** `design_archetype` is a key into `NorthEndCensus.ARCHETYPES` (category, storeys, target footprint_m, target lot_m [frontage, depth], tier, one_off). There are shared types, such as `house_{1f,2f}_{small_yard,big_yard,deep_lot}`, `trailer_1f`, `storefront_1f`, `mixed_use_2f`, `apartment_walkup_3f`, `industrial_shed` and `warehouse`, plus one-offs for every special or specialized building and every business. New roster places get a rule in `ROSTER` (keyed by location instance or `marker:<n>`) or in `SITE_ARCHETYPES`.
+- **Stand-in businesses** (`standin_business`) are businesses that either can't be entered or can be entered to buy things. They must look like shops, not houses. Each one has a `standin` field: `{subtype: standin_shop|standin_closed, enterable, shop_type, replaces}`.
+  - Shop types are `auto_mod`, `ammo`, `clothing`, `food`, `tattoo`, `barber`, `corner_store`, `liquor` and `pawn`. On the maps they are lettered A G C F T B S L P.
+  - Archetypes: `standin_strip_unit`, `standin_shopfront_2f`, `standin_standalone_shop`, `standin_corner_store`, `standin_garage_bays` (auto mod always).
+  - `_plan_standins` converts only generic lots: no roles, roster or `Location`, so hits and purchasable businesses are never touched. The lots it uses are storefront, mixed-use and shed lots, and corner lots (both street axes within 10 px).
+  - Placement order: each zone in `STANDIN_ZONE_NEEDS` gets each needed type, unless a purchasable business in that district already sells it (`BUSINESS_SHOP_TYPES`). Food is never skipped.
+  - Shops are picked greedily to stay spread out. Leftover storefront and mixed-use lots, and arterial corner lots, become `standin_closed`.
+  - To change the plan, edit those constants. Don't hand-edit the JSON.
 - **Coverage check.** `tests/census_tests.gd` runs in the test runner. It checks the following:
   - every scene building is in the census, and every entry has a building
   - no duplicates
   - categories and archetypes are valid, and the archetype category matches the category or tags
+  - stand-ins have valid shop data and only `shop`/`storefront` roles, and every zone can buy each needed shop type
   - the JSON equals a fresh `build()`, which means a stale census fails the tests
 - **Unbuilt.** Roster spots with no lot within 40 px are listed in `unbuilt[]`. They need a lot when the area is repopulated.
 
