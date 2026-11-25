@@ -1,7 +1,7 @@
 class_name NorthEndSpots
 extends RefCounted
 ## Where the North End roster (docs/design/NORTH_END_HITS.md) sits on the greybox, in wireframe px
-## (docs/map/north_end_wireframe.svg). main.gd puts each spot on the nearest lot:
+## (docs/map/north_end_wireframe_source.svg; as-built: north_end_wireframe.svg). main.gd puts each spot on the nearest lot:
 ## - kind &"site": a business site (#36) by [code]id[/code].
 ## - kind &"location": a LocationDef [code]id[/code] spawned as [code]instance[/code], optionally renamed.
 ## - kind &"marker": no system yet; a labelled post and map marker so the spot can be found.
@@ -21,7 +21,7 @@ const SPOTS := [
 	{"roster": "3", "name": "Tamarack Bodega", "kind": &"site", "id": &"tamarack_corner_store", "px": Vector2(488, 1045)},
 	{"roster": "4", "name": "Row Liquors", "kind": &"site", "id": &"tamarack_liquor_store", "px": Vector2(440, 1085)},
 	{"roster": "5", "name": "Fresh Cutz Barbershop", "kind": &"site", "id": &"tamarack_barbershop", "px": Vector2(470, 955)},
-	{"roster": "6", "name": "Gas-N-Go", "kind": &"location", "id": &"corner_store", "instance": &"corner_store_gas_n_go", "px": Vector2(311, 1086)},
+	{"roster": "6", "name": "Gas-N-Go", "kind": &"location", "id": &"corner_store", "instance": &"corner_store_gas_n_go", "px": Vector2(343, 1086)},
 	{"roster": "7", "name": "Viper corner deal (Tamarind & 15th)", "kind": &"marker", "style": &"event", "px": Vector2(505, 943)},
 	{"roster": "8", "name": "The Spot (Viper trap)", "kind": &"location", "id": &"bottoms_trap_house", "instance": &"bottoms_trap_house", "px": Vector2(541, 1027)},
 	{"roster": "C1", "name": "Dealer corner", "kind": &"marker", "style": &"corner", "px": Vector2(505, 912)},

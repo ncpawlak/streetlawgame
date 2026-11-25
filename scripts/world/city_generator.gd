@@ -1,7 +1,7 @@
 class_name CityGenerator
 extends Node3D
 ## Builds the North End (Zone 1) greybox at runtime from [NorthEndLayout], which
-## tools/extract_north_end_layout.py generates from docs/map/north_end_wireframe.svg: streets and I-59,
+## tools/extract_north_end_layout.py generates from docs/map/north_end_wireframe_source.svg: streets and I-59,
 ## the tracks, the lakes, blocks split into lots, district-styled buildings, the three districts and
 ## parked cars. Wireframe pixels map to meters with [constant METERS_PER_PX] around [constant CENTER_PX]
 ## (north = -Z). Roster content is placed on the lots by main.gd ([NorthEndSpots]).
@@ -457,7 +457,8 @@ func _add_building(rect_px: Rect2, footprint: Vector2, district: StringName, blo
 			_:
 				height = _rng.randf_range(4.0, 9.0)
 	var center := px_to_world(rect_px.get_center())
-	_add_static_box(Vector3(footprint.x, height, footprint.y), center + Vector3(0.0, height * 0.5, 0.0), _style_material(key))
+	var body := _add_static_box(Vector3(footprint.x, height, footprint.y), center + Vector3(0.0, height * 0.5, 0.0), _style_material(key))
+	_tag_building(body, rect_px, &"lot")
 	building_lots.append({
 		"center": center, "footprint": footprint, "height": height, "block": block, "block_center": block_center,
 		"rect_px": rect_px, "district": district, "index": building_lots.size(),
@@ -487,7 +488,15 @@ func _add_filler(rect: Rect2) -> void:
 	var height := _rng.randf_range(4.0, 10.0)
 	var center := px_to_world(inner.get_center())
 	var size := inner.size * METERS_PER_PX
-	_add_static_box(Vector3(size.x, height, size.y), center + Vector3(0.0, height * 0.5, 0.0), _style_material(&"filler"))
+	var body := _add_static_box(Vector3(size.x, height, size.y), center + Vector3(0.0, height * 0.5, 0.0), _style_material(&"filler"))
+	_tag_building(body, rect, &"filler")
+
+
+## Marks a building box for the North End census ([NorthEndCensus]): kind is lot, filler or landmark.
+func _tag_building(body: StaticBody3D, rect_px: Rect2, kind: StringName) -> void:
+	body.add_to_group(NorthEndCensus.GROUP)
+	body.set_meta(&"rect_px", rect_px)
+	body.set_meta(&"census_kind", kind)
 
 
 func _build_landmarks() -> void:
@@ -500,7 +509,9 @@ func _build_landmarks() -> void:
 			_add_building(rect, footprint, district, Vector2i(-1, 0), center + Vector3(0.0, 0.0, -1.0), landmark["style"], landmark["height"])
 		else:
 			var height: float = landmark["height"]
-			_add_static_box(Vector3(footprint.x, height, footprint.y), center + Vector3(0.0, height * 0.5, 0.0), _style_material(landmark["style"]))
+			var body := _add_static_box(Vector3(footprint.x, height, footprint.y), center + Vector3(0.0, height * 0.5, 0.0), _style_material(landmark["style"]))
+			_tag_building(body, rect, &"landmark")
+			body.set_meta(&"landmark", landmark["name"])
 	# Hospital red cross on the roof.
 	var hospital := px_to_world((LANDMARKS[2]["rect"] as Rect2).get_center()) + Vector3(0.0, 24.1, 0.0)
 	var red := _material("cross", Color(0.8, 0.12, 0.12))

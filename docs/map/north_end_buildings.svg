@@ -1,0 +1,723 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0.0 40.0 1247.0 1240.0" width="2494" height="2480" font-family="Segoe UI, Arial">
+<rect x="0.0" y="40.0" width="1247.0" height="1240.0" fill="#f4f1ea"/>
+<rect x="950.0" y="40.0" width="37.0" height="1240.0" fill="#a9cbe6"/>
+<ellipse cx="394.0" cy="439.0" rx="75.0" ry="175.0" fill="#a9cbe6"/>
+<text x="394.0" y="439.0" font-size="9" fill="#4a6f8f" text-anchor="middle">LAKE MANGONA</text>
+<ellipse cx="344.0" cy="862.0" rx="52.0" ry="105.0" fill="#a9cbe6"/>
+<text x="344.0" y="862.0" font-size="9" fill="#4a6f8f" text-anchor="middle">CLEAR LAKE</text>
+<rect x="426.0" y="735.5" width="30.0" height="28.5" fill="#ebe7dc"/>
+<rect x="468.0" y="735.5" width="31.0" height="28.5" fill="#ebe7dc"/>
+<rect x="520.0" y="745.0" width="36.2" height="19.0" fill="#ebe7dc"/>
+<rect x="426.0" y="776.0" width="30.0" height="48.0" fill="#ebe7dc"/>
+<rect x="468.0" y="776.0" width="31.0" height="48.0" fill="#ebe7dc"/>
+<rect x="533.8" y="776.0" width="22.8" height="48.0" fill="#ebe7dc"/>
+<rect x="426.0" y="836.0" width="30.0" height="48.0" fill="#ebe7dc"/>
+<rect x="468.0" y="836.0" width="31.0" height="48.0" fill="#ebe7dc"/>
+<rect x="534.0" y="836.0" width="23.0" height="48.0" fill="#ebe7dc"/>
+<rect x="426.0" y="896.0" width="30.0" height="38.0" fill="#ebe7dc"/>
+<rect x="468.0" y="896.0" width="31.0" height="38.0" fill="#ebe7dc"/>
+<rect x="520.3" y="896.0" width="37.1" height="38.0" fill="#ebe7dc"/>
+<rect x="426.0" y="946.0" width="30.0" height="48.0" fill="#ebe7dc"/>
+<rect x="468.0" y="946.0" width="31.0" height="48.0" fill="#ebe7dc"/>
+<rect x="534.4" y="946.0" width="23.5" height="48.0" fill="#ebe7dc"/>
+<rect x="315.6" y="1006.0" width="38.4" height="24.0" fill="#ebe7dc"/>
+<rect x="366.0" y="1006.0" width="48.0" height="24.0" fill="#ebe7dc"/>
+<rect x="426.0" y="1006.0" width="30.0" height="38.4" fill="#ebe7dc"/>
+<rect x="468.0" y="1006.0" width="31.0" height="38.4" fill="#ebe7dc"/>
+<rect x="534.6" y="1006.0" width="23.7" height="38.4" fill="#ebe7dc"/>
+<rect x="366.0" y="1085.0" width="48.0" height="19.0" fill="#ebe7dc"/>
+<rect x="426.0" y="1075.5" width="30.0" height="28.5" fill="#ebe7dc"/>
+<rect x="468.0" y="1075.5" width="31.0" height="28.5" fill="#ebe7dc"/>
+<rect x="520.5" y="1085.0" width="38.2" height="19.0" fill="#ebe7dc"/>
+<rect x="315.6" y="1116.0" width="38.4" height="28.0" fill="#ebe7dc"/>
+<rect x="366.0" y="1116.0" width="48.0" height="28.0" fill="#ebe7dc"/>
+<rect x="426.0" y="1116.0" width="30.0" height="28.0" fill="#ebe7dc"/>
+<rect x="468.0" y="1116.0" width="31.0" height="28.0" fill="#ebe7dc"/>
+<rect x="520.6" y="1116.0" width="38.4" height="28.0" fill="#ebe7dc"/>
+<rect x="199.3" y="176.0" width="56.7" height="43.0" fill="#ebe7dc"/>
+<rect x="268.0" y="176.0" width="66.0" height="43.0" fill="#ebe7dc"/>
+<rect x="346.0" y="176.0" width="78.0" height="43.0" fill="#ebe7dc"/>
+<rect x="436.0" y="176.0" width="73.0" height="43.0" fill="#ebe7dc"/>
+<rect x="521.0" y="176.0" width="21.9" height="43.0" fill="#ebe7dc"/>
+<rect x="206.1" y="231.0" width="49.9" height="63.0" fill="#ebe7dc"/>
+<rect x="214.1" y="306.0" width="41.9" height="48.0" fill="#ebe7dc"/>
+<rect x="223.6" y="366.0" width="32.4" height="68.0" fill="#ebe7dc"/>
+<rect x="233.2" y="446.0" width="22.8" height="48.0" fill="#ebe7dc"/>
+<rect x="521.0" y="446.0" width="30.3" height="48.0" fill="#ebe7dc"/>
+<rect x="240.0" y="506.0" width="16.0" height="28.0" fill="#ebe7dc"/>
+<rect x="521.0" y="676.0" width="34.5" height="38.0" fill="#ebe7dc"/>
+<rect x="702.0" y="336.0" width="32.0" height="48.0" fill="#ebe7dc"/>
+<rect x="746.0" y="336.0" width="43.0" height="48.0" fill="#ebe7dc"/>
+<rect x="801.0" y="336.0" width="43.0" height="48.0" fill="#ebe7dc"/>
+<rect x="875.0" y="336.0" width="19.0" height="48.0" fill="#ebe7dc"/>
+<rect x="702.0" y="396.0" width="32.0" height="48.0" fill="#ebe7dc"/>
+<rect x="746.0" y="396.0" width="43.0" height="48.0" fill="#ebe7dc"/>
+<rect x="801.0" y="396.0" width="43.0" height="48.0" fill="#ebe7dc"/>
+<rect x="875.0" y="396.0" width="19.0" height="48.0" fill="#ebe7dc"/>
+<rect x="570.6" y="456.0" width="43.4" height="58.0" fill="#ebe7dc"/>
+<rect x="626.0" y="456.0" width="24.0" height="58.0" fill="#ebe7dc"/>
+<rect x="746.0" y="456.0" width="43.0" height="58.0" fill="#ebe7dc"/>
+<rect x="801.0" y="456.0" width="43.0" height="58.0" fill="#ebe7dc"/>
+<rect x="875.0" y="456.0" width="19.0" height="58.0" fill="#ebe7dc"/>
+<rect x="571.9" y="526.0" width="42.1" height="58.0" fill="#ebe7dc"/>
+<rect x="626.0" y="526.0" width="24.0" height="58.0" fill="#ebe7dc"/>
+<rect x="686.0" y="526.0" width="48.0" height="58.0" fill="#ebe7dc"/>
+<rect x="746.0" y="526.0" width="43.0" height="58.0" fill="#ebe7dc"/>
+<rect x="801.0" y="526.0" width="43.0" height="58.0" fill="#ebe7dc"/>
+<rect x="875.0" y="526.0" width="19.0" height="58.0" fill="#ebe7dc"/>
+<rect x="573.1" y="596.0" width="40.9" height="48.0" fill="#ebe7dc"/>
+<rect x="626.0" y="596.0" width="32.0" height="48.0" fill="#ebe7dc"/>
+<rect x="686.0" y="596.0" width="48.0" height="48.0" fill="#ebe7dc"/>
+<rect x="746.0" y="596.0" width="43.0" height="48.0" fill="#ebe7dc"/>
+<rect x="801.0" y="596.0" width="43.0" height="48.0" fill="#ebe7dc"/>
+<rect x="875.0" y="596.0" width="19.0" height="48.0" fill="#ebe7dc"/>
+<rect x="574.3" y="656.0" width="39.7" height="43.5" fill="#ebe7dc"/>
+<rect x="626.0" y="656.0" width="24.0" height="43.5" fill="#ebe7dc"/>
+<rect x="686.5" y="656.0" width="47.5" height="43.5" fill="#ebe7dc"/>
+<rect x="746.0" y="656.0" width="43.0" height="43.5" fill="#ebe7dc"/>
+<rect x="801.0" y="656.0" width="42.5" height="43.5" fill="#ebe7dc"/>
+<rect x="875.0" y="656.0" width="19.0" height="43.5" fill="#ebe7dc"/>
+<rect x="330.0" y="1068.0" width="26.0" height="36.0" fill="#ebe7dc"/>
+<rect x="581.0" y="176.0" width="88.0" height="43.0" fill="#e6e2d8"/>
+<rect x="691.0" y="176.0" width="68.0" height="43.0" fill="#e6e2d8"/>
+<rect x="771.0" y="176.0" width="68.0" height="43.0" fill="#e6e2d8"/>
+<rect x="861.0" y="176.0" width="51.0" height="43.0" fill="#e6e2d8"/>
+<rect x="581.0" y="231.0" width="88.0" height="43.0" fill="#e6e2d8"/>
+<rect x="691.0" y="231.0" width="68.0" height="43.0" fill="#e6e2d8"/>
+<rect x="771.0" y="231.0" width="68.0" height="43.0" fill="#e6e2d8"/>
+<rect x="861.0" y="231.0" width="51.0" height="43.0" fill="#e6e2d8"/>
+<rect x="581.0" y="286.0" width="88.0" height="38.0" fill="#e6e2d8"/>
+<rect x="691.0" y="286.0" width="68.0" height="38.0" fill="#e6e2d8"/>
+<rect x="771.0" y="286.0" width="68.0" height="38.0" fill="#e6e2d8"/>
+<rect x="861.0" y="286.0" width="51.0" height="38.0" fill="#e6e2d8"/>
+<rect x="574.5" y="731.0" width="39.5" height="33.0" fill="#e6e2d8"/>
+<rect x="626.0" y="731.0" width="43.0" height="33.0" fill="#e6e2d8"/>
+<rect x="691.0" y="731.0" width="43.0" height="33.0" fill="#e6e2d8"/>
+<rect x="746.0" y="731.0" width="43.0" height="33.0" fill="#e6e2d8"/>
+<rect x="801.0" y="731.0" width="38.0" height="33.0" fill="#e6e2d8"/>
+<rect x="861.0" y="731.0" width="51.0" height="33.0" fill="#e6e2d8"/>
+<rect x="575.0" y="776.0" width="39.0" height="48.0" fill="#e6e2d8"/>
+<rect x="626.0" y="776.0" width="43.0" height="48.0" fill="#e6e2d8"/>
+<rect x="691.0" y="776.0" width="43.0" height="48.0" fill="#e6e2d8"/>
+<rect x="746.0" y="776.0" width="43.0" height="48.0" fill="#e6e2d8"/>
+<rect x="801.0" y="776.0" width="38.0" height="48.0" fill="#e6e2d8"/>
+<rect x="861.0" y="776.0" width="51.0" height="48.0" fill="#e6e2d8"/>
+<rect x="575.5" y="836.0" width="38.5" height="48.0" fill="#e6e2d8"/>
+<rect x="626.0" y="836.0" width="43.0" height="48.0" fill="#e6e2d8"/>
+<rect x="691.0" y="836.0" width="43.0" height="48.0" fill="#e6e2d8"/>
+<rect x="746.0" y="836.0" width="43.0" height="48.0" fill="#e6e2d8"/>
+<rect x="801.0" y="836.0" width="38.0" height="48.0" fill="#e6e2d8"/>
+<rect x="861.0" y="836.0" width="51.0" height="48.0" fill="#e6e2d8"/>
+<rect x="575.9" y="896.0" width="38.1" height="38.0" fill="#e6e2d8"/>
+<rect x="626.0" y="896.0" width="43.0" height="38.0" fill="#e6e2d8"/>
+<rect x="691.0" y="896.0" width="43.0" height="38.0" fill="#e6e2d8"/>
+<rect x="746.0" y="896.0" width="43.0" height="38.0" fill="#e6e2d8"/>
+<rect x="801.0" y="896.0" width="38.0" height="38.0" fill="#e6e2d8"/>
+<rect x="861.0" y="896.0" width="51.0" height="38.0" fill="#e6e2d8"/>
+<rect x="576.3" y="946.0" width="37.7" height="48.0" fill="#e6e2d8"/>
+<rect x="626.0" y="946.0" width="43.0" height="48.0" fill="#e6e2d8"/>
+<rect x="691.0" y="946.0" width="43.0" height="48.0" fill="#e6e2d8"/>
+<rect x="746.0" y="946.0" width="43.0" height="48.0" fill="#e6e2d8"/>
+<rect x="801.0" y="946.0" width="38.0" height="48.0" fill="#e6e2d8"/>
+<rect x="861.0" y="946.0" width="51.0" height="48.0" fill="#e6e2d8"/>
+<rect x="576.6" y="1006.0" width="37.4" height="43.0" fill="#e6e2d8"/>
+<rect x="626.0" y="1006.0" width="43.0" height="43.0" fill="#e6e2d8"/>
+<rect x="691.0" y="1006.0" width="43.0" height="43.0" fill="#e6e2d8"/>
+<rect x="746.0" y="1006.0" width="43.0" height="43.0" fill="#e6e2d8"/>
+<rect x="801.0" y="1006.0" width="38.0" height="43.0" fill="#e6e2d8"/>
+<rect x="861.0" y="1006.0" width="51.0" height="43.0" fill="#e6e2d8"/>
+<rect x="577.0" y="1071.0" width="37.0" height="33.0" fill="#e6e2d8"/>
+<rect x="626.0" y="1071.0" width="43.0" height="33.0" fill="#e6e2d8"/>
+<rect x="691.0" y="1071.0" width="43.0" height="33.0" fill="#e6e2d8"/>
+<rect x="746.0" y="1071.0" width="43.0" height="33.0" fill="#e6e2d8"/>
+<rect x="801.0" y="1071.0" width="38.0" height="33.0" fill="#e6e2d8"/>
+<rect x="861.0" y="1071.0" width="51.0" height="33.0" fill="#e6e2d8"/>
+<rect x="577.2" y="1116.0" width="36.8" height="28.0" fill="#e6e2d8"/>
+<rect x="626.0" y="1116.0" width="43.0" height="28.0" fill="#e6e2d8"/>
+<rect x="691.0" y="1116.0" width="43.0" height="28.0" fill="#e6e2d8"/>
+<rect x="746.0" y="1116.0" width="43.0" height="28.0" fill="#e6e2d8"/>
+<rect x="801.0" y="1116.0" width="38.0" height="28.0" fill="#e6e2d8"/>
+<rect x="861.0" y="1116.0" width="51.0" height="28.0" fill="#e6e2d8"/>
+<polyline points="420.0,720.0 420.0,1150.0" fill="none" stroke="#d8d3c6" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="462.0,720.0 462.0,1150.0" fill="none" stroke="#d8d3c6" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="360.0,975.0 360.0,1150.0" fill="none" stroke="#d8d3c6" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="377.2,770.0 918.0,770.0" fill="none" stroke="#d8d3c6" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="399.6,830.0 918.0,830.0" fill="none" stroke="#d8d3c6" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="400.2,890.0 918.0,890.0" fill="none" stroke="#d8d3c6" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="386.4,940.0 918.0,940.0" fill="none" stroke="#d8d3c6" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="312.0,1000.0 918.0,1000.0" fill="none" stroke="#d8d3c6" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="311.5,1110.0 918.0,1110.0" fill="none" stroke="#d8d3c6" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="262.0,225.0 918.0,225.0" fill="none" stroke="#d8d3c6" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="261.9,670.0 546.0,670.0 568.0,650.0 916.1,650.0" fill="none" stroke="#d8d3c6" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="262.0,500.0 305.1,500.0" fill="none" stroke="#d8d3c6" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="262.0,590.0 262.0,590.0" fill="none" stroke="#d8d3c6" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="515.0,300.0 575.0,300.0" fill="none" stroke="#d8d3c6" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="482.0,440.0 550.0,440.0 566.0,450.0 921.2,450.0" fill="none" stroke="#d8d3c6" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="620.0,450.0 620.0,1150.0" fill="none" stroke="#d8d3c6" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="740.0,330.0 740.0,1150.0" fill="none" stroke="#d8d3c6" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="795.0,330.0 795.0,1150.0" fill="none" stroke="#d8d3c6" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="900.0,330.0 900.0,720.0" fill="none" stroke="#d8d3c6" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="575.0,330.0 918.0,330.0" fill="none" stroke="#d8d3c6" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="680.0,390.1 920.0,390.0" fill="none" stroke="#d8d3c6" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="515.0,590.0 916.4,589.9" fill="none" stroke="#d8d3c6" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="918.0,170.0 918.0,330.0 917.9,344.6 917.8,362.2 917.7,382.4 917.5,405.0 917.3,429.6 917.2,456.0 917.0,483.8 916.8,512.7 916.6,542.4 916.5,572.6 916.3,602.9 916.2,633.2 916.1,663.0 916.0,692.0 916.0,720.0 916.0,745.0 916.1,771.4 916.1,799.0 916.2,827.5 916.4,856.7 916.5,886.1 916.6,915.7 916.8,944.9 917.0,973.7 917.1,1001.6 917.3,1028.4 917.5,1053.8 917.6,1077.6 917.7,1099.3 917.8,1118.9 917.9,1135.8 918.0,1150.0" fill="none" stroke="#d8d3c6" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="481.8,445.0 481.1,458.3 479.9,475.2 478.3,489.9 476.2,504.4 473.7,518.5 470.7,532.2 467.3,545.4 463.3,557.9 458.8,569.7 453.9,580.5 448.5,590.4 442.8,599.3 436.8,607.0 430.6,613.9 424.2,620.0 417.6,625.1 410.9,629.5 404.1,633.2 397.1,636.1 390.0,638.1 382.8,639.1 375.5,638.8 368.3,637.1 361.1,633.8 354.1,628.9 347.4,622.3 341.1,614.2 335.3,604.7 330.0,594.0 325.3,582.3 321.0,570.0 317.2,557.2 313.8,544.0 310.8,530.6 308.1,517.0 305.6,503.1 303.5,489.0 301.8,474.6 300.6,459.9 299.8,445.0 299.7,429.9 300.2,414.8 301.3,399.8 303.1,385.1 305.5,370.8 308.6,357.0 312.1,343.8 316.1,331.1 320.4,319.0 325.2,307.6 330.4,296.9 335.9,287.0 341.8,278.0 348.0,270.0 354.5,263.3 361.3,258.0 368.4,254.2 375.6,251.9 382.8,251.3 390.0,252.1 397.0,254.2 404.0,257.5 410.8,261.7 417.3,266.7 423.8,272.2 430.0,278.4 436.2,285.1 442.3,292.4 448.3,300.4 454.0,309.4 459.4,319.3 464.5,330.3 469.0,342.3 472.9,355.4 476.2,369.3 478.7,383.9 480.5,398.9 481.6,414.2 482.0,429.6 481.8,445.0" fill="none" stroke="#d8d3c6" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="391.0,225.0 391.0,252.4" fill="none" stroke="#d8d3c6" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="391.0,637.8 391.0,670.0" fill="none" stroke="#d8d3c6" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="404.0,862.0 403.6,874.8 402.5,887.4 400.6,899.7 398.1,911.5 394.8,922.7 390.9,933.1 386.4,942.6 381.4,951.1 375.9,958.5 370.0,964.7 363.8,969.6 357.4,973.1 350.7,975.3 344.0,976.0 337.3,975.3 330.6,973.1 324.2,969.6 318.0,964.7 312.1,958.5 306.6,951.1 301.6,942.6 297.1,933.1 293.2,922.7 289.9,911.5 287.4,899.7 285.5,887.4 284.4,874.8 284.0,862.0 284.4,849.2 285.5,836.6 287.4,824.3 289.9,812.5 293.2,801.3 297.1,790.9 301.6,781.4 306.6,772.9 312.1,765.5 318.0,759.3 324.2,754.4 330.6,750.9 337.3,748.7 344.0,748.0 350.7,748.7 357.4,750.9 363.8,754.4 370.0,759.3 375.9,765.5 381.4,772.9 386.4,781.4 390.9,790.9 394.8,801.3 398.1,812.5 400.6,824.3 402.5,836.6 403.6,849.2 404.0,862.0" fill="none" stroke="#d8d3c6" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="312.0,958.4 312.0,1000.0" fill="none" stroke="#d8d3c6" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="311.5,1110.0 311.5,1150.0" fill="none" stroke="#d8d3c6" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="262.0,170.0 918.0,170.0" fill="none" stroke="#d8d3c6" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="575.0,280.0 918.0,280.0" fill="none" stroke="#d8d3c6" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="575.0,170.0 575.0,330.0" fill="none" stroke="#d8d3c6" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="765.0,170.0 765.0,330.0" fill="none" stroke="#d8d3c6" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="311.5,1150.0 918.0,1150.0" fill="none" stroke="#d8d3c6" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="515.0,720.0 515.0,1150.0" fill="none" stroke="#c8c2b4" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="262.0,170.0 262.0,668.0" fill="none" stroke="#c8c2b4" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="262.0,720.0 262.0,720.0" fill="none" stroke="#c8c2b4" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="515.0,170.0 515.0,720.0" fill="none" stroke="#c8c2b4" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="515.0,520.0 916.8,519.9" fill="none" stroke="#c8c2b4" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="20.0,720.0 947.0,720.0" fill="none" stroke="#b8b0a0" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="20.0,1060.0 947.0,1060.0" fill="none" stroke="#b8b0a0" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="682.0,76.0 681.9,91.7 681.8,111.3 681.6,134.3 681.4,160.2 681.2,188.2 681.0,218.0 680.8,248.9 680.6,280.3 680.4,311.7 680.2,342.5 680.1,372.1 680.0,400.0 679.9,426.1 679.8,451.1 679.8,475.3 679.7,499.2 679.7,523.0 679.6,547.1 679.6,572.0 679.6,597.9 679.7,625.3 679.7,654.5 679.8,686.0 680.0,720.0 680.1,741.3 680.2,764.5 680.4,789.3 680.6,815.6 680.8,843.1 681.0,871.6 681.2,900.8 681.4,930.4 681.6,960.3 681.9,990.2 682.1,1019.8 682.4,1048.9 682.6,1077.4 682.8,1104.8 683.0,1131.1 683.2,1155.9 683.4,1179.1 683.6,1200.3 683.8,1219.3 683.9,1236.0 684.0,1250.0" fill="none" stroke="#b8b0a0" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="852.0,76.0 852.0,90.0 851.9,106.0 851.9,124.1 851.8,143.9 851.7,165.4 851.7,188.4 851.6,212.8 851.5,238.4 851.5,265.1 851.4,292.7 851.3,321.1 851.2,350.1 851.1,379.7 851.0,409.6 850.9,439.7 850.8,469.8 850.7,499.9 850.6,529.8 850.5,559.2 850.4,588.2 850.4,616.5 850.3,643.9 850.2,670.4 850.1,695.8 850.0,720.0 849.9,748.3 849.8,777.1 849.7,806.3 849.6,835.9 849.5,865.5 849.3,895.2 849.2,924.8 849.1,954.1 849.0,983.0 848.9,1011.3 848.8,1039.0 848.7,1065.9 848.6,1091.9 848.5,1116.8 848.4,1140.5 848.3,1162.9 848.2,1183.8 848.2,1203.1 848.1,1220.7 848.0,1236.3 848.0,1250.0" fill="none" stroke="#b8b0a0" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="241.7,647.0 250.4,665.0 255.5,679.4 259.5,685.4 264.1,690.7 268.9,695.6 273.6,700.2 277.8,704.8 281.3,709.5 283.6,714.5 284.4,720.0" fill="none" stroke="#7a7a7a" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="262.5,793.0 266.0,775.0 266.5,760.6 268.4,754.6 270.9,749.3 273.8,744.4 276.9,739.8 279.7,735.2 282.2,730.5 283.8,725.5 284.4,720.0" fill="none" stroke="#7a7a7a" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="225.7,647.0 222.4,665.0 222.1,679.4 220.3,685.4 217.8,690.7 214.9,695.6 211.9,700.2 209.1,704.8 206.7,709.5 205.0,714.5 204.4,720.0" fill="none" stroke="#7a7a7a" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="246.5,793.0 238.0,775.0 233.1,760.6 229.1,754.6 224.6,749.3 219.8,744.4 215.2,739.8 211.0,735.2 207.6,730.5 205.3,725.5 204.4,720.0" fill="none" stroke="#7a7a7a" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="286.7,987.0 294.4,1005.0 298.4,1019.4 302.0,1025.4 306.1,1030.7 310.4,1035.6 314.7,1040.2 318.6,1044.8 321.8,1049.5 323.9,1054.5 324.7,1060.0" fill="none" stroke="#7a7a7a" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="297.2,1133.0 302.2,1115.0 303.9,1100.6 306.3,1094.6 309.4,1089.3 312.8,1084.4 316.3,1079.8 319.5,1075.2 322.2,1070.5 324.0,1065.5 324.7,1060.0" fill="none" stroke="#7a7a7a" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="270.7,987.0 266.4,1005.0 265.0,1019.4 262.7,1025.4 259.8,1030.7 256.4,1035.6 253.0,1040.2 249.8,1044.8 247.2,1049.5 245.4,1054.5 244.7,1060.0" fill="none" stroke="#7a7a7a" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="281.2,1133.0 274.2,1115.0 270.5,1100.6 267.1,1094.6 263.1,1089.3 258.8,1084.4 254.6,1079.8 250.8,1075.2 247.6,1070.5 245.5,1065.5 244.7,1060.0" fill="none" stroke="#7a7a7a" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="160.0,60.0 161.7,76.2 163.8,97.6 166.3,123.0 169.1,151.3 172.2,181.5 175.4,212.6 178.6,243.4 181.9,272.9 185.0,300.0 188.5,328.3 192.0,355.9 195.7,383.1 199.4,410.0 203.2,436.9 207.1,464.1 211.0,491.7 215.0,520.0 218.7,545.8 222.5,572.0 226.5,598.5 230.5,625.3 234.5,652.2 238.5,679.3 242.5,706.3 246.3,733.2 250.0,760.0 253.6,786.6 257.3,813.0 260.9,839.3 264.4,865.6 267.9,892.0 271.2,918.5 274.4,945.3 277.3,972.5 280.0,1000.0 282.2,1026.4 284.4,1054.9 286.3,1084.7 288.2,1115.0 289.9,1145.0 291.4,1173.8 292.8,1200.5 294.0,1224.3 295.1,1244.4 296.0,1260.0" fill="none" stroke="#5a5a5a" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="548.0,60.0 548.5,75.1 549.2,93.8 550.1,115.7 551.0,140.2 552.0,166.9 553.1,195.3 554.2,224.9 555.3,255.2 556.4,285.7 557.4,315.9 558.4,345.4 559.2,373.6 560.0,400.0 560.7,426.7 561.4,451.9 562.0,476.3 562.5,500.0 563.0,523.6 563.5,547.5 563.9,572.1 564.4,597.8 564.8,625.0 565.2,654.2 565.6,685.7 566.0,720.0 566.2,741.5 566.5,765.1 566.7,790.3 567.0,817.0 567.2,845.0 567.4,874.0 567.6,903.7 567.9,933.9 568.1,964.4 568.3,994.8 568.5,1025.1 568.7,1054.8 568.9,1083.8 569.0,1111.8 569.2,1138.7 569.4,1164.0 569.5,1187.6 569.6,1209.3 569.8,1228.7 569.9,1245.7 570.0,1260.0" fill="none" stroke="#6b4a2f" stroke-width="2" stroke-dasharray="5 3"/>
+<rect x="574.5" y="731.0" width="39.5" height="33.0" fill="#d6d2c8" stroke="#333" stroke-width="0.3"><title>ne_out_clement_01 · out_of_area · neighbour_filler</title></rect>
+<rect x="626.0" y="731.0" width="43.0" height="33.0" fill="#d6d2c8" stroke="#333" stroke-width="0.3"><title>ne_out_clement_02 · out_of_area · neighbour_filler</title></rect>
+<rect x="691.0" y="731.0" width="43.0" height="33.0" fill="#d6d2c8" stroke="#333" stroke-width="0.3"><title>ne_out_clement_03 · out_of_area · neighbour_filler</title></rect>
+<rect x="746.0" y="731.0" width="43.0" height="33.0" fill="#d6d2c8" stroke="#333" stroke-width="0.3"><title>ne_out_clement_04 · out_of_area · neighbour_filler</title></rect>
+<rect x="801.0" y="731.0" width="38.0" height="33.0" fill="#d6d2c8" stroke="#333" stroke-width="0.3"><title>ne_out_clement_05 · out_of_area · neighbour_filler</title></rect>
+<rect x="861.0" y="731.0" width="51.0" height="33.0" fill="#d6d2c8" stroke="#333" stroke-width="0.3"><title>ne_out_clement_06 · out_of_area · neighbour_filler</title></rect>
+<rect x="575.0" y="776.0" width="39.0" height="48.0" fill="#d6d2c8" stroke="#333" stroke-width="0.3"><title>ne_out_clement_07 · out_of_area · neighbour_filler</title></rect>
+<rect x="626.0" y="776.0" width="43.0" height="48.0" fill="#d6d2c8" stroke="#333" stroke-width="0.3"><title>ne_out_clement_08 · out_of_area · neighbour_filler</title></rect>
+<rect x="691.0" y="776.0" width="43.0" height="48.0" fill="#d6d2c8" stroke="#333" stroke-width="0.3"><title>ne_out_clement_09 · out_of_area · neighbour_filler</title></rect>
+<rect x="746.0" y="776.0" width="43.0" height="48.0" fill="#d6d2c8" stroke="#333" stroke-width="0.3"><title>ne_out_clement_10 · out_of_area · neighbour_filler</title></rect>
+<rect x="801.0" y="776.0" width="38.0" height="48.0" fill="#d6d2c8" stroke="#333" stroke-width="0.3"><title>ne_out_clement_11 · out_of_area · neighbour_filler</title></rect>
+<rect x="861.0" y="776.0" width="51.0" height="48.0" fill="#d6d2c8" stroke="#333" stroke-width="0.3"><title>ne_out_clement_12 · out_of_area · neighbour_filler</title></rect>
+<rect x="575.5" y="836.0" width="38.5" height="48.0" fill="#d6d2c8" stroke="#333" stroke-width="0.3"><title>ne_out_clement_13 · out_of_area · neighbour_filler</title></rect>
+<rect x="626.0" y="836.0" width="43.0" height="48.0" fill="#d6d2c8" stroke="#333" stroke-width="0.3"><title>ne_out_clement_14 · out_of_area · neighbour_filler</title></rect>
+<rect x="691.0" y="836.0" width="43.0" height="48.0" fill="#d6d2c8" stroke="#333" stroke-width="0.3"><title>ne_out_clement_15 · out_of_area · neighbour_filler</title></rect>
+<rect x="746.0" y="836.0" width="43.0" height="48.0" fill="#d6d2c8" stroke="#333" stroke-width="0.3"><title>ne_out_clement_16 · out_of_area · neighbour_filler</title></rect>
+<rect x="801.0" y="836.0" width="38.0" height="48.0" fill="#d6d2c8" stroke="#333" stroke-width="0.3"><title>ne_out_clement_17 · out_of_area · neighbour_filler</title></rect>
+<rect x="861.0" y="836.0" width="51.0" height="48.0" fill="#d6d2c8" stroke="#333" stroke-width="0.3"><title>ne_out_clement_18 · out_of_area · neighbour_filler</title></rect>
+<rect x="575.9" y="896.0" width="38.1" height="38.0" fill="#d6d2c8" stroke="#333" stroke-width="0.3"><title>ne_out_clement_19 · out_of_area · neighbour_filler</title></rect>
+<rect x="626.0" y="896.0" width="43.0" height="38.0" fill="#d6d2c8" stroke="#333" stroke-width="0.3"><title>ne_out_clement_20 · out_of_area · neighbour_filler</title></rect>
+<rect x="691.0" y="896.0" width="43.0" height="38.0" fill="#d6d2c8" stroke="#333" stroke-width="0.3"><title>ne_out_clement_21 · out_of_area · neighbour_filler</title></rect>
+<rect x="746.0" y="896.0" width="43.0" height="38.0" fill="#d6d2c8" stroke="#333" stroke-width="0.3"><title>ne_out_clement_22 · out_of_area · neighbour_filler</title></rect>
+<rect x="801.0" y="896.0" width="38.0" height="38.0" fill="#d6d2c8" stroke="#333" stroke-width="0.3"><title>ne_out_clement_23 · out_of_area · neighbour_filler</title></rect>
+<rect x="861.0" y="896.0" width="51.0" height="38.0" fill="#d6d2c8" stroke="#333" stroke-width="0.3"><title>ne_out_clement_24 · out_of_area · neighbour_filler</title></rect>
+<rect x="576.3" y="946.0" width="37.7" height="48.0" fill="#d6d2c8" stroke="#333" stroke-width="0.3"><title>ne_out_clement_25 · out_of_area · neighbour_filler</title></rect>
+<rect x="626.0" y="946.0" width="43.0" height="48.0" fill="#d6d2c8" stroke="#333" stroke-width="0.3"><title>ne_out_clement_26 · out_of_area · neighbour_filler</title></rect>
+<rect x="691.0" y="946.0" width="43.0" height="48.0" fill="#d6d2c8" stroke="#333" stroke-width="0.3"><title>ne_out_clement_27 · out_of_area · neighbour_filler</title></rect>
+<rect x="746.0" y="946.0" width="43.0" height="48.0" fill="#d6d2c8" stroke="#333" stroke-width="0.3"><title>ne_out_clement_28 · out_of_area · neighbour_filler</title></rect>
+<rect x="801.0" y="946.0" width="38.0" height="48.0" fill="#d6d2c8" stroke="#333" stroke-width="0.3"><title>ne_out_clement_29 · out_of_area · neighbour_filler</title></rect>
+<rect x="861.0" y="946.0" width="51.0" height="48.0" fill="#d6d2c8" stroke="#333" stroke-width="0.3"><title>ne_out_clement_30 · out_of_area · neighbour_filler</title></rect>
+<rect x="576.6" y="1006.0" width="37.4" height="43.0" fill="#d6d2c8" stroke="#333" stroke-width="0.3"><title>ne_out_clement_31 · out_of_area · neighbour_filler</title></rect>
+<rect x="626.0" y="1006.0" width="43.0" height="43.0" fill="#d6d2c8" stroke="#333" stroke-width="0.3"><title>ne_out_clement_32 · out_of_area · neighbour_filler</title></rect>
+<rect x="691.0" y="1006.0" width="43.0" height="43.0" fill="#d6d2c8" stroke="#333" stroke-width="0.3"><title>ne_out_clement_33 · out_of_area · neighbour_filler</title></rect>
+<rect x="746.0" y="1006.0" width="43.0" height="43.0" fill="#d6d2c8" stroke="#333" stroke-width="0.3"><title>ne_out_clement_34 · out_of_area · neighbour_filler</title></rect>
+<rect x="801.0" y="1006.0" width="38.0" height="43.0" fill="#d6d2c8" stroke="#333" stroke-width="0.3"><title>ne_out_clement_35 · out_of_area · neighbour_filler</title></rect>
+<rect x="861.0" y="1006.0" width="51.0" height="43.0" fill="#d6d2c8" stroke="#333" stroke-width="0.3"><title>ne_out_clement_36 · out_of_area · neighbour_filler</title></rect>
+<rect x="577.0" y="1071.0" width="37.0" height="33.0" fill="#d6d2c8" stroke="#333" stroke-width="0.3"><title>ne_out_clement_37 · out_of_area · neighbour_filler</title></rect>
+<rect x="626.0" y="1071.0" width="43.0" height="33.0" fill="#d6d2c8" stroke="#333" stroke-width="0.3"><title>ne_out_clement_38 · out_of_area · neighbour_filler</title></rect>
+<rect x="691.0" y="1071.0" width="43.0" height="33.0" fill="#d6d2c8" stroke="#333" stroke-width="0.3"><title>ne_out_clement_39 · out_of_area · neighbour_filler</title></rect>
+<rect x="746.0" y="1071.0" width="43.0" height="33.0" fill="#d6d2c8" stroke="#333" stroke-width="0.3"><title>ne_out_clement_40 · out_of_area · neighbour_filler</title></rect>
+<rect x="801.0" y="1071.0" width="38.0" height="33.0" fill="#d6d2c8" stroke="#333" stroke-width="0.3"><title>ne_out_clement_41 · out_of_area · neighbour_filler</title></rect>
+<rect x="861.0" y="1071.0" width="51.0" height="33.0" fill="#d6d2c8" stroke="#333" stroke-width="0.3"><title>ne_out_clement_42 · out_of_area · neighbour_filler</title></rect>
+<rect x="577.2" y="1116.0" width="36.8" height="28.0" fill="#d6d2c8" stroke="#333" stroke-width="0.3"><title>ne_out_clement_43 · out_of_area · neighbour_filler</title></rect>
+<rect x="626.0" y="1116.0" width="43.0" height="28.0" fill="#d6d2c8" stroke="#333" stroke-width="0.3"><title>ne_out_clement_44 · out_of_area · neighbour_filler</title></rect>
+<rect x="691.0" y="1116.0" width="43.0" height="28.0" fill="#d6d2c8" stroke="#333" stroke-width="0.3"><title>ne_out_clement_45 · out_of_area · neighbour_filler</title></rect>
+<rect x="746.0" y="1116.0" width="43.0" height="28.0" fill="#d6d2c8" stroke="#333" stroke-width="0.3"><title>ne_out_clement_46 · out_of_area · neighbour_filler</title></rect>
+<rect x="801.0" y="1116.0" width="38.0" height="28.0" fill="#d6d2c8" stroke="#333" stroke-width="0.3"><title>ne_out_clement_47 · out_of_area · neighbour_filler</title></rect>
+<rect x="861.0" y="1116.0" width="51.0" height="28.0" fill="#d6d2c8" stroke="#333" stroke-width="0.3"><title>ne_out_clement_48 · out_of_area · neighbour_filler</title></rect>
+<rect x="581.0" y="176.0" width="88.0" height="43.0" fill="#d6d2c8" stroke="#333" stroke-width="0.3"><title>ne_out_riviera_01 · out_of_area · neighbour_filler</title></rect>
+<rect x="691.0" y="176.0" width="68.0" height="43.0" fill="#d6d2c8" stroke="#333" stroke-width="0.3"><title>ne_out_riviera_02 · out_of_area · neighbour_filler</title></rect>
+<rect x="771.0" y="176.0" width="68.0" height="43.0" fill="#d6d2c8" stroke="#333" stroke-width="0.3"><title>ne_out_riviera_03 · out_of_area · neighbour_filler</title></rect>
+<rect x="861.0" y="176.0" width="51.0" height="43.0" fill="#d6d2c8" stroke="#333" stroke-width="0.3"><title>ne_out_riviera_04 · out_of_area · neighbour_filler</title></rect>
+<rect x="581.0" y="231.0" width="88.0" height="43.0" fill="#d6d2c8" stroke="#333" stroke-width="0.3"><title>ne_out_riviera_05 · out_of_area · neighbour_filler</title></rect>
+<rect x="691.0" y="231.0" width="68.0" height="43.0" fill="#d6d2c8" stroke="#333" stroke-width="0.3"><title>ne_out_riviera_06 · out_of_area · neighbour_filler</title></rect>
+<rect x="771.0" y="231.0" width="68.0" height="43.0" fill="#d6d2c8" stroke="#333" stroke-width="0.3"><title>ne_out_riviera_07 · out_of_area · neighbour_filler</title></rect>
+<rect x="861.0" y="231.0" width="51.0" height="43.0" fill="#d6d2c8" stroke="#333" stroke-width="0.3"><title>ne_out_riviera_08 · out_of_area · neighbour_filler</title></rect>
+<rect x="581.0" y="286.0" width="88.0" height="38.0" fill="#d6d2c8" stroke="#333" stroke-width="0.3"><title>ne_out_riviera_09 · out_of_area · neighbour_filler</title></rect>
+<rect x="691.0" y="286.0" width="68.0" height="38.0" fill="#d6d2c8" stroke="#333" stroke-width="0.3"><title>ne_out_riviera_10 · out_of_area · neighbour_filler</title></rect>
+<rect x="771.0" y="286.0" width="68.0" height="38.0" fill="#d6d2c8" stroke="#333" stroke-width="0.3"><title>ne_out_riviera_11 · out_of_area · neighbour_filler</title></rect>
+<rect x="861.0" y="286.0" width="51.0" height="38.0" fill="#d6d2c8" stroke="#333" stroke-width="0.3"><title>ne_out_riviera_12 · out_of_area · neighbour_filler</title></rect>
+<rect x="222.8" y="179.0" width="31.2" height="21.5" fill="#7d8fa8" stroke="#333" stroke-width="0.3"><title>ne_mg_austral_ave_01 · large_building · warehouse</title></rect>
+<rect x="271.0" y="179.0" width="36.3" height="21.5" fill="#7d8fa8" stroke="#333" stroke-width="0.3"><title>ne_mg_austral_ave_02 · large_building · warehouse</title></rect>
+<rect x="234.5" y="195.3" width="18.7" height="20.6" fill="#1fa3a3" stroke="#333" stroke-width="0.3"><title>ne_mg_austral_ave_03 · standin_business · standin_garage_bays</title></rect>
+<text x="243.85" y="208.60000000000002" font-size="8" font-weight="bold" fill="#fff" text-anchor="middle">A</text>
+<rect x="226.6" y="234.0" width="27.4" height="31.5" fill="#7d8fa8" stroke="#333" stroke-width="0.3"><title>ne_mg_austral_ave_04 · large_building · warehouse</title></rect>
+<rect x="237.0" y="259.4" width="16.5" height="30.2" fill="#7d8fa8" stroke="#333" stroke-width="0.3"><title>ne_mg_austral_ave_05 · large_building · industrial_shed</title></rect>
+<rect x="217.1" y="309.0" width="23.1" height="24.0" fill="#7d8fa8" stroke="#333" stroke-width="0.3"><title>ne_mg_austral_ave_06 · large_building · industrial_shed</title></rect>
+<rect x="240.1" y="327.6" width="13.8" height="23.0" fill="#7d8fa8" stroke="#333" stroke-width="0.3"><title>ne_mg_austral_ave_07 · large_building · industrial_shed</title></rect>
+<rect x="226.6" y="369.0" width="17.8" height="34.0" fill="#7d8fa8" stroke="#333" stroke-width="0.3"><title>ne_mg_austral_ave_08 · large_building · industrial_shed</title></rect>
+<rect x="236.2" y="449.0" width="12.5" height="24.0" fill="#7d8fa8" stroke="#333" stroke-width="0.3"><title>ne_mg_austral_ave_09 · large_building · industrial_shed</title></rect>
+<rect x="243.0" y="509.0" width="8.8" height="14.0" fill="#1fa3a3" stroke="#333" stroke-width="0.3"><title>ne_mg_austral_ave_10 · standin_business · standin_standalone_shop</title></rect>
+<text x="247.4" y="519.0" font-size="8" font-weight="bold" fill="#fff" text-anchor="middle">F</text>
+<rect x="481.3" y="195.3" width="24.1" height="20.6" fill="#7d8fa8" stroke="#333" stroke-width="0.3"><title>ne_mg_industrial_way_01 · large_building · industrial_shed</title></rect>
+<rect x="522.0" y="306.0" width="30.0" height="40.0" fill="#e0453a" stroke="#333" stroke-width="0.3"><title>ne_mg_industrial_way_02 · specialized_location · viper_garage</title></rect>
+<rect x="522.0" y="360.0" width="30.0" height="40.0" fill="#f0b323" stroke="#333" stroke-width="0.3"><title>ne_mg_industrial_way_03 · purchasable_business · chop_shop</title></rect>
+<rect x="530.2" y="460.8" width="11.7" height="18.3" fill="#b05fc4" stroke="#333" stroke-width="0.3"><title>ne_mg_industrial_way_04 · special_building · safehouse_warehouse</title></rect>
+<rect x="524.0" y="679.0" width="19.0" height="19.0" fill="#e0453a" stroke="#333" stroke-width="0.3"><title>ne_mg_mangona_rd_01 · specialized_location · coke_plug_house</title></rect>
+<rect x="305.0" y="688.0" width="12.0" height="6.0" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_mg_mangona_rd_02 · house_1f · trailer_1f</title></rect>
+<rect x="339.0" y="688.0" width="12.0" height="6.0" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_mg_mangona_rd_03 · house_1f · trailer_1f</title></rect>
+<rect x="373.0" y="688.0" width="12.0" height="6.0" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_mg_mangona_rd_04 · house_1f · trailer_1f</title></rect>
+<rect x="407.0" y="688.0" width="12.0" height="6.0" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_mg_mangona_rd_05 · house_1f · trailer_1f</title></rect>
+<rect x="441.0" y="688.0" width="12.0" height="6.0" fill="#e0453a" stroke="#333" stroke-width="0.3"><title>ne_mg_mangona_rd_06 · specialized_location · trap_trailer_lakeside</title></rect>
+<rect x="349.0" y="179.0" width="42.9" height="21.5" fill="#7d8fa8" stroke="#333" stroke-width="0.3"><title>ne_mg_park_ave_01 · large_building · warehouse</title></rect>
+<rect x="439.0" y="179.0" width="40.2" height="21.5" fill="#7d8fa8" stroke="#333" stroke-width="0.3"><title>ne_mg_park_ave_02 · large_building · warehouse</title></rect>
+<rect x="524.0" y="179.0" width="12.0" height="21.5" fill="#7d8fa8" stroke="#333" stroke-width="0.3"><title>ne_mg_park_ave_03 · large_building · industrial_shed</title></rect>
+<rect x="308.9" y="195.3" width="21.8" height="20.6" fill="#7d8fa8" stroke="#333" stroke-width="0.3"><title>ne_mg_park_ave_04 · large_building · industrial_shed</title></rect>
+<rect x="394.4" y="195.3" width="25.7" height="20.6" fill="#7d8fa8" stroke="#333" stroke-width="0.3"><title>ne_mg_park_ave_05 · large_building · industrial_shed</title></rect>
+<rect x="571.9" y="555.0" width="21.1" height="14.5" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_ng_30th_st_01 · house_2f · house_2f_big_yard</title></rect>
+<rect x="875.0" y="555.0" width="19.0" height="14.5" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_ng_30th_st_02 · house_2f · house_2f_small_yard</title></rect>
+<rect x="760.8" y="568.3" width="13.3" height="13.3" fill="#b05fc4" stroke="#333" stroke-width="0.3"><title>ne_ng_30th_st_03 · special_building · safehouse_greybox</title></rect>
+<rect x="571.9" y="569.5" width="21.1" height="14.5" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_ng_30th_st_04 · house_2f · house_2f_big_yard</title></rect>
+<rect x="593.0" y="569.5" width="21.0" height="14.5" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_ng_30th_st_05 · house_2f · house_2f_big_yard</title></rect>
+<rect x="626.0" y="569.5" width="24.0" height="14.5" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_ng_30th_st_06 · house_1f · house_1f_big_yard</title></rect>
+<rect x="686.3" y="569.5" width="23.7" height="14.5" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_ng_30th_st_07 · house_1f · house_1f_big_yard</title></rect>
+<rect x="710.0" y="569.5" width="24.0" height="14.5" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_ng_30th_st_08 · house_2f · house_2f_big_yard</title></rect>
+<rect x="801.0" y="569.5" width="21.5" height="14.5" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_ng_30th_st_09 · house_2f · house_2f_big_yard</title></rect>
+<rect x="822.5" y="569.5" width="21.2" height="14.5" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_ng_30th_st_10 · house_2f · house_2f_big_yard</title></rect>
+<rect x="875.0" y="569.5" width="19.0" height="14.5" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_ng_30th_st_11 · house_1f · house_1f_small_yard</title></rect>
+<rect x="573.1" y="596.0" width="20.5" height="16.0" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_ng_30th_st_12 · house_1f · house_1f_big_yard</title></rect>
+<rect x="593.6" y="596.0" width="20.4" height="16.0" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_ng_30th_st_13 · house_2f · house_2f_big_yard</title></rect>
+<rect x="626.0" y="596.0" width="16.0" height="24.0" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_ng_30th_st_14 · house_2f · house_2f_deep_lot</title></rect>
+<rect x="642.0" y="596.0" width="16.0" height="24.0" fill="#7d8fa8" stroke="#333" stroke-width="0.3"><title>ne_ng_30th_st_15 · large_building · apartment_walkup_3f</title></rect>
+<rect x="702.0" y="596.0" width="16.0" height="24.0" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_ng_30th_st_16 · house_1f · house_1f_deep_lot</title></rect>
+<rect x="746.0" y="596.0" width="21.5" height="16.0" fill="#7d8fa8" stroke="#333" stroke-width="0.3"><title>ne_ng_30th_st_17 · large_building · apartment_walkup_3f</title></rect>
+<rect x="767.5" y="596.0" width="21.5" height="16.0" fill="#7d8fa8" stroke="#333" stroke-width="0.3"><title>ne_ng_30th_st_18 · large_building · apartment_walkup_3f</title></rect>
+<rect x="801.0" y="596.0" width="21.5" height="16.0" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_ng_30th_st_19 · house_2f · house_2f_big_yard</title></rect>
+<rect x="822.5" y="596.0" width="21.2" height="16.0" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_ng_30th_st_20 · house_2f · house_2f_big_yard</title></rect>
+<rect x="875.0" y="596.0" width="19.0" height="16.0" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_ng_30th_st_21 · house_1f · house_1f_big_yard</title></rect>
+<rect x="574.0" y="342.0" width="90.0" height="88.0" fill="#b05fc4" stroke="#333" stroke-width="0.3"><title>ne_ng_36th_st_01 · special_building · grove_general_hospital</title></rect>
+<rect x="875.0" y="412.0" width="19.0" height="16.0" fill="#e0453a" stroke="#333" stroke-width="0.3"><title>ne_ng_36th_st_02 · specialized_location · grove_apartments</title></rect>
+<rect x="702.0" y="420.0" width="16.0" height="24.0" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_ng_36th_st_03 · house_1f · house_1f_deep_lot</title></rect>
+<rect x="718.0" y="420.0" width="16.0" height="24.0" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_ng_36th_st_04 · house_1f · house_1f_deep_lot</title></rect>
+<rect x="746.0" y="428.0" width="21.5" height="16.0" fill="#7d8fa8" stroke="#333" stroke-width="0.3"><title>ne_ng_36th_st_05 · large_building · apartment_walkup_3f</title></rect>
+<rect x="767.5" y="428.0" width="21.5" height="16.0" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_ng_36th_st_06 · house_1f · house_1f_big_yard</title></rect>
+<rect x="801.0" y="428.0" width="21.5" height="16.0" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_ng_36th_st_07 · house_1f · house_1f_big_yard</title></rect>
+<rect x="822.5" y="428.0" width="21.5" height="16.0" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_ng_36th_st_08 · house_2f · house_2f_big_yard</title></rect>
+<rect x="875.0" y="428.0" width="19.0" height="16.0" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_ng_36th_st_09 · house_2f · house_2f_big_yard</title></rect>
+<rect x="570.6" y="456.0" width="21.7" height="14.5" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_ng_36th_st_10 · house_2f · house_2f_big_yard</title></rect>
+<rect x="592.3" y="456.0" width="21.7" height="14.5" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_ng_36th_st_11 · house_2f · house_2f_big_yard</title></rect>
+<rect x="626.0" y="456.0" width="24.0" height="14.5" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_ng_36th_st_12 · house_2f · house_2f_big_yard</title></rect>
+<rect x="746.0" y="456.0" width="21.5" height="14.5" fill="#7d8fa8" stroke="#333" stroke-width="0.3"><title>ne_ng_36th_st_13 · large_building · apartment_walkup_3f</title></rect>
+<rect x="767.5" y="456.0" width="21.5" height="14.5" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_ng_36th_st_14 · house_2f · house_2f_big_yard</title></rect>
+<rect x="801.0" y="456.0" width="21.5" height="14.5" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_ng_36th_st_15 · house_2f · house_2f_big_yard</title></rect>
+<rect x="822.5" y="456.0" width="21.5" height="14.5" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_ng_36th_st_16 · house_1f · house_1f_big_yard</title></rect>
+<rect x="875.0" y="456.0" width="19.0" height="14.5" fill="#7d8fa8" stroke="#333" stroke-width="0.3"><title>ne_ng_36th_st_17 · large_building · apartment_walkup_3f</title></rect>
+<rect x="570.6" y="470.5" width="21.7" height="14.5" fill="#e0453a" stroke="#333" stroke-width="0.3"><title>ne_ng_36th_st_18 · specialized_location · stash_house_viper</title></rect>
+<rect x="875.0" y="470.5" width="19.0" height="14.5" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_ng_36th_st_19 · house_1f · house_1f_small_yard</title></rect>
+<rect x="702.0" y="336.0" width="16.0" height="24.0" fill="#7d8fa8" stroke="#333" stroke-width="0.3"><title>ne_ng_40th_st_01 · large_building · apartment_walkup_3f</title></rect>
+<rect x="718.0" y="336.0" width="16.0" height="24.0" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_ng_40th_st_02 · house_1f · house_1f_deep_lot</title></rect>
+<rect x="746.0" y="336.0" width="21.5" height="16.0" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_ng_40th_st_03 · house_1f · house_1f_big_yard</title></rect>
+<rect x="767.5" y="336.0" width="21.5" height="16.0" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_ng_40th_st_04 · house_1f · house_1f_big_yard</title></rect>
+<rect x="801.0" y="336.0" width="21.5" height="16.0" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_ng_40th_st_05 · house_2f · house_2f_big_yard</title></rect>
+<rect x="822.5" y="336.0" width="21.5" height="16.0" fill="#7d8fa8" stroke="#333" stroke-width="0.3"><title>ne_ng_40th_st_06 · large_building · apartment_walkup_3f</title></rect>
+<rect x="875.0" y="336.0" width="19.0" height="16.0" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_ng_40th_st_07 · house_1f · house_1f_big_yard</title></rect>
+<rect x="875.0" y="352.0" width="19.0" height="16.0" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_ng_40th_st_08 · house_2f · house_2f_big_yard</title></rect>
+<rect x="702.0" y="360.0" width="16.0" height="24.0" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_ng_40th_st_09 · house_1f · house_1f_deep_lot</title></rect>
+<rect x="718.0" y="360.0" width="16.0" height="24.0" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_ng_40th_st_10 · house_2f · house_2f_deep_lot</title></rect>
+<rect x="746.0" y="368.0" width="21.5" height="16.0" fill="#7d8fa8" stroke="#333" stroke-width="0.3"><title>ne_ng_40th_st_11 · large_building · apartment_walkup_3f</title></rect>
+<rect x="767.5" y="368.0" width="21.5" height="16.0" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_ng_40th_st_12 · house_2f · house_2f_big_yard</title></rect>
+<rect x="801.0" y="368.0" width="21.5" height="16.0" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_ng_40th_st_13 · house_2f · house_2f_big_yard</title></rect>
+<rect x="822.5" y="368.0" width="21.5" height="16.0" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_ng_40th_st_14 · house_1f · house_1f_big_yard</title></rect>
+<rect x="875.0" y="368.0" width="19.0" height="16.0" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_ng_40th_st_15 · house_1f · house_1f_big_yard</title></rect>
+<rect x="702.0" y="396.0" width="16.0" height="24.0" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_ng_40th_st_16 · house_2f · house_2f_deep_lot</title></rect>
+<rect x="718.0" y="396.0" width="16.0" height="24.0" fill="#1fa3a3" stroke="#333" stroke-width="0.3"><title>ne_ng_40th_st_17 · standin_business · standin_corner_store</title></rect>
+<text x="726.0" y="411.0" font-size="8" font-weight="bold" fill="#fff" text-anchor="middle">S</text>
+<rect x="746.0" y="396.0" width="21.5" height="16.0" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_ng_40th_st_18 · house_1f · house_1f_big_yard</title></rect>
+<rect x="767.5" y="396.0" width="21.5" height="16.0" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_ng_40th_st_19 · house_1f · house_1f_big_yard</title></rect>
+<rect x="801.0" y="396.0" width="21.5" height="16.0" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_ng_40th_st_20 · house_1f · house_1f_big_yard</title></rect>
+<rect x="822.5" y="396.0" width="21.5" height="16.0" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_ng_40th_st_21 · house_1f · house_1f_big_yard</title></rect>
+<rect x="875.0" y="396.0" width="19.0" height="16.0" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_ng_40th_st_22 · house_2f · house_2f_big_yard</title></rect>
+<rect x="767.5" y="352.0" width="21.5" height="16.0" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_ng_broadway_01 · house_1f · house_1f_big_yard</title></rect>
+<rect x="801.0" y="352.0" width="21.5" height="16.0" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_ng_broadway_02 · house_1f · house_1f_big_yard</title></rect>
+<rect x="822.5" y="352.0" width="21.5" height="16.0" fill="#1fa3a3" stroke="#333" stroke-width="0.3"><title>ne_ng_broadway_03 · standin_business · standin_shopfront_2f</title></rect>
+<text x="833.25" y="363.0" font-size="8" font-weight="bold" fill="#fff" text-anchor="middle">F</text>
+<rect x="767.5" y="412.0" width="21.5" height="16.0" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_ng_broadway_04 · house_2f · house_2f_big_yard</title></rect>
+<rect x="801.0" y="412.0" width="21.5" height="16.0" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_ng_broadway_05 · house_1f · house_1f_big_yard</title></rect>
+<rect x="822.5" y="412.0" width="21.5" height="16.0" fill="#a6dcd8" stroke="#333" stroke-width="0.3"><title>ne_ng_broadway_06 · standin_business · standin_shopfront_2f</title></rect>
+<rect x="767.5" y="470.5" width="21.5" height="14.5" fill="#7d8fa8" stroke="#333" stroke-width="0.3"><title>ne_ng_broadway_07 · large_building · apartment_walkup_3f</title></rect>
+<rect x="801.0" y="470.5" width="21.5" height="14.5" fill="#7d8fa8" stroke="#333" stroke-width="0.3"><title>ne_ng_broadway_08 · large_building · apartment_walkup_3f</title></rect>
+<rect x="822.5" y="470.5" width="21.5" height="14.5" fill="#a6dcd8" stroke="#333" stroke-width="0.3"><title>ne_ng_broadway_09 · standin_business · standin_shopfront_2f</title></rect>
+<rect x="767.5" y="485.0" width="21.5" height="14.5" fill="#7d8fa8" stroke="#333" stroke-width="0.3"><title>ne_ng_broadway_10 · large_building · apartment_walkup_3f</title></rect>
+<rect x="801.0" y="485.0" width="21.5" height="14.5" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_ng_broadway_11 · house_2f · house_2f_big_yard</title></rect>
+<rect x="822.5" y="485.0" width="21.5" height="14.5" fill="#a6dcd8" stroke="#333" stroke-width="0.3"><title>ne_ng_broadway_12 · standin_business · standin_shopfront_2f</title></rect>
+<rect x="767.5" y="540.5" width="21.5" height="14.5" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_ng_broadway_13 · house_1f · house_1f_big_yard</title></rect>
+<rect x="801.0" y="540.5" width="21.5" height="14.5" fill="#f0b323" stroke="#333" stroke-width="0.3"><title>ne_ng_broadway_14 · purchasable_business · tattoo_parlor</title></rect>
+<rect x="822.5" y="540.5" width="21.3" height="14.5" fill="#a6dcd8" stroke="#333" stroke-width="0.3"><title>ne_ng_broadway_15 · standin_business · standin_shopfront_2f</title></rect>
+<rect x="801.0" y="555.0" width="21.5" height="14.5" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_ng_broadway_16 · house_2f · house_2f_big_yard</title></rect>
+<rect x="822.5" y="555.0" width="21.2" height="14.5" fill="#a6dcd8" stroke="#333" stroke-width="0.3"><title>ne_ng_broadway_17 · standin_business · standin_shopfront_2f</title></rect>
+<rect x="767.5" y="612.0" width="21.5" height="16.0" fill="#7d8fa8" stroke="#333" stroke-width="0.3"><title>ne_ng_broadway_18 · large_building · apartment_walkup_3f</title></rect>
+<rect x="801.0" y="612.0" width="21.5" height="16.0" fill="#7d8fa8" stroke="#333" stroke-width="0.3"><title>ne_ng_broadway_19 · large_building · apartment_walkup_3f</title></rect>
+<rect x="822.5" y="612.0" width="21.1" height="16.0" fill="#1fa3a3" stroke="#333" stroke-width="0.3"><title>ne_ng_broadway_20 · standin_business · standin_shopfront_2f</title></rect>
+<text x="833.05" y="623.0" font-size="8" font-weight="bold" fill="#fff" text-anchor="middle">F</text>
+<rect x="767.5" y="670.5" width="21.5" height="14.5" fill="#7d8fa8" stroke="#333" stroke-width="0.3"><title>ne_ng_broadway_21 · large_building · apartment_walkup_3f</title></rect>
+<rect x="801.0" y="670.5" width="21.5" height="14.5" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_ng_broadway_22 · house_2f · house_2f_big_yard</title></rect>
+<rect x="767.5" y="685.0" width="21.5" height="14.5" fill="#7d8fa8" stroke="#333" stroke-width="0.3"><title>ne_ng_broadway_23 · large_building · apartment_walkup_3f</title></rect>
+<rect x="801.0" y="685.0" width="21.5" height="14.5" fill="#e0453a" stroke="#333" stroke-width="0.3"><title>ne_ng_broadway_24 · specialized_location · informant_flat</title></rect>
+<rect x="746.0" y="352.0" width="21.5" height="16.0" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_ng_dixie_hwy_01 · house_2f · house_2f_big_yard</title></rect>
+<rect x="746.0" y="412.0" width="21.5" height="16.0" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_ng_dixie_hwy_02 · house_2f · house_2f_big_yard</title></rect>
+<rect x="592.3" y="470.5" width="21.7" height="14.5" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_ng_dixie_hwy_03 · house_1f · house_1f_big_yard</title></rect>
+<rect x="626.0" y="470.5" width="24.0" height="14.5" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_ng_dixie_hwy_04 · house_1f · house_1f_big_yard</title></rect>
+<rect x="746.0" y="470.5" width="21.5" height="14.5" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_ng_dixie_hwy_05 · house_2f · house_2f_big_yard</title></rect>
+<rect x="592.3" y="485.0" width="21.7" height="14.5" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_ng_dixie_hwy_06 · house_2f · house_2f_big_yard</title></rect>
+<rect x="626.0" y="485.0" width="24.0" height="14.5" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_ng_dixie_hwy_07 · house_1f · house_1f_big_yard</title></rect>
+<rect x="746.0" y="485.0" width="21.5" height="14.5" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_ng_dixie_hwy_08 · house_1f · house_1f_big_yard</title></rect>
+<rect x="593.0" y="540.5" width="21.0" height="14.5" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_ng_dixie_hwy_09 · house_2f · house_2f_big_yard</title></rect>
+<rect x="626.0" y="540.5" width="24.0" height="14.5" fill="#f0b323" stroke="#333" stroke-width="0.3"><title>ne_ng_dixie_hwy_10 · purchasable_business · pharmacy</title></rect>
+<rect x="686.3" y="540.5" width="23.7" height="14.5" fill="#e0453a" stroke="#333" stroke-width="0.3"><title>ne_ng_dixie_hwy_11 · specialized_location · bar_the_gallery</title></rect>
+<rect x="710.0" y="540.5" width="24.0" height="14.5" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_ng_dixie_hwy_12 · house_1f · house_1f_deep_lot</title></rect>
+<rect x="746.0" y="540.5" width="21.5" height="14.5" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_ng_dixie_hwy_13 · house_1f · house_1f_big_yard</title></rect>
+<rect x="593.0" y="555.0" width="21.0" height="14.5" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_ng_dixie_hwy_14 · house_1f · house_1f_big_yard</title></rect>
+<rect x="626.0" y="555.0" width="24.0" height="14.5" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_ng_dixie_hwy_15 · house_2f · house_2f_big_yard</title></rect>
+<rect x="686.3" y="555.0" width="23.7" height="14.5" fill="#1fa3a3" stroke="#333" stroke-width="0.3"><title>ne_ng_dixie_hwy_16 · standin_business · standin_shopfront_2f</title></rect>
+<text x="698.15" y="565.25" font-size="8" font-weight="bold" fill="#fff" text-anchor="middle">L</text>
+<rect x="710.0" y="555.0" width="24.0" height="14.5" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_ng_dixie_hwy_17 · house_1f · house_1f_deep_lot</title></rect>
+<rect x="686.4" y="596.0" width="15.6" height="24.0" fill="#a6dcd8" stroke="#333" stroke-width="0.3"><title>ne_ng_dixie_hwy_18 · standin_business · standin_shopfront_2f</title></rect>
+<rect x="718.0" y="596.0" width="16.0" height="24.0" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_ng_dixie_hwy_19 · house_1f · house_1f_big_yard</title></rect>
+<rect x="593.6" y="612.0" width="20.4" height="16.0" fill="#7d8fa8" stroke="#333" stroke-width="0.3"><title>ne_ng_dixie_hwy_20 · large_building · apartment_walkup_3f</title></rect>
+<rect x="746.0" y="612.0" width="21.5" height="16.0" fill="#7d8fa8" stroke="#333" stroke-width="0.3"><title>ne_ng_dixie_hwy_21 · large_building · apartment_walkup_3f</title></rect>
+<rect x="686.4" y="620.0" width="15.6" height="24.0" fill="#a6dcd8" stroke="#333" stroke-width="0.3"><title>ne_ng_dixie_hwy_22 · standin_business · standin_shopfront_2f</title></rect>
+<rect x="718.0" y="620.0" width="16.0" height="24.0" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_ng_dixie_hwy_23 · house_1f · house_1f_big_yard</title></rect>
+<rect x="594.2" y="670.5" width="19.8" height="14.5" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_ng_dixie_hwy_24 · house_1f · house_1f_small_yard</title></rect>
+<rect x="626.0" y="670.5" width="24.0" height="14.5" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_ng_dixie_hwy_25 · house_1f · house_1f_big_yard</title></rect>
+<rect x="686.5" y="670.5" width="23.5" height="14.5" fill="#1fa3a3" stroke="#333" stroke-width="0.3"><title>ne_ng_dixie_hwy_26 · standin_business · standin_shopfront_2f</title></rect>
+<text x="698.25" y="680.75" font-size="8" font-weight="bold" fill="#fff" text-anchor="middle">G</text>
+<rect x="710.0" y="670.5" width="24.0" height="14.5" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_ng_dixie_hwy_27 · house_2f · house_2f_deep_lot</title></rect>
+<rect x="746.0" y="670.5" width="21.5" height="14.5" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_ng_dixie_hwy_28 · house_2f · house_2f_big_yard</title></rect>
+<rect x="594.2" y="685.0" width="19.8" height="14.5" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_ng_dixie_hwy_29 · house_2f · house_2f_small_yard</title></rect>
+<rect x="626.0" y="685.0" width="24.0" height="14.5" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_ng_dixie_hwy_30 · house_1f · house_1f_big_yard</title></rect>
+<rect x="710.0" y="685.0" width="24.0" height="14.5" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_ng_dixie_hwy_31 · house_1f · house_1f_big_yard</title></rect>
+<rect x="746.0" y="685.0" width="21.5" height="14.5" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_ng_dixie_hwy_32 · house_2f · house_2f_big_yard</title></rect>
+<rect x="570.6" y="485.0" width="21.7" height="14.5" fill="#7d8fa8" stroke="#333" stroke-width="0.3"><title>ne_ng_grove_rd_arts_strip_01 · large_building · apartment_walkup_3f</title></rect>
+<rect x="875.0" y="485.0" width="19.0" height="14.5" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_ng_grove_rd_arts_strip_02 · house_2f · house_2f_small_yard</title></rect>
+<rect x="570.6" y="499.5" width="21.7" height="14.5" fill="#e0453a" stroke="#333" stroke-width="0.3"><title>ne_ng_grove_rd_arts_strip_03 · specialized_location · stash_house_grove</title></rect>
+<rect x="592.3" y="499.5" width="21.7" height="14.5" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_ng_grove_rd_arts_strip_04 · house_2f · house_2f_big_yard</title></rect>
+<rect x="626.0" y="499.5" width="24.0" height="14.5" fill="#1fa3a3" stroke="#333" stroke-width="0.3"><title>ne_ng_grove_rd_arts_strip_05 · standin_business · standin_standalone_shop</title></rect>
+<text x="638.0" y="509.75" font-size="8" font-weight="bold" fill="#fff" text-anchor="middle">C</text>
+<rect x="746.0" y="499.5" width="21.5" height="14.5" fill="#7d8fa8" stroke="#333" stroke-width="0.3"><title>ne_ng_grove_rd_arts_strip_06 · large_building · apartment_walkup_3f</title></rect>
+<rect x="767.5" y="499.5" width="21.5" height="14.5" fill="#f0b323" stroke="#333" stroke-width="0.3"><title>ne_ng_grove_rd_arts_strip_07 · purchasable_business · pawn_shop</title></rect>
+<rect x="801.0" y="499.5" width="21.5" height="14.5" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_ng_grove_rd_arts_strip_08 · house_1f · house_1f_big_yard</title></rect>
+<rect x="822.5" y="499.5" width="21.4" height="14.5" fill="#1fa3a3" stroke="#333" stroke-width="0.3"><title>ne_ng_grove_rd_arts_strip_09 · standin_business · standin_garage_bays</title></rect>
+<text x="833.2" y="509.75" font-size="8" font-weight="bold" fill="#fff" text-anchor="middle">A</text>
+<rect x="875.0" y="499.5" width="19.0" height="14.5" fill="#e0453a" stroke="#333" stroke-width="0.3"><title>ne_ng_grove_rd_arts_strip_10 · specialized_location · electronics_store</title></rect>
+<rect x="571.9" y="526.0" width="21.1" height="14.5" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_ng_grove_rd_arts_strip_11 · house_1f · house_1f_big_yard</title></rect>
+<rect x="593.0" y="526.0" width="21.0" height="14.5" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_ng_grove_rd_arts_strip_12 · house_1f · house_1f_big_yard</title></rect>
+<rect x="626.0" y="526.0" width="24.0" height="14.5" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_ng_grove_rd_arts_strip_13 · house_2f · house_2f_big_yard</title></rect>
+<rect x="686.4" y="526.0" width="23.6" height="14.5" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_ng_grove_rd_arts_strip_14 · house_2f · house_2f_big_yard</title></rect>
+<rect x="710.0" y="526.0" width="24.0" height="14.5" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_ng_grove_rd_arts_strip_15 · house_1f · house_1f_big_yard</title></rect>
+<rect x="746.0" y="526.0" width="21.5" height="14.5" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_ng_grove_rd_arts_strip_16 · house_2f · house_2f_big_yard</title></rect>
+<rect x="767.5" y="526.0" width="21.5" height="14.5" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_ng_grove_rd_arts_strip_17 · house_1f · house_1f_big_yard</title></rect>
+<rect x="801.0" y="526.0" width="21.5" height="14.5" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_ng_grove_rd_arts_strip_18 · house_1f · house_1f_big_yard</title></rect>
+<rect x="822.5" y="526.0" width="21.3" height="14.5" fill="#7d8fa8" stroke="#333" stroke-width="0.3"><title>ne_ng_grove_rd_arts_strip_19 · large_building · apartment_walkup_3f</title></rect>
+<rect x="875.0" y="526.0" width="19.0" height="14.5" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_ng_grove_rd_arts_strip_20 · house_1f · house_1f_small_yard</title></rect>
+<rect x="571.9" y="540.5" width="21.1" height="14.5" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_ng_grove_rd_arts_strip_21 · house_2f · house_2f_big_yard</title></rect>
+<rect x="875.0" y="540.5" width="19.0" height="14.5" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_ng_grove_rd_arts_strip_22 · house_1f · house_1f_small_yard</title></rect>
+<rect x="574.3" y="685.0" width="19.9" height="14.5" fill="#1fa3a3" stroke="#333" stroke-width="0.3"><title>ne_ng_lakes_blvd_01 · standin_business · standin_shopfront_2f</title></rect>
+<text x="584.25" y="695.25" font-size="8" font-weight="bold" fill="#fff" text-anchor="middle">B</text>
+<rect x="875.0" y="685.0" width="19.0" height="14.5" fill="#7d8fa8" stroke="#333" stroke-width="0.3"><title>ne_ng_lakes_blvd_02 · large_building · mixed_use_2f</title></rect>
+<rect x="573.1" y="612.0" width="20.5" height="16.0" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_ng_mangona_rd_01 · house_2f · house_2f_big_yard</title></rect>
+<rect x="875.0" y="612.0" width="19.0" height="16.0" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_ng_mangona_rd_02 · house_1f · house_1f_big_yard</title></rect>
+<rect x="626.0" y="620.0" width="16.0" height="24.0" fill="#7d8fa8" stroke="#333" stroke-width="0.3"><title>ne_ng_mangona_rd_03 · large_building · apartment_walkup_3f</title></rect>
+<rect x="642.0" y="620.0" width="16.0" height="24.0" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_ng_mangona_rd_04 · house_2f · house_2f_deep_lot</title></rect>
+<rect x="702.0" y="620.0" width="16.0" height="24.0" fill="#7d8fa8" stroke="#333" stroke-width="0.3"><title>ne_ng_mangona_rd_05 · large_building · apartment_walkup_3f</title></rect>
+<rect x="573.1" y="628.0" width="20.5" height="16.0" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_ng_mangona_rd_06 · house_2f · house_2f_big_yard</title></rect>
+<rect x="593.6" y="628.0" width="20.4" height="16.0" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_ng_mangona_rd_07 · house_2f · house_2f_big_yard</title></rect>
+<rect x="746.0" y="628.0" width="21.5" height="16.0" fill="#7d8fa8" stroke="#333" stroke-width="0.3"><title>ne_ng_mangona_rd_08 · large_building · apartment_walkup_3f</title></rect>
+<rect x="767.5" y="628.0" width="21.5" height="16.0" fill="#7d8fa8" stroke="#333" stroke-width="0.3"><title>ne_ng_mangona_rd_09 · large_building · apartment_walkup_3f</title></rect>
+<rect x="801.0" y="628.0" width="21.5" height="16.0" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_ng_mangona_rd_10 · house_1f · house_1f_big_yard</title></rect>
+<rect x="822.5" y="628.0" width="21.1" height="16.0" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_ng_mangona_rd_11 · house_2f · house_2f_big_yard</title></rect>
+<rect x="875.0" y="628.0" width="19.0" height="16.0" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_ng_mangona_rd_12 · house_1f · house_1f_big_yard</title></rect>
+<rect x="574.3" y="656.0" width="19.9" height="14.5" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_ng_mangona_rd_13 · house_2f · house_2f_small_yard</title></rect>
+<rect x="594.2" y="656.0" width="19.8" height="14.5" fill="#7d8fa8" stroke="#333" stroke-width="0.3"><title>ne_ng_mangona_rd_14 · large_building · apartment_walkup_3f</title></rect>
+<rect x="626.0" y="656.0" width="24.0" height="14.5" fill="#7d8fa8" stroke="#333" stroke-width="0.3"><title>ne_ng_mangona_rd_15 · large_building · apartment_walkup_3f</title></rect>
+<rect x="686.5" y="656.0" width="23.5" height="14.5" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_ng_mangona_rd_16 · house_2f · house_2f_big_yard</title></rect>
+<rect x="710.0" y="656.0" width="24.0" height="14.5" fill="#7d8fa8" stroke="#333" stroke-width="0.3"><title>ne_ng_mangona_rd_17 · large_building · apartment_walkup_3f</title></rect>
+<rect x="746.0" y="656.0" width="21.5" height="14.5" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_ng_mangona_rd_18 · house_2f · house_2f_big_yard</title></rect>
+<rect x="767.5" y="656.0" width="21.5" height="14.5" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_ng_mangona_rd_19 · house_2f · house_2f_big_yard</title></rect>
+<rect x="801.0" y="656.0" width="21.5" height="14.5" fill="#7d8fa8" stroke="#333" stroke-width="0.3"><title>ne_ng_mangona_rd_20 · large_building · apartment_walkup_3f</title></rect>
+<rect x="822.5" y="656.0" width="21.0" height="14.5" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_ng_mangona_rd_21 · house_1f · house_1f_big_yard</title></rect>
+<rect x="875.0" y="656.0" width="19.0" height="14.5" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_ng_mangona_rd_22 · house_2f · house_2f_small_yard</title></rect>
+<rect x="574.3" y="670.5" width="19.9" height="14.5" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_ng_mangona_rd_23 · house_1f · house_1f_small_yard</title></rect>
+<rect x="875.0" y="670.5" width="19.0" height="14.5" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_ng_unnamed_st_01 · house_1f · house_1f_small_yard</title></rect>
+<rect x="534.4" y="965.2" width="23.5" height="9.6" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_12th_st_01 · house_1f · house_1f_small_yard</title></rect>
+<rect x="483.5" y="974.8" width="15.5" height="9.6" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_12th_st_02 · house_1f · house_1f_small_yard</title></rect>
+<rect x="534.4" y="974.8" width="23.5" height="9.6" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_tr_12th_st_03 · house_2f · house_2f_small_yard</title></rect>
+<rect x="426.0" y="984.4" width="15.0" height="9.6" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_12th_st_04 · house_1f · house_1f_small_yard</title></rect>
+<rect x="441.0" y="984.4" width="15.0" height="9.6" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_12th_st_05 · house_1f · house_1f_small_yard</title></rect>
+<rect x="468.0" y="984.4" width="15.5" height="9.6" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_12th_st_06 · house_1f · house_1f_small_yard</title></rect>
+<rect x="483.5" y="984.4" width="15.5" height="9.6" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_tr_12th_st_07 · house_2f · house_2f_small_yard</title></rect>
+<rect x="534.4" y="984.4" width="23.5" height="9.6" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_12th_st_08 · house_1f · house_1f_small_yard</title></rect>
+<rect x="315.6" y="1006.0" width="9.6" height="24.0" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_tr_12th_st_09 · house_2f · house_2f_small_yard</title></rect>
+<rect x="325.2" y="1006.0" width="9.6" height="24.0" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_12th_st_10 · house_1f · house_1f_small_yard</title></rect>
+<rect x="385.2" y="1006.0" width="9.6" height="24.0" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_12th_st_11 · house_1f · house_1f_deep_lot</title></rect>
+<rect x="426.0" y="1006.0" width="15.0" height="9.6" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_12th_st_12 · house_1f · house_1f_small_yard</title></rect>
+<rect x="441.0" y="1006.0" width="15.0" height="9.6" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_12th_st_13 · house_1f · house_1f_small_yard</title></rect>
+<rect x="468.0" y="1006.0" width="15.5" height="9.6" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_tr_12th_st_14 · house_2f · house_2f_small_yard</title></rect>
+<rect x="483.5" y="1006.0" width="15.5" height="9.6" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_tr_12th_st_15 · house_2f · house_2f_small_yard</title></rect>
+<rect x="534.6" y="1006.0" width="23.7" height="9.6" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_12th_st_16 · house_1f · house_1f_small_yard</title></rect>
+<rect x="534.6" y="1015.6" width="23.7" height="9.6" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_tr_12th_st_17 · house_2f · house_2f_small_yard</title></rect>
+<rect x="529.6" y="915.0" width="9.3" height="19.0" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_15th_st_01 · house_1f · house_1f_deep_lot</title></rect>
+<rect x="538.9" y="915.0" width="9.3" height="19.0" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_15th_st_02 · house_1f · house_1f_deep_lot</title></rect>
+<rect x="548.2" y="915.0" width="9.2" height="19.0" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_15th_st_03 · house_1f · house_1f_small_yard</title></rect>
+<rect x="426.0" y="924.5" width="15.0" height="9.5" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_tr_15th_st_04 · house_2f · house_2f_small_yard</title></rect>
+<rect x="441.0" y="924.5" width="15.0" height="9.5" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_15th_st_05 · house_1f · house_1f_small_yard</title></rect>
+<rect x="468.0" y="924.5" width="15.5" height="9.5" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_15th_st_06 · house_1f · house_1f_small_yard</title></rect>
+<rect x="483.5" y="924.5" width="15.5" height="9.5" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_15th_st_07 · house_1f · house_1f_small_yard</title></rect>
+<rect x="426.0" y="946.0" width="15.0" height="9.6" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_15th_st_08 · house_1f · house_1f_small_yard</title></rect>
+<rect x="441.0" y="946.0" width="15.0" height="9.6" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_tr_15th_st_09 · house_2f · house_2f_small_yard</title></rect>
+<rect x="468.0" y="946.0" width="15.5" height="9.6" fill="#f0b323" stroke="#333" stroke-width="0.3"><title>ne_tr_15th_st_10 · purchasable_business · barbershop</title></rect>
+<rect x="483.5" y="946.0" width="15.5" height="9.6" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_15th_st_11 · house_1f · house_1f_small_yard</title></rect>
+<rect x="534.4" y="946.0" width="23.5" height="9.6" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_15th_st_12 · house_1f · house_1f_small_yard</title></rect>
+<rect x="483.5" y="955.6" width="15.5" height="9.6" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_15th_st_13 · house_1f · house_1f_small_yard</title></rect>
+<rect x="534.4" y="955.6" width="23.5" height="9.6" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_15th_st_14 · house_1f · house_1f_small_yard</title></rect>
+<rect x="534.0" y="855.2" width="23.0" height="9.6" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_17th_st_01 · house_1f · house_1f_small_yard</title></rect>
+<rect x="483.5" y="864.8" width="15.5" height="9.6" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_17th_st_02 · house_1f · house_1f_small_yard</title></rect>
+<rect x="534.0" y="864.8" width="23.0" height="9.6" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_tr_17th_st_03 · house_2f · house_2f_small_yard</title></rect>
+<rect x="426.0" y="874.4" width="15.0" height="9.6" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_17th_st_04 · house_1f · house_1f_small_yard</title></rect>
+<rect x="441.0" y="874.4" width="15.0" height="9.6" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_17th_st_05 · house_1f · house_1f_small_yard</title></rect>
+<rect x="468.0" y="874.4" width="15.5" height="9.6" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_17th_st_06 · house_1f · house_1f_small_yard</title></rect>
+<rect x="483.5" y="874.4" width="15.5" height="9.6" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_tr_17th_st_07 · house_2f · house_2f_small_yard</title></rect>
+<rect x="534.0" y="874.4" width="23.0" height="9.6" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_tr_17th_st_08 · house_2f · house_2f_small_yard</title></rect>
+<rect x="426.0" y="896.0" width="15.0" height="9.5" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_tr_17th_st_09 · house_2f · house_2f_small_yard</title></rect>
+<rect x="441.0" y="896.0" width="15.0" height="9.5" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_17th_st_10 · house_1f · house_1f_small_yard</title></rect>
+<rect x="468.0" y="896.0" width="15.5" height="9.5" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_17th_st_11 · house_1f · house_1f_small_yard</title></rect>
+<rect x="483.5" y="896.0" width="15.5" height="9.5" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_17th_st_12 · house_1f · house_1f_small_yard</title></rect>
+<rect x="529.6" y="896.0" width="9.3" height="19.0" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_17th_st_13 · house_1f · house_1f_deep_lot</title></rect>
+<rect x="538.9" y="896.0" width="9.3" height="19.0" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_17th_st_14 · house_1f · house_1f_deep_lot</title></rect>
+<rect x="548.2" y="896.0" width="9.2" height="19.0" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_17th_st_15 · house_1f · house_1f_small_yard</title></rect>
+<rect x="483.5" y="804.8" width="15.5" height="9.6" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_20th_st_01 · house_1f · house_1f_small_yard</title></rect>
+<rect x="533.8" y="804.8" width="22.8" height="9.6" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_20th_st_02 · house_1f · house_1f_small_yard</title></rect>
+<rect x="426.0" y="814.4" width="15.0" height="9.6" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_20th_st_03 · house_1f · house_1f_small_yard</title></rect>
+<rect x="441.0" y="814.4" width="15.0" height="9.6" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_tr_20th_st_04 · house_2f · house_2f_small_yard</title></rect>
+<rect x="468.0" y="814.4" width="15.5" height="9.6" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_20th_st_05 · house_1f · house_1f_small_yard</title></rect>
+<rect x="483.5" y="814.4" width="15.5" height="9.6" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_tr_20th_st_06 · house_2f · house_2f_small_yard</title></rect>
+<rect x="533.8" y="814.4" width="22.8" height="9.6" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_20th_st_07 · house_1f · house_1f_small_yard</title></rect>
+<rect x="426.0" y="836.0" width="15.0" height="9.6" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_tr_20th_st_08 · house_2f · house_2f_small_yard</title></rect>
+<rect x="441.0" y="836.0" width="15.0" height="9.6" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_tr_20th_st_09 · house_2f · house_2f_small_yard</title></rect>
+<rect x="468.0" y="836.0" width="15.5" height="9.6" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_tr_20th_st_10 · house_2f · house_2f_small_yard</title></rect>
+<rect x="483.5" y="836.0" width="15.5" height="9.6" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_tr_20th_st_11 · house_2f · house_2f_small_yard</title></rect>
+<rect x="534.0" y="836.0" width="23.0" height="9.6" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_tr_20th_st_12 · house_2f · house_2f_small_yard</title></rect>
+<rect x="483.5" y="845.6" width="15.5" height="9.6" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_tr_20th_st_13 · house_2f · house_2f_small_yard</title></rect>
+<rect x="534.0" y="845.6" width="23.0" height="9.6" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_20th_st_14 · house_1f · house_1f_small_yard</title></rect>
+<rect x="538.1" y="745.0" width="9.0" height="19.0" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_23rd_st_01 · house_1f · house_1f_small_yard</title></rect>
+<rect x="547.1" y="745.0" width="9.1" height="19.0" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_tr_23rd_st_02 · house_2f · house_2f_small_yard</title></rect>
+<rect x="426.0" y="754.5" width="15.0" height="9.5" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_tr_23rd_st_03 · house_2f · house_2f_small_yard</title></rect>
+<rect x="441.0" y="754.5" width="15.0" height="9.5" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_23rd_st_04 · house_1f · house_1f_small_yard</title></rect>
+<rect x="468.0" y="754.5" width="15.5" height="9.5" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_23rd_st_05 · house_1f · house_1f_small_yard</title></rect>
+<rect x="483.5" y="754.5" width="15.5" height="9.5" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_23rd_st_06 · house_1f · house_1f_small_yard</title></rect>
+<rect x="426.0" y="776.0" width="15.0" height="9.6" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_23rd_st_07 · house_1f · house_1f_small_yard</title></rect>
+<rect x="441.0" y="776.0" width="15.0" height="9.6" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_23rd_st_08 · house_1f · house_1f_small_yard</title></rect>
+<rect x="468.0" y="776.0" width="15.5" height="9.6" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_23rd_st_09 · house_1f · house_1f_small_yard</title></rect>
+<rect x="483.5" y="776.0" width="15.5" height="9.6" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_tr_23rd_st_10 · house_2f · house_2f_small_yard</title></rect>
+<rect x="527.2" y="781.0" width="11.7" height="10.0" fill="#b05fc4" stroke="#333" stroke-width="0.3"><title>ne_tr_23rd_st_11 · special_building · safehouse_duplex</title></rect>
+<rect x="483.5" y="785.6" width="15.5" height="9.6" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_tr_23rd_st_12 · house_2f · house_2f_small_yard</title></rect>
+<rect x="333.0" y="1071.0" width="20.0" height="30.0" fill="#e0453a" stroke="#333" stroke-width="0.3"><title>ne_tr_8th_st_01 · specialized_location · gas_station</title></rect>
+<rect x="375.6" y="1085.0" width="9.6" height="19.0" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_tr_8th_st_02 · house_2f · house_2f_small_yard</title></rect>
+<rect x="385.2" y="1085.0" width="9.6" height="19.0" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_8th_st_03 · house_1f · house_1f_deep_lot</title></rect>
+<rect x="394.8" y="1085.0" width="9.6" height="19.0" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_8th_st_04 · house_1f · house_1f_small_yard</title></rect>
+<rect x="530.1" y="1085.0" width="9.5" height="19.0" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_tr_8th_st_05 · house_2f · house_2f_small_yard</title></rect>
+<rect x="539.6" y="1085.0" width="9.6" height="19.0" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_8th_st_06 · house_1f · house_1f_small_yard</title></rect>
+<rect x="549.2" y="1085.0" width="9.5" height="19.0" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_8th_st_07 · house_1f · house_1f_small_yard</title></rect>
+<rect x="426.0" y="1094.5" width="15.0" height="9.5" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_tr_8th_st_08 · house_2f · house_2f_small_yard</title></rect>
+<rect x="441.0" y="1094.5" width="15.0" height="9.5" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_8th_st_09 · house_1f · house_1f_small_yard</title></rect>
+<rect x="468.0" y="1094.5" width="15.5" height="9.5" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_8th_st_10 · house_1f · house_1f_small_yard</title></rect>
+<rect x="483.5" y="1094.5" width="15.5" height="9.5" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_tr_8th_st_11 · house_2f · house_2f_small_yard</title></rect>
+<rect x="315.6" y="1116.0" width="9.6" height="14.0" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_8th_st_12 · house_1f · house_1f_small_yard</title></rect>
+<rect x="325.2" y="1116.0" width="9.6" height="14.0" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_8th_st_13 · house_1f · house_1f_small_yard</title></rect>
+<rect x="334.8" y="1116.0" width="9.6" height="14.0" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_tr_8th_st_14 · house_2f · house_2f_small_yard</title></rect>
+<rect x="375.6" y="1116.0" width="9.6" height="14.0" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_tr_8th_st_15 · house_2f · house_2f_small_yard</title></rect>
+<rect x="385.2" y="1116.0" width="9.6" height="14.0" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_8th_st_16 · house_1f · house_1f_small_yard</title></rect>
+<rect x="394.8" y="1116.0" width="9.6" height="14.0" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_8th_st_17 · house_1f · house_1f_small_yard</title></rect>
+<rect x="436.0" y="1116.0" width="10.0" height="14.0" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_tr_8th_st_18 · house_2f · house_2f_small_yard</title></rect>
+<rect x="478.3" y="1116.0" width="10.4" height="14.0" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_tr_8th_st_19 · house_2f · house_2f_small_yard</title></rect>
+<rect x="488.7" y="1116.0" width="10.3" height="14.0" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_8th_st_20 · house_1f · house_1f_small_yard</title></rect>
+<rect x="530.2" y="1116.0" width="9.6" height="14.0" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_8th_st_21 · house_1f · house_1f_small_yard</title></rect>
+<rect x="539.8" y="1116.0" width="9.6" height="14.0" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_tr_8th_st_22 · house_2f · house_2f_small_yard</title></rect>
+<rect x="549.4" y="1116.0" width="9.6" height="14.0" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_8th_st_23 · house_1f · house_1f_small_yard</title></rect>
+<rect x="315.6" y="1130.0" width="9.6" height="14.0" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_8th_st_24 · house_1f · house_1f_small_yard</title></rect>
+<rect x="325.2" y="1130.0" width="9.6" height="14.0" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_8th_st_25 · house_1f · house_1f_small_yard</title></rect>
+<rect x="334.8" y="1130.0" width="9.6" height="14.0" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_8th_st_26 · house_1f · house_1f_small_yard</title></rect>
+<rect x="375.6" y="1130.0" width="9.6" height="14.0" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_tr_8th_st_27 · house_2f · house_2f_small_yard</title></rect>
+<rect x="385.2" y="1130.0" width="9.6" height="14.0" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_tr_8th_st_28 · house_2f · house_2f_small_yard</title></rect>
+<rect x="394.8" y="1130.0" width="9.6" height="14.0" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_tr_8th_st_29 · house_2f · house_2f_small_yard</title></rect>
+<rect x="436.0" y="1130.0" width="10.0" height="14.0" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_8th_st_30 · house_1f · house_1f_small_yard</title></rect>
+<rect x="478.3" y="1130.0" width="10.4" height="14.0" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_8th_st_31 · house_1f · house_1f_small_yard</title></rect>
+<rect x="488.7" y="1130.0" width="10.3" height="14.0" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_8th_st_32 · house_1f · house_1f_small_yard</title></rect>
+<rect x="530.2" y="1130.0" width="9.6" height="14.0" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_8th_st_33 · house_1f · house_1f_small_yard</title></rect>
+<rect x="539.8" y="1130.0" width="9.6" height="14.0" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_tr_8th_st_34 · house_2f · house_2f_small_yard</title></rect>
+<rect x="549.4" y="1130.0" width="9.6" height="14.0" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_8th_st_35 · house_1f · house_1f_small_yard</title></rect>
+<rect x="441.0" y="735.5" width="15.0" height="9.5" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_division_ave_01 · house_1f · house_1f_small_yard</title></rect>
+<rect x="468.0" y="735.5" width="15.5" height="9.5" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_division_ave_02 · house_1f · house_1f_small_yard</title></rect>
+<rect x="441.0" y="745.0" width="15.0" height="9.5" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_division_ave_03 · house_1f · house_1f_small_yard</title></rect>
+<rect x="468.0" y="745.0" width="15.5" height="9.5" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_division_ave_04 · house_1f · house_1f_small_yard</title></rect>
+<rect x="441.0" y="785.6" width="15.0" height="9.6" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_division_ave_05 · house_1f · house_1f_small_yard</title></rect>
+<rect x="468.0" y="785.6" width="15.5" height="9.6" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_tr_division_ave_06 · house_2f · house_2f_small_yard</title></rect>
+<rect x="441.0" y="795.2" width="15.0" height="9.6" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_division_ave_07 · house_1f · house_1f_small_yard</title></rect>
+<rect x="468.0" y="795.2" width="15.5" height="9.6" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_division_ave_08 · house_1f · house_1f_small_yard</title></rect>
+<rect x="441.0" y="804.8" width="15.0" height="9.6" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_division_ave_09 · house_1f · house_1f_small_yard</title></rect>
+<rect x="468.0" y="804.8" width="15.5" height="9.6" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_division_ave_10 · house_1f · house_1f_small_yard</title></rect>
+<rect x="441.0" y="845.6" width="15.0" height="9.6" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_tr_division_ave_11 · house_2f · house_2f_small_yard</title></rect>
+<rect x="468.0" y="845.6" width="15.5" height="9.6" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_division_ave_12 · house_1f · house_1f_small_yard</title></rect>
+<rect x="441.0" y="855.2" width="15.0" height="9.6" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_division_ave_13 · house_1f · house_1f_small_yard</title></rect>
+<rect x="468.0" y="855.2" width="15.5" height="9.6" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_division_ave_14 · house_1f · house_1f_small_yard</title></rect>
+<rect x="441.0" y="864.8" width="15.0" height="9.6" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_division_ave_15 · house_1f · house_1f_small_yard</title></rect>
+<rect x="468.0" y="864.8" width="15.5" height="9.6" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_tr_division_ave_16 · house_2f · house_2f_small_yard</title></rect>
+<rect x="441.0" y="905.5" width="15.0" height="9.5" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_tr_division_ave_17 · house_2f · house_2f_small_yard</title></rect>
+<rect x="468.0" y="905.5" width="15.5" height="9.5" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_tr_division_ave_18 · house_2f · house_2f_small_yard</title></rect>
+<rect x="441.0" y="915.0" width="15.0" height="9.5" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_division_ave_19 · house_1f · house_1f_small_yard</title></rect>
+<rect x="468.0" y="915.0" width="15.5" height="9.5" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_division_ave_20 · house_1f · house_1f_small_yard</title></rect>
+<rect x="441.0" y="955.6" width="15.0" height="9.6" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_division_ave_21 · house_1f · house_1f_small_yard</title></rect>
+<rect x="468.0" y="955.6" width="15.5" height="9.6" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_tr_division_ave_22 · house_2f · house_2f_small_yard</title></rect>
+<rect x="441.0" y="965.2" width="15.0" height="9.6" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_division_ave_23 · house_1f · house_1f_small_yard</title></rect>
+<rect x="468.0" y="965.2" width="15.5" height="9.6" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_tr_division_ave_24 · house_2f · house_2f_small_yard</title></rect>
+<rect x="441.0" y="974.8" width="15.0" height="9.6" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_division_ave_25 · house_1f · house_1f_small_yard</title></rect>
+<rect x="468.0" y="974.8" width="15.5" height="9.6" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_division_ave_26 · house_1f · house_1f_small_yard</title></rect>
+<rect x="441.0" y="1015.6" width="15.0" height="9.6" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_tr_division_ave_27 · house_2f · house_2f_small_yard</title></rect>
+<rect x="468.0" y="1015.6" width="15.5" height="9.6" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_division_ave_28 · house_1f · house_1f_small_yard</title></rect>
+<rect x="441.0" y="1025.2" width="15.0" height="9.6" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_tr_division_ave_29 · house_2f · house_2f_small_yard</title></rect>
+<rect x="468.0" y="1025.2" width="15.5" height="9.6" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_tr_division_ave_30 · house_2f · house_2f_small_yard</title></rect>
+<rect x="441.0" y="1034.8" width="15.0" height="9.6" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_division_ave_31 · house_1f · house_1f_small_yard</title></rect>
+<rect x="468.0" y="1034.8" width="15.5" height="9.6" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_division_ave_32 · house_1f · house_1f_small_yard</title></rect>
+<rect x="441.0" y="1075.5" width="15.0" height="9.5" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_division_ave_33 · house_1f · house_1f_small_yard</title></rect>
+<rect x="468.0" y="1075.5" width="15.5" height="9.5" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_division_ave_34 · house_1f · house_1f_small_yard</title></rect>
+<rect x="441.0" y="1085.0" width="15.0" height="9.5" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_division_ave_35 · house_1f · house_1f_small_yard</title></rect>
+<rect x="468.0" y="1085.0" width="15.5" height="9.5" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_tr_division_ave_36 · house_2f · house_2f_small_yard</title></rect>
+<rect x="446.0" y="1116.0" width="10.0" height="14.0" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_tr_division_ave_37 · house_2f · house_2f_small_yard</title></rect>
+<rect x="468.0" y="1116.0" width="10.3" height="14.0" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_tr_division_ave_38 · house_2f · house_2f_small_yard</title></rect>
+<rect x="446.0" y="1130.0" width="10.0" height="14.0" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_tr_division_ave_39 · house_2f · house_2f_small_yard</title></rect>
+<rect x="468.0" y="1130.0" width="10.3" height="14.0" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_division_ave_40 · house_1f · house_1f_small_yard</title></rect>
+<rect x="483.5" y="735.5" width="15.5" height="9.5" fill="#1fa3a3" stroke="#333" stroke-width="0.3"><title>ne_tr_lakes_blvd_01 · standin_business · standin_garage_bays</title></rect>
+<text x="491.25" y="743.25" font-size="8" font-weight="bold" fill="#fff" text-anchor="middle">A</text>
+<rect x="426.0" y="735.5" width="15.0" height="9.5" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_lakeview_ave_01 · house_1f · house_1f_small_yard</title></rect>
+<rect x="426.0" y="745.0" width="15.0" height="9.5" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_lakeview_ave_02 · house_1f · house_1f_small_yard</title></rect>
+<rect x="426.0" y="785.6" width="15.0" height="9.6" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_lakeview_ave_03 · house_1f · house_1f_small_yard</title></rect>
+<rect x="426.0" y="795.2" width="15.0" height="9.6" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_lakeview_ave_04 · house_1f · house_1f_small_yard</title></rect>
+<rect x="426.0" y="804.8" width="15.0" height="9.6" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_lakeview_ave_05 · house_1f · house_1f_small_yard</title></rect>
+<rect x="426.0" y="845.6" width="15.0" height="9.6" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_lakeview_ave_06 · house_1f · house_1f_small_yard</title></rect>
+<rect x="426.0" y="855.2" width="15.0" height="9.6" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_lakeview_ave_07 · house_1f · house_1f_small_yard</title></rect>
+<rect x="426.0" y="864.8" width="15.0" height="9.6" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_tr_lakeview_ave_08 · house_2f · house_2f_small_yard</title></rect>
+<rect x="426.0" y="905.5" width="15.0" height="9.5" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_tr_lakeview_ave_09 · house_2f · house_2f_small_yard</title></rect>
+<rect x="426.0" y="915.0" width="15.0" height="9.5" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_lakeview_ave_10 · house_1f · house_1f_small_yard</title></rect>
+<rect x="426.0" y="955.6" width="15.0" height="9.6" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_lakeview_ave_11 · house_1f · house_1f_small_yard</title></rect>
+<rect x="426.0" y="965.2" width="15.0" height="9.6" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_lakeview_ave_12 · house_1f · house_1f_small_yard</title></rect>
+<rect x="426.0" y="974.8" width="15.0" height="9.6" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_tr_lakeview_ave_13 · house_2f · house_2f_small_yard</title></rect>
+<rect x="334.8" y="1006.0" width="9.6" height="24.0" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_tr_lakeview_ave_14 · house_2f · house_2f_small_yard</title></rect>
+<rect x="344.4" y="1006.0" width="9.6" height="24.0" fill="#1fa3a3" stroke="#333" stroke-width="0.3"><title>ne_tr_lakeview_ave_15 · standin_business · standin_corner_store</title></rect>
+<text x="349.2" y="1021.0" font-size="8" font-weight="bold" fill="#fff" text-anchor="middle">F</text>
+<rect x="366.0" y="1006.0" width="9.6" height="24.0" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_tr_lakeview_ave_16 · house_2f · house_2f_small_yard</title></rect>
+<rect x="375.6" y="1006.0" width="9.6" height="24.0" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_tr_lakeview_ave_17 · house_2f · house_2f_small_yard</title></rect>
+<rect x="394.8" y="1006.0" width="9.6" height="24.0" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_lakeview_ave_18 · house_1f · house_1f_small_yard</title></rect>
+<rect x="404.4" y="1006.0" width="9.6" height="24.0" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_lakeview_ave_19 · house_1f · house_1f_small_yard</title></rect>
+<rect x="426.0" y="1015.6" width="15.0" height="9.6" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_tr_lakeview_ave_20 · house_2f · house_2f_small_yard</title></rect>
+<rect x="426.0" y="1025.2" width="15.0" height="9.6" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_lakeview_ave_21 · house_1f · house_1f_small_yard</title></rect>
+<rect x="426.0" y="1034.8" width="15.0" height="9.6" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_tr_lakeview_ave_22 · house_2f · house_2f_small_yard</title></rect>
+<rect x="426.0" y="1075.5" width="15.0" height="9.5" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_tr_lakeview_ave_23 · house_2f · house_2f_small_yard</title></rect>
+<rect x="366.0" y="1085.0" width="9.6" height="19.0" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_lakeview_ave_24 · house_1f · house_1f_small_yard</title></rect>
+<rect x="404.4" y="1085.0" width="9.6" height="19.0" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_lakeview_ave_25 · house_1f · house_1f_small_yard</title></rect>
+<rect x="426.0" y="1085.0" width="15.0" height="9.5" fill="#f0b323" stroke="#333" stroke-width="0.3"><title>ne_tr_lakeview_ave_26 · purchasable_business · liquor_store</title></rect>
+<rect x="344.4" y="1116.0" width="9.6" height="14.0" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_tr_lakeview_ave_27 · house_2f · house_2f_small_yard</title></rect>
+<rect x="366.0" y="1116.0" width="9.6" height="14.0" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_lakeview_ave_28 · house_1f · house_1f_small_yard</title></rect>
+<rect x="404.4" y="1116.0" width="9.6" height="14.0" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_tr_lakeview_ave_29 · house_2f · house_2f_small_yard</title></rect>
+<rect x="426.0" y="1116.0" width="10.0" height="14.0" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_tr_lakeview_ave_30 · house_2f · house_2f_small_yard</title></rect>
+<rect x="344.4" y="1130.0" width="9.6" height="14.0" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_lakeview_ave_31 · house_1f · house_1f_small_yard</title></rect>
+<rect x="366.0" y="1130.0" width="9.6" height="14.0" fill="#1fa3a3" stroke="#333" stroke-width="0.3"><title>ne_tr_lakeview_ave_32 · standin_business · standin_corner_store</title></rect>
+<text x="370.8" y="1140.0" font-size="8" font-weight="bold" fill="#fff" text-anchor="middle">P</text>
+<rect x="404.4" y="1130.0" width="9.6" height="14.0" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_tr_lakeview_ave_33 · house_2f · house_2f_small_yard</title></rect>
+<rect x="426.0" y="1130.0" width="10.0" height="14.0" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_tr_lakeview_ave_34 · house_2f · house_2f_small_yard</title></rect>
+<rect x="534.6" y="1025.2" width="23.7" height="9.6" fill="#e0453a" stroke="#333" stroke-width="0.3"><title>ne_tr_okee_blvd_01 · specialized_location · trap_house_the_spot</title></rect>
+<rect x="483.5" y="1034.8" width="15.5" height="9.6" fill="#f0b323" stroke="#333" stroke-width="0.3"><title>ne_tr_okee_blvd_02 · purchasable_business · bodega</title></rect>
+<rect x="534.6" y="1034.8" width="23.7" height="9.6" fill="#1fa3a3" stroke="#333" stroke-width="0.3"><title>ne_tr_okee_blvd_03 · standin_business · standin_strip_unit</title></rect>
+<text x="546.45" y="1042.6" font-size="8" font-weight="bold" fill="#fff" text-anchor="middle">F</text>
+<rect x="483.5" y="1075.5" width="15.5" height="9.5" fill="#1fa3a3" stroke="#333" stroke-width="0.3"><title>ne_tr_okee_blvd_04 · standin_business · standin_strip_unit</title></rect>
+<text x="491.25" y="1083.25" font-size="8" font-weight="bold" fill="#fff" text-anchor="middle">T</text>
+<rect x="483.5" y="745.0" width="15.5" height="9.5" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_tamarind_ave_01 · house_1f · house_1f_small_yard</title></rect>
+<rect x="520.0" y="745.0" width="9.1" height="19.0" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_tr_tamarind_ave_02 · house_2f · house_2f_small_yard</title></rect>
+<rect x="529.1" y="745.0" width="9.0" height="19.0" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_tamarind_ave_03 · house_1f · house_1f_small_yard</title></rect>
+<rect x="483.5" y="795.2" width="15.5" height="9.6" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_tamarind_ave_04 · house_1f · house_1f_small_yard</title></rect>
+<rect x="483.5" y="855.2" width="15.5" height="9.6" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_tr_tamarind_ave_05 · house_2f · house_2f_small_yard</title></rect>
+<rect x="520.3" y="896.0" width="9.3" height="19.0" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_tamarind_ave_06 · house_1f · house_1f_small_yard</title></rect>
+<rect x="483.5" y="905.5" width="15.5" height="9.5" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_tamarind_ave_07 · house_1f · house_1f_small_yard</title></rect>
+<rect x="483.5" y="915.0" width="15.5" height="9.5" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_tr_tamarind_ave_08 · house_2f · house_2f_small_yard</title></rect>
+<rect x="520.3" y="915.0" width="9.3" height="19.0" fill="#1fa3a3" stroke="#333" stroke-width="0.3"><title>ne_tr_tamarind_ave_09 · standin_business · standin_standalone_shop</title></rect>
+<text x="524.9499999999999" y="927.5" font-size="8" font-weight="bold" fill="#fff" text-anchor="middle">C</text>
+<rect x="483.5" y="965.2" width="15.5" height="9.6" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_tamarind_ave_10 · house_1f · house_1f_small_yard</title></rect>
+<rect x="483.5" y="1015.6" width="15.5" height="9.6" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_tamarind_ave_11 · house_1f · house_1f_small_yard</title></rect>
+<rect x="483.5" y="1025.2" width="15.5" height="9.6" fill="#8fc98f" stroke="#333" stroke-width="0.3"><title>ne_tr_tamarind_ave_12 · house_1f · house_1f_small_yard</title></rect>
+<rect x="483.5" y="1085.0" width="15.5" height="9.5" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_tr_tamarind_ave_13 · house_2f · house_2f_small_yard</title></rect>
+<rect x="520.5" y="1085.0" width="9.6" height="19.0" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_tr_tamarind_ave_14 · house_2f · house_2f_small_yard</title></rect>
+<rect x="520.6" y="1116.0" width="9.6" height="14.0" fill="#3f8f4f" stroke="#333" stroke-width="0.3"><title>ne_tr_tamarind_ave_15 · house_2f · house_2f_small_yard</title></rect>
+<rect x="520.6" y="1130.0" width="9.6" height="14.0" fill="#1fa3a3" stroke="#333" stroke-width="0.3"><title>ne_tr_tamarind_ave_16 · standin_business · standin_standalone_shop</title></rect>
+<text x="525.4" y="1140.0" font-size="8" font-weight="bold" fill="#fff" text-anchor="middle">G</text>
+<polygon points="710.0,475.0 717.0,482.0 710.0,489.0 703.0,482.0" fill="none" stroke="#e0453a" stroke-width="2"><title>ne_ng_unbuilt_roster_15 (unbuilt)</title></polygon>
+<polygon points="380.0,241.0 387.0,248.0 380.0,255.0 373.0,248.0" fill="none" stroke="#f0b323" stroke-width="2"><title>ne_mg_unbuilt_mangona_gun_store (unbuilt)</title></polygon>
+<polygon points="470.0,241.0 477.0,248.0 470.0,255.0 463.0,248.0" fill="none" stroke="#f0b323" stroke-width="2"><title>ne_mg_unbuilt_mangona_hardware_store (unbuilt)</title></polygon>
+<text x="978.0" y="740.0" font-size="7" fill="#333" text-anchor="middle" transform="rotate(0.0 978.0 740.0)">North Br. →</text>
+<text x="620.0" y="438.0" font-size="7" fill="#333" text-anchor="middle" transform="rotate(0.0 620.0 438.0)">Grove General Hospital</text>
+<text x="130.0" y="716.0" font-size="7" fill="#333" text-anchor="middle" transform="rotate(0.0 130.0 716.0)">Lakes Blvd</text>
+<text x="780.0" y="716.0" font-size="7" fill="#333" text-anchor="middle" transform="rotate(0.0 780.0 716.0)">Lakes Blvd</text>
+<text x="120.0" y="1056.0" font-size="7" fill="#333" text-anchor="middle" transform="rotate(0.0 120.0 1056.0)">Okee Blvd</text>
+<text x="880.0" y="1056.0" font-size="7" fill="#333" text-anchor="middle" transform="rotate(0.0 880.0 1056.0)">Okee Blvd</text>
+<text x="677.0" y="270.0" font-size="7" fill="#333" text-anchor="middle" transform="rotate(-90.0 677.0 270.0)">Dixie Hwy</text>
+<text x="677.0" y="880.0" font-size="7" fill="#333" text-anchor="middle" transform="rotate(-90.0 677.0 880.0)">Dixie Hwy</text>
+<text x="847.0" y="270.0" font-size="7" fill="#333" text-anchor="middle" transform="rotate(-90.0 847.0 270.0)">Broadway</text>
+<text x="845.0" y="900.0" font-size="7" fill="#333" text-anchor="middle" transform="rotate(-90.0 845.0 900.0)">Broadway</text>
+<text x="502.0" y="1130.0" font-size="7" fill="#333" text-anchor="middle" transform="rotate(-90.0 502.0 1130.0)">Tamarind Ave</text>
+<text x="417.0" y="1130.0" font-size="7" fill="#333" text-anchor="middle" transform="rotate(-90.0 417.0 1130.0)">Lakeview Ave</text>
+<text x="459.0" y="1130.0" font-size="7" fill="#333" text-anchor="middle" transform="rotate(-90.0 459.0 1130.0)">Division Ave</text>
+<text x="393.5" y="773.0" font-size="7" fill="#333" text-anchor="middle" transform="rotate(0.0 393.5 773.0)">23rd St</text>
+<text x="418.7" y="833.0" font-size="7" fill="#333" text-anchor="middle" transform="rotate(0.0 418.7 833.0)">20th St</text>
+<text x="418.7" y="893.0" font-size="7" fill="#333" text-anchor="middle" transform="rotate(0.0 418.7 893.0)">17th St</text>
+<text x="401.3" y="943.0" font-size="7" fill="#333" text-anchor="middle" transform="rotate(0.0 401.3 943.0)">15th St</text>
+<text x="323.0" y="1003.0" font-size="7" fill="#333" text-anchor="middle" transform="rotate(0.0 323.0 1003.0)">12th St</text>
+<text x="329.8" y="1113.0" font-size="7" fill="#333" text-anchor="middle" transform="rotate(0.0 329.8 1113.0)">8th St</text>
+<text x="259.0" y="610.0" font-size="7" fill="#333" text-anchor="middle" transform="rotate(-90.0 259.0 610.0)">Austral Ave</text>
+<text x="512.0" y="650.0" font-size="7" fill="#333" text-anchor="middle" transform="rotate(-90.0 512.0 650.0)">Industrial Way</text>
+<text x="425.0" y="222.0" font-size="7" fill="#333" text-anchor="middle" transform="rotate(0.0 425.0 222.0)">Park Ave</text>
+<text x="470.0" y="667.0" font-size="7" fill="#333" text-anchor="middle" transform="rotate(0.0 470.0 667.0)">Mangona Rd</text>
+<text x="390.0" y="650.0" font-size="7" fill="#333" text-anchor="middle" transform="rotate(0.0 390.0 650.0)">Lakeshore Dr</text>
+<text x="770.0" y="393.0" font-size="7" fill="#333" text-anchor="middle" transform="rotate(0.0 770.0 393.0)">40th St</text>
+<text x="770.0" y="453.0" font-size="7" fill="#333" text-anchor="middle" transform="rotate(0.0 770.0 453.0)">36th St</text>
+<text x="640.0" y="510.0" font-size="7" fill="#333" text-anchor="middle" transform="rotate(0.0 640.0 510.0)">Grove Rd · arts strip</text>
+<text x="650.0" y="593.0" font-size="7" fill="#333" text-anchor="middle" transform="rotate(0.0 650.0 593.0)">30th St</text>
+<text x="650.0" y="653.0" font-size="7" fill="#333" text-anchor="middle" transform="rotate(0.0 650.0 653.0)">26th St</text>
+<text x="915.0" y="1120.0" font-size="7" fill="#333" text-anchor="middle" transform="rotate(-90.0 915.0 1120.0)">Lagoon Dr</text>
+<text x="300.0" y="760.0" font-size="7" fill="#333" text-anchor="middle" transform="rotate(0.0 300.0 760.0)">Clear Lake Dr</text>
+<text x="999.0" y="64.0" font-size="13" font-weight="bold">North End buildings (as built)</text>
+<rect x="999.0" y="77.0" width="12" height="10" fill="#8fc98f" stroke="#333" stroke-width="0.4"/>
+<text x="1017.0" y="86.0" font-size="8.5">1-storey house (177)</text>
+<rect x="999.0" y="95.0" width="12" height="10" fill="#3f8f4f" stroke="#333" stroke-width="0.4"/>
+<text x="1017.0" y="104.0" font-size="8.5">2-storey house (126)</text>
+<rect x="999.0" y="113.0" width="12" height="10" fill="#7d8fa8" stroke="#333" stroke-width="0.4"/>
+<text x="1017.0" y="122.0" font-size="8.5">Large building (apartments, warehouse, shops) (44)</text>
+<rect x="999.0" y="131.0" width="12" height="10" fill="#b05fc4" stroke="#333" stroke-width="0.4"/>
+<text x="1017.0" y="140.0" font-size="8.5">Special building (one-off landmark) (4)</text>
+<rect x="999.0" y="149.0" width="12" height="10" fill="#e0453a" stroke="#333" stroke-width="0.4"/>
+<text x="1017.0" y="158.0" font-size="8.5">Specialized location (robbery, trap, stick-up) (11)</text>
+<rect x="999.0" y="167.0" width="12" height="10" fill="#f0b323" stroke="#333" stroke-width="0.4"/>
+<text x="1017.0" y="176.0" font-size="8.5">Purchasable business (7)</text>
+<rect x="999.0" y="185.0" width="12" height="10" fill="#1fa3a3" stroke="#333" stroke-width="0.4"/>
+<text x="1017.0" y="194.0" font-size="8.5">Stand-in shop, enterable (letter = shop type) (17)</text>
+<rect x="999.0" y="203.0" width="12" height="10" fill="#a6dcd8" stroke="#333" stroke-width="0.4"/>
+<text x="1017.0" y="212.0" font-size="8.5">Stand-in storefront, closed (7)</text>
+<rect x="999.0" y="221.0" width="12" height="10" fill="#d6d2c8" stroke="#333" stroke-width="0.4"/>
+<text x="1017.0" y="230.0" font-size="8.5">Neighbour filler (out of area) (60)</text>
+<polygon points="1005.0,238.0 1011.0,244.0 1005.0,250.0 999.0,244.0" fill="none" stroke="#e0453a" stroke-width="1.5"/>
+<text x="1017.0" y="248.0" font-size="8.5">Unbuilt roster place (no lot yet) (3)</text>
+<text x="999.0" y="270.0" font-size="7.5" fill="#555">Shop letters: A auto mod · G ammo/guns · C clothing ·</text>
+<text x="999.0" y="280.0" font-size="7.5" fill="#555">F food · T tattoo · B barber · S corner store · L liquor · P pawn</text>
+<text x="999.0" y="298.0" font-size="7.5" fill="#555">1 px = 1.2 m. Generated by</text>
+<text x="999.0" y="308.0" font-size="7.5" fill="#555">tools/render_north_end_buildings.py</text>
+</svg>
