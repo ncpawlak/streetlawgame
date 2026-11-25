@@ -40,16 +40,25 @@ def wheels(b, s):
     s["traction_wheels"] = sum(2 for _, _, t in axles if t)
 
 
-def markers(b, s, driver_z, seat_y, per_row=2, row_gap=0.85, width=None):
-    """Seats/Driver + Seats/PassengerN, the driver-side Exit and the EngineSmoke emitter."""
+def markers(b, s, driver_z, seat_y, per_row=2, row_gap=0.85, width=None, driver_alone=False):
+    """Seats/Driver + Seats/PassengerN, the driver-side Exit and the EngineSmoke emitter. With
+    driver_alone (buses) the driver's row holds nobody else and passengers start one row back."""
     body = s["body"]
     W = body["W"] if width is None else width
     seats = b.sc.node("Seats", "Node3D", ".")
     n = s["seats"]
     xs = [W * 0.22, -W * 0.22] if per_row == 2 else [W * (0.36 - 0.24 * i) for i in range(per_row)]
+    placed = []
     for i in range(n):
         row, col = divmod(i, per_row)
-        b.marker("Driver" if i == 0 else "Passenger%d" % i, (xs[col], seat_y, driver_z - row * row_gap), seats)
+        if driver_alone and i > 0:
+            row, col = divmod(i - 1, per_row)
+            row += 1
+        pos = (xs[col], seat_y, driver_z - row * row_gap)
+        placed.append(pos)
+        b.marker("Driver" if i == 0 else "Passenger%d" % i, pos, seats)
+    s["_seats"] = placed
+    s["_row_gap"] = row_gap
     b.marker("Exit", (W / 2 + 0.9, 0.2, driver_z))
     b.marker("EngineSmoke", body.get("smoke", (0, body.get("belt", 1.0) + 0.1, body["L"] / 2 - 0.8)))
 
@@ -85,17 +94,94 @@ def ride_markers(b, s, hip, pedals, steer, grip, lean, door=None, stand=None, en
         b.cyl("SteeringHub", 0.05, 0.06, steer, "plastic", rot=(-steer_tilt, 0, 0), sides=8)
     side = 1 if stand[0] >= 0 else -1
     if door is not None:
-        z_front, z_rear, y0, y1 = door
-        hinge_x = side * (s["body"]["W"] / 2 + 0.012)
-        doors = b.sc.node("Doors", "Node3D", ".")
-        hinge = b.sc.node("Driver", "Node3D", doors, {"transform": xform((hinge_x, 0, z_front))})
-        length = z_front - z_rear
-        b.box("Panel", (0.03, y1 - y0, length), (side * 0.004, (y0 + y1) / 2, -length / 2), "paint", parent=hinge)
-        b.box("HandleGrip", (0.03, 0.035, 0.14), (side * 0.03, y1 - 0.1, -length + 0.16), "chrome", parent=hinge)
-        b.marker("Handle", (side * 0.06, y1 - 0.1, -length + 0.16), hinge)
+        add_door(b, s, "Driver", side, door)
     s["ride"] = {"pose": "straddle" if entry == "straddle" else "seat", "entry": entry,
                  "side": "left" if side > 0 else "right", "lean": round(lean, 3), "grip": grip, "feet": feet,
                  "hip": [round(v, 3) for v in hip], "door": door is not None}
+
+
+def add_door(b, s, name, side, door):
+    """Doors/<name>: a hinge at the door's front edge on `side` (+1 = +X) with the painted panel,
+    grip and a Handle marker near the rear edge. door = (z_front, z_rear, y0, y1)."""
+    z_front, z_rear, y0, y1 = door
+    hinge_x = side * (s["body"]["W"] / 2 + 0.012)
+    if not hasattr(b, "doors_node"):
+        b.doors_node = b.sc.node("Doors", "Node3D", ".")
+    hinge = b.sc.node(name, "Node3D", b.doors_node, {"transform": xform((hinge_x, 0, z_front))})
+    length = z_front - z_rear
+    b.box("Panel", (0.03, y1 - y0, length), (side * 0.004, (y0 + y1) / 2, -length / 2), "paint", parent=hinge)
+    b.box("HandleGrip", (0.03, 0.035, 0.14), (side * 0.03, y1 - 0.1, -length + 0.16), "chrome", parent=hinge)
+    b.marker("Handle", (side * 0.06, y1 - 0.1, -length + 0.16), hinge)
+    b.door(hinge, side, z_front, z_rear, y0, y1, hinge_x)
+
+
+def _r(v):
+    return [round(c, 3) for c in v]
+
+
+def passengers(b, s, front_door=None, floor_y=None, aisle=False):
+    """Passenger seat data for the registry's ride.passengers (one entry per Seats/PassengerN) plus
+    the passenger-side doors. Front-row passengers use the side opposite the driver; rear rows use
+    their own side, through a rear door when the body has one (a door line behind the front door)
+    or else the front door on that side. Buses board through the driver's door and walk the aisle;
+    bikes put the pillion on the seat behind the rider."""
+    d = s["body"]
+    W = d.get("W", 0.7)
+    ride = s["ride"]
+    seats = s["_seats"]
+    driver = seats[0]
+    lean = ride["lean"]
+    entry = ride["entry"]
+    driver_side = 1 if ride["side"] == "left" else -1
+    out = []
+    side_doors = {}  # side -> [(name, z_front, z_rear)]
+    if front_door is not None:
+        side_doors[driver_side] = [("Driver", front_door[0], front_door[1])]
+    lines = sorted(d.get("door_lines", []), reverse=True)
+    for i, (x, y, z) in enumerate(seats[1:], 1):
+        name = "Passenger%d" % i
+        row = round((driver[2] - z) / max(0.01, s["_row_gap"]))
+        if entry == "straddle":
+            side = driver_side
+        elif row == 0 or abs(x) < 0.01:
+            side = -driver_side
+        else:
+            side = 1 if x > 0 else -1
+        floor = floor_y if floor_y is not None else y - 0.45
+        drop = y - floor
+        feet = (x, floor, z + pedal_reach(drop)) if entry != "straddle" else (0.0, y - 0.55, z + 0.1)
+        hands = ((x + 0.17, y + 0.05, z + 0.32), (x - 0.17, y + 0.05, z + 0.32))
+        if entry == "straddle":
+            # Arms around the rider's waist.
+            hands = ((0.17, driver[1] + 0.22, driver[2] - 0.05), (-0.17, driver[1] + 0.22, driver[2] - 0.05))
+        info = {"seat": name, "hip": _r((x, y, z)), "feet": _r(feet), "hand_l": _r(hands[0]), "hand_r": _r(hands[1]),
+                "spread": 0.2 if entry == "straddle" else 0.12,
+                "lean": lean if entry != "straddle" else 0.25, "side": "left" if side > 0 else "right",
+                "stand": _r((side * (W / 2 + 0.5), 0.0, z - 0.15)), "door": "", "entry": entry}
+        if entry == "straddle":
+            info["stand"] = _r((side * 0.75, 0.0, z + 0.1))
+        elif entry == "bus":
+            info["stand"] = list(s["_bus_stand"])
+            info["aisle"] = _r((0.0, floor, z))
+        elif front_door is not None:
+            doors = side_doors.setdefault(side, [])
+            if not doors:
+                add_door(b, s, name, side, front_door)
+                doors.append((name, front_door[0], front_door[1]))
+            # Rear door: the front door ends on a door line and another line closes it off behind.
+            fz_rear = front_door[1]
+            behind = [ln for ln in lines if ln < fz_rear - 0.5 and fz_rear - ln <= 1.4]
+            if z < fz_rear - 0.2 and fz_rear in lines and behind and len(doors) == 1:
+                rear = (fz_rear - 0.02, behind[0], front_door[2], front_door[3])
+                add_door(b, s, name, side, rear)
+                doors.append((name, rear[0], rear[1]))
+            best = min(doors, key=lambda dd: 0.0 if dd[2] <= z <= dd[1] else min(abs(z - dd[1]), abs(z - dd[2])))
+            info["door"] = best[0]
+            info["stand"] = _r((side * (W / 2 + 0.5), 0.0, (best[1] + best[2]) / 2 - 0.1))
+        else:
+            info["entry"] = "open"
+        out.append(info)
+    ride["passengers"] = out
 
 
 def pedal_reach(drop):
@@ -119,9 +205,12 @@ def car_ride(b, s, driver_x, driver_z, greenhouse):
     steer = (driver_x, steer_y, driver_z + (0.38 if upright else 0.48) - 0.12 * lean)
     pedals = (driver_x, floor_y, driver_z + pedal_reach(hip_y - floor_y))
     entry = d.get("entry", "door")
+    s["_floor_y"] = floor_y
+    s["_front_door"] = None
     if entry == "bus":
         door_z = d["bus_door_z"]
         stand = (-(W / 2 + 0.6), 0.0, door_z)
+        s["_bus_stand"] = stand
         step = (-W / 2 + 0.55, floor_y, door_z)
         ride_markers(b, s, (driver_x, hip_y, driver_z), pedals, steer, 0.2, lean, stand=stand, entry="bus",
                      steer_tilt=25, step=step)
@@ -132,6 +221,7 @@ def car_ride(b, s, driver_x, driver_z, greenhouse):
         behind = [z for z in d.get("door_lines", []) if z < z_front - 0.5]
         z_rear = max(behind + [driver_z - 0.65])
         door = (z_front, z_rear, ride + 0.1, belt - 0.02)
+    s["_front_door"] = door
     stand = (W / 2 + 0.5, 0.0, driver_z - 0.15)
     ride_markers(b, s, (driver_x, hip_y, driver_z), pedals, steer, 0.18, lean, door=door, stand=stand,
                  entry=entry, steer_tilt=30 if upright else 60)
@@ -251,7 +341,9 @@ def car(b, s):
     driver_z = d.get("driver_z", top_f - 0.35)
     per_row = d.get("per_row", 2)
     hip_y, driver_z = car_ride(b, s, W * (0.22 if per_row == 2 else 0.36), driver_z, d.get("greenhouse", True))
-    markers(b, s, driver_z, hip_y, per_row=per_row, row_gap=d.get("row_gap", 0.85))
+    markers(b, s, driver_z, hip_y, per_row=per_row, row_gap=d.get("row_gap", 0.85),
+            driver_alone=d.get("entry") == "bus")
+    passengers(b, s, s["_front_door"], s["_floor_y"])
 
 
 def bike(b, s):
@@ -310,6 +402,7 @@ def bike(b, s):
     ride_markers(b, s, hip, pedals, bars, 0.27, lean, stand=(0.75, 0.0, hip[2] + 0.1), entry="straddle",
                  feet=0.14 if scooter else 0.2, wheel=False)
     markers(b, s, hip[2], hip[1], per_row=1, row_gap=0.45, width=0.0)
+    passengers(b, s)
 
 
 def airboat(b, s):

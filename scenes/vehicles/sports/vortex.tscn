@@ -502,6 +502,21 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.91, 0.2, -0.6)
 [node name="EngineSmoke" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 1.5)
 
+[node name="Passenger1" type="Node3D" parent="Doors"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.022, 0, 0.3)
+
+[node name="Panel" type="MeshInstance3D" parent="Doors/Passenger1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.004, 0.45, -0.775)
+mesh = SubResource("BoxMesh_33")
+metadata/paint = "primary"
+
+[node name="HandleGrip" type="MeshInstance3D" parent="Doors/Passenger1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.03, 0.58, -1.39)
+mesh = SubResource("BoxMesh_35")
+
+[node name="Handle" type="Marker3D" parent="Doors/Passenger1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.06, 0.58, -1.39)
+
 [node name="SpoilerPost" type="MeshInstance3D" parent="Body"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.76, 1, -2.15)
 mesh = SubResource("BoxMesh_36")

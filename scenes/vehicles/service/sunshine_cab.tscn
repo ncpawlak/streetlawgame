@@ -565,6 +565,21 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.825, 0.2, 0)
 [node name="EngineSmoke" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.05, 1.55)
 
+[node name="Passenger1" type="Node3D" parent="Doors"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.937, 0, 0.9)
+
+[node name="Panel" type="MeshInstance3D" parent="Doors/Passenger1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.004, 0.665, -0.525)
+mesh = SubResource("BoxMesh_38")
+metadata/paint = "primary"
+
+[node name="HandleGrip" type="MeshInstance3D" parent="Doors/Passenger1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.03, 0.83, -0.89)
+mesh = SubResource("BoxMesh_40")
+
+[node name="Handle" type="Marker3D" parent="Doors/Passenger1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.06, 0.83, -0.89)
+
 [node name="Sign" type="MeshInstance3D" parent="Body"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.56, -0.25)
 mesh = SubResource("BoxMesh_42")
@@ -597,8 +612,8 @@ mesh = SubResource("BoxMesh_43")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.93, 0.74, 0)
 mesh = SubResource("BoxMesh_43")
 
-[node name="Livery" type="Label3D" parent="Body"]
-transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 0.952, 0.55, -0.1)
+[node name="Livery" type="Label3D" parent="Doors/Driver"]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 0.022, 0.55, -1)
 pixel_size = 0.0035
 double_sided = false
 modulate = Color(0.05, 0.05, 0.05, 1)
@@ -607,8 +622,8 @@ text = "SUNSHINE CAB  561-555-0199"
 font_size = 64
 outline_size = 0
 
-[node name="Livery2" type="Label3D" parent="Body"]
-transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -0.952, 0.55, -0.1)
+[node name="Livery" type="Label3D" parent="Doors/Passenger1"]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -0.022, 0.55, -1)
 pixel_size = 0.0035
 double_sided = false
 modulate = Color(0.05, 0.05, 0.05, 1)

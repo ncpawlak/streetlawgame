@@ -28,13 +28,13 @@ var _gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 var _regen_wait := 0.0
 var _shake := 0.0
 ## Scripted moves (getting in and out of vehicles), see [method play_moves].
-var _moves: Array[Dictionary] = []
-var _move := {}
-var _move_t := 0.0
-var _move_from := Transform3D.IDENTITY
-var _move_done := Callable()
-var _reach_from := 0.0
-var _reach_weight := 0.0
+var _scripted: ScriptedMoves
+## Seconds E has been held over an enterable vehicle (held long enough = ride as passenger).
+var _enter_hold := -1.0
+var _enter_hold_vehicle: Vehicle
+
+## Holding interact this long over a vehicle gets in as a passenger instead of driving.
+const PASSENGER_HOLD_TIME := 0.35
 
 @onready var _camera_pivot: Node3D = $CameraPivot
 @onready var _spring_arm: SpringArm3D = $CameraPivot/SpringArm
@@ -46,6 +46,8 @@ var _reach_weight := 0.0
 
 func _ready() -> void:
 	add_to_group("player")
+	_scripted = ScriptedMoves.new(self, visual)
+	_scripted.on_abort = cancel_moves
 	weapons = WeaponInventory.new()
 	weapons.name = "Weapons"
 	add_child(weapons)
@@ -73,7 +75,21 @@ func _unhandled_input(event: InputEvent) -> void:
 		_camera_pivot.rotate_y(-motion.relative.x * mouse_sensitivity)
 		_spring_arm.rotation.x = clampf(_spring_arm.rotation.x - motion.relative.y * mouse_sensitivity, deg_to_rad(-65.0), deg_to_rad(25.0))
 	elif event.is_action_pressed("interact"):
-		if is_on_foot() and (interactor.try_interact() or _try_enter_vehicle()):
+		if not is_on_foot():
+			return
+		var held := _focused_vehicle()
+		if held != null and held.can_enter() and held.free_seat(true) > 0:
+			# Tap drives, hold rides along: decided on release or once the hold time passes.
+			_enter_hold = 0.0
+			_enter_hold_vehicle = held
+			get_viewport().set_input_as_handled()
+		elif interactor.try_interact() or _try_enter_vehicle():
+			get_viewport().set_input_as_handled()
+	elif event.is_action_released("interact"):
+		if _enter_hold >= 0.0:
+			_enter_hold = -1.0
+			if is_instance_valid(_enter_hold_vehicle) and is_on_foot():
+				_enter_hold_vehicle.begin_enter(self)
 			get_viewport().set_input_as_handled()
 	elif event.is_action_pressed("reload"):
 		weapons.reload()
@@ -93,6 +109,12 @@ func _unhandled_input(event: InputEvent) -> void:
 func _process(delta: float) -> void:
 	if current_vehicle != null and not is_busy():
 		_follow_seat(delta)
+	if _enter_hold >= 0.0:
+		_enter_hold += delta
+		if _enter_hold >= PASSENGER_HOLD_TIME:
+			_enter_hold = -1.0
+			if is_instance_valid(_enter_hold_vehicle) and is_on_foot():
+				_enter_hold_vehicle.begin_enter_seat(self, _enter_hold_vehicle.free_seat(true))
 	_camera_pivot.global_position = global_position + Vector3(0.0, 1.6, 0.0)
 	_regen_wait = maxf(0.0, _regen_wait - delta)
 	if health < max_health and health > 0.0 and _regen_wait <= 0.0:
@@ -195,7 +217,7 @@ func nearest_free_vehicle() -> Vehicle:
 	return best
 
 
-## Called by Vehicle when entering/exiting. The body stays visible: it sits in the seat (see
+## Called by Vehicle when entering/exiting. The body stays visible: it sits in its seat (see
 ## [method Vehicle.seat_transform] and [method CharacterVisual.set_ride]).
 func set_on_foot(on_foot: bool, vehicle: Vehicle = null) -> void:
 	current_vehicle = null if on_foot else vehicle
@@ -209,97 +231,53 @@ func set_on_foot(on_foot: bool, vehicle: Vehicle = null) -> void:
 			visual.set_ride(null)
 			visual.set_seated(0.0)
 	else:
-		visual.set_ride(vehicle, vehicle.ride_pose())
+		visual.set_ride(vehicle, vehicle.ride_pose(maxi(0, vehicle.seat_of(self))))
 		visual.set_seated(1.0)
 		_follow_seat(0.0)
 
 
-## Plays scripted moves one after another, then calls [param done]. Each step is a Dictionary:
-## [code]to[/code] (Transform3D, in [code]frame[/code]'s space when given, else world),
-## [code]time[/code] (seconds), [code]walk[/code] (animate walking), [code]arc[/code] (hop height),
-## [code]seated[/code] (0..1, see [method CharacterVisual.set_seated]),
-## [code]reach[/code] ([side, Node3D, weight]: a hand to a moving target such as a door handle) and
-## [code]call[/code] (Callable run as the step starts). Player input is ignored while moves play.
+## Plays scripted moves one after another, then calls [param done] (see [ScriptedMoves] for the
+## step format). Player input is ignored while moves play.
 func play_moves(steps: Array[Dictionary], done: Callable = Callable()) -> void:
-	_moves = steps.duplicate()
-	_move = {}
-	_move_done = done
+	_scripted.play(steps, done)
 	velocity = Vector3.ZERO
 	_sync_collision()
 
 
 func is_busy() -> bool:
-	return not _move.is_empty() or not _moves.is_empty()
+	return _scripted != null and _scripted.is_busy()
 
 
 ## Drops any queued moves (without calling their completion) and lets go of reaches.
 func cancel_moves() -> void:
-	_moves.clear()
-	_move = {}
-	_move_done = Callable()
-	_reach_weight = 0.0
-	for side: StringName in [&"L", &"R"]:
-		visual.set_reach(side, Vector3.ZERO, 0.0)
+	_scripted.cancel()
 	if current_vehicle == null:
 		visual.set_ride(null)
 		visual.set_seated(0.0)
 	_sync_collision()
 
 
-## Seat pose for the vehicle being driven (the body follows the seat, not physics).
+## Seat pose in the current vehicle (the body follows the seat, not physics).
 func _follow_seat(delta: float) -> void:
-	global_transform = current_vehicle.global_transform * current_vehicle.seat_transform()
+	global_transform = current_vehicle.global_transform * current_vehicle.seat_transform(maxi(0, current_vehicle.seat_of(self)))
 	if delta > 0.0:
 		visual.set_aiming(Input.is_action_pressed("aim") or Input.is_action_pressed("shoot"))
 		visual.update_motion(Vector3.ZERO, delta)
 
 
 func _step_moves(delta: float) -> void:
-	if _move.is_empty():
-		_move = _moves.pop_front()
-		_move_t = 0.0
-		if _move.has("frame") and not is_instance_valid(_move["frame"]):
-			cancel_moves()
-			return
-		var start_frame := _move.get("frame") as Node3D
-		_move_from = start_frame.global_transform.affine_inverse() * global_transform if start_frame else global_transform
-		if _move.has("call"):
-			(_move["call"] as Callable).call()
-		if _move.has("seated"):
-			visual.set_seated(_move["seated"])
-		_reach_from = _reach_weight
-	if _move.has("frame") and not is_instance_valid(_move["frame"]):
-		cancel_moves()
-		return
-	var frame := _move.get("frame") as Node3D
-	_move_t = minf(1.0, _move_t + delta / maxf(0.01, _move.get("time", 0.3)))
-	var eased := smoothstep(0.0, 1.0, _move_t)
-	var local: Transform3D = _move_from.interpolate_with(_move.get("to", _move_from), eased)
-	local.origin.y += _move.get("arc", 0.0) * sin(PI * _move_t)
-	var before := global_position
-	global_transform = frame.global_transform * local if frame else local
-	visual.set_aiming(false)
-	visual.update_motion((global_position - before) / delta if _move.get("walk", false) and delta > 0.0 else Vector3.ZERO, delta)
-	if _move.has("reach"):
-		var reach: Array = _move["reach"]
-		_reach_weight = lerpf(_reach_from, reach[2], eased)
-		visual.set_reach(reach[0], (reach[1] as Node3D).global_position, _reach_weight)
-		if _reach_weight <= 0.0:
-			visual.set_reach(reach[0], Vector3.ZERO, 0.0)
-	if _move_t < 1.0:
-		return
-	_move = {}
-	if _moves.is_empty():
-		var done := _move_done
-		_move_done = Callable()
+	var done := _scripted.step(delta)
+	if done.is_valid():
 		_sync_collision()
-		if done.is_valid():
-			done.call()
-
+		done.call()
 
 ## Collision only while walking around on foot (not seated or mid get-in / get-out).
 func _sync_collision() -> void:
-	_collision.set_deferred("disabled", current_vehicle != null or is_busy())
+	ScriptedMoves.sync_collision(_collision, _collision_wanted(), _collision_wanted)
+
+
+func _collision_wanted() -> bool:
+	return current_vehicle == null and not is_busy()
 
 
 func take_damage(amount: float, _source: Node = null) -> void:
@@ -316,7 +294,7 @@ func take_damage(amount: float, _source: Node = null) -> void:
 func respawn() -> void:
 	cancel_moves()
 	if current_vehicle:
-		current_vehicle.exit()
+		current_vehicle.exit_seat(self)
 	global_position = spawn_point
 	velocity = Vector3.ZERO
 	_set_health(max_health)
@@ -325,6 +303,14 @@ func respawn() -> void:
 func heal(amount: float) -> void:
 	if health > 0.0:
 		_set_health(health + amount)
+
+
+## The vehicle E would act on: the focused one, else the nearest enterable one (when nothing else
+## is focused).
+func _focused_vehicle() -> Vehicle:
+	if interactor.focused != null:
+		return interactor.focused.get_parent() as Vehicle
+	return nearest_free_vehicle()
 
 
 func _try_enter_vehicle() -> bool:

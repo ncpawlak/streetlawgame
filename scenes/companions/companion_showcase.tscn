@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/companions/companion_showcase.gd" id="1_c"]
+[ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="2_c"]
+[ext_resource type="Script" path="res://scripts/ui/hud.gd" id="3_c"]
+
+[node name="CompanionShowcase" type="Node3D"]
+script = ExtResource("1_c")
+
+[node name="Player" parent="." instance=ExtResource("2_c")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 1.2, -2)
+
+[node name="HUD" type="CanvasLayer" parent="."]
+script = ExtResource("3_c")

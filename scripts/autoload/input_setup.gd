@@ -23,6 +23,8 @@ const KEY_BINDINGS := {
 	"weapon_8": [KEY_8],
 	"weapon_9": [KEY_9],
 	"detonate": [KEY_G],
+	"switch_seat": [KEY_X],
+	"crew_command": [KEY_H],
 }
 
 const MOUSE_BINDINGS := {

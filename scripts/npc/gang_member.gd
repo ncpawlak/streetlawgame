@@ -77,10 +77,7 @@ func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity.y -= _gravity * delta
 
-	var player := GameState.player
-	var target: Node3D = null
-	if player != null:
-		target = player if player.is_on_foot() else player.current_vehicle
+	var target := _pick_target()
 	var move_direction := Vector3.ZERO
 	var speed := move_speed
 	var range_now := alerted_range if _alert_left > 0.0 else aggro_range
@@ -119,6 +116,26 @@ func take_damage(amount: float, source: Node = null) -> void:
 
 func current_weapon() -> WeaponData:
 	return weapons.current().data if weapons.current() else null
+
+
+## The player (or the player's ride) or one of the player's crew on foot, whichever is nearest.
+func _pick_target() -> Node3D:
+	var player := GameState.player
+	var best: Node3D = null
+	var best_distance := INF
+	if player != null:
+		best = player if player.is_on_foot() else player.current_vehicle
+		if best != null:
+			best_distance = global_position.distance_to(best.global_position)
+	for node in get_tree().get_nodes_in_group("allies"):
+		var ally := node as Ally
+		if ally == null or not ally.is_targetable() or ally.gang_id == gang_id:
+			continue
+		var distance := global_position.distance_to(ally.global_position)
+		if distance < best_distance:
+			best = ally
+			best_distance = distance
+	return best
 
 
 ## Fires in bursts with pauses between them so NPCs don't hold the trigger down.
@@ -180,7 +197,7 @@ func _die(killer: Node) -> void:
 	collision_mask = 0
 	set_physics_process(false)
 	visual.die()
-	if killer == GameState.player or (killer is Vehicle and (killer as Vehicle).driver != null):
+	if killer == GameState.player or (killer is Vehicle and (killer as Vehicle).has_player()):
 		GameState.add_cash(randi_range(20, 80))
 		GameState.add_respect(10)
 	_drop_weapon()

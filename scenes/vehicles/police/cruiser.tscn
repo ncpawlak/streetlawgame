@@ -597,6 +597,21 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.85, 0.2, 0)
 [node name="EngineSmoke" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1, 1.7)
 
+[node name="Passenger1" type="Node3D" parent="Doors"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.962, 0, 0.9)
+
+[node name="Panel" type="MeshInstance3D" parent="Doors/Passenger1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.004, 0.69, -0.525)
+mesh = SubResource("BoxMesh_38")
+metadata/paint = "primary"
+
+[node name="HandleGrip" type="MeshInstance3D" parent="Doors/Passenger1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.03, 0.88, -0.89)
+mesh = SubResource("BoxMesh_40")
+
+[node name="Handle" type="Marker3D" parent="Doors/Passenger1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.06, 0.88, -0.89)
+
 [node name="SidePanel" type="MeshInstance3D" parent="Body"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.955, 0.69, -0.15)
 mesh = SubResource("BoxMesh_42")
@@ -633,8 +648,8 @@ mesh = SubResource("BoxMesh_49")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.485, 2.62)
 mesh = SubResource("BoxMesh_49")
 
-[node name="Livery" type="Label3D" parent="Body"]
-transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 0.962, 0.68, -0.15)
+[node name="Livery" type="Label3D" parent="Doors/Driver"]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 0.022, 0.68, -1.05)
 pixel_size = 0.0032
 double_sided = false
 modulate = Color(0.06, 0.1, 0.3, 1)
@@ -643,8 +658,8 @@ text = "PALM COUNTY\nSHERIFF"
 font_size = 64
 outline_size = 0
 
-[node name="Livery2" type="Label3D" parent="Body"]
-transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -0.962, 0.68, -0.15)
+[node name="Livery" type="Label3D" parent="Doors/Passenger1"]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -0.022, 0.68, -1.05)
 pixel_size = 0.0032
 double_sided = false
 modulate = Color(0.06, 0.1, 0.3, 1)

@@ -162,6 +162,7 @@ class VehicleBuilder:
         self.shapes = []
         self.glass_zones = []
         self.decals = []
+        self.doors = []
 
     # --- glass vs livery ------------------------------------------------------------------------
 
@@ -350,10 +351,19 @@ class VehicleBuilder:
         """Black disc behind a tyre so the body reads as having a wheel arch."""
         self.cyl("WheelWell", radius + 0.07, 0.02, (x_side, radius, z), "black", rot=(0, 0, 90), sides=20)
 
+    def door(self, hinge, side, z_front, z_rear, y0, y1, hinge_x):
+        """Remembers a door so flank livery placed on it later rides on (and swings with) the panel."""
+        self.doors.append((hinge, side, z_front, z_rear, y0, y1, hinge_x))
+
     def label(self, name, text, pos, rot=(0, 0, 0), size=0.006, col=(1, 1, 1), font=64, outline=10,
               outline_col=(0, 0, 0)):
-        self.sc.node(name, "Label3D", self.body, {
-            "transform": xform(pos, rot), "pixel_size": f(size), "double_sided": "false",
+        parent, local = self.body, pos
+        for hinge, side, z_front, z_rear, y0, y1, hinge_x in self.doors:
+            if pos[0] * side > 0 and z_rear <= pos[2] <= z_front and y0 <= pos[1] <= y1:
+                parent, local = hinge, (side * 0.022, pos[1], pos[2] - z_front)
+                break
+        self.sc.node(name, "Label3D", parent, {
+            "transform": xform(local, rot), "pixel_size": f(size), "double_sided": "false",
             "modulate": color(col), "outline_modulate": color(outline_col), "text": quote(text),
             "font_size": str(font), "outline_size": str(outline)})
         if name in DECAL_NAMES:

@@ -69,7 +69,7 @@ func spawn_all() -> void:
 func reset_all() -> void:
 	var player := get_node_or_null("Player") as Player
 	if player != null and player.current_vehicle != null:
-		player.current_vehicle.exit()
+		player.current_vehicle.exit_seat(player)
 	elif player != null:
 		player.cancel_moves()
 	for node in vehicles():
