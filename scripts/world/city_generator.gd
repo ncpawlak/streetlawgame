@@ -65,6 +65,16 @@ const ROAD_HEIGHTS := {&"loc": 0.02, &"ave": 0.025, &"art": 0.03, &"highway": 0.
 ## Road corridor half widths in wireframe px, as the extractor uses them (ROAD_WIDTHS / 1.2 / 2: the corridors
 ## stay at the scale they were authored at, so the rescale to 2.0 m/px moved no street, lot or junction).
 const ROAD_HALF_WIDTHS_PX := {&"loc": 3.75, &"ave": 5.0, &"art": 6.67, &"highway": 10.83, &"ramp": 3.33}
+## Sidewalk between the kerb and the front of a lot (m). Block pads reach the kerb and lots are
+## stretched to the back of the sidewalk, so the wireframe block inset (6 px, authored at 1.2 m/px)
+## leaves no dead strip between the road and the yards.
+const SIDEWALK_M := 2.5
+## A rect side fronts a street when a drivable street runs alongside it this close to the kerb (m).
+const FRONTAGE_REACH_M := 40.0
+const DRIVABLE := [&"loc", &"ave", &"art"]
+
+static var _drivable_segments: Array[Dictionary] = []
+static var _street_sides_cache := {}
 ## I-59 deck top (m); arterials pass underneath.
 const DECK_HEIGHT := 6.5
 const DECK_THICKNESS := 1.0
@@ -435,8 +445,9 @@ func _build_blocks() -> void:
 		var block: Dictionary = blocks[b]
 		var rect: Rect2 = block["rect"]
 		var center := px_to_world(rect.get_center())
-		var size := rect.size * METERS_PER_PX
-		_add_mesh_box(Vector3(size.x, 0.1, size.y), center + Vector3(0.0, 0.05, 0.0), sidewalk)
+		var pad := to_kerb(rect)
+		var size := pad.size * METERS_PER_PX
+		_add_mesh_box(Vector3(size.x, 0.1, size.y), px_to_world(pad.get_center()) + Vector3(0.0, 0.05, 0.0), sidewalk)
 		if block["off"]:
 			_add_filler(rect)
 			continue
@@ -449,6 +460,7 @@ func _build_blocks() -> void:
 			footprint_margin = Vector2(0.8, 0.8)
 		if lots.is_empty():
 			lots.append(rect.grow(-3.0))
+		lots = merge_streetless(lots, reserved)
 		for lot_rect: Rect2 in lots:
 			if reserved.any(func(r: Rect2) -> bool: return r.intersects(lot_rect)) or _in_water(lot_rect.get_center()):
 				continue
@@ -476,6 +488,127 @@ func _reserved_rects() -> Array[Rect2]:
 	for landmark in LANDMARKS:
 		rects.append((landmark["rect"] as Rect2).grow(2.0))
 	return rects
+
+
+## The sides of a px rect that front a drivable street: [{out: Vector2 (unit px axis), gap_m: float
+## (rect side to kerb, m, may be negative when the road overlaps), kind: StringName}], nearest street
+## per side, closest first. Only streets running alongside the side (within ~25 deg) count.
+static func street_sides(rect: Rect2, reach_m := FRONTAGE_REACH_M) -> Array[Dictionary]:
+	var key := [rect, reach_m]
+	if _street_sides_cache.has(key):
+		return _street_sides_cache[key]
+	if _drivable_segments.is_empty():
+		for road: Dictionary in NorthEndLayout.ROADS:
+			if not DRIVABLE.has(road["kind"]):
+				continue
+			var pts := PackedVector2Array(road["pts"])
+			for i in pts.size() - 1:
+				if pts[i].distance_to(pts[i + 1]) >= 0.01:
+					_drivable_segments.append({"a": pts[i], "b": pts[i + 1], "dir": (pts[i + 1] - pts[i]).normalized(),
+						"bounds": Rect2(pts[i], Vector2.ZERO).expand(pts[i + 1]), "half_w": ROAD_WIDTHS[road["kind"]] * 0.5, "kind": road["kind"]})
+	var search := rect.grow(reach_m / METERS_PER_PX + 20.0)
+	var out: Array[Dictionary] = []
+	for axis: Vector2 in [Vector2.LEFT, Vector2.RIGHT, Vector2.UP, Vector2.DOWN]:
+		var along := Vector2(absf(axis.y), absf(axis.x))
+		var half_len := absf(rect.size.dot(along)) * 0.5
+		var mid := rect.get_center() + axis * absf(rect.size.dot(axis)) * 0.5
+		var best := {}
+		for seg: Dictionary in _drivable_segments:
+			if absf((seg["dir"] as Vector2).dot(along)) < 0.9 or not search.intersects(seg["bounds"], true):
+				continue
+			var c := Geometry2D.get_closest_point_to_segment(mid, seg["a"], seg["b"])
+			var v := c - mid
+			var ahead := v.dot(axis)
+			if ahead <= 0.0 or absf(v.dot(along)) > half_len:
+				continue
+			var gap := ahead * METERS_PER_PX - float(seg["half_w"])
+			if gap <= reach_m and (best.is_empty() or gap < best["gap_m"]):
+				best = {"out": axis, "gap_m": gap, "kind": seg["kind"]}
+		if not best.is_empty():
+			out.append(best)
+	out.sort_custom(func(a: Dictionary, b: Dictionary) -> bool: return a["gap_m"] < b["gap_m"])
+	_street_sides_cache[key] = out
+	return out
+
+
+## True when one of [param obstacles] sits between [param rect] and the street on [param side]
+## (a [method street_sides] entry).
+static func street_blocked(rect: Rect2, side: Dictionary, obstacles: Array) -> bool:
+	var axis: Vector2 = side["out"]
+	var gap_px := float(side["gap_m"]) / METERS_PER_PX
+	if gap_px <= 0.2:
+		return false
+	var along := Vector2(absf(axis.y), absf(axis.x))
+	var side_len := absf(rect.size.dot(along))
+	var start := rect.get_center() + axis * absf(rect.size.dot(axis)) * 0.5
+	var a := start + axis * 0.1 - along * side_len * 0.25
+	var b := start + axis * gap_px + along * side_len * 0.25
+	var strip := Rect2(a, Vector2.ZERO).expand(b)
+	for other: Rect2 in obstacles:
+		if other != rect and not other.encloses(rect) and other.grow(-0.5).intersects(strip):
+			return true
+	return false
+
+
+## Nearest open street gap (m) of [param rect], INF when every street side is behind an obstacle.
+static func open_street_gap(rect: Rect2, obstacles: Array) -> float:
+	for side in street_sides(rect):
+		if not street_blocked(rect, side, obstacles):
+			return side["gap_m"]
+	return INF
+
+
+## Block lots with no open street (back lots behind another lot, rail-side lots) merged into the
+## edge-adjacent neighbour that gives the nearest open street, so every building fronts a street.
+static func merge_streetless(lots: Array, reserved: Array = []) -> Array:
+	var out: Array = lots.duplicate()
+	var changed := true
+	while changed:
+		changed = false
+		for i in out.size():
+			var rect: Rect2 = out[i]
+			var others: Array = reserved.duplicate()
+			for j in out.size():
+				if j != i:
+					others.append(out[j])
+			if open_street_gap(rect, others) < INF:
+				continue
+			var best := -1
+			var best_score := INF
+			for j in out.size():
+				if j == i:
+					continue
+				var other: Rect2 = out[j]
+				var union := rect.merge(other)
+				var overlap := rect.intersection(other).get_area()
+				if union.get_area() - rect.get_area() - other.get_area() + overlap > 0.25 * union.get_area():
+					continue
+				var rest: Array = reserved.duplicate()
+				for k in out.size():
+					if k != i and k != j:
+						rest.append(out[k])
+				if rest.any(func(r: Rect2) -> bool: return r.intersects(union.grow(-0.3))):
+					continue
+				var score := open_street_gap(union, rest) + union.get_area() * 0.001
+				if score < best_score:
+					best_score = score
+					best = j
+			if best >= 0 and best_score < INF:
+				out[i] = rect.merge(out[best])
+				out.remove_at(best)
+				changed = true
+				break
+	return out
+
+
+## [param rect] (px) grown on each street side to [param inset_m] short of the kerb.
+static func to_kerb(rect: Rect2, inset_m := 0.0, sides: Array = []) -> Rect2:
+	var r := rect
+	for side: Dictionary in (sides if not sides.is_empty() else street_sides(rect)):
+		var grow := maxf(0.0, float(side["gap_m"]) - inset_m) / METERS_PER_PX
+		var axis: Vector2 = side["out"]
+		r = r.grow_individual(grow if axis.x < 0.0 else 0.0, grow if axis.y < 0.0 else 0.0, grow if axis.x > 0.0 else 0.0, grow if axis.y > 0.0 else 0.0)
+	return r
 
 
 func _add_building(rect_px: Rect2, footprint: Vector2, district: StringName, block: Vector2i, block_center: Vector3, style: StringName = &"", height: float = -1.0, draw_style := true) -> void:

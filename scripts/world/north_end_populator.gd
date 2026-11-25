@@ -5,10 +5,14 @@ extends RefCounted
 ## scenes, a hash of the lot key picks the variant, palette / mirroring ([KitVariant]) and the West
 ## Palm Beach dressing ([KitDressing], per the scene's income tier).
 ##
-## The kit lot sits at the front of the census lot, centred on its frontage, facing the street (or
-## the roster spot's [code]face[/code] point). A variant whose lot fits is preferred; otherwise the
+## The building faces the street its census lot fronts ([method frontage]: the nearest kerb with no
+## other lot in between, preferring a side the kit lot fits; a roster spot's [code]face[/code]
+## point wins). The kit lot front sits at the back of the sidewalk ([constant CityGenerator.SIDEWALK_M]
+## from the kerb), centred on the frontage, so the wireframe's block inset never leaves a building
+## stranded behind a dead strip. A variant whose lot fits is preferred; otherwise the
 ## yard parts that overhang the census lot are cropped and, as a last resort, the building is scaled
-## down (never below [constant MIN_SCALE]). The rest of the census lot gets a grass or paved yard.
+## down (never below [constant MIN_SCALE]). The census lot, stretched to the sidewalk on every
+## street side, gets a grass or paved yard.
 ##
 ## With a [KitBatcher] the scenes are only harvested (merged meshes, MultiMesh dressing, merged
 ## collision, distance tiers); without one each scene is added as-is (the naive baseline that
@@ -24,6 +28,9 @@ const YARD_Y := 0.115
 const MIN_SCALE := 0.7
 ## Yard parts may overhang the census lot by this much before they are dropped.
 const OVERHANG := 0.25
+## Deepest front yard (lot front to house body, m) a street-fronting house prefers; deeper variants
+## are only picked when none of the archetype's fitting variants is closer.
+const MAX_SETBACK_M := 7.0
 const YARD_PARTS := [&"Fence", &"Landscape", &"Site"]
 const LIVE_TYPES := ["Label3D", "Marker3D", "Area3D", "OmniLight3D", "SpotLight3D"]
 const COMMERCIAL := [&"purchasable_business", &"large_building", &"specialized_location", &"special_building"]
@@ -31,6 +38,7 @@ const COMMERCIAL := [&"purchasable_business", &"large_building", &"specialized_l
 static var _kit := {}
 static var _scenes := {}
 static var _census := {}
+static var _setbacks := {}
 
 
 ## Populates [param city]. Returns the node holding the buildings.
@@ -42,6 +50,12 @@ static func populate(city: CityGenerator, batch := true) -> Node3D:
 	var census := census_archetypes()
 	var spots := NorthEndCensus.spots_by_lot(city)
 	var yards := {}
+	var obstacles: Array[Rect2] = city._reserved_rects()
+	for lot: Dictionary in city.building_lots:
+		obstacles.append(lot["rect_px"])
+	for node in city.get_children():
+		if node.is_in_group(NorthEndCensus.GROUP) and node.get_meta(&"census_kind", &"") == &"landmark":
+			obstacles.append(node.get_meta(&"rect_px"))
 	for lot: Dictionary in city.building_lots:
 		var spot: Dictionary = spots.get(lot["index"], {})
 		var key := NorthEndCensus.rect_key(lot["rect_px"])
@@ -50,12 +64,15 @@ static func populate(city: CityGenerator, batch := true) -> Node3D:
 		if archetype == "":
 			archetype = _fallback_archetype(lot, spot)
 		var paved := lot.has("archetype") or COMMERCIAL.has(StringName(entry.get("category", "")))
-		_place(holder, batcher, lot, archetype, _outward(lot, spot), key, paved, yards)
+		# Facing uses the census-independent archetype: the census derives street, archetype and
+		# stand-ins from the facing, so feeding its archetype back in would never settle.
+		_place(holder, batcher, lot, archetype, frontage(lot, spot, _fallback_archetype(lot, spot), obstacles), key, paved, yards)
 	for node in city.get_children():
 		if node.is_in_group(NorthEndCensus.GROUP) and node.get_meta(&"census_kind", &"") == &"landmark":
 			var rect: Rect2 = node.get_meta(&"rect_px")
 			var lot := {"rect_px": rect, "center": CityGenerator.px_to_world(rect.get_center()), "census_node": node}
-			_place(holder, batcher, lot, String(node.get_meta(&"archetype", "grove_general_hospital")), Vector3.BACK, NorthEndCensus.rect_key(rect), true, yards)
+			var archetype := String(node.get_meta(&"archetype", "grove_general_hospital"))
+			_place(holder, batcher, lot, archetype, frontage(lot, {}, archetype, obstacles), NorthEndCensus.rect_key(rect), true, yards)
 	for district: District in city.districts:
 		if district.safehouse != null and district.safehouse.data != null and district.get_parent() == city:
 			_place_safehouse(holder, batcher, district)
@@ -66,7 +83,7 @@ static func populate(city: CityGenerator, batch := true) -> Node3D:
 
 
 ## Kit lot-space building for one archetype, scaled to a census lot: {path, entry, scale}.
-static func pick(archetype: String, frontage: float, depth: float, variant_seed: int) -> Dictionary:
+static func pick(archetype: String, frontage: float, depth: float, variant_seed: int, max_setback := INF) -> Dictionary:
 	var scenes: Array = kit()["archetypes"].get(archetype, kit()["archetypes"]["house_1f_small_yard"])["scenes"]
 	var fits: Array = []
 	var solid_fits: Array = []
@@ -77,13 +94,26 @@ static func pick(archetype: String, frontage: float, depth: float, variant_seed:
 		var solid := Vector2(scene["footprint_m"][0], scene["footprint_m"][1])
 		if solid.x <= frontage - 1.0 and solid.y <= depth - 4.0:
 			solid_fits.append(scene)
-	var pool: Array = fits if not fits.is_empty() else (solid_fits if not solid_fits.is_empty() else scenes)
+	var closest := INF
+	for scene: Dictionary in fits:
+		closest = minf(closest, setback(scene["baked"]))
+	var close := fits.filter(func(s: Dictionary) -> bool: return setback(s["baked"]) <= maxf(max_setback, closest + 0.5))
+	var pool: Array = close if not close.is_empty() else (fits if not fits.is_empty() else (solid_fits if not solid_fits.is_empty() else scenes))
 	var chosen: Dictionary = pool[posmod(variant_seed, pool.size())]
 	var scale := 1.0
 	if fits.is_empty() and solid_fits.is_empty():
 		var lot := Vector2(chosen["lot_m"][0], chosen["lot_m"][1])
 		scale = maxf(MIN_SCALE, minf(1.0, minf(frontage / lot.x, depth / lot.y)))
 	return {"path": chosen["baked"], "entry": chosen, "scale": scale}
+
+
+## Front yard depth (m) of a kit scene: its lot front (z = 0) to the front of its solid body.
+static func setback(path: String) -> float:
+	if not _setbacks.has(path):
+		var building := (_scene(path)).instantiate() as Node3D
+		_setbacks[path] = maxf(0.0, -(_building_info(building, false)["solid"] as Rect2).end.y)
+		building.free()
+	return _setbacks[path]
 
 
 static func kit() -> Dictionary:
@@ -100,16 +130,61 @@ static func census_archetypes() -> Dictionary:
 	return _census
 
 
-## Unit axis the building faces (its front door, +Z of the kit root): the roster spot's face
-## point when it has one (or sits off the lot), else away from the block centre.
-static func _outward(lot: Dictionary, spot: Dictionary) -> Vector3:
+## Street frontage of a lot: {outward: Vector3 (unit axis the building faces, +Z of the kit root),
+## reach: float (m the kit lot front sits beyond the census lot: up to the back of the sidewalk),
+## gap: float (census lot front to kerb, m; INF without a street), yard: Rect2 (px, the census lot
+## stretched to the back of the sidewalk on every open street side)}. Streets behind another lot,
+## landmark or reserved rect don't count. Among the open sides the closest kerb wins, with a
+## penalty when the archetype's kit lot can't fit that way round or the frontage is the long side.
+static func frontage(lot: Dictionary, spot: Dictionary, archetype: String, obstacles: Array[Rect2]) -> Dictionary:
 	var rect: Rect2 = lot["rect_px"]
+	var sides: Array[Dictionary] = []
+	for side in CityGenerator.street_sides(rect):
+		if not CityGenerator.street_blocked(rect, side, obstacles):
+			sides.append(side)
+	var yard := CityGenerator.to_kerb(rect, CityGenerator.SIDEWALK_M, sides) if not sides.is_empty() else rect
+	var forced := _spot_outward(rect, spot)
+	if not sides.any(func(s: Dictionary) -> bool: return Vector3((s["out"] as Vector2).x, 0.0, (s["out"] as Vector2).y).is_equal_approx(forced)):
+		forced = Vector3.ZERO  # a spot only pins the facing toward an open street
+	var size_m := rect.size * CityGenerator.METERS_PER_PX
+	var best := {}
+	var best_score := INF
+	for side in sides:
+		var axis: Vector2 = side["out"]
+		var out3 := Vector3(axis.x, 0.0, axis.y)
+		if forced != Vector3.ZERO and not out3.is_equal_approx(forced):
+			continue
+		var reach := maxf(0.0, float(side["gap_m"]) - CityGenerator.SIDEWALK_M)
+		var front_m := size_m.y if axis.x != 0.0 else size_m.x
+		var depth := (size_m.x if axis.x != 0.0 else size_m.y) + reach
+		var score: float = side["gap_m"] + (0.0 if _fits(archetype, front_m, depth) else 100.0) + (3.0 if front_m > depth else 0.0)
+		if score < best_score:
+			best_score = score
+			best = {"outward": out3, "reach": reach, "gap": side["gap_m"], "yard": yard}
+	if best.is_empty():
+		best = {"outward": _spot_outward(rect, spot) if not spot.is_empty() and _spot_outward(rect, spot) != Vector3.ZERO else _outward(lot), "reach": 0.0, "gap": INF, "yard": yard}
+	return best
+
+
+static func _fits(archetype: String, front_m: float, depth: float) -> bool:
+	var scenes: Array = kit()["archetypes"].get(archetype, kit()["archetypes"]["house_1f_small_yard"])["scenes"]
+	return scenes.any(func(s: Dictionary) -> bool: return s["lot_m"][0] <= front_m + 0.01 and s["lot_m"][1] <= depth + 0.01)
+
+
+## Axis toward the roster spot's face point (or the spot itself when it sits off the lot); ZERO
+## when the spot doesn't pin a facing.
+static func _spot_outward(rect: Rect2, spot: Dictionary) -> Vector3:
 	if not spot.is_empty() and not spot.get("free", false):
 		var px: Vector2 = spot["px"]
 		if spot.has("face") or not rect.has_point(px):
 			var away: Vector2 = (spot.get("face", px) as Vector2) - rect.get_center()
 			if away.length() > 0.01:
 				return Vector3(signf(away.x), 0.0, 0.0) if absf(away.x) >= absf(away.y) else Vector3(0.0, 0.0, signf(away.y))
+	return Vector3.ZERO
+
+
+## Fallback facing for a lot with no open street: away from the block centre.
+static func _outward(lot: Dictionary) -> Vector3:
 	var center: Vector3 = lot["center"]
 	var away3: Vector3 = center - (lot.get("block_center", center) as Vector3)
 	if absf(away3.x) > 0.5 or absf(away3.z) > 0.5:
@@ -128,16 +203,20 @@ static func _fallback_archetype(lot: Dictionary, spot: Dictionary) -> String:
 	return "industrial_shed" if lot.get("district", &"") == &"mangona" else "house_1f_small_yard"
 
 
-static func _place(holder: Node3D, batcher: KitBatcher, lot: Dictionary, archetype: String, outward: Vector3, key: String, paved: bool, yards: Dictionary) -> void:
+static func _place(holder: Node3D, batcher: KitBatcher, lot: Dictionary, archetype: String, street: Dictionary, key: String, paved: bool, yards: Dictionary) -> void:
 	var rect: Rect2 = lot["rect_px"]
+	var outward: Vector3 = street["outward"]
+	var reach: float = street["reach"]
 	var size_m := rect.size * CityGenerator.METERS_PER_PX
 	var frontage := size_m.y if outward.x != 0.0 else size_m.x
-	var depth := size_m.x if outward.x != 0.0 else size_m.y
+	var lot_depth := size_m.x if outward.x != 0.0 else size_m.y
+	var depth := lot_depth + reach
 	var center := CityGenerator.px_to_world(rect.get_center())
 	var basis := Basis.looking_at(-outward)
-	var front := center + outward * depth * 0.5
+	var front := center + outward * (lot_depth * 0.5 + reach)
+	lot["street"] = {"outward": outward, "gap": street["gap"]}
 	var variant_seed := (hash(key) & 0x3fffffff) | 1
-	var choice := pick(archetype, frontage, depth, variant_seed >> 3)
+	var choice := pick(archetype, frontage, depth, variant_seed >> 3, INF if paved else MAX_SETBACK_M)
 	var scale: float = choice["scale"]
 	var building := (_scene(choice["path"])).instantiate() as Node3D
 	if "dress_seed" in building:
@@ -156,6 +235,8 @@ static func _place(holder: Node3D, batcher: KitBatcher, lot: Dictionary, archety
 	door_at.y = 0.0
 	lot["door"] = Transform3D(basis, door_at + outward * 0.15)
 	var solid: Rect2 = info["solid"]
+	var front_edge := xform * Vector3(solid.get_center().x, 0.0, solid.end.y)
+	lot["front_edge"] = Vector3(front_edge.x, 0.0, front_edge.z)
 	var solid_size := solid.size * scale
 	lot["kit_footprint"] = Vector2(solid_size.y, solid_size.x) if outward.x != 0.0 else solid_size
 	lot["kit_height"] = snappedf(float(info["height"]) * scale, 0.01)
@@ -165,7 +246,7 @@ static func _place(holder: Node3D, batcher: KitBatcher, lot: Dictionary, archety
 		marker.set_meta(&"footprint_m", lot["kit_footprint"])
 		marker.set_meta(&"height_m", lot["kit_height"])
 		marker.set_meta(&"kit_scene", lot["kit_scene"])
-	_add_yard(yards, rect, paved)
+	_add_yard(yards, street["yard"], paved)
 	_finish(holder, batcher, building, xform, info, choice["entry"], variant_seed, tier, mirrored, key)
 
 

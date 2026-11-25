@@ -398,6 +398,13 @@ static func _lot_entry(key: String, lot: Dictionary, spot: Dictionary, locations
 	var wireframe_lot := lot.duplicate()
 	wireframe_lot.erase("door")
 	var door := LocationPlacer.door_transform(wireframe_lot)
+	if lot.has("street"):
+		# Prefer the lot's street frontage (the populator's facing) over the block-centre guess.
+		var outward: Vector3 = lot["street"]["outward"]
+		var footprint: Vector2 = lot["footprint"]
+		var half := footprint.x * 0.5 if outward.x != 0.0 else footprint.y * 0.5
+		var center: Vector3 = lot["center"]
+		door = Transform3D(Basis.looking_at(-outward), Vector3(center.x, 0.0, center.z) + outward * (half + 0.15))
 	var named: Location = null
 	for location: Location in locations:
 		named = location

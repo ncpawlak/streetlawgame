@@ -13,6 +13,7 @@ unique building design it needs), and note where the current map is too small fo
 | As-built building map | `docs/map/north_end_buildings.png` / `.svg` (`python tools/render_north_end_buildings.py`) |
 | As-built wireframe + census | `docs/map/north_end_wireframe.png` / `.svg`: generated (same script) from the layout plus the annotations of the hand-drawn `north_end_wireframe_source.svg` |
 | Road-clearance test | `tests/census_tests.gd` `_test_corridors`: no building or lot rect may enter any road, ramp or I-59 corridor |
+| Street-frontage test | `tests/frontage_tests.gd`: every building faces its nearest street, front edge ≤ 16 m (houses) / 26 m (commercial) from the kerb |
 
 ![North End buildings](../map/north_end_buildings.png)
 
@@ -42,14 +43,14 @@ Other top-level lists:
 
 | Category | Count | Notes |
 |---|---:|---|
-| `house_1f` | 177 | 118 Tamarack Row, 55 Northgrove, 4 Mangona trailers |
-| `house_2f` | 126 | 71 Tamarack Row, 55 Northgrove |
-| `large_building` | 44 | 29 walk-ups and 1 mixed-use (Northgrove); 9 sheds and 5 warehouses (Mangona) |
+| `house_1f` | 172 | 118 Tamarack Row, 50 Northgrove, 4 Mangona trailers |
+| `house_2f` | 115 | 70 Tamarack Row, 45 Northgrove |
+| `large_building` | 43 | 28 walk-ups and 1 mixed-use (Northgrove); 9 sheds and 5 warehouses (Mangona) |
 | `special_building` | 4 | Hospital + 3 safehouses |
-| `specialized_location` | 11 | +1 unbuilt (bank) |
-| `purchasable_business` | 7 | +2 unbuilt (gun store, hardware store) |
-| `standin_business` | 24 | 17 enterable shops + 7 closed storefronts (see [Stand-in businesses](#stand-in-businesses)) |
-| **North End total** | **393** | + 60 out-of-area fillers = 453 scene boxes; + 3 unbuilt |
+| `specialized_location` | 12 | incl. the bank |
+| `purchasable_business` | 9 | incl. the gun store and hardware store |
+| `standin_business` | 34 | 17 enterable shops + 17 closed storefronts (see [Stand-in businesses](#stand-in-businesses)) |
+| **North End total** | **389** | + 60 out-of-area fillers = 449 scene boxes; 0 unbuilt |
 
 Roughly 300 placer houses (`house_*`) are robbable burglary targets; the robbery tier comes from the archetype `tier`.
 
@@ -61,16 +62,16 @@ in several variants (colour, roof, porch, mirrored).
 
 | Archetype | Cat. | Storeys | Footprint m | Lot m | Tier | Count |
 |---|---|---:|---|---|---|---:|
-| `house_1f_small_yard` | house_1f | 1 | 14 × 11.2 | 18 × 22 | low | 119 |
-| `house_1f_big_yard` | house_1f | 1 | 19.6 × 14 | 26 × 30 | medium | 41 |
-| `house_1f_deep_lot` | house_1f | 1 | 14 × 11.2 | 18 × 40 | low | 13 |
-| `house_2f_small_yard` | house_2f | 2 | 14 × 11.2 | 18 × 22 | medium | 76 |
-| `house_2f_big_yard` | house_2f | 2 | 19.6 × 14 | 26 × 30 | high | 45 |
-| `house_2f_deep_lot` | house_2f | 2 | 19.6 × 14 | 24 × 42 | medium | 5 |
+| `house_1f_small_yard` | house_1f | 1 | 14 × 11.2 | 18 × 22 | low | 100 |
+| `house_1f_big_yard` | house_1f | 1 | 19.6 × 14 | 26 × 30 | medium | 32 |
+| `house_1f_deep_lot` | house_1f | 1 | 14 × 11.2 | 18 × 40 | low | 36 |
+| `house_2f_small_yard` | house_2f | 2 | 14 × 11.2 | 18 × 22 | medium | 60 |
+| `house_2f_big_yard` | house_2f | 2 | 19.6 × 14 | 26 × 30 | high | 27 |
+| `house_2f_deep_lot` | house_2f | 2 | 19.6 × 14 | 24 × 42 | medium | 28 |
 | `trailer_1f` | house_1f | 1 | 16 × 4.5 | 14 × 24 | low | 4 |
 | `storefront_1f` | large | 1 | 20 × 16 | 24 × 30 | – | 0 (all became stand-ins; kept for new lots) |
 | `mixed_use_2f` | large | 2 | 22 × 16 | 24 × 28 | – | 1 |
-| `apartment_walkup_3f` | large | 3 | 28 × 20 | 34 × 36 | – | 29 |
+| `apartment_walkup_3f` | large | 3 | 28 × 20 | 34 × 36 | – | 28 |
 | `industrial_shed` | large | 1 (6 m eaves) | 24 × 18 | 30 × 32 | – | 9 |
 | `warehouse` | large | 1 (8 m eaves) | 40 × 30 | 50 × 48 | – | 5 |
 
@@ -78,10 +79,10 @@ in several variants (colour, roof, porch, mirrored).
 
 | Archetype | Storeys | Footprint m | Lot m | Used for | Count |
 |---|---:|---|---|---|---:|
-| `standin_strip_unit` | 1 | 20 × 16 | 24 × 30 | Strip-mall unit on an arterial (Tamarack Okee Blvd) | 2 |
-| `standin_shopfront_2f` | 2 | 22 × 16 | 24 × 28 | Shop with a flat above (Northgrove Broadway / Dixie / Lakes) | 12 |
-| `standin_standalone_shop` | 1 | 16 × 14 | 20 × 28 | Freestanding shop on a corner or a shed lot | 4 |
-| `standin_corner_store` | 1 | 14 × 12 | 18 × 24 | Corner shop at a residential crossing | 3 |
+| `standin_strip_unit` | 1 | 20 × 16 | 24 × 30 | Strip-mall unit on an arterial (Tamarack Okee Blvd) | 1 |
+| `standin_shopfront_2f` | 2 | 22 × 16 | 24 × 28 | Shop with a flat above (Northgrove Broadway / Dixie / Lakes) | 23 |
+| `standin_standalone_shop` | 1 | 16 × 14 | 20 × 28 | Freestanding shop on a corner or a shed lot | 1 |
+| `standin_corner_store` | 1 | 14 × 12 | 18 × 24 | Corner shop at a residential crossing | 6 |
 | `standin_garage_bays` | 1 (5 m bays) | 24 × 18 | 30 × 36 | Auto mod shop: 2–3 roll-up bays and a forecourt | 3 |
 
 `neighbour_filler` (60) is a placeholder archetype for the out-of-area boxes and is not designed here.
@@ -105,7 +106,7 @@ in several variants (colour, roof, porch, mirrored).
 | `informant_flat` | Informant's Flat | specialized | 14 × 11.2, 2 st. | 18 × 22 | informant |
 | `grove_apartments` | Grove Apartments | specialized | 28 × 20, 3 st. | 34 × 36 | burglary ×4 units |
 | `coke_plug_house` | El Primo's Warehouse | specialized | 14 × 11.2 | 18 × 30 | plug meet |
-| `bank_branch` | Northgrove Savings | specialized | 24 × 20, 2 st. | 32 × 36 | teller stick-up, vault (#42) — **unbuilt** |
+| `bank_branch` | Northgrove Savings | specialized | 24 × 20, 2 st. | 32 × 36 | teller stick-up, vault (#42) |
 | `bodega` | Tamarack Corner Store | business | 14 × 12 | 18 × 24 | buyable $8k, stick-up |
 | `liquor_store` | Tamarack Liquor | business | 16 × 12 | 20 × 26 | buyable $12k, stick-up |
 | `barbershop` | Tamarack Cutz | business | 12 × 10 | 16 × 22 | buyable $10k, recruiting |
@@ -113,8 +114,8 @@ in several variants (colour, roof, porch, mirrored).
 | `pharmacy` | Northgrove Pharmacy | business | 20 × 16 | 26 × 32 | buyable $14k |
 | `tattoo_parlor` | Northgrove Ink | business | 12 × 10 | 16 × 22 | buyable $10k |
 | `chop_shop` | Mangona Auto Parts | business | 30 × 24 | 36 × 48 | buyable $20k, car drop-off |
-| `gun_store` | Mangona Guns & Ammo | business | 18 × 14 + range | 24 × 30 | buyable $15k — **unbuilt** |
-| `hardware_store` | Mangona Hardware | business | 24 × 18 + yard | 30 × 34 | buyable $10k — **unbuilt** |
+| `gun_store` | Mangona Guns & Ammo | business | 18 × 14 + range | 24 × 30 | buyable $15k |
+| `hardware_store` | Mangona Hardware | business | 24 × 18 + yard | 30 × 34 | buyable $10k |
 
 Archetype footprints follow SCALE.md: 3.0 m storeys (3.5 m ground floor for shops), doors ≥ 1.2 × 2.4 m, and house
 footprints ×1.4 of the robbery floor plans (low 14 × 11.2, medium 19.6 × 14, high 28 × 19.6 m).
@@ -148,11 +149,12 @@ places them after ids are assigned. Every entry has a `standin` field: `{subtype
 
 | Zone | Enterable shops | Closed storefronts | Served by a purchasable business |
 |---|---|---|---|
-| Tamarack Row | A auto mod (Lakes Blvd 01), F food (Okee Blvd 03, Lakeview Ave 15), T tattoo (Okee Blvd 04), C clothing (Tamarind Ave 09), G ammo (Tamarind Ave 16), P pawn (Lakeview Ave 32) | none: its 3 storefront lots all became shops | S bodega, L Row Liquors, B Fresh Cutz |
-| Northgrove | C clothing (Grove Rd 05), F food (Broadway 03, 20), S corner store (40th St 17), A auto mod (Grove Rd 09), G ammo (Dixie Hwy 26), L liquor (Dixie Hwy 16), B barber (Lakes Blvd 01) | 7: Broadway 06, 09, 12, 15, 17 and Dixie Hwy 18, 22 | T Ink Lab, P Northgrove Pawn |
-| Mangona | A auto mod (Austral Ave 03), F food (Austral Ave 10) | none | G Mangona Guns & Ammo (unbuilt) |
+| Tamarack Row | A auto mod (Lakes Blvd 01), F food (12th St 07, Lakeview Ave 14), T tattoo (15th St 01), C clothing (8th St 30), G ammo (Okee Blvd 03), P pawn (8th St 19) | none | S bodega, L Row Liquors, B Fresh Cutz |
+| Northgrove | A auto mod (40th St 02), B barber (Broadway 03), F food (Broadway 21, Dixie Hwy 50), L liquor (Broadway 38), G ammo (Broadway 52), C clothing (Dixie Hwy 21), S corner store (Dixie Hwy 37) | 17: Broadway 06–49 (13), Dixie Hwy 31, 35, 45, Lakes Blvd 01 | T Ink Lab, P Northgrove Pawn |
+| Mangona | A auto mod (Austral Ave 03), F food (Austral Ave 10) | none | G Mangona Guns & Ammo |
 
-Result: 17 shops and 7 closed storefronts. Every zone can buy every type it needs (checked by `tests/census_tests.gd`).
+Result: 17 shops and 17 closed storefronts. Each lot's `street` is the street its building faces (the populator's
+frontage), so Northgrove's arterial corner lots face Broadway / Dixie Hwy and read as storefronts. Every zone can buy every type it needs (checked by `tests/census_tests.gd`).
 Tamarack Row has no closed storefronts because its arterials (Okee / Lakes Blvd) front only 3 non-house lots. When the
 map is rescaled, give Okee Blvd a short strip of 3–4 `standin_strip_unit` lots so the strip reads as a shopping street.
 

@@ -24,6 +24,7 @@ func _run() -> void:
 
 	preload("res://tests/census_tests.gd").new(self).run(main)
 	await preload("res://tests/perf_budget_tests.gd").new(self).run(main, city)
+	preload("res://tests/frontage_tests.gd").new(self).run(city)
 	await preload("res://tests/turf_tests.gd").new(self).run(city, player)
 	await _test_vehicle(player)
 	await _test_weapons(player)
