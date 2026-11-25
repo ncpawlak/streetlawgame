@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="PlayerSafehouseDef" format=3]
+
+[ext_resource type="Script" path="res://scripts/framework/missions/nodes/player_safehouse_def.gd" id="1_5jvd1"]
+
+[resource]
+script = ExtResource("1_5jvd1")
+address = "Missions showcase"
+id = &"showcase_safehouse"
+display_name = "Showcase Safehouse"
+description = "Sample safehouse unlocked by the missions showcase."

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="PlayerSafehouseDef" format=3]
+
+[ext_resource type="Script" path="res://scripts/framework/missions/nodes/player_safehouse_def.gd" id="1_x1tg8"]
+
+[resource]
+script = ExtResource("1_x1tg8")
+address = "Tamarack Row"
+district_id = &"tamarack_row"
+id = &"pedros_house"
+display_name = "Pedro's House"
+description = "Pedro's place on Tamarack Row. The first safehouse: rest, save, lay low, park a car out back."

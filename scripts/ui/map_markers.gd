@@ -41,6 +41,7 @@ static func collect(tree: SceneTree) -> Array[Dictionary]:
 	_collect_roster(tree, markers)
 	_collect_hot_cars(tree, markers)
 	_collect_turf(markers, player_at)
+	_collect_missions(tree, markers)
 	return markers
 
 
@@ -182,3 +183,32 @@ static func _collect_turf(markers: Array[Dictionary], player_at: Vector3) -> voi
 		objectives[0]["current"] = true
 		objectives[0]["info"] = "Current mission.\n" + objectives[0]["info"]
 	markers.append_array(objectives)
+
+
+## Mission start markers, unlocked lead markers, player safehouses, and the active mission's
+## objective (which becomes the one "current" marker).
+static func _collect_missions(tree: SceneTree, markers: Array[Dictionary]) -> void:
+	for node in tree.get_nodes_in_group(MissionStartMarker.GROUP):
+		var start := node as MissionStartMarker
+		if start != null and start.is_inside_tree() and start.is_available():
+			var def := Missions.get_mission(start.mission_id)
+			var title := def.label() if def != null else String(start.mission_id)
+			markers.append(make([&"objective"], title, "Mission. %s" % (def.description if def != null else ""), start.global_position))
+	for lead in Missions.journal.leads(MissionJournal.OPEN):
+		if Missions.journal.is_marker_visible(lead["id"]):
+			markers.append(make([&"objective"], "Lead: %s" % lead["title"], String(lead["note"]), lead["marker"]))
+	for safehouse in Missions.safehouses():
+		if safehouse.is_unlocked():
+			var info := "Your safehouse. Rest, save, store cars, change clothes."
+			if safehouse.def != null and safehouse.def.address != "":
+				info = "%s\n%s" % [safehouse.def.address, info]
+			markers.append(make([&"safehouse"], safehouse.label(), info, safehouse.global_position))
+	var run := Missions.active
+	var at: Variant = Missions.current_waypoint()
+	if run != null and at is Vector3:
+		for marker in markers:
+			marker["current"] = false
+		var lines := run.objective_lines().filter(func(l: Dictionary) -> bool: return not l.get("done") and not l.get("bonus"))
+		var objective := make([&"objective"], run.def.label(), String(lines[0]["text"]) if not lines.is_empty() else "", at)
+		objective["current"] = true
+		markers.append(objective)

@@ -33,6 +33,9 @@ var interaction_prompt: InteractionPrompt
 var interaction_menu: InteractionMenu
 var dialogue_view: DialogueView
 var map_screen: MapScreen
+var objective_hud: ObjectiveHud
+var journal_screen: JournalScreen
+var mission_result: MissionResultScreen
 
 
 func _ready() -> void:
@@ -51,6 +54,15 @@ func _ready() -> void:
 	map_screen = MapScreen.new()
 	add_child(map_screen)
 	map_screen.waypoint_changed.connect(_gps.queue_redraw)
+	objective_hud = ObjectiveHud.new()
+	objective_hud.map_screen = map_screen
+	add_child(objective_hud)
+	move_child(objective_hud, map_screen.get_index())
+	journal_screen = JournalScreen.new()
+	journal_screen.map_screen = map_screen
+	add_child(journal_screen)
+	mission_result = MissionResultScreen.new()
+	add_child(mission_result)
 	EventBus.cash_changed.connect(func(amount: int) -> void: _cash_label.text = "$%d" % amount)
 	EventBus.respect_changed.connect(func(amount: int) -> void: _respect_label.text = "Respect %d" % amount)
 	EventBus.player_health_changed.connect(_on_health_changed)
@@ -145,7 +157,7 @@ func _update_weapon(player: Player, delta: float) -> void:
 	_reload_bar.visible = inventory.is_reloading and slot != null and not slot.data.thrown
 	_reload_bar.value = inventory.reload_progress() * 100.0
 	var detonate_hint := "  [G] Detonate (%d)" % inventory.placed_charges.size() if not inventory.placed_charges.is_empty() else ""
-	_keys_label.text = "[Q] Weapon wheel  [R] Reload  [1-9] Select  [M] Map" + detonate_hint
+	_keys_label.text = "[Q] Weapon wheel  [R] Reload  [1-9] Select  [M] Map  [J] Journal" + detonate_hint
 	_hit_marker_left = maxf(0.0, _hit_marker_left - delta)
 	_crosshair.text = "x" if _hit_marker_left > 0.0 else "+"
 	_crosshair.modulate = Color(1.0, 0.3, 0.3) if _hit_marker_left > 0.0 else Color.WHITE

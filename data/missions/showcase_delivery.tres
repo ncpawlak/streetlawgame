@@ -1,0 +1,90 @@
+[gd_resource type="Resource" script_class="MissionDef" format=3]
+
+[ext_resource type="Script" path="res://scripts/framework/missions/mission_fail.gd" id="1_uckut"]
+[ext_resource type="Script" path="res://scripts/framework/missions/fails/target_destroyed_fail.gd" id="2_0xnr1"]
+[ext_resource type="Script" path="res://scripts/framework/core/effect.gd" id="3_evb3q"]
+[ext_resource type="Script" path="res://scripts/framework/missions/mission_def.gd" id="4_04q1c"]
+[ext_resource type="Script" path="res://scripts/framework/missions/mission_step.gd" id="5_dck5d"]
+[ext_resource type="Script" path="res://scripts/framework/core/condition.gd" id="6_5u5cv"]
+[ext_resource type="Script" path="res://scripts/framework/missions/effects/lead_effect.gd" id="7_dj116"]
+[ext_resource type="Script" path="res://scripts/framework/missions/steps/talk_step.gd" id="8_hnx15"]
+[ext_resource type="Script" path="res://scripts/framework/missions/steps/steal_vehicle_step.gd" id="9_ce4f4"]
+[ext_resource type="Script" path="res://scripts/framework/core/effects/cash_effect.gd" id="10_tm6kb"]
+[ext_resource type="Script" path="res://scripts/framework/missions/steps/deliver_vehicle_step.gd" id="11_y5ws6"]
+[ext_resource type="Script" path="res://scripts/framework/missions/steps/hook_step.gd" id="12_ovwq4"]
+[ext_resource type="Script" path="res://scripts/framework/missions/steps/park_vehicle_step.gd" id="13_l0bu5"]
+
+[sub_resource type="Resource" id="Resource_lxttk"]
+script = ExtResource("2_0xnr1")
+target_var = &"vehicle"
+reason = "The sedan got wrecked."
+
+[sub_resource type="Resource" id="Resource_0c87d"]
+script = ExtResource("7_dj116")
+lead_id = &"showcase_garage"
+title = "The garage takes clean cars"
+note = "Dre: \"Bring the grey sedan to the garage. No cops on you, no dents, and there's a bonus in it.\""
+mission_id = &"showcase_delivery"
+has_marker = true
+marker_target = &"showcase_delivery"
+
+[sub_resource type="Resource" id="Resource_wod0l"]
+script = ExtResource("8_hnx15")
+npc_tag = &"showcase_contact"
+dialogue_id = &"showcase_contact_talk"
+id = &"talk_contact"
+text = "Talk to Dre about the job"
+on_complete = Array[ExtResource("3_evb3q")]([SubResource("Resource_0c87d")])
+
+[sub_resource type="Resource" id="Resource_pllh3"]
+script = ExtResource("9_ce4f4")
+vehicle_tag = &"showcase_car"
+id = &"steal_car"
+text = "Steal the grey sedan"
+checkpoint = true
+
+[sub_resource type="Resource" id="Resource_lblxy"]
+script = ExtResource("10_tm6kb")
+amount = 250
+
+[sub_resource type="Resource" id="Resource_mag0u"]
+script = ExtResource("7_dj116")
+op = 1
+lead_id = &"showcase_garage"
+
+[sub_resource type="Resource" id="Resource_uy4fk"]
+script = ExtResource("11_y5ws6")
+zone_id = &"showcase_delivery"
+remove_on_delivery = false
+clean_rewards = Array[ExtResource("3_evb3q")]([SubResource("Resource_lblxy")])
+vehicle_var = &"vehicle"
+id = &"deliver"
+text = "Deliver the sedan to the garage undetected"
+on_complete = Array[ExtResource("3_evb3q")]([SubResource("Resource_mag0u")])
+
+[sub_resource type="Resource" id="Resource_iwifa"]
+script = ExtResource("12_ovwq4")
+kind = &"phone_call"
+hook_id = &"showcase_pedro_call"
+id = &"pedro_call"
+text = "Take Pedro's call"
+
+[sub_resource type="Resource" id="Resource_3f0lf"]
+script = ExtResource("13_l0bu5")
+zone_id = &"showcase_driveway"
+vehicle_var = &"vehicle"
+id = &"park"
+text = "Park the sedan in Pedro's driveway with no heat"
+checkpoint = true
+
+[resource]
+script = ExtResource("4_04q1c")
+giver = "Dre"
+steps = Array[ExtResource("5_dck5d")]([SubResource("Resource_wod0l"), SubResource("Resource_pllh3"), SubResource("Resource_uy4fk"), SubResource("Resource_iwifa"), SubResource("Resource_3f0lf")])
+fail_conditions = Array[ExtResource("1_uckut")]([SubResource("Resource_lxttk")])
+cash_reward = 500
+respect_reward = 10
+unlock_safehouses = Array[StringName]([&"showcase_safehouse"])
+id = &"showcase_delivery"
+display_name = "Clean Delivery"
+description = "Showcase of the mission building blocks: a lead, a stolen car, a clean delivery and a zero-heat park."

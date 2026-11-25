@@ -11,6 +11,7 @@ const KEY_BINDINGS := {
 	"handbrake": [KEY_SPACE],
 	"interact": [KEY_E, KEY_F],
 	"toggle_map": [KEY_M],
+	"toggle_journal": [KEY_J],
 	"reload": [KEY_R],
 	"weapon_wheel": [KEY_Q],
 	"weapon_1": [KEY_1],
