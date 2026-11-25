@@ -3,6 +3,9 @@ extends GangMember
 ## A responding police officer. Fights like a rival (shared GangMember AI) but searches around the
 ## player's last known position and can report whether it sees the player.
 
+## Uniform tint for the SWAT model.
+const UNIFORM := Color(0.1, 0.18, 0.45)
+
 ## How far a cop can spot the player with a clear line of sight.
 @export var sight_range := 35.0
 
@@ -21,16 +24,13 @@ func _init() -> void:
 func _ready() -> void:
 	super._ready()
 	add_to_group("cops")
-	_body_material.albedo_color = Color(0.1, 0.18, 0.45)
-	var hat_mesh := CylinderMesh.new()
-	hat_mesh.top_radius = 0.32
-	hat_mesh.bottom_radius = 0.36
-	hat_mesh.height = 0.18
-	hat_mesh.material = _material(Color(0.05, 0.08, 0.2))
-	var hat := MeshInstance3D.new()
-	hat.mesh = hat_mesh
-	hat.position.y = 1.85
-	add_child(hat)
+	# Police uniform on the SWAT model instead of the gang look GangMember builds.
+	remove_child(visual)
+	visual.free()
+	visual = CharacterVisual.create(&"cop", randi())
+	visual.set_tint(UNIFORM)
+	visual.set_weapon(current_weapon())
+	add_child(visual)
 
 
 ## Moves the cop's search area (it wanders around [param point] when it can't see the player).

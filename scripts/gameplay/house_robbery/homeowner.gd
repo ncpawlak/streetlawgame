@@ -47,7 +47,13 @@ func _ready() -> void:
 	super._ready()
 	add_to_group("homeowners")
 	remove_from_group("gang_members")
-	_body_material.albedo_color = Color(0.55, 0.42, 0.62) if not armed else Color(0.3, 0.3, 0.3)
+	# Civilian model instead of the gang look GangMember builds.
+	remove_child(visual)
+	visual.free()
+	visual = CharacterVisual.create(&"civilian", randi())
+	visual.set_tint(Color(0.55, 0.42, 0.62) if not armed else Color(0.3, 0.3, 0.3))
+	visual.set_weapon(current_weapon())
+	add_child(visual)
 	EventBus.gunshot.connect(_on_gunshot)
 	_marker = Label3D.new()
 	_marker.text = "OWNER"
@@ -63,7 +69,9 @@ func _ready() -> void:
 	add_child(_marker)
 	var phone_mesh := BoxMesh.new()
 	phone_mesh.size = Vector3(0.08, 0.16, 0.02)
-	phone_mesh.material = _material(Color(0.1, 0.1, 0.12))
+	var phone_material := StandardMaterial3D.new()
+	phone_material.albedo_color = Color(0.1, 0.1, 0.12)
+	phone_mesh.material = phone_material
 	_phone = MeshInstance3D.new()
 	_phone.mesh = phone_mesh
 	_phone.position = Vector3(0.35, 1.55, -0.1)
@@ -126,6 +134,8 @@ func _physics_process(delta: float) -> void:
 	velocity.x = move_direction.x * move_speed * 0.4
 	velocity.z = move_direction.z * move_speed * 0.4
 	move_and_slide()
+	visual.set_aiming(mood == Mood.FIGHTING)
+	visual.update_motion(velocity, delta)
 
 
 ## Something gave the burglar away (seen, heard a kick or a shot, got hit).

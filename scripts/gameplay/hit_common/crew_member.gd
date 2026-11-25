@@ -26,6 +26,14 @@ func _ready() -> void:
 	add_to_group("crew")
 	collision_layer = 0
 	collision_mask = 1
+	# Crew model in the player's colours instead of the gang look GangMember builds.
+	remove_child(visual)
+	visual.free()
+	visual = CharacterVisual.create(&"crew", randi())
+	visual.set_tint(GameState.gang_color(gang_id).darkened(0.3))
+	visual.set_bandana(GameState.gang_color(gang_id))
+	visual.set_weapon(current_weapon())
+	add_child(visual)
 	_tag = Label3D.new()
 	_tag.text = CrewSlot.ROLE_NAMES.get(crew_role, "Crew").to_upper()
 	_tag.billboard = BaseMaterial3D.BILLBOARD_ENABLED
@@ -104,6 +112,8 @@ func _physics_process(delta: float) -> void:
 	if move != Vector3.ZERO:
 		_face(move)
 	move_and_slide()
+	visual.set_aiming(false)
+	visual.update_motion(velocity, delta)
 
 
 ## Holds every owner / hostage in range. Returns how many.
@@ -142,8 +152,6 @@ func _set_in_car(value: bool) -> void:
 	if _in_car == value:
 		return
 	_in_car = value
-	for child in get_children():
-		if child is MeshInstance3D:
-			(child as MeshInstance3D).visible = not value
+	visual.visible = not value
 	if _tag != null:
 		_tag.text = CrewSlot.ROLE_NAMES.get(crew_role, "Crew").to_upper() + (" (in car, engine running)" if value and crew_role == CrewSlot.Role.DRIVER else "")

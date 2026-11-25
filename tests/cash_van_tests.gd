@@ -148,6 +148,11 @@ func _test_stop_and_guards(driver: CashVanDriver, van: ArmoredVan) -> void:
 	for guard in guards:
 		armed = armed and (guard as VanGuard).current_weapon() != null and guard.global_position.distance_to(van.global_position) < 6.0
 	_runner._check(guards.size() == van.guard_count and armed, "cash van: armed guards bail out next to the van")
+	var modelled := not guards.is_empty()
+	for guard in guards:
+		var gv: CharacterVisual = (guard as VanGuard).visual
+		modelled = modelled and gv != null and gv.get_parent() == guard and gv.model_id != &"" and gv.is_armed()
+	_runner._check(modelled and (guards[0] as VanGuard).get_children().filter(func(c): return c is CharacterVisual).size() == 1, "cash van: guards use one armed character model each")
 	for guard in guards:
 		(guard as VanGuard).take_damage(1000.0, player)
 
@@ -193,6 +198,8 @@ func _test_escalation(driver: CashVanDriver, player: Player) -> void:
 	var cruisers_late := driver.alive_cruisers().size()
 	_runner._check(response.waves == 2 and cruisers_late == 1 + 3, "cash van: a later wave brings more cruisers (%d)" % cruisers_late)
 	_runner._check(response.alive_cops().size() > cops_early, "cash van: and a roadblock of cops on foot (%d)" % response.alive_cops().size())
+	var cop: Cop = response.alive_cops()[0]
+	_runner._check(cop.visual != null and cop.visual.get_parent() == cop and cop.get_children().filter(func(c): return c is CharacterVisual).size() == 1, "cash van: cops use the police character model")
 	var cruiser := driver.alive_cruisers()[0]
 	var cops_before := response.cops.size()
 	cruiser.take_damage(cruiser.max_health, player)

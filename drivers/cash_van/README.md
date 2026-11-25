@@ -38,6 +38,18 @@ Press **F5** to restart.
   - **Muscle:** follows you on foot. Guards within 7 m put their hands up and stop shooting (`VanGuard` is in group `hostages` with `hold(by)`).
 - The briefing card and the status label show the crew, the I-59 heat, the extra cops and the mask/swap state. F12 adds 25 heat; Shift+F12 clears it.
 
+## Character models
+
+Every person uses `CharacterVisual` and plays its shoot, hit and death animations through the shared `GangMember` paths. Each type swaps its model and tint as follows:
+
+| Person | Model | Tint |
+|---|---|---|
+| Guard | SWAT model | Khaki uniform |
+| Cop | SWAT model | Police blue |
+| Crew | Crew model | Player gang colour with a bandana |
+
+Collision is unchanged: a 0.4 m × 1.8 m capsule. The highway is 26 m wide, per `docs/design/SCALE.md`.
+
 ## Files
 
 | File | Purpose |

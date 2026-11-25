@@ -7,6 +7,8 @@ extends GangMember
 const WEAPONS: Array[StringName] = [&"smg", &"shotgun", &"pistol"]
 ## Seconds a hold lasts after the last [method hold] call (the muscle calls it every frame).
 const HOLD_GRACE := 0.5
+## Security-company uniform (tints the SWAT model).
+const UNIFORM := Color(0.42, 0.4, 0.3)
 
 var held_by: Node3D
 var _held_left := 0.0
@@ -31,14 +33,13 @@ func _ready() -> void:
 	super._ready()
 	add_to_group("van_guards")
 	add_to_group("hostages")
-	_body_material.albedo_color = Color(0.42, 0.4, 0.3)
-	var vest_mesh := BoxMesh.new()
-	vest_mesh.size = Vector3(0.86, 0.6, 0.86)
-	vest_mesh.material = _material(Color(0.15, 0.15, 0.14))
-	var vest := MeshInstance3D.new()
-	vest.mesh = vest_mesh
-	vest.position.y = 1.15
-	add_child(vest)
+	# Armoured-transport uniform on the SWAT model (helmet + vest) instead of the gang look.
+	remove_child(visual)
+	visual.free()
+	visual = CharacterVisual.create(&"cop", randi())
+	visual.set_tint(UNIFORM)
+	visual.set_weapon(current_weapon())
+	add_child(visual)
 
 
 func _physics_process(delta: float) -> void:
@@ -50,6 +51,8 @@ func _physics_process(delta: float) -> void:
 	velocity = Vector3(0.0, velocity.y - (_gravity * delta if not is_on_floor() else 0.0), 0.0)
 	_face(held_by.global_position - global_position)
 	move_and_slide()
+	visual.set_aiming(false)
+	visual.update_motion(velocity, delta)
 
 
 ## Crew muscle has a gun on them: hands up, no fighting while held. Called every frame in range.

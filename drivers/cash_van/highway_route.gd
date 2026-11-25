@@ -6,7 +6,7 @@ extends Node3D
 
 @export var straight_length := 360.0
 @export var turn_radius := 70.0
-@export var road_width := 16.0
+@export var road_width := 26.0  # SCALE.md highway width
 @export var ground_size := Vector2(1100.0, 600.0)
 @export var building_seed := 59
 
