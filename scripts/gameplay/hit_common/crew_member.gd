@@ -43,6 +43,16 @@ func take_damage(_amount: float, _source: Node = null) -> void:
 	pass
 
 
+## Crew model in the player's gang colours and bandana.
+func _make_visual() -> CharacterVisual:
+	var color := GameState.gang_color(gang_id)
+	var body := CharacterVisual.create(&"crew", randi())
+	body.set_tint(color.darkened(0.3))
+	body.set_bandana(color)
+	body.set_weapon(current_weapon())
+	return body
+
+
 func is_in_car() -> bool:
 	return _in_car
 
@@ -104,6 +114,7 @@ func _physics_process(delta: float) -> void:
 	if move != Vector3.ZERO:
 		_face(move)
 	move_and_slide()
+	visual.update_motion(velocity, delta)
 
 
 ## Holds every owner / hostage in range. Returns how many.
@@ -142,8 +153,7 @@ func _set_in_car(value: bool) -> void:
 	if _in_car == value:
 		return
 	_in_car = value
-	for child in get_children():
-		if child is MeshInstance3D:
-			(child as MeshInstance3D).visible = not value
+	if visual != null:
+		visual.visible = not value
 	if _tag != null:
 		_tag.text = CrewSlot.ROLE_NAMES.get(crew_role, "Crew").to_upper() + (" (in car, engine running)" if value and crew_role == CrewSlot.Role.DRIVER else "")

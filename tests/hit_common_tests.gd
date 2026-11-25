@@ -21,10 +21,45 @@ func run(player: Player) -> void:
 	_test_mask_and_swap()
 	_test_minigame()
 	await _test_crew_and_cut()
+	await _test_visuals()
 	var identity := HitIdentity.of(player, false)
 	if identity != null:
 		identity.set_masked(false)
 		identity.end_hit()
+
+
+## Cops, owners and crew wear the animated models; shot owners react and die on the death clip.
+func _test_visuals() -> void:
+	var holder := Node3D.new()
+	holder.position = _player.global_position + Vector3(0.0, 0.0, 60.0)
+	_runner.add_child(holder)
+	var cop := Cop.new()
+	cop.aggro_range = 0.0
+	cop.alerted_range = 0.0
+	var owner := Homeowner.new()
+	owner.position.x = 3.0
+	var crew_member := CrewMember.new()
+	crew_member.position.x = -3.0
+	holder.add_child(cop)
+	holder.add_child(owner)
+	holder.add_child(crew_member)
+	await _frames(5)
+	_check(cop.visual.archetype == &"cop" and not cop.visual.get_node("Bandana").visible and cop.visual.is_armed(), "cops wear the armed SWAT model, no bandana")
+	_check(owner.visual.archetype == &"civilian" and not owner.visual.is_armed(), "unarmed owners wear an unarmed civilian model")
+	_check(crew_member.visual.archetype == &"crew" and crew_member.visual.get_node("Bandana").visible, "crew wear the crew model with the gang bandana")
+	owner.take_damage(1.0, _player)
+	await _frames(2)
+	_check(owner.visual.animation_tree.get(&"parameters/hit/active"), "a shot owner plays the hit reaction")
+	owner.take_damage(1000.0, _player)
+	await _frames(90)
+	_check(owner.visual.is_dead() and owner.visual.head_height() < 0.8, "a killed owner plays the death animation")
+	holder.queue_free()
+	await _frames(2)
+
+
+func _frames(count: int) -> void:
+	for i in count:
+		await _runner.get_tree().physics_frame
 
 
 func _test_heat() -> void:
