@@ -15,10 +15,10 @@ godot --path . res://drivers/cash_van/cash_van_driver.tscn
    - **Cargo:** what's in the van and how much it's worth (about $3,470 in 12 slots).
 
    Press **Enter** to start, and the departure countdown begins. Without intel, everything shows "UNKNOWN", nothing is marked, and the van joins the loop at a random point after a random 8–25 s wait. You have to find it. **[I]** reopens the card. **[F6]** is a debug toggle that switches intel on/off and restarts. You can also launch with `-- --no-intel`.
-1. **Chase.** You start in a getaway car with an assault rifle and an SMG. The van cruises at about 61 km/h, and your car is faster.
-2. **Tires.** Each of the 4 tires (FL/FR/RL/RR) has its own hitbox and 45 hp. Hits on the armoured hull do nothing except raise the alarm. Each flat slows the van to 80%, then 62%, then 45% of its speed, and the van leans toward the flat side. After 4 flats it brakes to a stop.
+1. **Chase.** You start in a getaway car with an assault rifle and an SMG. The van cruises at about 61 km/h, and your car is faster. Every car uses the shared `Vehicle` handling from the carjack driver (`VehicleClass`/`VehicleTuning`, free-look camera, in-vehicle drive-by). The chase car is a **muscle** car, the swap car a **sedan** and the cruisers **muscle**. **[F7]** cycles the chase car's class. A muscle car on full lock above ~100 km/h will roll. If your car ends up on its roof or side for 2 s, it's set back on its wheels.
+2. **Tires.** Each of the 4 tires (FL/FR/RL/RR) has its own hitbox and 45 hp. Hits on the armoured hull do nothing except raise the alarm. The tire hitboxes sit on their own physics layer (6), so bullets hit them but cars don't snag on them. A rocket or grenade going off next to a tire pops it. Each flat slows the van to 80%, then 62%, then 45% of its speed, and the van leans toward the flat side. After 4 flats it brakes to a stop.
 3. **Guards.** When the van stops, 3 armed guards get out (SMG, shotgun and pistol, 90 hp each) and fight.
-4. **Police.** The first shot at the van starts the hit clock, and the guards press a **silent** 20 s panic button. You only find out with 10 s left, unless you brought a lookout. Gunshots near the van also count. Heat is `1 + hit_time / 20 s`. Every police wave sends `heat` pursuit cruisers from behind (up to 6 at once) and `heat - 1` foot cops at a roadblock ahead. A new wave comes every 20 s while you're wanted. Cruisers ram your car, and their officers get out when you're on foot, slow, or have wrecked the cruiser.
+4. **Police.** The first shot at the van starts the hit clock, and the guards press a **silent** 20 s panic button. You only find out with 10 s left, unless you brought a lookout. Gunshots near the van also count. Heat is `1 + hit_time / 20 s`. Every police wave sends `heat` pursuit cruisers from behind (up to 6 at once) and `heat - 1` foot cops at a roadblock ahead. A new wave comes every 20 s while you're wanted. Cruisers only chase what they can see (70 m, clear line of sight). Otherwise they head for the last sighting, and new waves arrive there too, so there's no radar. They ease off their closing speed as they reach you instead of ploughing in. When you're on foot or slowed down within 14 m, they brake to a stop and the officers get out. A burning cruiser's crew bails too.
 5. **Doors.** The rear doors are locked. Go to the van's **front** (cab) and hold **E** for 1.2 s to release them. This only works once the van has stopped.
 6. **Loot.** The cargo is 4 cash sacks ($650, 2 slots each), 3 cash bundles ($250, 1 slot) and a coin bag ($120, 1 slot). That's 12 slots of cargo for an 8-slot bag, so you have to choose what to take. Hold **E** on an item to bag it.
 7. **Escape.** Get more than 50 m from where the police last saw you and stay unseen for 12 s.
@@ -61,7 +61,7 @@ Collision is unchanged: a 0.4 m × 1.8 m capsule. The highway is 26 m wide, per 
 | `intel_briefing.gd` | The pre-hit briefing card and route map. |
 | `van_tire.gd` | A single shootable tire. |
 | `van_guard.gd` | Armed guard (extends `GangMember`). |
-| `pursuit_cruiser.gd` | Police car that chases and rams you, then lets its officers out. |
+| `highway_cruiser.gd` | `HighwayCruiser` (extends carjack's `PursuitCruiser`): chases on sight, pulls over and bails its officers. |
 
 The carry bag, police call/response, escape, stash and HUD come from the shared `scripts/gameplay/hit_common/` package.
 

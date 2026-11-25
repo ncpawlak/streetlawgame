@@ -129,6 +129,11 @@ func _test_tires(driver: CashVanDriver, van: ArmoredVan, player: Player) -> void
 	van.get_tire(&"front_right").pop()
 	await _runner._physics_frames(60)
 	_runner._check(van.flats() == 3 and van.speed < one_flat and not van.is_stopped(), "cash van: each flat slows it more, still rolling on 3 (%.1f m/s)" % van.speed)
+	var car_mask := player.current_vehicle.collision_mask
+	_runner._check(front_left.collision_layer & car_mask == 0 and front_left.collision_layer & 15 == 0, "cash van: tires are bullet hit-boxes cars can't snag on")
+	var rear_left := van.get_tire(&"rear_left")
+	EventBus.explosion.emit(rear_left.global_position, 1.0)
+	_runner._check(rear_left.is_flat() and van.flats() == 4, "cash van: a blast right by a tire pops it")
 	var guards_before := _runner.get_tree().get_nodes_in_group("van_guards").size()
 	_runner._check(guards_before == 0, "cash van: no guards while the van is moving")
 
@@ -202,8 +207,40 @@ func _test_escalation(driver: CashVanDriver, player: Player) -> void:
 	_runner._check(cop.visual != null and cop.visual.get_parent() == cop and cop.get_children().filter(func(c): return c is CharacterVisual).size() == 1, "cash van: cops use the police character model")
 	var cruiser := driver.alive_cruisers()[0]
 	var cops_before := response.cops.size()
-	cruiser.take_damage(cruiser.max_health, player)
-	_runner._check(cruiser.bailed_out and response.cops.size() == cops_before + cruiser.cops_per_car, "cash van: a wrecked cruiser bails its cops into the chase")
+	cruiser.take_damage(cruiser.max_health * 0.8, player)
+	_runner._check(cruiser.is_disabled() and cruiser.bailed_out and response.cops.size() == cops_before + cruiser.cops_per_car, "cash van: a burning cruiser bails its cops into the chase")
+	_runner._check(cruiser is Vehicle and cruiser.vehicle_class != null and cruiser.vehicle_class.id == HighwayCruiser.CLASS_ID and is_equal_approx(cruiser.mass, cruiser.vehicle_class.handling.mass), "cash van: cruisers are real cars on the shared class handling")
+	var chaser := driver.alive_cruisers()[0]
+	var mark: Node3D = player if player.is_on_foot() else player.current_vehicle
+	var home := mark.global_position
+	response.last_seen = chaser.global_position + chaser.global_basis.z * 30.0
+	mark.global_position = chaser.global_position + Vector3(chaser.sight_range + 40.0, 0.0, 0.0)
+	chaser._track_player()
+	_runner._check(chaser.has_target and chaser.target_position.is_equal_approx(response.last_seen), "cash van: a cruiser that can't see you drives to the last sighting, no radar")
+	mark.global_position = chaser.global_position + chaser.global_basis.z * 12.0
+	if mark is RigidBody3D:
+		(mark as RigidBody3D).linear_velocity = Vector3.ZERO
+	chaser.linear_velocity = chaser.global_basis.z * 10.0
+	chaser._track_player()
+	_runner._check(not chaser.bailed_out, "cash van: a fast cruiser pulls over before the crew bail")
+	for i in 240:
+		if chaser.bailed_out:
+			break
+		await _runner._physics_frames(1)
+	_runner._check(chaser.bailed_out and chaser.linear_velocity.length() < chaser.bail_speed + 1.0, "cash van: crew bail once it's stopped (%.1f m/s)" % chaser.linear_velocity.length())
+	mark.global_position = home
+	var sighting: Vector3 = driver.route.global_sample(driver.route.closest_distance(home) + 150.0, 0.0).origin
+	response.last_seen = sighting
+	response.unseen_time = 2.0
+	var count_before := driver.cruisers.size()
+	driver._spawn_cruisers(1)
+	if driver.cruisers.size() > count_before:
+		var fresh: Node3D = driver.cruisers[-1]
+		var along := driver.route.closest_distance(fresh.global_position)
+		var expected := driver.route.closest_distance(sighting) - CashVanDriver.CRUISER_SPAWN_BEHIND
+		_runner._check(absf(along - expected) < 15.0, "cash van: reinforcements roll in on the last sighting while you're unseen (%.0f vs %.0f m)" % [along, expected])
+	else:
+		_runner._check(false, "cash van: reinforcement spawned for last-sighting check")
 	await _runner._physics_frames(2)
 
 
@@ -268,6 +305,8 @@ func _test_heat_and_crew(main: Node) -> void:
 	_runner._check(driver.alive_cruisers().size() == 1 + extra and session.police_response.alive_cops().size() == extra, "cash van heat: the first wave brings the heat's extra cops (%d) and cruisers (%d)" % [session.police_response.alive_cops().size(), driver.alive_cruisers().size()])
 	await _runner._physics_frames(2)
 	_runner._check(player.current_vehicle == driver.getaway_car and is_equal_approx(session.police_response.escape_rate, CrewSlot.DRIVER_ESCAPE), "cash van crew: the driver speeds up the escape in the chase car (x%.1f)" % session.police_response.escape_rate)
+
+	_runner._check(driver.getaway_car.vehicle_class.id == CashVanDriver.chase_car_class and driver.swap_car.vehicle_class.id == CashVanDriver.SWAP_CAR_CLASS and is_equal_approx(driver.getaway_car.max_health, driver.getaway_car.vehicle_class.max_health), "cash van: the chase and swap cars run the shared vehicle class handling")
 
 	# Muscle holds a guard.
 	player.current_vehicle.exit()

@@ -54,7 +54,15 @@ var stash: StashDropoff
 var getaway_car: Vehicle
 ## The clean car by the stash (see [constant SWAP_CAR_POSITION]).
 var swap_car: Vehicle
-var cruisers: Array[PursuitCruiser] = []
+var cruisers: Array[HighwayCruiser] = []
+
+## [VehicleClass] of the player's chase car (F7 cycles it live). Muscle by default: quick enough to
+## run down the van at its 17 m/s cruise. Static so it survives F5/F6 reloads.
+static var chase_car_class: StringName = &"muscle"
+## The plain, forgettable sedan waiting at the swap spot.
+const SWAP_CAR_CLASS := &"sedan"
+## A player car left on its roof or side and stopped this long is set back on its wheels.
+const FLIP_RECOVER_SECONDS := 2.0
 var phase := Phase.BRIEFING
 ## Seconds until the van joins the highway (counts down in the WAIT phase).
 var departs_in := -1.0
@@ -62,6 +70,7 @@ var departs_in := -1.0
 var van_spotted := false
 ## Seconds since the first shot at the van (null-ish -1 until then).
 var hit_time := -1.0
+var _flipped_time := 0.0
 var cash_made := 0
 
 var _status: Label
@@ -195,6 +204,7 @@ func _physics_process(delta: float) -> void:
 	if session != null:
 		session.police_response.spawn_points = _roadblock_points()
 	_prune_cruisers()
+	_recover_flipped_car(delta)
 	if phase == Phase.LOOT and _done_looting():
 		_set_phase(Phase.ESCAPE if session.police_response.is_wanted() or session.police_call.is_active() else Phase.STASH)
 	elif phase == Phase.ESCAPE and not session.police_response.is_wanted() and not session.police_call.is_active():
@@ -213,6 +223,8 @@ func _unhandled_input(event: InputEvent) -> void:
 			CashVanDriver.debug_intel = not has_intel
 			session.reset()
 			get_tree().reload_current_scene()
+		KEY_F7:
+			cycle_chase_car_class()
 		KEY_F9:
 			toggle_crew(CrewSlot.Role.LOOKOUT)
 		KEY_F10:
@@ -253,10 +265,10 @@ func cops_per_wave() -> int:
 	return maxi(0, heat_level() - 1)
 
 
-func alive_cruisers() -> Array[PursuitCruiser]:
-	var result: Array[PursuitCruiser] = []
+func alive_cruisers() -> Array[HighwayCruiser]:
+	var result: Array[HighwayCruiser] = []
 	for cruiser in cruisers:
-		if is_instance_valid(cruiser) and not cruiser.is_wrecked():
+		if is_instance_valid(cruiser) and not cruiser.is_disabled():
 			result.append(cruiser)
 	return result
 
@@ -294,18 +306,23 @@ func _on_escaped() -> void:
 ## Puts [param count] cruisers on the road behind the player (capped at [constant MAX_CRUISERS]).
 func _spawn_cruisers(count: int) -> void:
 	var focus := player.get_focus_position()
+	var response := session.police_response
+	if response != null and response.is_wanted() and response.unseen_time > 0.0:
+		# Reinforcements come in on the last sighting, not on wherever the player really is.
+		focus = response.last_seen
 	var behind := route.closest_distance(focus) - CRUISER_SPAWN_BEHIND
 	for i in count:
 		if alive_cruisers().size() >= MAX_CRUISERS:
 			return
-		var cruiser := PursuitCruiser.new()
+		var cruiser := HighwayCruiser.new()
 		cruiser.name = "Cruiser%d" % cruisers.size()
 		cruiser.response = session.police_response
 		var lane := 3.5 if i % 2 == 0 else -3.5
 		var road := route.global_sample(behind - i * 12.0, lane)
 		cruiser.transform = global_transform.affine_inverse() * road
-		cruiser.speed = 18.0
+		cruiser.position.y += 0.6
 		add_child(cruiser)
+		cruiser.linear_velocity = road.basis.z * 18.0
 		cruisers.append(cruiser)
 
 
@@ -408,9 +425,49 @@ func _refresh_briefing() -> void:
 		briefing.set_extra(briefing_lines())
 
 
+## A rollover at highway speed shouldn't end the hit: once the player's car has stopped on its roof
+## or side for [constant FLIP_RECOVER_SECONDS], it's put back on its wheels where it lies.
+func _recover_flipped_car(delta: float) -> void:
+	var car := player.current_vehicle if player != null else null
+	if car == null or car.is_wrecked() or car.global_basis.y.y > 0.4 or car.linear_velocity.length() > 2.0:
+		_flipped_time = 0.0
+		return
+	_flipped_time += delta
+	if _flipped_time >= FLIP_RECOVER_SECONDS:
+		_flipped_time = 0.0
+		right_car(car)
+
+
+## Sets [param car] upright on the ground where it is, keeping its heading.
+func right_car(car: Vehicle) -> void:
+	var forward := car.global_basis.z
+	forward.y = 0.0
+	if forward.length_squared() < 0.01:
+		forward = Vector3.FORWARD
+	var at := car.global_position
+	at.y = 0.6
+	car.global_transform = Transform3D(Basis.looking_at(-forward.normalized(), Vector3.UP), at)
+	car.linear_velocity = Vector3.ZERO
+	car.angular_velocity = Vector3.ZERO
+	EventBus.notify.emit("Back on four wheels")
+
+
+## Moves the chase car to the next [VehicleClass] and applies its handling live.
+func cycle_chase_car_class() -> StringName:
+	var ids := VehicleClass.ids()
+	chase_car_class = ids[(ids.find(chase_car_class) + 1) % ids.size()]
+	if is_instance_valid(getaway_car):
+		getaway_car.vehicle_class_id = chase_car_class
+		getaway_car.vehicle_class = VehicleClass.find(chase_car_class)
+		getaway_car.vehicle_class.apply_to(getaway_car)
+	EventBus.notify.emit("Chase car: %s" % VehicleClass.find(chase_car_class).display_name)
+	return chase_car_class
+
+
 func _place_swap_car() -> void:
 	swap_car = Vehicle.new()
 	swap_car.name = "SwapCar"
+	swap_car.vehicle_class_id = SWAP_CAR_CLASS
 	swap_car.body_color = Color(0.2, 0.35, 0.6)
 	swap_car.position = SWAP_CAR_POSITION
 	add_child(swap_car)
@@ -419,6 +476,7 @@ func _place_swap_car() -> void:
 func _place_player() -> void:
 	getaway_car = Vehicle.new()
 	getaway_car.name = "ChaseCar"
+	getaway_car.vehicle_class_id = chase_car_class
 	getaway_car.body_color = Color(0.55, 0.08, 0.1)
 	var start := route.global_sample(PLAYER_START_DISTANCE, 3.5)
 	getaway_car.transform = global_transform.affine_inverse() * start

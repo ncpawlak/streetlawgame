@@ -1,9 +1,14 @@
 class_name VanTire
 extends StaticBody3D
-## One tire of the [ArmoredVan]. Its own physics body so hitscan rays, explosions and the like hit
-## each tire individually; it goes flat when its health runs out.
+## One tire of the [ArmoredVan]. Its own physics body so hitscan rays hit each tire individually;
+## it goes flat when its health runs out. It sits on its own hit-box layer ([constant HITBOX_LAYER]),
+## which cars and people don't collide with, so a car rubbing the van slides off the flat hull
+## instead of snagging on a tire. Explosions reach it through [signal EventBus.explosion].
 
 signal popped(tire: VanTire)
+
+## Physics layer 6: hitscan rays (all layers) find it, vehicles (mask 1-4) pass it by.
+const HITBOX_LAYER := 32
 
 @export var max_health := 45.0
 @export var radius := 0.5
@@ -20,9 +25,10 @@ var _material: StandardMaterial3D
 
 func _ready() -> void:
 	add_to_group("van_tires")
-	collision_layer = 8
+	collision_layer = HITBOX_LAYER
 	collision_mask = 0
 	health = max_health
+	EventBus.explosion.connect(_on_explosion)
 	var shape := CollisionShape3D.new()
 	var cylinder := CylinderShape3D.new()
 	# A little bigger than the visual so it's fair to hit from a moving car.
@@ -72,6 +78,14 @@ func take_damage(amount: float, source: Node = null) -> void:
 		_material.emission_enabled = true
 		_material.emission = Color(1.0, 0.6, 0.3)
 		get_tree().create_timer(0.08, false).timeout.connect(func() -> void: _material.emission_enabled = false)
+
+
+## A blast within its radius pops a tire near the middle and chews one at the edge.
+func _on_explosion(at: Vector3, blast_radius: float) -> void:
+	var distance := global_position.distance_to(at)
+	if distance > blast_radius:
+		return
+	take_damage(max_health * 2.0 * (1.0 - distance / blast_radius), null)
 
 
 ## Pops the tire immediately (tests and scripted moments).
