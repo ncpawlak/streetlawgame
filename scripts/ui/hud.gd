@@ -57,6 +57,15 @@ func _ready() -> void:
 	EventBus.notify.connect(_push_notification)
 	_cash_label.text = "$%d" % GameState.cash
 	_respect_label.text = "Respect %d" % GameState.respect
+	Narrative.hud_visibility_changed.connect(_refresh_visibility.unbind(1))
+	EventBus.dialogue_started.connect(_refresh_visibility.unbind(2))
+	EventBus.dialogue_ended.connect(_refresh_visibility.unbind(2))
+	_refresh_visibility()
+
+
+## Cutscenes hide the HUD (Narrative.hide_hud); a conversation keeps it so the DialogueView shows.
+func _refresh_visibility() -> void:
+	visible = Narrative.is_hud_visible() or dialogue_view.is_open()
 
 
 func _process(delta: float) -> void:

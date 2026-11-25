@@ -60,3 +60,15 @@ signal business_acquired(site_id: StringName, reason: StringName)
 signal business_lost(site_id: StringName, reason: StringName)
 signal shop_purchase(site_id: StringName, item_id: StringName, price: int)
 signal clout_changed(district_id: StringName, clout: int, previous: int)
+
+# Narrative: cutscenes, barks, phone, story events (see Narrative autoload).
+## Named story beat, e.g. &"lead_added" {"id": &"shooter_car"}. Fired by StoryEventEffect / EventStep.
+signal story_event(event: StringName, payload: Dictionary)
+signal cutscene_started(cutscene_id: StringName)
+signal cutscene_finished(cutscene_id: StringName, skipped: bool)
+signal bark(speaker: Node, text: String)
+signal phone_ringing(call_id: StringName, contact_id: StringName)
+signal phone_call_started(call_id: StringName, contact_id: StringName)
+## [param outcome]: &"declined", &"missed", &"hung_up" or the dialogue outcome.
+signal phone_call_ended(call_id: StringName, contact_id: StringName, outcome: StringName)
+signal phone_call_missed(call_id: StringName, contact_id: StringName)

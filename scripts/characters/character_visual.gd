@@ -71,6 +71,12 @@ var _aim_weight := 0.0
 var _aim_pitch := 0.0
 var _local_velocity := Vector2.ZERO
 var _dead := false
+# Narrative hooks (cutscenes / phone): scripted full-body clip slots and the phone-to-ear pose.
+var _scripted_clip: StringName = &""
+var _scripted_slot := 0
+var _phone_modifier: PhonePoseModifier
+var _phone_mesh: MeshInstance3D
+var _phone_on := false
 
 
 ## Builds a visual in code (scenes can instead add the node with [member archetype] set).
@@ -106,6 +112,10 @@ func _process(delta: float) -> void:
 	animation_tree.set(&"parameters/aim_upper/blend_amount", _aim_weight)
 	animation_tree.set(&"parameters/armed/blend_amount", (1.0 - _aim_weight) if is_armed() else 0.0)
 	_aim_modifier.pitch = _aim_pitch * _aim_weight
+	if _phone_modifier != null:
+		_phone_modifier.influence = move_toward(_phone_modifier.influence, 1.0 if _phone_on and not _dead else 0.0, delta * 4.0)
+		_phone_modifier.active = _phone_modifier.influence > 0.0
+		_phone_mesh.visible = _phone_modifier.influence > 0.5
 
 
 ## Feeds world-space velocity; the clip blend and playback speed follow it.
@@ -172,6 +182,7 @@ func revive() -> void:
 	_dead = false
 	set_weapon(weapon)
 	animation_tree.set(&"parameters/life/transition_request", "alive")
+	animation_tree.set(&"parameters/scripted/transition_request", "off")
 
 
 func is_dead() -> bool:
@@ -195,6 +206,54 @@ func set_bandana(color: Variant) -> void:
 	_bandana.visible = color != null
 	if color != null:
 		((_bandana.mesh as BoxMesh).material as StandardMaterial3D).albedo_color = color
+
+
+## Plays a full-body clip from the shared library (e.g. &"Wave", &"Interact") over locomotion,
+## cross-fading over [param blend] seconds. Used by cutscenes; [method stop_clip] returns to normal.
+func play_clip(clip_name: StringName, blend := 0.25) -> bool:
+	if animation_tree == null or not _shared_library().has_animation(clip_name):
+		return false
+	_scripted_slot = 2 if _scripted_slot == 1 else 1
+	var slot := &"scripted_a" if _scripted_slot == 1 else &"scripted_b"
+	var root := animation_tree.tree_root as AnimationNodeBlendTree
+	(root.get_node(StringName("%s_clip" % slot)) as AnimationNodeAnimation).animation = clip_name
+	(root.get_node(&"scripted") as AnimationNodeTransition).xfade_time = blend
+	animation_tree.set(&"parameters/scripted/transition_request", String(slot))
+	_scripted_clip = clip_name
+	return true
+
+
+func stop_clip(blend := 0.25) -> void:
+	if animation_tree == null or _scripted_clip == &"":
+		return
+	(animation_tree.tree_root.get_node(&"scripted") as AnimationNodeTransition).xfade_time = blend
+	animation_tree.set(&"parameters/scripted/transition_request", "off")
+	_scripted_clip = &""
+
+
+## The clip started by [method play_clip], or &"" when none.
+func current_clip() -> StringName:
+	return _scripted_clip
+
+
+## Names of every clip [method play_clip] accepts.
+static func clip_names() -> PackedStringArray:
+	return _shared_library().get_animation_list()
+
+
+## Length in seconds of a [method play_clip] clip (0 when unknown).
+static func clip_length(clip_name: StringName) -> float:
+	var library := _shared_library()
+	return library.get_animation(clip_name).length if library.has_animation(clip_name) else 0.0
+
+
+## Phone held to the ear (calls). Blends the arm in/out.
+func set_phone(on: bool) -> void:
+	_phone_on = on
+
+
+func is_on_phone() -> bool:
+	return _phone_on
 
 
 ## World position of the right hand (where weapons are held).
@@ -228,12 +287,20 @@ func _build() -> void:
 	_aim_modifier.name = "AimPitch"
 	_aim_modifier.facing = self
 	skeleton.add_child(_aim_modifier)
+	_phone_modifier = PhonePoseModifier.new()
+	_phone_modifier.name = "PhonePose"
+	_phone_modifier.facing = self
+	_phone_modifier.influence = 0.0
+	_phone_modifier.active = false
+	skeleton.add_child(_phone_modifier)
 	skeleton.skeleton_updated.connect(_on_skeleton_updated)
 
 	_weapon_mesh = _box("Weapon", Vector3(0.06, 0.12, 0.3), Color(0.12, 0.12, 0.13))
 	_weapon_mesh.visible = false
 	_bandana = _box("Bandana", Vector3(0.33, 0.08, 0.34), Color.WHITE)
 	_bandana.visible = false
+	_phone_mesh = _box("Phone", Vector3(0.07, 0.14, 0.015), Color(0.05, 0.05, 0.06))
+	_phone_mesh.visible = false
 	_flash_material = StandardMaterial3D.new()
 	_flash_material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
 	_flash_material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
@@ -270,6 +337,11 @@ func _on_skeleton_updated() -> void:
 		var head := skeleton.global_transform * skeleton.get_bone_global_pose(_head_bone)
 		var basis := head.basis.orthonormalized()
 		_bandana.global_transform = Transform3D(basis, head.origin + basis.y * 0.12 * _shared_scale())
+	if _phone_mesh.visible:
+		var wrist := skeleton.global_transform * skeleton.get_bone_global_pose(_hand_bone)
+		var forward := -global_basis.z.normalized()
+		var phone_basis := Basis.looking_at(global_basis.x.normalized(), Vector3.UP).rotated(global_basis.x.normalized(), 0.2)
+		_phone_mesh.global_transform = Transform3D(phone_basis, wrist.origin + Vector3.UP * 0.06 + forward * 0.02)
 
 
 func _set_overlay(material: Material) -> void:
@@ -327,6 +399,18 @@ func _build_tree() -> void:
 		root.connect_node(layer[0], 1, clip_node)
 		previous = layer[0]
 
+	var scripted := AnimationNodeTransition.new()
+	scripted.xfade_time = 0.25
+	for input_name: String in ["off", "scripted_a", "scripted_b"]:
+		scripted.add_input(input_name)
+	root.add_node(&"scripted", scripted)
+	root.add_node(&"scripted_a_clip", _clip(&"Idle"))
+	root.add_node(&"scripted_b_clip", _clip(&"Idle"))
+	root.connect_node(&"scripted", 0, previous)
+	root.connect_node(&"scripted", 1, &"scripted_a_clip")
+	root.connect_node(&"scripted", 2, &"scripted_b_clip")
+	previous = &"scripted"
+
 	var life := AnimationNodeTransition.new()
 	life.xfade_time = 0.2
 	life.add_input("alive")
@@ -344,6 +428,7 @@ func _build_tree() -> void:
 	_model.add_child(animation_tree)
 	animation_tree.active = true
 	animation_tree.set(&"parameters/life/transition_request", "alive")
+	animation_tree.set(&"parameters/scripted/transition_request", "off")
 
 
 func _clip(clip_name: StringName) -> AnimationNodeAnimation:

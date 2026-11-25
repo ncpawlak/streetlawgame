@@ -124,6 +124,11 @@ func _physics_process(delta: float) -> void:
 		brake = 2.0
 		steering = move_toward(steering, 0.0, steer_speed * delta)
 		return
+	if Narrative.is_input_locked():
+		engine_force = 0.0
+		brake = max_brake_force
+		steering = move_toward(steering, 0.0, steer_speed * delta)
+		return
 
 	var throttle := Input.get_axis("move_back", "move_forward")
 	var forward_speed := linear_velocity.dot(global_basis.z)

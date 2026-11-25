@@ -31,6 +31,9 @@ func validate() -> PackedStringArray:
 	for node in nodes:
 		if node == null:
 			continue
+		for link in [node.next, node.else_next]:
+			if link != &"" and not node_ids.has(link):
+				issues.append("node '%s' links to missing node '%s'" % [node.id, link])
 		for choice in node.choices:
 			if choice == null:
 				issues.append("node '%s' has an empty choice" % node.id)

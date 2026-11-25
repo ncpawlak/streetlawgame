@@ -47,6 +47,37 @@ You start with fists and a pistol. There's a stash of guns (SMG, shotgun, rifle)
 
 Vehicles take damage from bullets, explosions and crashes: they smoke, then catch fire, then explode. Rivals will shoot at your car while you're driving.
 
+## Cutscenes, dialogue & phone
+
+Reusable narrative systems (no mission content) live in `scripts/framework/narrative/`, and the `Narrative` autoload is the hub for them.
+
+- **Cutscenes** (`CutsceneDef` resources in `data/cutscenes/`) are run by `Narrative.play_cutscene(def_or_id, stage, bindings)`. A cutscene is a list of steps. Each step can block, or set `wait = false` to overlap the next one. `ParallelStep` groups steps. Step types:
+  - **Camera:** cut, blend, dolly or orbit between `Marker3D`s, and look-at.
+  - **Letterbox** and **Fade**.
+  - **Actor:** place, move-to, face and play-animation on a `CharacterVisual`.
+  - **Line:** a subtitle with a speaker and duration.
+  - **Dialogue:** a timed `DialogueDef`, with choices.
+  - **Event:** emits an EventBus/story event.
+  - **Wait** and **Parallel**.
+
+  While a cutscene plays, player input is locked and the HUD is hidden. Hold Space or Enter to skip. Skipping fast-forwards every remaining step's end state and runs `on_skip` effects, so the world always ends in the authored state. The director emits `started`, `skipped` and `finished(id, skipped)`.
+- **Dialogue** (`scripts/framework/dialogue/`) adds the following to nodes:
+  - `speaker_name`; `player` lines show as "You".
+  - Linear `next`.
+  - `conditions` with an `else_next` redirect, and `on_enter` effects.
+  - New effects: `StoryEventEffect`, `AddFlagEffect`, `PlayCutsceneEffect`, `PhoneCallEffect` and `BarkEffect`.
+  - A new condition, `FlagAtLeastCondition`.
+- **Talking to NPCs:** add a `TalkTarget` to an NPC (interact prompt, camera framing on the speaker, then the runner). Code can also call `Narrative.talk(npc, def)`. It works in and out of cutscenes.
+- **Barks:** use a `Barker` node (proximity, with a cooldown) or `Narrative.bark(node, text)` for floating one-liners.
+- **Phone:** `ContactDef` resources live in `data/contacts/` and `PhoneCallDef` resources in `data/phone_calls/`.
+  - `Narrative.phone.schedule_call(id, delay)` rings the phone with the caller name and a phone-in-hand pose.
+  - Y answers and N declines.
+  - An answered call plays its dialogue as subtitles while you keep control.
+  - Declined or unanswered calls become missed calls.
+  - P opens the contacts list, where you can call people back.
+  - Calls wait while a cutscene or talk is playing.
+- **Showcase:** `scenes/showcase/narrative_showcase.tscn` plays a hospital wake-up cutscene and has a talkable witness, a barking thug, and a call that rings 6 s later. C replays the cutscene and K rings the phone now. Add `-- --capture <dir>` to save a screenshot tour.
+- **Sample data:** regenerate the sample `.tres` files with `godot --headless --path . res://tools/build_narrative_samples.tscn`.
 ## Tests
 
 ```sh

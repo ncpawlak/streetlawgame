@@ -41,9 +41,41 @@ func text() -> String:
 func speaker_name() -> String:
 	if _node == null:
 		return ""
-	if _node.speaker == &"player":
+	return speaker_label(_node)
+
+
+## Display name for a node's speaker: [member DialogueNode.speaker_name], then ctx.vars["speakers"]
+## (Node label or String), then "You" / the occupant or target.
+func speaker_label(node: DialogueNode) -> String:
+	if node.speaker_name != "":
+		return ctx.format(node.speaker_name)
+	var speakers: Dictionary = ctx.vars.get("speakers", {})
+	var entry: Variant = speakers.get(node.speaker)
+	if entry != null and not entry is Node:
+		return str(entry)
+	if node.speaker == &"player":
 		return "You"
-	return ActionContext._label_of(ctx.occupant if ctx.occupant != null else ctx.target)
+	if entry is Node:
+		return ActionContext._label_of(entry)
+	if node.speaker == &"npc":
+		return ActionContext._label_of(ctx.occupant if ctx.occupant != null else ctx.target)
+	return String(node.speaker).capitalize()
+
+
+## The Node saying the current line, when known (for camera framing and barks).
+func speaker_node() -> Node:
+	if _node == null:
+		return null
+	var speakers: Dictionary = ctx.vars.get("speakers", {})
+	var entry: Variant = speakers.get(_node.speaker)
+	if entry is Node:
+		return entry
+	match _node.speaker:
+		&"player":
+			return ctx.actor
+		&"npc":
+			return ctx.occupant if ctx.occupant != null else ctx.target
+	return null
 
 
 func choices() -> Array[DialogueChoice]:
@@ -79,6 +111,20 @@ func choose(index: int) -> bool:
 	return passed
 
 
+## Moves past a node without visible choices: to its [member DialogueNode.next], or ends.
+## Returns false when the current node has choices to pick instead.
+func advance() -> bool:
+	if _node == null or not choices().is_empty():
+		return false
+	_enter(_node.next)
+	return true
+
+
+## True when the current node offers no choices but continues to another node.
+func can_continue() -> bool:
+	return _node != null and choices().is_empty() and _node.next != &""
+
+
 ## Leaves the conversation (e.g. a node with no choices, or the player walks off).
 func end() -> void:
 	if def == null:
@@ -92,7 +138,12 @@ func end() -> void:
 
 func _enter(node_id: StringName) -> void:
 	var node := def.find_node(node_id) if node_id != &"" else null
-	if node == null:
+	# Gated nodes redirect to else_next; the hop limit guards against authored loops.
+	var hops := 0
+	while node != null and not Condition.all_met(node.conditions, ctx) and hops < 32:
+		node = def.find_node(node.else_next) if node.else_next != &"" else null
+		hops += 1
+	if node == null or hops >= 32:
 		end()
 		return
 	_node = node

@@ -23,6 +23,10 @@ const KEY_BINDINGS := {
 	"weapon_8": [KEY_8],
 	"weapon_9": [KEY_9],
 	"detonate": [KEY_G],
+	"skip_cutscene": [KEY_SPACE, KEY_ENTER],
+	"phone_answer": [KEY_Y],
+	"phone_decline": [KEY_N],
+	"phone": [KEY_P],
 }
 
 const MOUSE_BINDINGS := {

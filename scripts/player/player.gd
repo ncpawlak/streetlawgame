@@ -106,23 +106,25 @@ func _on_explosion(at: Vector3, radius: float) -> void:
 func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity.y -= _gravity * delta
-	elif Input.is_action_just_pressed("jump"):
+	elif Input.is_action_just_pressed("jump") and not Narrative.is_input_locked():
 		velocity.y = jump_velocity
 
-	var input := Input.get_vector("move_left", "move_right", "move_forward", "move_back")
+	# Cutscenes / conversations lock control (Narrative.lock_input).
+	var locked := Narrative.is_input_locked()
+	var input := Vector2.ZERO if locked else Input.get_vector("move_left", "move_right", "move_forward", "move_back")
 	var direction := Basis(Vector3.UP, _camera_pivot.rotation.y) * Vector3(input.x, 0.0, input.y)
 	var speed := sprint_speed if Input.is_action_pressed("sprint") else walk_speed
 	var blend := clampf(acceleration * delta, 0.0, 1.0)
 	velocity.x = lerpf(velocity.x, direction.x * speed, blend)
 	velocity.z = lerpf(velocity.z, direction.z * speed, blend)
 
-	var aiming := Input.is_action_pressed("aim") or Input.is_action_pressed("shoot")
+	var aiming := not locked and (Input.is_action_pressed("aim") or Input.is_action_pressed("shoot"))
 	if aiming:
 		rotation.y = lerp_angle(rotation.y, _camera_pivot.rotation.y, clampf(20.0 * delta, 0.0, 1.0))
 	elif direction.length_squared() > 0.01:
 		rotation.y = lerp_angle(rotation.y, atan2(-direction.x, -direction.z), clampf(10.0 * delta, 0.0, 1.0))
 
-	if wants_to_fire():
+	if not locked and wants_to_fire():
 		shoot()
 
 	move_and_slide()

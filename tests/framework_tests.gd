@@ -25,6 +25,7 @@ func run(main: Node, player: Player) -> void:
 	await _test_vehicle_entry_via_interactor(player)
 	await LocationTests.new(self).run(main, player)
 	await DialogueTests.new(self).run(main, player)
+	await NarrativeTests.new(self).run(main, player)
 
 
 func check(condition: bool, description: String) -> void:

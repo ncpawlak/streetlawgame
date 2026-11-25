@@ -1,0 +1,130 @@
+[gd_resource type="Resource" script_class="DialogueDef" format=3]
+
+[ext_resource type="Script" path="res://scripts/framework/dialogue/dialogue_node.gd" id="1_w3k2v"]
+[ext_resource type="Script" path="res://scripts/framework/dialogue/dialogue_choice.gd" id="2_1elhj"]
+[ext_resource type="Script" path="res://scripts/framework/core/condition.gd" id="3_xkxcs"]
+[ext_resource type="Script" path="res://scripts/framework/core/conditions/flag_condition.gd" id="4_0r3fq"]
+[ext_resource type="Script" path="res://scripts/framework/core/cost.gd" id="5_fwkid"]
+[ext_resource type="Script" path="res://scripts/framework/core/effect.gd" id="6_1noqq"]
+[ext_resource type="Script" path="res://scripts/framework/narrative/effects/story_event_effect.gd" id="7_morf5"]
+[ext_resource type="Script" path="res://scripts/framework/narrative/effects/add_flag_effect.gd" id="8_qmyek"]
+[ext_resource type="Script" path="res://scripts/framework/dialogue/checks/persuade_check.gd" id="9_1mvvf"]
+[ext_resource type="Script" path="res://scripts/framework/core/effects/set_flag_effect.gd" id="10_mokk6"]
+[ext_resource type="Script" path="res://scripts/framework/narrative/conditions/flag_at_least_condition.gd" id="11_f1x2d"]
+[ext_resource type="Script" path="res://scripts/framework/dialogue/dialogue_def.gd" id="12_sdxcg"]
+
+[sub_resource type="Resource" id="Resource_7vus8"]
+script = ExtResource("4_0r3fq")
+flag = &"sample_car_lead"
+value = false
+
+[sub_resource type="Resource" id="Resource_7rdhj"]
+script = ExtResource("7_morf5")
+event = &"lead_added"
+payload = {
+"id": &"sample_car"
+}
+
+[sub_resource type="Resource" id="Resource_7gm17"]
+script = ExtResource("8_qmyek")
+flag = &"sample_leads"
+
+[sub_resource type="Resource" id="Resource_1o1ko"]
+script = ExtResource("2_1elhj")
+text = "What kind of car was it?"
+conditions = Array[ExtResource("3_xkxcs")]([SubResource("Resource_7vus8")])
+effects = Array[ExtResource("6_1noqq")]([SubResource("Resource_7rdhj"), SubResource("Resource_7gm17")])
+next = &"car"
+hide_when_unavailable = true
+
+[sub_resource type="Resource" id="Resource_ghhwr"]
+script = ExtResource("9_1mvvf")
+
+[sub_resource type="Resource" id="Resource_1mbhe"]
+script = ExtResource("2_1elhj")
+text = "[Persuade] You saw the shooter too, didn't you?"
+check = SubResource("Resource_ghhwr")
+next = &"shooter"
+fail_next = &"clam_up"
+
+[sub_resource type="Resource" id="Resource_3prak"]
+script = ExtResource("2_1elhj")
+text = "Forget it."
+next = &"bye"
+
+[sub_resource type="Resource" id="Resource_a1x83"]
+script = ExtResource("1_w3k2v")
+speaker_name = "Witness"
+text = "You're the one they shot outside Grove General? I saw the whole thing."
+choices = Array[ExtResource("2_1elhj")]([SubResource("Resource_1o1ko"), SubResource("Resource_1mbhe"), SubResource("Resource_3prak")])
+
+[sub_resource type="Resource" id="Resource_7oxyo"]
+script = ExtResource("10_mokk6")
+flag = &"sample_car_lead"
+
+[sub_resource type="Resource" id="Resource_gt1nh"]
+script = ExtResource("1_w3k2v")
+id = &"car"
+speaker_name = "Witness"
+text = "Green lowrider, gold rims. Took off toward the docks."
+on_enter = Array[ExtResource("6_1noqq")]([SubResource("Resource_7oxyo")])
+next = &"car_ack"
+
+[sub_resource type="Resource" id="Resource_ovnjf"]
+script = ExtResource("1_w3k2v")
+id = &"car_ack"
+speaker = &"player"
+text = "Green lowrider. Got it."
+next = &"start"
+
+[sub_resource type="Resource" id="Resource_m3yqg"]
+script = ExtResource("11_f1x2d")
+flag = &"sample_leads"
+
+[sub_resource type="Resource" id="Resource_y638q"]
+script = ExtResource("7_morf5")
+event = &"lead_added"
+payload = {
+"id": &"sample_tattoo"
+}
+
+[sub_resource type="Resource" id="Resource_3n3qr"]
+script = ExtResource("8_qmyek")
+flag = &"sample_leads"
+
+[sub_resource type="Resource" id="Resource_smsdf"]
+script = ExtResource("1_w3k2v")
+id = &"shooter"
+speaker_name = "Witness"
+text = "Same crew as that lowrider. Neck tattoo, a crown. That's all I got."
+on_enter = Array[ExtResource("6_1noqq")]([SubResource("Resource_y638q"), SubResource("Resource_3n3qr")])
+outcome = &"told"
+conditions = Array[ExtResource("3_xkxcs")]([SubResource("Resource_m3yqg")])
+else_next = &"shooter_blank"
+
+[sub_resource type="Resource" id="Resource_e8a25"]
+script = ExtResource("1_w3k2v")
+id = &"shooter_blank"
+speaker_name = "Witness"
+text = "Didn't get a look at his face. Ask me about the car."
+next = &"start"
+
+[sub_resource type="Resource" id="Resource_j053m"]
+script = ExtResource("1_w3k2v")
+id = &"clam_up"
+speaker_name = "Witness"
+text = "I didn't see nothing. Leave me alone."
+outcome = &"refused"
+
+[sub_resource type="Resource" id="Resource_rpo2h"]
+script = ExtResource("1_w3k2v")
+id = &"bye"
+speaker_name = "Witness"
+text = "Watch your back out there."
+outcome = &"left"
+
+[resource]
+script = ExtResource("12_sdxcg")
+nodes = Array[ExtResource("1_w3k2v")]([SubResource("Resource_a1x83"), SubResource("Resource_gt1nh"), SubResource("Resource_ovnjf"), SubResource("Resource_smsdf"), SubResource("Resource_e8a25"), SubResource("Resource_j053m"), SubResource("Resource_rpo2h")])
+id = &"sample_witness"
+display_name = "Witness (sample)"

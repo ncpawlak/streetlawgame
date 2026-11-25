@@ -1,0 +1,69 @@
+[gd_resource type="Resource" script_class="DialogueDef" format=3]
+
+[ext_resource type="Script" path="res://scripts/framework/dialogue/dialogue_node.gd" id="1_xx5lw"]
+[ext_resource type="Script" path="res://scripts/framework/dialogue/dialogue_choice.gd" id="2_n7fhd"]
+[ext_resource type="Script" path="res://scripts/framework/core/condition.gd" id="3_sd5tc"]
+[ext_resource type="Script" path="res://scripts/framework/core/effect.gd" id="4_xtm3r"]
+[ext_resource type="Script" path="res://scripts/framework/core/cost.gd" id="5_piujd"]
+[ext_resource type="Script" path="res://scripts/framework/narrative/effects/story_event_effect.gd" id="6_cjgqj"]
+[ext_resource type="Script" path="res://scripts/framework/core/effects/set_flag_effect.gd" id="7_715l3"]
+[ext_resource type="Script" path="res://scripts/framework/dialogue/dialogue_def.gd" id="8_aitd1"]
+
+[sub_resource type="Resource" id="Resource_qxbpe"]
+script = ExtResource("1_xx5lw")
+speaker = &"caller"
+speaker_name = "Mister Lou"
+text = "Heard you got shot. Heard you got up, too. I like that."
+next = &"b"
+
+[sub_resource type="Resource" id="Resource_b64n2"]
+script = ExtResource("6_cjgqj")
+event = &"job_offered"
+payload = {
+"job": &"sample_car_list"
+}
+
+[sub_resource type="Resource" id="Resource_yovps"]
+script = ExtResource("7_715l3")
+flag = &"sample_lou_job"
+
+[sub_resource type="Resource" id="Resource_6ad0u"]
+script = ExtResource("2_n7fhd")
+text = "I'm in."
+effects = Array[ExtResource("4_xtm3r")]([SubResource("Resource_b64n2"), SubResource("Resource_yovps")])
+next = &"yes"
+
+[sub_resource type="Resource" id="Resource_ugaao"]
+script = ExtResource("2_n7fhd")
+text = "Not now, Lou."
+next = &"no"
+
+[sub_resource type="Resource" id="Resource_0jjc3"]
+script = ExtResource("1_xx5lw")
+id = &"b"
+speaker = &"caller"
+speaker_name = "Mister Lou"
+text = "I got a list of cars that need new owners. You want work?"
+choices = Array[ExtResource("2_n7fhd")]([SubResource("Resource_6ad0u"), SubResource("Resource_ugaao")])
+
+[sub_resource type="Resource" id="Resource_dv4ak"]
+script = ExtResource("1_xx5lw")
+id = &"yes"
+speaker = &"caller"
+speaker_name = "Mister Lou"
+text = "Good. I'll text you the list."
+outcome = &"accepted"
+
+[sub_resource type="Resource" id="Resource_acpvk"]
+script = ExtResource("1_xx5lw")
+id = &"no"
+speaker = &"caller"
+speaker_name = "Mister Lou"
+text = "Your loss. You know my number."
+outcome = &"declined"
+
+[resource]
+script = ExtResource("8_aitd1")
+nodes = Array[ExtResource("1_xx5lw")]([SubResource("Resource_qxbpe"), SubResource("Resource_0jjc3"), SubResource("Resource_dv4ak"), SubResource("Resource_acpvk")])
+id = &"sample_lou_call"
+display_name = "Lou: car list (sample)"

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ContactDef" format=3]
+
+[ext_resource type="Script" path="res://scripts/framework/core/condition.gd" id="1_2qguh"]
+[ext_resource type="Script" path="res://scripts/framework/narrative/phone/contact_def.gd" id="2_04y5m"]
+
+[resource]
+script = ExtResource("2_04y5m")
+color = Color(0.95, 0.75, 0.3, 1)
+call_dialogue_id = &"sample_lou_chat"
+id = &"sample_lou"
+display_name = "Mister Lou"

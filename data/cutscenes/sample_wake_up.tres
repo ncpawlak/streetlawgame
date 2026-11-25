@@ -1,0 +1,131 @@
+[gd_resource type="Resource" script_class="CutsceneDef" format=3]
+
+[ext_resource type="Script" path="res://scripts/framework/core/effect.gd" id="1_vsvwr"]
+[ext_resource type="Script" path="res://scripts/framework/narrative/cutscene/cutscene_def.gd" id="2_sxp1l"]
+[ext_resource type="Script" path="res://scripts/framework/narrative/cutscene/cutscene_step.gd" id="3_jdk7h"]
+[ext_resource type="Script" path="res://scripts/framework/narrative/cutscene/steps/fade_step.gd" id="4_lgkrn"]
+[ext_resource type="Script" path="res://scripts/framework/narrative/cutscene/steps/letterbox_step.gd" id="5_a7rlg"]
+[ext_resource type="Script" path="res://scripts/framework/narrative/cutscene/steps/actor_place_step.gd" id="6_enbvn"]
+[ext_resource type="Script" path="res://scripts/framework/narrative/cutscene/steps/camera_step.gd" id="7_6283s"]
+[ext_resource type="Script" path="res://scripts/framework/narrative/cutscene/steps/parallel_step.gd" id="8_lu7be"]
+[ext_resource type="Script" path="res://scripts/framework/narrative/cutscene/steps/line_step.gd" id="9_i73kd"]
+[ext_resource type="Script" path="res://scripts/framework/narrative/cutscene/steps/actor_move_step.gd" id="10_j18ml"]
+[ext_resource type="Script" path="res://scripts/framework/narrative/cutscene/steps/actor_face_step.gd" id="11_d2o4o"]
+[ext_resource type="Script" path="res://scripts/framework/narrative/cutscene/steps/dialogue_step.gd" id="12_frppi"]
+[ext_resource type="Script" path="res://scripts/framework/narrative/cutscene/steps/actor_anim_step.gd" id="13_01mcj"]
+[ext_resource type="Script" path="res://scripts/framework/core/effects/set_flag_effect.gd" id="14_da012"]
+[ext_resource type="Script" path="res://scripts/framework/narrative/cutscene/steps/event_step.gd" id="15_hytqr"]
+
+[sub_resource type="Resource" id="Resource_f5e1i"]
+script = ExtResource("4_lgkrn")
+duration = 0.0
+
+[sub_resource type="Resource" id="Resource_44rga"]
+script = ExtResource("5_a7rlg")
+duration = 0.0
+
+[sub_resource type="Resource" id="Resource_sb3wb"]
+script = ExtResource("6_enbvn")
+marker = &"Bed"
+pose_visual = true
+visual_offset = Vector3(0, 0.55, 0)
+visual_rotation_degrees = Vector3(-90, 0, 0)
+
+[sub_resource type="Resource" id="Resource_3omu0"]
+script = ExtResource("6_enbvn")
+actor = &"Nurse"
+marker = &"NurseStart"
+
+[sub_resource type="Resource" id="Resource_75fmw"]
+script = ExtResource("7_6283s")
+marker = &"CamClose"
+look_at = &"player"
+
+[sub_resource type="Resource" id="Resource_ka8bk"]
+script = ExtResource("4_lgkrn")
+to = 0.0
+duration = 2.0
+
+[sub_resource type="Resource" id="Resource_sq6ga"]
+script = ExtResource("9_i73kd")
+speaker = &"player"
+text = "...where... am I?"
+duration = 2.5
+
+[sub_resource type="Resource" id="Resource_vdatu"]
+script = ExtResource("8_lu7be")
+steps = Array[ExtResource("3_jdk7h")]([SubResource("Resource_ka8bk"), SubResource("Resource_sq6ga")])
+
+[sub_resource type="Resource" id="Resource_77fil"]
+script = ExtResource("10_j18ml")
+actor = &"Nurse"
+marker = &"NurseMark"
+
+[sub_resource type="Resource" id="Resource_4120o"]
+script = ExtResource("7_6283s")
+mode = 2
+marker = &"CamWide"
+from_marker = &"CamClose"
+look_at = &"Nurse"
+duration = 2.5
+
+[sub_resource type="Resource" id="Resource_cydkr"]
+script = ExtResource("8_lu7be")
+steps = Array[ExtResource("3_jdk7h")]([SubResource("Resource_77fil"), SubResource("Resource_4120o")])
+
+[sub_resource type="Resource" id="Resource_afk4t"]
+script = ExtResource("11_d2o4o")
+actor = &"Nurse"
+toward = &"player"
+
+[sub_resource type="Resource" id="Resource_36kj3"]
+script = ExtResource("7_6283s")
+mode = 3
+look_at = &"player"
+duration = 3.0
+orbit_radius = 3.2
+orbit_height = 2.2
+orbit_from_degrees = 200.0
+orbit_to_degrees = 250.0
+
+[sub_resource type="Resource" id="Resource_ormik"]
+script = ExtResource("12_frppi")
+dialogue_id = &"sample_wake_up_talk"
+speakers = {
+&"nurse": &"Nurse",
+&"player": &"player"
+}
+choice_timeout = 6.0
+
+[sub_resource type="Resource" id="Resource_gduih"]
+script = ExtResource("13_01mcj")
+actor = &"Nurse"
+clip = &"Interact"
+wait = false
+
+[sub_resource type="Resource" id="Resource_dnlw1"]
+script = ExtResource("8_lu7be")
+steps = Array[ExtResource("3_jdk7h")]([SubResource("Resource_ormik"), SubResource("Resource_gduih")])
+
+[sub_resource type="Resource" id="Resource_nu4l6"]
+script = ExtResource("14_da012")
+flag = &"sample_woke_up"
+
+[sub_resource type="Resource" id="Resource_rl6h0"]
+script = ExtResource("15_hytqr")
+event = &"woke_up"
+effects = Array[ExtResource("1_vsvwr")]([SubResource("Resource_nu4l6")])
+
+[sub_resource type="Resource" id="Resource_1d05d"]
+script = ExtResource("4_lgkrn")
+duration = 0.8
+
+[sub_resource type="Resource" id="Resource_o2ra7"]
+script = ExtResource("6_enbvn")
+marker = &"BedSide"
+
+[resource]
+script = ExtResource("2_sxp1l")
+steps = Array[ExtResource("3_jdk7h")]([SubResource("Resource_f5e1i"), SubResource("Resource_44rga"), SubResource("Resource_sb3wb"), SubResource("Resource_3omu0"), SubResource("Resource_75fmw"), SubResource("Resource_vdatu"), SubResource("Resource_cydkr"), SubResource("Resource_afk4t"), SubResource("Resource_36kj3"), SubResource("Resource_dnlw1"), SubResource("Resource_rl6h0"), SubResource("Resource_1d05d"), SubResource("Resource_o2ra7")])
+id = &"sample_wake_up"
+display_name = "Wake up (sample)"

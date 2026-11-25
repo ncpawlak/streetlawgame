@@ -7,6 +7,7 @@ var runner := DialogueRunner.new()
 var selected := 0
 
 var _was_paused := false
+var _paused_world := true
 var _speaker: Label
 var _text: Label
 var _list: VBoxContainer
@@ -42,20 +43,35 @@ func _ready() -> void:
 	runner.node_entered.connect(_on_node_entered)
 	runner.ended.connect(_on_ended)
 	EventBus.dialogue_requested.connect(_on_dialogue_requested)
+	Narrative.dialogue_view = self
+
+
+func _exit_tree() -> void:
+	if Narrative.dialogue_view == self:
+		Narrative.dialogue_view = null
 
 
 func is_open() -> bool:
 	return runner.is_active()
 
 
-func open(dialogue: DialogueDef, ctx: ActionContext) -> bool:
+## Opens a conversation. [param pause] freezes the world (default); ctx.vars["dialogue_pause"] = false
+## overrides it so the world keeps running (player input is then locked via Narrative instead).
+func open(dialogue: DialogueDef, ctx: ActionContext, pause := true) -> bool:
 	if is_open():
 		return false
 	_was_paused = get_tree().paused
+	_paused_world = bool(ctx.vars.get("dialogue_pause", pause)) if ctx != null else pause
 	if not runner.start(dialogue, ctx):
 		return false
-	get_tree().paused = true
+	if not is_open():
+		return true
+	if _paused_world:
+		get_tree().paused = true
+	else:
+		Narrative.lock_input(&"dialogue_view")
 	visible = true
+	_redraw()
 	return true
 
 
@@ -64,7 +80,8 @@ func pick(index: int) -> bool:
 	if not is_open():
 		return false
 	if _choices.is_empty():
-		runner.end()
+		if not runner.advance():
+			runner.end()
 		return true
 	var passed := runner.choose(index)
 	if is_open():
@@ -82,15 +99,20 @@ func _on_dialogue_requested(dialogue: DialogueDef, ctx: ActionContext) -> void:
 	open.call_deferred(dialogue, ctx)
 
 
-func _on_node_entered(_node: DialogueNode) -> void:
+func _on_node_entered(node: DialogueNode) -> void:
 	selected = 0
+	if node.voice != null:
+		Narrative.play_voice(node.voice)
 	_redraw()
 
 
 func _on_ended(_dialogue_id: StringName, _outcome: StringName) -> void:
 	visible = false
 	_choices.clear()
-	get_tree().paused = _was_paused
+	if _paused_world:
+		get_tree().paused = _was_paused
+	else:
+		Narrative.unlock_input(&"dialogue_view")
 
 
 func _input(event: InputEvent) -> void:
@@ -131,7 +153,7 @@ func _redraw() -> void:
 		rows.append(choice.make_label(runner.ctx) + ("  - " + reason if reason != "" else ""))
 		dims.append(reason != "")
 	if rows.is_empty():
-		rows.append("Leave")
+		rows.append("Continue" if runner.can_continue() else "Leave")
 		dims.append(false)
 	while _list.get_child_count() < rows.size():
 		_list.add_child(_make_label(18))

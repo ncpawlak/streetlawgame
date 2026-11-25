@@ -1,0 +1,62 @@
+[gd_resource type="Resource" script_class="DialogueDef" format=3]
+
+[ext_resource type="Script" path="res://scripts/framework/dialogue/dialogue_node.gd" id="1_5nxen"]
+[ext_resource type="Script" path="res://scripts/framework/dialogue/dialogue_choice.gd" id="2_462wy"]
+[ext_resource type="Script" path="res://scripts/framework/core/condition.gd" id="3_yt8cf"]
+[ext_resource type="Script" path="res://scripts/framework/core/effect.gd" id="4_qtc4j"]
+[ext_resource type="Script" path="res://scripts/framework/core/cost.gd" id="5_861i1"]
+[ext_resource type="Script" path="res://scripts/framework/dialogue/dialogue_def.gd" id="6_icl7y"]
+
+[sub_resource type="Resource" id="Resource_hfwef"]
+script = ExtResource("1_5nxen")
+speaker = &"nurse"
+speaker_name = "Nurse"
+text = "Easy, easy. You took two in the shoulder. You're lucky."
+next = &"b"
+
+[sub_resource type="Resource" id="Resource_jhmet"]
+script = ExtResource("1_5nxen")
+id = &"b"
+speaker = &"player"
+text = "Lucky... Who did this?"
+next = &"c"
+
+[sub_resource type="Resource" id="Resource_px061"]
+script = ExtResource("2_462wy")
+text = "Send him in."
+next = &"in"
+
+[sub_resource type="Resource" id="Resource_lw2ka"]
+script = ExtResource("2_462wy")
+text = "I don't talk to cops."
+next = &"out"
+
+[sub_resource type="Resource" id="Resource_5rsld"]
+script = ExtResource("1_5nxen")
+id = &"c"
+speaker = &"nurse"
+speaker_name = "Nurse"
+text = "There's an officer outside asking the same thing."
+choices = Array[ExtResource("2_462wy")]([SubResource("Resource_px061"), SubResource("Resource_lw2ka")])
+
+[sub_resource type="Resource" id="Resource_1crkg"]
+script = ExtResource("1_5nxen")
+id = &"in"
+speaker = &"nurse"
+speaker_name = "Nurse"
+text = "I'll get him."
+outcome = &"cooperate"
+
+[sub_resource type="Resource" id="Resource_lniww"]
+script = ExtResource("1_5nxen")
+id = &"out"
+speaker = &"nurse"
+speaker_name = "Nurse"
+text = "Suit yourself. He's not leaving."
+outcome = &"refuse"
+
+[resource]
+script = ExtResource("6_icl7y")
+nodes = Array[ExtResource("1_5nxen")]([SubResource("Resource_hfwef"), SubResource("Resource_jhmet"), SubResource("Resource_5rsld"), SubResource("Resource_1crkg"), SubResource("Resource_lniww")])
+id = &"sample_wake_up_talk"
+display_name = "Wake-up talk (sample)"

@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="DialogueDef" format=3]
+
+[ext_resource type="Script" path="res://scripts/framework/dialogue/dialogue_node.gd" id="1_e32p6"]
+[ext_resource type="Script" path="res://scripts/framework/dialogue/dialogue_choice.gd" id="2_bb6al"]
+[ext_resource type="Script" path="res://scripts/framework/core/condition.gd" id="3_rfjy4"]
+[ext_resource type="Script" path="res://scripts/framework/core/effect.gd" id="4_7sg1f"]
+[ext_resource type="Script" path="res://scripts/framework/dialogue/dialogue_def.gd" id="5_u6cr2"]
+
+[sub_resource type="Resource" id="Resource_qmd3s"]
+script = ExtResource("1_e32p6")
+speaker = &"caller"
+speaker_name = "Mister Lou"
+text = "You got my list. Quit calling and go to work."
+
+[resource]
+script = ExtResource("5_u6cr2")
+nodes = Array[ExtResource("1_e32p6")]([SubResource("Resource_qmd3s")])
+id = &"sample_lou_chat"
+display_name = "Lou: small talk (sample)"
