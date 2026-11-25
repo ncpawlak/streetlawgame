@@ -20,6 +20,8 @@ func run(main: Node, player: Player) -> void:
 	_test_crouch(player)
 	await _test_stamina(player)
 	await _test_aim_camera(player)
+	await _test_strafe_hipfire(player)
+	await _test_jump_pose(player)
 	await _test_holster_and_reload(player)
 	await _test_climbing(player)
 	await _test_melee(player)
@@ -90,6 +92,70 @@ func _test_aim_camera(player: Player) -> void:
 	await _frames(2)
 	_check(camera.h_offset != 0.0 or camera.v_offset != 0.0, "camera shake offsets the view")
 	arm.rotation.x = pitch
+
+
+func _test_strafe_hipfire(player: Player) -> void:
+	_place(player, Vector3(-20.0, 0.0, 20.0))
+	_equip(player, &"pistol")
+	await _frames(int(Player.RAISED_LINGER * 60.0) + 10)
+	var camera := player.get_node("CameraPivot/SpringArm/Camera") as Camera3D
+	var slot := player.weapons.current()
+	var before := slot.magazine
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	Input.action_press(&"shoot")
+	Input.action_press(&"move_right")
+	await _frames(40)
+	if Input.mouse_mode != Input.MOUSE_MODE_CAPTURED:
+		player.shoot()  # Headless can't capture the mouse, which firing from input needs.
+	_check(slot.magazine < before, "LMB fires without aiming")
+	_check(not player.is_aiming() and absf(camera.fov - player.camera_fov) < 1.0, "hip-fire doesn't zoom (fov %.0f)" % camera.fov)
+	var flat := Vector3(player.velocity.x, 0.0, player.velocity.z)
+	_check(player.is_weapon_raised() and absf(angle_difference(player.rotation.y, 0.0)) < 0.05 and flat.dot(Vector3.RIGHT) > 2.0,
+		"moving right while firing keeps the body facing the crosshair (yaw %.2f, %.1f m/s right)" % [player.rotation.y, flat.dot(Vector3.RIGHT)])
+	_check(player.visual.is_aiming(), "the upper body points the gun forward while strafing")
+	_release_all()
+	await _frames(30)
+	var hip := player.weapons.extra_spread
+	Input.action_press(&"aim")
+	await _frames(30)
+	_check(player.weapons.extra_spread < hip - 1.0 and absf(camera.fov - player.aim_fov) < 1.0, "RMB zooms and tightens spread (%.1f -> %.1f)" % [hip, player.weapons.extra_spread])
+	_release_all()
+	await _frames(int(Player.RAISED_LINGER * 60.0) + 10)
+	_check(not player.is_weapon_raised(), "the gun lowers a moment after the last shot")
+	Input.action_press(&"move_right")
+	await _frames(45)
+	_check(absf(angle_difference(player.rotation.y, -PI * 0.5)) < 0.2, "with the gun lowered the body turns to face where it runs")
+	_release_all()
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	await _frames(10)
+
+
+func _test_jump_pose(player: Player) -> void:
+	_place(player, Vector3(-20.0, 0.0, 25.0))
+	await _frames(20)
+	var visual := player.visual
+	_check(not player.is_airborne() and is_zero_approx(visual.air_amount()), "standing on the ground isn't airborne")
+	Input.action_press(&"move_forward")
+	await _frames(20)
+	Input.action_press(&"jump")
+	await _frames(2)
+	Input.action_release(&"jump")
+	await _frames(12)
+	var pose: Object = visual.get(&"_pose")
+	var stride: float = visual.animation_tree.get(&"parameters/free/blend_position")
+	_check(player.is_airborne() and visual.air_amount() > 0.8, "jumping switches to the airborne pose (%.2f)" % visual.air_amount())
+	_check(stride < 0.5 and (pose.get(&"foot_weights") as Dictionary)[&"L"] > 0.8, "no stride in the air; the legs tuck (stride %.2f)" % stride)
+	var landed := false
+	for i in 90:
+		await _frames(1)
+		if player.is_on_floor():
+			landed = true
+			break
+	await _frames(1)
+	_check(landed and not visual.is_airborne() and visual.landing_amount() > 0.1, "touching down plays a landing dip (%.2f)" % visual.landing_amount())
+	_release_all()
+	await _frames(40)
+	_check(visual.air_amount() < 0.01, "the airborne pose blends out after landing")
 
 
 func _test_holster_and_reload(player: Player) -> void:
@@ -277,7 +343,7 @@ func _send_action(action: StringName) -> void:
 
 
 func _release_all() -> void:
-	for action in [&"move_forward", &"sprint", &"aim", &"jump", &"shoot"]:
+	for action in [&"move_forward", &"move_back", &"move_left", &"move_right", &"sprint", &"aim", &"jump", &"shoot"]:
 		Input.action_release(action)
 
 

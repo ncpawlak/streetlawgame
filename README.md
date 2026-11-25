@@ -25,7 +25,7 @@ godot --path .
 | Jump, vault, climb a ledge | Space |
 | Crouch (toggle) | C / Ctrl |
 | Look | Mouse |
-| Shoot / aim over the shoulder | LMB / RMB |
+| Shoot from the hip / zoom over the shoulder (LMB still fires) | LMB / RMB |
 | Swap shoulder | Z / MMB |
 | Melee (takedown from behind) | V |
 | Weapon wheel (pauses the game) | Hold Q, move the mouse, release |
@@ -63,8 +63,8 @@ godot --path . res://drivers/movement/movement_driver.tscn
 
 A flat test ground for the shared on-foot controller (`scripts/player/player.gd`), `CharacterVisual`, camera, combat feedback and vehicle doors. Everything here is built into the shared scripts, so the main game gets it too. The ground has a 1.0 m vault wall, a step box, 2.0 m and 2.6 m ledges, a crouch-only overhang, three passive dummies, and three cars: upright, on its side and on its roof. F5 resets the ground.
 
-- **On foot:** arm swing at walk, run and sprint. Sprinting drains the stamina bar under health; when it's empty you're winded until it recovers. Health doesn't regenerate. Crouching lowers your capsule and detection range.
-- **Camera:** the camera sits close over the shoulder. RMB zooms in to aim, Z or MMB swaps shoulders, and firing kicks and shakes the camera. Sprinting pulls it back and widens the FOV.
+- **On foot:** arm swing at walk, run and sprint. With a gun up (LMB, RMB, or just after a shot) the body keeps facing the crosshair and the legs strafe or backpedal, so you can move one way and shoot another. Jumping tucks the legs and throws the arms out with no stride in the air, then dips on landing. Sprinting drains the stamina bar under health; when it's empty you're winded until it recovers. Health doesn't regenerate. Crouching lowers your capsule and detection range.
+- **Camera:** the camera sits close over the shoulder. LMB fires from the hip without zooming (wider spread). RMB zooms in for tighter aim and LMB fires while zoomed. Z or MMB swaps shoulders, and firing kicks and shakes the camera. Sprinting pulls it back and widens the FOV.
 - **Weapons:** holstered pistols sit on the hip and long guns are slung across the back. Reloads are animated per weapon type, and sprinting cancels them.
 - **Combat:** the reticle shows hit and kill markers, and arcs point towards whoever just shot you. Headshots do extra damage. Characters flinch away from hits and ragdoll when they die. V attacks in melee, and from behind it's a takedown.
 - **Vehicles:** E walks you to the nearest of the four doors. You open it, get in, slide across to the driver's seat and shut it. E again gets you out of the driver's door. In a car on its side you climb out of the top door, and in an upside-down car you crawl out of the side.

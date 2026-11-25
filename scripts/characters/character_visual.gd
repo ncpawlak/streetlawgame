@@ -116,6 +116,11 @@ var _seated := 0.0
 var _seated_weight := 0.0
 var _crawl := 0.0
 var _crawl_weight := 0.0
+var _airborne := false
+var _air_vy := 0.0
+var _air_weight := 0.0
+## Landing dip (0..1), set from the fall speed when touching down.
+var _land := 0.0
 var _reach := {&"L": [Vector3.ZERO, 0.0], &"R": [Vector3.ZERO, 0.0]}
 var _kick := 0.0
 var _flinch := Vector2.ZERO
@@ -155,6 +160,8 @@ func _process(delta: float) -> void:
 	_seated_weight = move_toward(_seated_weight, _seated, delta * 4.0)
 	_crawl_weight = move_toward(_crawl_weight, _crawl, delta * 4.0)
 	_reload_weight = move_toward(_reload_weight, 1.0 if _reload_progress >= 0.0 else 0.0, delta * 8.0)
+	_air_weight = move_toward(_air_weight, 1.0 if _airborne and alive else 0.0, delta * (8.0 if _airborne else 10.0))
+	_land *= exp(-delta * 6.0)
 	_kick *= exp(-delta * 12.0)
 	_flinch *= exp(-delta * 6.0)
 	if _draw_time >= 0.0:
@@ -168,10 +175,12 @@ func _process(delta: float) -> void:
 			_in_hand = _hand_choice()
 			_refresh_meshes()
 
+	# No stride in the air: the clips settle to their idle pose and the procedural jump pose takes over.
+	var grounded := 1.0 - _air_weight
 	var speed := _local_velocity.length()
-	animation_tree.set(&"parameters/free/blend_position", minf(speed, RUN_SPEED))
+	animation_tree.set(&"parameters/free/blend_position", minf(speed, RUN_SPEED) * grounded)
 	animation_tree.set(&"parameters/free_speed/scale", clampf(speed / RUN_SPEED, 1.0, MAX_TIME_SCALE) if _crouch_weight < 0.5 else 0.8)
-	var strafe := _local_velocity / STRAFE_SPEED
+	var strafe := _local_velocity / STRAFE_SPEED * grounded
 	animation_tree.set(&"parameters/aim/blend_position", strafe.limit_length(1.0))
 	animation_tree.set(&"parameters/aim_speed/scale", clampf(strafe.length(), 1.0, MAX_TIME_SCALE))
 	animation_tree.set(&"parameters/loco/blend_amount", _aim_weight)
@@ -217,6 +226,30 @@ func crouch_amount() -> float:
 
 func set_sprinting(sprinting: bool) -> void:
 	_sprinting = sprinting
+
+
+## In the air (jump or fall): legs tuck while rising and reach down while falling, free arms go up,
+## and the stride stops. Touching down plays a landing dip scaled by the fall speed.
+func set_airborne(airborne: bool, vertical_velocity := 0.0) -> void:
+	if _airborne and not airborne and _air_weight > 0.3:
+		_land = maxf(_land, clampf(-_air_vy / 9.0, 0.2, 0.8))
+	_airborne = airborne
+	if airborne:
+		_air_vy = vertical_velocity
+
+
+func is_airborne() -> bool:
+	return _airborne
+
+
+## 0..1 how far into the airborne pose the body is.
+func air_amount() -> float:
+	return _air_weight
+
+
+## 0..1 landing dip still playing.
+func landing_amount() -> float:
+	return _land
 
 
 ## 0..1 out-of-breath: hunches and heaves the chest (low stamina).
@@ -537,7 +570,9 @@ func _update_pose() -> void:
 	var offset := Vector3(0.0, -CROUCH_DROP * crouch, 0.0)
 	offset = offset.lerp(Vector3(0.0, -0.45, 0.15), _seated_weight)
 	offset = offset.lerp(Vector3(0.0, -0.5, 0.0), _crawl_weight)
+	offset.y -= 0.25 * _land
 	var spine := CROUCH_LEAN * crouch + 0.22 * _sprint_weight + 0.25 * _winded + 1.1 * _crawl_weight
+	spine += 0.12 * _air_weight + 0.4 * _land
 	spine += _flinch.x * 0.35
 	var chest := sin(_time * 7.0) * 0.05 * _winded - _kick * 0.15
 	# While aiming the chest counters the lean so the gun stays on the crosshair.
@@ -607,16 +642,31 @@ func _update_pose() -> void:
 		left_weight = maxf(left_weight, _crawl_weight)
 		right_weight = maxf(right_weight, _crawl_weight)
 		grip_weight *= 1.0 - _crawl_weight
+	if _air_weight > 0.0 and not _dead:
+		# Free hands fling up and out for balance; a hand on the gun stays on it.
+		var lift := _air_weight * (1.0 - _aim_weight) * (1.0 - _reload_weight)
+		if grip_weight < 0.5 and left_weight < 0.5:
+			left_target = left_target.lerp(global_transform * Vector3(-0.55, 1.35, -0.05), lift) if left_weight > 0.0 else global_transform * Vector3(-0.55, 1.35, -0.05)
+			left_weight = maxf(left_weight, lift)
+		if _in_hand == null and right_weight < 0.5:
+			right_target = right_target.lerp(global_transform * Vector3(0.55, 1.35, -0.05), lift) if right_weight > 0.0 else global_transform * Vector3(0.55, 1.35, -0.05)
+			right_weight = maxf(right_weight, lift)
 	_pose.hand_targets[&"L"] = left_target
 	_pose.hand_weights[&"L"] = left_weight if not _dead else 0.0
 	_pose.hand_targets[&"R"] = right_target
 	_pose.hand_weights[&"R"] = right_weight if not _dead else 0.0
 	_pose.grip_offset = grip_offset
 	_pose.grip_weight = grip_weight if not _dead else 0.0
+	# Rising: knees tucked up. Falling: legs reach down for the landing.
+	var tuck := clampf((_air_vy + 1.0) / 5.0, 0.0, 1.0)
+	var air := _air_weight * (1.0 - _seated_weight) if not _dead else 0.0
 	for side: StringName in [&"L", &"R"]:
 		var x := -0.12 if side == &"L" else 0.12
-		_pose.foot_targets[side] = global_transform * Vector3(x, 0.08, -0.45)
-		_pose.foot_weights[side] = _seated_weight if not _dead else 0.0
+		var seat := global_transform * Vector3(x, 0.08, -0.45)
+		var lead := side == &"L"
+		var air_foot := global_transform * Vector3(x, lerpf(0.22 if lead else 0.12, 0.55 if lead else 0.38, tuck), -0.2 if lead else 0.08)
+		_pose.foot_targets[side] = seat.lerp(air_foot, air)
+		_pose.foot_weights[side] = maxf(_seated_weight, air) if not _dead else 0.0
 
 
 ## A spot on the held gun relative to the right wrist, in this node's axes (forward is -Z).

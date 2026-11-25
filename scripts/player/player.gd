@@ -23,6 +23,10 @@ const MELEE_RADIUS := 0.7
 const MELEE_DELAY := 0.2
 ## Seconds without aiming or shooting before the gun goes back in its holster.
 const HOLSTER_DELAY := 2.5
+## Seconds the gun stays raised (body facing the crosshair) after the last shot.
+const RAISED_LINGER := 1.5
+## Off the floor this long (or rising) counts as airborne for the jump pose; skips stair-step blips.
+const AIRBORNE_DELAY := 0.12
 const CORPSE_LIFETIME := 30.0
 
 @export var walk_speed := 5.0
@@ -90,6 +94,8 @@ var _side_blend := 1.0
 var _camera_kick := 0.0
 var _bloom := 0.0
 var _since_combat := 0.0
+var _since_shot := INF
+var _air_time := 0.0
 var _melee_cooldown := 0.0
 var _melee_count := 0
 ## Last hit reported through register_hit (where it came from, push, where it landed, frame).
@@ -225,9 +231,12 @@ func _on_explosion(at: Vector3, radius: float) -> void:
 
 func _physics_process(delta: float) -> void:
 	if not _moves.is_empty():
+		_air_time = 0.0
+		visual.set_airborne(false)
 		_step_moves(delta)
 		return
 	_melee_cooldown = maxf(0.0, _melee_cooldown - delta)
+	_since_shot += delta
 	if not is_on_floor():
 		velocity.y -= _gravity * delta
 	if Input.is_action_just_pressed("jump") and _jump_or_climb():
@@ -237,7 +246,10 @@ func _physics_process(delta: float) -> void:
 	var direction := Basis(Vector3.UP, _camera_pivot.rotation.y) * Vector3(input.x, 0.0, input.y)
 	var moving := direction.length_squared() > 0.01
 	var aiming := is_aiming()
-	_update_sprint(moving and Input.is_action_pressed("sprint") and not aiming, delta)
+	if Input.is_action_pressed("sprint") and moving and not Input.is_action_pressed("aim") and not Input.is_action_pressed("shoot"):
+		_since_shot = INF
+	var raised := is_weapon_raised()
+	_update_sprint(moving and Input.is_action_pressed("sprint") and not raised, delta)
 	var speed := walk_speed
 	if _crouching:
 		speed = crouch_speed
@@ -245,32 +257,51 @@ func _physics_process(delta: float) -> void:
 		speed = sprint_speed
 	elif Input.is_action_pressed("walk"):
 		speed = slow_walk_speed
-	if aiming:
+	if raised:
 		speed = minf(speed, aim_speed)
 	var blend := clampf(acceleration * delta, 0.0, 1.0)
 	velocity.x = lerpf(velocity.x, direction.x * speed, blend)
 	velocity.z = lerpf(velocity.z, direction.z * speed, blend)
 
-	if aiming:
+	# With the gun up the body keeps facing the crosshair and the legs strafe / backpedal under it.
+	if raised:
 		rotation.y = lerp_angle(rotation.y, _camera_pivot.rotation.y, clampf(20.0 * delta, 0.0, 1.0))
 	elif moving:
 		rotation.y = lerp_angle(rotation.y, atan2(-direction.x, -direction.z), clampf(10.0 * delta, 0.0, 1.0))
 
-	_update_weapon_state(aiming, delta)
+	_update_weapon_state(aiming, raised, delta)
 	if wants_to_fire():
 		shoot()
 
 	move_and_slide()
-	visual.set_aiming(aiming)
+	_air_time = 0.0 if is_on_floor() else _air_time + delta
+	visual.set_airborne(is_airborne(), velocity.y)
+	visual.set_aiming(raised)
 	visual.set_aim_pitch(asin(clampf(-_camera.global_basis.z.y, -1.0, 1.0)))
 	visual.update_motion(velocity, delta)
 	if global_position.y < -50.0:
 		respawn()
 
 
-## Aim held (or firing, which brings the gun up too).
+## Right mouse held: the over-the-shoulder zoom (tighter spread). Firing alone doesn't zoom.
 func is_aiming() -> bool:
-	return is_on_foot() and not is_busy() and (Input.is_action_pressed("aim") or Input.is_action_pressed("shoot"))
+	return is_on_foot() and not is_busy() and Input.is_action_pressed("aim")
+
+
+## Gun up and pointed at the crosshair: aiming, holding fire, or shortly after a shot. The body
+## faces the camera so you can move one way and shoot another.
+func is_weapon_raised() -> bool:
+	if not is_on_foot() or is_busy():
+		return false
+	var slot := weapons.current()
+	if slot == null or slot.data.is_melee():
+		return false
+	return Input.is_action_pressed("aim") or Input.is_action_pressed("shoot") or _since_shot < RAISED_LINGER
+
+
+## Off the ground from a jump or a fall (not just stepping off a kerb).
+func is_airborne() -> bool:
+	return is_on_foot() and not is_busy() and not is_on_floor() and (_air_time > AIRBORNE_DELAY or velocity.y > 1.0)
 
 
 func is_crouching() -> bool:
@@ -342,7 +373,7 @@ func _update_sprint(wants_sprint: bool, delta: float) -> void:
 
 
 ## Spread, holstering and the reload pose.
-func _update_weapon_state(aiming: bool, delta: float) -> void:
+func _update_weapon_state(aiming: bool, raised: bool, delta: float) -> void:
 	var slot := weapons.current()
 	var data := slot.data if slot else null
 	var recovery := (data.max_bloom * 2.5 + 2.0) if data else 4.0
@@ -352,11 +383,11 @@ func _update_weapon_state(aiming: bool, delta: float) -> void:
 	if _crouching:
 		spread *= 0.6
 	weapons.extra_spread = spread
-	if aiming or weapons.is_reloading:
+	if raised or weapons.is_reloading:
 		_since_combat = 0.0
 	else:
 		_since_combat += delta
-	visual.set_holstered(_since_combat > HOLSTER_DELAY and not aiming)
+	visual.set_holstered(_since_combat > HOLSTER_DELAY and not raised)
 	if weapons.is_reloading and data != null:
 		visual.set_reload(data.reload_style, weapons.reload_progress())
 	else:
@@ -376,6 +407,9 @@ func shoot() -> bool:
 	var fired := weapons.try_fire(self, muzzle, aim_point - muzzle, exclude)
 	if fired:
 		_since_combat = 0.0
+		var data_fired := weapons.current().data
+		if not data_fired.is_melee():
+			_since_shot = 0.0
 		visual.set_holstered(false)
 		visual.fire()
 		var data := weapons.current().data
@@ -747,6 +781,7 @@ func set_on_foot(on_foot: bool, vehicle: Vehicle = null) -> void:
 		visual.set_crouching(false)
 		visual.set_sprinting(false)
 		visual.set_aiming(false)
+		visual.set_airborne(false)
 		visual.set_seated(1.0)
 		visual.update_motion(Vector3.ZERO)
 		_sprinting = false
