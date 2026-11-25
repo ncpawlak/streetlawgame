@@ -36,13 +36,25 @@ The scene spawns one car of each class. Classes live in the shared table `script
 | Class | Lock | Tracker | Chop value | Handling | Spawns |
 | --- | --- | --- | --- | --- | --- |
 | Junker | ×0.70 | never | $600 | light, soft, weak engine | occupied |
-| Sedan | ×1.00 | 10 % | $1,200 | stock `Vehicle` handling (unchanged) | parked |
+| Sedan | ×1.00 | 10 % | $1,200 | stock `Vehicle` handling (play-tuned, see below) | parked |
 | Muscle car | ×1.10 | 35 % | $2,800 | heavy, big engine, loose rear | parked |
 | SUV | ×1.15 | 25 % | $2,200 | 2 t, high centre of mass, leans | occupied |
 | Sports coupe | ×1.30 | always | $3,500 | low, stiff, grippy, quick steering | parked |
 | Luxury sedan | ×1.45 | always | $4,500 | heavy, firm, smooth | parked |
 
 The F1 panel shows this table. To add a class, add a row to `VehicleClass.TABLE`. Any handling key you leave out keeps the stock value.
+
+### Handling baseline and balancing notes
+
+The stock handling (sedan, and every `Vehicle` without a class) was picked in the F7 panel to stop the "floppy" feel: **mass 1300 kg, centre of mass 0.20 m, suspension stiffness 73, compression damping 1.55, rebound damping 2.15, tyre grip 4.9**. Travel 0.30, roll influence 0.10, engine force 3000, max steer 0.55 and steer speed 2.5 are unchanged. The other classes were rebased onto this baseline, keeping their old offsets from the sedan: mass, stiffness, damping and grip are scaled by the same ratio, and centre of mass is shifted by the same −0.1 m. They haven't been balanced yet.
+
+Planned per-type direction (not implemented yet):
+
+- **Trucks / vans:** higher centre of mass and more suspension bounce (softer springs, lower rebound damping, more travel).
+- **Off-road trucks:** like trucks, but heavier and with more tyre grip.
+- The other classes should get their own feel in the same way once there are car models for them.
+
+A heavier, stiffer car moves less when hit by an explosion. Explosions use a fixed impulse, so a rocket now shoves a stock car about 0.2 m instead of 0.6 m. If cars should get thrown further, retune the RPG's impulse instead of the cars.
 
 ## Minigames (prototypes, swappable)
 

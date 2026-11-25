@@ -65,11 +65,11 @@ var _flames: CPUParticles3D
 
 func _ready() -> void:
 	add_to_group("vehicles")
-	mass = 1000.0
+	mass = 1300.0
 	collision_layer = 8
 	collision_mask = 15
 	center_of_mass_mode = RigidBody3D.CENTER_OF_MASS_MODE_CUSTOM
-	center_of_mass = Vector3(0.0, 0.3, 0.0)
+	center_of_mass = Vector3(0.0, 0.2, 0.0)
 	contact_monitor = true
 	max_contacts_reported = 4
 	body_entered.connect(_on_body_entered)
@@ -274,8 +274,10 @@ func _build_wheels() -> void:
 		wheel.wheel_radius = 0.4
 		wheel.wheel_rest_length = 0.3
 		wheel.suspension_travel = 0.3
-		wheel.suspension_stiffness = 40.0
-		wheel.wheel_friction_slip = 3.0
+		wheel.suspension_stiffness = 73.0
+		wheel.damping_compression = 1.55
+		wheel.damping_relaxation = 2.15
+		wheel.wheel_friction_slip = 4.9
 		var tire_mesh := MeshInstance3D.new()
 		tire_mesh.mesh = tire
 		tire_mesh.rotation.z = PI / 2.0

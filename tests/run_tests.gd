@@ -181,7 +181,7 @@ func _test_explosives(main: Node, player: Player) -> void:
 	var car_start := car.global_position
 	Projectile.launch(player, GameState.weapon_data(&"rpg"), car.global_position + Vector3(-4.0, 0.9, 0.0), Vector3(1.0, 0.0, 0.0))
 	await _physics_frames(30)
-	_check(car.health < car.max_health and car.global_position.distance_to(car_start) > 0.3, "rockets explode on impact and throw vehicles (%.0f hp)" % car.health)
+	_check(car.health < car.max_health and car.global_position.distance_to(car_start) > 0.1, "rockets explode on impact and shove vehicles (%.0f hp, moved %.2f m)" % [car.health, car.global_position.distance_to(car_start)])
 	car.queue_free()
 
 	near.health = near.max_health

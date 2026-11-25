@@ -61,7 +61,11 @@ func _test_vehicle_classes() -> void:
 	_runner.add_child(plain)
 	_runner.add_child(muscle)
 	var data := VehicleClass.find(&"muscle")
-	_check(plain.vehicle_class == null and plain.mass == 1000.0 and plain.max_engine_force == 3000.0, "a Vehicle without a class keeps the stock build")
+	_check(plain.vehicle_class == null and plain.mass == 1300.0 and plain.max_engine_force == 3000.0, "a Vehicle without a class keeps the stock build")
+	_check(VehicleTuning.from_vehicle(plain).to_text() == stock.to_text(), "a plain Vehicle's body and wheels match the VehicleTuning stock defaults")
+	_check(stock.mass == 1300.0 and is_equal_approx(stock.center_of_mass_y, 0.2) and stock.suspension_stiffness == 73.0
+		and is_equal_approx(stock.damping_compression, 1.55) and is_equal_approx(stock.damping_relaxation, 2.15)
+		and is_equal_approx(stock.friction_slip, 4.9), "stock handling is the play-tuned sedan (1300 kg, CoM 0.2, 73 / 1.55 / 2.15, grip 4.9)")
 	_check(muscle.vehicle_class == data and muscle.mass == data.handling.mass and muscle.max_engine_force == data.handling.engine_force
 		and muscle.health == data.max_health and muscle.body_color == data.color
 		and is_equal_approx(VehicleTuning.wheels_of(muscle)[0].wheel_friction_slip, data.handling.friction_slip), "a Vehicle with a class takes its handling, health and paint")
@@ -215,7 +219,7 @@ func _test_driver(driver: CarjackDriver) -> void:
 	_check(junker.car_value == VehicleClass.find(&"junker").chop_value and luxury.car_value > coupe.car_value and coupe.car_value > junker.car_value, "a car's chop value comes from its class")
 	_check(driver.jack_difficulty(junker) < driver.jack_difficulty(sedan) and driver.jack_difficulty(sedan) < driver.jack_difficulty(luxury), "classes set lock difficulty (junker < sedan < luxury)")
 	_check(coupe.has_tracker and luxury.has_tracker and not junker.has_tracker, "sports and luxury cars always carry a tracker, junkers never do")
-	_check(suv.mass == 2000.0 and luxury.mass > sedan.mass and junker.max_health < sedan.max_health, "classes set the handling and health")
+	_check(suv.mass == VehicleClass.find(&"suv").handling.mass and suv.mass > sedan.mass and luxury.mass > sedan.mass and junker.max_health < sedan.max_health, "classes set the handling and health")
 	driver.difficulty_level = &"hard"
 	_check(driver.jack_difficulty(luxury) == CarjackDriver.MAX_JACK_DIFFICULTY, "hard + luxury is capped so it stays winnable")
 	driver.difficulty_level = &"normal"
@@ -283,16 +287,16 @@ func _test_driver(driver: CarjackDriver) -> void:
 
 	# Live handling tuning (F7): per class, sliders push values onto that class's cars; reset restores.
 	driver.select_tuning_class(&"sedan")
-	_check(driver.default_tuning().mass == 1000.0 and driver.default_tuning().suspension_stiffness == 40.0, "the sedan class keeps the stock handling")
+	_check(driver.default_tuning().mass == 1300.0 and driver.default_tuning().suspension_stiffness == 73.0, "the sedan class keeps the stock handling")
 	driver.set_tuning(&"mass", 2400.0)
 	driver.set_tuning(&"damping_relaxation", 2.5)
 	var wheels := VehicleTuning.wheels_of(sedan)
 	_check(sedan.mass == 2400.0 and wheels.size() == 4 and wheels[0].damping_relaxation == 2.5, "tuning sliders apply live to the class being tuned")
-	_check(suv.mass == VehicleClass.find(&"suv").handling.mass and VehicleClass.find(&"sedan").handling.mass == 1000.0, "tuning one class leaves other classes and the class table alone")
+	_check(suv.mass == VehicleClass.find(&"suv").handling.mass and VehicleClass.find(&"sedan").handling.mass == 1300.0, "tuning one class leaves other classes and the class table alone")
 	var report := driver.report_tuning()
 	_check(report.contains("[sedan]") and report.contains("mass=2400"), "tuning values can be copied out, labelled with the class")
 	driver.reset_tuning()
-	_check(sedan.mass == 1000.0 and is_equal_approx(VehicleTuning.wheels_of(sedan)[0].damping_relaxation, driver.default_tuning().damping_relaxation), "reset restores the class's handling")
+	_check(sedan.mass == 1300.0 and is_equal_approx(VehicleTuning.wheels_of(sedan)[0].damping_relaxation, driver.default_tuning().damping_relaxation), "reset restores the class's handling")
 	_check(driver.cycle_tuning_class() == &"muscle", "F8 steps the tuning panel to the next class")
 	driver.select_tuning_class(&"sedan")
 

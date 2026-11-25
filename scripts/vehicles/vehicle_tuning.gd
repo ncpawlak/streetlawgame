@@ -20,14 +20,14 @@ const PARAMS := [
 	[&"steer_speed", "Steer speed", 0.5, 8.0, 0.1],
 ]
 
-var mass := 1000.0
-var center_of_mass_y := 0.3
-var suspension_stiffness := 40.0
-var damping_compression := 0.83
-var damping_relaxation := 0.88
+var mass := 1300.0
+var center_of_mass_y := 0.2
+var suspension_stiffness := 73.0
+var damping_compression := 1.55
+var damping_relaxation := 2.15
 var suspension_travel := 0.3
 var roll_influence := 0.1
-var friction_slip := 3.0
+var friction_slip := 4.9
 var engine_force := 3000.0
 var max_steer := 0.55
 var steer_speed := 2.5
