@@ -22,6 +22,15 @@ signal busted
 @export var spawn_cruiser := true
 ## Global positions cops spawn at (used when there are no Marker3D children).
 @export var spawn_points: Array[Vector3] = []
+## While wanted, send another wave every this many seconds (0 = only when all cops are down).
+@export var escalation_interval := 0.0
+
+## Optional func(elapsed_wanted: float, wave: int) -> int that decides each wave's size, replacing
+## cops_per_wave + wave * wave_growth. Use it for time-driven escalation.
+var wave_size_hook: Callable
+## Seconds since the police arrived in this chase.
+var wanted_time := 0.0
+var _escalate_left := 0.0
 
 var wanted := false
 var last_seen := Vector3.ZERO
@@ -65,9 +74,13 @@ func dispatch() -> void:
 		wanted = true
 		waves = 0
 		unseen_time = 0.0
+		wanted_time = 0.0
 		last_seen = player.get_focus_position() if player != null else global_position
+	_escalate_left = escalation_interval
 	var points := _spawn_points()
 	var count := cops_per_wave + waves * wave_growth
+	if wave_size_hook.is_valid():
+		count = int(wave_size_hook.call(wanted_time, waves))
 	waves += 1
 	for i in count:
 		var point: Vector3 = points[i % points.size()] + Vector3(randf_range(-1.5, 1.5), 0.0, randf_range(-1.5, 1.5))
@@ -109,6 +122,11 @@ func update(delta: float) -> void:
 	else:
 		unseen_time += delta
 	_seen = seen
+	wanted_time += delta
+	if escalation_interval > 0.0:
+		_escalate_left -= delta
+		if _escalate_left <= 0.0:
+			dispatch()
 	if alive_cops().is_empty():
 		if _reinforce_left < 0.0:
 			_reinforce_left = reinforcement_delay
