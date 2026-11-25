@@ -21,17 +21,13 @@ func _init() -> void:
 func _ready() -> void:
 	super._ready()
 	add_to_group("cops")
-	_body_material.albedo_color = Color(0.1, 0.18, 0.45)
-	var hat_mesh := CylinderMesh.new()
-	hat_mesh.top_radius = 0.32
-	hat_mesh.bottom_radius = 0.36
-	hat_mesh.height = 0.18
-	hat_mesh.material = _material(Color(0.05, 0.08, 0.2))
-	var hat := MeshInstance3D.new()
-	hat.mesh = hat_mesh
-	hat.position.y = 1.85
-	add_child(hat)
-
+	# The SWAT model in police blue instead of the gang member's look.
+	var old := visual
+	visual = CharacterVisual.create(&"cop", randi())
+	visual.set_tint(Color(0.1, 0.18, 0.45))
+	visual.set_weapon(current_weapon())
+	add_child(visual)
+	old.queue_free()
 
 ## Moves the cop's search area (it wanders around [param point] when it can't see the player).
 func search_at(point: Vector3) -> void:

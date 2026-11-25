@@ -53,8 +53,9 @@ var weapons: WeaponInventory
 var _wander_target := Vector3.ZERO
 var _wander_timer := 0.0
 var _gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
-var _body_material: StandardMaterial3D
-var _arms: Node3D
+## The animated character model (see [CharacterVisual]).
+var visual: CharacterVisual
+var _hands_up: HandsUpModifier
 var _icon: Label3D
 var _phone: MeshInstance3D
 var _fire_pause := 0.0
@@ -153,6 +154,7 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 	if move.length_squared() > 0.01:
 		rotation.y = atan2(-move.x, -move.z)
+	visual.update_motion(velocity, delta)
 
 
 func take_damage(amount: float, source: Node = null) -> void:
@@ -162,7 +164,7 @@ func take_damage(amount: float, source: Node = null) -> void:
 	if health <= 0.0:
 		_die(source)
 		return
-	_flash()
+	visual.hit()
 	hurt.emit(self, source)
 
 
@@ -172,9 +174,8 @@ func _die(killer: Node) -> void:
 	collision_mask = 0
 	velocity = Vector3.ZERO
 	set_physics_process(false)
-	rotation.x = -PI / 2.0
-	position.y += 0.4
 	_apply_state_visuals()
+	visual.die()
 	BodyLoot.attach(self, randi_range(loot_cash.x, loot_cash.y))
 	state_changed.emit(self, state)
 	died.emit(self, killer)
@@ -222,6 +223,7 @@ func _shoot_at_threat(delta: float) -> void:
 	var exclude: Array[RID] = [get_rid()]
 	if weapons.try_fire(self, muzzle, threat.global_position + Vector3(0.0, 1.0, 0.0) - muzzle, exclude):
 		_fire_pause = randf_range(0.8, 1.6)
+		visual.fire()
 
 
 func _apply_state_visuals() -> void:
@@ -230,25 +232,10 @@ func _apply_state_visuals() -> void:
 	_icon.text = STATE_ICONS.get(state, "")
 	_icon.modulate = Color(1.0, 0.3, 0.3) if state in [State.CALLING, State.HOSTILE] else Color(1.0, 0.9, 0.3)
 	_phone.visible = state == State.CALLING
-	match state:
-		State.WARY:
-			_arms.rotation_degrees.x = 60.0
-		State.HELD_UP, State.COWERING:
-			_arms.rotation_degrees.x = 170.0
-		State.HOSTILE:
-			_arms.rotation_degrees.x = 90.0
-		_:
-			_arms.rotation_degrees.x = 0.0
-
-
-func _flash() -> void:
-	_body_material.emission_enabled = true
-	get_tree().create_timer(0.08, false).timeout.connect(_end_flash)
-
-
-func _end_flash() -> void:
-	if is_instance_valid(_body_material):
-		_body_material.emission_enabled = false
+	_hands_up.target = {State.WARY: 0.5, State.HELD_UP: 1.0, State.COWERING: 1.0}.get(state, 0.0)
+	var armed := state == State.HOSTILE and weapons != null and weapons.current() != null
+	visual.set_weapon(weapons.current().data if armed else null)
+	visual.set_aiming(armed)
 
 
 func _build_body() -> void:
@@ -260,39 +247,14 @@ func _build_body() -> void:
 	shape.position.y = 0.875
 	add_child(shape)
 
-	_body_material = _material(body_color)
-	_body_material.emission = Color(1.0, 0.85, 0.85)
-	_body_material.emission_energy_multiplier = 2.0
-	var body_mesh := CapsuleMesh.new()
-	body_mesh.radius = 0.35
-	body_mesh.height = 1.75
-	body_mesh.material = _body_material
-	var body := MeshInstance3D.new()
-	body.mesh = body_mesh
-	body.position.y = 0.875
-	add_child(body)
-
-	var head_mesh := SphereMesh.new()
-	head_mesh.radius = 0.2
-	head_mesh.height = 0.4
-	head_mesh.material = _material(Color(0.55, 0.4, 0.3))
-	var head := MeshInstance3D.new()
-	head.mesh = head_mesh
-	head.position.y = 1.62
-	add_child(head)
-
-	_arms = Node3D.new()
-	_arms.position.y = 1.35
-	add_child(_arms)
-	for side: float in [-1.0, 1.0]:
-		var arm_mesh := BoxMesh.new()
-		arm_mesh.size = Vector3(0.12, 0.6, 0.12)
-		arm_mesh.material = _material(body_color.darkened(0.25))
-		var arm := MeshInstance3D.new()
-		arm.mesh = arm_mesh
-		arm.position = Vector3(side * 0.42, -0.3, 0.0)
-		_arms.add_child(arm)
-
+	# Clerks and shopkeepers wear work clothes; everyone else is a random civilian.
+	visual = CharacterVisual.create(&"civilian", 1 if role in [Role.CLERK, Role.NEIGHBOUR] else randi())
+	add_child(visual)
+	visual.set_tint(body_color)
+	_hands_up = HandsUpModifier.new()
+	_hands_up.name = "HandsUp"
+	_hands_up.facing = visual
+	visual.skeleton.add_child(_hands_up)
 	var phone_mesh := BoxMesh.new()
 	phone_mesh.size = Vector3(0.08, 0.16, 0.03)
 	phone_mesh.material = _material(Color(0.1, 0.1, 0.1))
