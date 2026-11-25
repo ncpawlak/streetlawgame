@@ -11,7 +11,8 @@ unique building design it needs), and note where the current map is too small fo
 | Regenerate the census | `Godot --headless --path . res://tools/north_end_census.tscn` |
 | Coverage + freshness test | `tests/census_tests.gd` (runs in `res://tests/test_runner.tscn`) |
 | As-built building map | `docs/map/north_end_buildings.png` / `.svg` (`python tools/render_north_end_buildings.py`) |
-| Census on the wireframe | `docs/map/north_end_wireframe.png` / `.svg`: generated `census-overlay` + `census-legend` groups (same script) |
+| As-built wireframe + census | `docs/map/north_end_wireframe.png` / `.svg`: generated (same script) from the layout plus the annotations of the hand-drawn `north_end_wireframe_source.svg` |
+| Road-clearance test | `tests/census_tests.gd` `_test_corridors`: no building or lot rect may enter any road, ramp or I-59 corridor |
 
 ![North End buildings](../map/north_end_buildings.png)
 
@@ -41,14 +42,14 @@ Other top-level lists:
 
 | Category | Count | Notes |
 |---|---:|---|
-| `house_1f` | 173 | 117 Tamarack Row, 52 Northgrove, 4 Mangona trailers |
+| `house_1f` | 177 | 118 Tamarack Row, 55 Northgrove, 4 Mangona trailers |
 | `house_2f` | 126 | 71 Tamarack Row, 55 Northgrove |
 | `large_building` | 44 | 29 walk-ups and 1 mixed-use (Northgrove); 9 sheds and 5 warehouses (Mangona) |
 | `special_building` | 4 | Hospital + 3 safehouses |
 | `specialized_location` | 11 | +1 unbuilt (bank) |
 | `purchasable_business` | 7 | +2 unbuilt (gun store, hardware store) |
 | `standin_business` | 24 | 17 enterable shops + 7 closed storefronts (see [Stand-in businesses](#stand-in-businesses)) |
-| **North End total** | **389** | + 60 out-of-area fillers = 449 scene boxes; + 3 unbuilt |
+| **North End total** | **393** | + 60 out-of-area fillers = 453 scene boxes; + 3 unbuilt |
 
 Roughly 300 placer houses (`house_*`) are robbable burglary targets; the robbery tier comes from the archetype `tier`.
 
@@ -60,12 +61,12 @@ in several variants (colour, roof, porch, mirrored).
 
 | Archetype | Cat. | Storeys | Footprint m | Lot m | Tier | Count |
 |---|---|---:|---|---|---|---:|
-| `house_1f_small_yard` | house_1f | 1 | 14 × 11.2 | 18 × 22 | low | 117 |
-| `house_1f_big_yard` | house_1f | 1 | 19.6 × 14 | 26 × 30 | medium | 39 |
+| `house_1f_small_yard` | house_1f | 1 | 14 × 11.2 | 18 × 22 | low | 119 |
+| `house_1f_big_yard` | house_1f | 1 | 19.6 × 14 | 26 × 30 | medium | 41 |
 | `house_1f_deep_lot` | house_1f | 1 | 14 × 11.2 | 18 × 40 | low | 13 |
 | `house_2f_small_yard` | house_2f | 2 | 14 × 11.2 | 18 × 22 | medium | 76 |
-| `house_2f_big_yard` | house_2f | 2 | 19.6 × 14 | 26 × 30 | high | 46 |
-| `house_2f_deep_lot` | house_2f | 2 | 19.6 × 14 | 24 × 42 | medium | 4 |
+| `house_2f_big_yard` | house_2f | 2 | 19.6 × 14 | 26 × 30 | high | 45 |
+| `house_2f_deep_lot` | house_2f | 2 | 19.6 × 14 | 24 × 42 | medium | 5 |
 | `trailer_1f` | house_1f | 1 | 16 × 4.5 | 14 × 24 | low | 4 |
 | `storefront_1f` | large | 1 | 20 × 16 | 24 × 30 | – | 0 (all became stand-ins; kept for new lots) |
 | `mixed_use_2f` | large | 2 | 22 × 16 | 24 × 28 | – | 1 |
@@ -78,8 +79,8 @@ in several variants (colour, roof, porch, mirrored).
 | Archetype | Storeys | Footprint m | Lot m | Used for | Count |
 |---|---:|---|---|---|---:|
 | `standin_strip_unit` | 1 | 20 × 16 | 24 × 30 | Strip-mall unit on an arterial (Tamarack Okee Blvd) | 2 |
-| `standin_shopfront_2f` | 2 | 22 × 16 | 24 × 28 | Shop with a flat above (Northgrove Broadway / Dixie / Lakes) | 11 |
-| `standin_standalone_shop` | 1 | 16 × 14 | 20 × 28 | Freestanding shop on a corner or a shed lot | 5 |
+| `standin_shopfront_2f` | 2 | 22 × 16 | 24 × 28 | Shop with a flat above (Northgrove Broadway / Dixie / Lakes) | 12 |
+| `standin_standalone_shop` | 1 | 16 × 14 | 20 × 28 | Freestanding shop on a corner or a shed lot | 4 |
 | `standin_corner_store` | 1 | 14 × 12 | 18 × 24 | Corner shop at a residential crossing | 3 |
 | `standin_garage_bays` | 1 (5 m bays) | 24 × 18 | 30 × 36 | Auto mod shop: 2–3 roll-up bays and a forecourt | 3 |
 
@@ -147,8 +148,8 @@ places them after ids are assigned. Every entry has a `standin` field: `{subtype
 
 | Zone | Enterable shops | Closed storefronts | Served by a purchasable business |
 |---|---|---|---|
-| Tamarack Row | A auto mod (Lakes Blvd 01), F food (Okee Blvd 03, 8th St 23), T tattoo (Okee Blvd 04), C clothing (Tamarind Ave 09), G ammo (Tamarind Ave 16), P pawn (Lakeview Ave 16) | none: its 3 storefront lots all became shops | S bodega, L Row Liquors, B Fresh Cutz |
-| Northgrove | C clothing (Broadway 03), F food (Broadway 20, Dixie Hwy 22), S corner store (36th St 04), A auto mod (Grove Rd 09), G ammo (Grove Rd 12), L liquor (Grove Rd 15), B barber (Lakes Blvd 01) | 7: Broadway 06, 09, 12, 15, 17 and Dixie Hwy 16, 18 | T Ink Lab, P Northgrove Pawn |
+| Tamarack Row | A auto mod (Lakes Blvd 01), F food (Okee Blvd 03, Lakeview Ave 15), T tattoo (Okee Blvd 04), C clothing (Tamarind Ave 09), G ammo (Tamarind Ave 16), P pawn (Lakeview Ave 32) | none: its 3 storefront lots all became shops | S bodega, L Row Liquors, B Fresh Cutz |
+| Northgrove | C clothing (Grove Rd 05), F food (Broadway 03, 20), S corner store (40th St 17), A auto mod (Grove Rd 09), G ammo (Dixie Hwy 26), L liquor (Dixie Hwy 16), B barber (Lakes Blvd 01) | 7: Broadway 06, 09, 12, 15, 17 and Dixie Hwy 18, 22 | T Ink Lab, P Northgrove Pawn |
 | Mangona | A auto mod (Austral Ave 03), F food (Austral Ave 10) | none | G Mangona Guns & Ammo (unbuilt) |
 
 Result: 17 shops and 7 closed storefronts. Every zone can buy every type it needs (checked by `tests/census_tests.gd`).
@@ -190,7 +191,7 @@ Current scale is 1.2 m per wireframe px. Lots (`lot_frontage_depth_m`, frontage 
 | Northgrove walk-ups / Grove Apartments | 22.8 × 19.2 m | – | 34 × 36 m | **×1.5 × 1.9**, merge 2 lots |
 | Northgrove arterial shops | ~26 × 17 m | – | 24–26 × 28–32 m | depth ×1.7 |
 | Tamarack shops (bodega, liquor, barber) | 11.4–18.6 × 11.5–18 m | 14 × 8.5 m | 16–20 × 22–26 m | depth ×1.5–2 |
-| Gas-N-Go | 11.5 × 16.8 m | – | 40 × 34 m | needs a corner lot about 3 house lots wide |
+| Gas-N-Go | 24 × 36 m (Okee Blvd / 8th St corner, east of the NB ramps) | 21 × 32 m | 40 × 34 m | frontage ×1.7 |
 | Mangona industrial / garages | 36 × 48 m and up | – | 30–50 × 32–48 m | fits |
 | Hospital | 108 × 106 m | – | 110 × 110 m | fits |
 | Lakeside trailers | 14.4 × 7.2 m | – | 14 × 24 m | depth ×3 (a trailer-park pad) |
@@ -207,24 +208,27 @@ Biggest concerns:
 
 ## Wireframe status
 
-`docs/map/north_end_wireframe.svg` / `.png` is the **hand-drawn source** the extractor reads. The extractor's
-`fix_network` then rewrites much of the network, so the source picture is stale against the game:
-- diamond I-59 interchanges with 4 ramps each (the drawing has stub ramps)
-- the Clear Lake Dr loop
-- the closed Lakeshore Dr ring around Lake Mangona, plus spokes
-- rebuilt Riviera / Clement grids
-- Tamarack streets extended to x 918
-- connectors at the Okee ramps
-- the street at x 300 / y 975 removed
-- Tamarind Ave realigned (x 505 → 515)
-- 126 lots dropped under roads and 4 lots dropped without frontage
+There are two wireframe files:
+- `docs/map/north_end_wireframe_source.svg` is the **hand-drawn source** the extractor reads (districts, blocks, lot lines,
+  roads, icons). The extractor's `fix_network` then rewrites much of the network, so this drawing is not what the game builds.
+- `docs/map/north_end_wireframe.svg` / `.png` is the **as-built** wireframe, generated by `tools/render_north_end_buildings.py`.
+  It keeps the source's annotation layers (district fills, names, roster icons, labels, legend) but drops the drawn
+  network (blocks, lots, roads, I-59, ramps, underpasses, lakes) and redraws it from `north_end_layout.gd` at true width
+  (1.2 m/px): diamond interchanges, the Clear Lake Dr loop, the Lakeshore Dr ring, the rebuilt grids, and only the lots that
+  survived. The census overlay (colour per category, shop letters, unbuilt diamonds) and its legend sit on top. Never edit it by hand.
 
-Rather than hand-editing the source to match, the **as-built** picture is now rendered from the generated layout and the
-census: `docs/map/north_end_buildings.png`. The census is also drawn **on the wireframe**:
-`tools/render_north_end_buildings.py` writes a `census-overlay` group (every building coloured by category, shops lettered,
-unbuilt places as diamonds) under the wireframe's icons and a `census-legend` group in its legend panel. It then
-re-rasterises `north_end_wireframe.png` with headless Edge/Chrome. The extractor ignores those groups, which use class `cz`. The layout itself is in sync: the extractor reports 0 problems and
-regenerates `north_end_layout.gd` with no diff.
+**What was wrong before (Gas-N-Go on the interstate):**
+1. The source drew the Gas-N-Go pad and icon on top of the I-59 deck and the NB Okee ramps. The pad was decorative (no class),
+   so the extractor ignored it and the roster spot snapped to a small 8th St house lot. The pad is now a real block on the
+   Okee Blvd / 8th St corner east of the ramps, and the spot moved to it (`ne_tr_8th_st_01`, 24 × 36 m lot).
+2. The census overlay was drawn on the stale source picture: stub ramps instead of diamond interchanges, I-59 drawn 26 px
+   wide (it is 21.7 px = 26 m), and roads and lots from before `fix_network`. The as-built wireframe replaces it.
+3. 14 Northgrove lots on Dixie Hwy / Broadway reached up to 0.37 px (0.4 m) into the arterial corridor, because the drop
+   test used `HALF_WIDTH - 0.5` with sampled corners. The extractor now trims lots by exact segment-to-rect clearance
+   (`corridor_intrusion`, up to `LOT_TRIM_PX`), and a final guard fails on any intrusion by a lot, block or building.
+4. The extractor wrote `north_end_layout.gd` even when it reported problems. It now writes only with 0 problems.
+
+`_test_corridors` in `tests/census_tests.gd` checks all 453 census rects against every road, ramp and highway corridor.
 
 ## Regenerate after a layout change
 
@@ -232,7 +236,7 @@ regenerates `north_end_layout.gd` with no diff.
 python tools/extract_north_end_layout.py                 # 0 problems
 Godot --headless --path . --import
 Godot --headless --path . res://tools/north_end_census.tscn
-python tools/render_north_end_buildings.py
+python tools/render_north_end_buildings.py              # as-built wireframe + building map
 Godot --headless --path . res://tests/test_runner.tscn   # census tests fail if the JSON is stale
 ```
 

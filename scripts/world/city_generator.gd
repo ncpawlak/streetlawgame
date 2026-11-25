@@ -1,7 +1,7 @@
 class_name CityGenerator
 extends Node3D
 ## Builds the North End (Zone 1) greybox at runtime from [NorthEndLayout], which
-## tools/extract_north_end_layout.py generates from docs/map/north_end_wireframe.svg: streets and I-59,
+## tools/extract_north_end_layout.py generates from docs/map/north_end_wireframe_source.svg: streets and I-59,
 ## the tracks, the lakes, blocks split into lots, district-styled buildings, the three districts and
 ## parked cars. Wireframe pixels map to meters with [constant METERS_PER_PX] around [constant CENTER_PX]
 ## (north = -Z). Roster content is placed on the lots by main.gd ([NorthEndSpots]).

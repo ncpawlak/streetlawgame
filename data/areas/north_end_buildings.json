@@ -3,7 +3,7 @@
 	"generated_by": "tools/north_end_census.tscn (NorthEndCensus.build); do not hand-edit",
 	"meters_per_px": 1.2,
 	"counts": {
-		"house_1f": 173,
+		"house_1f": 177,
 		"house_2f": 126,
 		"large_building": 44,
 		"special_building": 4,
@@ -25,7 +25,7 @@
 			],
 			"tier": "low",
 			"label": "1-storey house, small yard",
-			"count": 117
+			"count": 119
 		},
 		"house_1f_big_yard": {
 			"category": "house_1f",
@@ -40,7 +40,7 @@
 			],
 			"tier": "medium",
 			"label": "1-storey house, big yard",
-			"count": 39
+			"count": 41
 		},
 		"house_1f_deep_lot": {
 			"category": "house_1f",
@@ -85,7 +85,7 @@
 			],
 			"tier": "high",
 			"label": "2-storey house, big yard",
-			"count": 46
+			"count": 45
 		},
 		"house_2f_deep_lot": {
 			"category": "house_2f",
@@ -100,7 +100,7 @@
 			],
 			"tier": "medium",
 			"label": "2-storey house, deep lot with long driveway",
-			"count": 4
+			"count": 5
 		},
 		"trailer_1f": {
 			"category": "house_1f",
@@ -529,7 +529,7 @@
 				28.0
 			],
 			"label": "Stand-in shop below, flat above (arterial)",
-			"count": 11
+			"count": 12
 		},
 		"standin_standalone_shop": {
 			"category": "standin_business",
@@ -543,7 +543,7 @@
 				28.0
 			],
 			"label": "Stand-in standalone shop (own lot, front parking)",
-			"count": 5
+			"count": 4
 		},
 		"standin_corner_store": {
 			"category": "standin_business",
@@ -755,23 +755,12 @@
 			"category": "large_building",
 			"tags": [
 				"industrial",
-				"specialized_location",
 				"mangona"
 			],
-			"roles": [
-				{
-					"role": "robbery",
-					"event": "burglary",
-					"tier": "low"
-				}
-			],
+			"roles": [],
 			"design_archetype": "warehouse",
-			"name": "House",
-			"roster": [],
-			"location": {
-				"def": "house",
-				"instance": "house_13"
-			}
+			"name": "",
+			"roster": []
 		},
 		{
 			"id": "ne_mg_austral_ave_05",
@@ -1897,23 +1886,12 @@
 			"category": "house_2f",
 			"tags": [
 				"residential",
-				"specialized_location",
 				"northgrove"
 			],
-			"roles": [
-				{
-					"role": "robbery",
-					"event": "burglary",
-					"tier": "high"
-				}
-			],
+			"roles": [],
 			"design_archetype": "house_2f_big_yard",
-			"name": "House",
-			"roster": [],
-			"location": {
-				"def": "house",
-				"instance": "house_9"
-			}
+			"name": "",
+			"roster": []
 		},
 		{
 			"id": "ne_ng_30th_st_02",
@@ -2140,35 +2118,35 @@
 		},
 		{
 			"id": "ne_ng_30th_st_07",
-			"key": "686.0,569.5,24.0,14.5",
+			"key": "686.3,569.5,23.7,14.5",
 			"source": "lot",
 			"district": "northgrove",
 			"street": "30th St",
 			"street_kind": "loc",
 			"block": 56,
 			"rect_px": [
-				686.0,
+				686.3,
 				569.5,
-				24.0,
+				23.7,
 				14.5
 			],
 			"position_m": [
-				188.4,
+				188.58,
 				-99.9
 			],
 			"yaw_deg": 0.0,
 			"footprint_m": [
-				27.3,
+				26.94,
 				15.9
 			],
 			"height_m": 7.51,
 			"current_storeys": 2,
 			"lot_m": [
-				28.8,
+				28.44,
 				17.4
 			],
 			"lot_frontage_depth_m": [
-				28.8,
+				28.44,
 				17.4
 			],
 			"category": "house_1f",
@@ -2269,7 +2247,7 @@
 		},
 		{
 			"id": "ne_ng_30th_st_10",
-			"key": "822.5,569.5,21.5,14.5",
+			"key": "822.5,569.5,21.2,14.5",
 			"source": "lot",
 			"district": "northgrove",
 			"street": "30th St",
@@ -2278,26 +2256,26 @@
 			"rect_px": [
 				822.5,
 				569.5,
-				21.5,
+				21.2,
 				14.5
 			],
 			"position_m": [
-				350.7,
+				350.52,
 				-99.9
 			],
 			"yaw_deg": 0.0,
 			"footprint_m": [
-				24.3,
+				23.94,
 				15.9
 			],
 			"height_m": 10.18,
 			"current_storeys": 3,
 			"lot_m": [
-				25.8,
+				25.44,
 				17.4
 			],
 			"lot_frontage_depth_m": [
-				25.8,
+				25.44,
 				17.4
 			],
 			"category": "house_2f",
@@ -2712,7 +2690,7 @@
 		},
 		{
 			"id": "ne_ng_30th_st_20",
-			"key": "822.5,596.0,21.5,16.0",
+			"key": "822.5,596.0,21.2,16.0",
 			"source": "lot",
 			"district": "northgrove",
 			"street": "30th St",
@@ -2721,26 +2699,26 @@
 			"rect_px": [
 				822.5,
 				596.0,
-				21.5,
+				21.2,
 				16.0
 			],
 			"position_m": [
-				350.7,
+				350.52,
 				-67.2
 			],
 			"yaw_deg": 180.0,
 			"footprint_m": [
-				24.3,
+				23.94,
 				17.7
 			],
 			"height_m": 11.85,
 			"current_storeys": 4,
 			"lot_m": [
-				25.8,
+				25.44,
 				19.2
 			],
 			"lot_frontage_depth_m": [
-				25.8,
+				25.44,
 				19.2
 			],
 			"category": "house_2f",
@@ -2980,30 +2958,15 @@
 				19.2,
 				28.8
 			],
-			"category": "standin_business",
+			"category": "house_1f",
 			"tags": [
-				"standin_shop",
-				"house_1f",
-				"northgrove",
-				"commercial"
+				"residential",
+				"northgrove"
 			],
-			"roles": [
-				{
-					"role": "shop",
-					"shop_type": "corner_store",
-					"enterable": true,
-					"purchasable": false
-				}
-			],
-			"design_archetype": "standin_corner_store",
-			"name": "Corner store",
-			"roster": [],
-			"standin": {
-				"subtype": "standin_shop",
-				"enterable": true,
-				"shop_type": "corner_store",
-				"replaces": "corner"
-			}
+			"roles": [],
+			"design_archetype": "house_1f_deep_lot",
+			"name": "",
+			"roster": []
 		},
 		{
 			"id": "ne_ng_36th_st_05",
@@ -3540,12 +3503,23 @@
 			"category": "house_1f",
 			"tags": [
 				"residential",
+				"specialized_location",
 				"northgrove"
 			],
-			"roles": [],
+			"roles": [
+				{
+					"role": "robbery",
+					"event": "burglary",
+					"tier": "medium"
+				}
+			],
 			"design_archetype": "house_1f_big_yard",
-			"name": "",
-			"roster": []
+			"name": "House",
+			"roster": [],
+			"location": {
+				"def": "house",
+				"instance": "house_1"
+			}
 		},
 		{
 			"id": "ne_ng_36th_st_17",
@@ -3960,23 +3934,12 @@
 			"category": "large_building",
 			"tags": [
 				"residential",
-				"specialized_location",
 				"northgrove"
 			],
-			"roles": [
-				{
-					"role": "robbery",
-					"event": "burglary",
-					"tier": "low"
-				}
-			],
+			"roles": [],
 			"design_archetype": "apartment_walkup_3f",
-			"name": "House",
-			"roster": [],
-			"location": {
-				"def": "house",
-				"instance": "house_8"
-			}
+			"name": "",
+			"roster": []
 		},
 		{
 			"id": "ne_ng_40th_st_07",
@@ -4014,23 +3977,12 @@
 			"category": "house_1f",
 			"tags": [
 				"residential",
-				"specialized_location",
 				"northgrove"
 			],
-			"roles": [
-				{
-					"role": "robbery",
-					"event": "burglary",
-					"tier": "medium"
-				}
-			],
+			"roles": [],
 			"design_archetype": "house_1f_big_yard",
-			"name": "House",
-			"roster": [],
-			"location": {
-				"def": "house",
-				"instance": "house_7"
-			}
+			"name": "",
+			"roster": []
 		},
 		{
 			"id": "ne_ng_40th_st_08",
@@ -4068,12 +4020,23 @@
 			"category": "house_2f",
 			"tags": [
 				"residential",
+				"specialized_location",
 				"northgrove"
 			],
-			"roles": [],
+			"roles": [
+				{
+					"role": "robbery",
+					"event": "burglary",
+					"tier": "high"
+				}
+			],
 			"design_archetype": "house_2f_big_yard",
-			"name": "",
-			"roster": []
+			"name": "House",
+			"roster": [],
+			"location": {
+				"def": "house",
+				"instance": "house_3"
+			}
 		},
 		{
 			"id": "ne_ng_40th_st_09",
@@ -4452,15 +4415,30 @@
 				19.2,
 				28.8
 			],
-			"category": "house_1f",
+			"category": "standin_business",
 			"tags": [
-				"residential",
-				"northgrove"
+				"standin_shop",
+				"house_1f",
+				"northgrove",
+				"commercial"
 			],
-			"roles": [],
-			"design_archetype": "house_1f_deep_lot",
-			"name": "",
-			"roster": []
+			"roles": [
+				{
+					"role": "shop",
+					"shop_type": "corner_store",
+					"enterable": true,
+					"purchasable": false
+				}
+			],
+			"design_archetype": "standin_corner_store",
+			"name": "Corner store",
+			"roster": [],
+			"standin": {
+				"subtype": "standin_shop",
+				"enterable": true,
+				"shop_type": "corner_store",
+				"replaces": "corner"
+			}
 		},
 		{
 			"id": "ne_ng_40th_st_18",
@@ -4806,18 +4784,18 @@
 			"roles": [
 				{
 					"role": "shop",
-					"shop_type": "clothing",
+					"shop_type": "food",
 					"enterable": true,
 					"purchasable": false
 				}
 			],
 			"design_archetype": "standin_shopfront_2f",
-			"name": "Clothing store",
+			"name": "Food (diner / takeout)",
 			"roster": [],
 			"standin": {
 				"subtype": "standin_shop",
 				"enterable": true,
-				"shop_type": "clothing",
+				"shop_type": "food",
 				"replaces": "mixed_use"
 			}
 		},
@@ -4857,12 +4835,23 @@
 			"category": "house_2f",
 			"tags": [
 				"residential",
+				"specialized_location",
 				"northgrove"
 			],
-			"roles": [],
+			"roles": [
+				{
+					"role": "robbery",
+					"event": "burglary",
+					"tier": "high"
+				}
+			],
 			"design_archetype": "house_2f_big_yard",
-			"name": "",
-			"roster": []
+			"name": "House",
+			"roster": [],
+			"location": {
+				"def": "house",
+				"instance": "house_9"
+			}
 		},
 		{
 			"id": "ne_ng_broadway_05",
@@ -5358,7 +5347,7 @@
 		},
 		{
 			"id": "ne_ng_broadway_15",
-			"key": "822.5,540.5,21.5,14.5",
+			"key": "822.5,540.5,21.3,14.5",
 			"source": "lot",
 			"district": "northgrove",
 			"street": "Broadway",
@@ -5367,27 +5356,27 @@
 			"rect_px": [
 				822.5,
 				540.5,
-				21.5,
+				21.3,
 				14.5
 			],
 			"position_m": [
-				350.7,
+				350.58,
 				-134.7
 			],
 			"yaw_deg": 90.0,
 			"footprint_m": [
-				24.3,
+				24.06,
 				15.9
 			],
 			"height_m": 7.61,
 			"current_storeys": 2,
 			"lot_m": [
-				25.8,
+				25.56,
 				17.4
 			],
 			"lot_frontage_depth_m": [
 				17.4,
-				25.8
+				25.56
 			],
 			"category": "standin_business",
 			"tags": [
@@ -5457,7 +5446,7 @@
 		},
 		{
 			"id": "ne_ng_broadway_17",
-			"key": "822.5,555.0,21.5,14.5",
+			"key": "822.5,555.0,21.2,14.5",
 			"source": "lot",
 			"district": "northgrove",
 			"street": "Broadway",
@@ -5466,27 +5455,27 @@
 			"rect_px": [
 				822.5,
 				555.0,
-				21.5,
+				21.2,
 				14.5
 			],
 			"position_m": [
-				350.7,
+				350.52,
 				-117.3
 			],
 			"yaw_deg": 90.0,
 			"footprint_m": [
-				24.3,
+				23.94,
 				15.9
 			],
 			"height_m": 13.28,
 			"current_storeys": 4,
 			"lot_m": [
-				25.8,
+				25.44,
 				17.4
 			],
 			"lot_frontage_depth_m": [
 				17.4,
-				25.8
+				25.44
 			],
 			"category": "standin_business",
 			"tags": [
@@ -5635,7 +5624,7 @@
 		},
 		{
 			"id": "ne_ng_broadway_20",
-			"key": "822.5,612.0,21.5,16.0",
+			"key": "822.5,612.0,21.1,16.0",
 			"source": "lot",
 			"district": "northgrove",
 			"street": "Broadway",
@@ -5644,27 +5633,27 @@
 			"rect_px": [
 				822.5,
 				612.0,
-				21.5,
+				21.1,
 				16.0
 			],
 			"position_m": [
-				350.7,
+				350.46,
 				-48.0
 			],
 			"yaw_deg": 90.0,
 			"footprint_m": [
-				24.3,
+				23.82,
 				17.7
 			],
 			"height_m": 6.36,
 			"current_storeys": 2,
 			"lot_m": [
-				25.8,
+				25.32,
 				19.2
 			],
 			"lot_frontage_depth_m": [
 				19.2,
-				25.8
+				25.32
 			],
 			"category": "standin_business",
 			"tags": [
@@ -5714,7 +5703,7 @@
 				24.3,
 				15.9
 			],
-			"height_m": 11.71,
+			"height_m": 12.84,
 			"current_storeys": 4,
 			"lot_m": [
 				25.8,
@@ -5724,13 +5713,13 @@
 				17.4,
 				25.8
 			],
-			"category": "house_2f",
+			"category": "large_building",
 			"tags": [
 				"residential",
 				"northgrove"
 			],
 			"roles": [],
-			"design_archetype": "house_2f_big_yard",
+			"design_archetype": "apartment_walkup_3f",
 			"name": "",
 			"roster": []
 		},
@@ -5752,28 +5741,28 @@
 				324.9,
 				21.3
 			],
-			"yaw_deg": 0.0,
+			"yaw_deg": -90.0,
 			"footprint_m": [
 				24.3,
 				15.9
 			],
-			"height_m": 12.82,
-			"current_storeys": 4,
+			"height_m": 10.13,
+			"current_storeys": 3,
 			"lot_m": [
 				25.8,
 				17.4
 			],
 			"lot_frontage_depth_m": [
-				25.8,
-				17.4
+				17.4,
+				25.8
 			],
-			"category": "large_building",
+			"category": "house_2f",
 			"tags": [
 				"residential",
 				"northgrove"
 			],
 			"roles": [],
-			"design_archetype": "apartment_walkup_3f",
+			"design_archetype": "house_2f_big_yard",
 			"name": "",
 			"roster": []
 		},
@@ -5800,8 +5789,8 @@
 				24.3,
 				15.9
 			],
-			"height_m": 9.72,
-			"current_storeys": 3,
+			"height_m": 12.82,
+			"current_storeys": 4,
 			"lot_m": [
 				25.8,
 				17.4
@@ -5810,7 +5799,7 @@
 				25.8,
 				17.4
 			],
-			"category": "house_2f",
+			"category": "large_building",
 			"tags": [
 				"residential",
 				"specialized_location",
@@ -5820,10 +5809,10 @@
 				{
 					"role": "robbery",
 					"event": "burglary",
-					"tier": "high"
+					"tier": "low"
 				}
 			],
-			"design_archetype": "house_2f_big_yard",
+			"design_archetype": "apartment_walkup_3f",
 			"name": "Bungalow row",
 			"roster": [
 				{
@@ -5861,7 +5850,7 @@
 				24.3,
 				15.9
 			],
-			"height_m": 13.54,
+			"height_m": 13.08,
 			"current_storeys": 4,
 			"lot_m": [
 				25.8,
@@ -6107,12 +6096,23 @@
 			"category": "house_2f",
 			"tags": [
 				"residential",
+				"specialized_location",
 				"northgrove"
 			],
-			"roles": [],
+			"roles": [
+				{
+					"role": "robbery",
+					"event": "burglary",
+					"tier": "high"
+				}
+			],
 			"design_archetype": "house_2f_big_yard",
-			"name": "",
-			"roster": []
+			"name": "House",
+			"roster": [],
+			"location": {
+				"def": "house",
+				"instance": "house_15"
+			}
 		},
 		{
 			"id": "ne_ng_dixie_hwy_06",
@@ -6354,36 +6354,36 @@
 		},
 		{
 			"id": "ne_ng_dixie_hwy_11",
-			"key": "686.0,540.5,24.0,14.5",
+			"key": "686.3,540.5,23.7,14.5",
 			"source": "lot",
 			"district": "northgrove",
 			"street": "Dixie Hwy",
 			"street_kind": "art",
 			"block": 56,
 			"rect_px": [
-				686.0,
+				686.3,
 				540.5,
-				24.0,
+				23.7,
 				14.5
 			],
 			"position_m": [
-				188.4,
+				188.58,
 				-134.7
 			],
 			"yaw_deg": -90.0,
 			"footprint_m": [
-				27.3,
+				26.94,
 				15.9
 			],
 			"height_m": 11.84,
 			"current_storeys": 4,
 			"lot_m": [
-				28.8,
+				28.44,
 				17.4
 			],
 			"lot_frontage_depth_m": [
 				17.4,
-				28.8
+				28.44
 			],
 			"category": "specialized_location",
 			"tags": [
@@ -6589,57 +6589,59 @@
 		},
 		{
 			"id": "ne_ng_dixie_hwy_16",
-			"key": "686.0,555.0,24.0,14.5",
+			"key": "686.3,555.0,23.7,14.5",
 			"source": "lot",
 			"district": "northgrove",
 			"street": "Dixie Hwy",
 			"street_kind": "art",
 			"block": 56,
 			"rect_px": [
-				686.0,
+				686.3,
 				555.0,
-				24.0,
+				23.7,
 				14.5
 			],
 			"position_m": [
-				188.4,
+				188.58,
 				-117.3
 			],
 			"yaw_deg": -90.0,
 			"footprint_m": [
-				27.3,
+				26.94,
 				15.9
 			],
 			"height_m": 6.24,
 			"current_storeys": 2,
 			"lot_m": [
-				28.8,
+				28.44,
 				17.4
 			],
 			"lot_frontage_depth_m": [
 				17.4,
-				28.8
+				28.44
 			],
 			"category": "standin_business",
 			"tags": [
-				"standin_closed",
+				"standin_shop",
 				"large_building",
 				"northgrove",
 				"commercial"
 			],
 			"roles": [
 				{
-					"role": "storefront",
-					"enterable": false
+					"role": "shop",
+					"shop_type": "liquor",
+					"enterable": true,
+					"purchasable": false
 				}
 			],
 			"design_archetype": "standin_shopfront_2f",
-			"name": "Closed storefront",
+			"name": "Liquor store",
 			"roster": [],
 			"standin": {
-				"subtype": "standin_closed",
-				"enterable": false,
-				"shop_type": "",
+				"subtype": "standin_shop",
+				"enterable": true,
+				"shop_type": "liquor",
 				"replaces": "mixed_use"
 			}
 		},
@@ -6688,36 +6690,36 @@
 		},
 		{
 			"id": "ne_ng_dixie_hwy_18",
-			"key": "686.0,596.0,16.0,24.0",
+			"key": "686.4,596.0,15.6,24.0",
 			"source": "lot",
 			"district": "northgrove",
 			"street": "Dixie Hwy",
 			"street_kind": "art",
 			"block": 62,
 			"rect_px": [
-				686.0,
+				686.4,
 				596.0,
-				16.0,
+				15.6,
 				24.0
 			],
 			"position_m": [
-				183.6,
+				183.84,
 				-62.4
 			],
 			"yaw_deg": -90.0,
 			"footprint_m": [
-				17.7,
+				17.22,
 				27.3
 			],
 			"height_m": 13.36,
 			"current_storeys": 4,
 			"lot_m": [
-				19.2,
+				18.72,
 				28.8
 			],
 			"lot_frontage_depth_m": [
 				28.8,
-				19.2
+				18.72
 			],
 			"category": "standin_business",
 			"tags": [
@@ -6864,79 +6866,66 @@
 			"category": "large_building",
 			"tags": [
 				"residential",
-				"specialized_location",
 				"northgrove"
 			],
-			"roles": [
-				{
-					"role": "robbery",
-					"event": "burglary",
-					"tier": "low"
-				}
-			],
+			"roles": [],
 			"design_archetype": "apartment_walkup_3f",
-			"name": "House",
-			"roster": [],
-			"location": {
-				"def": "house",
-				"instance": "house_2"
-			}
+			"name": "",
+			"roster": []
 		},
 		{
 			"id": "ne_ng_dixie_hwy_22",
-			"key": "686.0,620.0,16.0,24.0",
+			"key": "686.4,620.0,15.6,24.0",
 			"source": "lot",
 			"district": "northgrove",
 			"street": "Dixie Hwy",
 			"street_kind": "art",
 			"block": 62,
 			"rect_px": [
-				686.0,
+				686.4,
 				620.0,
-				16.0,
+				15.6,
 				24.0
 			],
 			"position_m": [
-				183.6,
+				183.84,
 				-33.6
 			],
 			"yaw_deg": -90.0,
 			"footprint_m": [
-				17.7,
+				17.22,
 				27.3
 			],
 			"height_m": 8.4,
 			"current_storeys": 3,
 			"lot_m": [
-				19.2,
+				18.72,
 				28.8
 			],
 			"lot_frontage_depth_m": [
 				28.8,
-				19.2
+				18.72
 			],
 			"category": "standin_business",
 			"tags": [
-				"standin_shop",
+				"standin_closed",
 				"large_building",
 				"northgrove",
 				"commercial"
 			],
 			"roles": [
 				{
-					"role": "shop",
-					"shop_type": "food",
-					"enterable": true,
-					"purchasable": false
+					"role": "storefront",
+					"enterable": false
 				}
 			],
 			"design_archetype": "standin_shopfront_2f",
-			"name": "Food (diner / takeout)",
+			"name": "Closed storefront",
 			"roster": [],
 			"standin": {
-				"subtype": "standin_shop",
-				"enterable": true,
-				"shop_type": "food",
+				"subtype": "standin_closed",
+				"enterable": false,
+				"shop_type": "",
 				"replaces": "mixed_use"
 			}
 		},
@@ -7071,6 +7060,64 @@
 		},
 		{
 			"id": "ne_ng_dixie_hwy_26",
+			"key": "686.5,670.5,23.5,14.5",
+			"source": "lot",
+			"district": "northgrove",
+			"street": "Dixie Hwy",
+			"street_kind": "art",
+			"block": 68,
+			"rect_px": [
+				686.5,
+				670.5,
+				23.5,
+				14.5
+			],
+			"position_m": [
+				188.7,
+				21.3
+			],
+			"yaw_deg": -90.0,
+			"footprint_m": [
+				26.7,
+				15.9
+			],
+			"height_m": 7.6,
+			"current_storeys": 2,
+			"lot_m": [
+				28.2,
+				17.4
+			],
+			"lot_frontage_depth_m": [
+				17.4,
+				28.2
+			],
+			"category": "standin_business",
+			"tags": [
+				"standin_shop",
+				"large_building",
+				"northgrove",
+				"commercial"
+			],
+			"roles": [
+				{
+					"role": "shop",
+					"shop_type": "ammo",
+					"enterable": true,
+					"purchasable": false
+				}
+			],
+			"design_archetype": "standin_shopfront_2f",
+			"name": "Ammo & gun counter",
+			"roster": [],
+			"standin": {
+				"subtype": "standin_shop",
+				"enterable": true,
+				"shop_type": "ammo",
+				"replaces": "mixed_use"
+			}
+		},
+		{
+			"id": "ne_ng_dixie_hwy_27",
 			"key": "710.0,670.5,24.0,14.5",
 			"source": "lot",
 			"district": "northgrove",
@@ -7087,44 +7134,33 @@
 				217.2,
 				21.3
 			],
-			"yaw_deg": 0.0,
+			"yaw_deg": 90.0,
 			"footprint_m": [
 				27.3,
 				15.9
 			],
-			"height_m": 7.6,
-			"current_storeys": 2,
+			"height_m": 9.08,
+			"current_storeys": 3,
 			"lot_m": [
 				28.8,
 				17.4
 			],
 			"lot_frontage_depth_m": [
-				28.8,
-				17.4
+				17.4,
+				28.8
 			],
-			"category": "house_1f",
+			"category": "house_2f",
 			"tags": [
 				"residential",
-				"specialized_location",
 				"northgrove"
 			],
-			"roles": [
-				{
-					"role": "robbery",
-					"event": "burglary",
-					"tier": "medium"
-				}
-			],
-			"design_archetype": "house_1f_big_yard",
-			"name": "House",
-			"roster": [],
-			"location": {
-				"def": "house",
-				"instance": "house_3"
-			}
+			"roles": [],
+			"design_archetype": "house_2f_deep_lot",
+			"name": "",
+			"roster": []
 		},
 		{
-			"id": "ne_ng_dixie_hwy_27",
+			"id": "ne_ng_dixie_hwy_28",
 			"key": "746.0,670.5,21.5,14.5",
 			"source": "lot",
 			"district": "northgrove",
@@ -7146,8 +7182,8 @@
 				24.3,
 				15.9
 			],
-			"height_m": 7.47,
-			"current_storeys": 2,
+			"height_m": 12.02,
+			"current_storeys": 4,
 			"lot_m": [
 				25.8,
 				17.4
@@ -7156,18 +7192,18 @@
 				17.4,
 				25.8
 			],
-			"category": "house_1f",
+			"category": "house_2f",
 			"tags": [
 				"residential",
 				"northgrove"
 			],
 			"roles": [],
-			"design_archetype": "house_1f_big_yard",
+			"design_archetype": "house_2f_big_yard",
 			"name": "",
 			"roster": []
 		},
 		{
-			"id": "ne_ng_dixie_hwy_28",
+			"id": "ne_ng_dixie_hwy_29",
 			"key": "594.2,685.0,19.8,14.5",
 			"source": "lot",
 			"district": "northgrove",
@@ -7210,7 +7246,7 @@
 			"roster": []
 		},
 		{
-			"id": "ne_ng_dixie_hwy_29",
+			"id": "ne_ng_dixie_hwy_30",
 			"key": "626.0,685.0,24.0,14.5",
 			"source": "lot",
 			"district": "northgrove",
@@ -7253,7 +7289,7 @@
 			"roster": []
 		},
 		{
-			"id": "ne_ng_dixie_hwy_30",
+			"id": "ne_ng_dixie_hwy_31",
 			"key": "710.0,685.0,24.0,14.5",
 			"source": "lot",
 			"district": "northgrove",
@@ -7275,8 +7311,8 @@
 				27.3,
 				15.9
 			],
-			"height_m": 13.84,
-			"current_storeys": 4,
+			"height_m": 7.47,
+			"current_storeys": 2,
 			"lot_m": [
 				28.8,
 				17.4
@@ -7285,18 +7321,18 @@
 				28.8,
 				17.4
 			],
-			"category": "large_building",
+			"category": "house_1f",
 			"tags": [
 				"residential",
 				"northgrove"
 			],
 			"roles": [],
-			"design_archetype": "apartment_walkup_3f",
+			"design_archetype": "house_1f_big_yard",
 			"name": "",
 			"roster": []
 		},
 		{
-			"id": "ne_ng_dixie_hwy_31",
+			"id": "ne_ng_dixie_hwy_32",
 			"key": "746.0,685.0,21.5,14.5",
 			"source": "lot",
 			"district": "northgrove",
@@ -7318,7 +7354,7 @@
 				24.3,
 				15.9
 			],
-			"height_m": 12.02,
+			"height_m": 11.71,
 			"current_storeys": 4,
 			"lot_m": [
 				25.8,
@@ -7417,12 +7453,23 @@
 			"category": "house_2f",
 			"tags": [
 				"residential",
+				"specialized_location",
 				"northgrove"
 			],
-			"roles": [],
+			"roles": [
+				{
+					"role": "robbery",
+					"event": "burglary",
+					"tier": "medium"
+				}
+			],
 			"design_archetype": "house_2f_small_yard",
-			"name": "",
-			"roster": []
+			"name": "House",
+			"roster": [],
+			"location": {
+				"def": "house",
+				"instance": "house_5"
+			}
 		},
 		{
 			"id": "ne_ng_grove_rd_arts_strip_03",
@@ -7573,15 +7620,30 @@
 				28.8,
 				17.4
 			],
-			"category": "house_2f",
+			"category": "standin_business",
 			"tags": [
-				"residential",
-				"northgrove"
+				"standin_shop",
+				"house_2f",
+				"northgrove",
+				"commercial"
 			],
-			"roles": [],
-			"design_archetype": "house_2f_big_yard",
-			"name": "",
-			"roster": []
+			"roles": [
+				{
+					"role": "shop",
+					"shop_type": "clothing",
+					"enterable": true,
+					"purchasable": false
+				}
+			],
+			"design_archetype": "standin_standalone_shop",
+			"name": "Clothing store",
+			"roster": [],
+			"standin": {
+				"subtype": "standin_shop",
+				"enterable": true,
+				"shop_type": "clothing",
+				"replaces": "corner_art"
+			}
 		},
 		{
 			"id": "ne_ng_grove_rd_arts_strip_06",
@@ -7737,7 +7799,7 @@
 		},
 		{
 			"id": "ne_ng_grove_rd_arts_strip_09",
-			"key": "822.5,499.5,21.5,14.5",
+			"key": "822.5,499.5,21.4,14.5",
 			"source": "lot",
 			"district": "northgrove",
 			"street": "Grove Rd · arts strip",
@@ -7746,26 +7808,26 @@
 			"rect_px": [
 				822.5,
 				499.5,
-				21.5,
+				21.4,
 				14.5
 			],
 			"position_m": [
-				350.7,
+				350.64,
 				-183.9
 			],
 			"yaw_deg": 0.0,
 			"footprint_m": [
-				24.3,
+				24.18,
 				15.9
 			],
 			"height_m": 8.09,
 			"current_storeys": 3,
 			"lot_m": [
-				25.8,
+				25.68,
 				17.4
 			],
 			"lot_frontage_depth_m": [
-				25.8,
+				25.68,
 				17.4
 			],
 			"category": "standin_business",
@@ -7939,30 +8001,15 @@
 				25.2,
 				17.4
 			],
-			"category": "standin_business",
+			"category": "house_1f",
 			"tags": [
-				"standin_shop",
-				"house_1f",
-				"northgrove",
-				"commercial"
+				"residential",
+				"northgrove"
 			],
-			"roles": [
-				{
-					"role": "shop",
-					"shop_type": "ammo",
-					"enterable": true,
-					"purchasable": false
-				}
-			],
-			"design_archetype": "standin_standalone_shop",
-			"name": "Ammo & gun counter",
-			"roster": [],
-			"standin": {
-				"subtype": "standin_shop",
-				"enterable": true,
-				"shop_type": "ammo",
-				"replaces": "corner_art"
-			}
+			"roles": [],
+			"design_archetype": "house_1f_big_yard",
+			"name": "",
+			"roster": []
 		},
 		{
 			"id": "ne_ng_grove_rd_arts_strip_13",
@@ -8009,35 +8056,35 @@
 		},
 		{
 			"id": "ne_ng_grove_rd_arts_strip_14",
-			"key": "686.0,526.0,24.0,14.5",
+			"key": "686.4,526.0,23.6,14.5",
 			"source": "lot",
 			"district": "northgrove",
 			"street": "Grove Rd · arts strip",
 			"street_kind": "ave",
 			"block": 56,
 			"rect_px": [
-				686.0,
+				686.4,
 				526.0,
-				24.0,
+				23.6,
 				14.5
 			],
 			"position_m": [
-				188.4,
+				188.64,
 				-152.1
 			],
 			"yaw_deg": 180.0,
 			"footprint_m": [
-				27.3,
+				26.82,
 				15.9
 			],
 			"height_m": 8.87,
 			"current_storeys": 3,
 			"lot_m": [
-				28.8,
+				28.32,
 				17.4
 			],
 			"lot_frontage_depth_m": [
-				28.8,
+				28.32,
 				17.4
 			],
 			"category": "house_2f",
@@ -8083,30 +8130,15 @@
 				28.8,
 				17.4
 			],
-			"category": "standin_business",
+			"category": "house_1f",
 			"tags": [
-				"standin_shop",
-				"house_1f",
-				"northgrove",
-				"commercial"
+				"residential",
+				"northgrove"
 			],
-			"roles": [
-				{
-					"role": "shop",
-					"shop_type": "liquor",
-					"enterable": true,
-					"purchasable": false
-				}
-			],
-			"design_archetype": "standin_standalone_shop",
-			"name": "Liquor store",
-			"roster": [],
-			"standin": {
-				"subtype": "standin_shop",
-				"enterable": true,
-				"shop_type": "liquor",
-				"replaces": "corner_art"
-			}
+			"roles": [],
+			"design_archetype": "house_1f_big_yard",
+			"name": "",
+			"roster": []
 		},
 		{
 			"id": "ne_ng_grove_rd_arts_strip_16",
@@ -8144,23 +8176,12 @@
 			"category": "house_2f",
 			"tags": [
 				"residential",
-				"specialized_location",
 				"northgrove"
 			],
-			"roles": [
-				{
-					"role": "robbery",
-					"event": "burglary",
-					"tier": "high"
-				}
-			],
+			"roles": [],
 			"design_archetype": "house_2f_big_yard",
-			"name": "House",
-			"roster": [],
-			"location": {
-				"def": "house",
-				"instance": "house_15"
-			}
+			"name": "",
+			"roster": []
 		},
 		{
 			"id": "ne_ng_grove_rd_arts_strip_17",
@@ -8241,16 +8262,27 @@
 			"category": "house_1f",
 			"tags": [
 				"residential",
+				"specialized_location",
 				"northgrove"
 			],
-			"roles": [],
+			"roles": [
+				{
+					"role": "robbery",
+					"event": "burglary",
+					"tier": "medium"
+				}
+			],
 			"design_archetype": "house_1f_big_yard",
-			"name": "",
-			"roster": []
+			"name": "House",
+			"roster": [],
+			"location": {
+				"def": "house",
+				"instance": "house_11"
+			}
 		},
 		{
 			"id": "ne_ng_grove_rd_arts_strip_19",
-			"key": "822.5,526.0,21.5,14.5",
+			"key": "822.5,526.0,21.3,14.5",
 			"source": "lot",
 			"district": "northgrove",
 			"street": "Grove Rd · arts strip",
@@ -8259,26 +8291,26 @@
 			"rect_px": [
 				822.5,
 				526.0,
-				21.5,
+				21.3,
 				14.5
 			],
 			"position_m": [
-				350.7,
+				350.58,
 				-152.1
 			],
 			"yaw_deg": 180.0,
 			"footprint_m": [
-				24.3,
+				24.06,
 				15.9
 			],
 			"height_m": 13.57,
 			"current_storeys": 4,
 			"lot_m": [
-				25.8,
+				25.56,
 				17.4
 			],
 			"lot_frontage_depth_m": [
-				25.8,
+				25.56,
 				17.4
 			],
 			"category": "large_building",
@@ -8501,8 +8533,8 @@
 				21.3,
 				15.9
 			],
-			"height_m": 6.6,
-			"current_storeys": 2,
+			"height_m": 8.46,
+			"current_storeys": 3,
 			"lot_m": [
 				22.8,
 				17.4
@@ -8989,7 +9021,7 @@
 		},
 		{
 			"id": "ne_ng_mangona_rd_11",
-			"key": "822.5,628.0,21.5,16.0",
+			"key": "822.5,628.0,21.1,16.0",
 			"source": "lot",
 			"district": "northgrove",
 			"street": "Mangona Rd",
@@ -8998,26 +9030,26 @@
 			"rect_px": [
 				822.5,
 				628.0,
-				21.5,
+				21.1,
 				16.0
 			],
 			"position_m": [
-				350.7,
+				350.46,
 				-28.8
 			],
 			"yaw_deg": 0.0,
 			"footprint_m": [
-				24.3,
+				23.82,
 				17.7
 			],
 			"height_m": 10.76,
 			"current_storeys": 3,
 			"lot_m": [
-				25.8,
+				25.32,
 				19.2
 			],
 			"lot_frontage_depth_m": [
-				25.8,
+				25.32,
 				19.2
 			],
 			"category": "house_2f",
@@ -9152,12 +9184,23 @@
 			"category": "large_building",
 			"tags": [
 				"residential",
+				"specialized_location",
 				"northgrove"
 			],
-			"roles": [],
+			"roles": [
+				{
+					"role": "robbery",
+					"event": "burglary",
+					"tier": "low"
+				}
+			],
 			"design_archetype": "apartment_walkup_3f",
-			"name": "",
-			"roster": []
+			"name": "House",
+			"roster": [],
+			"location": {
+				"def": "house",
+				"instance": "house_12"
+			}
 		},
 		{
 			"id": "ne_ng_mangona_rd_15",
@@ -9204,6 +9247,49 @@
 		},
 		{
 			"id": "ne_ng_mangona_rd_16",
+			"key": "686.5,656.0,23.5,14.5",
+			"source": "lot",
+			"district": "northgrove",
+			"street": "Mangona Rd",
+			"street_kind": "loc",
+			"block": 68,
+			"rect_px": [
+				686.5,
+				656.0,
+				23.5,
+				14.5
+			],
+			"position_m": [
+				188.7,
+				3.9
+			],
+			"yaw_deg": 180.0,
+			"footprint_m": [
+				26.7,
+				15.9
+			],
+			"height_m": 9.43,
+			"current_storeys": 3,
+			"lot_m": [
+				28.2,
+				17.4
+			],
+			"lot_frontage_depth_m": [
+				28.2,
+				17.4
+			],
+			"category": "house_2f",
+			"tags": [
+				"residential",
+				"northgrove"
+			],
+			"roles": [],
+			"design_archetype": "house_2f_big_yard",
+			"name": "",
+			"roster": []
+		},
+		{
+			"id": "ne_ng_mangona_rd_17",
 			"key": "710.0,656.0,24.0,14.5",
 			"source": "lot",
 			"district": "northgrove",
@@ -9225,8 +9311,8 @@
 				27.3,
 				15.9
 			],
-			"height_m": 9.43,
-			"current_storeys": 3,
+			"height_m": 13.84,
+			"current_storeys": 4,
 			"lot_m": [
 				28.8,
 				17.4
@@ -9235,18 +9321,18 @@
 				28.8,
 				17.4
 			],
-			"category": "house_2f",
+			"category": "large_building",
 			"tags": [
 				"residential",
 				"northgrove"
 			],
 			"roles": [],
-			"design_archetype": "house_2f_big_yard",
+			"design_archetype": "apartment_walkup_3f",
 			"name": "",
 			"roster": []
 		},
 		{
-			"id": "ne_ng_mangona_rd_17",
+			"id": "ne_ng_mangona_rd_18",
 			"key": "746.0,656.0,21.5,14.5",
 			"source": "lot",
 			"district": "northgrove",
@@ -9268,8 +9354,8 @@
 				24.3,
 				15.9
 			],
-			"height_m": 9.08,
-			"current_storeys": 3,
+			"height_m": 12.02,
+			"current_storeys": 4,
 			"lot_m": [
 				25.8,
 				17.4
@@ -9302,7 +9388,7 @@
 			]
 		},
 		{
-			"id": "ne_ng_mangona_rd_18",
+			"id": "ne_ng_mangona_rd_19",
 			"key": "767.5,656.0,21.5,14.5",
 			"source": "lot",
 			"district": "northgrove",
@@ -9324,8 +9410,8 @@
 				24.3,
 				15.9
 			],
-			"height_m": 12.02,
-			"current_storeys": 4,
+			"height_m": 9.72,
+			"current_storeys": 3,
 			"lot_m": [
 				25.8,
 				17.4
@@ -9345,7 +9431,7 @@
 			"roster": []
 		},
 		{
-			"id": "ne_ng_mangona_rd_19",
+			"id": "ne_ng_mangona_rd_20",
 			"key": "801.0,656.0,21.5,14.5",
 			"source": "lot",
 			"district": "northgrove",
@@ -9367,7 +9453,7 @@
 				24.3,
 				15.9
 			],
-			"height_m": 12.84,
+			"height_m": 13.54,
 			"current_storeys": 4,
 			"lot_m": [
 				25.8,
@@ -9388,7 +9474,50 @@
 			"roster": []
 		},
 		{
-			"id": "ne_ng_mangona_rd_20",
+			"id": "ne_ng_mangona_rd_21",
+			"key": "822.5,656.0,21.0,14.5",
+			"source": "lot",
+			"district": "northgrove",
+			"street": "Mangona Rd",
+			"street_kind": "loc",
+			"block": 70,
+			"rect_px": [
+				822.5,
+				656.0,
+				21.0,
+				14.5
+			],
+			"position_m": [
+				350.4,
+				3.9
+			],
+			"yaw_deg": 180.0,
+			"footprint_m": [
+				23.7,
+				15.9
+			],
+			"height_m": 6.6,
+			"current_storeys": 2,
+			"lot_m": [
+				25.2,
+				17.4
+			],
+			"lot_frontage_depth_m": [
+				25.2,
+				17.4
+			],
+			"category": "house_1f",
+			"tags": [
+				"residential",
+				"northgrove"
+			],
+			"roles": [],
+			"design_archetype": "house_1f_big_yard",
+			"name": "",
+			"roster": []
+		},
+		{
+			"id": "ne_ng_mangona_rd_22",
 			"key": "875.0,656.0,19.0,14.5",
 			"source": "lot",
 			"district": "northgrove",
@@ -9410,8 +9539,8 @@
 				21.3,
 				15.9
 			],
-			"height_m": 10.13,
-			"current_storeys": 3,
+			"height_m": 11.66,
+			"current_storeys": 4,
 			"lot_m": [
 				22.8,
 				17.4
@@ -9431,7 +9560,7 @@
 			"roster": []
 		},
 		{
-			"id": "ne_ng_mangona_rd_21",
+			"id": "ne_ng_mangona_rd_23",
 			"key": "574.3,670.5,19.9,14.5",
 			"source": "lot",
 			"district": "northgrove",
@@ -9496,8 +9625,8 @@
 				21.3,
 				15.9
 			],
-			"height_m": 13.08,
-			"current_storeys": 4,
+			"height_m": 7.58,
+			"current_storeys": 2,
 			"lot_m": [
 				22.8,
 				17.4
@@ -9506,13 +9635,13 @@
 				22.8,
 				17.4
 			],
-			"category": "large_building",
+			"category": "house_1f",
 			"tags": [
 				"residential",
 				"northgrove"
 			],
 			"roles": [],
-			"design_archetype": "apartment_walkup_3f",
+			"design_archetype": "house_1f_small_yard",
 			"name": "",
 			"roster": []
 		},
@@ -10590,23 +10719,12 @@
 			"category": "house_1f",
 			"tags": [
 				"residential",
-				"specialized_location",
 				"tamarack_row"
 			],
-			"roles": [
-				{
-					"role": "robbery",
-					"event": "burglary",
-					"tier": "low"
-				}
-			],
+			"roles": [],
 			"design_archetype": "house_1f_small_yard",
-			"name": "House",
-			"roster": [],
-			"location": {
-				"def": "house",
-				"instance": "house_10"
-			}
+			"name": "",
+			"roster": []
 		},
 		{
 			"id": "ne_tr_15th_st_08",
@@ -10687,12 +10805,23 @@
 			"category": "house_2f",
 			"tags": [
 				"residential",
+				"specialized_location",
 				"tamarack_row"
 			],
-			"roles": [],
+			"roles": [
+				{
+					"role": "robbery",
+					"event": "burglary",
+					"tier": "medium"
+				}
+			],
 			"design_archetype": "house_2f_small_yard",
-			"name": "",
-			"roster": []
+			"name": "House",
+			"roster": [],
+			"location": {
+				"def": "house",
+				"instance": "house_2"
+			}
 		},
 		{
 			"id": "ne_tr_15th_st_10",
@@ -11042,23 +11171,12 @@
 			"category": "house_1f",
 			"tags": [
 				"residential",
-				"specialized_location",
 				"tamarack_row"
 			],
-			"roles": [
-				{
-					"role": "robbery",
-					"event": "burglary",
-					"tier": "low"
-				}
-			],
+			"roles": [],
 			"design_archetype": "house_1f_small_yard",
-			"name": "House",
-			"roster": [],
-			"location": {
-				"def": "house",
-				"instance": "house_6"
-			}
+			"name": "",
+			"roster": []
 		},
 		{
 			"id": "ne_tr_17th_st_03",
@@ -11569,12 +11687,23 @@
 			"category": "house_1f",
 			"tags": [
 				"residential",
+				"specialized_location",
 				"tamarack_row"
 			],
-			"roles": [],
+			"roles": [
+				{
+					"role": "robbery",
+					"event": "burglary",
+					"tier": "low"
+				}
+			],
 			"design_archetype": "house_1f_deep_lot",
-			"name": "",
-			"roster": []
+			"name": "House",
+			"roster": [],
+			"location": {
+				"def": "house",
+				"instance": "house_16"
+			}
 		},
 		{
 			"id": "ne_tr_17th_st_15",
@@ -12128,23 +12257,12 @@
 			"category": "house_2f",
 			"tags": [
 				"residential",
-				"specialized_location",
 				"tamarack_row"
 			],
-			"roles": [
-				{
-					"role": "robbery",
-					"event": "burglary",
-					"tier": "medium"
-				}
-			],
+			"roles": [],
 			"design_archetype": "house_2f_small_yard",
-			"name": "House",
-			"roster": [],
-			"location": {
-				"def": "house",
-				"instance": "house_1"
-			}
+			"name": "",
+			"roster": []
 		},
 		{
 			"id": "ne_tr_20th_st_13",
@@ -12526,12 +12644,23 @@
 			"category": "house_1f",
 			"tags": [
 				"residential",
+				"specialized_location",
 				"tamarack_row"
 			],
-			"roles": [],
+			"roles": [
+				{
+					"role": "robbery",
+					"event": "burglary",
+					"tier": "low"
+				}
+			],
 			"design_archetype": "house_1f_small_yard",
-			"name": "",
-			"roster": []
+			"name": "House",
+			"roster": [],
+			"location": {
+				"def": "house",
+				"instance": "house_8"
+			}
 		},
 		{
 			"id": "ne_tr_23rd_st_08",
@@ -12758,6 +12887,72 @@
 		},
 		{
 			"id": "ne_tr_8th_st_01",
+			"key": "333.0,1071.0,20.0,30.0",
+			"source": "lot",
+			"district": "tamarack_row",
+			"street": "8th St",
+			"street_kind": "loc",
+			"block": 72,
+			"rect_px": [
+				333.0,
+				1071.0,
+				20.0,
+				30.0
+			],
+			"position_m": [
+				-237.6,
+				511.2
+			],
+			"yaw_deg": 0.0,
+			"footprint_m": [
+				21.0,
+				32.0
+			],
+			"height_m": 4.23,
+			"current_storeys": 1,
+			"lot_m": [
+				24.0,
+				36.0
+			],
+			"lot_frontage_depth_m": [
+				24.0,
+				36.0
+			],
+			"category": "specialized_location",
+			"tags": [
+				"business",
+				"tamarack_row"
+			],
+			"roles": [
+				{
+					"role": "stick_up"
+				},
+				{
+					"role": "burglary"
+				},
+				{
+					"role": "business",
+					"type": "gas_station",
+					"purchasable": false
+				}
+			],
+			"design_archetype": "gas_station",
+			"name": "Gas-N-Go",
+			"roster": [
+				{
+					"roster": "6",
+					"name": "Gas-N-Go",
+					"kind": "location",
+					"style": ""
+				}
+			],
+			"location": {
+				"def": "corner_store",
+				"instance": "corner_store_gas_n_go"
+			}
+		},
+		{
+			"id": "ne_tr_8th_st_02",
 			"key": "375.6,1085.0,9.6,19.0",
 			"source": "lot",
 			"district": "tamarack_row",
@@ -12800,7 +12995,7 @@
 			"roster": []
 		},
 		{
-			"id": "ne_tr_8th_st_02",
+			"id": "ne_tr_8th_st_03",
 			"key": "385.2,1085.0,9.6,19.0",
 			"source": "lot",
 			"district": "tamarack_row",
@@ -12843,7 +13038,7 @@
 			"roster": []
 		},
 		{
-			"id": "ne_tr_8th_st_03",
+			"id": "ne_tr_8th_st_04",
 			"key": "394.8,1085.0,9.6,19.0",
 			"source": "lot",
 			"district": "tamarack_row",
@@ -12878,26 +13073,15 @@
 			"category": "house_1f",
 			"tags": [
 				"residential",
-				"specialized_location",
 				"tamarack_row"
 			],
-			"roles": [
-				{
-					"role": "robbery",
-					"event": "burglary",
-					"tier": "low"
-				}
-			],
+			"roles": [],
 			"design_archetype": "house_1f_small_yard",
-			"name": "House",
-			"roster": [],
-			"location": {
-				"def": "house",
-				"instance": "house_16"
-			}
+			"name": "",
+			"roster": []
 		},
 		{
-			"id": "ne_tr_8th_st_04",
+			"id": "ne_tr_8th_st_05",
 			"key": "530.1,1085.0,9.5,19.0",
 			"source": "lot",
 			"district": "tamarack_row",
@@ -12932,26 +13116,15 @@
 			"category": "house_2f",
 			"tags": [
 				"residential",
-				"specialized_location",
 				"tamarack_row"
 			],
-			"roles": [
-				{
-					"role": "robbery",
-					"event": "burglary",
-					"tier": "medium"
-				}
-			],
+			"roles": [],
 			"design_archetype": "house_2f_small_yard",
-			"name": "House",
-			"roster": [],
-			"location": {
-				"def": "house",
-				"instance": "house_5"
-			}
+			"name": "",
+			"roster": []
 		},
 		{
-			"id": "ne_tr_8th_st_05",
+			"id": "ne_tr_8th_st_06",
 			"key": "539.6,1085.0,9.6,19.0",
 			"source": "lot",
 			"district": "tamarack_row",
@@ -12994,7 +13167,7 @@
 			"roster": []
 		},
 		{
-			"id": "ne_tr_8th_st_06",
+			"id": "ne_tr_8th_st_07",
 			"key": "549.2,1085.0,9.5,19.0",
 			"source": "lot",
 			"district": "tamarack_row",
@@ -13037,7 +13210,7 @@
 			"roster": []
 		},
 		{
-			"id": "ne_tr_8th_st_07",
+			"id": "ne_tr_8th_st_08",
 			"key": "426.0,1094.5,15.0,9.5",
 			"source": "lot",
 			"district": "tamarack_row",
@@ -13080,7 +13253,7 @@
 			"roster": []
 		},
 		{
-			"id": "ne_tr_8th_st_08",
+			"id": "ne_tr_8th_st_09",
 			"key": "441.0,1094.5,15.0,9.5",
 			"source": "lot",
 			"district": "tamarack_row",
@@ -13123,7 +13296,7 @@
 			"roster": []
 		},
 		{
-			"id": "ne_tr_8th_st_09",
+			"id": "ne_tr_8th_st_10",
 			"key": "468.0,1094.5,15.5,9.5",
 			"source": "lot",
 			"district": "tamarack_row",
@@ -13158,15 +13331,26 @@
 			"category": "house_1f",
 			"tags": [
 				"residential",
+				"specialized_location",
 				"tamarack_row"
 			],
-			"roles": [],
+			"roles": [
+				{
+					"role": "robbery",
+					"event": "burglary",
+					"tier": "low"
+				}
+			],
 			"design_archetype": "house_1f_small_yard",
-			"name": "",
-			"roster": []
+			"name": "House",
+			"roster": [],
+			"location": {
+				"def": "house",
+				"instance": "house_14"
+			}
 		},
 		{
-			"id": "ne_tr_8th_st_10",
+			"id": "ne_tr_8th_st_11",
 			"key": "483.5,1094.5,15.5,9.5",
 			"source": "lot",
 			"district": "tamarack_row",
@@ -13209,7 +13393,7 @@
 			"roster": []
 		},
 		{
-			"id": "ne_tr_8th_st_11",
+			"id": "ne_tr_8th_st_12",
 			"key": "315.6,1116.0,9.6,14.0",
 			"source": "lot",
 			"district": "tamarack_row",
@@ -13226,7 +13410,7 @@
 				-264.72,
 				555.6
 			],
-			"yaw_deg": 180.0,
+			"yaw_deg": -90.0,
 			"footprint_m": [
 				8.52,
 				12.8
@@ -13238,44 +13422,32 @@
 				16.8
 			],
 			"lot_frontage_depth_m": [
-				11.52,
-				16.8
+				16.8,
+				11.52
 			],
-			"category": "specialized_location",
+			"category": "house_1f",
 			"tags": [
-				"business",
+				"residential",
+				"specialized_location",
 				"tamarack_row"
 			],
 			"roles": [
 				{
-					"role": "stick_up"
-				},
-				{
-					"role": "burglary"
-				},
-				{
-					"role": "business",
-					"type": "gas_station",
-					"purchasable": false
+					"role": "robbery",
+					"event": "burglary",
+					"tier": "low"
 				}
 			],
-			"design_archetype": "gas_station",
-			"name": "Gas-N-Go",
-			"roster": [
-				{
-					"roster": "6",
-					"name": "Gas-N-Go",
-					"kind": "location",
-					"style": ""
-				}
-			],
+			"design_archetype": "house_1f_small_yard",
+			"name": "House",
+			"roster": [],
 			"location": {
-				"def": "corner_store",
-				"instance": "corner_store_gas_n_go"
+				"def": "house",
+				"instance": "house_13"
 			}
 		},
 		{
-			"id": "ne_tr_8th_st_12",
+			"id": "ne_tr_8th_st_13",
 			"key": "325.2,1116.0,9.6,14.0",
 			"source": "lot",
 			"district": "tamarack_row",
@@ -13318,7 +13490,7 @@
 			"roster": []
 		},
 		{
-			"id": "ne_tr_8th_st_13",
+			"id": "ne_tr_8th_st_14",
 			"key": "334.8,1116.0,9.6,14.0",
 			"source": "lot",
 			"district": "tamarack_row",
@@ -13361,7 +13533,7 @@
 			"roster": []
 		},
 		{
-			"id": "ne_tr_8th_st_14",
+			"id": "ne_tr_8th_st_15",
 			"key": "375.6,1116.0,9.6,14.0",
 			"source": "lot",
 			"district": "tamarack_row",
@@ -13404,7 +13576,7 @@
 			"roster": []
 		},
 		{
-			"id": "ne_tr_8th_st_15",
+			"id": "ne_tr_8th_st_16",
 			"key": "385.2,1116.0,9.6,14.0",
 			"source": "lot",
 			"district": "tamarack_row",
@@ -13447,7 +13619,7 @@
 			"roster": []
 		},
 		{
-			"id": "ne_tr_8th_st_16",
+			"id": "ne_tr_8th_st_17",
 			"key": "394.8,1116.0,9.6,14.0",
 			"source": "lot",
 			"district": "tamarack_row",
@@ -13490,7 +13662,7 @@
 			"roster": []
 		},
 		{
-			"id": "ne_tr_8th_st_17",
+			"id": "ne_tr_8th_st_18",
 			"key": "436.0,1116.0,10.0,14.0",
 			"source": "lot",
 			"district": "tamarack_row",
@@ -13533,7 +13705,7 @@
 			"roster": []
 		},
 		{
-			"id": "ne_tr_8th_st_18",
+			"id": "ne_tr_8th_st_19",
 			"key": "478.3,1116.0,10.4,14.0",
 			"source": "lot",
 			"district": "tamarack_row",
@@ -13576,7 +13748,7 @@
 			"roster": []
 		},
 		{
-			"id": "ne_tr_8th_st_19",
+			"id": "ne_tr_8th_st_20",
 			"key": "488.7,1116.0,10.3,14.0",
 			"source": "lot",
 			"district": "tamarack_row",
@@ -13619,7 +13791,7 @@
 			"roster": []
 		},
 		{
-			"id": "ne_tr_8th_st_20",
+			"id": "ne_tr_8th_st_21",
 			"key": "530.2,1116.0,9.6,14.0",
 			"source": "lot",
 			"district": "tamarack_row",
@@ -13662,7 +13834,7 @@
 			"roster": []
 		},
 		{
-			"id": "ne_tr_8th_st_21",
+			"id": "ne_tr_8th_st_22",
 			"key": "539.8,1116.0,9.6,14.0",
 			"source": "lot",
 			"district": "tamarack_row",
@@ -13705,7 +13877,7 @@
 			"roster": []
 		},
 		{
-			"id": "ne_tr_8th_st_22",
+			"id": "ne_tr_8th_st_23",
 			"key": "549.4,1116.0,9.6,14.0",
 			"source": "lot",
 			"district": "tamarack_row",
@@ -13748,7 +13920,7 @@
 			"roster": []
 		},
 		{
-			"id": "ne_tr_8th_st_23",
+			"id": "ne_tr_8th_st_24",
 			"key": "315.6,1130.0,9.6,14.0",
 			"source": "lot",
 			"district": "tamarack_row",
@@ -13780,33 +13952,29 @@
 				16.8,
 				11.52
 			],
-			"category": "standin_business",
+			"category": "house_1f",
 			"tags": [
-				"standin_shop",
-				"house_1f",
-				"tamarack_row",
-				"commercial"
+				"residential",
+				"specialized_location",
+				"tamarack_row"
 			],
 			"roles": [
 				{
-					"role": "shop",
-					"shop_type": "food",
-					"enterable": true,
-					"purchasable": false
+					"role": "robbery",
+					"event": "burglary",
+					"tier": "low"
 				}
 			],
-			"design_archetype": "standin_corner_store",
-			"name": "Food (diner / takeout)",
+			"design_archetype": "house_1f_small_yard",
+			"name": "House",
 			"roster": [],
-			"standin": {
-				"subtype": "standin_shop",
-				"enterable": true,
-				"shop_type": "food",
-				"replaces": "corner"
+			"location": {
+				"def": "house",
+				"instance": "house_10"
 			}
 		},
 		{
-			"id": "ne_tr_8th_st_24",
+			"id": "ne_tr_8th_st_25",
 			"key": "325.2,1130.0,9.6,14.0",
 			"source": "lot",
 			"district": "tamarack_row",
@@ -13849,7 +14017,7 @@
 			"roster": []
 		},
 		{
-			"id": "ne_tr_8th_st_25",
+			"id": "ne_tr_8th_st_26",
 			"key": "334.8,1130.0,9.6,14.0",
 			"source": "lot",
 			"district": "tamarack_row",
@@ -13892,7 +14060,7 @@
 			"roster": []
 		},
 		{
-			"id": "ne_tr_8th_st_26",
+			"id": "ne_tr_8th_st_27",
 			"key": "375.6,1130.0,9.6,14.0",
 			"source": "lot",
 			"district": "tamarack_row",
@@ -13927,26 +14095,15 @@
 			"category": "house_2f",
 			"tags": [
 				"residential",
-				"specialized_location",
 				"tamarack_row"
 			],
-			"roles": [
-				{
-					"role": "robbery",
-					"event": "burglary",
-					"tier": "medium"
-				}
-			],
+			"roles": [],
 			"design_archetype": "house_2f_small_yard",
-			"name": "House",
-			"roster": [],
-			"location": {
-				"def": "house",
-				"instance": "house_11"
-			}
+			"name": "",
+			"roster": []
 		},
 		{
-			"id": "ne_tr_8th_st_27",
+			"id": "ne_tr_8th_st_28",
 			"key": "385.2,1130.0,9.6,14.0",
 			"source": "lot",
 			"district": "tamarack_row",
@@ -13989,7 +14146,7 @@
 			"roster": []
 		},
 		{
-			"id": "ne_tr_8th_st_28",
+			"id": "ne_tr_8th_st_29",
 			"key": "394.8,1130.0,9.6,14.0",
 			"source": "lot",
 			"district": "tamarack_row",
@@ -14032,7 +14189,7 @@
 			"roster": []
 		},
 		{
-			"id": "ne_tr_8th_st_29",
+			"id": "ne_tr_8th_st_30",
 			"key": "436.0,1130.0,10.0,14.0",
 			"source": "lot",
 			"district": "tamarack_row",
@@ -14075,7 +14232,7 @@
 			"roster": []
 		},
 		{
-			"id": "ne_tr_8th_st_30",
+			"id": "ne_tr_8th_st_31",
 			"key": "478.3,1130.0,10.4,14.0",
 			"source": "lot",
 			"district": "tamarack_row",
@@ -14118,7 +14275,7 @@
 			"roster": []
 		},
 		{
-			"id": "ne_tr_8th_st_31",
+			"id": "ne_tr_8th_st_32",
 			"key": "488.7,1130.0,10.3,14.0",
 			"source": "lot",
 			"district": "tamarack_row",
@@ -14161,7 +14318,7 @@
 			"roster": []
 		},
 		{
-			"id": "ne_tr_8th_st_32",
+			"id": "ne_tr_8th_st_33",
 			"key": "530.2,1130.0,9.6,14.0",
 			"source": "lot",
 			"district": "tamarack_row",
@@ -14204,7 +14361,7 @@
 			"roster": []
 		},
 		{
-			"id": "ne_tr_8th_st_33",
+			"id": "ne_tr_8th_st_34",
 			"key": "539.8,1130.0,9.6,14.0",
 			"source": "lot",
 			"district": "tamarack_row",
@@ -14247,7 +14404,7 @@
 			"roster": []
 		},
 		{
-			"id": "ne_tr_8th_st_34",
+			"id": "ne_tr_8th_st_35",
 			"key": "549.4,1130.0,9.6,14.0",
 			"source": "lot",
 			"district": "tamarack_row",
@@ -14983,12 +15140,23 @@
 			"category": "house_2f",
 			"tags": [
 				"residential",
+				"specialized_location",
 				"tamarack_row"
 			],
-			"roles": [],
+			"roles": [
+				{
+					"role": "robbery",
+					"event": "burglary",
+					"tier": "medium"
+				}
+			],
 			"design_archetype": "house_2f_small_yard",
-			"name": "",
-			"roster": []
+			"name": "House",
+			"roster": [],
+			"location": {
+				"def": "house",
+				"instance": "house_7"
+			}
 		},
 		{
 			"id": "ne_tr_division_ave_17",
@@ -15198,23 +15366,12 @@
 			"category": "house_1f",
 			"tags": [
 				"residential",
-				"specialized_location",
 				"tamarack_row"
 			],
-			"roles": [
-				{
-					"role": "robbery",
-					"event": "burglary",
-					"tier": "low"
-				}
-			],
+			"roles": [],
 			"design_archetype": "house_1f_small_yard",
-			"name": "House",
-			"roster": [],
-			"location": {
-				"def": "house",
-				"instance": "house_12"
-			}
+			"name": "",
+			"roster": []
 		},
 		{
 			"id": "ne_tr_division_ave_22",
@@ -15338,23 +15495,12 @@
 			"category": "house_2f",
 			"tags": [
 				"residential",
-				"specialized_location",
 				"tamarack_row"
 			],
-			"roles": [
-				{
-					"role": "robbery",
-					"event": "burglary",
-					"tier": "medium"
-				}
-			],
+			"roles": [],
 			"design_archetype": "house_2f_small_yard",
-			"name": "House",
-			"roster": [],
-			"location": {
-				"def": "house",
-				"instance": "house_14"
-			}
+			"name": "",
+			"roster": []
 		},
 		{
 			"id": "ne_tr_division_ave_25",
@@ -15435,12 +15581,23 @@
 			"category": "house_1f",
 			"tags": [
 				"residential",
+				"specialized_location",
 				"tamarack_row"
 			],
-			"roles": [],
+			"roles": [
+				{
+					"role": "robbery",
+					"event": "burglary",
+					"tier": "low"
+				}
+			],
 			"design_archetype": "house_1f_small_yard",
-			"name": "",
-			"roster": []
+			"name": "House",
+			"roster": [],
+			"location": {
+				"def": "house",
+				"instance": "house_6"
+			}
 		},
 		{
 			"id": "ne_tr_division_ave_27",
@@ -16791,15 +16948,30 @@
 				28.8,
 				11.52
 			],
-			"category": "house_2f",
+			"category": "standin_business",
 			"tags": [
-				"residential",
-				"tamarack_row"
+				"standin_shop",
+				"house_2f",
+				"tamarack_row",
+				"commercial"
 			],
-			"roles": [],
-			"design_archetype": "house_2f_small_yard",
-			"name": "",
-			"roster": []
+			"roles": [
+				{
+					"role": "shop",
+					"shop_type": "food",
+					"enterable": true,
+					"purchasable": false
+				}
+			],
+			"design_archetype": "standin_corner_store",
+			"name": "Food (diner / takeout)",
+			"roster": [],
+			"standin": {
+				"subtype": "standin_shop",
+				"enterable": true,
+				"shop_type": "food",
+				"replaces": "corner"
+			}
 		},
 		{
 			"id": "ne_tr_lakeview_ave_16",
@@ -16834,30 +17006,15 @@
 				28.8,
 				11.52
 			],
-			"category": "standin_business",
+			"category": "house_2f",
 			"tags": [
-				"standin_shop",
-				"house_2f",
-				"tamarack_row",
-				"commercial"
+				"residential",
+				"tamarack_row"
 			],
-			"roles": [
-				{
-					"role": "shop",
-					"shop_type": "pawn",
-					"enterable": true,
-					"purchasable": false
-				}
-			],
-			"design_archetype": "standin_corner_store",
-			"name": "Pawn shop",
-			"roster": [],
-			"standin": {
-				"subtype": "standin_shop",
-				"enterable": true,
-				"shop_type": "pawn",
-				"replaces": "corner"
-			}
+			"roles": [],
+			"design_archetype": "house_2f_small_yard",
+			"name": "",
+			"roster": []
 		},
 		{
 			"id": "ne_tr_lakeview_ave_17",
@@ -17573,15 +17730,30 @@
 				16.8,
 				11.52
 			],
-			"category": "house_1f",
+			"category": "standin_business",
 			"tags": [
-				"residential",
-				"tamarack_row"
+				"standin_shop",
+				"house_1f",
+				"tamarack_row",
+				"commercial"
 			],
-			"roles": [],
-			"design_archetype": "house_1f_small_yard",
-			"name": "",
-			"roster": []
+			"roles": [
+				{
+					"role": "shop",
+					"shop_type": "pawn",
+					"enterable": true,
+					"purchasable": false
+				}
+			],
+			"design_archetype": "standin_corner_store",
+			"name": "Pawn shop",
+			"roster": [],
+			"standin": {
+				"subtype": "standin_shop",
+				"enterable": true,
+				"shop_type": "pawn",
+				"replaces": "corner"
+			}
 		},
 		{
 			"id": "ne_tr_lakeview_ave_33",
@@ -18037,12 +18209,23 @@
 			"category": "house_1f",
 			"tags": [
 				"residential",
+				"specialized_location",
 				"tamarack_row"
 			],
-			"roles": [],
+			"roles": [
+				{
+					"role": "robbery",
+					"event": "burglary",
+					"tier": "low"
+				}
+			],
 			"design_archetype": "house_1f_small_yard",
-			"name": "",
-			"roster": []
+			"name": "House",
+			"roster": [],
+			"location": {
+				"def": "house",
+				"instance": "house_17"
+			}
 		},
 		{
 			"id": "ne_tr_tamarind_ave_04",
@@ -18703,7 +18886,7 @@
 				37.8,
 				30.0
 			],
-			"height_m": 4.16,
+			"height_m": 5.52,
 			"category": "out_of_area",
 			"design_archetype": "neighbour_filler",
 			"neighbourhood": "clement"
@@ -18727,7 +18910,7 @@
 				42.0,
 				30.0
 			],
-			"height_m": 8.07,
+			"height_m": 7.24,
 			"category": "out_of_area",
 			"design_archetype": "neighbour_filler",
 			"neighbourhood": "clement"
@@ -18751,7 +18934,7 @@
 				42.0,
 				30.0
 			],
-			"height_m": 4.03,
+			"height_m": 4.5,
 			"category": "out_of_area",
 			"design_archetype": "neighbour_filler",
 			"neighbourhood": "clement"
@@ -18775,7 +18958,7 @@
 				42.0,
 				30.0
 			],
-			"height_m": 7.56,
+			"height_m": 4.93,
 			"category": "out_of_area",
 			"design_archetype": "neighbour_filler",
 			"neighbourhood": "clement"
@@ -18799,7 +18982,7 @@
 				36.0,
 				30.0
 			],
-			"height_m": 5.52,
+			"height_m": 7.11,
 			"category": "out_of_area",
 			"design_archetype": "neighbour_filler",
 			"neighbourhood": "clement"
@@ -18823,7 +19006,7 @@
 				51.6,
 				30.0
 			],
-			"height_m": 7.24,
+			"height_m": 6.72,
 			"category": "out_of_area",
 			"design_archetype": "neighbour_filler",
 			"neighbourhood": "clement"
@@ -18847,7 +19030,7 @@
 				37.2,
 				48.0
 			],
-			"height_m": 4.5,
+			"height_m": 7.02,
 			"category": "out_of_area",
 			"design_archetype": "neighbour_filler",
 			"neighbourhood": "clement"
@@ -18871,7 +19054,7 @@
 				42.0,
 				48.0
 			],
-			"height_m": 4.93,
+			"height_m": 9.74,
 			"category": "out_of_area",
 			"design_archetype": "neighbour_filler",
 			"neighbourhood": "clement"
@@ -18895,7 +19078,7 @@
 				42.0,
 				48.0
 			],
-			"height_m": 7.11,
+			"height_m": 5.94,
 			"category": "out_of_area",
 			"design_archetype": "neighbour_filler",
 			"neighbourhood": "clement"
@@ -18919,7 +19102,7 @@
 				42.0,
 				48.0
 			],
-			"height_m": 6.72,
+			"height_m": 7.71,
 			"category": "out_of_area",
 			"design_archetype": "neighbour_filler",
 			"neighbourhood": "clement"
@@ -18943,7 +19126,7 @@
 				36.0,
 				48.0
 			],
-			"height_m": 7.02,
+			"height_m": 5.45,
 			"category": "out_of_area",
 			"design_archetype": "neighbour_filler",
 			"neighbourhood": "clement"
@@ -18967,7 +19150,7 @@
 				51.6,
 				48.0
 			],
-			"height_m": 9.74,
+			"height_m": 7.64,
 			"category": "out_of_area",
 			"design_archetype": "neighbour_filler",
 			"neighbourhood": "clement"
@@ -18991,7 +19174,7 @@
 				36.6,
 				48.0
 			],
-			"height_m": 5.94,
+			"height_m": 9.29,
 			"category": "out_of_area",
 			"design_archetype": "neighbour_filler",
 			"neighbourhood": "clement"
@@ -19015,7 +19198,7 @@
 				42.0,
 				48.0
 			],
-			"height_m": 7.71,
+			"height_m": 7.79,
 			"category": "out_of_area",
 			"design_archetype": "neighbour_filler",
 			"neighbourhood": "clement"
@@ -19039,7 +19222,7 @@
 				42.0,
 				48.0
 			],
-			"height_m": 5.45,
+			"height_m": 8.99,
 			"category": "out_of_area",
 			"design_archetype": "neighbour_filler",
 			"neighbourhood": "clement"
@@ -19063,7 +19246,7 @@
 				42.0,
 				48.0
 			],
-			"height_m": 7.64,
+			"height_m": 4.68,
 			"category": "out_of_area",
 			"design_archetype": "neighbour_filler",
 			"neighbourhood": "clement"
@@ -19087,7 +19270,7 @@
 				36.0,
 				48.0
 			],
-			"height_m": 9.29,
+			"height_m": 6.15,
 			"category": "out_of_area",
 			"design_archetype": "neighbour_filler",
 			"neighbourhood": "clement"
@@ -19111,7 +19294,7 @@
 				51.6,
 				48.0
 			],
-			"height_m": 7.79,
+			"height_m": 4.27,
 			"category": "out_of_area",
 			"design_archetype": "neighbour_filler",
 			"neighbourhood": "clement"
@@ -19135,7 +19318,7 @@
 				36.12,
 				36.0
 			],
-			"height_m": 8.99,
+			"height_m": 4.02,
 			"category": "out_of_area",
 			"design_archetype": "neighbour_filler",
 			"neighbourhood": "clement"
@@ -19159,7 +19342,7 @@
 				42.0,
 				36.0
 			],
-			"height_m": 4.68,
+			"height_m": 6.87,
 			"category": "out_of_area",
 			"design_archetype": "neighbour_filler",
 			"neighbourhood": "clement"
@@ -19183,7 +19366,7 @@
 				42.0,
 				36.0
 			],
-			"height_m": 6.15,
+			"height_m": 9.9,
 			"category": "out_of_area",
 			"design_archetype": "neighbour_filler",
 			"neighbourhood": "clement"
@@ -19207,7 +19390,7 @@
 				42.0,
 				36.0
 			],
-			"height_m": 4.27,
+			"height_m": 5.96,
 			"category": "out_of_area",
 			"design_archetype": "neighbour_filler",
 			"neighbourhood": "clement"
@@ -19231,7 +19414,7 @@
 				36.0,
 				36.0
 			],
-			"height_m": 4.02,
+			"height_m": 7.25,
 			"category": "out_of_area",
 			"design_archetype": "neighbour_filler",
 			"neighbourhood": "clement"
@@ -19255,7 +19438,7 @@
 				51.6,
 				36.0
 			],
-			"height_m": 6.87,
+			"height_m": 9.54,
 			"category": "out_of_area",
 			"design_archetype": "neighbour_filler",
 			"neighbourhood": "clement"
@@ -19279,7 +19462,7 @@
 				35.64,
 				48.0
 			],
-			"height_m": 9.9,
+			"height_m": 4.86,
 			"category": "out_of_area",
 			"design_archetype": "neighbour_filler",
 			"neighbourhood": "clement"
@@ -19303,7 +19486,7 @@
 				42.0,
 				48.0
 			],
-			"height_m": 5.96,
+			"height_m": 8.79,
 			"category": "out_of_area",
 			"design_archetype": "neighbour_filler",
 			"neighbourhood": "clement"
@@ -19327,7 +19510,7 @@
 				42.0,
 				48.0
 			],
-			"height_m": 7.25,
+			"height_m": 8.66,
 			"category": "out_of_area",
 			"design_archetype": "neighbour_filler",
 			"neighbourhood": "clement"
@@ -19351,7 +19534,7 @@
 				42.0,
 				48.0
 			],
-			"height_m": 9.54,
+			"height_m": 5.06,
 			"category": "out_of_area",
 			"design_archetype": "neighbour_filler",
 			"neighbourhood": "clement"
@@ -19375,7 +19558,7 @@
 				36.0,
 				48.0
 			],
-			"height_m": 4.86,
+			"height_m": 7.26,
 			"category": "out_of_area",
 			"design_archetype": "neighbour_filler",
 			"neighbourhood": "clement"
@@ -19399,7 +19582,7 @@
 				51.6,
 				48.0
 			],
-			"height_m": 8.79,
+			"height_m": 7.49,
 			"category": "out_of_area",
 			"design_archetype": "neighbour_filler",
 			"neighbourhood": "clement"
@@ -19423,7 +19606,7 @@
 				35.28,
 				42.0
 			],
-			"height_m": 8.66,
+			"height_m": 9.04,
 			"category": "out_of_area",
 			"design_archetype": "neighbour_filler",
 			"neighbourhood": "clement"
@@ -19447,7 +19630,7 @@
 				42.0,
 				42.0
 			],
-			"height_m": 5.06,
+			"height_m": 9.72,
 			"category": "out_of_area",
 			"design_archetype": "neighbour_filler",
 			"neighbourhood": "clement"
@@ -19471,7 +19654,7 @@
 				42.0,
 				42.0
 			],
-			"height_m": 7.26,
+			"height_m": 5.75,
 			"category": "out_of_area",
 			"design_archetype": "neighbour_filler",
 			"neighbourhood": "clement"
@@ -19495,7 +19678,7 @@
 				42.0,
 				42.0
 			],
-			"height_m": 7.49,
+			"height_m": 4.69,
 			"category": "out_of_area",
 			"design_archetype": "neighbour_filler",
 			"neighbourhood": "clement"
@@ -19519,7 +19702,7 @@
 				36.0,
 				42.0
 			],
-			"height_m": 9.04,
+			"height_m": 8.09,
 			"category": "out_of_area",
 			"design_archetype": "neighbour_filler",
 			"neighbourhood": "clement"
@@ -19543,7 +19726,7 @@
 				51.6,
 				42.0
 			],
-			"height_m": 9.72,
+			"height_m": 8.05,
 			"category": "out_of_area",
 			"design_archetype": "neighbour_filler",
 			"neighbourhood": "clement"
@@ -19567,7 +19750,7 @@
 				34.8,
 				30.0
 			],
-			"height_m": 5.75,
+			"height_m": 5.44,
 			"category": "out_of_area",
 			"design_archetype": "neighbour_filler",
 			"neighbourhood": "clement"
@@ -19591,7 +19774,7 @@
 				42.0,
 				30.0
 			],
-			"height_m": 4.69,
+			"height_m": 5.62,
 			"category": "out_of_area",
 			"design_archetype": "neighbour_filler",
 			"neighbourhood": "clement"
@@ -19615,7 +19798,7 @@
 				42.0,
 				30.0
 			],
-			"height_m": 8.09,
+			"height_m": 5.06,
 			"category": "out_of_area",
 			"design_archetype": "neighbour_filler",
 			"neighbourhood": "clement"
@@ -19639,7 +19822,7 @@
 				42.0,
 				30.0
 			],
-			"height_m": 8.05,
+			"height_m": 6.8,
 			"category": "out_of_area",
 			"design_archetype": "neighbour_filler",
 			"neighbourhood": "clement"
@@ -19663,7 +19846,7 @@
 				36.0,
 				30.0
 			],
-			"height_m": 5.44,
+			"height_m": 4.72,
 			"category": "out_of_area",
 			"design_archetype": "neighbour_filler",
 			"neighbourhood": "clement"
@@ -19687,7 +19870,7 @@
 				51.6,
 				30.0
 			],
-			"height_m": 5.62,
+			"height_m": 9.38,
 			"category": "out_of_area",
 			"design_archetype": "neighbour_filler",
 			"neighbourhood": "clement"
@@ -19711,7 +19894,7 @@
 				34.56,
 				24.0
 			],
-			"height_m": 5.06,
+			"height_m": 7.78,
 			"category": "out_of_area",
 			"design_archetype": "neighbour_filler",
 			"neighbourhood": "clement"
@@ -19735,7 +19918,7 @@
 				42.0,
 				24.0
 			],
-			"height_m": 6.8,
+			"height_m": 9.84,
 			"category": "out_of_area",
 			"design_archetype": "neighbour_filler",
 			"neighbourhood": "clement"
@@ -19759,7 +19942,7 @@
 				42.0,
 				24.0
 			],
-			"height_m": 4.72,
+			"height_m": 5.06,
 			"category": "out_of_area",
 			"design_archetype": "neighbour_filler",
 			"neighbourhood": "clement"
@@ -19783,7 +19966,7 @@
 				42.0,
 				24.0
 			],
-			"height_m": 9.38,
+			"height_m": 7.62,
 			"category": "out_of_area",
 			"design_archetype": "neighbour_filler",
 			"neighbourhood": "clement"
@@ -19807,7 +19990,7 @@
 				36.0,
 				24.0
 			],
-			"height_m": 7.78,
+			"height_m": 5.36,
 			"category": "out_of_area",
 			"design_archetype": "neighbour_filler",
 			"neighbourhood": "clement"
@@ -19831,7 +20014,7 @@
 				51.6,
 				24.0
 			],
-			"height_m": 9.84,
+			"height_m": 4.02,
 			"category": "out_of_area",
 			"design_archetype": "neighbour_filler",
 			"neighbourhood": "clement"
@@ -19855,7 +20038,7 @@
 				96.0,
 				42.0
 			],
-			"height_m": 8.44,
+			"height_m": 9.89,
 			"category": "out_of_area",
 			"design_archetype": "neighbour_filler",
 			"neighbourhood": "riviera"
@@ -19879,7 +20062,7 @@
 				72.0,
 				42.0
 			],
-			"height_m": 5.72,
+			"height_m": 7.35,
 			"category": "out_of_area",
 			"design_archetype": "neighbour_filler",
 			"neighbourhood": "riviera"
@@ -19903,7 +20086,7 @@
 				72.0,
 				42.0
 			],
-			"height_m": 6.31,
+			"height_m": 7.48,
 			"category": "out_of_area",
 			"design_archetype": "neighbour_filler",
 			"neighbourhood": "riviera"
@@ -19927,7 +20110,7 @@
 				51.6,
 				42.0
 			],
-			"height_m": 4.55,
+			"height_m": 4.16,
 			"category": "out_of_area",
 			"design_archetype": "neighbour_filler",
 			"neighbourhood": "riviera"
@@ -19951,7 +20134,7 @@
 				96.0,
 				42.0
 			],
-			"height_m": 9.89,
+			"height_m": 6.24,
 			"category": "out_of_area",
 			"design_archetype": "neighbour_filler",
 			"neighbourhood": "riviera"
@@ -19975,7 +20158,7 @@
 				72.0,
 				42.0
 			],
-			"height_m": 7.35,
+			"height_m": 5.84,
 			"category": "out_of_area",
 			"design_archetype": "neighbour_filler",
 			"neighbourhood": "riviera"
@@ -19999,7 +20182,7 @@
 				72.0,
 				42.0
 			],
-			"height_m": 7.48,
+			"height_m": 8.84,
 			"category": "out_of_area",
 			"design_archetype": "neighbour_filler",
 			"neighbourhood": "riviera"
@@ -20023,7 +20206,7 @@
 				51.6,
 				42.0
 			],
-			"height_m": 4.16,
+			"height_m": 9.66,
 			"category": "out_of_area",
 			"design_archetype": "neighbour_filler",
 			"neighbourhood": "riviera"
@@ -20047,7 +20230,7 @@
 				96.0,
 				36.0
 			],
-			"height_m": 6.24,
+			"height_m": 4.16,
 			"category": "out_of_area",
 			"design_archetype": "neighbour_filler",
 			"neighbourhood": "riviera"
@@ -20071,7 +20254,7 @@
 				72.0,
 				36.0
 			],
-			"height_m": 5.84,
+			"height_m": 8.07,
 			"category": "out_of_area",
 			"design_archetype": "neighbour_filler",
 			"neighbourhood": "riviera"
@@ -20095,7 +20278,7 @@
 				72.0,
 				36.0
 			],
-			"height_m": 8.84,
+			"height_m": 4.03,
 			"category": "out_of_area",
 			"design_archetype": "neighbour_filler",
 			"neighbourhood": "riviera"
@@ -20119,7 +20302,7 @@
 				51.6,
 				36.0
 			],
-			"height_m": 9.66,
+			"height_m": 7.56,
 			"category": "out_of_area",
 			"design_archetype": "neighbour_filler",
 			"neighbourhood": "riviera"

@@ -7,11 +7,11 @@ description: Rules and workflow for building or changing Street Law city map zon
 
 The playable map is generated, not hand-placed:
 
-`docs/map/<zone>_wireframe.svg` → `tools/extract_<zone>_layout.py` → `scripts/world/<zone>_layout.gd` (generated) → `scripts/world/city_generator.gd` (builds 3D) → `data/areas/<zone>_buildings.json` (building census) → `docs/map/<zone>_buildings.png` (as-built map).
+`docs/map/<zone>_wireframe_source.svg` (hand-drawn) → `tools/extract_<zone>_layout.py` → `scripts/world/<zone>_layout.gd` (generated) → `scripts/world/city_generator.gd` (builds 3D) → `data/areas/<zone>_buildings.json` (building census) → `docs/map/<zone>_wireframe.svg/.png` and `<zone>_buildings.svg/.png` (as-built pictures).
 
-**Fix the extractor, never hand-patch the generated layout.** The extractor only rewrites the layout when its `check_network` reports zero problems.
+**Fix the extractor, never hand-patch the generated layout.** The extractor only writes the layout when `check_network` and its final corridor guard report zero problems; otherwise it exits without writing.
 
-**The wireframe SVG is the source, not the picture of the game.** The extractor's `fix_network` rewrites a lot of the network after reading it:
+**The source SVG is not the picture of the game.** The extractor's `fix_network` rewrites a lot of the network after reading it:
 - I-59 diamond interchanges
 - the lake loops
 - the rebuilt Riviera / Clement grids
@@ -19,7 +19,11 @@ The playable map is generated, not hand-placed:
 - connectors
 - dropped lots
 
-Don't hand-edit the SVG to match. The as-built picture is `docs/map/<zone>_buildings.png`/`.svg`, rendered by `tools/render_north_end_buildings.py` from the generated layout and the census, with buildings coloured by category. The same script also overlays the census on the wireframe itself. It writes the generated `<!-- census-overlay -->` and `<!-- census-legend -->` blocks (class `cz`, which the extractor ignores) into the SVG and re-rasterises the wireframe PNG with headless Edge/Chrome. Never hand-edit those blocks. Regenerate after every layout or census change.
+Don't hand-edit the source to match, and don't treat it as the map. `tools/render_north_end_buildings.py` generates both as-built pictures:
+- `docs/map/<zone>_wireframe.svg/.png`: the source's annotation layers (district fills, names, roster icons, labels, legend) with its drawn network (blocks, lots, roads, I-59, ramps, underpasses, lakes) removed and redrawn from the generated layout at true width, plus the census overlay (colour per category, shop letters) and legend. The PNG is rasterised with headless Edge/Chrome. **Generated: never edit it.** Every change goes in the source or the extractor.
+- `docs/map/<zone>_buildings.svg/.png`: the layout and every census building coloured by category.
+
+Run the renderer after every layout or census change, so the wireframe never shows a network the game doesn't build. Anything drawn only in the source (pads, icons, labels) must not sit on a road, ramp or I-59 in the as-built wireframe; check it on the PNG. Gas-N-Go was once drawn on the I-59 deck and nobody noticed because the overlay sat on the stale source.
 
 ## Road network rules (all enforced)
 
@@ -38,7 +42,7 @@ Don't hand-edit the SVG to match. The as-built picture is `docs/map/<zone>_build
    - Every ramp gets a sign: exits say `EXIT <street>`, entrances say `I-59 NORTH/SOUTH ENTRANCE`.
 6. **Alignment.** An avenue continues in a straight line across arterials and district borders. Offset jogs at an intersection count as bugs.
 7. **Connections.** Ramps join only the highway or an arterial. Nothing else joins the highway, and rail never joins a road. These rules live in `connects()` in the extractor and `_may_join()` in the tests.
-8. **Lots.** Drop any building lot that sits under a road, ramp or deck. Shrink the block pad to the lots that remain. Every lot must front a drivable street (loc/ave/art) within 24 px, and no ramp or highway may be closer to it than a street. The extractor's `fronts_street` drops lots that fail this, and a block that loses every lot is removed. Never leave a house row stranded: when a street is removed or cut back, reroute or add a connector so the row's frontage street still joins the network at both ends.
+8. **Lots.** Drop any building lot that sits under a road, ramp or deck. A lot that only grazes a corridor (up to `LOT_TRIM_PX`) is trimmed back instead. Clearance is exact segment-to-rect distance against `HALF_WIDTH` (`corridor_intrusion`); a final guard fails the run if any lot, block pad or building enters any non-rail corridor. A business or landmark that the source draws as a decorative shape must also be a real `blk` block, or the extractor ignores it. Shrink the block pad to the lots that remain. Every lot must front a drivable street (loc/ave/art) within 24 px, and no ramp or highway may be closer to it than a street. The extractor's `fronts_street` drops lots that fail this, and a block that loses every lot is removed. Never leave a house row stranded: when a street is removed or cut back, reroute or add a connector so the row's frontage street still joins the network at both ends.
 
 ## Workflow
 
@@ -46,12 +50,13 @@ Don't hand-edit the SVG to match. The as-built picture is `docs/map/<zone>_build
 2. Run `python tools/extract_north_end_layout.py`. The run must report 0 problems.
 3. Run `Godot_v4.7.2-stable_win64_console.exe --headless --path . --import`.
 4. Regenerate the building census and the as-built map:
-   - `Godot_v4.7.2-stable_win64_console.exe --headless --path . res://tools/north_end_census.tscn`, then `python tools/render_north_end_buildings.py`.
+   - `Godot_v4.7.2-stable_win64_console.exe --headless --path . res://tools/north_end_census.tscn`, then `python tools/render_north_end_buildings.py` (rewrites the as-built wireframe and building map).
    - The census dump must print `coverage: ... unlisted [], missing [], duplicates []`.
    - Review the counts it prints, plus the `unbuilt` list (roster places with no lot).
 5. Run `res://tests/test_runner.tscn` 3 times. Each run must print `ALL TESTS PASSED` with no `SCRIPT ERROR` or `Parse Error` lines. The network checks live in `tests/location_tests.gd`:
    - `_test_road_network`: connectivity, water, dead ends, lots fronting a street
    - `_test_interchanges`: grade separation and 4 quadrant ramps
+   - `tests/census_tests.gd` `_test_corridors`: no census building or lot rect enters a road, ramp or I-59 corridor
 6. Boot `res://scenes/main.tscn` headless with `--quit-after 600` and check for runtime errors.
 7. Capture top-down screenshots (full map, plus close-ups of anything changed), plus an angled view for elevation. **Show them to the user and wait for approval before committing.**
 
@@ -77,6 +82,7 @@ Every building box in the scene is listed in `data/areas/north_end_buildings.jso
   - categories and archetypes are valid, and the archetype category matches the category or tags
   - stand-ins have valid shop data and only `shop`/`storefront` roles, and every zone can buy each needed shop type
   - the JSON equals a fresh `build()`, which means a stale census fails the tests
+  - every building and lot rect stays clear of every road, ramp and highway corridor (`_test_corridors`)
 - **Unbuilt.** Roster spots with no lot within 40 px are listed in `unbuilt[]`. They need a lot when the area is repopulated.
 
 ## Scale rules for lots and buildings (docs/design/SCALE.md)
