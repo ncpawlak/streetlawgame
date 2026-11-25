@@ -209,7 +209,13 @@ func _test_vehicle_entry_via_interactor(player: Player) -> void:
 	var focused := player.interactor.focused
 	var focused_vehicle := focused.target as Vehicle if focused != null else null
 	_check(focused_vehicle != null, "vehicles are focused through the interaction system")
-	_check(player.interactor.try_interact() and focused_vehicle != null and player.current_vehicle == focused_vehicle, "E on a vehicle enters it")
+	var interacted := player.interactor.try_interact()
+	_check(interacted and focused_vehicle != null and player.is_busy(), "E on a vehicle starts walking to a door")
+	for _i in 300:
+		if player.current_vehicle == focused_vehicle:
+			break
+		await _frames(1)
+	_check(focused_vehicle != null and player.current_vehicle == focused_vehicle, "E on a vehicle enters it")
 	await _frames(ceili(player.interactor.refresh_interval * Engine.physics_ticks_per_second) + 2)
 	_check(player.interactor.focused == null, "nothing is focused while driving")
 	if player.current_vehicle != null:

@@ -6,6 +6,8 @@ extends Node
 signal changed
 ## Emitted when a shot damages something.
 signal hit_confirmed
+## Emitted when a shot or strike kills something.
+signal kill_confirmed
 
 @export var starting_weapon_ids: Array[StringName] = [&"fists", &"pistol"]
 ## Spare magazines given with each starting weapon.
@@ -105,6 +107,13 @@ func reload_progress() -> float:
 	return clampf(1.0 - _reload_left / slot.data.reload_time, 0.0, 1.0)
 
 
+## Abandons a reload in progress (sprinting, melee, climbing); the magazine stays as it was.
+func cancel_reload() -> void:
+	if is_reloading:
+		is_reloading = false
+		changed.emit()
+
+
 ## Fires the current weapon if it's ready. Starts a reload when the magazine runs dry.
 func try_fire(shooter: Node3D, muzzle: Vector3, direction: Vector3, exclude: Array[RID] = []) -> bool:
 	var slot := current()
@@ -125,6 +134,8 @@ func try_fire(shooter: Node3D, muzzle: Vector3, direction: Vector3, exclude: Arr
 			EventBus.gunshot.emit(muzzle, shooter)
 		if Hitscan.fire(shooter, muzzle, direction, slot.data, exclude, damage_scale, extra_spread) > 0:
 			hit_confirmed.emit()
+			if Hitscan.last_kills > 0:
+				kill_confirmed.emit()
 	if slot.is_empty():
 		reload()
 	changed.emit()

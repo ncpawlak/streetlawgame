@@ -5,6 +5,10 @@ extends Resource
 enum Kind { HITSCAN, PROJECTILE }
 ## What a projectile does when it touches something.
 enum Impact { EXPLODE, BOUNCE, STICK }
+## Where the weapon is carried when it isn't in hand (visible on the character).
+enum Carry { NONE, HIP, BACK }
+## Which reload animation plays.
+enum ReloadStyle { NONE, PISTOL, MAGAZINE, SHELLS, ROCKET }
 
 @export var id: StringName = &"pistol"
 @export var display_name := "Pistol"
@@ -25,6 +29,18 @@ enum Impact { EXPLODE, BOUNCE, STICK }
 @export var price := 0
 @export var show_tracer := true
 @export var tracer_color := Color(1.0, 0.85, 0.4)
+
+@export_group("Feel")
+## Camera kick per shot (degrees of pitch); arms recoil in proportion.
+@export var recoil_degrees := 1.5
+## Spread (degrees) added per shot; decays while not firing.
+@export var bloom_per_shot := 0.5
+## Cap on the accumulated bloom (degrees).
+@export var max_bloom := 4.0
+@export var carry := Carry.NONE
+@export var reload_style := ReloadStyle.NONE
+## Melee strike damage with this weapon in hand (pistol-whip, rifle-butt); fists use [member damage].
+@export var melee_damage := 20.0
 
 @export_group("Projectile")
 ## Thrown by hand (grenades, molotovs, C4): lobbed in an arc, and the HUD shows a count, not a magazine.

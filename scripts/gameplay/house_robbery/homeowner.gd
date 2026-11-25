@@ -206,7 +206,7 @@ func hear(at: Vector3) -> void:
 func _sees(player: Player) -> bool:
 	if not player.is_on_foot():
 		return false
-	if global_position.distance_to(player.global_position) > sight_range:
+	if global_position.distance_to(player.global_position) > sight_range * Player.detection_scale(player):
 		return false
 	return _line_of_sight(player)
 

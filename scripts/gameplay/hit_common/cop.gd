@@ -43,7 +43,7 @@ func can_see(target: Node3D) -> bool:
 		return false
 	var eye := global_position + Vector3(0.0, 1.6, 0.0)
 	var aim := target.global_position + Vector3(0.0, 1.0, 0.0)
-	if eye.distance_to(aim) > sight_range:
+	if eye.distance_to(aim) > sight_range * Player.detection_scale(target):
 		return false
 	var query := PhysicsRayQueryParameters3D.create(eye, aim, 1)
 	query.exclude = [get_rid()]

@@ -39,6 +39,7 @@ var weapons: WeaponInventory
 var _burst_left := 0
 var _burst_pause := 0.0
 var _alert_left := 0.0
+var _last_hit := {}
 ## Animated body tinted in the gang's colours (see CharacterVisual).
 var visual: CharacterVisual
 var _dead := false
@@ -68,6 +69,22 @@ func _ready() -> void:
 
 func is_alive() -> bool:
 	return not _dead
+
+
+## Recently shot at, hit or otherwise aware of trouble (unaware members can be taken down quietly).
+func is_alerted() -> bool:
+	return _alert_left > 0.0
+
+
+## Records where the next take_damage comes from so the flinch and death ragdoll follow the hit.
+func register_hit(origin: Vector3, impulse: Vector3, at: Vector3 = Vector3.INF, _headshot := false) -> void:
+	_last_hit = {origin = origin, impulse = impulse, at = at, frame = Engine.get_physics_frames()}
+
+
+func _recent_hit() -> Dictionary:
+	if _last_hit.is_empty() or Engine.get_physics_frames() - int(_last_hit["frame"]) > 1:
+		return {}
+	return _last_hit
 
 
 func _physics_process(delta: float) -> void:
@@ -147,7 +164,7 @@ func _engage_range() -> float:
 
 func _flash() -> void:
 	if visual != null:
-		visual.hit()
+		visual.hit(_recent_hit().get("impulse", Vector3.ZERO))
 
 
 func _drop_weapon() -> void:
@@ -179,7 +196,14 @@ func _die(killer: Node) -> void:
 	collision_layer = 0
 	collision_mask = 0
 	set_physics_process(false)
-	visual.die()
+	var hit := _recent_hit()
+	var impulse: Vector3 = hit.get("impulse", Vector3.ZERO)
+	if impulse == Vector3.ZERO and killer is Node3D:
+		var away := global_position - (killer as Node3D).global_position
+		away.y = 0.0
+		if away.length_squared() > 0.01:
+			impulse = away.normalized() * 60.0
+	visual.die(impulse, hit.get("at", Vector3.INF), velocity)
 	if killer == GameState.player or (killer is Vehicle and (killer as Vehicle).driver != null):
 		GameState.add_cash(randi_range(20, 80))
 		GameState.add_respect(10)

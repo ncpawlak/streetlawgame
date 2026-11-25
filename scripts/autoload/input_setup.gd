@@ -23,6 +23,10 @@ const KEY_BINDINGS := {
 	"weapon_8": [KEY_8],
 	"weapon_9": [KEY_9],
 	"detonate": [KEY_G],
+	"crouch": [KEY_C, KEY_CTRL],
+	"swap_shoulder": [KEY_Z],
+	"melee": [KEY_V],
+	"walk": [KEY_ALT],
 }
 
 const MOUSE_BINDINGS := {
@@ -30,6 +34,7 @@ const MOUSE_BINDINGS := {
 	"aim": [MOUSE_BUTTON_RIGHT],
 	"next_weapon": [MOUSE_BUTTON_WHEEL_DOWN],
 	"prev_weapon": [MOUSE_BUTTON_WHEEL_UP],
+	"swap_shoulder": [MOUSE_BUTTON_MIDDLE],
 }
 
 ## Number of direct weapon-slot hotkeys (weapon_1..weapon_N).

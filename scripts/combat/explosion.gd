@@ -7,6 +7,8 @@ extends Node3D
 const MIN_FALLOFF := 0.15
 const WORLD_LAYER := 1
 const DAMAGEABLE_LAYERS := 2 | 4 | 8
+## Push (per unit of falloff) given to characters and bodies thrown by the blast (ragdolls).
+const BODY_PUSH := 700.0
 const VISUAL_LIFETIME := 0.6
 
 var radius := 4.0
@@ -21,14 +23,23 @@ static func detonate(context: Node3D, at: Vector3, blast_radius: float, damage: 
 	var query := PhysicsShapeQueryParameters3D.new()
 	query.shape = sphere
 	query.transform = Transform3D(Basis.IDENTITY, at)
-	query.collision_mask = DAMAGEABLE_LAYERS
+	query.collision_mask = DAMAGEABLE_LAYERS | Ragdoll.LAYER
 	var damaged := 0
 	var seen := {}
 	for result in space.intersect_shape(query, 64):
 		var body := result.get("collider") as Node3D
+		if body != null and body.is_in_group("ragdoll_parts"):
+			body = body.get_parent() as Node3D
 		if body == null or seen.has(body):
 			continue
 		seen[body] = true
+		if body is Ragdoll:
+			var part_at: Vector3 = (result.get("collider") as Node3D).global_position
+			var part_distance := at.distance_to(part_at)
+			if part_distance <= blast_radius and not _is_shielded(space, at, part_at):
+				var away := (part_at - at).normalized() if part_distance > 0.01 else Vector3.UP
+				(body as Ragdoll).push((away + Vector3.UP * 0.6).normalized() * BODY_PUSH * clampf(1.0 - part_distance / blast_radius, MIN_FALLOFF, 1.0), at)
+			continue
 		var center := _body_center(body)
 		var distance := at.distance_to(center)
 		if distance > blast_radius or _is_shielded(space, at, center):
@@ -40,6 +51,9 @@ static func detonate(context: Node3D, at: Vector3, blast_radius: float, damage: 
 			rigid.apply_central_impulse((push + Vector3.UP * 0.6).normalized() * impulse * falloff)
 			rigid.apply_torque_impulse(push.cross(Vector3.UP) * -impulse * falloff * 0.5)
 		if body.has_method("take_damage"):
+			if body.has_method("register_hit"):
+				var away := (center - at).normalized() if distance > 0.01 else Vector3.UP
+				body.register_hit(at, (away + Vector3.UP * 0.6).normalized() * BODY_PUSH * falloff, at, false)
 			body.take_damage(damage * falloff, source)
 			damaged += 1
 	_spawn_visual(context, at, blast_radius)

@@ -14,7 +14,9 @@ var _vehicle_bar: ProgressBar
 var _turf_label: Label
 var _hint_label: Label
 var _capture_bar: ProgressBar
-var _crosshair: Label
+var _stamina_bar: ProgressBar
+## Crosshair, hit / kill markers and damage-direction arcs.
+var reticle: CombatReticle
 var _feed: VBoxContainer
 var _map_container: SubViewportContainer
 var _map_camera: Camera3D
@@ -25,9 +27,9 @@ var _ammo_label: Label
 var _reload_bar: ProgressBar
 var _keys_label: Label
 var _damage_flash: ColorRect
-var _hit_marker_left := 0.0
 var _last_health := -1.0
 var _connected_inventory: WeaponInventory
+var _connected_player: Player
 var weapon_wheel: WeaponWheel
 var interaction_prompt: InteractionPrompt
 var interaction_menu: InteractionMenu
@@ -63,6 +65,10 @@ func _process(delta: float) -> void:
 	var player := GameState.player
 	if player == null:
 		return
+	if player != _connected_player:
+		_connected_player = player
+		if not player.damaged_from.is_connected(reticle.show_damage_from):
+			player.damaged_from.connect(reticle.show_damage_from)
 	_update_weapon(player, delta)
 	_update_vehicle(player.current_vehicle)
 	_damage_flash.color.a = move_toward(_damage_flash.color.a, 0.0, delta * 1.5)
@@ -71,7 +77,12 @@ func _process(delta: float) -> void:
 	map_screen.update_route(focus)
 	_gps.queue_redraw()
 	_player_marker.global_position = Vector3(focus.x, 90.0, focus.z)
-	_crosshair.visible = Input.mouse_mode == Input.MOUSE_MODE_CAPTURED and not map_screen.is_open and not weapon_wheel.is_open
+	reticle.visible = Input.mouse_mode == Input.MOUSE_MODE_CAPTURED and not map_screen.is_open and not weapon_wheel.is_open
+	reticle.show_crosshair = player.is_on_foot() and not player.is_busy()
+	reticle.spread_degrees = player.current_spread()
+	_stamina_bar.max_value = player.max_stamina
+	_stamina_bar.value = player.stamina
+	_stamina_bar.visible = player.stamina < player.max_stamina - 0.5
 	_update_turf(Turf.current_district_id)
 	_update_hint(player)
 
@@ -112,7 +123,9 @@ func _update_vehicle(vehicle: Vehicle) -> void:
 
 func _update_hint(player: Player) -> void:
 	if not player.is_on_foot():
-		_hint_label.text = "[E] Exit vehicle    [LMB] Drive-by (needs a gun)    [Space] Handbrake"
+		_hint_label.text = "[E] Get out    [LMB] Drive-by (needs a gun)    [Space] Handbrake"
+	elif player.is_busy():
+		_hint_label.text = ""
 	elif interaction_prompt.has_prompt():
 		_hint_label.text = ""
 	elif player.nearest_free_vehicle() != null:
@@ -135,7 +148,10 @@ func _update_weapon(player: Player, delta: float) -> void:
 		return
 	if inventory != _connected_inventory:
 		_connected_inventory = inventory
-		inventory.hit_confirmed.connect(func() -> void: _hit_marker_left = 0.12)
+		if not inventory.hit_confirmed.is_connected(reticle.show_hit):
+			inventory.hit_confirmed.connect(reticle.show_hit)
+		if not inventory.kill_confirmed.is_connected(reticle.show_kill):
+			inventory.kill_confirmed.connect(reticle.show_kill)
 	var slot := inventory.current()
 	_weapon_label.text = slot.data.display_name if slot else ""
 	_ammo_label.text = slot.ammo_text() if slot and slot.data.uses_ammo() else ""
@@ -145,10 +161,7 @@ func _update_weapon(player: Player, delta: float) -> void:
 	_reload_bar.visible = inventory.is_reloading and slot != null and not slot.data.thrown
 	_reload_bar.value = inventory.reload_progress() * 100.0
 	var detonate_hint := "  [G] Detonate (%d)" % inventory.placed_charges.size() if not inventory.placed_charges.is_empty() else ""
-	_keys_label.text = "[Q] Weapon wheel  [R] Reload  [1-9] Select  [M] Map" + detonate_hint
-	_hit_marker_left = maxf(0.0, _hit_marker_left - delta)
-	_crosshair.text = "x" if _hit_marker_left > 0.0 else "+"
-	_crosshair.modulate = Color(1.0, 0.3, 0.3) if _hit_marker_left > 0.0 else Color.WHITE
+	_keys_label.text = "[RMB] Aim  [Z] Shoulder  [R] Reload  [V] Melee  [C] Crouch  [Space] Jump / climb\n[Q] Weapon wheel  [1-9] Select  [M] Map" + detonate_hint
 
 
 func _push_notification(text: String) -> void:
@@ -205,6 +218,12 @@ func _build_stats() -> void:
 	_health_bar.value = 100.0
 	_health_bar.modulate = Color(1.0, 0.35, 0.35)
 	panel.add_child(_health_bar)
+	_stamina_bar = ProgressBar.new()
+	_stamina_bar.custom_minimum_size = Vector2(220.0, 6.0)
+	_stamina_bar.show_percentage = false
+	_stamina_bar.modulate = Color(0.45, 0.85, 1.0)
+	_stamina_bar.visible = false
+	panel.add_child(_stamina_bar)
 	_vehicle_bar = ProgressBar.new()
 	_vehicle_bar.custom_minimum_size = Vector2(220.0, 10.0)
 	_vehicle_bar.show_percentage = false
@@ -252,10 +271,9 @@ func _build_minimap() -> void:
 
 
 func _build_center() -> void:
-	_crosshair = _make_label("+", 28)
-	_crosshair.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
-	_crosshair.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	add_child(_crosshair)
+	reticle = CombatReticle.new()
+	reticle.name = "Reticle"
+	add_child(reticle)
 
 	_capture_bar = ProgressBar.new()
 	_capture_bar.set_anchors_and_offsets_preset(Control.PRESET_CENTER_BOTTOM)
@@ -288,7 +306,7 @@ func _build_center() -> void:
 func _build_weapon_panel() -> void:
 	var panel := VBoxContainer.new()
 	panel.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_RIGHT)
-	panel.offset_left = -260.0
+	panel.offset_left = -460.0
 	panel.offset_top = -120.0
 	panel.offset_right = -20.0
 	panel.offset_bottom = -20.0

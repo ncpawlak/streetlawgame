@@ -188,7 +188,7 @@ func take_damage(amount: float, _source: Node = null) -> void:
 func _notices(player: Node3D) -> bool:
 	if player == null or not (player as Player).is_on_foot():
 		return false
-	if player.global_position.distance_to(global_position) > notice_range:
+	if player.global_position.distance_to(global_position) > notice_range * Player.detection_scale(player):
 		return false
 	var query := PhysicsRayQueryParameters3D.create(global_position + Vector3(0, 0.6, 0), player.global_position + Vector3(0, 1.0, 0), 1)
 	query.exclude = [get_rid()]

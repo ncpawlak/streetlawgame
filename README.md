@@ -21,15 +21,19 @@ godot --path .
 
 | Action | Key |
 | --- | --- |
-| Move / sprint / jump | WASD / Shift / Space |
+| Move / sprint (uses stamina) / walk | WASD / Shift / Alt |
+| Jump, vault, climb a ledge | Space |
+| Crouch (toggle) | C / Ctrl |
 | Look | Mouse |
-| Shoot / aim | LMB / RMB |
+| Shoot / aim over the shoulder | LMB / RMB |
+| Swap shoulder | Z / MMB |
+| Melee (takedown from behind) | V |
 | Weapon wheel (pauses the game) | Hold Q, move the mouse, release |
 | Switch weapon | Mouse wheel / 1-9 |
 | Throw grenade / molotov / C4, fire RPG | LMB with it equipped |
 | Detonate placed C4 | G |
 | Reload | R |
-| Enter, steal or exit a vehicle | E |
+| Enter (from any door), steal or exit a vehicle | E |
 | Handbrake | Space (in vehicle) |
 | Drive-by (uses your equipped gun) | LMB (in vehicle) |
 | Pause map | M (M / Esc closes) |
@@ -49,7 +53,21 @@ Vehicles take damage from bullets, explosions and crashes: they smoke, then catc
 
 ## Gameplay drivers
 
-Drivers are standalone test scenes for a single gameplay type. They aren't part of the city.
+Drivers are minimal test scenes for working out one gameplay system before it's integrated into the main game. They aren't part of the city, and they aren't meant to be played on their own.
+
+### Movement and animation
+
+```sh
+godot --path . res://drivers/movement/movement_driver.tscn
+```
+
+A flat test ground for the shared on-foot controller (`scripts/player/player.gd`), `CharacterVisual`, camera, combat feedback and vehicle doors. Everything here is built into the shared scripts, so the main game gets it too. The ground has a 1.0 m vault wall, a step box, 2.0 m and 2.6 m ledges, a crouch-only overhang, three passive dummies, and three cars: upright, on its side and on its roof. F5 resets the ground.
+
+- **On foot:** arm swing at walk, run and sprint. Sprinting drains the stamina bar under health; when it's empty you're winded until it recovers. Health doesn't regenerate. Crouching lowers your capsule and detection range.
+- **Camera:** the camera sits close over the shoulder. RMB zooms in to aim, Z or MMB swaps shoulders, and firing kicks and shakes the camera. Sprinting pulls it back and widens the FOV.
+- **Weapons:** holstered pistols sit on the hip and long guns are slung across the back. Reloads are animated per weapon type, and sprinting cancels them.
+- **Combat:** the reticle shows hit and kill markers, and arcs point towards whoever just shot you. Headshots do extra damage. Characters flinch away from hits and ragdoll when they die. V attacks in melee, and from behind it's a takedown.
+- **Vehicles:** E walks you to the nearest of the four doors. You open it, get in, slide across to the driver's seat and shut it. E again gets you out of the driver's door. In a car on its side you climb out of the top door, and in an upside-down car you crawl out of the side.
 
 ### Carjack / hot car
 
