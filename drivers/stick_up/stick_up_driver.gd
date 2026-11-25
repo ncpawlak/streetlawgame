@@ -33,6 +33,7 @@ var witnesses: Array[StickUpNpc] = []
 var register: Node3D
 var register_interactable: Interactable
 var stands: Array[ShelfStand] = []
+var panic_light: MeshInstance3D
 
 var _status: Label
 var _shop_picker: OptionButton
@@ -85,6 +86,12 @@ func _ready() -> void:
 	register_interactable.target = controller
 	controller.gun_drawn.connect(func() -> void: _set_objective("Aim [RMB] at the clerk to hold them up"))
 	controller.register_emptied.connect(func() -> void: _set_objective("Get away and stash the bag (green marker)"))
+	controller.panic_button_pressed.connect(func() -> void:
+		var lit := _material(Color(1.0, 0.1, 0.1))
+		lit.emission_enabled = true
+		lit.emission = Color(1.0, 0.1, 0.1)
+		lit.emission_energy_multiplier = 3.0
+		(panic_light.mesh as SphereMesh).material = lit)
 	clerk.died.connect(func(_npc: StickUpNpc, _killer: Node) -> void:
 		if controller.register_cash > 0:
 			_set_objective("Clerk's down - hold [E] on the register to grab the cash"))
@@ -124,9 +131,14 @@ func _process(_delta: float) -> void:
 	if session.police_response.is_wanted():
 		police += ", WANTED"
 	var aimed := controller.aimed_npc.label() if controller.aimed_npc != null else "-"
-	_status.text = "Gun out: %s\nAiming at: %s\nClerk: %s\nRegister: $%d   Taken: $%d\nBag: $%d (%d/%d slots)\nPolice: %s" % [
+	var panic := "none"
+	if controller.panic_tripped:
+		panic = "PRESSED" + (" (cops in %.0fs)" % controller.silent_alarm_left if controller.silent_alarm_left >= 0.0 else "")
+	elif controller.has_panic_button:
+		panic = "under the counter"
+	_status.text = "Gun out: %s\nAiming at: %s\nClerk: %s\nRegister: $%d   Taken: $%d\nBag: $%d (%d/%d slots)\nPolice: %s\nPanic button: %s" % [
 		"yes" if controller.is_gun_drawn else "no", aimed, StickUpNpc.State.keys()[clerk.state],
-		controller.register_cash, controller.taken, session.bag.total_value(), session.bag.used_slots(), session.bag.capacity, police]
+		controller.register_cash, controller.taken, session.bag.total_value(), session.bag.used_slots(), session.bag.capacity, police, panic]
 
 
 func select_shop(id: StringName) -> void:
@@ -219,6 +231,17 @@ func _build_shop() -> void:
 	interactable.add_action(action)
 	register.add_child(interactable)
 	register_interactable = interactable
+
+	# Panic button under the clerk's side of the counter; lights up (silently) when pressed.
+	panic_light = MeshInstance3D.new()
+	panic_light.name = "PanicLight"
+	var bulb := SphereMesh.new()
+	bulb.radius = 0.05
+	bulb.height = 0.1
+	bulb.material = _material(Color(0.25, 0.05, 0.05))
+	panic_light.mesh = bulb
+	panic_light.position = Vector3(-0.8, 0.9, counter_z - 0.42)
+	add_child(panic_light)
 
 	clerk = _spawn_npc("Clerk", StickUpNpc.Role.CLERK, Vector3(-2.5, 0.1, counter_z - 1.2), Color(0.25, 0.45, 0.8))
 	clerk.wander_radius = 0.0

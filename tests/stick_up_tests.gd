@@ -31,6 +31,7 @@ func _frames(count: int) -> void:
 func run() -> void:
 	var saved_cash := GameState.cash
 	await _test_corner_store()
+	await _test_panic_button()
 	await _test_shelves()
 	await _test_armed_clerk()
 	Input.action_release("aim")
@@ -85,6 +86,7 @@ func _test_corner_store() -> void:
 	var witnesses: Array[StickUpNpc] = driver.get("witnesses")
 	var call := session.police_call
 	var bag := CarryBag.of(player)
+	controller.has_panic_button = false
 
 	_check(GameState.player == player and player.weapons.current().data.id == &"fists", "driver boots with the player's gun holstered")
 	_check(clerk != null and customers.size() == 2 and witnesses.size() >= 5 and driver.get("getaway_car") != null and driver.get("stash") != null, "the driver builds a clerk, customers, witnesses, a getaway car and a stash")
@@ -146,6 +148,39 @@ func _test_corner_store() -> void:
 	var liquor_def: StickUpShopDef = DriverScript.SHOPS[&"liquor_store"]
 	var corner_def: StickUpShopDef = DriverScript.SHOPS[&"corner_store"]
 	_check(liquor_def.label() == "Liquor Store" and corner_def.label() == "Corner Store" and liquor_def.clerk_weapon_id != &"" and corner_def.clerk_weapon_id == &"", "shop types come from the business catalogue with their own tuning")
+
+
+func _test_panic_button() -> void:
+	var driver := await _load_driver(&"corner_store")
+	var player: Player = driver.get("player")
+	var controller: StickUpController = driver.get("controller")
+	var clerk: StickUpNpc = driver.get("clerk")
+	var call: PoliceCall = (driver.get("session") as HitSession).police_call
+	controller.has_panic_button = true
+	controller.register_cash = 100000
+	player.global_position = Vector3(0.0, 0.1, -13.0)
+	await _frames(5)
+	_draw(player, &"pistol")
+	await _frames(3)
+	await _aim_camera_at(player, clerk.global_position + Vector3(0.0, 1.2, 0.0))
+	Input.action_press("aim")
+	await _frames(int(controller.shop.panic_delay * 60.0) + 30)
+	_check(controller.is_holding_up and not controller.panic_tripped, "a covered clerk doesn't reach for the panic button")
+
+	var notes: Array[String] = []
+	var on_notify := func(text: String) -> void: notes.append(text)
+	EventBus.notify.connect(on_notify)
+	var countdown := call.time_left
+	Input.action_release("aim")
+	await _frames(int(controller.shop.panic_delay * 60.0) + 20)
+	EventBus.notify.disconnect(on_notify)
+	_check(controller.panic_tripped and controller.silent_alarm_left > 0.0, "leave the clerk uncovered and they press the panic button")
+	_check(notes.is_empty() and call.is_counting() and call.reason == PoliceCall.REASON_ALARM and call.time_left < countdown and call.time_left > countdown - controller.shop.panic_delay - 1.0, "the silent alarm gives no warning and leaves the visible countdown alone")
+	_check(call.time_left > controller.silent_alarm_left, "the silent alarm beats the visible countdown")
+	controller.silent_alarm_left = 0.05
+	await _frames(10)
+	_check(call.is_called() and call.reason == PoliceCall.REASON_SILENT_ALARM, "the silent alarm brings the police early")
+	Input.action_release("aim")
 
 
 func _test_shelves() -> void:

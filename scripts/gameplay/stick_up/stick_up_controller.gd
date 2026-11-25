@@ -8,6 +8,9 @@ extends Node
 ## - Shooting anyone makes the people outside (bystanders, neighbouring shopkeepers) and fleeing
 ##   customers phone the cops; each finished call brings the police in immediately.
 ## - The clerk can be killed; then you empty the register yourself (hold E on it).
+## - Some clerks have a hidden panic button: leave a held-up clerk uncovered too long and they press it.
+##   It's a silent alarm - no warning, the visible countdown doesn't change - and the police turn up
+##   early, after the shop's silent_alarm_seconds.
 ## Everything after that (cops, escape, stash) is hit_common's [HitSession].
 
 signal gun_drawn
@@ -17,6 +20,10 @@ signal register_emptied
 ## Someone was shot; [param npc] is the victim.
 signal violence(npc: StickUpNpc)
 signal witness_called(npc: StickUpNpc)
+## The clerk pressed the hidden panic button. Silent: nothing is shown to the player.
+signal panic_button_pressed
+## The silent alarm went through and the police were dispatched.
+signal silent_alarm_called
 
 const UNARMED_IDS: Array[StringName] = [&"fists"]
 
@@ -50,8 +57,14 @@ var robbery_started := false
 var aimed_npc: StickUpNpc
 ## Seconds since the clerk was last covered (drives an armed clerk's nerve).
 var uncovered_time := 0.0
+## Rolled from the shop's panic_button_chance at setup.
+var has_panic_button := false
+var panic_tripped := false
+## Seconds until a tripped silent alarm dispatches the police (-1 = not running).
+var silent_alarm_left := -1.0
 
 var _bag_progress := 0.0
+var _was_held_up := false
 
 
 func setup(shop_def: StickUpShopDef, the_player: Player, the_clerk: StickUpNpc, customers: Array[StickUpNpc], the_witnesses: Array[StickUpNpc], bounds: AABB, call: PoliceCall) -> void:
@@ -62,6 +75,7 @@ func setup(shop_def: StickUpShopDef, the_player: Player, the_clerk: StickUpNpc, 
 	police_call = call
 	bag = CarryBag.of(player)
 	register_cash = randi_range(shop.register_cash_min, shop.register_cash_max)
+	has_panic_button = randf() < shop.panic_button_chance
 	shop_npcs = [clerk]
 	shop_npcs.append_array(customers)
 	witnesses = the_witnesses.duplicate()
@@ -84,6 +98,7 @@ func _physics_process(delta: float) -> void:
 		aimed_npc.set_state(StickUpNpc.State.COWERING)
 	if robbery_started:
 		_update_clerk(delta)
+	_update_silent_alarm(delta)
 
 
 func is_player_in_shop() -> bool:
@@ -136,6 +151,7 @@ func _update_clerk(delta: float) -> void:
 			return
 		if not is_holding_up:
 			is_holding_up = true
+			_was_held_up = true
 			clerk.set_state(StickUpNpc.State.HELD_UP)
 			for npc in shop_npcs:
 				if npc != clerk and npc.state in [StickUpNpc.State.CALM, StickUpNpc.State.WARY]:
@@ -152,9 +168,38 @@ func _update_clerk(delta: float) -> void:
 	uncovered_time += delta
 	if clerk.state == StickUpNpc.State.HELD_UP:
 		clerk.set_state(StickUpNpc.State.WARY)
+	if _was_held_up and has_panic_button and not panic_tripped and uncovered_time >= shop.panic_delay:
+		press_panic_button()
 	if clerk.weapons != null and uncovered_time > shop.clerk_nerve and clerk.state != StickUpNpc.State.HOSTILE:
 		clerk.set_state(StickUpNpc.State.HOSTILE)
 		EventBus.notify.emit("The clerk's going for the shotgun!")
+
+
+## The clerk trips the silent alarm: no notification, and the visible police countdown is left as it
+## is; the police are dispatched after the shop's silent_alarm_seconds unless they're already coming.
+func press_panic_button() -> void:
+	if panic_tripped:
+		return
+	panic_tripped = true
+	silent_alarm_left = shop.silent_alarm_seconds
+	panic_button_pressed.emit()
+
+
+## Seconds until the silent alarm brings the police, for a lookout to reveal (-1 = none running).
+func silent_alarm_time_left() -> float:
+	return silent_alarm_left
+
+
+func _update_silent_alarm(delta: float) -> void:
+	if silent_alarm_left < 0.0:
+		return
+	silent_alarm_left = maxf(0.0, silent_alarm_left - delta)
+	if silent_alarm_left > 0.0:
+		return
+	silent_alarm_left = -1.0
+	if not police_call.is_called():
+		police_call.call_now(PoliceCall.REASON_SILENT_ALARM)
+	silent_alarm_called.emit()
 
 
 func _take(amount: int) -> int:

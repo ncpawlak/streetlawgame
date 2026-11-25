@@ -22,6 +22,13 @@ extends Resource
 @export var clerk_nerve := 4.0
 ## Seconds it takes to empty the register yourself once the clerk is dead.
 @export var self_grab_time := 3.0
+## Chance (0-1) the clerk has a hidden panic button under the counter.
+@export var panic_button_chance := 0.5
+## Seconds a held-up clerk has to be left uncovered before they press the panic button.
+@export var panic_delay := 2.0
+## Seconds from a pressed panic button until the police are dispatched (a silent alarm: no
+## warning, the visible countdown doesn't change).
+@export var silent_alarm_seconds := 12.0
 ## Stocked stands: each {"name": String, "value": int (stash value per unit), "stock": int, "color": Color}.
 @export var products: Array[Dictionary] = []
 
