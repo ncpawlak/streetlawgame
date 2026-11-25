@@ -48,6 +48,9 @@ func open() -> bool:
 	var player := GameState.player
 	if is_open or player == null or player.weapons == null or player.health <= 0.0:
 		return false
+	# Never over the pause map (it pauses the tree; Q zooms it).
+	if get_tree().paused:
+		return false
 	_inventory = player.weapons
 	_cursor = Vector2.ZERO
 	hovered = _inventory.current_index

@@ -32,6 +32,8 @@ var _shake := 0.0
 @onready var _spring_arm: SpringArm3D = $CameraPivot/SpringArm
 @onready var _camera: Camera3D = $CameraPivot/SpringArm/Camera
 @onready var _collision: CollisionShape3D = $Collision
+## Animated body (see CharacterVisual); driven from movement, aim and fire.
+@onready var visual: CharacterVisual = $Visual
 
 
 func _ready() -> void:
@@ -40,6 +42,8 @@ func _ready() -> void:
 	weapons.name = "Weapons"
 	add_child(weapons)
 	weapons.current_index = weapons.slots.size() - 1
+	weapons.changed.connect(_on_weapons_changed)
+	_on_weapons_changed()
 	interactor = Interactor.new()
 	interactor.name = "Interactor"
 	add_child(interactor)
@@ -122,6 +126,9 @@ func _physics_process(delta: float) -> void:
 		shoot()
 
 	move_and_slide()
+	visual.set_aiming(aiming)
+	visual.set_aim_pitch(asin(clampf(-_camera.global_basis.z.y, -1.0, 1.0)))
+	visual.update_motion(velocity, delta)
 	if global_position.y < -50.0:
 		respawn()
 
@@ -130,7 +137,10 @@ func shoot() -> bool:
 	var exclude: Array[RID] = [get_rid()]
 	var muzzle := global_position + Vector3(0.0, 1.4, 0.0)
 	var aim_point := Hitscan.camera_aim_point(_camera, aim_ray_length, exclude)
-	return weapons.try_fire(self, muzzle, aim_point - muzzle, exclude)
+	var fired := weapons.try_fire(self, muzzle, aim_point - muzzle, exclude)
+	if fired:
+		visual.fire()
+	return fired
 
 
 ## Point under the crosshair of whichever camera is active (used for drive-bys too).
@@ -187,6 +197,8 @@ func take_damage(amount: float, _source: Node = null) -> void:
 	_set_health(health - amount)
 	if health <= 0.0:
 		_die()
+	else:
+		visual.hit()
 
 
 func respawn() -> void:
@@ -216,6 +228,10 @@ func _die() -> void:
 	EventBus.notify.emit("WASTED - hospital bill: $%d" % loss)
 	EventBus.player_died.emit()
 	respawn()
+
+
+func _on_weapons_changed() -> void:
+	visual.set_weapon(weapons.current().data if weapons.current() else null)
 
 
 func _set_health(value: float) -> void:

@@ -10,7 +10,7 @@ const KEY_BINDINGS := {
 	"jump": [KEY_SPACE],
 	"handbrake": [KEY_SPACE],
 	"interact": [KEY_E, KEY_F],
-	"toggle_map": [KEY_TAB, KEY_M],
+	"toggle_map": [KEY_M],
 	"reload": [KEY_R],
 	"weapon_wheel": [KEY_Q],
 	"weapon_1": [KEY_1],
