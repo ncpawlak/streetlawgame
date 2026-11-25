@@ -6,7 +6,8 @@ const TRACER_LIFETIME := 0.06
 
 
 ## Fires one shot (one ray per pellet) from [param muzzle] toward [param direction], applying
-## spread and damage. Anything hit that has a take_damage(amount, source) method is damaged.
+## spread and damage. Anything hit that has a take_damage(amount, source) method is damaged, and
+## characters bleed (see BloodFx).
 ## Returns how many pellets hit something damageable.
 static func fire(shooter: Node3D, muzzle: Vector3, direction: Vector3, weapon: WeaponData, exclude: Array[RID] = [], damage_scale := 1.0, extra_spread := 0.0) -> int:
 	var space := shooter.get_world_3d().direct_space_state
@@ -21,6 +22,8 @@ static func fire(shooter: Node3D, muzzle: Vector3, direction: Vector3, weapon: W
 		if collider != null and collider.has_method("take_damage"):
 			collider.take_damage(weapon.damage * damage_scale, shooter)
 			hits += 1
+			if not weapon.is_melee() and collider is Node3D:
+				BloodFx.on_hit(collider, hit["position"], aim, hit["normal"])
 		if weapon.show_tracer:
 			_spawn_tracer(shooter, muzzle, hit.get("position", target), weapon.tracer_color)
 	return hits
