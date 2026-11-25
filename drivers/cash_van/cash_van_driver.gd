@@ -20,6 +20,12 @@ const ROADBLOCK_AHEAD := 110.0
 const STASH_POSITION := Vector3(0.0, 0.0, 0.0)
 ## Without intel, the van counts as found once you get this close.
 const SPOT_RANGE := 90.0
+## Carry-over heat area ([HeatMap]) every cash van hit counts towards.
+const HEAT_AREA := &"I-59"
+## Clean car parked by the stash: drive it (mask off) instead of the chase car to shed heat fast.
+const SWAP_CAR_POSITION := Vector3(9.0, 0.6, 8.0)
+## Lookout's post: on the shoulder this far out from the van's on-ramp.
+const LOOKOUT_SHOULDER := 14.0
 
 enum Phase { BRIEFING, WAIT, CHASE, VAN_DOWN, LOOT, ESCAPE, STASH, DONE, BUSTED }
 
@@ -35,6 +41,8 @@ static var debug_intel := not OS.get_cmdline_user_args().has("--no-intel")
 @export var departure_delay := 12.0
 ## Seed for the unknown schedule without intel (0 = random).
 @export var intel_seed := 0
+## Heat map to use instead of [method HeatMap.shared] (tests pass a fresh one). Set before adding.
+var heat_map_override: HeatMap
 
 var route: HighwayRoute
 ## Null until the van leaves (see [member departs_in]).
@@ -44,6 +52,8 @@ var briefing: IntelBriefing
 var session: HitSession
 var stash: StashDropoff
 var getaway_car: Vehicle
+## The clean car by the stash (see [constant SWAP_CAR_POSITION]).
+var swap_car: Vehicle
 var cruisers: Array[PursuitCruiser] = []
 var phase := Phase.BRIEFING
 ## Seconds until the van joins the highway (counts down in the WAIT phase).
@@ -78,8 +88,17 @@ func _ready() -> void:
 
 	session = HitSession.new()
 	session.name = "HitSession"
+	session.heat_area = HEAT_AREA
+	session.heat_map = heat_map_override
 	add_child(session)
 	session.setup(player, _roadblock_points(), null, PANIC_SECONDS)
+	session.crew.getaway = getaway_car
+	session.crew.getaway_spot = getaway_car.global_transform
+	session.crew.lookout_post = route.global_sample(intel.start_distance, route.road_width * 0.5 + LOOKOUT_SHOULDER).origin
+	session.crew.changed.connect(_refresh_briefing)
+	session.police_call.countdown_revealed.connect(func() -> void:
+		if not session.crew.has_role(CrewSlot.Role.LOOKOUT):
+			EventBus.notify.emit("The van crew hit the panic button - cops in %ds!" % ceili(session.police_call.time_left)))
 	# Nothing to hear until the van is on the road.
 	session.police_call.listen_gunshots = false
 	var response := session.police_response
@@ -103,6 +122,7 @@ func _ready() -> void:
 	add_child(stash)
 	session.register_stash(stash)
 	session.bag.changed.connect(_refresh_objective)
+	_place_swap_car()
 
 	if intel.known:
 		_build_route_overlay()
@@ -112,6 +132,7 @@ func _ready() -> void:
 	add_child(briefing)
 	briefing.confirmed.connect(start_hit)
 	briefing.show_intel(intel, route, route.sample(PLAYER_START_DISTANCE).origin, route.to_local(stash.global_position))
+	_refresh_briefing()
 	if show_briefing:
 		_refresh_objective()
 	else:
@@ -186,10 +207,27 @@ func _unhandled_input(event: InputEvent) -> void:
 		return
 	match (event as InputEventKey).keycode:
 		KEY_F5:
+			session.reset()
 			get_tree().reload_current_scene()
 		KEY_F6:
 			CashVanDriver.debug_intel = not has_intel
+			session.reset()
 			get_tree().reload_current_scene()
+		KEY_F9:
+			toggle_crew(CrewSlot.Role.LOOKOUT)
+		KEY_F10:
+			toggle_crew(CrewSlot.Role.DRIVER)
+		KEY_F11:
+			toggle_crew(CrewSlot.Role.MUSCLE)
+		KEY_F12:
+			if (event as InputEventKey).shift_pressed:
+				session.heat_map.clear()
+			else:
+				session.heat_map.add_area_heat(HEAT_AREA, 25.0)
+			EventBus.notify.emit(session.heat_map.describe(HEAT_AREA))
+			_refresh_briefing()
+		KEY_X:
+			session.identity.toggle_mask()
 		KEY_ENTER, KEY_KP_ENTER:
 			if phase == Phase.BRIEFING:
 				briefing.dismiss()
@@ -207,7 +245,7 @@ func heat_level() -> int:
 
 
 func cruisers_per_wave() -> int:
-	return maxi(1, heat_level())
+	return maxi(1, heat_level()) + heat_extra()
 
 
 ## Foot cops at the roadblock ahead: none at first, then one more per level.
@@ -223,12 +261,27 @@ func alive_cruisers() -> Array[PursuitCruiser]:
 	return result
 
 
+## Fills or empties a crew slot (F9 lookout, F10 driver, F11 muscle). Returns true if now filled.
+func toggle_crew(role: CrewSlot.Role) -> bool:
+	var on := session.crew.toggle(role)
+	EventBus.notify.emit("%s %s" % [CrewSlot.ROLE_NAMES[role], "joins the crew" if on else "is out"])
+	return on
+
+
+## Foot cops plus cruisers this hit's heat adds to every wave ([method HeatMap.extra_cops]).
+func heat_extra() -> int:
+	return session.heat_map.extra_cops(HEAT_AREA) if session != null and session.heat_map != null else 0
+
+
+## The first shot: the hit is on. The van's dash cam gets a look at the shooter (no heat if masked)
+## and the crew hits the silent panic button - only a lookout spots it straight away.
 func _on_van_attacked(_source: Node) -> void:
 	if hit_time >= 0.0:
 		return
 	hit_time = 0.0
-	session.police_call.start_countdown(PoliceCall.REASON_ALARM, PANIC_SECONDS)
-	EventBus.notify.emit("The van crew hit the panic button - cops in %ds!" % int(PANIC_SECONDS))
+	session.begin_hit()
+	session.identity.witness(session.heat_map, &"van_cam")
+	session.police_call.start_countdown(PoliceCall.REASON_SILENT_ALARM, PANIC_SECONDS, true)
 	_refresh_objective()
 
 
@@ -339,6 +392,30 @@ func _refresh_objective() -> void:
 		session.hud.set_objective(objective_text())
 
 
+## Crew, heat and mask lines for the briefing card.
+func briefing_lines() -> PackedStringArray:
+	var lines: PackedStringArray = [
+		session.crew.summary() + "  ([F9] lookout  [F10] driver  [F11] muscle)",
+		"I-59 heat: %s  (+%d cops/cruisers per wave)" % [session.heat_map.describe(HEAT_AREA), heat_extra()],
+		"Panic button: silent - %s" % ("your lookout will spot it the moment they press it (+35% time)" if session.crew.has_role(CrewSlot.Role.LOOKOUT) else "you won't know until %ds before the cops arrive" % int(session.police_call.reveal_at)),
+		"Wear a mask [X]. After: mask off + the blue swap car by the stash sheds heat fastest.",
+	]
+	return lines
+
+
+func _refresh_briefing() -> void:
+	if briefing != null and session != null:
+		briefing.set_extra(briefing_lines())
+
+
+func _place_swap_car() -> void:
+	swap_car = Vehicle.new()
+	swap_car.name = "SwapCar"
+	swap_car.body_color = Color(0.2, 0.35, 0.6)
+	swap_car.position = SWAP_CAR_POSITION
+	add_child(swap_car)
+
+
 func _place_player() -> void:
 	getaway_car = Vehicle.new()
 	getaway_car.name = "ChaseCar"
@@ -378,11 +455,11 @@ func _update_status() -> void:
 	var lines: PackedStringArray = ["CASH VAN HIT  [F5] restart  [F6] intel %s  [I] intel card" % ("ON" if intel.known else "OFF")]
 	if van == null:
 		lines.append("Van leaves in %ds" % ceili(departs_in) if intel.known and phase == Phase.WAIT else "Van: not seen")
-		_status.text = "\n".join(lines)
+		_status.text = "\n".join(lines + _crew_heat_lines())
 		return
 	if not intel.known and not van_spotted:
 		lines.append("Van: not seen")
-		_status.text = "\n".join(lines)
+		_status.text = "\n".join(lines + _crew_heat_lines())
 		return
 	var tire_text: PackedStringArray = []
 	for tire in van.tires:
@@ -390,7 +467,14 @@ func _update_status() -> void:
 	lines.append("Van %.0f km/h  tires %s" % [van.speed * 3.6, " ".join(tire_text)])
 	if hit_time >= 0.0:
 		lines.append("Hit clock %ds  heat %d  cruisers %d  cops %d" % [int(hit_time), heat_level(), alive_cruisers().size(), session.police_response.alive_cops().size()])
-	_status.text = "\n".join(lines)
+	_status.text = "\n".join(lines + _crew_heat_lines())
+
+
+func _crew_heat_lines() -> PackedStringArray:
+	return [
+		"%s  [F9/F10/F11]   I-59 heat %s  [F12/Shift+F12]" % [session.crew.summary(), session.heat_map.describe(HEAT_AREA)],
+		"[X] %s" % session.identity.status_text(),
+	]
 
 
 ## With intel: glowing chevrons along the van's lane for one lap from the on-ramp, and a beacon on the

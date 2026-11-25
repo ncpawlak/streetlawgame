@@ -11,6 +11,8 @@ var route: HighwayRoute
 ## Local-space (route) points of interest drawn on the map.
 var player_start := Vector3.ZERO
 var stash_point := Vector3.ZERO
+## Crew / heat / mask lines the driver adds under the intel ([method set_extra]).
+var extra_lines: PackedStringArray = []
 
 var _panel: PanelContainer
 var _title: Label
@@ -51,7 +53,7 @@ func _ready() -> void:
 	_map.briefing = self
 	_map.custom_minimum_size = Vector2(480.0, 380.0)
 	row.add_child(_map)
-	_body = _label(17, Color(0.92, 0.92, 0.92))
+	_body = _label(15, Color(0.92, 0.92, 0.92))
 	_body.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	_body.custom_minimum_size = Vector2(440.0, 0.0)
 	_body.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -79,11 +81,27 @@ func refresh(departs_in := -1.0) -> void:
 		text += "\n\nPlan: wait near the orange on-ramp beacon, tail the van and shoot out all 4 tires. Release the rear doors from the cab, bag what fits and lose the cops."
 	else:
 		text += "\n\nNo tip on this one. The van will join I-59 somewhere along the loop and you won't know when. Cruise the highway and find it. Buy intel next time (F6 = debug toggle)."
+	if not extra_lines.is_empty():
+		text += "\n\n" + "\n".join(extra_lines)
 	if departs_in >= 0.0 and intel.known:
 		text += "\n\nVan leaves in %ds." % ceili(departs_in)
 	_body.text = text
 	_footer.text = "[Enter] start the hit    [I] show/hide intel    [F6] debug: intel %s (restarts)" % ("ON" if intel.known else "OFF")
 	_map.queue_redraw()
+	_recenter.call_deferred()
+
+
+## The card grows with its text: keep it centred on screen.
+func _recenter() -> void:
+	if _panel == null:
+		return
+	_panel.reset_size()
+	_panel.position = (_panel.get_viewport_rect().size - _panel.size) * 0.5
+
+
+func set_extra(lines: PackedStringArray) -> void:
+	extra_lines = lines
+	refresh()
 
 
 func dismiss() -> void:

@@ -1,8 +1,15 @@
 class_name VanGuard
 extends GangMember
 ## Armoured-transport guard. Bails out of the stopped [ArmoredVan] and fights to protect it.
+## In group "hostages": crew muscle ([HitCrew]) in range calls [method hold] and the guard puts its
+## hands up - no moving, no shooting - until the muscle walks off.
 
 const WEAPONS: Array[StringName] = [&"smg", &"shotgun", &"pistol"]
+## Seconds a hold lasts after the last [method hold] call (the muscle calls it every frame).
+const HOLD_GRACE := 0.5
+
+var held_by: Node3D
+var _held_left := 0.0
 
 
 func _init() -> void:
@@ -23,6 +30,7 @@ func _ready() -> void:
 		weapon_id = WEAPONS.pick_random()
 	super._ready()
 	add_to_group("van_guards")
+	add_to_group("hostages")
 	_body_material.albedo_color = Color(0.42, 0.4, 0.3)
 	var vest_mesh := BoxMesh.new()
 	vest_mesh.size = Vector3(0.86, 0.6, 0.86)
@@ -31,3 +39,26 @@ func _ready() -> void:
 	vest.mesh = vest_mesh
 	vest.position.y = 1.15
 	add_child(vest)
+
+
+func _physics_process(delta: float) -> void:
+	_held_left = maxf(0.0, _held_left - delta)
+	if _dead or not is_held():
+		super._physics_process(delta)
+		return
+	_alert_left = 0.0
+	velocity = Vector3(0.0, velocity.y - (_gravity * delta if not is_on_floor() else 0.0), 0.0)
+	_face(held_by.global_position - global_position)
+	move_and_slide()
+
+
+## Crew muscle has a gun on them: hands up, no fighting while held. Called every frame in range.
+func hold(by: Node3D) -> void:
+	if _dead:
+		return
+	held_by = by
+	_held_left = HOLD_GRACE
+
+
+func is_held() -> bool:
+	return _held_left > 0.0 and held_by != null and is_instance_valid(held_by)

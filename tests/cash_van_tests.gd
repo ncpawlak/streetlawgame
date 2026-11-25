@@ -20,8 +20,10 @@ func run(main: Node) -> void:
 	var respect := GameState.respect
 	await _test_intel_briefing(main)
 	await _test_no_intel(main)
+	await _test_heat_and_crew(main)
 	var driver: CashVanDriver = load(DRIVER_SCENE).instantiate()
 	driver.position = OFFSET
+	driver.heat_map_override = HeatMap.new()
 	driver.has_intel = true
 	driver.show_briefing = false
 	driver.departure_delay = 0.0
@@ -56,6 +58,7 @@ func run(main: Node) -> void:
 func _test_intel_briefing(main: Node) -> void:
 	var driver: CashVanDriver = load(DRIVER_SCENE).instantiate()
 	driver.position = OFFSET
+	driver.heat_map_override = HeatMap.new()
 	driver.has_intel = true
 	driver.departure_delay = 1.0
 	main.add_child(driver)
@@ -83,6 +86,7 @@ func _test_intel_briefing(main: Node) -> void:
 func _test_no_intel(main: Node) -> void:
 	var driver: CashVanDriver = load(DRIVER_SCENE).instantiate()
 	driver.position = OFFSET
+	driver.heat_map_override = HeatMap.new()
 	driver.has_intel = false
 	driver.intel_seed = 7
 	main.add_child(driver)
@@ -203,3 +207,91 @@ func _test_stash(driver: CashVanDriver, player: Player) -> void:
 	var cash := GameState.cash
 	var paid := stash.cash_in(player)
 	_runner._check(paid == 2600 and GameState.cash == cash + 2600 and driver.phase == CashVanDriver.Phase.DONE, "cash van: stashing the bag pays out and finishes the hit")
+
+
+func _heat_driver(main: Node, heat: HeatMap) -> CashVanDriver:
+	var driver: CashVanDriver = load(DRIVER_SCENE).instantiate()
+	driver.position = OFFSET
+	driver.heat_map_override = heat
+	driver.has_intel = true
+	driver.show_briefing = false
+	driver.departure_delay = 0.0
+	main.add_child(driver)
+	await _runner._physics_frames(5)
+	driver.van.drive_enabled = false
+	return driver
+
+
+## Carry-over I-59 heat, mask + swap car, and the lookout / driver / muscle crew slots.
+func _test_heat_and_crew(main: Node) -> void:
+	var heat := HeatMap.new()
+	var area := CashVanDriver.HEAT_AREA
+	# Hit 1: no crew, no mask, police never called.
+	var driver := await _heat_driver(main, heat)
+	var session := driver.session
+	var player := driver.player
+	_runner._check(session.heat_area == area and session.police_response.heat_area == area and driver.stash.heat_area == area, "cash van heat: the hit counts towards the I-59 heat area")
+	driver.van.attacked.emit(player)
+	_runner._check(session.in_progress and session.police_call.is_counting() and session.police_call.hidden, "cash van crew: without a lookout the panic-button call is silent")
+	_runner._check(session.identity.face_seen and is_equal_approx(heat.personal_heat, HeatMap.FACE_HEAT) and session.identity.seen_vehicle == driver.getaway_car, "cash van mask: unmasked, the van cam gets your face and the chase car")
+	session.reset()
+	_runner._check(is_equal_approx(heat.area_heat(area), HeatMap.HIT_HEAT) and not session.in_progress, "cash van heat: ending the hit adds I-59 area heat (%.0f)" % heat.area_heat(area))
+	driver.queue_free()
+	await _runner._physics_frames(2)
+
+	# Hit 2: the area is hotter now - more cops, shorter countdown. Lookout, driver and muscle on.
+	heat.personal_heat = 0.0
+	heat.add_area_heat(area, 30.0)
+	driver = await _heat_driver(main, heat)
+	session = driver.session
+	player = driver.player
+	var extra := heat.extra_cops(area)
+	_runner._check(extra == 2 and driver.heat_extra() == extra and driver.cruisers_per_wave() == 1 + extra, "cash van heat: a hot I-59 adds %d cops and cruisers per wave" % extra)
+	_runner._check(driver.briefing_lines()[1].contains("+2"), "cash van heat: the briefing shows the heat and the extra cops")
+	driver.toggle_crew(CrewSlot.Role.LOOKOUT)
+	driver.toggle_crew(CrewSlot.Role.DRIVER)
+	session.identity.set_masked(true)
+	await _runner._physics_frames(2)
+	driver.van.attacked.emit(player)
+	var expected := CashVanDriver.PANIC_SECONDS * CrewSlot.LOOKOUT_TIME * heat.countdown_multiplier(area)
+	_runner._check(session.police_call.is_counting() and not session.police_call.hidden and absf(session.police_call.time_left - expected) < 0.2, "cash van crew: the lookout reveals the panic-button call and buys time (%.1f s)" % session.police_call.time_left)
+	_runner._check(session.police_call.countdown_scale < CrewSlot.LOOKOUT_TIME, "cash van heat: heat shortens the countdown (x%.2f)" % session.police_call.countdown_scale)
+	_runner._check(not session.identity.face_seen and heat.personal_heat == 0.0, "cash van mask: masked, the van cam gets nothing")
+	session.police_call.call_now(PoliceCall.REASON_ALARM)
+	_runner._check(driver.alive_cruisers().size() == 1 + extra and session.police_response.alive_cops().size() == extra, "cash van heat: the first wave brings the heat's extra cops (%d) and cruisers (%d)" % [session.police_response.alive_cops().size(), driver.alive_cruisers().size()])
+	await _runner._physics_frames(2)
+	_runner._check(player.current_vehicle == driver.getaway_car and is_equal_approx(session.police_response.escape_rate, CrewSlot.DRIVER_ESCAPE), "cash van crew: the driver speeds up the escape in the chase car (x%.1f)" % session.police_response.escape_rate)
+
+	# Muscle holds a guard.
+	player.current_vehicle.exit()
+	await _runner._physics_frames(2)
+	driver.toggle_crew(CrewSlot.Role.MUSCLE)
+	var guard := VanGuard.new()
+	guard.weapon_id = &"smg"
+	driver.add_child(guard)
+	guard.global_position = player.global_position + Vector3(3.0, 0.5, 0.0)
+	await _runner._physics_frames(6)
+	_runner._check(guard.is_in_group("hostages") and guard.is_held() and is_equal_approx(Vector2(guard.velocity.x, guard.velocity.z).length(), 0.0), "cash van crew: the muscle holds a guard (hands up, not moving)")
+	guard.queue_free()
+
+	# Mask off + swap car = heat drops fastest; the chase car keeps it slow.
+	_runner._check(session.identity.seen_vehicle == driver.getaway_car, "cash van mask: police note the chase car")
+	driver.getaway_car.enter(player)
+	await _runner._physics_frames(2)
+	var marked := session.identity.decay_multiplier()
+	player.current_vehicle.exit()
+	session.identity.set_masked(false)
+	driver.swap_car.enter(player)
+	await _runner._physics_frames(2)
+	var clean := session.identity.decay_multiplier()
+	_runner._check(marked == HitIdentity.MARKED and clean == HitIdentity.CLEAN_SWAP and session.police_response.escape_multiplier() > 1.0, "cash van mask: mask off in the swap car sheds heat x%.1f (chase car with mask x%.1f)" % [clean, marked])
+	heat.personal_heat = 50.0
+	GameState.player = player
+	heat._process(1.0)
+	var swap_drop := 50.0 - heat.personal_heat
+	_runner._check(is_equal_approx(swap_drop, heat.personal_decay * HitIdentity.CLEAN_SWAP), "cash van mask: personal heat decays x4 after the clean swap")
+	var before := heat.area_heat(area)
+	session.reset()
+	_runner._check(heat.area_heat(area) > before + HeatMap.HIT_HEAT, "cash van heat: a hit with the police called adds extra area heat (%.0f -> %.0f)" % [before, heat.area_heat(area)])
+	driver.queue_free()
+	await _runner._physics_frames(2)
