@@ -44,9 +44,8 @@ func memory() -> Dictionary:
 
 
 func _build_body() -> void:
-	var visual := def.visual.instantiate() if def.visual != null else VisualSpec.greybox(&"capsule", Vector3(0.8, 1.8, 0.8), def.color)
-	if def.visual == null:
-		visual.position.y = 0.9
+	# Without a custom visual, occupants are animated civilians (the model is picked from the role).
+	var visual: Node3D = def.visual.instantiate() if def.visual != null else CharacterVisual.create(&"civilian", hash(def.role) & 0xFFFF)
 	add_child(visual)
 	interactable = Interactable.new()
 	interactable.name = "Interactable"

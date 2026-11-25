@@ -142,7 +142,7 @@ func default_district_at(position: Vector3) -> StringName:
 	return Turf.district_at(position)
 
 
-## "The Bottoms" -> &"the_bottoms" (same rule as data/districts file names).
+## "Tamarack Row" -> &"tamarack_row" (same rule as data/districts file names).
 static func to_district_id(display_name: String) -> StringName:
 	var result := ""
 	for character in display_name.strip_edges().to_lower():

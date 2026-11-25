@@ -10,12 +10,12 @@ patrol_count = 2
 
 [resource]
 script = ExtResource("1")
-id = &"northgate"
-display_name = "Northgate"
-area_id = &"northside"
-starting_owner = &"kings"
-income_per_cycle = 150
+id = &"mangona"
+display_name = "Mangona"
+area_id = &"north_end"
+starting_owner = &"vipers"
+income_per_cycle = 200
 capture_respect = 100
+safehouse_id = &"warehouse"
 defenders = SubResource("defenders")
-tags = Array[StringName]([&"residential"])
-grid_origin = Vector2i(0, 2)
+tags = Array[StringName]([&"industrial", &"lake"])

@@ -4,11 +4,11 @@
 
 [resource]
 script = ExtResource("1_aswnv")
-district_id = &"riverside"
+district_id = &"northgrove"
 demand = {
 &"coke": 1.5,
 &"drug": 1.0,
 &"weed": 0.8
 }
-id = &"riverside"
-display_name = "Riverside market"
+id = &"northgrove"
+display_name = "Northgrove market"
