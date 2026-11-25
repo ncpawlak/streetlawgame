@@ -58,6 +58,15 @@ func _test_gang_member(main: Node, player: Player) -> void:
 	_check(member.visual.is_dead() and head < 0.8, "a killed gang member plays the death animation (head at %.2f m)" % head)
 	member.queue_free()
 
+	var detached := CharacterVisual.create(&"gang", 1)
+	main.add_child(detached)
+	detached.set_weapon(GameState.weapon_data(&"pistol"))
+	await _frames(2)
+	main.remove_child(detached)
+	detached.skeleton.skeleton_updated.emit()
+	_check(not detached.is_inside_tree(), "an armed visual removed from the tree skips weapon placement")
+	detached.free()
+
 
 ## How far the right hand is in front of the character (m).
 func _hand_forward(visual: CharacterVisual) -> float:
