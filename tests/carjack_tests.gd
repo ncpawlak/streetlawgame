@@ -77,8 +77,9 @@ func _test_lock_pick() -> void:
 	var game := LockPickMinigame.new()
 	var results := _results(game)
 	game.begin()
+	_check(game.timing is TimingMinigame and game.timing.active and game.timing.hits_needed == game.pins_needed, "lock pick: runs on the shared hit_common TimingMinigame")
 	for i in game.pins_needed:
-		game.needle = game.zone_center
+		game.needle = game.zone_center()
 		game.press_primary()
 	_check(game.succeeded and results["finished"] == [true], "lock pick: setting every pin in the zone opens the car")
 	game.free()
@@ -87,36 +88,38 @@ func _test_lock_pick() -> void:
 	results = _results(game)
 	game.begin()
 	for i in game.max_misses:
-		game.needle = 0.0 if game.zone_center > 0.5 else 1.0
-		game.press_primary()
-	_check(game.done and not game.succeeded and results["finished"] == [false], "lock pick: too many misses snaps the pick")
+		_miss(game)
+	_check(game.done and not game.succeeded and results["finished"] == [false] and not game.timing.active, "lock pick: too many misses snaps the pick")
 	game.free()
 
 	game = LockPickMinigame.new()
 	results = _results(game)
 	game.begin()
-	game.needle = game.zone_center
+	game.needle = game.zone_center()
 	game.press_primary()
-	_check(game.pins_set == 1 and game.hit_this_pass, "lock pick: a pin starts the streak")
-	game.needle = 0.999
-	game.direction = 1.0
-	game.tick(0.01)
-	_check(game.pins_set == 1 and not game.hit_this_pass, "lock pick: bouncing after a pin on that pass keeps the streak")
-	game.needle = game.zone_center
+	_check(game.pins_set == 1, "lock pick: a pin starts the streak")
+	_check(game.timing.sweet_start > game.needle, "lock pick: the next green spot is further along the bar")
+	game.needle = game.zone_center()
 	game.press_primary()
 	_check(game.pins_set == 2, "lock pick: back-to-back pins build the streak (bang, bang)")
-	game.needle = 0.001
-	game.direction = -1.0
-	game.tick(0.01)
 	game.needle = 0.999
-	game.direction = 1.0
-	game.tick(0.01)
-	_check(game.pins_set == 0 and game.resets == 1 and not game.done, "lock pick: reaching the next wall without a pin resets the streak")
-	game.needle = game.zone_center
+	game.tick(0.05)
+	_check(game.pins_set == 0 and game.resets == 1 and game.misses == 0 and not game.done and game.needle == 0.0, "lock pick: hitting the wall before the last pin resets the streak")
+	game.needle = game.zone_center()
 	game.press_primary()
-	game.needle = 0.0 if game.zone_center > 0.5 else 1.0
-	game.press_primary()
-	_check(game.pins_set == 0 and game.resets == 2 and game.misses == 1, "lock pick: a mis-press drops the pins too")
+	_miss(game)
+	_check(game.pins_set == 0 and game.resets == 2 and game.misses == 1 and not game.done, "lock pick: a mis-press drops the pins too")
+	game.free()
+
+	game = LockPickMinigame.new()
+	game.begin()
+	var normal_speed := game.timing.speed
+	var normal_width := game.timing.sweet_width
+	game.free()
+	game = LockPickMinigame.new()
+	game.difficulty = VehicleClass.find(&"luxury").lock_difficulty
+	game.begin()
+	_check(game.timing.speed > normal_speed and game.timing.sweet_width < normal_width, "lock pick: lock difficulty speeds the pin up and narrows the green")
 	game.free()
 
 	game = LockPickMinigame.new()
@@ -249,8 +252,7 @@ func _test_driver(driver: CarjackDriver) -> void:
 	driver.alarm_raised.connect(func(reason: StringName) -> void: alarm_reasons.append(reason))
 	var lock := game as LockPickMinigame
 	for i in lock.max_misses:
-		lock.needle = 0.0 if lock.zone_center > 0.5 else 1.0
-		lock.press_primary()
+		_miss(lock)
 	_check(sedan.alarm_on and driver.police_call.is_counting() and alarm_reasons == [PoliceCall.REASON_NEIGHBOURS], "failing the minigame sets off the car alarm and a police countdown")
 	_check(sedan.locked and sedan.can_jack(), "a failed car stays locked and can be retried")
 	await _frames(90)
@@ -337,7 +339,7 @@ func _test_driver(driver: CarjackDriver) -> void:
 	game.set_process(false)
 	lock = game as LockPickMinigame
 	while not lock.done:
-		lock.needle = lock.zone_center
+		lock.needle = lock.zone_center()
 		lock.press_primary()
 	await _frames(3)
 	var tracker := coupe.tracker
@@ -380,3 +382,9 @@ func _test_driver(driver: CarjackDriver) -> void:
 func _frames(count: int) -> void:
 	for i in count:
 		await _runner.get_tree().physics_frame
+
+
+## Presses just before the green spot (always a miss: the spot is placed ahead of the pin).
+func _miss(game: LockPickMinigame) -> void:
+	game.needle = maxf(0.0, game.timing.sweet_start - 0.01)
+	game.press_primary()

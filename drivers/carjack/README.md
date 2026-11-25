@@ -65,7 +65,7 @@ The final minigame hasn't been decided, so there are three prototypes. They all 
 
 | Kind | Script | How it plays |
 | --- | --- | --- |
-| `lock_pick` | `lock_pick_minigame.gd` | "Bang bang bang": a needle bounces wall to wall. Press E/Space inside the green zone to set a pin, and set one on **every pass**. If the needle reaches the next wall without a pin set on that pass, or you press outside the zone, the streak resets to 0. 3 pins back to back wins. 3 mis-presses snap the pick (alarm). Each pin speeds up the needle and shrinks the zone. |
+| `lock_pick` | `lock_pick_minigame.gd` | "Bang bang bang", run on the shared `TimingMinigame` (`scripts/gameplay/hit_common/timing_minigame.gd`, the same mechanic as house safes). A pin sweeps toward the far wall. Press E/Space while it is in the green to set a pin, and the next green spot appears further along. Set 3 pins back to back before the pin hits the wall. Hitting the wall, or pressing outside the green, resets the streak. 3 mis-presses snap the pick (alarm). The class lock difficulty speeds up the pin and narrows the green. |
 | `hotwire` | `hotwire_minigame.gd` | Four shuffled wires on keys 1-4. Connect the bracketed wire in the shown sequence (3 wires, 4 on hard) before the step timer runs out. 2 sparks (a wrong wire or a timeout) fail it. |
 | `struggle` | `struggle_minigame.gd` | Mash E/Space to drag the driver out while they claw back grip in surges. Grip at 0 or 8 s elapsed fails it. |
 
