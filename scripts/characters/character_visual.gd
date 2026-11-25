@@ -257,6 +257,8 @@ func _box(node_name: String, size: Vector3, color: Color) -> MeshInstance3D:
 
 ## Places the held weapon and bandana once the animated (and aim-bent) pose is final.
 func _on_skeleton_updated() -> void:
+	if not is_inside_tree():
+		return
 	if _weapon_mesh.visible:
 		var forward := -global_basis.z.normalized()
 		var pitch := _aim_pitch * _aim_weight + (1.0 - _aim_weight) * -0.7

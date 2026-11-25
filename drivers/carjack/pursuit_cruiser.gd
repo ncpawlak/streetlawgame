@@ -13,6 +13,7 @@ var has_target := false
 var _stuck_time := 0.0
 var _reverse_left := 0.0
 var _siren: OmniLight3D
+var _cop: CharacterVisual
 
 
 func _ready() -> void:
@@ -34,6 +35,9 @@ func _ready() -> void:
 	_siren.omni_range = 8.0
 	_siren.position = Vector3(0.0, 2.4, -0.3)
 	add_child(_siren)
+	CarCrew.tint_glass(self)
+	_cop = CarCrew.seat_driver(self, &"cop", Color(0.1, 0.18, 0.45))
+	exploded.connect(_cop.die)
 
 
 ## Police cars can't be jacked in this driver.

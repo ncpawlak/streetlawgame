@@ -56,6 +56,8 @@ Planned per-type direction (not implemented yet):
 
 A heavier, stiffer car moves less when hit by an explosion. Explosions use a fixed impulse, so a rocket now shoves a stock car about 0.2 m instead of 0.6 m. If cars should get thrown further, retune the RPG's impulse instead of the cars.
 
+Each wheel's suspension force is capped (Godot's default is 6000 N). `VehicleTuning` raises that cap in proportion to mass (6000 N per 1300 kg, so the sedan is unchanged). Without that, anything above about 2400 kg sat on its body: the rebased 2600 kg SUV rode 0.46 m low, and dragging the F7 mass slider high did the same to any car.
+
 ## Minigames (prototypes, swappable)
 
 The final minigame hasn't been decided, so there are three prototypes. They all share one interface, `CarjackMinigame` in `minigames/carjack_minigame.gd`:
@@ -102,6 +104,16 @@ The panel on the right live-adjusts the handling of one **car class** at a time:
 
 This applies to all vehicles, via the shared `scripts/vehicles/vehicle.gd`. The chase camera is free-look: the mouse sets the yaw and pitch, and the camera no longer swings back behind the car. You can look anywhere while driving, and drive-bys shoot where the crosshair is.
 
+## Characters
+
+Everyone in the driver uses the animated `CharacterVisual` (`scripts/characters/`):
+
+- **Owners in occupied cars** are civilians in the driver's seat, on the +X side, which is where `Vehicle.exit()` and the owner leave from. There's no sitting clip yet, so a standing model on the floor pan stands in for a seated one, scaled to 0.85 so the head stays under the 2.0 m roof. Hot cars and cruisers have tinted, see-through cabin glass so you can see who's inside.
+- **The fleeing owner** is the same civilian model. They flinch (the hit clip) as they're dragged out, then run.
+- **Cruisers** have a navy-tinted cop (the SWAT model) at the wheel.
+- **Death:** when a car is wrecked, whoever is inside plays the death animation.
+- **On-foot cops** (the hit_common `Cop`) use the same cop model with the same tint.
+
 ## Files
 
 | File | Purpose |
@@ -115,6 +127,7 @@ This applies to all vehicles, via the shared `scripts/vehicles/vehicle.gd`. The 
 | `jam_zone.gd` | Parking garage that blocks tracker signals |
 | `pursuit_cruiser.gd` | Simple AI police car that chases tracker pings |
 | `fleeing_driver.gd` | Victim who runs off after being pulled out |
+| `car_crew.gd` | `CarCrew`: seats an animated driver in a car and tints its cabin glass |
 
 The police countdown and response reuse `scripts/gameplay/hit_common/` (`PoliceCall`, `PoliceResponse`, `Cop`). There is no wanted-star system yet.
 

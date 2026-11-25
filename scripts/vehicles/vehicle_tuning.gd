@@ -6,6 +6,9 @@ extends RefCounted
 ## copied from the panel can be pasted straight into [constant VehicleClass.TABLE].
 
 ## [property, label, min, max, step]
+## Godot's default per-wheel suspension force cap, and the cap per kg of car mass (6000 N / 1300 kg sedan).
+const STOCK_MAX_FORCE := 6000.0
+const MAX_FORCE_PER_KG := STOCK_MAX_FORCE / 1300.0
 const PARAMS := [
 	[&"mass", "Mass (kg)", 300.0, 4000.0, 50.0],
 	[&"center_of_mass_y", "Centre of mass height (m)", -0.6, 1.2, 0.05],
@@ -84,6 +87,9 @@ func apply(vehicle: Vehicle) -> void:
 		wheel.suspension_travel = suspension_travel
 		wheel.wheel_roll_influence = roll_influence
 		wheel.wheel_friction_slip = friction_slip
+		# Godot caps each wheel's spring force (6000 N by default). Above ~2400 kg that cap is less than
+		# the car's weight, so the car sinks onto its body; scale the cap with mass (sedan stays 6000).
+		wheel.suspension_max_force = maxf(STOCK_MAX_FORCE, mass * MAX_FORCE_PER_KG)
 	vehicle.sleeping = false
 
 

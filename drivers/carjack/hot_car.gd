@@ -20,7 +20,7 @@ var stolen := false
 var alarm_on := false
 var tracker: HotCarTracker
 
-var _occupant: MeshInstance3D
+var _occupant: CharacterVisual
 var _alarm_lights: Array[OmniLight3D] = []
 var _alarm_left := 0.0
 
@@ -34,16 +34,10 @@ func _ready() -> void:
 	super._ready()
 	add_to_group("hot_cars")
 	if occupied:
-		_occupant = MeshInstance3D.new()
-		var capsule := CapsuleMesh.new()
-		capsule.radius = 0.3
-		capsule.height = 1.1
-		var material := StandardMaterial3D.new()
-		material.albedo_color = Color(0.85, 0.6, 0.4)
-		capsule.material = material
-		_occupant.mesh = capsule
-		_occupant.position = Vector3(-0.4, 1.6, 0.2)
-		add_child(_occupant)
+		_occupant = CarCrew.seat_driver(self, &"civilian")
+		_occupant.name = "Occupant"
+		exploded.connect(_occupant.die)
+	CarCrew.tint_glass(self)
 	for x: float in [-0.8, 0.8]:
 		var light := OmniLight3D.new()
 		light.light_color = Color(1.0, 0.55, 0.1)
@@ -100,7 +94,7 @@ func unlock() -> void:
 	stolen = true
 	set_alarm(false)
 	if _occupant != null:
-		var runner := FleeingDriver.spawn(get_parent(), global_position + global_basis.x * 2.0, global_basis.x)
+		var runner := FleeingDriver.spawn(get_parent(), global_position + global_basis.x * 2.0, global_basis.x, _occupant.variant)
 		runner.name = "FleeingDriver"
 		_occupant.queue_free()
 		_occupant = null

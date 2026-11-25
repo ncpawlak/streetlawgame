@@ -211,6 +211,10 @@ func _test_driver(driver: CarjackDriver) -> void:
 	_check(driver.targets().size() == CarjackDriver.TARGETS.size() and suv.has_occupant() and not sedan.has_occupant(), "parked and occupied target cars spawn")
 	_check(not sedan.can_enter() and sedan.can_jack(), "a target car is locked until it's jacked")
 	_check(driver.chop_shop.deliver(sedan) == 0, "the chop shop refuses a car that hasn't been stolen")
+	var seated := suv.get_node_or_null("Occupant") as CharacterVisual
+	_check(seated != null and seated.position.x > 0.0 and seated.position.x < 0.95 and seated.position.y + seated.head_height() <= 2.0, "the occupant is an animated civilian in the driver's (+X, exit) seat, head under the roof")
+	_check(sedan.get_node_or_null("Occupant") == null, "parked cars are empty")
+	var seated_variant := seated.variant if seated != null else -2
 
 	# Car classes: one of each spawns, and the class sets value, lock difficulty, trackers and handling.
 	var classes := {}
@@ -313,6 +317,9 @@ func _test_driver(driver: CarjackDriver) -> void:
 	_check(not payouts.is_empty() and payouts[0] > 1200, "an undamaged car with no tracker earns the cold-car bonus")
 	_check(not is_instance_valid(sedan) and player.is_on_foot() and driver.hot_car == null, "the chop shop strips the car and the player is back on foot")
 
+	var ride := driver.targets().filter(is_instance_valid).map(func(car: HotCar) -> float: return car.global_position.y)
+	_check(ride.size() >= 4 and ride.min() > -0.15 and ride.max() - ride.min() < 0.15, "every class rides on its wheels, even the heavy SUV (suspension force scales with mass)")
+
 	# Occupied car: struggle, the driver runs off and calls the cops.
 	driver.police_call.reset()
 	alarm_reasons.clear()
@@ -323,7 +330,10 @@ func _test_driver(driver: CarjackDriver) -> void:
 	while not game.done:
 		game.press_primary()
 	await _frames(2)
-	_check(not suv.has_occupant() and not _runner.get_tree().get_nodes_in_group("fleeing_drivers").is_empty(), "the yanked driver runs off")
+	var runners := _runner.get_tree().get_nodes_in_group("fleeing_drivers")
+	_check(not suv.has_occupant() and not runners.is_empty(), "the yanked driver runs off")
+	var runner := runners[0] as FleeingDriver
+	_check(runner.visual != null and runner.visual.variant == seated_variant and absf(runner.global_position.y - suv.global_position.y) < 0.3, "the runner is the same animated civilian, standing on the ground")
 	_check(player.current_vehicle == suv and alarm_reasons == [PoliceCall.REASON_WITNESS] and driver.police_call.is_counting(), "the victim calls the cops")
 	await _frames(2)
 	_check(driver.tuning_class == &"suv", "getting into a car switches the tuning panel to its class")
@@ -345,6 +355,10 @@ func _test_driver(driver: CarjackDriver) -> void:
 	var tracker := coupe.tracker
 	_check(tracker != null and tracker.active and tracker.pings >= 1, "a hot car's tracker starts pinging")
 	_check(driver.police_call.is_called() and driver.police_response.is_wanted() and driver.cruisers.size() == driver.cruisers_per_call, "a tracker ping calls the police and sends cruisers")
+	var cop := driver.cruisers[0]._cop
+	_check(cop != null and cop.model_id == &"swat", "cruisers have an animated cop at the wheel")
+	driver.cruisers[0].exploded.emit()
+	_check(cop.is_dead(), "a wrecked cruiser's cop plays the death animation")
 	driver.police_response.unseen_time = 5.0
 	tracker._next_ping = 0.0
 	tracker.update(0.01)
