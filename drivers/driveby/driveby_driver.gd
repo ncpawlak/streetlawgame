@@ -4,8 +4,9 @@ extends Node3D
 ## parked nearby, and the player already behind the wheel (optionally with a crew gunner riding
 ## shotgun). Not part of the city map - boots straight into the drive-by loop.
 ##
-## Run: godot --path . res://drivers/driveby/driveby_driver.tscn [-- --crew=6 --no-cars --no-gunner]
-## Debug keys: F1/F2 crew size -/+, F3 rivals have cars, F4 crew gunner, F5 restart.
+## Run: godot --path . res://drivers/driveby/driveby_driver.tscn [-- --crew=6 --no-cars --no-gunner --gunner-skill=8]
+## Debug keys: F1/F2 crew size -/+, F3 rivals have cars, F4 crew gunner, F5 restart,
+## F6/F7 gunner shooting skill -/+ (applies live).
 
 const MIN_CREW := 1
 const MAX_CREW := 8
@@ -18,6 +19,8 @@ const PARKED_CARS := [Vector3(17.0, 0.6, -48.0), Vector3(28.0, 0.6, -40.0)]
 static var crew_size := 4
 static var rivals_have_cars := true
 static var passenger_gunner := true
+## Shooting skill (1-10) of the crew member riding shotgun.
+static var gunner_skill := 5
 static var _args_read := false
 
 var grid: StreetGrid
@@ -60,9 +63,26 @@ func _process(_delta: float) -> void:
 	_objective_label.text = mission.objective_text()
 	_escape_bar.visible = mission.phase == DriveByMission.Phase.RETALIATION and mission.can_escape()
 	_escape_bar.value = mission.unseen_time / mission.escape_time * 100.0
-	_debug_label.text = "Vipers left %d   Cars chasing %d   Kills %d\n[F1/F2] Crew size %d   [F3] Rival cars %s   [F4] Gunner %s   [F5] Restart" % [
-		mission.living_crew().size(), mission.chasing_cars().size(), mission.kills,
+	_debug_label.text = "Vipers left %d   Cars chasing %d   Kills %d\n%s\n[F1/F2] Crew size %d   [F3] Rival cars %s   [F4] Gunner %s   [F5] Restart   [F6/F7] Gunner skill" % [
+		mission.living_crew().size(), mission.chasing_cars().size(), mission.kills, _gunner_text(),
 		crew_size, "ON" if rivals_have_cars else "OFF", "ON" if passenger_gunner else "OFF"]
+
+
+func _gunner_text() -> String:
+	if gunner == null:
+		return "No gunner"
+	return "Gunner %s: shooting %d/%d   spread %.1f   reaction %.2fs   bursts %d-%d   range %.0fm   kills %d" % [
+		gunner.crew.display_name, gunner.skill_level(), CrewMemberData.MAX_SKILL, gunner.extra_spread,
+		gunner.reaction_time, gunner.burst_min, gunner.burst_max, gunner.gun_range, gunner.kills]
+
+
+## Changes the gunner's shooting skill on the fly so the difference shows mid-run.
+func set_gunner_skill(level: int) -> void:
+	gunner_skill = clampi(level, 1, CrewMemberData.MAX_SKILL)
+	if gunner != null:
+		gunner.crew.skills[CrewGunner.SKILL_ID] = gunner_skill
+		gunner.crew.xp.erase(CrewGunner.SKILL_ID)
+		gunner.apply_skill()
 
 
 func _input(event: InputEvent) -> void:
@@ -83,6 +103,12 @@ func _input(event: InputEvent) -> void:
 				_restart_with(func() -> void: passenger_gunner = not passenger_gunner)
 			KEY_F5:
 				_restart_with(func() -> void: pass)
+			KEY_F6:
+				set_gunner_skill(gunner_skill - 1)
+				get_viewport().set_input_as_handled()
+			KEY_F7:
+				set_gunner_skill(gunner_skill + 1)
+				get_viewport().set_input_as_handled()
 
 
 func _restart_with(change: Callable) -> void:
@@ -91,7 +117,8 @@ func _restart_with(change: Callable) -> void:
 	get_tree().reload_current_scene.call_deferred()
 
 
-## Command-line overrides (after "--"): --crew=N, --cars / --no-cars, --gunner / --no-gunner.
+## Command-line overrides (after "--"): --crew=N, --cars / --no-cars, --gunner / --no-gunner,
+## --gunner-skill=N.
 static func _read_args() -> void:
 	if _args_read:
 		return
@@ -107,6 +134,8 @@ static func _read_args() -> void:
 			passenger_gunner = false
 		elif arg == "--gunner":
 			passenger_gunner = true
+		elif arg.begins_with("--gunner-skill="):
+			gunner_skill = clampi(arg.trim_prefix("--gunner-skill=").to_int(), 1, CrewMemberData.MAX_SKILL)
 
 
 func _spawn_player() -> void:
@@ -123,6 +152,7 @@ func _spawn_player() -> void:
 	if passenger_gunner:
 		gunner = CrewGunner.new()
 		gunner.name = "Gunner"
+		gunner.crew = CrewMemberData.create("Dre", {CrewGunner.SKILL_ID: gunner_skill})
 		player_car.add_child(gunner)
 	player_car.enter(player)
 

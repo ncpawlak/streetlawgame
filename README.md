@@ -53,7 +53,7 @@ Drivers are standalone scenes that boot straight into one gameplay loop, outside
 
 ```sh
 godot --path . res://drivers/driveby/driveby_driver.tscn
-godot --path . res://drivers/driveby/driveby_driver.tscn -- --crew=6 --no-cars --no-gunner
+godot --path . res://drivers/driveby/driveby_driver.tscn -- --crew=6 --no-cars --no-gunner --gunner-skill=8
 ```
 
 You start in a car a few blocks from a Red Vipers corner crew, with an SMG and a crew member riding shotgun who shoots at nearby rivals on his own. Roll up and shoot from the car (LMB). Once the crew gets hit, the survivors pile into their parked cars and chase you, shooting from the windows. If nobody makes it to a car, backup rolls out instead. Stay out of their sight for 5 seconds (break line of sight behind buildings, or get more than 60 m away) to finish. You need at least one kill, and dying fails the run.
@@ -64,6 +64,9 @@ You start in a car a few blocks from a Red Vipers corner crew, with an SMG and a
 | F3 | Rivals have cars on/off |
 | F4 | Passenger gunner on/off |
 | F5 | Restart |
+| F6 / F7 | Gunner shooting skill -/+ (1-10, default 5; applies live) |
+
+The gunner is a crew member (`CrewMemberData`) with a `shooting` skill. Higher skill means tighter spread, faster reactions (1.2 s down to 0.15 s before opening fire), shorter, disciplined bursts instead of long sprays, and more range (22 m up to 34 m). Each rival the gunner drops earns them shooting xp, so they level up through the normal crew skill system.
 
 Code lives in `drivers/driveby/` and `scripts/gameplay/driveby/`. Tests are in `tests/driveby_tests.gd`.
 

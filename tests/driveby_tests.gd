@@ -20,11 +20,12 @@ func _check(condition: bool, description: String) -> void:
 func run(main: Node) -> void:
 	main.queue_free()
 	await _frames(2)
-	var saved := [DriveByDriver.crew_size, DriveByDriver.rivals_have_cars, DriveByDriver.passenger_gunner, GameState.cash, GameState.respect]
+	var saved := [DriveByDriver.crew_size, DriveByDriver.rivals_have_cars, DriveByDriver.passenger_gunner, GameState.cash, GameState.respect, DriveByDriver.gunner_skill]
 	DriveByDriver._args_read = true
 	await _test_boot()
 	await _test_shooting_from_car()
 	await _test_crew_gunner()
+	await _test_gunner_skill()
 	await _test_retaliation_and_chase()
 	await _test_backup_and_toggles()
 	await _test_escape()
@@ -34,6 +35,7 @@ func run(main: Node) -> void:
 	DriveByDriver.passenger_gunner = saved[2]
 	GameState.cash = saved[3]
 	GameState.respect = saved[4]
+	DriveByDriver.gunner_skill = saved[5]
 
 
 func _boot(crew_size: int, cars: bool, gunner: bool) -> DriveByDriver:
@@ -103,7 +105,45 @@ func _test_crew_gunner() -> void:
 			break
 		await _frames(1)
 	_check(not target.is_alive() and driver.mission.kills == 1, "the crew gunner drops a rival and it counts")
+	_check(driver.gunner.kills == 1 and int(driver.gunner.crew.xp.get(CrewGunner.SKILL_ID, 0)) == CrewGunner.XP_PER_KILL, "the gunner's kill earns them shooting xp")
 	await _free(driver)
+
+
+func _test_gunner_skill() -> void:
+	var rookie_frames := await _frames_to_first_shot(1)
+	var veteran_frames := await _frames_to_first_shot(10)
+	_check(veteran_frames + 30 < rookie_frames, "a skilled gunner opens fire faster (%d vs %d frames)" % [veteran_frames, rookie_frames])
+
+	DriveByDriver.gunner_skill = 1
+	var driver := await _boot(1, false, true)
+	var gunner := driver.gunner
+	_check(gunner.crew.skill_for(CrewGunner.SKILL_ID) == 1 and gunner.skill_level() == 1, "the gunner's skill comes from their crew member's shooting level")
+	var rookie := [gunner.extra_spread, gunner.reaction_time, gunner.burst_max, gunner.gun_range]
+	driver.set_gunner_skill(10)
+	await _frames(1)
+	_check(gunner.skill_level() == 10 and gunner.weapons.extra_spread == gunner.extra_spread, "the debug key changes the gunner's skill live")
+	_check(gunner.extra_spread < rookie[0] and gunner.reaction_time < rookie[1] and gunner.burst_max < rookie[2] and gunner.gun_range > rookie[3], "skill tightens spread, speeds reactions, shortens bursts and adds range")
+	driver.set_gunner_skill(99)
+	_check(gunner.skill_level() == CrewMemberData.MAX_SKILL, "gunner skill is clamped to 1-10")
+	await _free(driver)
+
+
+## Frames between a rival stepping into view and the gunner's first shot.
+func _frames_to_first_shot(skill: int) -> int:
+	DriveByDriver.gunner_skill = skill
+	var driver := await _boot(1, false, true)
+	var car := driver.player_car
+	var slot := driver.gunner.weapons.current()
+	var rounds := slot.magazine
+	var target := driver.crew[0]
+	target.move_speed = 0.0
+	target.global_position = car.global_position + car.global_basis.x * -10.0
+	var frames := 0
+	while slot.magazine == rounds and frames < 300:
+		frames += 1
+		await _frames(1)
+	await _free(driver)
+	return frames
 
 
 func _test_retaliation_and_chase() -> void:
@@ -174,8 +214,11 @@ func _test_escape() -> void:
 	_check(not DriveByMission.line_of_sight(driver, block_center + Vector3(5.0, 1.0, 20.0), block_center + Vector3(5.0, 1.0, -20.0)), "buildings block line of sight")
 
 	var cash := GameState.cash
-	await _frames(80)
-	_check(mission.phase == DriveByMission.Phase.COMPLETE and GameState.cash == cash + mission.reward_cash, "staying out of sight completes the drive-by and pays out")
+	for i in 300:
+		if mission.phase != DriveByMission.Phase.RETALIATION:
+			break
+		await _frames(1)
+	_check(mission.phase == DriveByMission.Phase.COMPLETE and GameState.cash == cash + mission.reward_cash, "staying out of sight completes the drive-by and pays out (unseen %.2fs, seen %s)" % [mission.unseen_time, mission.is_seen()])
 	await _free(driver)
 
 
