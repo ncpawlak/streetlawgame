@@ -583,6 +583,7 @@ func _update_pose() -> void:
 	_pose.chest_roll = (0.1 * _shoulder_weight * _aim_weight + _flinch.y * 0.3) if not _dead else 0.0
 	_pose.head_pitch = -spine * 0.7 * (1.0 - _crawl_weight * 0.5) if not _dead else 0.0
 	_pose.arm_kick = _kick * 0.6 if _in_hand != null and not _dead else 0.0
+	_pose.face_forward = _aim_weight if not _dead else 0.0
 
 	var axes := global_basis.orthonormalized()
 	_weapon_pitch = _aim_pitch * _aim_weight + (1.0 - _aim_weight) * -0.7 + _kick

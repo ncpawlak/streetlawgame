@@ -113,6 +113,10 @@ func _test_strafe_hipfire(player: Player) -> void:
 	_check(player.is_weapon_raised() and absf(angle_difference(player.rotation.y, 0.0)) < 0.05 and flat.dot(Vector3.RIGHT) > 2.0,
 		"moving right while firing keeps the body facing the crosshair (yaw %.2f, %.1f m/s right)" % [player.rotation.y, flat.dot(Vector3.RIGHT)])
 	_check(player.visual.is_aiming(), "the upper body points the gun forward while strafing")
+	var pose = player.visual.get(&"_pose")
+	_check(absf(pose.clip_hips_yaw) > 1.2 and absf(pose.hips_yaw) < 0.7 and absf(pose.shoulders_yaw) < 0.6,
+		"strafing turns the hips toward the run but keeps the shoulders facing forward (hips %.0f° of clip %.0f°, shoulders %.0f°)"
+		% [rad_to_deg(pose.hips_yaw), rad_to_deg(pose.clip_hips_yaw), rad_to_deg(pose.shoulders_yaw)])
 	_release_all()
 	await _frames(30)
 	var hip := player.weapons.extra_spread

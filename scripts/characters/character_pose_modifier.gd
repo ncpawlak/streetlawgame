@@ -38,6 +38,18 @@ var head := Transform3D.IDENTITY
 var hips := Transform3D.IDENTITY
 var chest := Transform3D.IDENTITY
 var has_pose := false
+## 0..1: turn the shoulders, head and arms back to face [member facing] whatever the clip does to
+## the torso (strafe clips run sideways). The hips keep up to [constant HIP_TWIST_LIMIT] of the
+## clip's turn so the legs still run the way you move.
+var face_forward := 0.0
+## Yaw (radians, about up) of the hip line and shoulder line off [member facing], measured from the
+## animation before and after this frame's correction.
+var clip_hips_yaw := 0.0
+var clip_shoulders_yaw := 0.0
+var hips_yaw := 0.0
+var shoulders_yaw := 0.0
+
+const HIP_TWIST_LIMIT := 0.6
 
 var _bones := {}
 
@@ -67,6 +79,21 @@ func _apply_pose(skeleton: Skeleton3D) -> void:
 	var to_skeleton := skeleton.global_transform.affine_inverse()
 	var right := _axis(skeleton, facing.global_basis.x)
 	var forward := _axis(skeleton, -facing.global_basis.z)
+	var up := _axis(skeleton, facing.global_basis.y)
+	clip_hips_yaw = _line_yaw(skeleton, "UpperLeg.L", "UpperLeg.R", right, up)
+	clip_shoulders_yaw = _line_yaw(skeleton, "UpperArm.L", "UpperArm.R", right, up)
+	if face_forward > 0.001:
+		# Turn the whole body back until the hips are within the limit, then untwist the spine.
+		var excess := clip_hips_yaw - clampf(clip_hips_yaw, -HIP_TWIST_LIMIT, HIP_TWIST_LIMIT)
+		if absf(excess) > 0.0001:
+			_rotate(skeleton, _bones["Body"], up, -excess * face_forward)
+		# The aim pose sits on the hips, so undo the hips' remaining turn in the spine: the upper
+		# body ends up exactly as when standing square, gun on the reticle.
+		var twist := _line_yaw(skeleton, "UpperLeg.L", "UpperLeg.R", right, up) * face_forward
+		_rotate(skeleton, _bones["Abdomen"], up, -twist * 0.5)
+		_rotate(skeleton, _bones["Chest"], up, -twist * 0.5)
+	hips_yaw = _line_yaw(skeleton, "UpperLeg.L", "UpperLeg.R", right, up)
+	shoulders_yaw = _line_yaw(skeleton, "UpperArm.L", "UpperArm.R", right, up)
 	var planted := {}
 	# Feet hang off the root, not the shins, so their offset from the shin is taken before the body moves.
 	var foot_in_shin := {}
@@ -190,6 +217,15 @@ func _apply_ragdoll(skeleton: Skeleton3D) -> void:
 		if not is_instance_valid(body):
 			continue
 		_set_global(skeleton, bone, to_skeleton * body.global_transform * (entry[1] as Transform3D))
+
+
+## Signed yaw about [param up] from [param right] to the line from bone [param a] to bone [param b].
+func _line_yaw(skeleton: Skeleton3D, a: String, b: String, right: Vector3, up: Vector3) -> float:
+	var line := skeleton.get_bone_global_pose(_bones[b]).origin - skeleton.get_bone_global_pose(_bones[a]).origin
+	line -= up * up.dot(line)
+	if line.length_squared() < 1e-8:
+		return 0.0
+	return atan2(right.cross(line).dot(up), right.dot(line))
 
 
 static func _axis(skeleton: Skeleton3D, world: Vector3) -> Vector3:
