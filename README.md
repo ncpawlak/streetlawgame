@@ -45,6 +45,22 @@ You start with fists and a pistol. There's a stash of guns (SMG, shotgun, rifle)
 
 Vehicles take damage from bullets, explosions and crashes: they smoke, then catch fire, then explode. Rivals will shoot at your car while you're driving.
 
+## Gameplay drivers
+
+Self-contained scenes for trying out one gameplay type on its own. They boot straight in and aren't part of the city map.
+
+### Turf capture
+
+Take a Red Vipers intersection. Kill the guards, then stand in the highlighted zone on foot. The capture bar only fills while you're inside it and drains while you're out. Each step of progress brings a bigger Vipers wave, on foot and by car from more streets. The block is yours once the bar is full and the final wave is dead. If you die, the capture restarts.
+
+```sh
+godot --path . res://drivers/turf_capture/turf_capture_driver.tscn
+# Debug options (all optional):
+godot --path . res://drivers/turf_capture/turf_capture_driver.tscn -- --waves=6 --difficulty=hard --guards=0
+```
+
+`--difficulty` is `easy`, `normal` or `hard`. In game, press **F1** to change waves, difficulty and guards, then restart.
+
 ## Tests
 
 ```sh
