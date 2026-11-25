@@ -34,6 +34,7 @@ func run() -> void:
 	await _test_panic_button()
 	await _test_shelves()
 	await _test_armed_clerk()
+	await _test_mask_heat_and_crew()
 	Input.action_release("aim")
 	Input.action_release("interact")
 	DriverScript.selected_shop = &"corner_store"
@@ -49,6 +50,10 @@ func _load_driver(shop_id: StringName) -> Node:
 	var driver: Node = load(DRIVER).instantiate()
 	_tree().root.add_child(driver)
 	_tree().current_scene = driver
+	# A private heat map: the shared one would carry heat between tests and shorten countdowns.
+	var map := HeatMap.new()
+	driver.add_child(map)
+	(driver.get("session") as HitSession).set_heat_map(map)
 	await _frames(20)
 	return driver
 
@@ -247,3 +252,50 @@ func _test_armed_clerk() -> void:
 	_check(controller.robbery_started and clerk.state == StickUpNpc.State.HOSTILE, "an armed clerk left uncovered goes for the shotgun")
 	driver.queue_free()
 	await _frames(2)
+
+
+func _test_mask_heat_and_crew() -> void:
+	var driver := await _load_driver(&"corner_store")
+	var player: Player = driver.get("player")
+	var controller: StickUpController = driver.get("controller")
+	var session: HitSession = driver.get("session")
+	var identity := HitIdentity.of(player)
+	controller.has_panic_button = false
+	player.global_position = Vector3(0.0, 0.1, -13.0)
+	await _frames(5)
+	_draw(player, &"pistol")
+	await _frames(3)
+	_check(session.in_progress and identity.on_hit, "drawing in the shop begins the hit (identity tracking on)")
+	_check(identity.face_seen and session.heat_map.personal_heat > HeatMap.FACE_HEAT * 0.9, "an unmasked stick-up shows your face and adds personal heat (%.1f)" % session.heat_map.personal_heat)
+
+	driver = await _load_driver(&"corner_store")
+	player = driver.get("player")
+	controller = driver.get("controller")
+	session = driver.get("session")
+	identity = HitIdentity.of(player)
+	controller.has_panic_button = true
+	identity.set_masked(true)
+	session.heat_map.add_area_heat(session.heat_area, 80.0)
+	session.crew.assign(CrewSlot.Role.LOOKOUT)
+	var warnings: Array[String] = []
+	session.crew.warning.connect(func(text: String) -> void: warnings.append(text))
+	player.global_position = Vector3(0.0, 0.1, -13.0)
+	await _frames(5)
+	_draw(player, &"pistol")
+	await _frames(3)
+	var call := session.police_call
+	_check(not identity.face_seen and is_zero_approx(session.heat_map.personal_heat), "a masked stick-up adds no personal heat")
+	var expected := controller.shop.alarm_seconds * session.heat_map.countdown_multiplier(session.heat_area) * session.crew.countdown_multiplier()
+	_check(call.is_counting() and absf(call.time_left - expected) < 0.5 and call.countdown_scale != 1.0, "area heat and the lookout scale the countdown (%.1fs, expected %.1fs)" % [call.time_left, expected])
+	warnings.clear()
+	controller.press_panic_button()
+	_check(warnings.any(func(text: String) -> bool: return text.contains("panic button")), "the lookout warns when the clerk hits the panic button")
+
+	identity.set_masked(false)
+	identity.seen_vehicle = driver.get("getaway_car")
+	player.current_vehicle = driver.get("swap_car")
+	_check(identity.is_disguised() and identity.swapped_vehicle() and is_equal_approx(identity.decay_multiplier(), HitIdentity.CLEAN_SWAP), "mask off in the clean swap car sheds heat fastest")
+	player.current_vehicle = driver.get("getaway_car")
+	_check(identity.decay_multiplier() < 1.0, "staying in the getaway car the cops saw keeps the heat on")
+	player.current_vehicle = null
+	session.crew.clear()

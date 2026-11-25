@@ -135,9 +135,10 @@ func _start_robbery() -> void:
 	for npc in shop_npcs:
 		if npc.state == StickUpNpc.State.CALM:
 			npc.set_state(StickUpNpc.State.WARY)
+	# Before the countdown, so listeners (HitSession.begin_hit) can scale it by heat and crew.
+	gun_drawn.emit()
 	police_call.start_countdown(PoliceCall.REASON_ALARM, shop.alarm_seconds)
 	EventBus.notify.emit("Gun's out. Cops are on the way - aim at the clerk to hold them up.")
-	gun_drawn.emit()
 
 
 func _update_clerk(delta: float) -> void:

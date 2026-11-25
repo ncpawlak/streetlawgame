@@ -117,6 +117,9 @@ Extras:
 
 - **Shelves:** each stand has a stock meter. Hold E on a stand to drain the meter and fill your bag with product, one unit at a time, until the stand is empty or the bag is full (8 slots). Letting go stops it. Product sells at the stash on top of the cash.
 - **Bodies:** hold E on any dead NPC to take their cash. This is the default for every NPC (see `scripts/gameplay/hit_common/README.md`).
+- **Panic button:** some clerks have a hidden button under the counter (50% at the corner store, 75% at the liquor store). Once held up, if you leave them uncovered for about 2 s they press it. That trips a silent alarm: no warning or sound, and the police arrive about 12 s later, well before the visible countdown runs out. The red bulb behind the counter lights up when it's pressed. Only a lookout tells you about it.
+- **Masks and heat:** X toggles the mask. Drawing in the shop unmasked shows the clerk your face, which adds personal heat. Every stick-up adds heat to the strip, and that heat carries over to the next run: a shorter countdown, more cops and lower payouts for goods. Leaving in the white swap car (west, down the road) with the mask off sheds heat fastest. F7 adds area heat; Shift+F7 clears it.
+- **Crew:** F4 lookout (across the road; buys countdown time and warns you about the panic button and calls), F5 driver (waits in the getaway car; you lose the cops faster in it), F6 muscle (follows you and keeps the clerk and customers from phoning or pressing the button). Each member takes a 10% cut.
 
 Pick the shop with the debug panel or F1 (corner store) / F2 (liquor store, armed clerk). F3 restarts. Esc frees the mouse for the panel. Shop tuning lives in `drivers/stick_up/shops/*.tres`.
 

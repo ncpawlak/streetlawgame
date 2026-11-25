@@ -20,6 +20,10 @@ const CAR_POSITION := Vector3(9.0, 0.6, -3.0)
 const SWAP_CAR_POSITION := Vector3(-38.0, 0.6, 20.0)
 const STASH_POSITION := Vector3(42.0, 0.0, 24.0)
 const COP_SPAWNS: Array[Vector3] = [Vector3(-60.0, 0.6, 2.5), Vector3(60.0, 0.6, -2.5)]
+## Across the road from the shop, watching the street.
+const LOOKOUT_POST := Vector3(4.0, 0.2, 8.5)
+## HeatMap area for this strip; heat from one stick-up carries over to the next.
+const HEAT_AREA := &"stick_up_strip"
 
 ## Survives scene reloads so "Restart" keeps the chosen shop.
 static var selected_shop: StringName = &"corner_store"
@@ -72,7 +76,11 @@ func _ready() -> void:
 	shop_center.name = "ShopCenter"
 	shop_center.position = Vector3(0.0, 1.0, SHOP_FRONT - SHOP_DEPTH * 0.5)
 	add_child(shop_center)
+	session.heat_area = HEAT_AREA
 	session.setup(player, COP_SPAWNS, shop_center, shop.alarm_seconds)
+	session.crew.lookout_post = LOOKOUT_POST
+	session.crew.getaway = getaway_car
+	session.crew.getaway_spot = getaway_car.transform
 	session.finished.connect(func(cash: int) -> void:
 		EventBus.notify.emit("Stick-up done: +$%d stashed. [F3] to run it again." % cash)
 		_set_objective("Done! +$%d. [F3] restart" % cash))
@@ -93,14 +101,20 @@ func _ready() -> void:
 	controller.setup(shop, player, clerk, customers, witnesses, bounds, session.police_call)
 	# The register's actions target the controller, which owns the cash in it.
 	register_interactable.target = controller
-	controller.gun_drawn.connect(func() -> void: _set_objective("Aim [RMB] at the clerk to hold them up"))
-	controller.register_emptied.connect(func() -> void: _set_objective("Get away and stash the bag (green marker)"))
+	controller.gun_drawn.connect(func() -> void:
+		session.begin_hit()
+		# The clerk and customers get a look at you; masked, that's no heat.
+		HitIdentity.of(player).witness(session.heat_map, &"shop")
+		_set_objective("Aim [RMB] at the clerk to hold them up"))
+	controller.register_emptied.connect(func() -> void: _set_objective("Get away and stash the bag - mask off + the white swap car sheds heat fastest"))
 	controller.panic_button_pressed.connect(func() -> void:
 		var lit := _material(Color(1.0, 0.1, 0.1))
 		lit.emission_enabled = true
 		lit.emission = Color(1.0, 0.1, 0.1)
 		lit.emission_energy_multiplier = 3.0
-		(panic_light.mesh as SphereMesh).material = lit)
+		(panic_light.mesh as SphereMesh).material = lit
+		if session.crew.has_role(CrewSlot.Role.LOOKOUT):
+			session.crew.warn("Lookout: 'Clerk hit the panic button - cops in %d s!'" % ceili(controller.silent_alarm_left)))
 	clerk.died.connect(func(_npc: StickUpNpc, _killer: Node) -> void:
 		if controller.register_cash > 0:
 			_set_objective("Clerk's down - hold [E] on the register to grab the cash"))
@@ -122,6 +136,21 @@ func _input(event: InputEvent) -> void:
 				select_shop(&"liquor_store")
 			KEY_F3:
 				restart()
+			KEY_F4:
+				_toggle_crew(CrewSlot.Role.LOOKOUT)
+			KEY_F5:
+				_toggle_crew(CrewSlot.Role.DRIVER)
+			KEY_F6:
+				_toggle_crew(CrewSlot.Role.MUSCLE)
+			KEY_F7:
+				if (event as InputEventKey).shift_pressed:
+					session.heat_map.clear()
+					EventBus.notify.emit("Heat cleared")
+				else:
+					session.heat_map.add_area_heat(session.heat_area, 25.0)
+					EventBus.notify.emit(session.heat_map.describe(session.heat_area))
+			KEY_X:
+				HitIdentity.of(player).toggle_mask()
 	elif event is InputEventMouseButton and event.pressed and Input.mouse_mode != Input.MOUSE_MODE_CAPTURED:
 		if not _panel_has_mouse():
 			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -145,9 +174,17 @@ func _process(_delta: float) -> void:
 		panic = "PRESSED" + (" (cops in %.0fs)" % controller.silent_alarm_left if controller.silent_alarm_left >= 0.0 else "")
 	elif controller.has_panic_button:
 		panic = "under the counter"
-	_status.text = "Gun out: %s\nAiming at: %s\nClerk: %s\nRegister: $%d   Taken: $%d\nBag: $%d (%d/%d slots)\nPolice: %s\nPanic button: %s" % [
+	_status.text = "Gun out: %s\nAiming at: %s\nClerk: %s\nRegister: $%d   Taken: $%d\nBag: $%d (%d/%d slots)\nPolice: %s\nPanic button: %s\n%s\n%s\n%s" % [
 		"yes" if controller.is_gun_drawn else "no", aimed, StickUpNpc.State.keys()[clerk.state],
-		controller.register_cash, controller.taken, session.bag.total_value(), session.bag.used_slots(), session.bag.capacity, police, panic]
+		controller.register_cash, controller.taken, session.bag.total_value(), session.bag.used_slots(), session.bag.capacity, police, panic,
+		HitIdentity.of(player).status_text(), session.crew.summary(), session.heat_map.describe(session.heat_area)]
+
+
+func _toggle_crew(role: CrewSlot.Role) -> void:
+	var on := session.crew.toggle(role)
+	if on and not session.in_progress:
+		session.crew.place()
+	EventBus.notify.emit("%s %s" % [CrewSlot.ROLE_NAMES[role], "joined the crew" if on else "went home"])
 
 
 func select_shop(id: StringName) -> void:
@@ -400,7 +437,7 @@ func _build_debug_panel() -> void:
 	var help := Label.new()
 	help.add_theme_font_size_override("font_size", 12)
 	help.modulate.a = 0.75
-	help.text = "Draw: 1-9 / wheel   Hold up: RMB on clerk\nShoot: LMB   Car: E   Stash: hold E\nShelves / bodies: hold E   Esc: free mouse"
+	help.text = "Draw: 1-9 / wheel   Hold up: RMB on clerk\nShoot: LMB   Car: E   Stash: hold E\nShelves / bodies: hold E   X: mask\nF4/F5/F6 lookout/driver/muscle\nF7 +heat (Shift: clear)   Esc: free mouse"
 	box.add_child(help)
 
 
