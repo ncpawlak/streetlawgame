@@ -36,7 +36,9 @@ func plan(lots: Array[Dictionary], defs: Array = []) -> Array[Dictionary]:
 	var free: Array[Dictionary] = []
 	for lot in lots:
 		var entry := lot.duplicate()
-		entry["district_id"] = Locations.resolve_district(door_transform(lot).origin)
+		# The lot centre, not the door: a kit door moves with the building the census picks, which
+		# would feed back into which lot a location lands on.
+		entry["district_id"] = Locations.resolve_district(lot["center"] if lot.has("center") else door_transform(lot).origin)
 		free.append(entry)
 	_shuffle(free)
 

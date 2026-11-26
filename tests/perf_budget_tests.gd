@@ -17,7 +17,7 @@ const DRAW_CALLS := 2600
 const OBJECTS := 3400
 const NODE_BUDGET := 16000
 const MERGED_MESH_BUDGET := 400
-## One prop MultiMesh per (prop mesh, material) per 100 m cell, culled at 160-260 m.
+## One prop MultiMesh per (prop mesh, material) per 150 m prop cell, culled at 195-260 m.
 const PROP_MULTIMESH_BUDGET := 6000
 ## Enterable shops / businesses keep signs, entrance, counter and lights live.
 const LIVE_SHOP_BUDGET := 120
@@ -51,8 +51,8 @@ func _structure(city: CityGenerator, holder: Node3D) -> void:
 	var shops := 0
 	for child in holder.get_children():
 		var n := String(child.name)
-		if n.begins_with("Cell_"):
-			cells += 1
+		if n.begins_with("Cell_") or n.begins_with("Props_"):
+			cells += 1 if n.begins_with("Cell_") else 0
 			for gi: GeometryInstance3D in child.find_children("*", "GeometryInstance3D", true, false):
 				if gi is MultiMeshInstance3D:
 					props += 1

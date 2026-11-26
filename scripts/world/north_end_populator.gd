@@ -11,7 +11,8 @@ extends RefCounted
 ## from the kerb), centred on the frontage, so the wireframe's block inset never leaves a building
 ## stranded behind a dead strip. A variant whose lot fits is preferred; otherwise the
 ## yard parts that overhang the census lot are cropped and, as a last resort, the building is scaled
-## down (never below [constant MIN_SCALE]). The census lot, stretched to the sidewalk on every
+## down (never below [constant MIN_SCALE]). Houses take the widest variants that fit and grow to
+## fill a bigger lot (up to [constant MAX_GROW]). The census lot, stretched to the sidewalk on every
 ## street side, gets a grass or paved yard.
 ##
 ## With a [KitBatcher] the scenes are only harvested (merged meshes, MultiMesh dressing, merged
@@ -26,6 +27,10 @@ const KIT := "res://data/buildings/building_kit.json"
 const ROOT_Y := 0.13
 const YARD_Y := 0.115
 const MIN_SCALE := 0.7
+## A house on a lot bigger than its kit lot is scaled up to fill it, by at most this much.
+const MAX_GROW := 1.25
+## Houses pick among the variants whose kit lot frontage is within this of the widest that fits (m).
+const GROW_SLACK_M := 3.0
 ## Yard parts may overhang the census lot by this much before they are dropped.
 const OVERHANG := 0.25
 ## Deepest front yard (lot front to house body, m) a street-fronting house prefers; deeper variants
@@ -64,6 +69,7 @@ static func populate(city: CityGenerator, batch := true) -> Node3D:
 		if archetype == "":
 			archetype = _fallback_archetype(lot, spot)
 		var paved := lot.has("archetype") or COMMERCIAL.has(StringName(entry.get("category", "")))
+		lot["enterable"] = entry.has("location") or (entry.get("roles", []) as Array).any(func(r: Dictionary) -> bool: return r.get("enterable", r["role"] != "street_marker"))
 		# Facing uses the census-independent archetype: the census derives street, archetype and
 		# stand-ins from the facing, so feeding its archetype back in would never settle.
 		_place(holder, batcher, lot, archetype, frontage(lot, spot, _fallback_archetype(lot, spot), obstacles), key, paved, yards)
@@ -83,7 +89,7 @@ static func populate(city: CityGenerator, batch := true) -> Node3D:
 
 
 ## Kit lot-space building for one archetype, scaled to a census lot: {path, entry, scale}.
-static func pick(archetype: String, frontage: float, depth: float, variant_seed: int, max_setback := INF) -> Dictionary:
+static func pick(archetype: String, frontage: float, depth: float, variant_seed: int, max_setback := INF, grow := false) -> Dictionary:
 	var scenes: Array = kit()["archetypes"].get(archetype, kit()["archetypes"]["house_1f_small_yard"])["scenes"]
 	var fits: Array = []
 	var solid_fits: Array = []
@@ -94,16 +100,38 @@ static func pick(archetype: String, frontage: float, depth: float, variant_seed:
 		var solid := Vector2(scene["footprint_m"][0], scene["footprint_m"][1])
 		if solid.x <= frontage - 1.0 and solid.y <= depth - 4.0:
 			solid_fits.append(scene)
+	if fits.is_empty() and grow and archetype.ends_with("_deep_lot"):
+		# A deep-lot house on a lot too narrow for any deep variant: the small-yard row house.
+		var sibling := archetype.replace("_deep_lot", "_small_yard")
+		if kit()["archetypes"].has(sibling):
+			var alt := pick(sibling, frontage, depth, variant_seed, max_setback, grow)
+			if (alt["entry"]["lot_m"][0] as float) <= frontage + 0.01:
+				return alt
 	var closest := INF
 	for scene: Dictionary in fits:
 		closest = minf(closest, setback(scene["baked"]))
-	var close := fits.filter(func(s: Dictionary) -> bool: return setback(s["baked"]) <= maxf(max_setback, closest + 0.5))
+	var setback_cap := maxf(max_setback, closest + 0.5)
+	var close := fits.filter(func(s: Dictionary) -> bool: return setback(s["baked"]) <= setback_cap)
+	if grow and close.size() > 1:
+		# Houses fill their lot: of the variants close enough to the street, those that use most
+		# of the frontage.
+		var widest := 0.0
+		for scene: Dictionary in close:
+			widest = maxf(widest, scene["lot_m"][0])
+		close = close.filter(func(s: Dictionary) -> bool: return s["lot_m"][0] >= widest - GROW_SLACK_M)
 	var pool: Array = close if not close.is_empty() else (fits if not fits.is_empty() else (solid_fits if not solid_fits.is_empty() else scenes))
 	var chosen: Dictionary = pool[posmod(variant_seed, pool.size())]
 	var scale := 1.0
 	if fits.is_empty() and solid_fits.is_empty():
 		var lot := Vector2(chosen["lot_m"][0], chosen["lot_m"][1])
 		scale = maxf(MIN_SCALE, minf(1.0, minf(frontage / lot.x, depth / lot.y)))
+	elif grow and fits.has(chosen):
+		var lot := Vector2(chosen["lot_m"][0], chosen["lot_m"][1])
+		scale = clampf(minf(frontage / lot.x, depth / lot.y), 1.0, MAX_GROW)
+		# Growing scales the front yard too: never past the setback cap.
+		var yard := setback(chosen["baked"])
+		if yard > 0.01:
+			scale = maxf(1.0, minf(scale, setback_cap / yard))
 	return {"path": chosen["baked"], "entry": chosen, "scale": scale}
 
 
@@ -216,7 +244,7 @@ static func _place(holder: Node3D, batcher: KitBatcher, lot: Dictionary, archety
 	var front := center + outward * (lot_depth * 0.5 + reach)
 	lot["street"] = {"outward": outward, "gap": street["gap"]}
 	var variant_seed := (hash(key) & 0x3fffffff) | 1
-	var choice := pick(archetype, frontage, depth, variant_seed >> 3, INF if paved else MAX_SETBACK_M)
+	var choice := pick(archetype, frontage, depth, variant_seed >> 3, INF if paved else MAX_SETBACK_M, not paved and archetype.begins_with("house_"))
 	var scale: float = choice["scale"]
 	var building := (_scene(choice["path"])).instantiate() as Node3D
 	if "dress_seed" in building:
@@ -237,6 +265,9 @@ static func _place(holder: Node3D, batcher: KitBatcher, lot: Dictionary, archety
 	var solid: Rect2 = info["solid"]
 	var front_edge := xform * Vector3(solid.get_center().x, 0.0, solid.end.y)
 	lot["front_edge"] = Vector3(front_edge.x, 0.0, front_edge.z)
+	var body_a := CityGenerator.world_to_px(xform * Vector3(solid.position.x, 0.0, solid.position.y))
+	var body_b := CityGenerator.world_to_px(xform * Vector3(solid.end.x, 0.0, solid.end.y))
+	lot["body_px"] = Rect2(body_a, Vector2.ZERO).expand(body_b)
 	var solid_size := solid.size * scale
 	lot["kit_footprint"] = Vector2(solid_size.y, solid_size.x) if outward.x != 0.0 else solid_size
 	lot["kit_height"] = snappedf(float(info["height"]) * scale, 0.01)
@@ -247,7 +278,7 @@ static func _place(holder: Node3D, batcher: KitBatcher, lot: Dictionary, archety
 		marker.set_meta(&"height_m", lot["kit_height"])
 		marker.set_meta(&"kit_scene", lot["kit_scene"])
 	_add_yard(yards, street["yard"], paved)
-	_finish(holder, batcher, building, xform, info, choice["entry"], variant_seed, tier, mirrored, key)
+	_finish(holder, batcher, building, xform, info, choice["entry"], variant_seed, tier, mirrored, key, lot.get("enterable", true))
 
 
 ## A safehouse kit shell (SH-01..03 by the safehouse's data) with its body front on the door plane.
@@ -272,7 +303,9 @@ static func _place_safehouse(holder: Node3D, batcher: KitBatcher, district: Dist
 	_finish(holder, batcher, building, xform, info, choice["entry"], variant_seed, choice["entry"].get("dress_tier", "auto"), mirrored, key)
 
 
-static func _finish(holder: Node3D, batcher: KitBatcher, building: Node3D, xform: Transform3D, info: Dictionary, entry: Dictionary, variant_seed: int, tier: String, mirrored: bool, key: String) -> void:
+## Kit shops on lots without an enterable role (business, shop, stick-up, location) are exterior only:
+## their signs stay (grouped per batcher cell), the entrance, counter and lights go.
+static func _finish(holder: Node3D, batcher: KitBatcher, building: Node3D, xform: Transform3D, info: Dictionary, entry: Dictionary, variant_seed: int, tier: String, mirrored: bool, key: String, enterable := true) -> void:
 	if batcher == null:
 		building.transform = xform
 		if "dress_seed" in building:
@@ -287,6 +320,22 @@ static func _finish(holder: Node3D, batcher: KitBatcher, building: Node3D, xform
 	KitDressing.apply(building, variant_seed, tier, mirrored)
 	var live := _take_live(building)
 	batcher.add_building(building, xform, info, entry["id"])
+	if not enterable and not live.is_empty():
+		var cell := Vector2i(floori(xform.origin.x / KitBatcher.CELL), floori(xform.origin.z / KitBatcher.CELL))
+		var signs_name := "Signs_%d_%d" % [cell.x, cell.y]
+		var signs := holder.get_node_or_null(signs_name) as Node3D
+		for node: Node3D in live:
+			if node is Label3D:
+				if signs == null:
+					signs = Node3D.new()
+					signs.name = signs_name
+					holder.add_child(signs)
+				node.transform = xform * node.transform
+				(node as Label3D).visibility_range_end = KitBatcher.LABEL_RANGE
+				signs.add_child(node)
+			else:
+				node.free()
+		live.clear()
 	if not live.is_empty():
 		var shop := Node3D.new()
 		shop.name = "Kit_%s" % key.validate_node_name().replace(".", "_")

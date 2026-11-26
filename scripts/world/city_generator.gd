@@ -55,6 +55,42 @@ const EXTRA_LOTS := [
 	{"name": "Mangona Guns", "rect": Rect2(372.0, 230.0, 12.0, 15.0), "outward": Vector3.FORWARD, "height": 6.0, "archetype": "gun_store"},
 	{"name": "Northgrove Savings", "rect": Rect2(692.0, 474.0, 18.0, 16.0), "outward": Vector3.LEFT, "height": 8.0, "archetype": "bank_branch"},
 ]
+## Intentional open frontage: no building, on purpose ([method vacant_areas]). tests/frontage_tests.gd
+## excuses street gaps in front of these and fails on any other gap longer than about one lot.
+## Rects in px.
+const VACANT_PX: Array[Dictionary] = [
+	{"name": "Mangona rail spur strip", "reason": "FEC right-of-way between the rail and the 25th St connector", "rect": Rect2(536.0, 640.0, 34.0, 36.0)},
+]
+## Lake shore parks: the curved stretches of each lake drive (LAKES_PX index, normalised ellipse
+## angle range in degrees, 0 = east, 90 = south) stay public green, as West Palm's lakefronts do.
+## The straight stretches carry trailers / houses.
+const VACANT_SHORES := [
+	{"name": "Lake Mangona Park (NE shore)", "lake": 0, "from": -88.0, "to": -20.0},
+	{"name": "Lake Mangona Park (NW shore)", "lake": 0, "from": -162.0, "to": -104.0},
+	{"name": "Lake Mangona Park (SE shore)", "lake": 0, "from": 24.0, "to": 97.0},
+	{"name": "Lake Mangona Park (SW shore)", "lake": 0, "from": 99.0, "to": 155.0},
+	{"name": "Clear Lake Green (north and west shore)", "lake": 1, "from": -180.0, "to": -54.0},
+	{"name": "Clear Lake Green (SE shore)", "lake": 1, "from": 42.0, "to": 70.0},
+	{"name": "Clear Lake Green (SW shore)", "lake": 1, "from": 126.0, "to": 150.0},
+]
+## Shore park band, in lake radii from the centre.
+const SHORE_BAND := Vector2(0.95, 1.45)
+## New lots (px, frontage x depth) packed along street frontage the wireframe left empty
+## ([method _build_infill]); trailers by Lake Mangona, sheds elsewhere in Mangona.
+const INFILL_LOT_PX := {&"tamarack_row": Vector2(9.0, 15.0), &"northgrove": Vector2(8.5, 14.5), &"mangona": Vector2(12.0, 15.0)}
+const TRAILER_LOT_PX := Vector2(7.0, 12.0)
+## Smallest lot (px) a split or infill lot may have: 12 m frontage, 24 m deep.
+const MIN_LOT_PX := Vector2(6.0, 12.0)
+## A wireframe lot is split into lots no narrower than this along its street (px, 15 m).
+const SPLIT_FRONTAGE_PX := 7.5
+## Shallowest corner lot (px, 17 m) cut to face a side street.
+const CORNER_DEPTH_PX := 8.5
+## Shallowest infill lot (px): fills corner remainders between a row's last lot and the cross street.
+const INFILL_MIN_DEPTH_PX := 7.5
+## Block index of infill lots: INFILL_BLOCK + road index.
+const INFILL_BLOCK := 900
+## Rail corridor half width (px) kept clear by infill lots.
+const RAIL_HALF_PX := 3.0
 ## Lake Mangona junkyard (#21): fenced scrap yard, no building.
 const JUNKYARD_PX := Rect2(522.0, 546.0, 32.0, 40.0)
 ## Hot car list (#24): one parked target per district, px + yaw.
@@ -75,6 +111,12 @@ const DRIVABLE := [&"loc", &"ave", &"art"]
 
 static var _drivable_segments: Array[Dictionary] = []
 static var _street_sides_cache := {}
+const TAKEN_CELL_PX := 16.0
+## Spatial index of the infill pass's taken rects: cell -> indices.
+var _taken_grid := {}
+static var _front_segs: Array[Dictionary] = []
+static var _poly_bounds_cache := {}
+static var _vacant_cache: Array[Dictionary] = []
 ## I-59 deck top (m); arterials pass underneath.
 const DECK_HEIGHT := 6.5
 const DECK_THICKNESS := 1.0
@@ -116,6 +158,7 @@ func generate() -> void:
 	_build_blocks()
 	_build_landmarks()
 	_build_extra_lots()
+	_build_infill()
 	_build_districts()
 	if populate_kit:
 		NorthEndPopulator.populate(self, batch_kit)
@@ -461,6 +504,8 @@ func _build_blocks() -> void:
 		if lots.is_empty():
 			lots.append(rect.grow(-3.0))
 		lots = merge_streetless(lots, reserved)
+		var split := split_wide(lots, reserved, _spot_points(), LOT_MERGES.map(func(m: Dictionary) -> Rect2: return m["rect"]))
+		lots = split["lots"]
 		for lot_rect: Rect2 in lots:
 			if reserved.any(func(r: Rect2) -> bool: return r.intersects(lot_rect)) or _in_water(lot_rect.get_center()):
 				continue
@@ -478,7 +523,33 @@ func _build_blocks() -> void:
 			if district == &"tamarack_row":
 				margin = Vector2(4.0, 3.0) if lot_rect.size.x > lot_rect.size.y else Vector2(3.0, 4.0)
 			var footprint := lot_rect.size * METERS_PER_PX - margin
-			_add_building(lot_rect, footprint, district, Vector2i(b, 0), center)
+			if split["extra"].has(lot_rect):
+				_add_building(lot_rect, footprint, district, Vector2i(b, 0), center, district, _hashed_height(lot_rect, district), false)
+			else:
+				_add_building(lot_rect, footprint, district, Vector2i(b, 0), center)
+
+
+## Roster points (px) that must keep their wireframe lot whole.
+static func _spot_points() -> Array:
+	var out: Array = []
+	for spot: Dictionary in NorthEndSpots.SPOTS:
+		if not spot.get("free", false):
+			out.append(spot["px"])
+	return out
+
+
+## A lot height drawn from the lot's own seed, so new lots leave the city rng sequence alone.
+static func _hashed_height(rect: Rect2, district: StringName) -> float:
+	var rng := RandomNumberGenerator.new()
+	rng.seed = hash([rect.position, rect.size])
+	match district:
+		&"tamarack_row":
+			return rng.randf_range(4.0, 6.5)
+		&"northgrove":
+			return rng.randf_range(5.0, 14.0)
+		&"mangona":
+			return rng.randf_range(6.0, 12.0)
+	return rng.randf_range(4.0, 9.0)
 
 
 func _reserved_rects() -> Array[Rect2]:
@@ -601,6 +672,118 @@ static func merge_streetless(lots: Array, reserved: Array = []) -> Array:
 	return out
 
 
+## Wide wireframe lots cut into street-fronting lots of at least [constant MIN_LOT_PX], so the 2 m/px
+## lots carry houses edge to edge instead of one house in a 30 m+ yard ([method _split_lot]). Lots
+## holding a point of [param spots] or inside a [param keep] rect stay whole. Returns {lots: Array
+## of Rect2, extra: {Rect2: true} for every piece but the first of a split lot}.
+static func split_wide(lots: Array, reserved: Array, spots: Array, keep: Array) -> Dictionary:
+	var out: Array = []
+	var extra := {}
+	for i in lots.size():
+		var rect: Rect2 = lots[i]
+		if spots.any(func(p: Vector2) -> bool: return rect.has_point(p)) or keep.any(func(k: Rect2) -> bool: return k.grow(0.05).encloses(rect)):
+			out.append(rect)
+			continue
+		var others: Array = reserved.duplicate()
+		for j in lots.size():
+			if j != i:
+				others.append(lots[j])
+		var open: Array = []
+		for side in street_sides(rect):
+			if not street_blocked(rect, side, others) and not open.has(side["out"]):
+				open.append(side["out"])
+		var pieces := _split_lot(rect, open)
+		if pieces.size() > 1 and not (pieces.all(fronts_street_px) and _pieces_open(pieces, others)):
+			pieces = [rect]
+		for k in pieces.size():
+			out.append(pieces[k])
+			if k > 0:
+				extra[pieces[k]] = true
+	return {"lots": out, "extra": extra}
+
+
+## Every piece keeps a street side not blocked by [param others] or its sibling pieces.
+static func _pieces_open(pieces: Array, others: Array) -> bool:
+	for piece: Rect2 in pieces:
+		var blockers: Array = others + pieces.filter(func(p: Rect2) -> bool: return p != piece)
+		if not street_sides(piece).any(func(side: Dictionary) -> bool: return not street_blocked(piece, side, blockers)):
+			return false
+	return true
+
+
+## One lot cut for its open street sides ([param open], unit px axes): a through lot (streets front
+## and back) splits back to back; a corner lot gives a [constant MIN_LOT_PX] deep strip to the side
+## street, so block ends get houses too; what remains splits along its street into lots no narrower
+## than [constant SPLIT_FRONTAGE_PX].
+static func _split_lot(rect: Rect2, open: Array) -> Array:
+	for axis in open:
+		if open.has(-axis) and _depth_px(rect, axis) >= MIN_LOT_PX.y * 2.0:
+			var a := open.filter(func(o: Vector2) -> bool: return o != axis)
+			var b := open.filter(func(o: Vector2) -> bool: return o != -axis)
+			var halves := _cut(rect, axis, _depth_px(rect, axis) * 0.5)
+			return _split_lot(halves[0], b) + _split_lot(halves[1], a)
+	var primary := Vector2.ZERO
+	var best_n := 0
+	var best_front := 0.0
+	for axis in open:
+		var front := _front_px(rect, axis)
+		var n := floori(front / SPLIT_FRONTAGE_PX)
+		if _depth_px(rect, axis) < MIN_LOT_PX.y:
+			continue
+		if n > best_n or (n == best_n and front > best_front):
+			primary = axis
+			best_n = n
+			best_front = front
+	if primary == Vector2.ZERO:
+		return [rect]
+	for axis in open:
+		if absf(axis.dot(primary)) > 0.5:
+			continue
+		var strip := minf(MIN_LOT_PX.y, best_front - MIN_LOT_PX.x)
+		if strip >= CORNER_DEPTH_PX and _front_px(rect, axis) >= MIN_LOT_PX.x:
+			var parts := _cut(rect, axis, strip)
+			return _split_lot(parts[0], [axis]) + _split_lot(parts[1], open.filter(func(o: Vector2) -> bool: return o != axis))
+		if best_n < 2 and best_front >= CORNER_DEPTH_PX and _front_px(rect, axis) >= SPLIT_FRONTAGE_PX * 2.0:
+			# Too shallow to carve: the corner lot turns to face the side street.
+			return _split_along(rect, axis)
+	if best_n < 2:
+		return [rect]
+	return _split_along(rect, primary)
+
+
+## [param rect] split along its [param axis] street into lots no narrower than [constant SPLIT_FRONTAGE_PX].
+static func _split_along(rect: Rect2, primary: Vector2) -> Array:
+	var best_front := _front_px(rect, primary)
+	var best_n := maxi(1, floori(best_front / SPLIT_FRONTAGE_PX))
+	var out: Array = []
+	var step := best_front / best_n
+	for k in best_n:
+		if primary.x != 0.0:
+			out.append(Rect2(rect.position + Vector2(0.0, step * k), Vector2(rect.size.x, step)))
+		else:
+			out.append(Rect2(rect.position + Vector2(step * k, 0.0), Vector2(step, rect.size.y)))
+	return out
+
+
+## [param rect] cut by a line [param depth] px in from its [param axis] side: [that slab, the rest].
+static func _cut(rect: Rect2, axis: Vector2, depth: float) -> Array:
+	if axis == Vector2.LEFT:
+		return [Rect2(rect.position, Vector2(depth, rect.size.y)), Rect2(rect.position + Vector2(depth, 0.0), rect.size - Vector2(depth, 0.0))]
+	if axis == Vector2.RIGHT:
+		return [Rect2(Vector2(rect.end.x - depth, rect.position.y), Vector2(depth, rect.size.y)), Rect2(rect.position, rect.size - Vector2(depth, 0.0))]
+	if axis == Vector2.UP:
+		return [Rect2(rect.position, Vector2(rect.size.x, depth)), Rect2(rect.position + Vector2(0.0, depth), rect.size - Vector2(0.0, depth))]
+	return [Rect2(Vector2(rect.position.x, rect.end.y - depth), Vector2(rect.size.x, depth)), Rect2(rect.position, rect.size - Vector2(0.0, depth))]
+
+
+static func _front_px(rect: Rect2, axis: Vector2) -> float:
+	return rect.size.y if axis.x != 0.0 else rect.size.x
+
+
+static func _depth_px(rect: Rect2, axis: Vector2) -> float:
+	return rect.size.x if axis.x != 0.0 else rect.size.y
+
+
 ## [param rect] (px) grown on each street side to [param inset_m] short of the kerb.
 static func to_kerb(rect: Rect2, inset_m := 0.0, sides: Array = []) -> Rect2:
 	var r := rect
@@ -666,6 +849,340 @@ func _build_extra_lots() -> void:
 		var district := district_for_px(rect.get_center())
 		_add_building(rect, rect.size * METERS_PER_PX - Vector2(3.0, 3.0), district, Vector2i(-2, 0), center - (extra["outward"] as Vector3), district, extra["height"], false)
 		building_lots[-1]["archetype"] = extra["archetype"]
+
+
+## New lots along straight street frontage the wireframe left empty, packed kerb-side edge to edge
+## ([constant INFILL_LOT_PX]); they draw nothing from the city rng.
+func _build_infill() -> void:
+	var sidewalk := _material("sidewalk", Color(0.47, 0.47, 0.46))
+	var taken: Array = _reserved_rects()
+	var vacant_polys: Array = vacant_areas().map(func(v: Dictionary) -> PackedVector2Array: return v["poly"])
+	var lot_rects: Array = building_lots.map(func(l: Dictionary) -> Rect2: return l["rect_px"])
+	for lot: Dictionary in building_lots:
+		# The front yard out to the kerb of the lot's nearest open street belongs to it too.
+		var rect: Rect2 = lot["rect_px"]
+		var front: Array[Dictionary] = []
+		for side in street_sides(rect):
+			if not street_blocked(rect, side, lot_rects):
+				front.append(side)
+				break
+		taken.append(to_kerb(rect, 0.0, front) if not front.is_empty() else rect)
+	for block: Dictionary in NorthEndLayout.BLOCKS:
+		if block["off"]:
+			taken.append(block["rect"])
+	var corridors := _corridor_segments()
+	var roads: Array = NorthEndLayout.ROADS
+	var placements: Array[Dictionary] = []
+	_taken_grid.clear()
+	for i in taken.size():
+		_grid_add(i, taken[i])
+	for r in roads.size():
+		var kind: StringName = roads[r]["kind"]
+		if not DRIVABLE.has(kind):
+			continue
+		var half: float = ROAD_HALF_WIDTHS_PX[kind]
+		for run in _straight_runs(PackedVector2Array(roads[r]["pts"])):
+			var a: Vector2 = run["axis"]
+			var perp := Vector2(a.y, a.x)
+			var samples: Array = run["samples"]
+			for sgn: float in [1.0, -1.0]:
+				var u: float = samples[0].x
+				var u_end: float = samples[-1].x
+				while u < u_end:
+					var placed := _try_infill(u, u_end, a, perp, sgn, samples, half, taken, corridors, vacant_polys)
+					if placed.is_empty():
+						u += 1.0
+						continue
+					placed["taken_i"] = taken.size()
+					placed["r"] = r
+					placed["axis"] = a
+					placed["toward"] = perp * -sgn
+					_grid_add(taken.size(), placed["rect"])
+					taken.append(placed["rect"])
+					placements.append(placed)
+					u += placed["frontage"]
+	for placed: Dictionary in placements:
+		_widen_infill(placed, taken, corridors, vacant_polys)
+	_taken_grid.clear()
+	for placed: Dictionary in placements:
+		var rect: Rect2 = taken[placed["taken_i"]]
+		var r: int = placed["r"]
+		var perp: Vector2 = -placed["toward"]
+		var district := district_for_px(rect.get_center())
+		var into := Vector3(perp.x, 0.0, perp.y)
+		var center := px_to_world(rect.get_center())
+		_add_building(rect, rect.size * METERS_PER_PX - Vector2(3.0, 3.0), district, Vector2i(INFILL_BLOCK + r, 0), center + into * 20.0, district, _hashed_height(rect, district), false)
+		if placed.has("archetype"):
+			building_lots[-1]["archetype"] = placed["archetype"]
+		var pad := to_kerb(rect)
+		var size := pad.size * METERS_PER_PX
+		_add_mesh_box(Vector3(size.x, 0.1, size.y), px_to_world(pad.get_center()) + Vector3(0.0, 0.05, 0.0), sidewalk)
+
+
+## Indexes taken rect [param i] in [member _taken_grid] (stale entries are harmless: the check
+## reads the current rect).
+func _grid_add(i: int, rect: Rect2) -> void:
+	for cx in range(floori(rect.position.x / TAKEN_CELL_PX), floori(rect.end.x / TAKEN_CELL_PX) + 1):
+		for cy in range(floori(rect.position.y / TAKEN_CELL_PX), floori(rect.end.y / TAKEN_CELL_PX) + 1):
+			var key := Vector2i(cx, cy)
+			if not _taken_grid.has(key):
+				_taken_grid[key] = []
+			if not (_taken_grid[key] as Array).has(i):
+				(_taken_grid[key] as Array).append(i)
+
+
+## Widens an infill lot along its frontage into leftover kerb too short for another lot (under
+## [constant MIN_LOT_PX].x on either side), so rows run tight to the cross street.
+func _widen_infill(placed: Dictionary, taken: Array, corridors: Array, vacant_polys: Array) -> void:
+	var i: int = placed["taken_i"]
+	var rect: Rect2 = taken[i]
+	var a: Vector2 = (placed["axis"] as Vector2).abs()
+	var district := district_for_px(rect.get_center())
+	taken[i] = Rect2()
+	for dir: float in [-1.0, 1.0]:
+		var grown := rect
+		var step := 0.5
+		while step < MIN_LOT_PX.x:
+			var trial := rect.expand(rect.get_center() + a * dir * (rect.size.dot(a) * 0.5 + step))
+			if not _infill_ok(trial, district, taken, corridors, placed["toward"], vacant_polys):
+				break
+			grown = trial
+			step += 0.5
+		if step >= MIN_LOT_PX.x:
+			grown = rect
+		rect = grown
+	taken[i] = rect
+	_grid_add(i, rect)
+
+
+## The infill lot at [param u] on side [param sgn] of a straight run, full size first, then down to
+## [constant MIN_LOT_PX]: {rect, frontage, archetype?}, or {} when nothing fits there.
+func _try_infill(u: float, u_end: float, a: Vector2, perp: Vector2, sgn: float, samples: Array, half: float, taken: Array, corridors: Array, vacant_polys: Array) -> Dictionary:
+	var probe := _infill_point(u + 3.0, samples, a, perp, sgn, half + 6.0)
+	var probe_d := district_for_px(probe)
+	if not INFILL_LOT_PX.has(probe_d):
+		return {}
+	var full: Vector2 = INFILL_LOT_PX[probe_d]
+	var archetype := ""
+	if probe_d == &"mangona":
+		for lake: Dictionary in LAKES_PX:
+			var d: Vector2 = (probe - lake["center"]) / ((lake["radii"] as Vector2) + Vector2(45.0, 45.0))
+			if d.length_squared() < 1.0:
+				full = TRAILER_LOT_PX
+				archetype = "trailer_1f"
+	var sizes: Array[Vector2] = []
+	for w: float in [full.x, MIN_LOT_PX.x]:
+		var depth := full.y
+		while depth >= minf(INFILL_MIN_DEPTH_PX, full.y) - 0.01:
+			sizes.append(Vector2(w, depth))
+			depth -= 1.0
+	var fronts := {}
+	for size: Vector2 in sizes:
+		if size.x > full.x or u + size.x > u_end + 0.5:
+			continue
+		if not fronts.has(size.x):
+			var f := -INF
+			for k in range(_first_sample_at(samples, u - 0.5), samples.size()):
+				var smp: Vector2 = samples[k]
+				if smp.x > u + size.x + 0.5:
+					break
+				f = maxf(f, smp.y * sgn)
+			fronts[size.x] = f
+		var front: float = fronts[size.x]
+		var w0 := front + half + 0.3
+		var p0 := a * u + perp * (w0 * sgn)
+		var p1 := a * (u + size.x) + perp * ((w0 + size.y) * sgn)
+		var rect := Rect2(p0, Vector2.ZERO).expand(p1)
+		if _infill_ok(rect, probe_d, taken, corridors, perp * -sgn, vacant_polys):
+			var out := {"rect": rect, "frontage": size.x}
+			if archetype != "" and size == full:
+				out["archetype"] = archetype
+			return out
+	return {}
+
+
+static func _infill_point(u: float, samples: Array, a: Vector2, perp: Vector2, sgn: float, off: float) -> Vector2:
+	# Nearest sample along the run (the first of equally near ones), by bisection.
+	var i := _first_sample_at(samples, u)
+	var best: Vector2 = samples[mini(i, samples.size() - 1)]
+	if i > 0:
+		var j := i - 1
+		while j > 0 and is_equal_approx((samples[j - 1] as Vector2).x, (samples[j] as Vector2).x):
+			j -= 1
+		var left: Vector2 = samples[j]
+		if i >= samples.size() or absf(left.x - u) <= absf(best.x - u):
+			best = left
+	return a * u + perp * (best.y + off * sgn)
+
+
+## Index of the first of the sorted [param samples] whose along value is at least [param u].
+static func _first_sample_at(samples: Array, u: float) -> int:
+	var lo := 0
+	var hi := samples.size()
+	while lo < hi:
+		var mid := (lo + hi) >> 1
+		if (samples[mid] as Vector2).x < u:
+			lo = mid + 1
+		else:
+			hi = mid
+	return lo
+
+
+func _infill_ok(rect: Rect2, district: StringName, taken: Array, corridors: Array, toward_road: Vector2, vacant_polys: Array = []) -> bool:
+	var inner := rect.grow(-0.1)
+	if _taken_grid.is_empty():
+		for other: Rect2 in taken:
+			if other.intersects(inner):
+				return false
+	else:
+		for cx in range(floori(inner.position.x / TAKEN_CELL_PX), floori(inner.end.x / TAKEN_CELL_PX) + 1):
+			for cy in range(floori(inner.position.y / TAKEN_CELL_PX), floori(inner.end.y / TAKEN_CELL_PX) + 1):
+				for i: int in _taken_grid.get(Vector2i(cx, cy), []):
+					if (taken[i] as Rect2).intersects(inner):
+						return false
+	var corners := [rect.position, Vector2(rect.end.x, rect.position.y), rect.end, Vector2(rect.position.x, rect.end.y)]
+	for c: Vector2 in corners:
+		if district_for_px(c) != district or not PLAY_RECT_PX.has_point(c):
+			return false
+	for c: Vector2 in corners + [rect.get_center(), (corners[0] + corners[1]) * 0.5, (corners[1] + corners[2]) * 0.5, (corners[2] + corners[3]) * 0.5, (corners[3] + corners[0]) * 0.5]:
+		if _in_water(c, 1.0):
+			return false
+	var shape := PackedVector2Array([inner.position, Vector2(inner.end.x, inner.position.y), inner.end, Vector2(inner.position.x, inner.end.y)])
+	for poly: PackedVector2Array in vacant_polys:
+		if _poly_bounds(poly).intersects(inner) and not Geometry2D.intersect_polygons(shape, poly).is_empty():
+			return false
+	var search := rect.grow(12.0)
+	for seg: Dictionary in corridors:
+		if search.intersects(seg["bounds"], true) and _segment_rect_distance(seg["a"], seg["b"], rect) < float(seg["half"]):
+			return false
+	if not fronts_street_px(rect):
+		return false
+	var sides := street_sides(rect)
+	return sides.any(func(s: Dictionary) -> bool: return (s["out"] as Vector2).is_equal_approx(toward_road) and float(s["gap_m"]) <= float(sides[0]["gap_m"]) + 3.0)
+
+
+## Every intentional open space ([constant VACANT_PX], [constant VACANT_SHORES]): [{name, reason,
+## poly: PackedVector2Array (px)}].
+static func vacant_areas() -> Array[Dictionary]:
+	if not _vacant_cache.is_empty():
+		return _vacant_cache
+	for vacant: Dictionary in VACANT_PX:
+		var r: Rect2 = vacant["rect"]
+		_vacant_cache.append({"name": vacant["name"], "reason": vacant["reason"],
+			"poly": PackedVector2Array([r.position, Vector2(r.end.x, r.position.y), r.end, Vector2(r.position.x, r.end.y)])})
+	for shore: Dictionary in VACANT_SHORES:
+		var lake: Dictionary = LAKES_PX[shore["lake"]]
+		var center: Vector2 = lake["center"]
+		var radii: Vector2 = lake["radii"]
+		var inner := PackedVector2Array()
+		var outer := PackedVector2Array()
+		var steps := 24
+		for k in steps + 1:
+			var t := deg_to_rad(lerpf(shore["from"], shore["to"], float(k) / steps))
+			var unit := Vector2(cos(t), sin(t)) * radii
+			inner.append(center + unit * SHORE_BAND.x)
+			outer.append(center + unit * SHORE_BAND.y)
+		inner.reverse()
+		_vacant_cache.append({"name": shore["name"], "reason": "lakefront park along the curved shore drive", "poly": outer + inner})
+	return _vacant_cache
+
+
+## Every road, ramp, highway and rail segment with the px half width infill lots keep clear of.
+static func _corridor_segments() -> Array:
+	var out: Array = []
+	for road: Dictionary in NorthEndLayout.ROADS:
+		var half: float = RAIL_HALF_PX if road["kind"] == &"rail" else ROAD_HALF_WIDTHS_PX.get(road["kind"], 3.75)
+		var pts := PackedVector2Array(road["pts"])
+		for i in pts.size() - 1:
+			out.append({"a": pts[i], "b": pts[i + 1], "half": half, "bounds": Rect2(pts[i], Vector2.ZERO).expand(pts[i + 1]).grow(half)})
+	return out
+
+
+## Stretches of a polyline within ~14 deg of one axis: [{axis: Vector2 (RIGHT or DOWN), samples:
+## Array of Vector2(along, across) every ~1 px, sorted by along}].
+static func _straight_runs(pts: PackedVector2Array) -> Array:
+	var runs: Array = []
+	var current := {}
+	for i in pts.size() - 1:
+		var d := pts[i + 1] - pts[i]
+		if d.length() < 0.01:
+			continue
+		var dir := d.normalized()
+		var axis := Vector2.ZERO
+		if absf(dir.x) > 0.97:
+			axis = Vector2.RIGHT
+		elif absf(dir.y) > 0.97:
+			axis = Vector2.DOWN
+		if axis == Vector2.ZERO or (not current.is_empty() and current["axis"] != axis):
+			if not current.is_empty():
+				runs.append(current)
+			current = {}
+			if axis == Vector2.ZERO:
+				continue
+		if current.is_empty():
+			current = {"axis": axis, "samples": []}
+		var perp := Vector2(axis.y, axis.x)
+		var n := maxi(1, ceili(d.length()))
+		for k in n + 1:
+			var p := pts[i] + d * (float(k) / n)
+			current["samples"].append(Vector2(p.dot(axis), p.dot(perp)))
+	if not current.is_empty():
+		runs.append(current)
+	for run: Dictionary in runs:
+		(run["samples"] as Array).sort_custom(func(x: Vector2, y: Vector2) -> bool: return x.x < y.x)
+	return runs
+
+
+## Map rule 8 for generated lots: a street (loc/ave/art) within 23.5 px and no ramp or I-59 nearer
+## than it (0.8 px margin over the 1.5 px sampling the road-network test uses).
+static func fronts_street_px(rect: Rect2) -> bool:
+	if _front_segs.is_empty():
+		for road: Dictionary in NorthEndLayout.ROADS:
+			var kind: StringName = road["kind"]
+			var is_street := kind in [&"loc", &"ave", &"art"]
+			if not is_street and not kind in [&"highway", &"ramp"]:
+				continue
+			var pts: PackedVector2Array = road["pts"]
+			for i in pts.size() - 1:
+				_front_segs.append({"a": pts[i], "b": pts[i + 1], "street": is_street,
+					"bounds": Rect2(pts[i], Vector2.ZERO).expand(pts[i + 1])})
+	# Segments whose bounds are beyond 24.5 px can neither front the lot nor undercut its street.
+	var search := rect.grow(24.5)
+	var street := INF
+	var freeway := INF
+	for seg: Dictionary in _front_segs:
+		if not search.intersects(seg["bounds"], true):
+			continue
+		var d := _segment_rect_distance(seg["a"], seg["b"], rect)
+		if seg["street"]:
+			street = minf(street, d)
+		else:
+			freeway = minf(freeway, d)
+	return street <= 23.5 and street + 0.8 <= freeway
+
+
+static func _poly_bounds(poly: PackedVector2Array) -> Rect2:
+	var key := hash(poly)
+	if not _poly_bounds_cache.has(key):
+		var r := Rect2(poly[0], Vector2.ZERO)
+		for v in poly:
+			r = r.expand(v)
+		_poly_bounds_cache[key] = r
+	return _poly_bounds_cache[key]
+
+
+static func _segment_rect_distance(a: Vector2, b: Vector2, rect: Rect2) -> float:
+	if rect.has_point(a) or rect.has_point(b):
+		return 0.0
+	var corners := [rect.position, Vector2(rect.end.x, rect.position.y), rect.end, Vector2(rect.position.x, rect.end.y)]
+	var best := INF
+	for k in 4:
+		if Geometry2D.segment_intersects_segment(a, b, corners[k], corners[(k + 1) % 4]) != null:
+			return 0.0
+		best = minf(best, corners[k].distance_to(Geometry2D.get_closest_point_to_segment(corners[k], a, b)))
+	for p: Vector2 in [a, b]:
+		best = minf(best, p.distance_to(p.clamp(rect.position, rect.end)))
+	return best
 
 
 func _style_material(key: StringName) -> StandardMaterial3D:

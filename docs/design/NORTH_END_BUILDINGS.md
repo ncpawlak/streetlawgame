@@ -43,16 +43,16 @@ Other top-level lists:
 
 | Category | Count | Notes |
 |---|---:|---|
-| `house_1f` | 172 | 118 Tamarack Row, 50 Northgrove, 4 Mangona trailers |
-| `house_2f` | 115 | 70 Tamarack Row, 45 Northgrove |
-| `large_building` | 43 | 28 walk-ups and 1 mixed-use (Northgrove); 9 sheds and 5 warehouses (Mangona) |
+| `house_1f` | 495 | 234 Tamarack Row, 174 Northgrove, 87 Mangona trailers |
+| `house_2f` | 313 | 133 Tamarack Row, 180 Northgrove |
+| `large_building` | 322 | 74 walk-ups and 10 mixed-use (Northgrove); 235 sheds (Mangona); 3 storefronts (Tamarack Row) |
 | `special_building` | 4 | Hospital + 3 safehouses |
-| `specialized_location` | 12 | incl. the bank |
+| `specialized_location` | 14 | incl. the bank |
 | `purchasable_business` | 9 | incl. the gun store and hardware store |
-| `standin_business` | 34 | 17 enterable shops + 17 closed storefronts (see [Stand-in businesses](#stand-in-businesses)) |
-| **North End total** | **389** | + 60 out-of-area fillers = 449 scene boxes; 0 unbuilt |
+| `standin_business` | 109 | 17 enterable shops + 92 closed storefronts (see [Stand-in businesses](#stand-in-businesses)) |
+| **North End total** | **1266** | + 60 out-of-area fillers; 0 unbuilt. 1262 are kit lots (the other 4 are the hospital and 3 safehouse shells) |
 
-Roughly 300 placer houses (`house_*`) are robbable burglary targets; the robbery tier comes from the archetype `tier`.
+Most of the counts come from the [street frontage fill](#street-frontage-fill). Roughly 720 placer houses (`house_*`) are robbable burglary targets; the robbery tier comes from the archetype `tier`.
 
 ## Archetypes to design (42)
 
@@ -207,6 +207,32 @@ Biggest concerns:
 3. **Gas station, bank and the two Mangona stores** need new or merged lots. So do the 3 garage-bay auto mod shops (30 × 36 m).
 4. **Mangona and the hospital** already fit.
 5. **Out-of-area fillers** (Riviera / Clement) are out of scope.
+
+## Street frontage fill
+
+Streets are lined edge to edge. `CityGenerator` packs the frontage in three passes after the extracted blocks:
+
+1. `split_wide` cuts an over-wide lot into kit-sized lots along its street. A lot stays whole when any piece would lose
+   its street (`fronts_street_px`, map rule 8) or its open street side (`_pieces_open`).
+2. `_build_infill` walks both kerbs of every straight drivable run and drops a district-sized lot (`INFILL_LOT_PX`;
+   trailer pads near the Mangona shore) into any free frontage. It shrinks the depth down to `INFILL_MIN_DEPTH_PX` and
+   the frontage down to `MIN_LOT_PX` before giving up. `_widen_infill` then stretches each new lot into leftover kerb
+   that is too short for another lot.
+3. The populator grows houses up to 1.25× to fill their lot, with the setback capped (`MAX_SETBACK_M`). A deep-lot
+   house falls back to its small-yard sibling when no deep variant fits the frontage.
+
+Intentional open space is declared, not left as a gap. `CityGenerator.vacant_areas()` (`VACANT_PX`,
+`VACANT_SHORES`) tags the Mangona shore parks, the Clear Lake shore (including its north and west sides) and the rail
+strip. Frontage inside the I-59 freeway buffer, where a lot would sit closer to a ramp than to its street, is excused
+the same way the extractor drops such lots. `tests/frontage_tests.gd` fails on any other residential frontage gap over
+18 m (about one lot).
+
+Kit storefronts with no enterable role are exterior only. Their entrance, counter and lights are stripped and only the
+sign stays. Gameplay entry goes through `Location`s.
+
+Boot cost: the infill indexes taken rects in a 16 px grid and bisects the kerb samples. `MeshMerge` builds greybox box
+arrays from a cached unit box, because `PrimitiveMesh.get_mesh_arrays()` is a GPU read-back under a real renderer.
+That read-back alone cost 15 s of windowed boot.
 
 ## Wireframe status
 

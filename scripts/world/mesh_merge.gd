@@ -8,6 +8,8 @@ extends RefCounted
 
 ## Mesh -> {surface: arrays}. Holds the meshes alive; [method clear_cache] after a build pass.
 static var _cache := {}
+## Subdivisions (Vector3i) -> arrays of a 1 m [BoxMesh].
+static var _unit_boxes := {}
 
 var _verts := PackedVector3Array()
 var _normals := PackedVector3Array()
@@ -20,10 +22,25 @@ var _has_colors := false
 var _has_uvs := false
 
 
-## Surface arrays of [param mesh], read once. Primitive meshes are generated on the CPU.
+## Surface arrays of [param mesh], read once. [method PrimitiveMesh.get_mesh_arrays] is a GPU
+## read-back too, so boxes (the greybox bulk) scale one cached unit box per subdivision instead.
 static func arrays(mesh: Mesh, surface: int) -> Array:
+	if mesh is BoxMesh and not (mesh as BoxMesh).add_uv2:
+		var box := mesh as BoxMesh
+		var key := Vector3i(box.subdivide_width, box.subdivide_height, box.subdivide_depth)
+		if not _unit_boxes.has(key):
+			var unit := BoxMesh.new()
+			unit.subdivide_width = key.x
+			unit.subdivide_height = key.y
+			unit.subdivide_depth = key.z
+			_unit_boxes[key] = unit.get_mesh_arrays()
+		var out: Array = (_unit_boxes[key] as Array).duplicate()
+		out[Mesh.ARRAY_VERTEX] = Transform3D(Basis.from_scale(box.size), Vector3.ZERO) * (out[Mesh.ARRAY_VERTEX] as PackedVector3Array)
+		return out
 	if mesh is PrimitiveMesh:
-		return (mesh as PrimitiveMesh).get_mesh_arrays()
+		if not _cache.has(mesh):
+			_cache[mesh] = {0: (mesh as PrimitiveMesh).get_mesh_arrays()}
+		return _cache[mesh][0]
 	if not _cache.has(mesh):
 		_cache[mesh] = {}
 	var surfaces: Dictionary = _cache[mesh]

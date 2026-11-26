@@ -8,8 +8,10 @@ extends RefCounted
 ##   shared "uber" material. Kit materials that only differ in albedo colour collapse into one
 ##   material, the colour moving to vertex colours. Visible to [constant SHELL_RANGE].
 ## - "Detail": lots, fences, landscaping, trim. Visible to [constant DETAIL_RANGE].
-## - Dressing props as one MultiMesh per (mesh, material); small props to [constant PROP_RANGE]
-##   without shadows, trees and palms to [constant DETAIL_RANGE].
+## - Dressing props as one MultiMesh per (mesh, material) per [constant PROP_CELL] m cell
+##   ("Props_x_z"); small props to [constant PROP_RANGE] without shadows, trees and palms to
+##   [constant DETAIL_RANGE]. The bigger prop cell keeps the MultiMesh count down while
+##   [constant PROP_RANGE] grows with it, so worst-case corner pop-in stays near 90 m.
 ## - "Collision": one StaticBody3D, the buildings' concave faces merged into one shape plus the
 ##   props' primitive shapes.
 ## Per [constant FAR_CELL] m cell, beyond [constant FAR_BEGIN]: one vertex-coloured box impostor
@@ -22,7 +24,8 @@ const DETAIL_RANGE := 260.0
 const SHELL_RANGE := 900.0
 ## Impostors start before the shells end so cell-centre distances can never leave a gap.
 const FAR_BEGIN := 680.0
-const PROP_RANGE := 160.0
+const PROP_CELL := 150.0
+const PROP_RANGE := 195.0
 const LABEL_RANGE := 120.0
 const LIGHT_RANGE := 90.0
 const MARGIN := 15.0
@@ -38,6 +41,7 @@ static var _colored := {}
 static var _impostor_material: StandardMaterial3D
 
 var _cells := {}
+var _prop_cells := {}
 var _far := {}
 var building_count := 0
 
@@ -46,13 +50,17 @@ var building_count := 0
 func add_building(building: Node3D, xform: Transform3D, info: Dictionary, _scene_id := "") -> void:
 	building_count += 1
 	var data := _cell(Vector2i(floori(xform.origin.x / CELL), floori(xform.origin.z / CELL)))
+	var pkey := Vector2i(floori(xform.origin.x / PROP_CELL), floori(xform.origin.z / PROP_CELL))
+	if not _prop_cells.has(pkey):
+		_prop_cells[pkey] = {}
+	var props: Dictionary = _prop_cells[pkey]
 	var shell_color := {"sum": Color(0, 0, 0, 0), "weight": 0.0}
 	for part in building.get_children(true):
 		if not part is Node3D:
 			continue
 		var xf: Transform3D = xform * (part as Node3D).transform
 		if part.name == KitDressing.NODE_NAME:
-			_harvest_dressing(part, xf, data)
+			_harvest_dressing(part, xf, data, props)
 		else:
 			_walk(part, xf, &"shell" if SHELL_PARTS.has(part.name) else &"detail", data, shell_color)
 	var color: Color = shell_color["sum"] / maxf(shell_color["weight"], 1.0) if shell_color["weight"] > 0.0 else Color(0.7, 0.68, 0.62)
@@ -88,8 +96,14 @@ func build(holder: Node3D) -> void:
 		holder.add_child(cell)
 		_emit_groups(cell, "Shell", data[&"shell"], SHELL_RANGE, GeometryInstance3D.SHADOW_CASTING_SETTING_ON)
 		_emit_groups(cell, "Detail", data[&"detail"], DETAIL_RANGE, GeometryInstance3D.SHADOW_CASTING_SETTING_ON)
-		_emit_props(cell, data[&"props"], origin)
 		_emit_collision(cell, data, origin)
+	for key: Vector2i in _prop_cells:
+		var porigin := Vector3((key.x + 0.5) * PROP_CELL, 0.0, (key.y + 0.5) * PROP_CELL)
+		var pcell := Node3D.new()
+		pcell.name = "Props_%d_%d" % [key.x, key.y]
+		pcell.position = porigin
+		holder.add_child(pcell)
+		_emit_props(pcell, _prop_cells[key], porigin)
 	for key: Vector2i in _far:
 		_emit_far(holder, key, _far[key])
 	_colored.clear()
@@ -146,7 +160,41 @@ static func merge_static(city: Node3D, skip: Array[Node] = []) -> int:
 			out.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 		holder.add_child(out)
 	MeshMerge.clear_cache()
+	_merge_bodies(city, skip, holder)
 	return merged
+
+
+## Folds the plain greybox [StaticBody3D]s (only collision shapes left, no groups, meta or script)
+## into one body per ([constant STATIC_CELL] m cell, layer, mask, physics material).
+static func _merge_bodies(city: Node3D, skip: Array[Node], holder: Node3D) -> void:
+	var bodies := {}
+	for child in city.get_children():
+		if skip.has(child) or not child is StaticBody3D or child.get_script() != null:
+			continue
+		var body := child as StaticBody3D
+		if not body.get_groups().is_empty() or not body.get_meta_list().is_empty() or body.get_child_count() == 0:
+			continue
+		if body.get_children().any(func(c: Node) -> bool: return not c is CollisionShape3D or (c as CollisionShape3D).disabled or c.get_child_count() > 0):
+			continue
+		var xf := body.transform
+		var cell := Vector2i(floori(xf.origin.x / STATIC_CELL), floori(xf.origin.z / STATIC_CELL))
+		var key := [cell, body.collision_layer, body.collision_mask, body.physics_material_override]
+		if not bodies.has(key):
+			var merged_body := StaticBody3D.new()
+			merged_body.name = "Collision_%d_%d" % [cell.x, cell.y]
+			merged_body.collision_layer = body.collision_layer
+			merged_body.collision_mask = body.collision_mask
+			merged_body.physics_material_override = body.physics_material_override
+			holder.add_child(merged_body)
+			bodies[key] = merged_body
+		var target: StaticBody3D = bodies[key]
+		for c in body.get_children():
+			var cs := c as CollisionShape3D
+			var owner_id := target.create_shape_owner(target)
+			target.shape_owner_set_transform(owner_id, xf * cs.transform)
+			target.shape_owner_add_shape(owner_id, cs.shape)
+		city.remove_child(body)
+		body.queue_free()
 
 
 static func _to(ancestor: Node3D, node: Node3D) -> Transform3D:
@@ -160,7 +208,7 @@ static func _to(ancestor: Node3D, node: Node3D) -> Transform3D:
 
 func _cell(key: Vector2i) -> Dictionary:
 	if not _cells.has(key):
-		_cells[key] = {&"shell": {}, &"detail": {}, &"props": {}, &"faces": [], &"shapes": []}
+		_cells[key] = {&"shell": {}, &"detail": {}, &"faces": [], &"shapes": []}
 	return _cells[key]
 
 
@@ -192,20 +240,29 @@ func _walk(node: Node3D, xf: Transform3D, tier: StringName, data: Dictionary, sh
 			_walk(child, xf * (child as Node3D).transform, &"detail" if child.name == &"Details" else tier, data, shell_color)
 
 
-func _harvest_dressing(dressing: Node3D, xf: Transform3D, data: Dictionary) -> void:
+func _harvest_dressing(dressing: Node3D, xf: Transform3D, data: Dictionary, props: Dictionary) -> void:
 	for child in dressing.get_children():
 		if child is MultiMeshInstance3D:
 			var mmi := child as MultiMeshInstance3D
 			var mm := mmi.multimesh
 			if mm == null or mm.mesh == null:
 				continue
-			var key := [mm.mesh, mmi.material_override]
-			if not data[&"props"].has(key):
-				data[&"props"][key] = []
-			var list: Array = data[&"props"][key]
+			# Palette variants that only differ in albedo share one material; the colour moves to
+			# the instance (meshes with their own vertex colours keep their material).
+			var material: Material = mmi.material_override
+			var color := Color.WHITE
+			var shared: Variant = material
+			if material is BaseMaterial3D and not _has_vertex_colors(mm.mesh):
+				var uber := _uber_for(material)
+				shared = uber[0]
+				color = uber[1]
+			var key := [mm.mesh, shared]
+			if not props.has(key):
+				props[key] = []
+			var list: Array = props[key]
 			var base: Transform3D = xf * mmi.transform
 			for i in mm.instance_count:
-				list.append(base * mm.get_instance_transform(i))
+				list.append([base * mm.get_instance_transform(i), color * (mm.get_instance_color(i) if mm.use_colors else Color.WHITE)])
 		elif child is StaticBody3D:
 			for cs in child.get_children():
 				if cs is CollisionShape3D and (cs as CollisionShape3D).shape != null:
@@ -223,6 +280,13 @@ func _add_surface(groups: Dictionary, mesh: Mesh, surface: int, material: Materi
 		groups[key] = []
 	(groups[key] as Array).append([_colored_arrays(mesh, surface, color, material), xf])
 	return color
+
+
+static func _has_vertex_colors(mesh: Mesh) -> bool:
+	for s in mesh.get_surface_count():
+		if mesh.surface_get_format(s) & Mesh.ARRAY_FORMAT_COLOR:
+			return true
+	return false
 
 
 ## [key, albedo colour] of the shared material a kit material folds into.
@@ -312,17 +376,21 @@ func _emit_props(cell: Node3D, props: Dictionary, origin: Vector3) -> void:
 		var mesh: Mesh = key[0]
 		var mm := MultiMesh.new()
 		mm.transform_format = MultiMesh.TRANSFORM_3D
+		var colored := key[1] is String
+		mm.use_colors = colored
 		mm.mesh = mesh
 		mm.instance_count = xfs.size()
 		var tall := false
 		for i in xfs.size():
-			var xf: Transform3D = to_local * (xfs[i] as Transform3D)
+			var xf: Transform3D = to_local * (xfs[i][0] as Transform3D)
 			mm.set_instance_transform(i, xf)
+			if colored:
+				mm.set_instance_color(i, xfs[i][1])
 			tall = tall or (xf * mesh.get_aabb()).size.y >= TALL_PROP
 		var mmi := MultiMeshInstance3D.new()
 		mmi.name = "Props"
 		mmi.multimesh = mm
-		mmi.material_override = key[1]
+		mmi.material_override = _uber[key[1]] if colored else key[1]
 		mmi.visibility_range_end = DETAIL_RANGE if tall else PROP_RANGE
 		mmi.visibility_range_end_margin = MARGIN
 		mmi.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_ON if tall else GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
@@ -348,11 +416,11 @@ func _emit_collision(cell: Node3D, data: Dictionary, origin: Vector3) -> void:
 		var cs := CollisionShape3D.new()
 		cs.shape = concave
 		body.add_child(cs)
+	# Prop shapes go straight onto the body as shape owners: no node per post or bin.
 	for item: Array in shapes:
-		var cs := CollisionShape3D.new()
-		cs.shape = item[0]
-		cs.transform = to_local * (item[1] as Transform3D)
-		body.add_child(cs)
+		var owner_id := body.create_shape_owner(body)
+		body.shape_owner_set_transform(owner_id, to_local * (item[1] as Transform3D))
+		body.shape_owner_add_shape(owner_id, item[0])
 
 
 func _emit_far(holder: Node3D, key: Vector2i, far: Dictionary) -> void:

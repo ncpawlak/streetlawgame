@@ -272,7 +272,14 @@ static func _locations_by_lot(city: CityGenerator) -> Dictionary:
 		var at := Vector2(location.global_position.x, location.global_position.z)
 		var best := -1
 		var best_gap := DOOR_SLACK
+		# A location sits on the door of the lot it was placed for; a kit door on the sidewalk can
+		# fall inside a neighbour's rect.
 		for lot: Dictionary in city.building_lots:
+			if lot.has("door") and (lot["door"] as Transform3D).origin.distance_to(Vector3(at.x, 0.0, at.y)) < 0.05:
+				best = lot["index"]
+				best_gap = 0.0
+				break
+		for lot: Dictionary in city.building_lots if best < 0 else []:
 			var rect: Rect2 = lot["rect_px"]
 			var corner := CityGenerator.px_to_world(rect.position)
 			var area := Rect2(corner.x, corner.z, rect.size.x * CityGenerator.METERS_PER_PX, rect.size.y * CityGenerator.METERS_PER_PX)
